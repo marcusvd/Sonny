@@ -14,6 +14,7 @@ import { SubTitleComponent } from "src/shared/components/sub-title/sub-title.com
 import { TitleComponent } from "src/shared/components/title/components/title.component"
 
 export const ImportsModulesComponents:any[] =[
+    MatDatepickerModule,
     CommonModule,
     FlexLayoutModule,
     MatFormFieldModule,
@@ -21,7 +22,6 @@ export const ImportsModulesComponents:any[] =[
     MatCardModule,
     MatCheckboxModule,
     MatSelectModule,
-    MatDatepickerModule,
     ReactiveFormsModule,
     TitleComponent,
     SubTitleComponent,

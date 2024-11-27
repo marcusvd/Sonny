@@ -1,4 +1,4 @@
-<div *ngIf="models$">
+<div *ngIf="modelMatSelect">
     <mat-form-field appearance="outline">
         <mat-label>Modelo</mat-label>
         <mat-select [formControl]="selectFormControl" [placeholder]="placeholderProductType" #singleSelect (selectionChange)="onSelectedModel(singleSelect?.value)">
@@ -13,5 +13,13 @@
             <span>{{'Campo obrigatório!'}}</span>
         </mat-error>
     </mat-form-field>
-
+</div>
+<div [formGroup]="formMain" *ngIf="modelInput">
+    <mat-form-field appearance="outline">
+        <mat-label>Modelo</mat-label>
+        <input type="text" matInput [placeholder]="placeholderProductType" formControlName="name">
+        <mat-error>
+            <span>{{validatorMessages.required(formMain, 'name', 'Modelo')}}</span>
+        </mat-error>
+    </mat-form-field>
 </div>

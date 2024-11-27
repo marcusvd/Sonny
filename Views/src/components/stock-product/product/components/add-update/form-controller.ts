@@ -9,7 +9,6 @@ import { ManufacturerDto } from "../../dtos/manufacturer-dto";
 import { ModelDto } from "../../dtos/model-dto";
 import { ProductDto } from "../../dtos/product-dto";
 import { SegmentDto } from "../../dtos/segment-dto";
-import { BreakpointObserver } from "@angular/cdk/layout";
 
 export class FormController extends BaseForm {
   constructor(
@@ -27,9 +26,15 @@ export class FormController extends BaseForm {
 
   //BOOLEANS
   product = false;
-  segmentUpd = false;
-  manufacturerUpd = false;
-  modelUpd = false;
+
+  segmentMatSelect = false;
+  segmentInput = false;
+
+  manufacturerMatSelect = false;
+  manufacturerInput = false;
+
+  modelMatSelect = false;
+  modelInput = false;
   description = false;
 
 
@@ -47,6 +52,7 @@ export class FormController extends BaseForm {
   segmentForm: FormGroup;
   manufacturerForm: FormGroup;
   modelForm: FormGroup;
+
 
   formLoad(productType?: ProductDto) {
     this.formMain = this._fb.group({
@@ -102,52 +108,79 @@ export class FormController extends BaseForm {
   //CHECKBOX
   productCheckbox(checked: MatCheckboxChange) {
     this.product = checked.checked;
-    this.segmentUpd = checked.checked;
-    this.manufacturerUpd = checked.checked;
-    this.modelUpd = checked.checked;
+
+    this.segmentInput = checked.checked;
+
+    this.manufacturerInput = checked.checked;
+
+    this.modelInput = checked.checked;
+
     this.description = checked.checked;
+
+    this.formMain.reset({
+      id: 0,
+      name: '',
+      companyId: this.companyId
+    });
+
     if (checked.checked) {
-      this.formMain.reset({
-        id: 0,
-        name: '',
-        companyId: this.companyId
-      });
+      this.segmentMatSelect = false;
+      this.manufacturerMatSelect = false;
+      this.modelMatSelect = false;
+
+
       this.clearAllFormArrays();
       this.addEmptyFormArrays();
     }
+
     else {
       this.clearAllFormArrays();
+
       this.manufacturers$ = null;
       this.models$ = null;
     }
   }
 
   segmentCheckbox(checked: MatCheckboxChange) {
-    this.segmentUpd = checked.checked;
-    this.manufacturerUpd = checked.checked;
-    this.modelUpd = checked.checked;
+    this.manufacturerInput = checked.checked;
+    this.modelInput = checked.checked;
+
     this.description = checked.checked;
 
     if (checked.checked) {
+      this.segmentMatSelect = false;
+      this.segmentInput = true;
+
+      this.manufacturerMatSelect = false;
+
+      this.modelMatSelect = false;
+
+
       this.clearAllFormArrays();
       this.addEmptyFormArrays();
     }
     else {
       this.clearAllFormArrays();
+      this.segmentMatSelect = true;
+      this.segmentInput = false;
+
       this.manufacturers$ = null;
       this.models$ = null;
     }
   }
 
-  modelFieldeBottom = false;
+  // modelFieldeBottom = false;
   manufacturerCheckbox(checked: MatCheckboxChange) {
-
-    this.manufacturerUpd = checked.checked;
-    this.modelUpd = checked.checked;
+    this.modelInput = checked.checked;
     this.description = checked.checked;
-    this.modelFieldeBottom = checked.checked;
 
     if (checked.checked) {
+
+      this.manufacturerMatSelect = false;
+      this.manufacturerInput = true;
+
+      this.modelMatSelect = false;
+
       this.manufacturers.clear();
       this.models.clear();
 
@@ -155,32 +188,41 @@ export class FormController extends BaseForm {
       this.models.push(this.formLoadModel());
     }
     else {
+      this.manufacturerMatSelect = true;
+      this.manufacturerInput = false;
+
       this.manufacturers.clear();
       this.models.clear();
-      // this.manufacturers$
-      // this.models$
     }
   }
 
   modelCheckbox(checked: MatCheckboxChange) {
-    this.modelUpd = checked.checked;
     this.description = checked.checked;
 
     if (checked.checked) {
       this.models.clear();
       this.models.push(this.formLoadModel())
+
+      this.modelMatSelect = false;
+      this.modelInput = true;
     }
-    else
+    else {
+      this.modelMatSelect = true;
+      this.modelInput = false;
       this.models.clear();
+    }
   }
 
   //SELECT
-  onSelectedProductType(productSelected: ProductDto) {
+  onSelectedProduct(productSelected: ProductDto) {
     this.segments$ = of(productSelected.segments);
+    this.segmentMatSelect = true;
     this.formLoad(productSelected);
   }
 
   onSelectedSegment(segmentId: number) {
+
+    this.manufacturerMatSelect = true;
 
     this.manufacturers$ = this.segments$.pipe(
       map(x => x.find(segment => segment.id == segmentId).manufacturers)
@@ -194,6 +236,8 @@ export class FormController extends BaseForm {
   }
 
   onSelectedManufacturer(manufacturerId: number) {
+    this.modelMatSelect = true;
+
     this.models$ = this.manufacturers$.pipe(
       map(x => x.find(manufacturer => manufacturer.id == manufacturerId).models)
     )

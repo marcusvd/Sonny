@@ -1,42 +1,42 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { ManufacturerDto } from 'src/components/stock-product/product/dtos/manufacturer-dto';
-
+import { SegmentDto } from 'src/components/stock-product/product/dtos/segment-dto';
 
 
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { ImportsModulesComponents } from '../imports-modules-components';
 
 
 @Component({
-  selector: 'add-update-manufacturer-mat-select-single',
+  selector: 'segment-add-upd',
   standalone: true,
   imports: [
-    MatSelectModule,
-    NgxMatSelectSearchModule,
-    ReactiveFormsModule,
-    CommonModule
+    ImportsModulesComponents
   ],
-  templateUrl: './add-update-manufacturer-mat-select-single.component.html',
+  templateUrl: './segment.component.html',
   styles: [`
   mat-form-field {
       width: 100%;
   }
   `],
 })
-export class AddUpdateManufacturerMatSelectSingleComponent extends BaseForm {
+export class SegmentComponent extends BaseForm implements OnChanges {
+
 
   constructor(
-    override _breakpointObserver: BreakpointObserver,
   ) {
-    super(_breakpointObserver)
+    super()
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.segmentMatSelect)
   }
 
   private valMessages = ValidatorMessages;
@@ -44,31 +44,38 @@ export class AddUpdateManufacturerMatSelectSingleComponent extends BaseForm {
     return this.valMessages
   }
 
+  @Input('segments') segments$: Observable<SegmentDto[]>;
   @Input() override formMain: FormGroup;
-
-  @Input('manufacturers') manufacturers$: Observable<ManufacturerDto[]>;
+  @Input() segmentInput = false;
+  @Input() segmentMatSelect = false;
   @Input() noEntriesFoundLabel = '';
   @Input() placeholderProductType = '';
   @Input() productTypeNameAttribute = '';
-  selectFormControl = new FormControl('', Validators.required);
 
-  @Output() outManufacturerSelected = new EventEmitter<number>()
-  onSelectedManufacturer(selectedId: number) {
-    this?.outManufacturerSelected?.emit(selectedId);
+  @Input() set segmentCheckbox(value: boolean) {
+    this.segmentMatSelect = value;
+    this.selectFormControl.reset();
+
   }
 
-  searchManufacturer() {
-    this.manufacturers$ = this.selectFormControl.valueChanges.pipe(
-      x => this.manufacturers$.pipe(
+  selectFormControl = new FormControl('', Validators.required);
+
+
+  @Output() outSegmentSelected = new EventEmitter<number>()
+  onSelectedSegment(selectedId: number) {
+    this?.outSegmentSelected?.emit(selectedId);
+  }
+
+  searchSegment() {
+    this.segments$ = this.selectFormControl.valueChanges.pipe(
+      x => this.segments$.pipe(
         map(xy => xy.filter(y => y.name.toLocaleLowerCase().includes(this.selectFormControl.value.toLocaleLowerCase()))))
     )
   }
 
-
   @Input() set formErrors(value: boolean) {
-    if(this.selectFormControl.errors && value)
-    this.selectFormControl.markAsTouched();
+    if (this.selectFormControl.errors && value)
+      this.selectFormControl.markAsTouched();
   }
-
 
 }

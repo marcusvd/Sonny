@@ -1,7 +1,7 @@
-<div *ngIf="products$" >
+<div *ngIf="!productView" >
     <mat-form-field appearance="outline">
         <mat-label>Produto</mat-label>
-        <mat-select [formControl]="selectFormControl" [placeholder]="placeholderProductType" #singleSelect name="name" (selectionChange)="onSelectedProductType(singleSelect?.value)">
+        <mat-select [formControl]="selectFormControl" [placeholder]="placeholderProductType" #singleSelect name="name" (selectionChange)="onSelectedProduct(singleSelect?.value)">
             <mat-option>
                 <ngx-mat-select-search [formControl]="selectFormControl" (input)="searchProductType()" [placeholderLabel]="placeholderProductType" [name]="productTypeNameAttribute" [noEntriesFoundLabel]="noEntriesFoundLabel"></ngx-mat-select-search>
             </mat-option>
@@ -11,6 +11,15 @@
         </mat-select>
         <mat-error *ngIf="selectFormControl.errors && selectFormControl.touched">
             <span>{{'Campo obrigatório!'}}</span>
+        </mat-error>
+    </mat-form-field>
+</div>
+<div [formGroup]="formMain" *ngIf="productView">
+    <mat-form-field  appearance="outline">
+        <mat-label>Produto</mat-label>
+        <input type="text" matInput [placeholder]="placeholderProductType" formControlName="name">
+        <mat-error>
+            <span>{{validatorMessages.required(formMain, 'name', 'Produto')}}</span>
         </mat-error>
     </mat-form-field>
 </div>

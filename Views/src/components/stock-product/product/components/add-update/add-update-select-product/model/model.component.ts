@@ -1,11 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ModelDto } from 'src/components/stock-product/product/dtos/model-dto';
@@ -13,31 +8,32 @@ import { ModelDto } from 'src/components/stock-product/product/dtos/model-dto';
 
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { ImportsModulesComponents } from '../imports-modules-components';
 
 
 @Component({
-  selector: 'add-update-model-mat-select-single',
+  selector: 'model-add-upd',
   standalone: true,
   imports: [
-    MatSelectModule,
-    NgxMatSelectSearchModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    CommonModule
+    ImportsModulesComponents
   ],
-  templateUrl: './add-update-model-mat-select-single.component.html',
+  templateUrl: './model.component.html',
   styles: [`
   mat-form-field {
       width: 100%;
   }
   `],
 })
-export class AddUpdateModelMatSelectSingleComponent extends BaseForm {
+export class ModelComponent extends BaseForm implements OnChanges {
+
 
   constructor(
     override _breakpointObserver: BreakpointObserver,
   ) {
     super(_breakpointObserver)
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+   console.log(this.modelInput)
   }
 
   private valMessages = ValidatorMessages;
@@ -46,11 +42,20 @@ export class AddUpdateModelMatSelectSingleComponent extends BaseForm {
   }
 
   @Input('models') models$: Observable<ModelDto[]>;
+
+  @Input() modelInput = false;
+  @Input() modelMatSelect = false;
   @Input() noEntriesFoundLabel = '';
   @Input() placeholderProductType = '';
   @Input() productTypeNameAttribute = '';
 
   @Input() override formMain: FormGroup;
+
+
+  @Input() set modelCheckbox(value: boolean) {
+    this.modelMatSelect = value;
+    this.selectFormControl.reset();
+  }
 
   selectFormControl = new FormControl('', Validators.required);
 

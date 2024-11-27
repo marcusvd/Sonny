@@ -3,10 +3,8 @@ import { FormBuilder } from '@angular/forms';
 
 
 import { ProductGetService } from '../../services/product-get.service';
-import { ImportsModulesComponents } from './imports-modules-components';
 import { FormController } from './form-controller';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
-import { BreakpointObserver } from '@angular/cdk/layout';
+import { ImportsModulesComponents } from './imports-modules-components';
 
 
 
@@ -21,10 +19,10 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 export class AddUpdateProductComponent extends FormController implements OnInit {
 
   constructor(
-     public _fbMain: FormBuilder,
-     private _productService: ProductGetService,
+    public _fbMain: FormBuilder,
+    private _productService: ProductGetService,
   ) {
-     super(_fbMain)
+    super(_fbMain)
   }
 
   ngOnInit(): void {
@@ -32,48 +30,17 @@ export class AddUpdateProductComponent extends FormController implements OnInit 
     this.addEmptyFormArrays();
 
     this.products$ = this._productService.getAll(this.companyId.toString());
-    // this.screen();
+
   }
+
 
   noEntriesFoundLabel = 'Nenhum registro encontrado.';
   placeholderProductType = 'Pesquise pelo nome';
   productTypeNameAttribute = 'pesquisa tipo de produto';
 
   formErrosValidation = false;
-  saveBtnEnabledDisabled  = false;
+  saveBtnEnabledDisabled = false;
 
-// screenClass = false;
-//   screen(test?:any) {
-//     console.log(test)
-//     this.screenSize().subscribe({
-//       next: (result: IScreen) => {
-//         switch (result.size) {
-//           case 'xsmall': {
-//            this.screenClass = true;
-           
-//            break;
-//           }
-//           case 'small': {
-//             this.screenClass = true;
-//             break;
-//           }
-//           case 'medium': {
-//             this.screenClass = false;
-//             break;
-//           }
-//           case 'large': {
-//             this.screenClass = false;
-            
-//             break;
-//           }
-//           case 'xlarge': {
-//             this.screenClass = false;
-//             break;
-//           }
-//         }
-//       }
-//     })
-//   }
 
   save() {
 

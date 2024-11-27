@@ -1,9 +1,0 @@
-<div [formGroup]="formMain" *ngIf="formMain">
-    <mat-form-field  appearance="outline">
-        <mat-label>Produto</mat-label>
-        <input type="text" matInput [placeholder]="placeholderProductType" formControlName="name">
-        <mat-error>
-            <span>{{validatorMessages.required(formMain, 'name', 'Produto')}}</span>
-        </mat-error>
-    </mat-form-field>
-</div>

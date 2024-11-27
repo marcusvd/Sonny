@@ -1,4 +1,4 @@
-<div class="border-around" *ngIf="this.products$">
+<div class="border-around">
     <title-component [digit]="'|'" [titleString]="'Tipo de produto'" [icon]="'attach_money'">
     </title-component>
     <mat-card class="small-large-screen">
@@ -7,98 +7,88 @@
 
         <div class="container-main">
             <!-- Column LEFT -->
-            <div class="column-above-left">
+            <div class="product">
                 <!-- product start-->
                 <div class="mat-checkbox-add">
-                    <mat-checkbox (change)="this.productCheckbox($event)">Adicionar Novo</mat-checkbox>
+                    <mat-checkbox (change)="this.productCheckbox($event)" >Adicionar Novo</mat-checkbox>
                 </div>
-                <add-update-product-get-mat-select-single *ngIf="!this.product" [formErrors]="formErrosValidation"
+        
+                <product-add-upd [formErrors]="formErrosValidation"
                     [products]="this.products$" [noEntriesFoundLabel]="noEntriesFoundLabel"
                     [placeholderProductType]="placeholderProductType"
                     [productTypeNameAttribute]="productTypeNameAttribute"
-                    (outProductTypeSelected)="onSelectedProductType($event)">
-                </add-update-product-get-mat-select-single>
-
-                <add-update-product-input *ngIf="this.product" [formMain]="this.formMain"></add-update-product-input>
-                <!-- product end-->
+                    [formMain]="this.formMain"
+                    [productCheckbox]="this.product"
+                    (outProductSelected)="onSelectedProduct($event)">
+                </product-add-upd>
 
             </div>
 
-            <div class="column-above-right">
+            <div class="segment">
                 <!-- segment start-->
-                <div *ngIf="formMain.get('id').value && !this.product">
+                <div *ngIf="!product && formMain.get('name').value">
                     <mat-checkbox class="mat-checkbox-add" (change)="this.segmentCheckbox($event)">Adicionar
                         Novo</mat-checkbox>
                 </div>
                 <div class="input-space" *ngIf="!formMain.get('id').value && this.product">
                 </div>
-                <!-- <div [class]="{
-                    'input-space': this.product
-                  }" *ngIf="!formMain.get('id').value && this.product">
-                  </div> -->
-                <add-update-segment-input *ngIf="this.segmentUpd" [formMain]="segmentForm"
-                    [placeholderProductType]="placeholderProductType"
-                    [productTypeNameAttribute]="productTypeNameAttribute"
-                    (outSegmentSelected)="onSelectedSegment($event)">
-                </add-update-segment-input>
-
-                <add-update-segment-mat-select-single *ngIf="!this.segmentUpd && this.formMain.get('id').value != ''"
+            
+                <segment-add-upd 
                     [formErrors]="formErrosValidation" [segments]="this.segments$"
                     [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType"
                     [productTypeNameAttribute]="productTypeNameAttribute"
-                    (outSegmentSelected)="onSelectedSegment($event)">
-                </add-update-segment-mat-select-single>
+                    [formMain]="segmentForm"
+                    [segmentCheckbox]="this.segmentMatSelect"
+                    [segmentInput]="this.segmentInput"
+                    (outSegmentSelected)="onSelectedSegment($event)"
+                    >
+                </segment-add-upd>
 
                 <!-- segment end-->
             </div>
 
-            <div class="column-below-left">
+            <div class="manufacturer">
                 <!-- manufacturer start-->
-                <div *ngIf="this.manufacturers$ && !this.segmentUpd">
+                <div *ngIf="!product && segmentForm.get('name').value">
                     <mat-checkbox class="mat-checkbox-add" (change)="this.manufacturerCheckbox($event)">Adicionar
                         Novo</mat-checkbox>
                 </div>
 
-                <add-update-manufacturer-input *ngIf="this.manufacturerUpd" [formMain]="this.manufacturerForm"
-                    [placeholderProductType]="placeholderProductType"
-                    [productTypeNameAttribute]="productTypeNameAttribute"
-                    (outManufacturerSelected)="onSelectedManufacturer($event)">
-                </add-update-manufacturer-input>
-
-                <add-update-manufacturer-mat-select-single *ngIf="!this.manufacturerUpd"
-                    [formErrors]="formErrosValidation" [manufacturers]="this.manufacturers$"
+                <manufacturer-add-upd
+                    [formErrors]="formErrosValidation" [manufacturers]="manufacturers$"
                     [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType"
                     [productTypeNameAttribute]="productTypeNameAttribute"
+                    [formMain]="manufacturerForm"
+                    [manufacturerCheckbox]="manufacturerMatSelect"
+                    [manufacturerInput]="manufacturerInput"
                     (outManufacturerSelected)="onSelectedManufacturer($event)">
-                </add-update-manufacturer-mat-select-single>
+                </manufacturer-add-upd>
                 <!-- manufacturer end-->
             </div>
 
-            <div class="column-below-right">
+            <div class="model">
                 <!-- model start-->
-                <div *ngIf="this.manufacturerForm.get('id').value > 0">
+                <div *ngIf="!product && manufacturerForm.get('name').value">
                     <mat-checkbox class="mat-checkbox-add" (change)="this.modelCheckbox($event)">Adicionar
                         Novo</mat-checkbox>
                 </div>
 
-                <div class="input-space" *ngIf="this.modelFieldeBottom">
+                <div class="input-space" *ngIf="!product && segmentMatSelect && manufacturerForm.get('name').value == ''">
                 </div>
 
-                <add-update-model-input *ngIf="this.modelUpd" [formMain]="modelForm"
-                    [placeholderProductType]="placeholderProductType"
-                    [productTypeNameAttribute]="productTypeNameAttribute" (outModelSelected)="onSelectedModel($event)">
-                </add-update-model-input>
-
-                <add-update-model-mat-select-single *ngIf="!this.modelUpd && this.manufacturerForm.get('id').value"
-                    [formMain]="this.modelForm" [formErrors]="formErrosValidation" [models]="this.models$"
+                <model-add-upd
+                    [formErrors]="formErrosValidation" [models]="this.models$"
                     [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType"
-                    [productTypeNameAttribute]="productTypeNameAttribute" (outModelSelected)="onSelectedModel($event)">
-                </add-update-model-mat-select-single>
+                    [productTypeNameAttribute]="productTypeNameAttribute" 
+                    [modelCheckbox]="modelMatSelect"
+                    [modelInput]="modelInput"
+                    [formMain]="modelForm"
+                    (outModelSelected)="onSelectedModel($event)">
+                </model-add-upd>
                 <!-- model end-->
             </div>
 
-
-            <div class="row-below-left-right">
+            <div class="description">
                 <model-description style="width: 100%;" [formMain]="this.modelForm" [hideShow]="description">
                 </model-description>
             </div>
@@ -106,7 +96,7 @@
         </div>
 
 
-
+        
 
         <div>{{formMain.value | json}}</div>
         [enableDisable]="saveBtnEnabledDisabled"
@@ -114,4 +104,6 @@
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
         </div>
     </mat-card>
+    <add-item-product>
+    </add-item-product>
 </div>

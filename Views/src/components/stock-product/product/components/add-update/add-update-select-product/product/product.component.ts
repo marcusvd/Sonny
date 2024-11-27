@@ -1,10 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatSelectModule } from '@angular/material/select';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -12,19 +8,16 @@ import { map } from 'rxjs/operators';
 import { ProductDto } from 'src/components/stock-product/product/dtos/product-dto';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { ImportsModulesComponents } from '../imports-modules-components';
 
 
 @Component({
-  selector: 'add-update-product-get-mat-select-single',
+  selector: 'product-add-upd',
   standalone: true,
   imports: [
-    MatSelectModule,
-    NgxMatSelectSearchModule,
-    ReactiveFormsModule,
-    CommonModule,
-
+    ImportsModulesComponents
   ],
-  templateUrl: './add-update-product-get-mat-select-single.component.html',
+  templateUrl: './product.component.html',
   styles: [`
     mat-form-field {
       width: 100%;
@@ -32,7 +25,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
   `],
 
 })
-export class AddUpdateProductGetMatSelectSingleComponent extends BaseForm {
+export class ProductComponent extends BaseForm {
 
   constructor(
     private _fb: FormBuilder,
@@ -50,14 +43,23 @@ export class AddUpdateProductGetMatSelectSingleComponent extends BaseForm {
   @Input() noEntriesFoundLabel = 'Nenhum registro encontrado.';
   @Input() placeholderProductType = 'Pesquise pelo nome';
   @Input() productTypeNameAttribute = 'pesquisa tipo de produto';
+  @Input() override formMain: FormGroup;
+
+  @Input() set productCheckbox(value: boolean) {
+    this.productView = value;
+    this.selectFormControl.reset();
+  }
+
+  productView = false;
+
 
   selectFormControl = new FormControl('', Validators.required);
 
-  @Output() outProductTypeSelected = new EventEmitter<ProductDto>()
-  onSelectedProductType(selectedId: number) {
+  @Output() outProductSelected = new EventEmitter<ProductDto>()
+  onSelectedProduct(selectedId: number) {
     this?.products$?.subscribe(x => {
-      const productType = x.find(y => y.id === selectedId);
-      this?.outProductTypeSelected?.emit(productType);
+      const product = x.find(y => y.id === selectedId);
+      this?.outProductSelected?.emit(product);
     })
   }
 
