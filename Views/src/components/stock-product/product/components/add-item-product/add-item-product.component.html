@@ -1,78 +1,73 @@
 <div [formGroup]="formMain">
 
-    <!-- <div class="source-state"> -->
     <div class="container-main">
-        <!-- <div class="checks">
-            
-        </div> -->
-        <div class="container-main">
-            <div class="isUsed">
-                <mat-checkbox id="isUsed" (change)="onChangeIsUsed($event)"
-                    formControlName="isUsed">Usado</mat-checkbox>
-            </div>
-            <div class="isTested">
-                <mat-checkbox id="isTested" formControlName="isTested">Testado</mat-checkbox>
-            </div>
+        <div class="isUsed">
+            <mat-checkbox id="isUsed" (change)="onChangeIsUsed($event)"
+                formControlName="isUsed">Usado</mat-checkbox>
+        </div>
+        <div class="isTested">
+            <mat-checkbox id="isTested" formControlName="isTested">Testado</mat-checkbox>
+        </div>
 
-            <div class="costPrice">
-                <mat-form-field appearance="outline">
-                    <mat-label for="costPrice">Preço de custo</mat-label>
-                    <input id="costPrice" type="text" matInput formControlName="costPrice">
-                </mat-form-field>
-            </div>
+        <div class="costPrice">
+            <mat-form-field appearance="outline">
+                <mat-label for="costPrice">Preço de custo</mat-label>
+                <input id="costPrice" type="text" matInput formControlName="costPrice">
+            </mat-form-field>
+        </div>
 
 
-            <div class="entryDate">
-                <mat-form-field appearance="outline">
-                    <mat-label>Data Entrada</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="entryDate">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker startView="multi-year"></mat-datepicker>
-                </mat-form-field>
-            </div>
+        <div class="entryDate">
+            <mat-form-field appearance="outline">
+                <mat-label>Data Entrada</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="entryDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker startView="multi-year"></mat-datepicker>
+            </mat-form-field>
+        </div>
 
 
-            <div class="supplierId">
-                <mat-form-field appearance="outline">
-                    <mat-label for="supplierId">Fornecedor</mat-label>
-                    <mat-select id="supplierId" formControlName="supplierId">
-                        <mat-option [value]="'Oppen Informática'">Oppen Informática</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
+        <div class="supplierId">
+            <mat-form-field appearance="outline">
+                <mat-label for="supplierId">Fornecedor</mat-label>
+                <mat-select id="supplierId" formControlName="supplierId">
+                    <mat-option [value]="'Oppen Informática'">Oppen Informática</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
 
 
-            <div class="usedHistoricalOrSupplier">
-                <mat-form-field appearance="outline" *ngIf="isUsed">
-                    <mat-label for="usedHistoricalOrSupplier">Procedência</mat-label>
-                    <input id="usedHistoricalOrSupplier" type="text" matInput
-                        formControlName="usedHistoricalOrSupplier">
-                </mat-form-field>
-            </div>
+        <div class="usedHistoricalOrSupplier">
+            <mat-form-field appearance="outline" *ngIf="isUsed">
+                <mat-label for="usedHistoricalOrSupplier">Procedência</mat-label>
+                <input id="usedHistoricalOrSupplier" type="text" matInput
+                    formControlName="usedHistoricalOrSupplier">
+            </mat-form-field>
+        </div>
 
 
-            <div class="soldPrice">
-                <mat-form-field appearance="outline">
-                    <mat-label for="soldPrice">Preço de venda</mat-label>
-                    <input id="soldPrice" type="text" matInput formControlName="soldPrice">
-                </mat-form-field>
-            </div>
+        <div class="soldPrice">
+            <mat-form-field appearance="outline">
+                <mat-label for="soldPrice">Preço de venda</mat-label>
+                <input id="soldPrice" type="text" matInput formControlName="soldPrice">
+            </mat-form-field>
+        </div>
 
 
-            <div class="warrantyEndLocal">
-                <mat-form-field appearance="outline">
-                    <mat-label>Garantia fornecedor</mat-label>
-                    <input matInput [matDatepicker]="picker1" formControlName="warrantyEndLocal">
-                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1 startView="multi-year"></mat-datepicker>
-                </mat-form-field>
-            </div>
-            
-            <div class="purchaseInvoiceNumber">
-                <mat-form-field appearance="outline">
-                    <mat-label for="purchaseInvoiceNumber">NF: Entrada</mat-label>
-                    <input id="purchaseInvoiceNumber" type="text" matInput formControlName="purchaseInvoiceNumber">
-                </mat-form-field>
-            </div>
+        <div class="warrantyEndLocal">
+            <mat-form-field appearance="outline">
+                <mat-label>Garantia fornecedor</mat-label>
+                <input matInput [matDatepicker]="picker1" formControlName="warrantyEndLocal">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1 startView="multi-year"></mat-datepicker>
+            </mat-form-field>
+        </div>
+        
+        <div class="purchaseInvoiceNumber">
+            <mat-form-field appearance="outline">
+                <mat-label for="purchaseInvoiceNumber">NF: Entrada</mat-label>
+                <input id="purchaseInvoiceNumber" type="text" matInput formControlName="purchaseInvoiceNumber">
+            </mat-form-field>
         </div>
     </div>
+</div>

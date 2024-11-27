@@ -98,12 +98,12 @@
 
         
 
+        <add-item-product>
+        </add-item-product>
         <div>{{formMain.value | json}}</div>
         [enableDisable]="saveBtnEnabledDisabled"
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
         </div>
     </mat-card>
-    <add-item-product>
-    </add-item-product>
 </div>

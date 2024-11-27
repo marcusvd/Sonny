@@ -1,6 +1,7 @@
 .container-main {
     display:grid;
     grid-template-columns: 1fr 1fr;
+   grid-auto-flow: column;
     grid-template-rows: auto auto auto auto;
     grid-template-areas: 
     'isUsed isTested' 
