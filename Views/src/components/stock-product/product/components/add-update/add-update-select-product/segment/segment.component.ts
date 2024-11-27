@@ -28,15 +28,12 @@ import { ImportsModulesComponents } from '../imports-modules-components';
   }
   `],
 })
-export class SegmentComponent extends BaseForm implements OnChanges {
+export class SegmentComponent extends BaseForm  {
 
 
   constructor(
   ) {
     super()
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.segmentMatSelect)
   }
 
   private valMessages = ValidatorMessages;
@@ -52,11 +49,10 @@ export class SegmentComponent extends BaseForm implements OnChanges {
   @Input() placeholderProductType = '';
   @Input() productTypeNameAttribute = '';
 
-  @Input() set segmentCheckbox(value: boolean) {
-    this.segmentMatSelect = value;
-    this.selectFormControl.reset();
+  // @Input() set segmentCheckbox(value: boolean) {
+  //   this.segmentMatSelect = value;
 
-  }
+  // }
 
   selectFormControl = new FormControl('', Validators.required);
 

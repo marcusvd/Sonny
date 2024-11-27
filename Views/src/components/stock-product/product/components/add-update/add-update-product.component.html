@@ -19,6 +19,7 @@
                     [productTypeNameAttribute]="productTypeNameAttribute"
                     [formMain]="this.formMain"
                     [productCheckbox]="this.product"
+                    [formControlClear]="formControlClear"
                     (outProductSelected)="onSelectedProduct($event)">
                 </product-add-upd>
 
@@ -38,7 +39,7 @@
                     [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType"
                     [productTypeNameAttribute]="productTypeNameAttribute"
                     [formMain]="segmentForm"
-                    [segmentCheckbox]="this.segmentMatSelect"
+                    [segmentMatSelect]="this.segmentMatSelect"
                     [segmentInput]="this.segmentInput"
                     (outSegmentSelected)="onSelectedSegment($event)"
                     >
@@ -59,7 +60,7 @@
                     [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType"
                     [productTypeNameAttribute]="productTypeNameAttribute"
                     [formMain]="manufacturerForm"
-                    [manufacturerCheckbox]="manufacturerMatSelect"
+                    [manufacturerMatSelect]="manufacturerMatSelect"
                     [manufacturerInput]="manufacturerInput"
                     (outManufacturerSelected)="onSelectedManufacturer($event)">
                 </manufacturer-add-upd>
@@ -80,7 +81,7 @@
                     [formErrors]="formErrosValidation" [models]="this.models$"
                     [noEntriesFoundLabel]="noEntriesFoundLabel" [placeholderProductType]="placeholderProductType"
                     [productTypeNameAttribute]="productTypeNameAttribute" 
-                    [modelCheckbox]="modelMatSelect"
+                    [modelMatSelect]="modelMatSelect"
                     [modelInput]="modelInput"
                     [formMain]="modelForm"
                     (outModelSelected)="onSelectedModel($event)">

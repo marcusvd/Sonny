@@ -43,17 +43,23 @@ export class ProductComponent extends BaseForm {
   @Input() noEntriesFoundLabel = 'Nenhum registro encontrado.';
   @Input() placeholderProductType = 'Pesquise pelo nome';
   @Input() productTypeNameAttribute = 'pesquisa tipo de produto';
+  @Input() productCheckbox = false;
   @Input() override formMain: FormGroup;
 
-  @Input() set productCheckbox(value: boolean) {
-    this.productView = value;
-    this.selectFormControl.reset();
+  @Input() set formControlClear(value: boolean) {
+
+    if (value) {
+      this.selectFormControl.value;
+      console.log('here');
+      console.log(this.selectFormControl.value);
+    }
   }
 
   productView = false;
 
 
   selectFormControl = new FormControl('', Validators.required);
+  
 
   @Output() outProductSelected = new EventEmitter<ProductDto>()
   onSelectedProduct(selectedId: number) {
@@ -61,6 +67,8 @@ export class ProductComponent extends BaseForm {
       const product = x.find(y => y.id === selectedId);
       this?.outProductSelected?.emit(product);
     })
+
+    console.log(this.selectFormControl);
   }
 
   searchProductType() {

@@ -26,6 +26,7 @@ export class FormController extends BaseForm {
 
   //BOOLEANS
   product = false;
+  formControlClear = false;
 
   segmentMatSelect = false;
   segmentInput = false;
@@ -108,7 +109,8 @@ export class FormController extends BaseForm {
   //CHECKBOX
   productCheckbox(checked: MatCheckboxChange) {
     this.product = checked.checked;
-
+    // this.formControlClear = checked.checked;
+    
     this.segmentInput = checked.checked;
 
     this.manufacturerInput = checked.checked;

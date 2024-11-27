@@ -24,16 +24,13 @@ import { ImportsModulesComponents } from '../imports-modules-components';
   }
   `],
 })
-export class ModelComponent extends BaseForm implements OnChanges {
+export class ModelComponent extends BaseForm {
 
 
   constructor(
     override _breakpointObserver: BreakpointObserver,
   ) {
     super(_breakpointObserver)
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-   console.log(this.modelInput)
   }
 
   private valMessages = ValidatorMessages;
@@ -52,10 +49,11 @@ export class ModelComponent extends BaseForm implements OnChanges {
   @Input() override formMain: FormGroup;
 
 
-  @Input() set modelCheckbox(value: boolean) {
-    this.modelMatSelect = value;
-    this.selectFormControl.reset();
-  }
+  // @Input() set modelCheckbox(value: boolean) {
+  //   this.modelMatSelect = value;
+
+  //   // this.selectFormControl.reset();
+  // }
 
   selectFormControl = new FormControl('', Validators.required);
 
