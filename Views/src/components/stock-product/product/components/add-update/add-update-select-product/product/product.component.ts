@@ -43,20 +43,16 @@ export class ProductComponent extends BaseForm {
   @Input() noEntriesFoundLabel = 'Nenhum registro encontrado.';
   @Input() placeholderProductType = 'Pesquise pelo nome';
   @Input() productTypeNameAttribute = 'pesquisa tipo de produto';
-  @Input() productCheckbox = false;
+  // @Input() productMatSelect = false;
+  @Input() productInput = false;
   @Input() override formMain: FormGroup;
 
-  @Input() set formControlClear(value: boolean) {
-
-    if (value) {
-      this.selectFormControl.value;
-      console.log('here');
-      console.log(this.selectFormControl.value);
-    }
+  @Input() set formControlReset(value: boolean) {
+    if (value) 
+      this.selectFormControl.reset();
   }
 
-  productView = false;
-
+  
 
   selectFormControl = new FormControl('', Validators.required);
   

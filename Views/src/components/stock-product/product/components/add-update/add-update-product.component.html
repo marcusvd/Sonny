@@ -18,20 +18,21 @@
                     [placeholderProductType]="placeholderProductType"
                     [productTypeNameAttribute]="productTypeNameAttribute"
                     [formMain]="this.formMain"
-                    [productCheckbox]="this.product"
-                    [formControlClear]="formControlClear"
+                    [productInput]="this.productInput"
+                    [formControlReset]="productformControlReset"
                     (outProductSelected)="onSelectedProduct($event)">
                 </product-add-upd>
+                <!-- [productMatSelect]="this.productMatSelect" -->
 
             </div>
 
             <div class="segment">
                 <!-- segment start-->
-                <div *ngIf="!product && formMain.get('name').value">
+                <div *ngIf="!productInput && formMain.get('name').value">
                     <mat-checkbox class="mat-checkbox-add" (change)="this.segmentCheckbox($event)">Adicionar
                         Novo</mat-checkbox>
                 </div>
-                <div class="input-space" *ngIf="!formMain.get('id').value && this.product">
+                <div class="input-space" *ngIf="!formMain.get('id').value && productInput">
                 </div>
             
                 <segment-add-upd 
@@ -41,6 +42,7 @@
                     [formMain]="segmentForm"
                     [segmentMatSelect]="this.segmentMatSelect"
                     [segmentInput]="this.segmentInput"
+                    [formControlReset]="segmentFormControlReset"
                     (outSegmentSelected)="onSelectedSegment($event)"
                     >
                 </segment-add-upd>
@@ -50,7 +52,7 @@
 
             <div class="manufacturer">
                 <!-- manufacturer start-->
-                <div *ngIf="!product && segmentForm.get('name').value">
+                <div *ngIf="!productInput && segmentForm.get('name').value">
                     <mat-checkbox class="mat-checkbox-add" (change)="this.manufacturerCheckbox($event)">Adicionar
                         Novo</mat-checkbox>
                 </div>
@@ -62,6 +64,7 @@
                     [formMain]="manufacturerForm"
                     [manufacturerMatSelect]="manufacturerMatSelect"
                     [manufacturerInput]="manufacturerInput"
+                    [formControlReset]="manufacturerFormControlReset"
                     (outManufacturerSelected)="onSelectedManufacturer($event)">
                 </manufacturer-add-upd>
                 <!-- manufacturer end-->
@@ -69,12 +72,12 @@
 
             <div class="model">
                 <!-- model start-->
-                <div *ngIf="!product && manufacturerForm.get('name').value">
+                <div *ngIf="!productInput && manufacturerForm.get('name').value">
                     <mat-checkbox class="mat-checkbox-add" (change)="this.modelCheckbox($event)">Adicionar
                         Novo</mat-checkbox>
                 </div>
 
-                <div class="input-space" *ngIf="!product && segmentMatSelect && manufacturerForm.get('name').value == ''">
+                <div class="input-space" *ngIf="!productInput && segmentMatSelect && manufacturerForm.get('name').value == ''">
                 </div>
 
                 <model-add-upd
@@ -83,6 +86,7 @@
                     [productTypeNameAttribute]="productTypeNameAttribute" 
                     [modelMatSelect]="modelMatSelect"
                     [modelInput]="modelInput"
+                    [formControlReset]="modelFormControlReset"
                     [formMain]="modelForm"
                     (outModelSelected)="onSelectedModel($event)">
                 </model-add-upd>
@@ -99,7 +103,7 @@
 
         
 
-        <add-item-product>
+        <add-item-product *ngIf="formMain.valid">
         </add-item-product>
         <div>{{formMain.value | json}}</div>
         [enableDisable]="saveBtnEnabledDisabled"

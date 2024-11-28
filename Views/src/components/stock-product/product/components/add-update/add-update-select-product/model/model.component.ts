@@ -49,11 +49,10 @@ export class ModelComponent extends BaseForm {
   @Input() override formMain: FormGroup;
 
 
-  // @Input() set modelCheckbox(value: boolean) {
-  //   this.modelMatSelect = value;
-
-  //   // this.selectFormControl.reset();
-  // }
+  @Input() set formControlReset(value: boolean) {
+    if (value) 
+      this.selectFormControl.reset();
+  }
 
   selectFormControl = new FormControl('', Validators.required);
 

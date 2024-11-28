@@ -1,10 +1,5 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { SegmentDto } from 'src/components/stock-product/product/dtos/segment-dto';
@@ -28,7 +23,7 @@ import { ImportsModulesComponents } from '../imports-modules-components';
   }
   `],
 })
-export class SegmentComponent extends BaseForm  {
+export class SegmentComponent extends BaseForm {
 
 
   constructor(
@@ -49,10 +44,10 @@ export class SegmentComponent extends BaseForm  {
   @Input() placeholderProductType = '';
   @Input() productTypeNameAttribute = '';
 
-  // @Input() set segmentCheckbox(value: boolean) {
-  //   this.segmentMatSelect = value;
-
-  // }
+  @Input() set formControlReset(value: boolean) {
+    if (value)
+      this.selectFormControl.reset();
+  }
 
   selectFormControl = new FormControl('', Validators.required);
 

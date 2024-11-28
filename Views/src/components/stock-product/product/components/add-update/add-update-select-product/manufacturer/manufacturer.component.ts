@@ -47,11 +47,12 @@ export class ManufacturerComponent extends BaseForm {
   @Input() placeholderProductType = '';
   @Input() productTypeNameAttribute = '';
 
-  // @Input() set manufacturerCheckbox(value: boolean) {
-  //   this.manufacturerMatSelect = value;
-  //   // this.selectFormControl.reset();
+  @Input() set formControlReset(value: boolean) {
+    if (value) 
+      this.selectFormControl.reset();
+    
    
-  // }
+  }
 
   selectFormControl = new FormControl('', Validators.required);
 

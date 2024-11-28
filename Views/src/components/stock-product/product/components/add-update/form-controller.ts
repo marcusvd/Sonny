@@ -25,15 +25,18 @@ export class FormController extends BaseForm {
   models$: Observable<ModelDto[]>
 
   //BOOLEANS
-  product = false;
-  formControlClear = false;
+  productInput = false;
+  productformControlReset = false;
 
   segmentMatSelect = false;
   segmentInput = false;
+  segmentFormControlReset = false;
 
+  manufacturerFormControlReset = false;
   manufacturerMatSelect = false;
   manufacturerInput = false;
 
+  modelFormControlReset = false;
   modelMatSelect = false;
   modelInput = false;
   description = false;
@@ -60,7 +63,7 @@ export class FormController extends BaseForm {
       id: [productType?.id ?? 0, []],
       name: [productType?.name, [Validators.required]],
       companyId: [this.companyId, [Validators.required]],
-      segments: this._fb.array([])
+      segments: this._fb.array([], Validators.required)
     })
   }
 
@@ -70,7 +73,7 @@ export class FormController extends BaseForm {
       name: [segment?.name, [Validators.required]],
       companyId: [this.companyId, []],
       productId: [segment?.productId ?? 0, []],
-      manufacturers: this._fb.array([])
+      manufacturers: this._fb.array([], Validators.required)
     })
   }
 
@@ -80,7 +83,7 @@ export class FormController extends BaseForm {
       name: [manufacturer?.name ?? '', [Validators.required]],
       companyId: [this.companyId, []],
       segmentId: [manufacturer?.segmentId ?? 0, []],
-      models: this._fb.array([])
+      models: this._fb.array([], Validators.required)
     })
   }
 
@@ -108,17 +111,8 @@ export class FormController extends BaseForm {
 
   //CHECKBOX
   productCheckbox(checked: MatCheckboxChange) {
-    this.product = checked.checked;
-    // this.formControlClear = checked.checked;
+    this.input(['product','segment', 'manufacturer', 'model', 'description'], checked.checked);
     
-    this.segmentInput = checked.checked;
-
-    this.manufacturerInput = checked.checked;
-
-    this.modelInput = checked.checked;
-
-    this.description = checked.checked;
-
     this.formMain.reset({
       id: 0,
       name: '',
@@ -126,10 +120,9 @@ export class FormController extends BaseForm {
     });
 
     if (checked.checked) {
-      this.segmentMatSelect = false;
-      this.manufacturerMatSelect = false;
-      this.modelMatSelect = false;
+      this.matSelect(['segment', 'manufacturer', 'model'], false);
 
+      this.formControlReset('product', checked.checked);
 
       this.clearAllFormArrays();
       this.addEmptyFormArrays();
@@ -137,51 +130,43 @@ export class FormController extends BaseForm {
 
     else {
       this.clearAllFormArrays();
-
-      this.manufacturers$ = null;
-      this.models$ = null;
+      this.formControlReset('product', checked.checked);
     }
   }
 
   segmentCheckbox(checked: MatCheckboxChange) {
-    this.manufacturerInput = checked.checked;
-    this.modelInput = checked.checked;
-
-    this.description = checked.checked;
-
+    this.input(['manufacturer', 'model', 'description'], checked.checked);
+   
     if (checked.checked) {
-      this.segmentMatSelect = false;
-      this.segmentInput = true;
-
-      this.manufacturerMatSelect = false;
-
-      this.modelMatSelect = false;
-
+  
+      this.matSelect(['segment', 'manufacturer', 'model'], false);
+      this.input(['segment'], checked.checked);
+   
+      this.formControlReset('segment', checked.checked);
 
       this.clearAllFormArrays();
       this.addEmptyFormArrays();
     }
     else {
-      this.clearAllFormArrays();
-      this.segmentMatSelect = true;
-      this.segmentInput = false;
+      this.matSelect(['segment'], true);
+      this.input(['segment'], checked.checked);
+     
+      this.formControlReset('segment', checked.checked);
 
-      this.manufacturers$ = null;
-      this.models$ = null;
+      this.clearAllFormArrays();
+
     }
   }
 
-  // modelFieldeBottom = false;
+
   manufacturerCheckbox(checked: MatCheckboxChange) {
-    this.modelInput = checked.checked;
-    this.description = checked.checked;
-
+    this.input(['model', 'description'], checked.checked);
+   
     if (checked.checked) {
+      this.matSelect(['manufacturer', 'model'], false);
+      this.input(['manufacturer'], checked.checked);
 
-      this.manufacturerMatSelect = false;
-      this.manufacturerInput = true;
-
-      this.modelMatSelect = false;
+      this.formControlReset('manufacturer', checked.checked);
 
       this.manufacturers.clear();
       this.models.clear();
@@ -190,8 +175,10 @@ export class FormController extends BaseForm {
       this.models.push(this.formLoadModel());
     }
     else {
-      this.manufacturerMatSelect = true;
-      this.manufacturerInput = false;
+      this.matSelect(['manufacturer'], true);
+      this.input(['manufacturer'], checked.checked);
+
+      this.formControlReset('manufacturer', checked.checked);
 
       this.manufacturers.clear();
       this.models.clear();
@@ -199,32 +186,38 @@ export class FormController extends BaseForm {
   }
 
   modelCheckbox(checked: MatCheckboxChange) {
-    this.description = checked.checked;
+    this.input(['description'], checked.checked);
 
     if (checked.checked) {
-      this.models.clear();
-      this.models.push(this.formLoadModel())
+      this.matSelect(['model'], false);
+      this.input(['model'], checked.checked);
 
-      this.modelMatSelect = false;
-      this.modelInput = true;
+      this.models.push(this.formLoadModel())
+      this.formControlReset('model', checked.checked);
+      
+      this.models.clear();
+
     }
     else {
-      this.modelMatSelect = true;
-      this.modelInput = false;
+      this.matSelect(['model'], true);
+      this.input(['model'], checked.checked);
+      this.formControlReset('model', checked.checked);
+
       this.models.clear();
     }
   }
 
   //SELECT
   onSelectedProduct(productSelected: ProductDto) {
+    this.matSelect(['segment'], true);
+
     this.segments$ = of(productSelected.segments);
-    this.segmentMatSelect = true;
     this.formLoad(productSelected);
   }
 
   onSelectedSegment(segmentId: number) {
 
-    this.manufacturerMatSelect = true;
+    this.matSelect(['manufacturer'], true);
 
     this.manufacturers$ = this.segments$.pipe(
       map(x => x.find(segment => segment.id == segmentId).manufacturers)
@@ -238,7 +231,8 @@ export class FormController extends BaseForm {
   }
 
   onSelectedManufacturer(manufacturerId: number) {
-    this.modelMatSelect = true;
+
+    this.matSelect(['model'], true);
 
     this.models$ = this.manufacturers$.pipe(
       map(x => x.find(manufacturer => manufacturer.id == manufacturerId).models)
@@ -254,7 +248,7 @@ export class FormController extends BaseForm {
   onSelectedModel(modelId: number) {
 
     if (modelId > 0)
-      this.description = true;
+      this.input(['description'], true);
 
     this.models$.subscribe(
       x => {
@@ -263,5 +257,66 @@ export class FormController extends BaseForm {
       }
     )
   }
+
+  private formControlReset = (item: string, checked: boolean) => {
+    if (item == 'product') {
+      this.productformControlReset = checked;
+      this.segmentFormControlReset = checked;
+      this.manufacturerFormControlReset = checked;
+      this.modelFormControlReset = checked;
+    }
+
+    if (item == 'segment') {
+      this.segmentFormControlReset = checked;
+      this.manufacturerFormControlReset = checked;
+      this.modelFormControlReset = checked;
+    }
+
+    if (item == 'manufacturer') {
+      this.manufacturerFormControlReset = checked;
+      this.modelFormControlReset = checked;
+    }
+
+    if (item == 'model') 
+      this.modelFormControlReset = checked;
+    
+  }
+
+  private matSelect = (item: string[], checked: boolean) => {
+
+    item.forEach(x => {
+      if (x == 'segment')
+        this.segmentMatSelect = checked;
+
+      if (x == 'manufacturer')
+        this.manufacturerMatSelect = checked;
+
+      if (x == 'model')
+        this.modelMatSelect = checked;
+    })
+
+  }
+
+  private input = (item: string[], checked: boolean) => {
+
+    item.forEach(x => {
+      if (x == 'product')
+        this.productInput = checked;
+
+      if (x == 'segment')
+        this.segmentInput = checked;
+
+      if (x == 'manufacturer')
+        this.manufacturerInput = checked;
+
+      if (x == 'model')
+        this.modelInput = checked;
+
+      if (x == 'description')
+        this.description = checked;
+    })
+
+  }
+
 
 }
