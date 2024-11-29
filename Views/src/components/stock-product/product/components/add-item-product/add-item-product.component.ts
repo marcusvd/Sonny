@@ -5,6 +5,7 @@ import { FormBuilder } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { ImportsModulesComponents } from './imports-modules-components';
 
+
 @Component({
   selector: 'add-item-product',
   standalone: true,
@@ -14,16 +15,23 @@ import { ImportsModulesComponents } from './imports-modules-components';
 })
 export class AddItemProductComponent extends FormController implements OnInit {
 
+
   constructor(public _fbMain: FormBuilder) {
     super(_fbMain)
+
+
   }
   ngOnInit(): void {
     this.formMain = this.formLoad(this.formMain, this.companyId, this.userId, null);
+    const test = this.formMain?.controls['isUsed']?.valueChanges?.subscribe(x => console.log(x))
   }
 
-  isUsed = false;
+  // isUsed = false;
   onChangeIsUsed(selection: MatCheckboxChange) {
-    this.isUsed = selection.checked;
+    if (selection.checked)
+      this.formMain.get('usedHistoricalOrSupplier').enable();
+    else
+      this.formMain.get('usedHistoricalOrSupplier').disable();
   }
 
 }

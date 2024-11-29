@@ -6,7 +6,6 @@
         grid-template-rows: auto auto auto;
         grid-template-areas: 'product segment' 'manufacturer model' 'description description';
         align-items:center;
-
         column-gap: 10px;
     }
     

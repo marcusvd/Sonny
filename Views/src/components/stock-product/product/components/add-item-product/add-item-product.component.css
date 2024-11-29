@@ -1,58 +1,70 @@
-.container-main {
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-   grid-auto-flow: column;
-    grid-template-rows: auto auto auto auto;
-    grid-template-areas: 
-    'isUsed isTested' 
-    'entryDate warrantyEndLocal' 
-    'supplierId usedHistoricalOrSupplier' 
-    'costPrice soldPrice' 
-    'purchaseInvoiceNumber purchaseInvoiceNumber' 
-    ;
-    align-items:center;
-    width: 100%;
-    column-gap: 10px;
+@media(min-width: 640px) {
+    .isUsed {
+        display: flex;
+        width: 100%;
+    }
+
+    .supplierInfo {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .usedHistoricalOrSupplier {
+        display: flex;
+        width: 100%;
+    }
+
+    .values {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+    }
+
 }
-
-
-.isUsed{
-    grid-area: isUsed;
-}
-.isTested{
-    grid-area: isTested;
-}
-
-
-.entryDate {
-    grid-area: entryDate;
-}
-
-.warrantyEndLocal {
-    grid-area: warrantyEndLocal;
-}
-
-.supplierId {
-    grid-area: supplierId;
-}
-
-.usedHistoricalOrSupplier {
-    grid-area: usedHistoricalOrSupplier;
-}
-
-.costPrice {
-    grid-area: costPrice;
-}
-
-.soldPrice {
-    grid-area: soldPrice;
-}
-
-.purchaseInvoiceNumber {
-    grid-area: purchaseInvoiceNumber;
-}
-
 
 mat-form-field {
+    flex-basis: 100%;
+}
+
+@media(max-width: 640px) {
+    .isUsed {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+    }
+
+    .supplierInfo {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+    }
+
+    .usedHistoricalOrSupplier {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+    }
+
+    .values {
+        display: flex;
+        flex-direction: column;
+        flex-basis: 100%;
+    }
+ 
+    mat-form-field {
+        flex-basis: 100%;
+    }
+}
+
+get-suppliers{
     width: 100%;
+}
+
+.quantity {
+    flex-basis: 10px;
+}
+
+.mat-checkbox-add {
+    padding-bottom: 20px;
 }

@@ -52,10 +52,10 @@ namespace Api.Controllers
             return Ok(returnFromDb);
         }
 
-        [HttpGet("GetAllHardwareVendorByCompanyIdAsync/{companyId:min(1)}")]
-        public async Task<IActionResult> GetAllHardwareVendorByCompanyIdAsync(int companyId)
+        [HttpGet("GetAllHardwareSupplierByCompanyIdAsync/{companyId:min(1)}")]
+        public async Task<IActionResult> GetAllHardwareSupplierByCompanyIdAsync(int companyId)
         {
-            List<PartnerDto> entityFromoDb = await _iPartnerGetServices.GetAllHardwareVendorByCompanyIdAsync(companyId);
+            List<PartnerDto> entityFromoDb = await _iPartnerGetServices.GetAllHardwareSupplierByCompanyIdAsync(companyId);
             return Ok(entityFromoDb);
         }
 

@@ -8,7 +8,7 @@ namespace Application.Services.Operations.Main.Partners
     public interface IPartnerGetServices
     {
         Task<List<PartnerDto>> GetAllEletronicRepairAsync(int companyId);
-        Task<List<PartnerDto>> GetAllHardwareVendorByCompanyIdAsync(int companyId);
+        Task<List<PartnerDto>> GetAllHardwareSupplierByCompanyIdAsync(int companyId);
         Task<List<PartnerDto>> GetAllTransportersByCompanyIdAsync(int companyId);
         Task<List<PartnerDto>> GetAllByCompanyIdAsync(int id);
         Task<int> GetTotalByCompanyIdAsync(int id);

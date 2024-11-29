@@ -9,7 +9,7 @@ import { ImportsModulesComponents } from './imports-modules-components';
 
 
 @Component({
-  selector: 'add-update-product',
+  selector: 'product-add-update',
   standalone: true,
   imports: [ImportsModulesComponents],
   templateUrl: './add-update-product.component.html',

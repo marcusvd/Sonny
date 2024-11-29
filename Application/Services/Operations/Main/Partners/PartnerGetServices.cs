@@ -56,12 +56,10 @@ namespace Application.Services.Operations.Main.Partners
             return toReturnViewDto;
         }
 
-        public async Task<List<PartnerDto>> GetAllHardwareVendorByCompanyIdAsync(int companyId)
+        public async Task<List<PartnerDto>> GetAllHardwareSupplierByCompanyIdAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.Partners.Get(
                 predicate => predicate.CompanyId == companyId && predicate.Deleted ==DateTime.MinValue && predicate.PartnerBusiness == PartnerBusinessEnum.HardwareSupplier).ToListAsync();
-
-            // fromDb = fromDb.Where(x => x.PartnerBusiness == PartnerBusinessEnum.HardwareSupplier).ToList();
 
             var toReturn = _MAP.Map<List<PartnerDto>>(fromDb);
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
@@ -72,7 +70,7 @@ namespace Application.Services.Operations.Main.Partners
         {
             var fromDb = await _GENERIC_REPO.Partners.
             Get(
-                predicate => predicate.CompanyId == companyId && predicate.PartnerBusiness == PartnerBusinessEnum.Transporter && predicate.Deleted ==DateTime.MinValue,
+                predicate => predicate.CompanyId == companyId && predicate.PartnerBusiness == PartnerBusinessEnum.Transporter && predicate.Deleted == DateTime.MinValue,
                 null,
                 selector => selector,
                 orderBy => orderBy.OrderBy(x => x.Name),

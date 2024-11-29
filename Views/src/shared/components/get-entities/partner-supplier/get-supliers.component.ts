@@ -11,50 +11,54 @@ import { Observable } from 'rxjs/internal/Observable';
 import { PartnerDto } from 'src/components/main/partner/commons-components/dtos/partner-dto';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { PartnerTransporterGetService } from './partner-transporter-get.service';
+import { GetSupliersService } from './get-supliers.service';
 
 @Component({
-  selector: 'get-transporter-matselect-single',
+  selector: 'get-suppliers',
   standalone: true,
   imports: [
     MatSelectModule,
     NgxMatSelectSearchModule,
     ReactiveFormsModule,
-    FlexLayoutModule,
     CommonModule
   ],
   template: `
- <div [formGroup]="formMain" fxLayout="column">
- <mat-form-field  appearance="outline" fxFlex>
+
+ <mat-form-field  appearance="outline" [formGroup]="formMain" fxLayout="column">
         <mat-label>Transportador</mat-label>
-        <mat-select placeholder="Pesquise pelo nome" #singleSelect (blur)="onBlur()" (selectionChange)="onPartnerSelected(singleSelect.value)" formControlName="transporterId">
-            <mat-option *ngFor="let transporter of $transporters | async" [value]="transporter.id">
-                {{transporter.name}}
+        <mat-select  #singleSelect (blur)="onBlur()" (selectionChange)="onPartnerSelected(singleSelect.value)" formControlName="supplierId">
+            <mat-option *ngFor="let supplier of suppliers$ | async" [value]="supplier.id">
+                {{supplier.name}}
             </mat-option>
         </mat-select>
-<mat-error
-                    *ngIf="this.formMain.get('transporterId').hasError('required') && this.formMain.get('transporterId').touched">
-                    <span>{{validatorMessages.required(formMain, 'transporterId', 'Transportador')}}</span>
+                <mat-error
+                    *ngIf="this.formMain.get('supplierId').hasError('required') && this.formMain.get('supplierId').touched">
+                    <span>{{validatorMessages.required(formMain, 'supplierId', 'Transportador')}}</span>
                 </mat-error>
     </mat-form-field>
- </div>
+
   `,
   styles: [`
-
+    mat-form-field{
+      width: 100%;
+    }
+    mat-select{
+      width: 100%;
+    }
   `],
-  providers: [PartnerTransporterGetService],
+  providers: [GetSupliersService],
 })
-export class GetTransporterMatSelectSingleComponent extends BaseForm implements OnChanges {
+export class GetSuppliersComponent extends BaseForm implements OnChanges {
 
   constructor(
-    private _partnerService: PartnerTransporterGetService,
+    private _supliersService: GetSupliersService,
     private _fb: FormBuilder,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.$transporters = this._partnerService.getAll(this.companyId.toString(), `partners/${this.urlBackEndApi}`);
+    this.suppliers$ = this._supliersService.getAll(this.companyId.toString(), `partners/${this.urlBackEndApi}`);
   }
 
 
@@ -64,19 +68,19 @@ export class GetTransporterMatSelectSingleComponent extends BaseForm implements 
   }
 
   @Input() override formMain: FormGroup;
-  urlBackEndApi: string = 'GetAllTransportersByCompanyIdAsync';
+  urlBackEndApi: string = 'GetAllHardwareSupplierByCompanyIdAsync';
 
-  $transporters: Observable<PartnerDto[]>;
+  suppliers$: Observable<PartnerDto[]>;
 
   @Output() onBlurEvent = new EventEmitter<void>();
   onBlur() {
     this.onBlurEvent.emit();
   }
 
-  @Output() transporterSelected = new EventEmitter<PartnerDto>();
+  @Output() supplierSelected = new EventEmitter<PartnerDto>();
   onPartnerSelected(value: number) {
-    this?.$transporters?.subscribe(x => {
-      this?.transporterSelected?.emit(x.find(y => y.id === value));
+    this?.suppliers$?.subscribe(x => {
+      this?.supplierSelected?.emit(x.find(y => y.id === value));
     })
   }
 

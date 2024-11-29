@@ -1,8 +1,5 @@
-<div class="border-around">
-    <title-component [digit]="'|'" [titleString]="'Tipo de produto'" [icon]="'attach_money'">
-    </title-component>
-    <mat-card class="small-large-screen">
-        <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
+<div>
+
         <!-- <div class="middle-space-horizontal-beteween-fields"> </div> -->
 
         <div class="container-main">
@@ -103,12 +100,10 @@
 
         
 
-        <add-item-product *ngIf="formMain.valid">
-        </add-item-product>
-        <div>{{formMain.value | json}}</div>
-        [enableDisable]="saveBtnEnabledDisabled"
-        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
-            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
-        </div>
-    </mat-card>
+       
+        <!-- <add-item-product *ngIf="formMain.valid">
+        </add-item-product> -->
+        <!-- <div>{{formMain.value | json}}</div> -->
+     
+  
 </div>
