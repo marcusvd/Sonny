@@ -12,6 +12,9 @@
             <input matInput [matDatepicker]="picker" formControlName="entryDate">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker startView="month"></mat-datepicker>
+            <mat-error *ngIf="usedHistoricalOrSupplierHasError">
+                {{'Obrigatório!'}}
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -19,11 +22,17 @@
             <input matInput [matDatepicker]="picker1" formControlName="warrantyEndLocal">
             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1 startView="month"></mat-datepicker>
+            <mat-error *ngIf="usedHistoricalOrSupplierHasError">
+                {{'Obrigatório!'}}
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
             <mat-label for="purchaseInvoiceNumber">NF: Entrada</mat-label>
             <input id="purchaseInvoiceNumber" type="text" matInput formControlName="purchaseInvoiceNumber">
+            <mat-error *ngIf="usedHistoricalOrSupplierHasError">
+                {{'Obrigatório!'}}
+            </mat-error>
         </mat-form-field>
     </div>
     <!-- *ngIf="isUsed" -->
@@ -31,6 +40,9 @@
         <mat-form-field appearance="outline">
             <mat-label for="usedHistoricalOrSupplier">Procedência</mat-label>
             <input id="usedHistoricalOrSupplier" type="text" matInput formControlName="usedHistoricalOrSupplier">
+            <mat-error *ngIf="usedHistoricalOrSupplierHasError">
+                {{'Obrigatório!'}}
+            </mat-error>
         </mat-form-field>
     </div>
 
@@ -42,11 +54,17 @@
         <mat-form-field appearance="outline">
             <mat-label for="costPrice">Preço de custo</mat-label>
             <input id="costPrice" type="text" matInput currencyMask formControlName="costPrice">
+                <mat-error *ngIf="usedHistoricalOrSupplierHasError">
+                {{'Obrigatório!'}}
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
             <mat-label for="soldPrice">Preço de venda</mat-label>
             <input id="soldPrice" type="text" matInput currencyMask formControlName="soldPrice">
+                <mat-error *ngIf="usedHistoricalOrSupplierHasError">
+                {{'Obrigatório!'}}
+            </mat-error>
         </mat-form-field>
 
         <mat-form-field class="quantity" appearance="outline">

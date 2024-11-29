@@ -20,7 +20,7 @@ export class FormController extends BaseForm {
             stockId: [0, [Validators.required]],
             supplierId: ['', [Validators.required]],
             // usedHistoricalOrSupplier: [usedHistoricalOrSupplierValidator, []],
-            usedHistoricalOrSupplier: new FormControl('', [usedHistoricalOrSupplierValidator()]),
+            usedHistoricalOrSupplier: new FormControl({ value: '', disabled: true }, [usedHistoricalOrSupplierValidator()]),
             purchaseInvoiceNumber: ['', [Validators.required]],
             costPrice: ['', [Validators.required]],
             soldPrice: ['', [Validators.required]],

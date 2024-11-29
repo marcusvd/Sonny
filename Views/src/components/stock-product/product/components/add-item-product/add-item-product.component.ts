@@ -26,7 +26,13 @@ export class AddItemProductComponent extends FormController implements OnInit {
     const test = this.formMain?.controls['isUsed']?.valueChanges?.subscribe(x => console.log(x))
   }
 
-  // isUsed = false;
+  usedHistoricalOrSupplierHasError = this.formMain.get('usedHistoricalOrSupplier').hasError('required');
+  purchaseInvoiceNumberHasError = this.formMain.get('purchaseInvoiceNumber').hasError('required');
+  costPriceHasError = this.formMain.get('costPrice').hasError('required');
+  soldPriceHasError = this.formMain.get('soldPrice').hasError('required');
+  entryDateHasError = this.formMain.get('entryDate').hasError('required');
+  warrantyEndLocalHasError = this.formMain.get('warrantyEndLocal').hasError('required');
+
   onChangeIsUsed(selection: MatCheckboxChange) {
     if (selection.checked)
       this.formMain.get('usedHistoricalOrSupplier').enable();
