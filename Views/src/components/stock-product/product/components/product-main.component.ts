@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
 
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
+import { ProductAddUpdateService } from '../services/product-add-update.service';
 import { ImportsModulesComponents } from './imports-modules-components';
 
 
@@ -17,14 +19,14 @@ import { ImportsModulesComponents } from './imports-modules-components';
     </title-component>
 
     <mat-card class="small-large-screen">
-      
+
     <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
-        
+
         <product-add-update #product>
         </product-add-update>
-  
-  <add-item-product #productItem [hidden]="!product?.formMain?.valid">
-  </add-item-product>
+
+        <add-item-product #productItem [hidden]="!product?.formMain?.valid">
+        </add-item-product>
 
         <!-- [enableDisable]="saveBtnEnabledDisabled" -->
         <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
@@ -32,27 +34,34 @@ import { ImportsModulesComponents } from './imports-modules-components';
         </div>
   </mat-card>
 </div>
-   
+
 
   `,
   styles: [`
-  
+
   `]
 })
-export class ProductMainAddComponent implements OnInit {
+export class ProductMainAddComponent extends BaseForm implements OnInit {
 
 
-  // constructor(public _fbMain: FormBuilder) {
-
-  // }
+  constructor(
+    //public _fbMain: FormBuilder
+    private _productService: ProductAddUpdateService
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
 
   }
 
   save(product: FormGroup, productItem: FormGroup): void {
-    console.log(product.value)
-    console.log(productItem.value)
+
+    if (this.alertSave(product) && this.alertSave(productItem))
+      this._productService.AddItemToStock(product, productItem);
+
+    // console.log(product.value)
+    // console.log(productItem.value)
   }
   // isUsed = false;
   // onChangeIsUsed(selection: MatCheckboxChange) {

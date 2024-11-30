@@ -4,6 +4,6 @@ import { ProductDto } from "./product-dto";
 import { ItemProductDto } from "./item-product";
 
 export class StockDto extends RootBase {
-     ProductDto: ProductDto;
-     ItemsProducts:ItemProductDto[];
+     product: ProductDto;
+     itemsProducts:ItemProductDto[];
 }

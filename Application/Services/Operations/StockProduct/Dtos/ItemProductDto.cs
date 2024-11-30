@@ -28,5 +28,6 @@ namespace Application.Services.Operations.StockProduct
         public DateTime WarrantyEndLocal { get; set; }
         public bool IsUsed { get; set; } = false;
         public DateTime IsTested { get; set; } = DateTime.MinValue;
+        public int Quantity { get; set; }
     }
 }

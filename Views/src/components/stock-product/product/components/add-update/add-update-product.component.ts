@@ -42,16 +42,16 @@ export class AddUpdateProductComponent extends FormController implements OnInit 
   saveBtnEnabledDisabled = false;
 
 
-  save() {
+  // save() {
 
-    if (this.alertSave(this.formMain)) {
-      this.saveBtnEnabledDisabled = true;
-      this._productService.save(this.formMain, this.productInput);
-    }
-    else
-      this.formErrosValidation = true;
+  //   if (this.alertSave(this.formMain)) {
+  //     this.saveBtnEnabledDisabled = true;
+  //     this._productService.save(this.formMain, this.productInput);
+  //   }
+  //   else
+  //     this.formErrosValidation = true;
 
-  }
+  // }
 
 
 }

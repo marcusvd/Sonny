@@ -18,20 +18,40 @@ export class AddItemProductComponent extends FormController implements OnInit {
 
   constructor(public _fbMain: FormBuilder) {
     super(_fbMain)
-
-
   }
+
   ngOnInit(): void {
     this.formMain = this.formLoad(this.formMain, this.companyId, this.userId, null);
     const test = this.formMain?.controls['isUsed']?.valueChanges?.subscribe(x => console.log(x))
   }
 
-  usedHistoricalOrSupplierHasError = this.formMain.get('usedHistoricalOrSupplier').hasError('required');
-  purchaseInvoiceNumberHasError = this.formMain.get('purchaseInvoiceNumber').hasError('required');
-  costPriceHasError = this.formMain.get('costPrice').hasError('required');
-  soldPriceHasError = this.formMain.get('soldPrice').hasError('required');
-  entryDateHasError = this.formMain.get('entryDate').hasError('required');
-  warrantyEndLocalHasError = this.formMain.get('warrantyEndLocal').hasError('required');
+  get usedHistoricalOrSupplierHasError() {
+    return this.formMain?.get('usedHistoricalOrSupplier').hasError('required');
+  }
+
+  get purchaseInvoiceNumberHasError() {
+    return this.formMain?.get('purchaseInvoiceNumber').hasError('required');
+  }
+
+  get costPriceHasError() {
+    return this.formMain?.get('costPrice').hasError('required');
+  }
+
+  get soldPriceHasError() {
+    return this.formMain?.get('soldPrice').hasError('required');
+  }
+
+  get entryDateHasError() {
+    return this.formMain?.get('entryDate').hasError('required');
+  }
+
+  get warrantyEndLocalHasError() {
+    return this.formMain?.get('warrantyEndLocal').hasError('required')
+  }
+
+  get quantity() {
+    return this.formMain?.get('quantity').hasError('required')
+  }
 
   onChangeIsUsed(selection: MatCheckboxChange) {
     if (selection.checked)
