@@ -13,9 +13,9 @@ import { ImportsModulesComponents } from './imports-modules-components';
   templateUrl: './add-item-product.component.html',
   styleUrls: ['./add-item-product.component.css']
 })
+
+
 export class AddItemProductComponent extends FormController implements OnInit {
-
-
   constructor(public _fbMain: FormBuilder) {
     super(_fbMain)
   }
@@ -52,6 +52,7 @@ export class AddItemProductComponent extends FormController implements OnInit {
   get quantity() {
     return this.formMain?.get('quantity').hasError('required')
   }
+
 
   onChangeIsUsed(selection: MatCheckboxChange) {
     if (selection.checked)

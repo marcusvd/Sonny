@@ -87,7 +87,8 @@ export class DatabaseSideNavServices {
 
           ]
         },
-        { name: 'Lista Produtos', opened: false, route: `/side-nav/product-dash/list-product/${this.companyId}` },
+        { name: 'Lista Produtos', opened: false, route: `/side-nav/stock-product-router/list-product` },
+        // { name: 'Lista Produtos', opened: false, route: `/side-nav/product-dash/list-product/${this.companyId}` },
         { name: 'Status', opened: false, route: '/side-nav/partner-dash' },
 
       ],

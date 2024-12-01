@@ -41,6 +41,22 @@ namespace Application.Services.Operations.StockProduct
 
             throw new GlobalServicesException(GlobalErrorsMessagesException.UnknownError);
         }
+        public async Task<HttpStatusCode> AddStock(StockDto dtoView)
+        {
+            if (dtoView == null)
+                throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            var entityToDb = _IStockProductObjectMapperServices.StockMapper(dtoView);
+          
+            entityToDb.Registered = DateTime.Now;
+
+            _GENERIC_REPO.Stocks.Add(entityToDb);
+
+            if (await _GENERIC_REPO.save())
+                return HttpStatusCode.Created;
+
+            throw new GlobalServicesException(GlobalErrorsMessagesException.UnknownError);
+        }
         public async Task<HttpStatusCode> UpdatePartial(StockDto dtoView, int productId)
         {
             if (dtoView == null)
@@ -68,26 +84,25 @@ namespace Application.Services.Operations.StockProduct
 
             throw new GlobalServicesException(GlobalErrorsMessagesException.UnknownError);
         }
-        // public async Task<List<StockDto>> GetAllProductsByCompanyIdAsync(int companyId)
-        // {
-        //     var fromDb = await _GENERIC_REPO
-        //         .Products.Get(
-        //             predicate => predicate.CompanyId == companyId,
-        //             toInclude =>
-        //                 toInclude
-        //                     .Include(x => x.Segments)
-        //                     .ThenInclude(x => x.Manufacturers)
-        //                     .ThenInclude(x => x.Models),
-        //             selector => selector
-        //         )
-        //         .ToListAsync();
+        public async Task<List<StockDto>> GetAllStockByCompanyIdAsync(int companyId)
+        {
+            var fromDb = await _GENERIC_REPO
+                .Stocks.Get(
+                    predicate => predicate.CompanyId == companyId,
+                    toInclude =>
+                        toInclude
+                            .Include(x => x.Product)
+                            .Include(x=>x.ItemsProducts),
+                    selector => selector
+                )
+                .ToListAsync();
 
-        //     if (fromDb == null)
-        //         throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+            if (fromDb == null)
+                throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-        //     // return _IStockProductObjectMapperServices.ProductTypeListMake(fromDb);
-        //     return null;
-        // }
+            return _IStockProductObjectMapperServices.StockListMake(fromDb);
+
+        }
         public async Task<List<ProductDto>> GetAllProductsByCompanyIdAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO

@@ -43,7 +43,7 @@ import { PixExpensesListService } from './services/pix-expenses-list.service';
     MatPaginatorModule,
     RouterModule,
     FlexLayoutModule,
-    PtBrDatePipe,
+    // PtBrDatePipe,
     GridListCommonComponent,
     GridListCommonTableComponent,
     GridListCommonSearchComponent,
@@ -51,7 +51,7 @@ import { PixExpensesListService } from './services/pix-expenses-list.service';
     SubTitleComponent,
     BtnGComponent,
     MonthsSelectComponent,
-    FilterBtnRadioComponent
+    // FilterBtnRadioComponent
   ],
   providers: [
     PtBrDatePipe,
@@ -148,7 +148,7 @@ export class PixExpensesListComponent extends FrontEndFilterPixExpenseslist impl
     this.monthHideShowPendingRadio = month;
     this.entities$ = this.onSelectedMonth(this.entities, this.monthFilter.id,'expenseDayToFilter');
   }
-  
+
   queryFieldOutput($event: FormControl) {
     this.entities$ = this.query($event, this.monthFilter.id);
   }

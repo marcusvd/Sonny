@@ -28,10 +28,18 @@ namespace Api.Controllers
             return Ok(toDbAdd);
         }
 
-        [HttpPut("UpdatePartialProduct/{id:min(1)}")]
+        [HttpPut("UpdatePartialProduct/{id:min(0)}")]
         public async Task<IActionResult> UpdatePartialProduct([FromBody] StockDto entityDto, int productId)
         {
             var toDbAdd = await _IStockAddServices.UpdatePartial(entityDto, productId);
+            return Ok(toDbAdd);
+
+        }
+
+        [HttpPost("AddStock")]
+        public async Task<IActionResult> AddStock([FromBody] StockDto entityDto)
+        {
+            var toDbAdd = await _IStockAddServices.AddStock(entityDto);
             return Ok(toDbAdd);
 
         }
@@ -43,7 +51,12 @@ namespace Api.Controllers
             return Ok(toDbGet);
         }
 
-
+        [HttpGet("GetAllStockByCompanyIdAsync/{companyId:min(1)}")]
+        public async Task<IActionResult> GetAllStockByCompanyIdAsync(int companyId)
+        {
+            var fromDb = await _IStockAddServices.GetAllStockByCompanyIdAsync(companyId);
+            return Ok(fromDb);
+        }
 
 
     }
