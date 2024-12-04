@@ -1,0 +1,66 @@
+
+<div class="container-main">
+    <!-- Column LEFT -->
+    <div class="product">
+        <!-- product start-->
+        <product-add-upd [formErrors]="formErrosValidation" [products]="this.products$"
+            [noEntriesFoundLabel]="noEntriesFoundLabel" [formMain]="this.formMain"
+            [formControlReset]="productformControlReset"
+            (outProductSelected)="onSelectedProduct($event)">
+        </product-add-upd>
+        <!-- [productMatSelect]="this.productMatSelect" -->
+
+    </div>
+
+    <div class="segment">
+        <!-- segment start-->
+        <segment-add-upd [formErrors]="formErrosValidation" [segments]="this.segments$"
+            [noEntriesFoundLabel]="noEntriesFoundLabel" [formMain]="segmentForm"
+            [formControlReset]="segmentFormControlReset" (outSegmentSelected)="onSelectedSegment($event)">
+        </segment-add-upd>
+
+        <!-- segment end-->
+    </div>
+
+    <div class="manufacturer">
+        <!-- manufacturer start-->
+        <manufacturer-add-upd [formErrors]="formErrosValidation" [manufacturers]="manufacturers$"
+            [noEntriesFoundLabel]="noEntriesFoundLabel" [formMain]="manufacturerForm"
+            [formControlReset]="manufacturerFormControlReset"
+            (outManufacturerSelected)="onSelectedManufacturer($event)">
+        </manufacturer-add-upd>
+        <!-- manufacturer end-->
+    </div>
+
+    <div class="model">
+        <!-- model start-->
+        <model-add-upd [formErrors]="formErrosValidation" [models]="this.models$"
+            [noEntriesFoundLabel]="noEntriesFoundLabel"[formControlReset]="modelFormControlReset" [formMain]="modelForm"
+            (outModelSelected)="onSelectedModel($event)">
+        </model-add-upd>
+        <!-- model end-->
+    </div>
+
+    <div class="description">
+        <model-description style="width: 100%;" [formMain]="this.modelForm" [hideShow]="description">
+        </model-description>
+    </div>
+    <!-- <div>{{formMain.value | json}}</div> -->
+</div>
+
+
+<!-- <div class="border-around"> -->
+
+   
+
+        <!-- <div>
+            <btn-g [name]="saveOrUpdate" [icon]="'save'" (btn)="save()"></btn-g>
+        </div> -->
+
+    <!-- </mat-card> -->
+    <!-- <add-item-product *ngIf="formMain.valid">
+        </add-item-product> -->
+    <!-- <div>{{formMain.value | json}}</div> -->
+
+
+<!-- </div> -->

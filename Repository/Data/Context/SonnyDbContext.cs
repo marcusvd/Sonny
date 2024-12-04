@@ -67,9 +67,9 @@ namespace Repository.Data.Context
 
         #endregion
         #region  Products
+        // public DbSet<Product> PD_Products { get; set; }
         public DbSet<Product> PD_Products { get; set; }
-        public DbSet<Stock> PD_Stocks { get; set; }
-        public DbSet<ItemProduct> PD_ItemsProducts { get; set; }
+        public DbSet<ProductType> PD_ProductTypes { get; set; }
         public DbSet<Manufacturer> PD_Manufacturers { get; set; }
         public DbSet<Segment> PD_Segments { get; set; }
         public DbSet<Model> PD_Models { get; set; }
@@ -121,9 +121,10 @@ namespace Repository.Data.Context
             builder.ApplyConfiguration(new AdditionalCostsFluentApi());
             builder.ApplyConfiguration(new CompanyFluentApi());
             //product
-            builder.ApplyConfiguration(new StockFluentApi());
-
             builder.ApplyConfiguration(new ProductFluentApi());
+
+            builder.ApplyConfiguration(new ProductTypeFluentApi());
+            // builder.ApplyConfiguration(new ProductFluentApi());
             builder.ApplyConfiguration(new ManufacturerFluentApi());
             builder.ApplyConfiguration(new SegmentFluentApi());
             builder.ApplyConfiguration(new ModelFluentApi());

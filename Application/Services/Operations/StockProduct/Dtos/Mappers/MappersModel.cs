@@ -44,11 +44,14 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
             var obj = new ModelDto()
             {
                 Id = entity.Id,
-                Name = entity.Name,
                 Deleted = entity.Deleted,
+                Name = entity.Name,
                 CompanyId = entity.CompanyId,
                 Description = entity.Description,
+                Speed = entity.Speed,
+                Capacity = entity.Capacity,
                 ManufacturerId = entity.ManufacturerId,
+                Products = ProductListMake(entity.Products)
             };
 
             return obj;
@@ -60,11 +63,14 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
             var obj = new Model()
             {
                 Id = entity.Id,
-                Name = entity.Name,
                 Deleted = entity.Deleted,
+                Name = entity.Name,
                 CompanyId = entity.CompanyId,
                 Description = entity.Description,
+                Speed = entity.Speed,
+                Capacity = entity.Capacity,
                 ManufacturerId = entity.ManufacturerId,
+                Products = ProductListMake(entity.Products)
             };
 
             return obj;

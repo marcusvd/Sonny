@@ -47,15 +47,12 @@ namespace UnitOfWork.Persistence.Operations
         #endregion
          #region PRODUCT
         // IProductRepository Products { get; }
-         IStockReposirtory Stocks { get; }
-         IProductRepository Products { get; }
-        // IEquipamentRepository Equipaments { get; }
+         IProductReposirtory Products { get; }
+         IProductTypeRepository ProductTypes { get; }
+         ISegmentReposirtory Segments { get; }
+         IManufacturerReposirtory Manufacturers { get; }
+         IModelReposirtory Models { get; }
 
-        // IManufacturerFillRepository Manufacturers_Fillers { get; }
-        // ISegmentFillRepository Segments_Fillers { get; }
-        // IModelFillRepository Models_Fillers { get; }
-
-        // ITrackingRepository TrackingsProducts { get; }
         #endregion
         #region BUDGETSERVICE
         IBudgetServiceRepository BudgetsServices { get; }

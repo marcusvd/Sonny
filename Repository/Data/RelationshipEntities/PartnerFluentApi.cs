@@ -18,7 +18,7 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<Destiny>(x => x.CollectDeliverDestinies).WithOne(x => x.Partner)
                        .HasForeignKey(fk => fk.PartnerId).IsRequired(false);
 
-            builder.HasMany<ItemProduct>(x => x.ItemsProducts).WithOne(x => x.Supplier)
+            builder.HasMany<Product>(x => x.Products).WithOne(x => x.Supplier)
                        .HasForeignKey(fk => fk.SupplierId).IsRequired(false);
         }
     }

@@ -42,10 +42,9 @@ namespace Domain.Entities.Main.Companies
         #region Products
         public List<Manufacturer> Manufacturers { get; set; }
         public List<Model> Models { get; set; }
-        public List<Product> Products { get; set; }
+        public List<ProductType> ProductTypes { get; set; }
         public List<Segment> Segments { get; set; }
-        public List<ItemProduct> ItemsProducts { get; set; }
-        public List<Stock> Stocks { get; set; }
+        public List<Product> Products { get; set; }
         #endregion
 
         public List<CollectDeliver> CollectsDelivers { get; set; }

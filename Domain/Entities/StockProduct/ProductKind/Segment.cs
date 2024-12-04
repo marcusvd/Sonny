@@ -7,8 +7,9 @@ namespace Domain.Entities.StockProduct.ProductKind
     public class Segment : RootBase
     {
         public string Name { get; set; }
-        public int ProductId { get; set; }
-        public Product Product { get; set; }
+        public int ProductTypeId { get; set; }
+        public ProductType ProductType { get; set; }
+        public List<Product> Products { get; set; }
         public List<Manufacturer> Manufacturers { get; set; }
 
 

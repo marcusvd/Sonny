@@ -118,9 +118,7 @@ namespace Repository.Data.RelationshipEntities
     {
         public void Configure(EntityTypeBuilder<MyUser> builder)
         {
-             builder.HasMany<ItemProduct>(x => x.ItemsProducts).WithOne(x => x.User)
-            .HasForeignKey(fk => fk.UserId);
-            builder.HasMany<Stock>(x => x.Stocks).WithOne(x => x.User)
+             builder.HasMany<Product>(x => x.Products).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
 
             builder.HasMany<CollectDeliver>(x => x.CollectsDelivers).WithOne(x => x.User)

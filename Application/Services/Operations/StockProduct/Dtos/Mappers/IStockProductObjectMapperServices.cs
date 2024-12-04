@@ -7,10 +7,10 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
 {
     public interface IStockProductObjectMapperServices
     {
-        List<ProductDto> ProductListMake(List<Product> list);
-        List<Product> ProductListMake(List<ProductDto> list);
-        ProductDto ProductMapper(Product entity);
-        Product ProductMapper(ProductDto entity);
+        List<ProductTypeDto> ProductTypeListMake(List<ProductType> list);
+        List<ProductType> ProductTypeListMake(List<ProductTypeDto> list);
+        ProductTypeDto ProductTypeMapper(ProductType entity);
+        ProductType ProductTypeMapper(ProductTypeDto entity);
 
         List<SegmentDto> SegmentListMake(List<Segment> list);
         List<Segment> SegmentListMake(List<SegmentDto> list);
@@ -27,15 +27,10 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
         ModelDto ModelMapper(Model entity);
         Model ModelMapper(ModelDto entity);
 
-        List<StockDto> StockListMake(List<Stock> list);
-        List<Stock> StockListMake(List<StockDto> list);
-        StockDto StockMapper(Stock entity);
-        Stock StockMapper(StockDto entity);
-
-        List<ItemProductDto> ItemProductListMake(List<ItemProduct> list);
-        List<ItemProduct> ItemProductListMake(List<ItemProductDto> list);
-        ItemProductDto ItemProductMapper(ItemProduct entity);
-        ItemProduct ItemProductMapper(ItemProductDto entity);
+        List<ProductDto> ProductListMake(List<Product> list);
+        List<Product> ProductListMake(List<ProductDto> list);
+        ProductDto ProductMapper(Product entity);
+        Product ProductMapper(ProductDto entity);
 
     }
 }

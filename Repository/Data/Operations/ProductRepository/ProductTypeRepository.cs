@@ -1,0 +1,18 @@
+using Repository.Data.Context;
+using Repository.Data.Operations.Repository;
+using Domain.Entities.StockProduct.ProductKind;
+
+namespace Repository.Data.Operations.ProductRepository
+{
+
+
+    public class ProductTypeRepository : Repository<ProductType>, IProductTypeRepository
+    {
+        private readonly SonnyDbContext _CONTEXT;
+        public ProductTypeRepository(SonnyDbContext CONTEXT) : base(CONTEXT)
+        {
+            _CONTEXT = CONTEXT;
+        }
+    }
+
+}

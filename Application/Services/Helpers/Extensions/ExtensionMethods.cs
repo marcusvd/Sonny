@@ -102,7 +102,7 @@ namespace Application.Services.Helpers.Extensions
 
             #region Products
             // services.AddScoped<IProductAddServices, ProductAddServices>();
-            services.AddScoped<IStockAddServices, StockAddServices>();
+            services.AddScoped<IProductServices, ProductServices>();
             services.AddScoped<IStockProductObjectMapperServices, StockProductObjectMapperServices>();
 
             

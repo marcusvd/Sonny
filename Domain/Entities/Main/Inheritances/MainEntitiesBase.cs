@@ -21,7 +21,7 @@ namespace Domain.Entities.Main.Inheritances
         public PhysicallyMovingCosts PhysicallyMovingCosts { get; set; }
         public List<Destiny> CollectDeliverDestinies { get; set; }
         public List<BillingFrom> BillingFromCollectsDelivers { get; set; }
-        public List<ItemProduct> ItemsProducts { get; set; }
+        public List<Product> Products { get; set; }
     }
 
 

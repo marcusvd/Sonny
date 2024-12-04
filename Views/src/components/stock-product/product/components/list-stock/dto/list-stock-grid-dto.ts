@@ -2,9 +2,9 @@
 
 export class ListStockGridDto {
   id: number;
-  expenseDay: string | Date;
-  expenseDayToFilter: Date;
-  price: string;
-  pixOutId: string;
-  benefitedName: string;
+  item: string;
+  segment: string;
+  manufacturer: string;
+  model: string;
+  quantity: string;
 }

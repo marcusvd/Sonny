@@ -9,6 +9,7 @@ namespace Domain.Entities.StockProduct.ProductKind
         public string Name { get; set; }
         public int SegmentId { get; set; }
         public Segment Segment { get; set; }
+        public List<Product> Products { get; set; }
         public List<Model> Models { get; set; }
 
     }

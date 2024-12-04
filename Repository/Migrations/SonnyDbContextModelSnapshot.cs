@@ -1736,7 +1736,7 @@ namespace Repository.Migrations
                     b.ToTable("SD_socialnetworks");
                 });
 
-            modelBuilder.Entity("Domain.Entities.StockProduct.ItemProduct", b =>
+            modelBuilder.Entity("Domain.Entities.StockProduct.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1766,6 +1766,15 @@ namespace Repository.Migrations
                     b.Property<bool>("IsUsed")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<int>("ManufacturerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ModelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductTypeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("PurchaseInvoiceNumber")
                         .HasColumnType("longtext");
 
@@ -1775,16 +1784,16 @@ namespace Repository.Migrations
                     b.Property<int?>("ReservedForCustomerId")
                         .HasColumnType("int");
 
+                    b.Property<int>("SegmentId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("SoldDate")
                         .HasColumnType("datetime(6)");
 
                     b.Property<decimal>("SoldPrice")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<int>("StockId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SupplierId")
+                    b.Property<int?>("SupplierId")
                         .HasColumnType("int");
 
                     b.Property<string>("UsedHistoricalOrSupplier")
@@ -1805,15 +1814,21 @@ namespace Repository.Migrations
 
                     b.HasIndex("IsReservedByUserId");
 
+                    b.HasIndex("ManufacturerId");
+
+                    b.HasIndex("ModelId");
+
+                    b.HasIndex("ProductTypeId");
+
                     b.HasIndex("ReservedForCustomerId");
 
-                    b.HasIndex("StockId");
+                    b.HasIndex("SegmentId");
 
                     b.HasIndex("SupplierId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("PD_ItemsProducts");
+                    b.ToTable("PD_Products");
                 });
 
             modelBuilder.Entity("Domain.Entities.StockProduct.ProductKind.Manufacturer", b =>
@@ -1854,6 +1869,9 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<string>("Capacity")
+                        .HasColumnType("longtext");
+
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
@@ -1873,6 +1891,9 @@ namespace Repository.Migrations
                     b.Property<DateTime>("Registered")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("Speed")
+                        .HasColumnType("longtext");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
@@ -1885,7 +1906,7 @@ namespace Repository.Migrations
                     b.ToTable("PD_Models");
                 });
 
-            modelBuilder.Entity("Domain.Entities.StockProduct.ProductKind.Product", b =>
+            modelBuilder.Entity("Domain.Entities.StockProduct.ProductKind.ProductType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1905,6 +1926,9 @@ namespace Repository.Migrations
                     b.Property<DateTime>("Registered")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
@@ -1912,7 +1936,9 @@ namespace Repository.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("PD_Products");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("PD_ProductTypes");
                 });
 
             modelBuilder.Entity("Domain.Entities.StockProduct.ProductKind.Segment", b =>
@@ -1932,7 +1958,7 @@ namespace Repository.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int>("ProductTypeId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Registered")
@@ -1942,41 +1968,9 @@ namespace Repository.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductTypeId");
 
                     b.ToTable("PD_Segments");
-                });
-
-            modelBuilder.Entity("Domain.Entities.StockProduct.Stock", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Deleted")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Registered")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("PD_Stocks");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
@@ -3088,10 +3082,10 @@ namespace Repository.Migrations
                     b.Navigation("Contact");
                 });
 
-            modelBuilder.Entity("Domain.Entities.StockProduct.ItemProduct", b =>
+            modelBuilder.Entity("Domain.Entities.StockProduct.Product", b =>
                 {
                     b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
-                        .WithMany("ItemsProducts")
+                        .WithMany("Products")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -3100,22 +3094,40 @@ namespace Repository.Migrations
                         .WithMany()
                         .HasForeignKey("IsReservedByUserId");
 
+                    b.HasOne("Domain.Entities.StockProduct.ProductKind.Manufacturer", "Manufacturer")
+                        .WithMany("Products")
+                        .HasForeignKey("ManufacturerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.StockProduct.ProductKind.Model", "Model")
+                        .WithMany("Products")
+                        .HasForeignKey("ModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.StockProduct.ProductKind.ProductType", "ProductType")
+                        .WithMany("Products")
+                        .HasForeignKey("ProductTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Entities.Main.Customers.Customer", "ReservedForCustomer")
-                        .WithMany("ItemsProducts")
+                        .WithMany("Products")
                         .HasForeignKey("ReservedForCustomerId");
 
-                    b.HasOne("Domain.Entities.StockProduct.Stock", "Stock")
-                        .WithMany("ItemsProducts")
-                        .HasForeignKey("StockId")
+                    b.HasOne("Domain.Entities.StockProduct.ProductKind.Segment", "Segment")
+                        .WithMany("Products")
+                        .HasForeignKey("SegmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Main.Partner", "Supplier")
-                        .WithMany("ItemsProducts")
+                        .WithMany("Products")
                         .HasForeignKey("SupplierId");
 
                     b.HasOne("Domain.Entities.Authentication.MyUser", "User")
-                        .WithMany("ItemsProducts")
+                        .WithMany("Products")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -3124,9 +3136,15 @@ namespace Repository.Migrations
 
                     b.Navigation("IsReservedByUser");
 
+                    b.Navigation("Manufacturer");
+
+                    b.Navigation("Model");
+
+                    b.Navigation("ProductType");
+
                     b.Navigation("ReservedForCustomer");
 
-                    b.Navigation("Stock");
+                    b.Navigation("Segment");
 
                     b.Navigation("Supplier");
 
@@ -3171,15 +3189,23 @@ namespace Repository.Migrations
                     b.Navigation("Manufacturer");
                 });
 
-            modelBuilder.Entity("Domain.Entities.StockProduct.ProductKind.Product", b =>
+            modelBuilder.Entity("Domain.Entities.StockProduct.ProductKind.ProductType", b =>
                 {
                     b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
-                        .WithMany("Products")
+                        .WithMany("ProductTypes")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.Authentication.MyUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Company");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Domain.Entities.StockProduct.ProductKind.Segment", b =>
@@ -3190,40 +3216,15 @@ namespace Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entities.StockProduct.ProductKind.Product", "Product")
+                    b.HasOne("Domain.Entities.StockProduct.ProductKind.ProductType", "ProductType")
                         .WithMany("Segments")
-                        .HasForeignKey("ProductId")
+                        .HasForeignKey("ProductTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Company");
 
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Domain.Entities.StockProduct.Stock", b =>
-                {
-                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
-                        .WithMany("Stocks")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.StockProduct.ProductKind.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
-
-                    b.HasOne("Domain.Entities.Authentication.MyUser", "User")
-                        .WithMany("Stocks")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
-
-                    b.Navigation("Product");
-
-                    b.Navigation("User");
+                    b.Navigation("ProductType");
                 });
 
             modelBuilder.Entity("Domain.Entities.Authentication.MyUser", b =>
@@ -3379,8 +3380,6 @@ namespace Repository.Migrations
 
                     b.Navigation("FinancingsAndLoansExpenses");
 
-                    b.Navigation("ItemsProducts");
-
                     b.Navigation("Manufacturers");
 
                     b.Navigation("Models");
@@ -3393,11 +3392,11 @@ namespace Repository.Migrations
 
                     b.Navigation("Products");
 
+                    b.Navigation("ProductTypes");
+
                     b.Navigation("Segments");
 
                     b.Navigation("ServicesExecuted");
-
-                    b.Navigation("Stocks");
 
                     b.Navigation("TableProvidedServicesPrices");
 
@@ -3412,7 +3411,7 @@ namespace Repository.Migrations
 
                     b.Navigation("CollectDeliverDestinies");
 
-                    b.Navigation("ItemsProducts");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Domain.Entities.Main.Partner", b =>
@@ -3425,7 +3424,7 @@ namespace Repository.Migrations
 
                     b.Navigation("ElectronicsRepairs");
 
-                    b.Navigation("ItemsProducts");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Domain.Entities.Main.PaymentData", b =>
@@ -3448,21 +3447,27 @@ namespace Repository.Migrations
             modelBuilder.Entity("Domain.Entities.StockProduct.ProductKind.Manufacturer", b =>
                 {
                     b.Navigation("Models");
+
+                    b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("Domain.Entities.StockProduct.ProductKind.Product", b =>
+            modelBuilder.Entity("Domain.Entities.StockProduct.ProductKind.Model", b =>
                 {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Domain.Entities.StockProduct.ProductKind.ProductType", b =>
+                {
+                    b.Navigation("Products");
+
                     b.Navigation("Segments");
                 });
 
             modelBuilder.Entity("Domain.Entities.StockProduct.ProductKind.Segment", b =>
                 {
                     b.Navigation("Manufacturers");
-                });
 
-            modelBuilder.Entity("Domain.Entities.StockProduct.Stock", b =>
-                {
-                    b.Navigation("ItemsProducts");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Domain.Entities.Authentication.Role", b =>
@@ -3488,13 +3493,11 @@ namespace Repository.Migrations
 
                     b.Navigation("FinancingAndLoansExpenses");
 
-                    b.Navigation("ItemsProducts");
-
                     b.Navigation("MonthlyFixedExpenses");
 
-                    b.Navigation("Services");
+                    b.Navigation("Products");
 
-                    b.Navigation("Stocks");
+                    b.Navigation("Services");
 
                     b.Navigation("UserRoles");
 

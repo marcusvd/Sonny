@@ -6,7 +6,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
     public class ProductDtoSeed_NSTI
     {
 
-        public Product NetAdapter()
+        public ProductType NetAdapter()
         {
 
 
@@ -23,7 +23,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
                 new Segment(){  Name = "Notebook", CompanyId = 1, Manufacturers = manufacturers},
             };
 
-            var productType = new Product()
+            var productType = new ProductType()
             {
                 CompanyId = 1,
                 Name = "Placas de rede",
@@ -68,7 +68,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
 
             return productType;
         }
-        public Product NetAdapter2()
+        public ProductType NetAdapter2()
         {
 
             List<Model> models2 = new(){
@@ -83,7 +83,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
                 new Segment(){  Name = "Desktop", CompanyId = 1, Manufacturers = manufacturers2},
             };
 
-            var productType = new Product()
+            var productType = new ProductType()
             {
                 Id = 1,
                 CompanyId = 1,

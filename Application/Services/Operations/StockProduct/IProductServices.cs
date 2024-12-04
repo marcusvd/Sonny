@@ -1,0 +1,23 @@
+using System.Collections.Generic;
+using System.Net;
+using System.Threading.Tasks;
+using Application.Services.Operations.StockProduct.ProductKind;
+
+namespace Application.Services.Operations.StockProduct
+{
+    public interface IProductServices
+    {
+        Task<HttpStatusCode> AddProductTypeAsync(ProductTypeDto dtoView);
+        Task<List<ProductTypeDto>> GetProductTypesIncludedAsync(int companyId);
+        Task<HttpStatusCode> UpdateProductTypeAsync(ProductTypeDto dtoView, int id);
+        Task<List<ProductTypeDto>> GetProductTypesAsync(int companyId);
+        Task<List<SegmentDto>> GetSegmentsAsync(int companyId);
+        Task<List<ManufacturerDto>> GetManufacturersAsync(int companyId);
+        Task<List<ModelDto>> GetModelsAsync(int companyId);
+
+
+        Task<HttpStatusCode> UpdatePartial(ProductDto dtoView, int productId);
+        Task<HttpStatusCode> AddStock(ProductDto dtoView);
+        Task<List<ProductDto>> GetAllStockByCompanyIdAsync(int companyId);
+    }
+}

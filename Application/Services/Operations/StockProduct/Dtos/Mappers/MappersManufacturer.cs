@@ -7,7 +7,7 @@ using Domain.Entities.StockProduct.ProductKind;
 
 namespace Application.Services.Operations.StockProduct.Dtos.Mappers
 {
-    public partial class StockProductObjectMapperServices:CommonObjectMapper, IStockProductObjectMapperServices
+    public partial class StockProductObjectMapperServices : CommonObjectMapper, IStockProductObjectMapperServices
     {
         public List<ManufacturerDto> ManufacturerListMake(List<Manufacturer> list)
         {
@@ -48,7 +48,8 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 Deleted = entity.Deleted,
                 CompanyId = entity.CompanyId,
                 SegmentId = entity.SegmentId,
-                Models = ModelListMake(entity.Models)
+                Models = ModelListMake(entity.Models),
+                Products = ProductListMake(entity.Products)
             };
 
             return obj;
@@ -64,7 +65,8 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 Deleted = entity.Deleted,
                 CompanyId = entity.CompanyId,
                 SegmentId = entity.SegmentId,
-                Models = ModelListMake(entity.Models)
+                Models = ModelListMake(entity.Models),
+                Products = ProductListMake(entity.Products)
             };
 
             return obj;

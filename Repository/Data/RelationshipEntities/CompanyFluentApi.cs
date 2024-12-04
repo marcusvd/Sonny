@@ -87,9 +87,7 @@ namespace Repository.Data.RelationshipEntities
             .HasForeignKey(fk => fk.CompanyId);
             builder.HasMany<Segment>(x => x.Segments).WithOne(x => x.Company)
             .HasForeignKey(fk => fk.CompanyId);
-            builder.HasMany<ItemProduct>(x => x.ItemsProducts).WithOne(x => x.Company)
-            .HasForeignKey(fk => fk.CompanyId);
-            builder.HasMany<Stock>(x => x.Stocks).WithOne(x => x.Company)
+            builder.HasMany<Product>(x => x.Products).WithOne(x => x.Company)
             .HasForeignKey(fk => fk.CompanyId);
             #endregion
 

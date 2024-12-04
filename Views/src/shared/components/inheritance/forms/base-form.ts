@@ -8,7 +8,7 @@ export class BaseForm extends Responsive {
   companyId = JSON.parse(localStorage.getItem('companyId'))
   userId = JSON.parse(localStorage.getItem('userId'))
 
-   minValue = new Date('0001-01-01T00:00:00');
+  minValue = new Date('0001-01-01T00:00:00');
 
   currentDate = new Date();
   currentDateWithoutHours = this.currentDate.setHours(0, 0, 0, 0)

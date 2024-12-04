@@ -243,66 +243,48 @@ namespace UnitOfWork.Persistence.Operations
         //     }
         // }
 
-         private StockReposirtory _Stock_Repo;
-         public IStockReposirtory Stocks
+         private ProductReposirtory _PRODUCT_REPO;
+         public IProductReposirtory Products
          {
              get
              {
-                 return _Stock_Repo = _Stock_Repo ?? new StockReposirtory(_CONTEXT);
+                 return _PRODUCT_REPO = _PRODUCT_REPO ?? new ProductReposirtory(_CONTEXT);
              }
          }
 
-         private ProductRepository PRODUCT_REPO;
-         public IProductRepository Products
+         private ProductTypeRepository PRODUCT_REPO;
+         public IProductTypeRepository ProductTypes
          {
              get
              {
-                 return PRODUCT_REPO = PRODUCT_REPO ?? new ProductRepository(_CONTEXT);
+                 return PRODUCT_REPO = PRODUCT_REPO ?? new ProductTypeRepository(_CONTEXT);
              }
          }
-        // public ModelFillRepository _MODELS_FILL_REPO;
-        // public IModelFillRepository Models_Fillers
-        // {
-        //     get
-        //     {
-        //         return _MODELS_FILL_REPO = _MODELS_FILL_REPO ?? new ModelFillRepository(_CONTEXT);
-        //     }
-        // }
-        // public ManufacturerFillRepository _MANUFACTURES_FILL_REPO;
-        // public IManufacturerFillRepository Manufacturers_Fillers
-        // {
-        //     get
-        //     {
-        //         return _MANUFACTURES_FILL_REPO = _MANUFACTURES_FILL_REPO ?? new ManufacturerFillRepository(_CONTEXT);
-        //     }
-        // }
-        // private SegmentFillRepository _SEGMENTS_FILL_REPO;
-        // public ISegmentFillRepository Segments_Fillers
-        // {
-        //     get
-        //     {
-        //         return _SEGMENTS_FILL_REPO = _SEGMENTS_FILL_REPO ?? new SegmentFillRepository(_CONTEXT);
-        //     }
-        // }
-
-        // private QuantitiesProductRepository _QUANTITIES_PRODUCT_REPO;
-        // public IQuantitiesProductRepository QuantitiesProduct
-        // {
-        //     get
-        //     {
-        //         return _QUANTITIES_PRODUCT_REPO = _QUANTITIES_PRODUCT_REPO ?? new QuantitiesProductRepository(_CONTEXT);
-        //     }
-        // }
-
-        // private TrackingRepository _TRACKINGS_PRODUCTS_REPO;
-        // public ITrackingRepository TrackingsProducts
-        // {
-        //     get
-        //     {
-        //         return _TRACKINGS_PRODUCTS_REPO = _TRACKINGS_PRODUCTS_REPO ?? new TrackingRepository(_CONTEXT);
-        //     }
-        // }
-
+         private SegmentReposirtory SEGMENT_REPO;
+         public ISegmentReposirtory Segments
+         {
+             get
+             {
+                 return SEGMENT_REPO = SEGMENT_REPO ?? new SegmentReposirtory(_CONTEXT);
+             }
+         }
+         private ManufacturerReposirtory MANUFACTURER_REPO;
+         public IManufacturerReposirtory Manufacturers
+         {
+             get
+             {
+                 return MANUFACTURER_REPO = MANUFACTURER_REPO ?? new ManufacturerReposirtory(_CONTEXT);
+             }
+         }
+         private ModelReposirtory MODEL_REPO;
+         public IModelReposirtory Models
+         {
+             get
+             {
+                 return MODEL_REPO = MODEL_REPO ?? new ModelReposirtory(_CONTEXT);
+             }
+         }
+      
 
 
         #endregion

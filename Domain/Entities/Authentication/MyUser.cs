@@ -35,8 +35,7 @@ namespace Domain.Entities.Authentication
         public List<UserRole> UserRoles { get; set; }
 
         #region 
-        public List<ItemProduct> ItemsProducts { get; set; }
-        public List<Stock> Stocks { get; set; }
+        public List<Product> Products { get; set; }
         #endregion
         
         public List<Service> Services { get; set; }
