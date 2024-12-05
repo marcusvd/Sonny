@@ -3,97 +3,127 @@
     </title-component>
     <mat-card class="small-large-screen">
         <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
+        <mat-radio-group #selectedRadio (change)="radioChange($event)" [value]="'product-type'"
+            aria-label="selecione uma opcao" class="container">
+            <div class="product-type">
+                <br>
+                <mat-radio-button [value]="'product-type'">
+                    <ng-container *ngIf="entityToEdit == 'type'; else elseBlock">
+                        <h3>Tipo de produto</h3>
+                    </ng-container>
+                    <ng-template #elseBlock>
+                        Tipo de produto
+                    </ng-template>
+                </mat-radio-button>
+                <div *ngIf="entityToEdit == 'type'">
+                    <br>
+                    <div class="container-main" [formGroup]="productTypeForm">
+                        <div class="child" formArrayName="productsTypes"
+                            *ngFor="let ctrls of arrayProductType.controls let i = index">
+                            <div [formGroupName]="i">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Segmento</mat-label>
+                                    <input type="text" matInput formControlName="name">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="segment">
+                <!-- <mat-radio-button value="segment">Segmento</mat-radio-button> -->
+                <mat-radio-button value="segment">
+                    <ng-container *ngIf="entityToEdit == 'segment'; else elseSegmentBlock">
+                        <h3>Segmento</h3>
+                    </ng-container>
+                    <ng-template #elseSegmentBlock>
+                        Segmento
+                    </ng-template></mat-radio-button>
+                <div *ngIf="entityToEdit == 'segment'">
 
-        <product-select-field [products-types]="productsTypes$"></product-select-field>
-        <div class="container-main" [formGroup]="productTypeForm">
-            <div class="child" formArrayName="productsTypes" *ngFor="let ctrls of arrayProductType.controls let i = index">
-                <div [formGroupName]="i">
-                  <!-- {{ctrls.control | json}} -->
-                    <mat-form-field appearance="outline">
-                        <mat-label>Segmento</mat-label>
-                        <input type="text" matInput formControlName="name">
-                    </mat-form-field>
+                    <!-- <h3>Segmento</h3> -->
+                    <!--  -->
+                    <product-select-field (outProductSelected)="onSelectedProduct($event)"
+                        [products-types]="productsTypes$"></product-select-field>
+                    <div class="container-main" [formGroup]="formMain">
+                        <div class="child" formArrayName="segments"
+                            *ngFor="let ctrls of segments.controls let i = index">
+                            <div [formGroupName]="i">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Segmento</mat-label>
+                                    <input type="text" matInput formControlName="name">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="manufacturer">
+                <mat-radio-button value="manufacturer">
+                    <ng-container *ngIf="entityToEdit == 'manufacturer'; else elseManufacturerBlock">
+                        <h3>Fabricante</h3>
+                    </ng-container>
+                    <ng-template #elseManufacturerBlock>
+                        Fabricante
+                    </ng-template>
+                </mat-radio-button>
 
+                <div *ngIf="entityToEdit == 'manufacturer'">
+                    <!--  -->
+                    <product-select-field (outProductSelected)="onSelectedProduct($event)"
+                        [products-types]="productsTypes$"></product-select-field>
+                    <segment-select-field (outSegmentSelected)="onSelectedSegment($event)"
+                        [segments]="segments$"></segment-select-field>
+                    <div class="container-main" [formGroup]="segmentForm">
+                        <div class="child" formArrayName="manufacturers"
+                            *ngFor="let ctrls of manufacturers.controls let i = index">
+                            <div [formGroupName]="i">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Fabricante</mat-label>
+                                    <input type="text" matInput formControlName="name">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
-        </div>
-        <edit-checks>
-        </edit-checks>
+            <br>
+            <div class="model">
+                <mat-radio-button value="model">
+                    <ng-container *ngIf="entityToEdit == 'model'; else elseModelBlock">
+                        <h3>Modelo</h3>
+                    </ng-container>
+                    <ng-template #elseModelBlock>
+                        Modelo
+                    </ng-template>
+                </mat-radio-button>
+                <div *ngIf="entityToEdit == 'model'">
+
+                    <product-select-field (outProductSelected)="onSelectedProduct($event)"
+                        [products-types]="productsTypes$"></product-select-field>
+                    <segment-select-field (outSegmentSelected)="onSelectedSegment($event)"
+                        [segments]="segments$"></segment-select-field>
+                    <manufacturer-select-field (outManufacturerSelected)="onSelectedManufacturer($event)"
+                        [manufacturers]="manufacturers$"></manufacturer-select-field>
+                    <div class="container-main" [formGroup]="manufacturerForm">
+                        <div class="child" formArrayName="models" *ngFor="let ctrls of models.controls let i = index">
+                            <div [formGroupName]="i">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Modelo</mat-label>
+                                    <input type="text" matInput formControlName="name">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-radio-group>
+
+
+
+
     </mat-card>
 </div>
-
-
-
-
-
-
-
-
-<!-- <div class="border-around">
-    <title-component [digit]="'|'" [titleString]="'Tipo de produto'" [icon]="'storage'">
-    </title-component>
-    <mat-card class="small-large-screen">
-        <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
-
-        <mat-form-field appearance="outline">
-            <mat-label>Produto</mat-label>
-            <mat-select #productType name="name" (selectionChange)="onSelectedProduct(productType?.value)" [formControl]="productTypeFormControl">
-                <mat-option>
-                    <ngx-mat-select-search (input)="searchProduct()"></ngx-mat-select-search>
-                </mat-option>
-                <mat-option *ngFor="let product of products$ | async" [value]="product">
-                    {{product.name}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Segmento</mat-label>
-            <mat-select  #segment (selectionChange)="onSelectedSegment(segment?.value)" [formControl]="segmentFormControl">
-                <mat-option>
-                    <ngx-mat-select-search (input)="searchSegment()"></ngx-mat-select-search>
-                </mat-option>
-                <mat-option *ngFor="let segment of segments$ | async" [value]="segment.id">
-                    {{segment.name}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Fabricante</mat-label>
-            <mat-select #manufacturer (selectionChange)="onSelectedManufacturer(manufacturer?.value)" [formControl]="manufacturerFormControl">
-                <mat-option>
-                    <ngx-mat-select-search (input)="searchManufacturer()"></ngx-mat-select-search>
-                </mat-option>
-                <mat-option *ngFor="let manufacturer of manufacturers$ | async" [value]="manufacturer.id">
-                    {{manufacturer.name}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Modelo</mat-label>
-            <mat-select #model (selectionChange)="onSelectedModel(model?.value)" [formControl]="modelFormControl">
-                <mat-option>
-                    <ngx-mat-select-search (input)="searchModel()"></ngx-mat-select-search>
-                </mat-option>
-                <mat-option *ngFor="let model of models$ | async" [value]="model.id">
-                    {{model.name}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>Velocidade</mat-label>
-            <input type="text" matInput  [formControl]="speedFormControl">
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-            <mat-label>Capacidade</mat-label>
-            <input type="text" matInput  [formControl]="capacityFormControl">
-        </mat-form-field>
-
-
-        <mat-form-field class="default-field-width" appearance="outline">
-            <mat-label>Descrição</mat-label>
-            <input type="text" matInput [formControl]="descriptionFormControl">
-        </mat-form-field>
-    </mat-card>
-</div> -->

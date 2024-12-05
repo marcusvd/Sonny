@@ -66,7 +66,6 @@ export class ManufacturerSelectComponent extends BaseForm {
     )
   }
 
-
   @Input() set formErrors(value: boolean) {
     if(this.selectFormControl.errors && value)
     this.selectFormControl.markAsTouched();

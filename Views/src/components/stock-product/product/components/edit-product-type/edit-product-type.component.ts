@@ -10,6 +10,7 @@ import { ImportsEditProductType } from './useful/imports-edit-product-type';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { map } from 'rxjs/operators';
+import { MatRadioChange } from '@angular/material/radio';
 
 @Component({
     selector: 'app-edit-product',
@@ -18,46 +19,65 @@ import { map } from 'rxjs/operators';
     styleUrls: ['./edit-product-type.component.css'],
     imports: [ImportsEditProductType],
 })
-export class EditProductComponent extends FormControllerEditProductType implements OnInit, AfterViewInit  {
+export class EditProductComponent extends FormControllerEditProductType implements OnInit, AfterViewInit {
 
     constructor(
         private _productTypeService: ProductTypeService,
         private _fbMain: FormBuilder,
     ) { super(_fbMain) }
     ngAfterViewInit(): void {
-      
+
 
     }
 
 
     ngOnInit(): void {
-        // this.formLoad();
-
-        this.productsTypes$ = this._productTypeService.getAllIncluded$(this.companyId.toString());
+        this.firstCall();
+        this.formLoad();
         this.formLoadProductType();
         this.formLoadProductTypeEdit();
-        // this.formLoadSegment();
-        // this.formLoadManufacturer();
-        // this.formLoadModel();
+        this.formLoadSegment();
+        this.formLoadManufacturer();
         this.productsTypes$.subscribe(x => {
             this.formProductTypePushArray(x)
         })
     }
-    //FormControls
-    productTypeFormControl = new FormControl()
-    segmentFormControl = new FormControl()
-    manufacturerFormControl = new FormControl()
-    modelFormControl = new FormControl()
-    speedFormControl = new FormControl()
-    capacityFormControl = new FormControl()
-    descriptionFormControl = new FormControl()
 
-    shownOnlyProducts: boolean = true;
-    onCheckedEditProduct(check: MatCheckboxChange) {
-        this.shownOnlyProducts = !check.checked;
+    firstCall() {
+        this.productsTypes$ = this._productTypeService.getAllIncluded$(this.companyId.toString());
     }
 
 
+
+    entityToEdit = 'type';
+
+    radioChange = (event: MatRadioChange) => {
+        const value = event.value;
+
+        switch (value) {
+            case 'product-type':
+                this.entityToEdit = "type";
+                this.clearAllArray();
+                this.productsTypes$.subscribe(x => {
+                    this.formProductTypePushArray(x)
+                })
+                break;
+            case 'segment':
+                this.entityToEdit = "segment";
+                break;
+            case 'manufacturer':
+                this.entityToEdit = "manufacturer";
+                break;
+            case 'model':
+                this.entityToEdit = "model";
+                break;
+        }
+
+    }
+
+    onSelectedProductInSegment() {
+
+    }
 
     searchModel() {
 

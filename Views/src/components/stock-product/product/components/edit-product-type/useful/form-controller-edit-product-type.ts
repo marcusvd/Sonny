@@ -1,4 +1,4 @@
-import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatCheckboxChange } from "@angular/material/checkbox";
 import { Observable, of } from "rxjs";
 import { BaseForm } from "src/shared/components/inheritance/forms/base-form";
@@ -28,15 +28,32 @@ export class FormControllerEditProductType extends BaseForm {
   //BOOLEANS
   productformControlReset = false;
 
-
   segmentFormControlReset = false;
 
   manufacturerFormControlReset = false;
 
-
   modelFormControlReset = false;
 
   description = false;
+
+     //FormControls
+     productTypeFormControl = new FormControl()
+     segmentFormControl = new FormControl()
+     manufacturerFormControl = new FormControl()
+     modelFormControl = new FormControl()
+     speedFormControl = new FormControl()
+     capacityFormControl = new FormControl()
+     descriptionFormControl = new FormControl()
+ 
+     //CHECKS
+     valueType="product-type"
+     labelProduct="Tipo de produto";
+     valueSegment="segment"
+     labelSegment="Segmento";
+     valueManufacturer="manufacturer"
+     labelManufacturer="Fabricante";
+     valueModel="model"
+     labelModel="Modelo";
 
 
   //FORMS
@@ -49,6 +66,33 @@ export class FormControllerEditProductType extends BaseForm {
   get models() {
     return this.manufacturerForm.get('models') as FormArray
   }
+
+  get arrayProductType(){
+    return this.productTypeForm.get('productsTypes') as FormArray
+   }
+
+   formProductTypePushArray (x: ProductTypeDto[]) {
+    x.forEach(y => this.arrayProductType.push(this.formLoadProductType(y)))
+    }
+ 
+   formSegmentArray = (segment?: SegmentDto[]) => {
+     segment.forEach(x => this.segments.push(this.formLoadSegment(x)));
+   }
+
+   formManufacturerArray = (manufacturer?: ManufacturerDto[]) => {
+     manufacturer.forEach(x => this.manufacturers.push(this.formLoadManufacturer(x)));
+   }
+
+   formModelArray = (model?: ModelDto[]) => {
+     model.forEach(x => this.models.push(this.formLoadModel(x)));
+   }
+
+   clearAllArray = () => {
+    this.segments.clear();
+    this.manufacturers.clear();
+    this.models.clear();
+    this.arrayProductType.clear();
+   }
 
   addSegment = ()=>{
     this.segments.push(this.formLoadSegment())
@@ -68,15 +112,6 @@ formLoadProductTypeEdit(){
     productsTypes:this._fb.array([])
   })
 }
-
-get arrayProductType(){
- return this.productTypeForm.get('productsTypes') as FormArray
-}
-
-  formProductTypePushArray (x: ProductTypeDto[]) {
-   x.forEach(y => this.arrayProductType.push(this.formLoadProductType(y)))
-
-  }
   
   formLoadProductType(productType?: ProductTypeDto) {
    return this._fb.group({
@@ -87,21 +122,18 @@ get arrayProductType(){
       segments: this._fb.array([], Validators.required)
     })
   }
-  // formLoad(productType?: ProductTypeDto) {
-  //   this.formMain = this._fb.group({
-  //     id: [productType?.id ?? 0, []],
-  //     name: [productType?.name, [Validators.required]],
-  //     companyId: [this.companyId, [Validators.required]],
-  //     userId: [this.userId, [Validators.required]],
-  //     segments: this._fb.array([], Validators.required)
-  //   })
-  // }
-
-
-
-  formSegmentArray = (segment?: SegmentDto[]) => {
-    segment.forEach(x => this.segments.push(this.formLoadSegment(x)));
+  formLoad(productType?: ProductTypeDto) {
+    this.formMain = this._fb.group({
+      id: [productType?.id ?? 0, []],
+      name: [productType?.name, [Validators.required]],
+      companyId: [this.companyId, [Validators.required]],
+      userId: [this.userId, [Validators.required]],
+      segments: this._fb.array([], Validators.required)
+    })
   }
+
+
+
 
   formLoadSegment(segment?: SegmentDto) {
     return this.segmentForm = this._fb.group({
@@ -135,43 +167,35 @@ get arrayProductType(){
     })
   }
 
- 
-
   //SELECT
   onSelectedProduct(productSelected: ProductTypeDto) {
     this.segments$ = of(productSelected.segments);
-    this.segments.clear();
+    this.clearAllArray();
     this.formSegmentArray(productSelected.segments)
-    // this.formMain.get('name').patchValue(productSelected.name);
   }
 
   onSelectedSegment(segmentId: number) {
+    this.clearAllArray();
     this.manufacturers$ = this.segments$.pipe(
       map(x => x.find(segment => segment.id == segmentId).manufacturers)
     )
-    // this.manufacturers$.subscribe(
-    //   x=> console.log(x)
-    // )
-  //  this.formMain.get('segmentId').setValue(segmentId);
-    // this.segments$.subscribe(
-    //   x => {
-    //     const setSegment = x.find(segment => segment.id == segmentId)
-    //     this.segments.push(this.formLoadSegment(setSegment));
-    //   }
-    // )
+    this.manufacturers$.subscribe(
+      x=>this.formManufacturerArray(x)
+    )
   }
 
   onSelectedManufacturer(manufacturerId: number) {
+    this.clearAllArray();
     this.models$ = this.manufacturers$.pipe(
       map(x => x.find(manufacturer => manufacturer.id == manufacturerId).models)
     )
-   // this.formMain.get('manufacturerId').setValue(manufacturerId);
-    // this.manufacturers$.subscribe(
-    //   x => {
-    //     const manufacturer = x.find(manufacturer => manufacturer.id == manufacturerId)
-    //     this.manufacturers.push(this.formLoadManufacturer(manufacturer));
-    //   }
-    // )
+
+    this.models$.subscribe(
+      x=> {
+        this.formModelArray(x)
+      console.log(x)
+      }
+    )
   }
 
   onSelectedModel(modelId: number) {
