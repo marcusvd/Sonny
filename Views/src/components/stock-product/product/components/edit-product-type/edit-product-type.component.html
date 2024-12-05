@@ -1,89 +1,25 @@
-<div class="border-around">
+<div class="border-around" *ngIf="productsTypes$">
     <title-component [digit]="'|'" [titleString]="'Tipo de produto'" [icon]="'storage'">
     </title-component>
     <mat-card class="small-large-screen">
         <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
 
-        <div [formGroup]="formMain">
-            <mat-form-field appearance="outline">
-                <mat-label>Produto</mat-label>
-                <mat-select #productType name="name" (selectionChange)="onSelectedProduct(productType?.value)"
-                    [formControl]="productTypeFormControl">
-                    <mat-option>
-                        <ngx-mat-select-search (input)="searchProduct()"></ngx-mat-select-search>
-                    </mat-option>
-                    <mat-option *ngFor="let product of products$ | async" [value]="product">
-                        {{product.name}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>  
-            <div [formGroup]="formMain">
-                <mat-form-field  appearance="outline">
-                    <mat-label>Produto</mat-label>
-                    <input type="text" matInput  formControlName="name">
-                    <!-- <mat-hint>EX: Placa de rede, Placa mãe, Processador, Memórias etc...</mat-hint> -->
-                    <!-- <mat-error>
-                        <span *ngIf="required">{{'Obrigatório!'}}</span>
-                        <span *ngIf="inUse">{{'Ja existe um produto com esse nome.'}}</span>
-                    </mat-error> -->
-                </mat-form-field>
+        <product-select-field [products-types]="productsTypes$"></product-select-field>
+        <div class="container-main" [formGroup]="productTypeForm">
+            <div class="child" formArrayName="productsTypes" *ngFor="let ctrls of arrayProductType.controls let i = index">
+                <div [formGroupName]="i">
+                  <!-- {{ctrls.control | json}} -->
+                    <mat-form-field appearance="outline">
+                        <mat-label>Segmento</mat-label>
+                        <input type="text" matInput formControlName="name">
+                    </mat-form-field>
+
+                </div>
+
             </div>
-                     
         </div>
-        <div [formGroup]="segmentForm">
-            <mat-form-field appearance="outline">
-                <mat-label>Segmento</mat-label>
-                <mat-select #segment (selectionChange)="onSelectedSegment(segment?.value)">
-                    <mat-option>
-                        <ngx-mat-select-search (input)="searchSegment()"></ngx-mat-select-search>
-                    </mat-option>
-                    <mat-option *ngFor="let segment of segments$ | async" [value]="segment.id">
-                        {{segment.name}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div [formGroup]="manufacturerForm">
-            <mat-form-field appearance="outline">
-                <mat-label>Fabricante</mat-label>
-                <mat-select #manufacturer (selectionChange)="onSelectedManufacturer(manufacturer?.value)">
-                    <mat-option>
-                        <ngx-mat-select-search (input)="searchManufacturer()"></ngx-mat-select-search>
-                    </mat-option>
-                    <mat-option *ngFor="let manufacturer of manufacturers$ | async" [value]="manufacturer.id">
-                        {{manufacturer.name}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div [formGroup]="modelForm">
-            <mat-form-field appearance="outline">
-                <mat-label>Modelo</mat-label>
-                <mat-select #model (selectionChange)="onSelectedModel(model?.value)">
-                    <mat-option>
-                        <ngx-mat-select-search (input)="searchModel()"></ngx-mat-select-search>
-                    </mat-option>
-                    <mat-option *ngFor="let model of models$ | async" [value]="model.id">
-                        {{model.name}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <mat-form-field appearance="outline">
-            <mat-label>Velocidade</mat-label>
-            <input type="text" matInput [formControl]="speedFormControl">
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-            <mat-label>Capacidade</mat-label>
-            <input type="text" matInput [formControl]="capacityFormControl">
-        </mat-form-field>
-
-
-        <mat-form-field class="default-field-width" appearance="outline">
-            <mat-label>Descrição</mat-label>
-            <input type="text" matInput [formControl]="descriptionFormControl">
-        </mat-form-field>
+        <edit-checks>
+        </edit-checks>
     </mat-card>
 </div>
 

@@ -1,0 +1,20 @@
+ .container-main {
+     display: flex;
+     gap: 15px;
+     flex-wrap: wrap;
+ }
+
+ mat-form-field {
+     width: 100%;
+ }
+
+ .child {
+    display: flex;
+    flex-direction: column;
+    flex:1;
+    width: 100%;
+ }
+ 
+ .btn-add-segment-div{
+    display: flex;
+ }

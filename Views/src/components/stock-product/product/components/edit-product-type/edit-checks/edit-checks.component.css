@@ -1,0 +1,6 @@
+@media(min-width:640px){
+    .container{
+        display: flex;
+        gap: 50px;
+    }
+}
