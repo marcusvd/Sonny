@@ -64,12 +64,18 @@ export class EditProductComponent extends FormControllerEditProductType implemen
                 break;
             case 'segment':
                 this.entityToEdit = "segment";
+                this.clearAllArray();
+                this.segments$ = null;
                 break;
             case 'manufacturer':
                 this.entityToEdit = "manufacturer";
+                this.clearAllArray();
+                this.manufacturers$ = null;
                 break;
             case 'model':
                 this.entityToEdit = "model";
+                this.clearAllArray();
+                this.models$ = null;
                 break;
         }
 

@@ -94,12 +94,29 @@ export class FormControllerEditProductType extends BaseForm {
     this.arrayProductType.clear();
    }
 
-  addSegment = ()=>{
-    this.segments.push(this.formLoadSegment())
+  addAddItemArray = (arrayEntity:string)=>{
+      if(arrayEntity ==  'segment')
+        this.segments.push(this.formLoadSegment()) 
+        
+      if(arrayEntity ==  'manufacturer')
+        this.manufacturers.push(this.formLoadManufacturer()) 
+        
+      if(arrayEntity ==  'model')
+        this.models.push(this.formLoadModel()) 
   } 
 
-  removeSegment = (index:number)=>{
-    this.segments.removeAt(index);
+   removeItemArray = (arrayEntity:string, index:number)=>{
+      if(arrayEntity ==  'type')
+        this.arrayProductType.removeAt(index);
+
+      if(arrayEntity ==  'segment')
+        this.segments.removeAt(index);
+        
+      if(arrayEntity ==  'manufacturer')
+        this.manufacturers.removeAt(index);
+        
+      if(arrayEntity ==  'model')
+        this.models.removeAt(index);
   } 
 
   productTypeForm: FormGroup;

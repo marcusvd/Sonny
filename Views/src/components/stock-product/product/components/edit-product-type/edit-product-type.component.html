@@ -15,16 +15,29 @@
                         Tipo de produto
                     </ng-template>
                 </mat-radio-button>
+                <h3 *ngIf="arrayProductType.length > 0" class="title-editable">Campos editáveis:</h3>
+                <mat-divider *ngIf="arrayProductType.length > 0"></mat-divider>
+               
+                <br>
                 <div *ngIf="entityToEdit == 'type'">
                     <br>
                     <div class="container-main" [formGroup]="productTypeForm">
                         <div class="child" formArrayName="productsTypes"
                             *ngFor="let ctrls of arrayProductType.controls let i = index">
+                            <div class="index">{{i+1}}</div>
                             <div [formGroupName]="i">
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Segmento</mat-label>
-                                    <input type="text" matInput formControlName="name">
-                                </mat-form-field>
+                                <div class="around-field-and-button">
+                                    <div class="around-field">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Segmento</mat-label>
+                                            <input type="text" matInput formControlName="name">
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <button mat-icon-button
+                                            (click)="removeItemArray('type', i)"><mat-icon>clear</mat-icon></button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -41,19 +54,36 @@
                         Segmento
                     </ng-template></mat-radio-button>
                 <div *ngIf="entityToEdit == 'segment'">
-
-                    <!-- <h3>Segmento</h3> -->
-                    <!--  -->
-                    <product-select-field (outProductSelected)="onSelectedProduct($event)"
-                        [products-types]="productsTypes$"></product-select-field>
+                    <div class="border-aroud-child">
+                        <product-select-field (outProductSelected)="onSelectedProduct($event)"
+                            [products-types]="productsTypes$"></product-select-field>
+                    </div>
+                    <h3 *ngIf="segments$" class="title-editable">Campos editáveis:</h3>
+                    <mat-divider *ngIf="segments$"></mat-divider>
+                    <br>
+                    <btn-g btn-1 *ngIf="segments$" [name]="'Adicionar'" [icon]="'add'" (btn)="addAddItemArray('segment')"></btn-g>
+                    <br>
+                    <br>
                     <div class="container-main" [formGroup]="formMain">
                         <div class="child" formArrayName="segments"
                             *ngFor="let ctrls of segments.controls let i = index">
-                            <div [formGroupName]="i">
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Segmento</mat-label>
-                                    <input type="text" matInput formControlName="name">
-                                </mat-form-field>
+                            <div class="index">{{i+1}}</div>
+                            <div>
+                                <div [formGroupName]="i">
+                                    <div class="around-field-and-button">
+
+                                        <div class="around-field">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Segmento</mat-label>
+                                                <input type="text" matInput formControlName="name">
+                                            </mat-form-field>
+                                        </div>
+                                        <div>
+                                            <button mat-icon-button
+                                                (click)="removeItemArray('segment',i)"><mat-icon>clear</mat-icon></button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -71,19 +101,32 @@
                 </mat-radio-button>
 
                 <div *ngIf="entityToEdit == 'manufacturer'">
-                    <!--  -->
-                    <product-select-field (outProductSelected)="onSelectedProduct($event)"
-                        [products-types]="productsTypes$"></product-select-field>
-                    <segment-select-field (outSegmentSelected)="onSelectedSegment($event)"
-                        [segments]="segments$"></segment-select-field>
+                    <div class="border-aroud-child">
+                        <product-select-field (outProductSelected)="onSelectedProduct($event)"
+                            [products-types]="productsTypes$"></product-select-field>
+                        <segment-select-field (outSegmentSelected)="onSelectedSegment($event)" [segments]="segments$">
+                        </segment-select-field>
+                    </div>
+                    <h3 *ngIf="manufacturers$" class="title-editable">Campos editáveis:</h3>
+                    <mat-divider *ngIf="manufacturers$"></mat-divider>
+                    <br>
                     <div class="container-main" [formGroup]="segmentForm">
                         <div class="child" formArrayName="manufacturers"
                             *ngFor="let ctrls of manufacturers.controls let i = index">
+                            <div class="index">{{i+1}}</div>
                             <div [formGroupName]="i">
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Fabricante</mat-label>
-                                    <input type="text" matInput formControlName="name">
-                                </mat-form-field>
+                                <div class="around-field-and-button">
+                                    <div class="around-field">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Fabricante</mat-label>
+                                            <input type="text" matInput formControlName="name">
+                                        </mat-form-field>
+                                    </div>
+                                    <div>
+                                        <button mat-icon-button
+                                            (click)="removeItemArray('manufacturer',i)"><mat-icon>clear</mat-icon></button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -102,20 +145,62 @@
                 </mat-radio-button>
                 <div *ngIf="entityToEdit == 'model'">
 
-                    <product-select-field (outProductSelected)="onSelectedProduct($event)"
-                        [products-types]="productsTypes$"></product-select-field>
-                    <segment-select-field (outSegmentSelected)="onSelectedSegment($event)"
-                        [segments]="segments$"></segment-select-field>
-                    <manufacturer-select-field (outManufacturerSelected)="onSelectedManufacturer($event)"
-                        [manufacturers]="manufacturers$"></manufacturer-select-field>
+                    <div class="border-aroud-child">
+                        <product-select-field (outProductSelected)="onSelectedProduct($event)"
+                            [products-types]="productsTypes$"></product-select-field>
+                        <segment-select-field (outSegmentSelected)="onSelectedSegment($event)"
+                            [segments]="segments$"></segment-select-field>
+                        <manufacturer-select-field (outManufacturerSelected)="onSelectedManufacturer($event)"
+                            [manufacturers]="manufacturers$"></manufacturer-select-field>
+                    </div>
+                    <h3 *ngIf="models$" class="title-editable">Campos editáveis:</h3>
+                    <mat-divider *ngIf="models$"></mat-divider>
+                    <br>
                     <div class="container-main" [formGroup]="manufacturerForm">
                         <div class="child" formArrayName="models" *ngFor="let ctrls of models.controls let i = index">
-                            <div [formGroupName]="i">
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Modelo</mat-label>
-                                    <input type="text" matInput formControlName="name">
-                                </mat-form-field>
+                            <div class="index">{{i+1}}</div>
+                            <div class="around-field-and-button">
+                                <div class="around-field">
+                                    <div [formGroupName]="i">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Modelo</mat-label>
+                                            <input type="text" matInput formControlName="name">
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Velocidade</mat-label>
+                                            <input type="text" matInput [placeholder]="placeholderProductType"
+                                                formControlName="speed">
+                                            <!-- <mat-error>
+                                                <span>{{validatorMessages.required(formMain, 'name', 'Fabricante')}}</span>
+                                            </mat-error> -->
+                                        </mat-form-field>
+        
+        
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Capacidade</mat-label>
+                                            <input type="text" matInput [placeholder]="placeholderProductType"
+                                                formControlName="capacity">
+                                            <!-- <mat-error>
+                                                <span>{{validatorMessages.required(formMain, 'name', 'Fabricante')}}</span>
+                                            </mat-error> -->
+                                        </mat-form-field>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Descrição</mat-label>
+        
+                                            <input type="text" matInput [placeholder]="placeholderProductType"
+                                                formControlName="description">
+                                            <!-- <mat-error>
+                                            <span>{{validatorMessages.required(formMain, 'name', 'Descrição')}}</span>
+                                        </mat-error> -->
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div>
+                                    <button mat-icon-button
+                                        (click)="removeItemArray('model',i)"><mat-icon>clear</mat-icon></button>
+                                </div>
                             </div>
+                       
                         </div>
                     </div>
                 </div>

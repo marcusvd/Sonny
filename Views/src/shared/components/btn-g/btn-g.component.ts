@@ -19,7 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
               border-left: 0.5px solid silver;
             }
 
-            #space-items-left-vertical-line{
+            .space-items-left-vertical-line{
               margin-right:10px;
             }
 
@@ -31,7 +31,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class BtnGComponent {
 
   @Output() btn = new EventEmitter<void>();
-  @Input() name: string = 'Adicionar';
+  @Input() name: string = '';
   @Input() icon: string = 'add';
   @Input() noIconSimpleBtn: boolean = false;
   @Input() enableDisable: boolean = false;
