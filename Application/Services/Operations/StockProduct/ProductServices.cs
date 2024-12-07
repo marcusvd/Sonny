@@ -8,6 +8,7 @@ using Application.Services.Operations.StockProduct.Dtos.Mappers;
 
 using UnitOfWork.Persistence.Operations;
 using Application.Services.Operations.StockProduct.ProductKind;
+using System.Linq;
 
 namespace Application.Services.Operations.StockProduct
 {
@@ -43,14 +44,15 @@ namespace Application.Services.Operations.StockProduct
         }
         public async Task<List<ProductTypeDto>> GetProductTypesIncludedAsync(int companyId)
         {
+
             var fromDb = await _GENERIC_REPO
                 .ProductTypes.Get(
-                    predicate => predicate.CompanyId == companyId,
+                    predicate => predicate.CompanyId == companyId && predicate.Deleted == DateTime.MinValue,
                     toInclude =>
                         toInclude
-                            .Include(x => x.Segments)
-                            .ThenInclude(x => x.Manufacturers)
-                            .ThenInclude(x => x.Models),
+                            .Include(x => x.Segments.Where(x => x.Deleted == DateTime.MinValue))
+                            .ThenInclude(x => x.Manufacturers.Where(x => x.Deleted == DateTime.MinValue))
+                            .ThenInclude(x => x.Models.Where(x => x.Deleted == DateTime.MinValue)),
                     selector => selector
                 )
                 .ToListAsync();
@@ -81,7 +83,65 @@ namespace Application.Services.Operations.StockProduct
 
             var entityToDb = _IStockProductObjectMapperServices.ProductTypeMapper(dtoView);
 
+            // entityToDb.Segments.ForEach(x =>
+            // {
+            //     if (x.Deleted != DateTime.MinValue)
+            //     {
+            //         x.Deleted = DateTime.Now;
+
+            //         x.Segments.ForEach(y =>
+            //         {
+            //             y.Deleted = DateTime.Now;
+
+            //             y.Manufacturers.ForEach(xy =>
+            //             {
+            //                 xy.Deleted = DateTime.Now;
+
+            //                 xy.Models.ForEach(mxy => mxy.Deleted = DateTime.Now);
+            //             });
+            //         });
+            //     }
+
+            // });
+
             _GENERIC_REPO.ProductTypes.Update(entityToDb);
+
+            if (await _GENERIC_REPO.save())
+                return HttpStatusCode.Created;
+
+            throw new GlobalServicesException(GlobalErrorsMessagesException.UnknownError);
+        }
+        public async Task<HttpStatusCode> UpdateProductTypeRangeAsync(List<ProductTypeDto> dtoView)
+        {
+            if (dtoView == null)
+                throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            var fromView = dtoView;
+
+            fromView.ForEach(x =>
+            {
+                if (x.Deleted != DateTime.MinValue)
+                {
+                    x.Deleted = DateTime.Now;
+
+                    x.Segments.ForEach(y =>
+                    {
+                        y.Deleted = DateTime.Now;
+
+                        y.Manufacturers.ForEach(xy =>
+                        {
+                            xy.Deleted = DateTime.Now;
+
+                            xy.Models.ForEach(mxy => mxy.Deleted = DateTime.Now);
+                        });
+                    });
+                }
+
+            });
+
+            var entityToDb = _IStockProductObjectMapperServices.ProductTypeListMake(fromView);
+
+            _GENERIC_REPO.ProductTypes.UpdateRange(entityToDb);
 
             if (await _GENERIC_REPO.save())
                 return HttpStatusCode.Created;
@@ -93,7 +153,8 @@ namespace Application.Services.Operations.StockProduct
         {
             var fromDb = await _GENERIC_REPO.ProductTypes.Get(
                 predicate =>
-                 predicate.CompanyId == companyId,
+                 predicate.CompanyId == companyId &&
+                 predicate.Deleted == DateTime.MinValue,
                  null, selector => selector).ToListAsync();
 
             if (fromDb == null)

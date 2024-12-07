@@ -11,7 +11,7 @@ const route: Routes = [
 
   {
     path: '', component: StockProductRouterComponent, children: [
-      // { path: 'add-product-type', component: AddProductTypeComponent},
+     { path: 'add-product-type', component: AddProductTypeComponent},
       //  { path: 'add-update-product', component: AddUpdateProductComponent},
        { path: 'add-item-product', component: EditProductComponent},
       //  { path: 'add-item-product', component: AddProductTypeComponent},

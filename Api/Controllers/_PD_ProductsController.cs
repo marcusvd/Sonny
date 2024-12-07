@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using Application.Services.Operations.StockProduct;
 using Application.Services.Operations.StockProduct.ProductKind;
+using System.Collections.Generic;
 
 namespace Api.Controllers
 {
@@ -39,6 +40,13 @@ namespace Api.Controllers
         public async Task<IActionResult> UpdateProductTypeAsync([FromBody] ProductTypeDto entityDto, int id)
         {
             var resultToView = await _IProductServices.UpdateProductTypeAsync(entityDto, id);
+            return Ok(resultToView);
+        }
+
+        [HttpPut("UpdateProductTypeRangeAsync")]
+        public async Task<IActionResult> UpdateProductTypeRangeAsync([FromBody] List<ProductTypeDto> entityDto)
+        {
+            var resultToView = await _IProductServices.UpdateProductTypeRangeAsync(entityDto);
             return Ok(resultToView);
         }
 

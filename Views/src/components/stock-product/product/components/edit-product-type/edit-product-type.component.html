@@ -15,17 +15,20 @@
                         Tipo de produto
                     </ng-template>
                 </mat-radio-button>
-                <h3 *ngIf="arrayProductType.length > 0" class="title-editable">Campos editáveis:</h3>
-                <mat-divider *ngIf="arrayProductType.length > 0"></mat-divider>
-               
+                <h3 *ngIf="productsTypes.length > 0" class="title-editable">Campos editáveis:</h3>
+                <mat-divider *ngIf="productsTypes.length > 0"></mat-divider>
                 <br>
+                <btn-g btn-1 *ngIf="entityToEdit == 'type'" [name]="'Adicionar'" [icon]="'add'"
+                    (btn)="addAddItemArray('type')"></btn-g>
+                <br *ngIf="entityToEdit == 'type'">
+
                 <div *ngIf="entityToEdit == 'type'">
                     <br>
                     <div class="container-main" [formGroup]="productTypeForm">
                         <div class="child" formArrayName="productsTypes"
-                            *ngFor="let ctrls of arrayProductType.controls let i = index">
-                            <div class="index">{{i+1}}</div>
-                            <div [formGroupName]="i">
+                            *ngFor="let ctrls of productsTypes.controls let i = index">
+                            <div class="index" *ngIf="!isDeleted(ctrls.get('deleted').value)">{{i+1}}</div>
+                            <div [formGroupName]="i" *ngIf="!isDeleted(ctrls.get('deleted').value)">
                                 <div class="around-field-and-button">
                                     <div class="around-field">
                                         <mat-form-field appearance="outline">
@@ -35,14 +38,19 @@
                                     </div>
                                     <div>
                                         <button mat-icon-button
-                                            (click)="removeItemArray('type', i)"><mat-icon>clear</mat-icon></button>
+                                            (click)="removeItemArray('type', i, productsTypes)"><mat-icon>clear</mat-icon></button>
                                     </div>
                                 </div>
                             </div>
+
+
                         </div>
                     </div>
                 </div>
             </div>
+            <br>
+            <btn-g *ngIf="productsTypes.length > 0" [name]="'Salvar'" [icon]="'save'" (btn)="save(productsTypes)"></btn-g>
+            <br>
             <br>
             <div class="segment">
                 <!-- <mat-radio-button value="segment">Segmento</mat-radio-button> -->
@@ -61,7 +69,8 @@
                     <h3 *ngIf="segments$" class="title-editable">Campos editáveis:</h3>
                     <mat-divider *ngIf="segments$"></mat-divider>
                     <br>
-                    <btn-g btn-1 *ngIf="segments$" [name]="'Adicionar'" [icon]="'add'" (btn)="addAddItemArray('segment')"></btn-g>
+                    <btn-g btn-1 *ngIf="segments$" [name]="'Adicionar'" [icon]="'add'"
+                        (btn)="addAddItemArray('segment')"></btn-g>
                     <br>
                     <br>
                     <div class="container-main" [formGroup]="formMain">
@@ -80,7 +89,7 @@
                                         </div>
                                         <div>
                                             <button mat-icon-button
-                                                (click)="removeItemArray('segment',i)"><mat-icon>clear</mat-icon></button>
+                                                (click)="removeItemArray('segment',i, segments)"><mat-icon>clear</mat-icon></button>
                                         </div>
                                     </div>
                                 </div>
@@ -90,6 +99,10 @@
                 </div>
             </div>
             <br>
+            <btn-g *ngIf="entityToEdit == 'segment' && productsTypes$" [name]="'Salvar'" [icon]="'save'" (btn)="saveSingle()"></btn-g>
+            <br>
+            <br>
+            {{this.formMain.value | json}}
             <div class="manufacturer">
                 <mat-radio-button value="manufacturer">
                     <ng-container *ngIf="entityToEdit == 'manufacturer'; else elseManufacturerBlock">
@@ -105,10 +118,15 @@
                         <product-select-field (outProductSelected)="onSelectedProduct($event)"
                             [products-types]="productsTypes$"></product-select-field>
                         <segment-select-field (outSegmentSelected)="onSelectedSegment($event)" [segments]="segments$">
+                        
                         </segment-select-field>
                     </div>
                     <h3 *ngIf="manufacturers$" class="title-editable">Campos editáveis:</h3>
                     <mat-divider *ngIf="manufacturers$"></mat-divider>
+                    <br>
+                    <btn-g btn-1 *ngIf="manufacturers$" [name]="'Adicionar'" [icon]="'add'"
+                        (btn)="addAddItemArray('manufacturer')"></btn-g>
+                    <br>
                     <br>
                     <div class="container-main" [formGroup]="segmentForm">
                         <div class="child" formArrayName="manufacturers"
@@ -124,7 +142,7 @@
                                     </div>
                                     <div>
                                         <button mat-icon-button
-                                            (click)="removeItemArray('manufacturer',i)"><mat-icon>clear</mat-icon></button>
+                                            (click)="removeItemArray('manufacturer',i, manufacturers)"><mat-icon>clear</mat-icon></button>
                                     </div>
                                 </div>
                             </div>
@@ -156,6 +174,10 @@
                     <h3 *ngIf="models$" class="title-editable">Campos editáveis:</h3>
                     <mat-divider *ngIf="models$"></mat-divider>
                     <br>
+                    <btn-g btn-1 *ngIf="models$" [name]="'Adicionar'" [icon]="'add'"
+                        (btn)="addAddItemArray('model')"></btn-g>
+                    <br>
+                    <br>
                     <div class="container-main" [formGroup]="manufacturerForm">
                         <div class="child" formArrayName="models" *ngFor="let ctrls of models.controls let i = index">
                             <div class="index">{{i+1}}</div>
@@ -174,8 +196,7 @@
                                                 <span>{{validatorMessages.required(formMain, 'name', 'Fabricante')}}</span>
                                             </mat-error> -->
                                         </mat-form-field>
-        
-        
+
                                         <mat-form-field appearance="outline">
                                             <mat-label>Capacidade</mat-label>
                                             <input type="text" matInput [placeholder]="placeholderProductType"
@@ -186,7 +207,7 @@
                                         </mat-form-field>
                                         <mat-form-field appearance="outline">
                                             <mat-label>Descrição</mat-label>
-        
+
                                             <input type="text" matInput [placeholder]="placeholderProductType"
                                                 formControlName="description">
                                             <!-- <mat-error>
@@ -197,10 +218,10 @@
                                 </div>
                                 <div>
                                     <button mat-icon-button
-                                        (click)="removeItemArray('model',i)"><mat-icon>clear</mat-icon></button>
+                                        (click)="removeItemArray('model',i,models)"><mat-icon>clear</mat-icon></button>
                                 </div>
                             </div>
-                       
+
                         </div>
                     </div>
                 </div>
@@ -208,7 +229,7 @@
         </mat-radio-group>
 
 
-
+        <!-- {{productsTypes.value | json}} -->
 
     </mat-card>
 </div>

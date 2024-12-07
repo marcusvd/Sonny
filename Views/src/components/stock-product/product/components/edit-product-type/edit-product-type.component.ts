@@ -1,16 +1,10 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ManufacturerDto } from '../../dtos/manufacturer-dto';
-import { ModelDto } from '../../dtos/model-dto';
-import { SegmentDto } from '../../dtos/segment-dto';
-import { ProductTypeDto } from '../../dtos/product-type-dto';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { MatRadioChange } from '@angular/material/radio';
+import { Router } from '@angular/router';
 import { ProductTypeService } from '../../services/product-type.service';
 import { FormControllerEditProductType } from './useful/form-controller-edit-product-type';
 import { ImportsEditProductType } from './useful/imports-edit-product-type';
-import { FormBuilder, FormControl } from '@angular/forms';
-import { MatCheckboxChange } from '@angular/material/checkbox';
-import { map } from 'rxjs/operators';
-import { MatRadioChange } from '@angular/material/radio';
 
 @Component({
     selector: 'app-edit-product',
@@ -24,7 +18,8 @@ export class EditProductComponent extends FormControllerEditProductType implemen
     constructor(
         private _productTypeService: ProductTypeService,
         private _fbMain: FormBuilder,
-    ) { super(_fbMain) }
+        override _router: Router
+    ) { super(_fbMain, _router) }
     ngAfterViewInit(): void {
 
 
@@ -101,7 +96,38 @@ export class EditProductComponent extends FormControllerEditProductType implemen
 
     }
 
+    save(formArray: FormArray) {
+        let ok: boolean[] = [];
+        let save: boolean = true;
 
+        formArray.controls.forEach((value, i) => {
+            ok.push(this.alertSave(value as FormGroup));
+        })
+
+
+
+        ok.forEach(x => {
+            if (!x) {
+                save = false
+            }
+        })
+
+        if (save) 
+            this._productTypeService.saveRangeTypes(formArray);
+        else
+            console.log('no save')
+
+
+    }
+    saveSingle() {
+     
+        if (this.alertSave(this.formMain)) 
+            this._productTypeService.updateSingle(this.formMain);
+        else
+            console.log('no save')
+
+
+    }
 
 
 }

@@ -10,6 +10,7 @@ namespace Application.Services.Operations.StockProduct
         Task<HttpStatusCode> AddProductTypeAsync(ProductTypeDto dtoView);
         Task<List<ProductTypeDto>> GetProductTypesIncludedAsync(int companyId);
         Task<HttpStatusCode> UpdateProductTypeAsync(ProductTypeDto dtoView, int id);
+        Task<HttpStatusCode> UpdateProductTypeRangeAsync(List<ProductTypeDto> dtoView);
         Task<List<ProductTypeDto>> GetProductTypesAsync(int companyId);
         Task<List<SegmentDto>> GetSegmentsAsync(int companyId);
         Task<List<ManufacturerDto>> GetManufacturersAsync(int companyId);
