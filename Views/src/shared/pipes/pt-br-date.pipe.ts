@@ -8,7 +8,8 @@ import * as moment from "moment";
 export class PtBrDatePipe implements PipeTransform {
   transform(value: any, ...args: any[]) {
     const formattedDate = moment(value).format('DD/MM/YYYY');
-   const minValue = new Date('0001-01-01T00:00:00');
+  //  const minValue = new Date('0001-01-01T00:00:00');
+   const minValue = new Date('0001-01-01T00:00:00.000Z');;
     switch (args[0]) {
       case 'Date':
         return formattedDate;

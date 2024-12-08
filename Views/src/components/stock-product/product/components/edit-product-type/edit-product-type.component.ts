@@ -96,6 +96,30 @@ export class EditProductComponent extends FormControllerEditProductType implemen
 
     }
 
+    // saveSegments(formArray: FormArray) {
+    //     let ok: boolean[] = [];
+    //     let save: boolean = true;
+
+    //     formArray.controls.forEach((value, i) => {
+    //         ok.push(this.alertSave(value as FormGroup));
+    //     })
+
+
+
+    //     ok.forEach(x => {
+    //         if (!x) {
+    //             save = false
+    //         }
+    //     })
+
+    //     if (save)
+    //         this._productTypeService.saveRangeSegments(formArray);
+    //     else
+    //         console.log('no save')
+
+
+    // }
+
     save(formArray: FormArray) {
         let ok: boolean[] = [];
         let save: boolean = true;
@@ -112,7 +136,7 @@ export class EditProductComponent extends FormControllerEditProductType implemen
             }
         })
 
-        if (save) 
+        if (save)
             this._productTypeService.saveRangeTypes(formArray);
         else
             console.log('no save')
@@ -120,8 +144,8 @@ export class EditProductComponent extends FormControllerEditProductType implemen
 
     }
     saveSingle() {
-     
-        if (this.alertSave(this.formMain)) 
+
+        if (this.alertSave(this.formMain))
             this._productTypeService.updateSingle(this.formMain);
         else
             console.log('no save')

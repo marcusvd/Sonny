@@ -46,18 +46,19 @@ export class GridListCommonTableComponent implements OnInit, OnChanges {
   }
 
   spinerNoRegisterClean = true;
-  minValue = new Date('0001-01-01T00:00:00');
+  // minValue = new Date('0001-01-01T00:00:00');
+  minValue = new Date('0001-01-01T00:00:00.000Z');
 
   @Input() headers: string[] = [];
   @Input() fieldsInEnglish: string[] = [];
   @Input() entities$: Observable<any[]>;
   @Input() matIcons: [key: string] = null;
   private toolTipsMessages = ToolTips;
-  
+
   @Input() customerList: boolean = false;
   @Input() statusShow: boolean = false;
   @Output() toPayOut: EventEmitter<{}> = new EventEmitter();
-  
+
   status: boolean = false;
   compareDateWasPaidButton(value: string) {
     this.status = FinancialStaticBusinessRule.compareDateWasPaidGridButton(value)

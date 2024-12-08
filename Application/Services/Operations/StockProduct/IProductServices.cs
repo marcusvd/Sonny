@@ -12,13 +12,9 @@ namespace Application.Services.Operations.StockProduct
         Task<HttpStatusCode> UpdateProductTypeAsync(ProductTypeDto dtoView, int id);
         Task<HttpStatusCode> UpdateProductTypeRangeAsync(List<ProductTypeDto> dtoView);
         Task<List<ProductTypeDto>> GetProductTypesAsync(int companyId);
-        Task<List<SegmentDto>> GetSegmentsAsync(int companyId);
-        Task<List<ManufacturerDto>> GetManufacturersAsync(int companyId);
-        Task<List<ModelDto>> GetModelsAsync(int companyId);
-
-
-        Task<HttpStatusCode> UpdatePartial(ProductDto dtoView, int productId);
-        Task<HttpStatusCode> AddStock(ProductDto dtoView);
-        Task<List<ProductDto>> GetAllStockByCompanyIdAsync(int companyId);
+       
+        // Task<HttpStatusCode> UpdatePartial(ProductDto dtoView, int productId);
+        // Task<HttpStatusCode> AddStock(ProductDto dtoView);
+        // Task<List<ProductDto>> GetAllStockByCompanyIdAsync(int companyId);
     }
 }

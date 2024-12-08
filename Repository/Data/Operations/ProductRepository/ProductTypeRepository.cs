@@ -15,7 +15,7 @@ namespace Repository.Data.Operations.ProductRepository
             _CONTEXT = CONTEXT;
         }
 
-           public void UpdateRange(List<ProductType> entities)
+        public void UpdateRange(List<ProductType> entities)
         {
             _CONTEXT.PD_ProductTypes.UpdateRange(entities);
         }

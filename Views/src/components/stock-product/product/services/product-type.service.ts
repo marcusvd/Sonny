@@ -3,15 +3,15 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
 
+import { FormArray, FormGroup } from "@angular/forms";
+import { Router } from "@angular/router";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { Router } from "@angular/router";
-import { FormArray, FormGroup } from "@angular/forms";
-import { ProductTypeDto } from "../dtos/product-type-dto";
-import { SegmentDto } from "../dtos/segment-dto";
 import { ManufacturerDto } from "../dtos/manufacturer-dto";
 import { ModelDto } from "../dtos/model-dto";
+import { ProductTypeDto } from "../dtos/product-type-dto";
+import { SegmentDto } from "../dtos/segment-dto";
 
 
 @Injectable({ providedIn: 'root' })
@@ -23,17 +23,18 @@ export class ProductTypeService extends BackEndService<ProductTypeDto> {
     private _route: Router,
   ) {
     super(_Http,
-      environment._STOCK_PRODUCTS,
+      environment._BACK_END_ROOT_URL,
+      // environment._STOCK_PRODUCTS,
     );
 
   }
 
   getAllIncluded$(id: string): Observable<ProductTypeDto[]> {
-    return this.loadById$<ProductTypeDto[]>('GetProductTypesIncludedAsync', id);
+    return this.loadById$<ProductTypeDto[]>('_PD_Products/GetProductTypesIncludedAsync', id);
   }
 
   getProductTypes$(id: string): Observable<ProductTypeDto[]> {
-    return this.loadById$<ProductTypeDto[]>('GetproducttypesAsync', id);
+    return this.loadById$<ProductTypeDto[]>('_PD_Products/GetproducttypesAsync', id);
   }
 
   getSegments$(id: string): Observable<SegmentDto[]> {
@@ -54,7 +55,7 @@ export class ProductTypeService extends BackEndService<ProductTypeDto> {
 
     const toSave: ProductTypeDto = { ...formMain.value }
 
-    this.add$<ProductTypeDto>(toSave, 'AddProductTypeAsync').subscribe({
+    this.add$<ProductTypeDto>(toSave, '_PD_Products/AddProductTypeAsync').subscribe({
       next: () => {
 
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
@@ -100,7 +101,7 @@ export class ProductTypeService extends BackEndService<ProductTypeDto> {
 
   updateSingle(form: FormGroup) {
     const toSave:ProductTypeDto = { ...form.value }
-    this.update$<ProductTypeDto>('UpdateProductTypeAsync',toSave).subscribe({
+    this.update$<ProductTypeDto>('_PD_Products/UpdateProductTypeAsync',toSave).subscribe({
       next: () => {
         console.log('deu bom')
       }
@@ -108,10 +109,20 @@ export class ProductTypeService extends BackEndService<ProductTypeDto> {
     })
   }
 
+  saveRangeSegments(formArray: FormArray) {
+    const toUpdate = formArray.value;
+    const toSave: ProductTypeDto[] = [...toUpdate];
+    this.updateRange$<ProductTypeDto>(toSave, '_PD_ProductChildren/UpdateSegmentRangeAsync').subscribe({
+      next: () => {
+        console.log('deu bom')
+      }
+
+    })
+  }
   saveRangeTypes(formArray: FormArray) {
     const toUpdate = formArray.value;
     const toSave: ProductTypeDto[] = [...toUpdate];
-    this.updateRange$<ProductTypeDto>(toSave, 'UpdateProductTypeRangeAsync').subscribe({
+    this.updateRange$<ProductTypeDto>(toSave, '_PD_Products/UpdateProductTypeRangeAsync').subscribe({
       next: () => {
         console.log('deu bom')
       }

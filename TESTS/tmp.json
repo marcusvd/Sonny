@@ -3,43 +3,43 @@
     "name": "Placa de rede",
     "companyId": 1,
     "userId": 1,
-    "segments": [
-        {
+    "segments": [{
             "id": 1,
             "name": "Desktop",
             "companyId": 1,
             "productId": 1,
-            "manufacturers": [
-                {
-                    "name": "Realtek",
-                    "segmentId": 1,
-                    "segment": null,
-                    "models": [
-                        {
-                            "name": "8139C",
-                            "capacity": "",
-                            "speed": "10/100",
-                            "description": "das antiga",
-                            "manufacturerId": 1,
-                            "manufacturer": null,
-                            "products": null,
-                            "id": 1,
-                            "userId": 0,
-                            "user": null,
-                            "companyId": 1,
-                            "company": null,
-                            "deleted": "0001-01-01T00:00:00",
-                            "registered": "0001-01-01T00:00:00"
-                        }
-                    ],
-                    "products": null,
+            "manufacturers": [],
+            "deleted": "0001-01-01T00:00:00"
+        },
+        {
+            "id": 4,
+            "name": "Servidor",
+            "companyId": 1,
+            "productId": 1,
+            "manufacturers": [{
                     "id": 1,
-                    "userId": 0,
-                    "user": null,
+                    "name": "Realtek",
                     "companyId": 1,
-                    "company": null,
-                    "deleted": "0001-01-01T00:00:00",
-                    "registered": "0001-01-01T00:00:00"
+                    "segmentId": 1,
+                    "models": [],
+                    "deleted": "0001-01-01T00:00:00"
+                },
+                {
+                    "id": 1,
+                    "name": "Realtek",
+                    "companyId": 1,
+                    "segmentId": 1,
+                    "models": [{
+                        "id": 1,
+                        "companyId": 1,
+                        "name": "RTL8139C",
+                        "speed": "10/100",
+                        "capacity": "",
+                        "manufacturerId": 1,
+                        "description": "Das antiga",
+                        "deleted": "0001-01-01T00:00:00"
+                    }],
+                    "deleted": "0001-01-01T00:00:00"
                 }
             ],
             "deleted": "0001-01-01T00:00:00"

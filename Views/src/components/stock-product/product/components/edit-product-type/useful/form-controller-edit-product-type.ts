@@ -1,16 +1,14 @@
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { MatCheckboxChange } from "@angular/material/checkbox";
 import { Observable, of } from "rxjs";
 import { BaseForm } from "src/shared/components/inheritance/forms/base-form";
 
 
+import { Router } from "@angular/router";
 import { map } from "rxjs/operators";
-import { ProductDto } from "../../../dtos/product";
-import { SegmentDto } from "../../../dtos/segment-dto";
 import { ManufacturerDto } from "../../../dtos/manufacturer-dto";
 import { ModelDto } from "../../../dtos/model-dto";
 import { ProductTypeDto } from "../../../dtos/product-type-dto";
-import { Router } from "@angular/router";
+import { SegmentDto } from "../../../dtos/segment-dto";
 
 export class FormControllerEditProductType extends BaseForm {
   constructor(
@@ -47,13 +45,13 @@ export class FormControllerEditProductType extends BaseForm {
   descriptionFormControl = new FormControl()
 
   //CHECKS
-  valueType = "product-type"
+  valueType = "product-type";
   labelProduct = "Tipo de produto";
-  valueSegment = "segment"
+  valueSegment = "segment";
   labelSegment = "Segmento";
-  valueManufacturer = "manufacturer"
+  valueManufacturer = "manufacturer";
   labelManufacturer = "Fabricante";
-  valueModel = "model"
+  valueModel = "model";
   labelModel = "Modelo";
 
 
@@ -93,6 +91,11 @@ export class FormControllerEditProductType extends BaseForm {
     this.manufacturers.clear();
     this.models.clear();
     this.productsTypes.clear();
+  }
+  clearFormArraySegmentAndSub = () => {
+    // this.segments.clear();
+    this.manufacturers.clear();
+    this.models.clear();
   }
 
   addAddItemArray = (arrayEntity: string) => {
@@ -160,7 +163,7 @@ export class FormControllerEditProductType extends BaseForm {
       productsTypes: this._fb.array([])
     })
   }
-  
+
   formLoad(productType?: ProductTypeDto) {
     this.formMain = this._fb.group({
       id: [productType?.id ?? 0, []],
@@ -178,8 +181,9 @@ export class FormControllerEditProductType extends BaseForm {
       name: [entity?.name, [Validators.required]],
       companyId: [this.companyId, [Validators.required]],
       userId: [this.userId, [Validators.required]],
-      segments: this._fb.array([entity?.segments]),
-      deleted: [entity?.deleted ?? this.minValue.setHours(0,0,0), []],
+      segments: this._fb.array(entity?.segments ?? []),
+      // segments: this._fb.array([entity?.segments]),
+      deleted: [entity?.deleted ?? this.minValue, []],
     })
 
     // this.formSegmentArray(entity.segments);
@@ -191,8 +195,9 @@ export class FormControllerEditProductType extends BaseForm {
       name: [entity?.name, [Validators.required]],
       companyId: [this.companyId, []],
       productId: [entity?.productTypeId ?? 0, []],
-      manufacturers: this._fb.array(entity?.manufacturers ?? []),
-      deleted: [entity?.deleted ?? this.minValue.setHours(0,0,0), []],
+      manufacturers: this._fb.array([]),
+      // manufacturers: this._fb.array(entity?.manufacturers ?? []),
+      deleted: [entity?.deleted ?? new Date('0001-01-01T00:00:00.000Z'), []],
     })
   }
 
@@ -202,8 +207,9 @@ export class FormControllerEditProductType extends BaseForm {
       name: [entity?.name ?? '', [Validators.required]],
       companyId: [this.companyId, []],
       segmentId: [entity?.segmentId ?? 0, []],
-      models: this._fb.array([], Validators.required),
-      deleted: [entity?.deleted ?? this.minValue.setHours(0,0,0), []],
+      models: this._fb.array([]),
+      // models: this._fb.array([], Validators.required),
+      deleted: [entity?.deleted ?? this.minValue, []],
     })
   }
 
@@ -216,20 +222,40 @@ export class FormControllerEditProductType extends BaseForm {
       capacity: [entity?.capacity ?? '', []],
       manufacturerId: entity?.manufacturerId ?? 0,
       description: [entity?.description ?? '', [Validators.required]],
-      deleted: [entity?.deleted ?? this.minValue.setHours(0,0,0), []],
+      deleted: [entity?.deleted ?? this.minValue, []],
     })
   }
 
   //SELECT
-  onSelectedProduct(productSelected: ProductTypeDto) {
-    this.formMain.patchValue(productSelected)
-    this.segments$ = of(productSelected.segments);
+  onSelectedProduct(id: number) {
+
+    this.manufacturers$ = null;
+   this.segments$ = this.productsTypes$.pipe(map(x => x.find(y => y.id == id).segments));
+
+    this.productsTypes$.subscribe((x: ProductTypeDto[]) => {
+
+      const result = x.find(y => y.id == id);
+
+      this.formMain.patchValue(result)
+       this.formSegmentArray(result.segments);
+
+    });
+
     this.clearAllArray();
-    this.formSegmentArray(productSelected.segments)
   }
+  // onSelectedProduct(productSelected: ProductTypeDto) {
+
+
+
+  //   this.formMain.patchValue(productSelected)
+  //   this.segments$ = of(productSelected.segments);
+  //   this.clearAllArray();
+  //   console.log(productSelected.segments)
+  //   // this.formSegmentArray(productSelected.segments)
+  // }
 
   onSelectedSegment(id: number) {
-    // this.clearAllArray();
+    this.clearFormArraySegmentAndSub();
 
     this.manufacturers$ = this.segments$.pipe(
       map(x => x.find(segment => segment.id == id).manufacturers)
@@ -254,9 +280,14 @@ export class FormControllerEditProductType extends BaseForm {
 
 
   onSelectedManufacturer(id: number) {
+    this.models.clear();
+    this.manufacturers.clear();
+    // this.manufacturers$ = this.segments$.pipe(
+    //   map(x => x.find(segment => segment.id == id).manufacturers)
+    // )
 
-    this.manufacturers$ = this.segments$.pipe(
-      map(x => x.find(segment => segment.id == id).manufacturers)
+    this.models$ = this.manufacturers$.pipe(
+      map(x => x.find(manufacturer => manufacturer.id == id).models)
     )
 
     const arrayToSupply = this.formMain.controls['segments'] as FormArray;
@@ -270,9 +301,7 @@ export class FormControllerEditProductType extends BaseForm {
       x => this.formManufacturerArray(x)
     )
 
-    this.models$ = this.manufacturers$.pipe(
-      map(x => x.find(manufacturer => manufacturer.id == id).models)
-    )
+
 
     this.models$.subscribe(
       x => {

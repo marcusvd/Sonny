@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-
-
+using System.Linq;
 using Application.Services.Operations.StockProduct.ProductKind;
 using Application.Services.Shared.Dtos.Mappers;
 using Domain.Entities.StockProduct.ProductKind;
@@ -70,6 +69,27 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
             };
 
             return obj;
+        }
+
+        public List<Segment> SegmentUpdateListMake(List<SegmentDto> dto, List<Segment> db)
+        {
+            if (dto == null) return null;
+            if (db == null) return null;
+
+            var filtered = db.Where(db => dto.Any(dto => db.Id == dto.Id)).ToList();
+
+            dto.ForEach(xDto =>
+            {
+                filtered.ForEach(yDb =>
+                {
+                    if (xDto.Id == yDb.Id)
+                    {
+                        xDto.Manufacturers = ManufacturerListMake(yDb.Manufacturers);
+                    }
+                });
+            });
+
+            return SegmentListMake(dto);
         }
 
     }

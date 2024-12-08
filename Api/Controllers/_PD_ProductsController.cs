@@ -56,27 +56,27 @@ namespace Api.Controllers
             var resultToView = await _IProductServices.GetProductTypesAsync(companyId);
             return Ok(resultToView);
         }
-        [HttpGet("GetSegmentsAsync/{companyId:min(1)}")]
-        public async Task<IActionResult> GetSegmentsAsync(int companyId)
-        {
-            var resultToView = await _IProductServices.GetSegmentsAsync(companyId);
-            return Ok(resultToView);
-        }
+        // [HttpGet("GetSegmentsAsync/{companyId:min(1)}")]
+        // public async Task<IActionResult> GetSegmentsAsync(int companyId)
+        // {
+        //     var resultToView = await _IProductServices.GetSegmentsAsync(companyId);
+        //     return Ok(resultToView);
+        // }
 
-        [HttpGet("GetManufacturersAsync/{companyId:min(1)}")]
-        public async Task<IActionResult> GetManufacturersAsync(int companyId)
-        {
-            var resultToView = await _IProductServices.GetManufacturersAsync(companyId);
-            return Ok(resultToView);
-        }
+        // [HttpGet("GetManufacturersAsync/{companyId:min(1)}")]
+        // public async Task<IActionResult> GetManufacturersAsync(int companyId)
+        // {
+        //     var resultToView = await _IProductServices.GetManufacturersAsync(companyId);
+        //     return Ok(resultToView);
+        // }
 
 
-        [HttpGet("GetModelsAsync/{companyId:min(1)}")]
-        public async Task<IActionResult> GetModels(int companyId)
-        {
-            var resultToView = await _IProductServices.GetModelsAsync(companyId);
-            return Ok(resultToView);
-        }
+        // [HttpGet("GetModelsAsync/{companyId:min(1)}")]
+        // public async Task<IActionResult> GetModels(int companyId)
+        // {
+        //     var resultToView = await _IProductServices.GetModelsAsync(companyId);
+        //     return Ok(resultToView);
+        // }
 
 
 

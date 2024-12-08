@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using Domain.Entities.StockProduct;
 using Domain.Entities.StockProduct.ProductKind;
 using Repository.Data.Context;
@@ -13,7 +14,10 @@ namespace Repository.Data.Operations.ProductRepository
         {
             _CONTEXT = CONTEXT;
         }
-
+        public void UpdateRange(List<Segment> entities)
+        {
+            _CONTEXT.PD_Segments.UpdateRange(entities);
+        }
 
     }
     public class ManufacturerReposirtory : Repository<Manufacturer>, IManufacturerReposirtory
@@ -23,7 +27,10 @@ namespace Repository.Data.Operations.ProductRepository
         {
             _CONTEXT = CONTEXT;
         }
-
+        public void UpdateRange(List<Manufacturer> entities)
+        {
+            _CONTEXT.PD_Manufacturers.UpdateRange(entities);
+        }
 
     }
     public class ModelReposirtory : Repository<Model>, IModelReposirtory
@@ -34,6 +41,9 @@ namespace Repository.Data.Operations.ProductRepository
             _CONTEXT = CONTEXT;
         }
 
-
+        public void UpdateRange(List<Model> entities)
+        {
+            _CONTEXT.PD_Models.UpdateRange(entities);
+        }
     }
 }

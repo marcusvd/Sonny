@@ -32,6 +32,7 @@ export const environment = {
 
   //STOCK_PRODUCT
   _STOCK_PRODUCTS: 'http://localhost:5000/api/_PD_Products',
+  _PD_PRODUCT_CHILDREN: 'http://localhost:5000/api/_PD_ProductChildren',
   _INVENTORIES_EQUIPAMENT_INCLUDED: 'http://localhost:5000/api/Inventories/equipamentIncluded',
   _INVENTORIES_PAGED: 'http://localhost:5000/api/inventories/Paged',
   //CUSTOMER

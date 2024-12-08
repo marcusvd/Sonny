@@ -7,6 +7,12 @@ namespace Application.Services.Operations.StockProduct
 {
     public interface IProductChildrenServices
     {
-        Task<HttpStatusCode> UpdateProductTypeAsync(ProductTypeDto dtoView, int id);
+         Task<List<SegmentDto>> GetSegmentsAsync(int companyId);
+        Task<List<ManufacturerDto>> GetManufacturersAsync(int companyId);
+        Task<List<ModelDto>> GetModelsAsync(int companyId);
+        Task<HttpStatusCode> UpdateSegmentRangeAsync(List<SegmentDto> dtoView);
+        Task<HttpStatusCode> UpdateManufacturerRangeAsync(List<ManufacturerDto> dtoView);
+        Task<HttpStatusCode> UpdateModelRangeAsync(List<ModelDto> dtoView);
+        
     }
 }

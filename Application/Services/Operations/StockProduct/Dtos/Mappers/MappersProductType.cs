@@ -1,13 +1,12 @@
 using System.Collections.Generic;
-
-
+using System.Linq;
 using Application.Services.Operations.StockProduct.ProductKind;
 using Application.Services.Shared.Dtos.Mappers;
 using Domain.Entities.StockProduct.ProductKind;
 
 namespace Application.Services.Operations.StockProduct.Dtos.Mappers
 {
-    public partial class StockProductObjectMapperServices:CommonObjectMapper, IStockProductObjectMapperServices
+    public partial class StockProductObjectMapperServices : CommonObjectMapper, IStockProductObjectMapperServices
     {
         public List<ProductTypeDto> ProductTypeListMake(List<ProductType> list)
         {
@@ -50,7 +49,7 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 Deleted = entity.Deleted,
                 Segments = SegmentListMake(entity.Segments),
                 Products = ProductListMake(entity.Products)
-                
+
             };
 
             return obj;
@@ -72,7 +71,29 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
 
             return obj;
         }
-     
+
+
+        public List<ProductType> ProductTypeUpdateListMake(List<ProductTypeDto> dto, List<ProductType> db)
+        {
+            if (dto == null) return null;
+            if (db == null) return null;
+
+            var filtered = db.Where(db => dto.Any(dto => db.Id == dto.Id)).ToList();
+
+            dto.ForEach(xDto =>
+            {
+                filtered.ForEach(yDb =>
+                {
+                    if (xDto.Id == yDb.Id)
+                    {
+                        xDto.Segments = SegmentListMake(yDb.Segments);
+                    }
+                });
+            });
+
+            return ProductTypeListMake(dto);
+        }
+
 
     }
 }

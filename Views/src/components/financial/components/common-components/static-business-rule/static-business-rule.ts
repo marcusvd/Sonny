@@ -1,6 +1,8 @@
 export class FinancialStaticBusinessRule {
 
-  static minValue = new Date('0001-01-01T00:00:00');
+  // static minValue = new Date('0001-01-01T00:00:00');
+  static minValue = new Date('0001-01-01T00:00:00.000Z');
+
   static currentDate: Date = new Date();
   static currentDateWithoutHours = this.currentDate.setHours(0, 0, 0, 0)
 

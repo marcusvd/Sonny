@@ -16,6 +16,7 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
         List<Segment> SegmentListMake(List<SegmentDto> list);
         SegmentDto SegmentMapper(Segment entity);
         Segment SegmentMapper(SegmentDto entity);
+        List<Segment> SegmentUpdateListMake(List<SegmentDto> dto, List<Segment> db);
 
         List<ManufacturerDto> ManufacturerListMake(List<Manufacturer> list);
         List<Manufacturer> ManufacturerListMake(List<ManufacturerDto> list);
@@ -31,6 +32,7 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
         List<Product> ProductListMake(List<ProductDto> list);
         ProductDto ProductMapper(Product entity);
         Product ProductMapper(ProductDto entity);
+        List<ProductType> ProductTypeUpdateListMake(List<ProductTypeDto> dto, List<ProductType> db);
 
     }
 }
