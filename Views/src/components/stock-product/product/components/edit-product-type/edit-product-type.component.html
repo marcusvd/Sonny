@@ -14,13 +14,19 @@
                         Tipo de produto
                     </ng-template>
                 </mat-radio-button>
-                <h3 *ngIf="productsTypes.length > 0" class="title-editable">Campos editáveis:</h3>
+                <div *ngIf="productsTypes">
+                    <array-g [formMain]="productTypeForm" [arrayName]="'productsTypes'" [formArray]="productsTypes" [labelInput]="'Tipo de produto'">
+                    </array-g>
+
+                </div>
+
+                <!-- <h3 *ngIf="productsTypes.length > 0" class="title-editable">Campos editáveis:</h3>
                 <mat-divider *ngIf="productsTypes.length > 0"></mat-divider>
                 <br>
                 <btn-g btn-1 *ngIf="entityToEdit == 'type'" [name]="'Adicionar'" [icon]="'add'" (btn)="addAddItemArray('type')"></btn-g>
-                <br *ngIf="entityToEdit == 'type'">
+                <br *ngIf="entityToEdit == 'type'"> -->
 
-                <div *ngIf="entityToEdit == 'type'">
+                <!-- <div *ngIf="entityToEdit == 'type'">
                     <br>
                     <div class="container-main" [formGroup]="productTypeForm">
                         <div class="child" formArrayName="productsTypes" *ngFor="let ctrls of productsTypes.controls let i = index">
@@ -42,7 +48,7 @@
 
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
             <br>
             <btn-g *ngIf="productsTypes.length > 0" [name]="'Salvar'" [icon]="'save'" (btn)="save(productsTypes)"></btn-g>
@@ -162,15 +168,12 @@
                 <div *ngIf="entityToEdit == 'model'">
 
                     <div class="border-aroud-child">
-                        <!-- <product-select-field (outProductSelected)="onSelectedProduct($event)" [products-types]="productsTypes$"></product-select-field>
-                        <segment-select-field (outSegmentSelected)="onSelectedSegment($event)" [segments]="segments$"></segment-select-field> -->
                         <field-select-g (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$" [labelInput]="'Tipo'">
                         </field-select-g>
                         <field-select-g (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$" [labelInput]="'Segmento'">
                         </field-select-g>
                         <field-select-g (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$" [labelInput]="'Fabricante'">
                         </field-select-g>
-                        <!-- <manufacturer-select-field (outManufacturerSelected)="onSelectedManufacturer($event)" [manufacturers]="manufacturers$"></manufacturer-select-field> -->
                     </div>
                     <h3 *ngIf="models$" class="title-editable">Campos editáveis:</h3>
                     <mat-divider *ngIf="models$"></mat-divider>

@@ -19,6 +19,7 @@ import { SegmentSelectComponent } from "../../../common-components/fields-select
 import { EditChecksComponent } from "../edit-checks/edit-checks.component"
 import { MatIconModule } from "@angular/material/icon"
 import { FieldSelectGComponent } from "../../../common-components/fields-select/field-select-g/field-select-g.component"
+import { ArrayGComponent } from "../../../common-components/array-g/array-g.component"
 
 export const ImportsEditProductType: any[] = [
     CommonModule,
@@ -39,5 +40,6 @@ export const ImportsEditProductType: any[] = [
     ManufacturerSelectComponent,
     ModelSelectComponent,
     DescriptionFieldComponent,
-    FieldSelectGComponent
+    FieldSelectGComponent,
+    ArrayGComponent
 ]

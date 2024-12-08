@@ -1,0 +1,25 @@
+<h3 *ngIf="formArray.length > 0" class="title-editable">Campos editáveis:</h3>
+<mat-divider *ngIf="formArray.length > 0"></mat-divider>
+<ng-content select="[add]"></ng-content>
+<!-- <btn-g btn-1 *ngIf="entityToEdit == 'type'" [name]="'Adicionar'" [icon]="'add'" (btn)="addAddItemArray('type')"></btn-g> -->
+
+<div class="container-main" [formGroup]="formMain">
+    <div class="child" [formArrayName]="arrayName" *ngFor="let ctrls of formArray.controls let i = index">
+        <div class="index">{{i+1}}</div>
+        <!-- <div class="index" *ngIf="!isDeleted(ctrls.get('deleted').value)">{{i+1}}</div> -->
+        <div [formGroupName]="i">
+            <!-- <div [formGroupName]="i" *ngIf="!isDeleted(ctrls.get('deleted').value)"> -->
+            <div class="around-field-and-button">
+                <div class="around-field">
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{labelInput}}</mat-label>
+                        <input type="text" matInput formControlName="name">
+                    </mat-form-field>
+                </div>
+                <div>
+                    <ng-content select="[remove]"></ng-content>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
