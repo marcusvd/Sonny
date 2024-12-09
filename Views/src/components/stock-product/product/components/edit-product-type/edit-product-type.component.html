@@ -3,10 +3,10 @@
     </title-component>
     <mat-card class="small-large-screen">
         <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
-        <mat-radio-group #selectedRadio (change)="radioChange($event)" [value]="'product-type'" aria-label="selecione uma opcao" class="container">
+        <mat-radio-group class="container" #selectedRadio (change)="radioChange($event)" [value]="'product-type'"
+            aria-label="selecione uma opcao">
             <div class="product-type">
-                <br>
-                <mat-radio-button [value]="'product-type'">
+                <mat-radio-button class="type-radio" [value]="'product-type'">
                     <ng-container *ngIf="entityToEdit == 'type'; else elseBlock">
                         <h3>Tipo de produto</h3>
                     </ng-container>
@@ -14,49 +14,24 @@
                         Tipo de produto
                     </ng-template>
                 </mat-radio-button>
-                <div *ngIf="productsTypes">
-                    <array-g [formMain]="productTypeForm" [arrayName]="'productsTypes'" [formArray]="productsTypes" [labelInput]="'Tipo de produto'">
+                <div [class]="{'array-hide': entityToEdit != 'type'}">
+                    <array-g [formMain]="productTypeForm" [arrayName]="'productsTypes'" [formArray]="productsTypes"
+                        [labelInput]="'Tipo de produto'">
+
+                        <btn-g add btn-1 *ngIf="entityToEdit == 'type'" [name]="'Adicionar'" [icon]="'add'"
+                            (btn)="addAddItemArray('type')"></btn-g>
                     </array-g>
-
                 </div>
-
-                <!-- <h3 *ngIf="productsTypes.length > 0" class="title-editable">Campos editáveis:</h3>
-                <mat-divider *ngIf="productsTypes.length > 0"></mat-divider>
-                <br>
-                <btn-g btn-1 *ngIf="entityToEdit == 'type'" [name]="'Adicionar'" [icon]="'add'" (btn)="addAddItemArray('type')"></btn-g>
-                <br *ngIf="entityToEdit == 'type'"> -->
-
-                <!-- <div *ngIf="entityToEdit == 'type'">
-                    <br>
-                    <div class="container-main" [formGroup]="productTypeForm">
-                        <div class="child" formArrayName="productsTypes" *ngFor="let ctrls of productsTypes.controls let i = index">
-                            <div class="index" *ngIf="!isDeleted(ctrls.get('deleted').value)">{{i+1}}</div>
-                            <div [formGroupName]="i" *ngIf="!isDeleted(ctrls.get('deleted').value)">
-                                <div class="around-field-and-button">
-                                    <div class="around-field">
-                                        <mat-form-field appearance="outline">
-                                            <mat-label>Segmento</mat-label>
-                                            <input type="text" matInput formControlName="name">
-                                        </mat-form-field>
-                                    </div>
-                                    <div>
-                                        <button mat-icon-button (click)="removeItemArray('type', i, productsTypes)"><mat-icon>clear</mat-icon></button>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div> -->
             </div>
-            <br>
-            <btn-g *ngIf="productsTypes.length > 0" [name]="'Salvar'" [icon]="'save'" (btn)="save(productsTypes)"></btn-g>
-            <br>
-            <br>
+
+            <div
+                [class]="{'btn-save-show': entityToEdit == 'type' && productsTypes$, 'btn-save-hide': entityToEdit != 'type'}">
+                <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="saveArray(productsTypes)"></btn-g>
+            </div>
+
+
             <div class="segment">
-                <!-- <mat-radio-button value="segment">Segmento</mat-radio-button> -->
-                <mat-radio-button value="segment">
+                <mat-radio-button class="segment-radio" value="segment">
                     <ng-container *ngIf="entityToEdit == 'segment'; else elseSegmentBlock">
                         <h3>Segmento</h3>
                     </ng-container>
@@ -65,47 +40,25 @@
                     </ng-template>
                 </mat-radio-button>
                 <div *ngIf="entityToEdit == 'segment'">
-                    <div class="border-aroud-child">
-                        <field-select-g (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$" [labelInput]="'Tipo'">
-                        </field-select-g>
-                        <!-- <product-select-field (outProductSelected)="onSelectedProduct($event)" [products-types]="productsTypes$"></product-select-field> -->
-                    </div>
-                    <h3 *ngIf="segments$" class="title-editable">Campos editáveis:</h3>
-                    <mat-divider *ngIf="segments$"></mat-divider>
-                    <br>
-                    <btn-g btn-1 *ngIf="segments$" [name]="'Adicionar'" [icon]="'add'" (btn)="addAddItemArray('segment')"></btn-g>
-                    <br>
-                    <br>
-                    <div class="container-main" [formGroup]="formMain">
-                        <div class="child" formArrayName="segments" *ngFor="let ctrls of segments.controls let i = index">
-                            <div class="index">{{i+1}}</div>
-                            <div>
-                                <div [formGroupName]="i">
-                                    <div class="around-field-and-button">
 
-                                        <div class="around-field">
-                                            <mat-form-field appearance="outline">
-                                                <mat-label>Segmento</mat-label>
-                                                <input type="text" matInput formControlName="name">
-                                            </mat-form-field>
-                                        </div>
-                                        <div>
-                                            <button mat-icon-button (click)="removeItemArray('segment',i, segments)"><mat-icon>clear</mat-icon></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$"
+                        [labelInput]="'Tipo'"></field-select-g>
+
+                    <array-g [formMain]="formMain" [arrayName]="'segments'" [formArray]="segments"
+                        [labelInput]="'Segmento'">
+                        <btn-g add btn-1 *ngIf="entityToEdit == 'segment' && segments$" [name]="'Adicionar'"
+                            [icon]="'add'" (btn)="addAddItemArray('segment')"></btn-g>
+                    </array-g>
                 </div>
             </div>
-            <br>
-            <btn-g *ngIf="entityToEdit == 'segment' && segments$" [name]="'Salvar'" [icon]="'save'" (click)="saveSingle()"></btn-g>
-            <br>
-            <br>
-            <!-- {{this.formMain.value | json}} -->
+
+            <div
+                [class]="{'btn-save-show': entityToEdit == 'segment' && segments, 'btn-save-hide': entityToEdit != 'segment' || (segments.length < 1)}">
+                <btn-g [name]="'Salvar'" [icon]="'save'" (click)="saveSingle()"></btn-g>
+            </div>
+
             <div class="manufacturer">
-                <mat-radio-button value="manufacturer">
+                <mat-radio-button class="manufacturer-radio" value="manufacturer">
                     <ng-container *ngIf="entityToEdit == 'manufacturer'; else elseManufacturerBlock">
                         <h3>Fabricante</h3>
                     </ng-container>
@@ -114,50 +67,33 @@
                     </ng-template>
                 </mat-radio-button>
 
-                <div *ngIf="entityToEdit == 'manufacturer'">
-                    <div class="border-aroud-child">
-                        <field-select-g (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$" [labelInput]="'Tipo'">
-                        </field-select-g>
-                        <field-select-g (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$" [labelInput]="'Segmento'">
-                        </field-select-g>
-                        <!-- <product-select-field (outProductSelected)="onSelectedProduct($event)" [products-types]="productsTypes$"></product-select-field>
-                        <segment-select-field (outSegmentSelected)="onSelectedSegment($event)" [segments]="segments$">
+                <div [class]="{'array-hide': entityToEdit != 'manufacturer'}">
 
-                        </segment-select-field> -->
-                    </div>
-                    <h3 *ngIf="manufacturers$" class="title-editable">Campos editáveis:</h3>
-                    <mat-divider *ngIf="manufacturers$"></mat-divider>
-                    <br>
-                    <btn-g btn-1 *ngIf="manufacturers$" [name]="'Adicionar'" [icon]="'add'" (btn)="addAddItemArray('manufacturer')"></btn-g>
-                    <br>
-                    <br>
-                    <div class="container-main" [formGroup]="segmentForm">
-                        <div class="child" formArrayName="manufacturers" *ngFor="let ctrls of manufacturers.controls let i = index">
-                            <div class="index">{{i+1}}</div>
-                            <div [formGroupName]="i">
-                                <div class="around-field-and-button">
-                                    <div class="around-field">
-                                        <mat-form-field appearance="outline">
-                                            <mat-label>Fabricante</mat-label>
-                                            <input type="text" matInput formControlName="name">
-                                        </mat-form-field>
-                                    </div>
-                                    <div>
-                                        <button mat-icon-button (click)="removeItemArray('manufacturer',i, manufacturers)"><mat-icon>clear</mat-icon></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$"
+                        [labelInput]="'Tipo'">
+                    </field-select-g>
+                    <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$"
+                        [labelInput]="'Segmento'">
+                    </field-select-g>
+
+                    <array-g [formMain]="segmentForm" [arrayName]="'manufacturers'" [formArray]="manufacturers"
+                        [labelInput]="'Fabricante'">
+                        <btn-g add btn-1 *ngIf="entityToEdit == 'manufacturer' && manufacturers$" [name]="'Adicionar'"
+                            [icon]="'add'" (btn)="addAddItemArray('manufacturer')"></btn-g>
+                    </array-g>
+
                 </div>
 
             </div>
-            <br>
-            <btn-g *ngIf="entityToEdit == 'manufacturer' && manufacturers$" [name]="'Salvar'" [icon]="'save'" (click)="saveSingle()"></btn-g>
-            <br>
-            <br>
+
+            <div
+                [class]="{'btn-save-show': entityToEdit == 'manufacturer' && manufacturers, 'btn-save-hide': entityToEdit != 'manufacturer' || (manufacturers.length < 1)}">
+                <btn-g [name]="'Salvar'" [icon]="'save'" (click)="saveSingle()"></btn-g>
+            </div>
+
+
             <div class="model">
-                <mat-radio-button value="model">
+                <mat-radio-button class="model-radio" value="model">
                     <ng-container *ngIf="entityToEdit == 'model'; else elseModelBlock">
                         <h3>Modelo</h3>
                     </ng-container>
@@ -165,75 +101,32 @@
                         Modelo
                     </ng-template>
                 </mat-radio-button>
-                <div *ngIf="entityToEdit == 'model'">
+                <div [class]="{'array-hide': entityToEdit != 'model'}">
 
-                    <div class="border-aroud-child">
-                        <field-select-g (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$" [labelInput]="'Tipo'">
-                        </field-select-g>
-                        <field-select-g (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$" [labelInput]="'Segmento'">
-                        </field-select-g>
-                        <field-select-g (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$" [labelInput]="'Fabricante'">
-                        </field-select-g>
-                    </div>
-                    <h3 *ngIf="models$" class="title-editable">Campos editáveis:</h3>
-                    <mat-divider *ngIf="models$"></mat-divider>
-                    <br>
-                    <btn-g btn-1 *ngIf="models$" [name]="'Adicionar'" [icon]="'add'" (btn)="addAddItemArray('model')"></btn-g>
-                    <br>
-                    <br>
-                    <div class="container-main" [formGroup]="manufacturerForm">
-                        <div class="child" formArrayName="models" *ngFor="let ctrls of models.controls let i = index">
-                            <div class="index">{{i+1}}</div>
-                            <div class="around-field-and-button">
-                                <div class="around-field">
-                                    <div [formGroupName]="i">
-                                        <mat-form-field appearance="outline">
-                                            <mat-label>Modelo</mat-label>
-                                            <input type="text" matInput formControlName="name">
-                                        </mat-form-field>
-                                        <mat-form-field appearance="outline">
-                                            <mat-label>Velocidade</mat-label>
-                                            <input type="text" matInput [placeholder]="placeholderProductType" formControlName="speed">
-                                            <!-- <mat-error>
-                                                <span>{{validatorMessages.required(formMain, 'name', 'Fabricante')}}</span>
-                                            </mat-error> -->
-                                        </mat-form-field>
+                    <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$"
+                        [labelInput]="'Tipo'">
+                    </field-select-g>
+                    <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$"
+                        [labelInput]="'Segmento'">
+                    </field-select-g>
+                    <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$"
+                        [labelInput]="'Fabricante'">
+                    </field-select-g>
+                    <array-g [formMain]="manufacturerForm" [arrayName]="'models'" [formArray]="models"
+                        [labelInput]="'Modelo'" [entityToEdit]="entityToEdit"> <btn-g add btn-1
+                            *ngIf="entityToEdit == 'model' && models$" [name]="'Adicionar'" [icon]="'add'"
+                            (btn)="addAddItemArray('model')"></btn-g>
+                    </array-g>
 
-                                        <mat-form-field appearance="outline">
-                                            <mat-label>Capacidade</mat-label>
-                                            <input type="text" matInput [placeholder]="placeholderProductType" formControlName="capacity">
-                                            <!-- <mat-error>
-                                                <span>{{validatorMessages.required(formMain, 'name', 'Fabricante')}}</span>
-                                            </mat-error> -->
-                                        </mat-form-field>
-                                        <mat-form-field appearance="outline">
-                                            <mat-label>Descrição</mat-label>
-
-                                            <input type="text" matInput [placeholder]="placeholderProductType" formControlName="description">
-                                            <!-- <mat-error>
-                                            <span>{{validatorMessages.required(formMain, 'name', 'Descrição')}}</span>
-                                        </mat-error> -->
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <div>
-                                    <button mat-icon-button (click)="removeItemArray('model',i,models)"><mat-icon>clear</mat-icon></button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
                 </div>
             </div>
-            <br>
-            <btn-g *ngIf="entityToEdit == 'model' && models$" [name]="'Salvar'" [icon]="'save'" (click)="saveSingle()"></btn-g>
-            <br>
-            <br>
+
+            <div [class]="{'btn-save-show': entityToEdit == 'model' && models}">
+                <btn-g *ngIf="entityToEdit == 'model' && models$" [name]="'Salvar'" [icon]="'save'"
+                    (click)="saveSingle()"></btn-g>
+            </div>
+
+
         </mat-radio-group>
-
-
-        {{formMain.value | json}}
-        <!-- {{segments.value | json}} -->
-
     </mat-card>
 </div>

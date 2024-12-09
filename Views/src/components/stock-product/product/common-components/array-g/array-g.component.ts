@@ -1,88 +1,85 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
+import { Component, Input } from '@angular/core';
+import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { ImportsFiledsSelect } from '../fields-select/useful/imports-fileds-select';
 
 
 @Component({
   selector: 'array-g',
   standalone: true,
   imports: [
-    ImportsFiledsSelect
+    CommonModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDividerModule
   ],
   templateUrl: './array-g.component.html',
-  styles: [`
-  mat-form-field {
-      width: 100%;
-  }
-  `],
+  styleUrls:['./array-g.component.css'],
 })
 
-export class ArrayGComponent extends BaseForm implements OnChanges {
+export class ArrayGComponent extends BaseForm {
 
   constructor(
     override _breakpointObserver: BreakpointObserver,
   ) {
     super(_breakpointObserver)
   }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.arrayName)
-    console.log(this.formArray)
-    console.log(this.labelInput)
-    console.log(this.formMain.value)
-  }
-
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
-
+  
   @Input() override formMain: FormGroup;
   @Input() arrayName = '';
   @Input() formArray: FormArray = null;
   @Input() labelInput = '';
   @Input() entityToEdit = '';
-  // @Input() nameAttribute = '';
+  @Input() nameMaxLength = 'Limite máximo de 50 caracteres!';
+  @Input() descriptionMaxLength = 'Limite máximo de 500 caracteres!';
 
 
-  // @Input() set formControlReset(value: boolean) {
-  //   if (value)
-  //     this.selectFormControl.reset();
-  // }
+  removeItemArray = (arrayEntity: string, index: number, formArray: FormArray) => {
 
-  // selectFormControl = new FormControl('', Validators.required);
+    if (arrayEntity == 'type')
+      this.removeItemArrayHelper(index, formArray);
 
-  // @Output() outEntitiesSelected = new EventEmitter<number>()
-  // onSelectedEntity(selectedId: number) {
-  //   this?.outEntitiesSelected?.emit(selectedId);
-  // }
+    if (arrayEntity == 'segment')
+      this.removeItemArrayHelper(index, formArray);
 
-  // @Output() outProductSelected = new EventEmitter<any>()
-  // onSelectedProduct(selectedId: number) {
-  //   this?.entities$?.subscribe(x => {
-  //     const product = x.find(y => y.id === selectedId);
-  //     this?.outProductSelected?.emit(product);
-  //   })
+    if (arrayEntity == 'manufacturer')
+      this.removeItemArrayHelper(index, formArray);
 
-  //   console.log(this.selectFormControl);
-  // }
+    if (arrayEntity == 'model')
+      this.removeItemArrayHelper(index, formArray);
 
-  // searchEntity() {
-  //   this.entities$ = this.selectFormControl.valueChanges.pipe(
-  //     x => this.entities$.pipe(
-  //       map(xy => xy.filter(y => y.name.toLocaleLowerCase().includes(this.selectFormControl.value.toLocaleLowerCase()))))
-  //   )
-  // }
+  }
 
-  // @Input() set formErrors(value: boolean) {
-  //   if(this.selectFormControl.errors && value)
-  //   this.selectFormControl.markAsTouched();
-  // }
+  private removeItemArrayHelper = (index: number, formArray: FormArray) => {
+
+    formArray.controls.forEach((value, i) => {
+      console.log(value.valid)
+      if (index == i) {
+        value.get('deleted').setValue(new Date());
+
+        if (!value.valid)
+          formArray.removeAt(index);
+
+        if (value.valid && value.value.id == 0)
+          formArray.removeAt(index);
+      }
+    })
+
+  }
+
+  isDeleted(deletedValue: string) {
+    const deleted = new Date(deletedValue).getFullYear();
+    return deleted > 1;
+  }
 
 
 }

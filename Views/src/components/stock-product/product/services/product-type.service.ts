@@ -104,30 +104,44 @@ export class ProductTypeService extends BackEndService<ProductTypeDto> {
     this.update$<ProductTypeDto>('_PD_Products/UpdateProductTypeAsync',toSave).subscribe({
       next: () => {
         console.log('deu bom')
+        this._communicationsAlerts.defaultSnackMsg('2', 0, null, 4);
+      },
+      error: (erroCode) => {
+        console.log(erroCode)
+        this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
       }
 
     })
   }
 
-  saveRangeSegments(formArray: FormArray) {
-    const toUpdate = formArray.value;
-    const toSave: ProductTypeDto[] = [...toUpdate];
-    this.updateRange$<ProductTypeDto>(toSave, '_PD_ProductChildren/UpdateSegmentRangeAsync').subscribe({
-      next: () => {
-        console.log('deu bom')
-      }
+  // saveRangeSegments(formArray: FormArray) {
+  //   const toUpdate = formArray.value;
+  //   const toSave: ProductTypeDto[] = [...toUpdate];
+  //   this.updateRange$<ProductTypeDto>(toSave, '_PD_ProductChildren/UpdateSegmentRangeAsync').subscribe({
+  //     next: () => {
+  //       this._communicationsAlerts.defaultSnackMsg('2', 0, null, 4);
+  //     },
+  //     error: (erroCode) => {
+  //       console.log(erroCode)
+  //       this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
+  //     }
 
-    })
-  }
-  saveRangeTypes(formArray: FormArray) {
+  //   })
+  // }
+  updateRangeTypes(formArray: FormArray) {
     const toUpdate = formArray.value;
     const toSave: ProductTypeDto[] = [...toUpdate];
     this.updateRange$<ProductTypeDto>(toSave, '_PD_Products/UpdateProductTypeRangeAsync').subscribe({
       next: () => {
-        console.log('deu bom')
+        this._communicationsAlerts.defaultSnackMsg('2', 0, null, 4);
+      },
+      error: (erroCode) => {
+        console.log(erroCode)
+        this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
       }
 
     })
   }
 
 }
+

@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio';
 import { Router } from '@angular/router';
 import { ProductTypeService } from '../../services/product-type.service';
@@ -7,24 +7,19 @@ import { FormControllerEditProductType } from './useful/form-controller-edit-pro
 import { ImportsEditProductType } from './useful/imports-edit-product-type';
 
 @Component({
-    selector: 'app-edit-product',
+    selector: 'edit-product-type',
     standalone: true,
     templateUrl: './edit-product-type.component.html',
     styleUrls: ['./edit-product-type.component.css'],
     imports: [ImportsEditProductType],
 })
-export class EditProductComponent extends FormControllerEditProductType implements OnInit, AfterViewInit {
+export class EditProductComponent extends FormControllerEditProductType implements OnInit {
 
     constructor(
         private _productTypeService: ProductTypeService,
         private _fbMain: FormBuilder,
         override _router: Router
     ) { super(_fbMain, _router) }
-    ngAfterViewInit(): void {
-
-
-    }
-
 
     ngOnInit(): void {
         this.firstCall();
@@ -42,10 +37,8 @@ export class EditProductComponent extends FormControllerEditProductType implemen
         this.productsTypes$ = this._productTypeService.getAllIncluded$(this.companyId.toString());
     }
 
-
-
     entityToEdit = 'type';
-
+    test = false;
     radioChange = (event: MatRadioChange) => {
         const value = event.value;
 
@@ -56,79 +49,39 @@ export class EditProductComponent extends FormControllerEditProductType implemen
                 this.productsTypes$.subscribe(x => {
                     this.formProductTypePushArray(x)
                 })
+                this.formControlReset();
                 break;
             case 'segment':
                 this.entityToEdit = "segment";
                 this.clearAllArray();
                 this.segments$ = null;
+                this.formControlReset();
                 break;
-            case 'manufacturer':
-                this.entityToEdit = "manufacturer";
-                this.clearAllArray();
-                this.manufacturers$ = null;
+                case 'manufacturer':
+                    this.entityToEdit = "manufacturer";
+                    this.clearAllArray();
+                    this.manufacturers$ = null;
+                    this.formControlReset();
                 break;
             case 'model':
                 this.entityToEdit = "model";
                 this.clearAllArray();
                 this.models$ = null;
+                this.formControlReset();
                 break;
         }
 
     }
 
-    onSelectedProductInSegment() {
 
-    }
+    saveArray(formArray: FormArray) {
 
-    searchModel() {
-
-    }
-
-    searchManufacturer() {
-
-    }
-
-    searchSegment() {
-
-    }
-
-    searchProduct() {
-
-    }
-
-    // saveSegments(formArray: FormArray) {
-    //     let ok: boolean[] = [];
-    //     let save: boolean = true;
-
-    //     formArray.controls.forEach((value, i) => {
-    //         ok.push(this.alertSave(value as FormGroup));
-    //     })
-
-
-
-    //     ok.forEach(x => {
-    //         if (!x) {
-    //             save = false
-    //         }
-    //     })
-
-    //     if (save)
-    //         this._productTypeService.saveRangeSegments(formArray);
-    //     else
-    //         console.log('no save')
-
-
-    // }
-
-    save(formArray: FormArray) {
         let ok: boolean[] = [];
         let save: boolean = true;
 
         formArray.controls.forEach((value, i) => {
             ok.push(this.alertSave(value as FormGroup));
         })
-
-
 
         ok.forEach(x => {
             if (!x) {
@@ -137,20 +90,12 @@ export class EditProductComponent extends FormControllerEditProductType implemen
         })
 
         if (save)
-            this._productTypeService.saveRangeTypes(formArray);
-        else
-            console.log('no save')
-
+            this._productTypeService.updateRangeTypes(formArray);
 
     }
     saveSingle() {
-
         if (this.alertSave(this.formMain))
             this._productTypeService.updateSingle(this.formMain);
-        else
-            console.log('no save')
-
-
     }
 
 

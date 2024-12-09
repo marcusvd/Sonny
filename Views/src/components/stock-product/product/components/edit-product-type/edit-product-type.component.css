@@ -1,88 +1,24 @@
- .container-main {
-   display: flex;
-   gap: 15px;
-   flex-wrap: wrap;
- }
+.btn-save-show {
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+.btn-save-hide {
+  display: none;
+}
 
- mat-form-field {
-   width: 100%;
- }
+.type-radio,
+.segment-radio,
+.manufacturer-radio,
+.model-radio{
+  margin: 10px;
+}
 
- .child {
-   display: flex;
-   flex-direction: column;
-   flex: 1;
-   width: 100%;
-   padding-top: 32px;
-   padding-right: 32px;
-   padding-left: 32px;
-   justify-content: center;
-   border: 2px dashed rgb(43, 161, 168);
-   /* border-bottom: 2px dashed rgb(43, 161, 168);  */
-   position: relative;
+h3{
+  margin: 0px;
+  margin-bottom: 10px;
+}
 
- }
+.array-hide{
+  display: none;
+}
 
- .btn-add-segment-div {
-   display: flex;
- }
- .around-field-and-button{
-  display: flex; width: 100%;
- }
-
- .around-field{
-  width: 100%;
- }
-
- button {
-   font-size: 15px;
-   color: rgb(156, 33, 29);
- }
-
- .border-aroud-child {
-   /* padding:15px;
-   padding-bottom:-10px;
-   border: 2px solid rgb(43, 161, 168); */
-
- }
-
- mat-divider {
-   /* padding:15px;
-   padding-bottom:-10px; */
-   border-top: 2px solid rgb(43, 161, 168);
-
- }
-
- /* .border-aroud-editable{
-   border: 2px dashed rgb(43, 161, 168);
- } */
-
- .title-editable {
-   padding: 0px;
-   margin: 0px;
- }
-
- /* .index{
-  display:flex;
-  align-self:first baseline;
-
-  
- } */
- .index {
-   position: absolute;
-   top: 0;
-   left: 0;
-   padding: 10px;
-   color: rgb(43, 161, 168);
-   font-style: oblique;
-   text-decoration: underline;
- }
-
-
-
- @media(max-width: 640px) {
-   .child {
-     border: 0px dashed rgb(43, 161, 168);
-     border-bottom: 2px dashed rgb(43, 161, 168);
-   }
- }

@@ -35,6 +35,13 @@ namespace Api.Controllers
             var resultToView = await _IProductServices.GetProductTypesIncludedAsync(companyId);
             return Ok(resultToView);
         }
+        
+        [HttpGet("GetProductTypesAsync/{companyId:min(1)}")]
+        public async Task<IActionResult> GetProductTypes(int companyId)
+        {
+            var resultToView = await _IProductServices.GetProductTypesAsync(companyId);
+            return Ok(resultToView);
+        }
 
         [HttpPut("UpdateProductTypeAsync/{id:min(1)}")]
         public async Task<IActionResult> UpdateProductTypeAsync([FromBody] ProductTypeDto entityDto, int id)
@@ -50,66 +57,7 @@ namespace Api.Controllers
             return Ok(resultToView);
         }
 
-        [HttpGet("GetProductTypesAsync/{companyId:min(1)}")]
-        public async Task<IActionResult> GetProductTypes(int companyId)
-        {
-            var resultToView = await _IProductServices.GetProductTypesAsync(companyId);
-            return Ok(resultToView);
-        }
-        // [HttpGet("GetSegmentsAsync/{companyId:min(1)}")]
-        // public async Task<IActionResult> GetSegmentsAsync(int companyId)
-        // {
-        //     var resultToView = await _IProductServices.GetSegmentsAsync(companyId);
-        //     return Ok(resultToView);
-        // }
 
-        // [HttpGet("GetManufacturersAsync/{companyId:min(1)}")]
-        // public async Task<IActionResult> GetManufacturersAsync(int companyId)
-        // {
-        //     var resultToView = await _IProductServices.GetManufacturersAsync(companyId);
-        //     return Ok(resultToView);
-        // }
-
-
-        // [HttpGet("GetModelsAsync/{companyId:min(1)}")]
-        // public async Task<IActionResult> GetModels(int companyId)
-        // {
-        //     var resultToView = await _IProductServices.GetModelsAsync(companyId);
-        //     return Ok(resultToView);
-        // }
-
-
-
-
-
-
-
-
-
-
-        // [HttpPut("UpdatePartialProduct/{id:min(0)}")]
-        // public async Task<IActionResult> UpdatePartialProduct([FromBody] ProductDto entityDto, int productId)
-        // {
-        //     var toDbAdd = await _IProductServices.UpdatePartial(entityDto, productId);
-        //     return Ok(toDbAdd);
-
-        // }
-
-        // [HttpPost("AddStock")]
-        // public async Task<IActionResult> AddStock([FromBody] ProductDto entityDto)
-        // {
-        //     var toDbAdd = await _IProductServices.AddStock(entityDto);
-        //     return Ok(toDbAdd);
-
-        // }
-
-
-        // [HttpGet("GetAllStockByCompanyIdAsync/{companyId:min(1)}")]
-        // public async Task<IActionResult> GetAllStockByCompanyIdAsync(int companyId)
-        // {
-        //     var fromDb = await _IProductServices.GetAllStockByCompanyIdAsync(companyId);
-        //     return Ok(fromDb);
-        // }
 
 
     }

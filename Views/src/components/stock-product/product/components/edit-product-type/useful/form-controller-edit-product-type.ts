@@ -44,6 +44,16 @@ export class FormControllerEditProductType extends BaseForm {
   capacityFormControl = new FormControl()
   descriptionFormControl = new FormControl()
 
+  //FormsGroup
+  productTypeForm: FormGroup;
+  segmentForm: FormGroup;
+  manufacturerForm: FormGroup;
+  modelForm: FormGroup;
+
+  //Validators
+  nameMaxLength = 50;
+  descriptionMaxLength = 500;
+
   //CHECKS
   valueType = "product-type";
   labelProduct = "Tipo de produto";
@@ -59,7 +69,6 @@ export class FormControllerEditProductType extends BaseForm {
   get productsTypes() {
     return this.productTypeForm.get('productsTypes') as FormArray
   }
-
   get segments() {
     return this.formMain.get('segments') as FormArray
   }
@@ -114,50 +123,6 @@ export class FormControllerEditProductType extends BaseForm {
 
   }
 
-  removeItemArray = (arrayEntity: string, index: number, formArray: FormArray) => {
-
-    if (arrayEntity == 'type')
-      this.removeItemArrayHelper(index, formArray);
-
-    if (arrayEntity == 'segment')
-      this.removeItemArrayHelper(index, formArray);
-
-    if (arrayEntity == 'manufacturer')
-      this.removeItemArrayHelper(index, formArray);
-
-    if (arrayEntity == 'model')
-      this.removeItemArrayHelper(index, formArray);
-
-  }
-
-  private removeItemArrayHelper = (index: number, formArray: FormArray) => {
-
-    formArray.controls.forEach((value, i) => {
-      console.log(value.valid)
-      if (index == i) {
-        value.get('deleted').setValue(new Date());
-
-        if (!value.valid)
-          formArray.removeAt(index);
-
-        if (value.valid && value.value.id == 0)
-          formArray.removeAt(index);
-      }
-    })
-
-  }
-
-  isDeleted(deletedValue: string) {
-    const deleted = new Date(deletedValue).getFullYear();
-    return deleted != 1;
-  }
-
-
-  productTypeForm: FormGroup;
-  segmentForm: FormGroup;
-  manufacturerForm: FormGroup;
-  modelForm: FormGroup;
-
   formLoadProductTypeEdit() {
     this.productTypeForm = this._fb.group({
       productsTypes: this._fb.array([])
@@ -167,7 +132,7 @@ export class FormControllerEditProductType extends BaseForm {
   formLoad(productType?: ProductTypeDto) {
     this.formMain = this._fb.group({
       id: [productType?.id ?? 0, []],
-      name: [productType?.name, [Validators.required]],
+      name: [productType?.name.toUpperCase(), [Validators.required, Validators.maxLength(this.nameMaxLength)]],
       companyId: [this.companyId, [Validators.required]],
       userId: [this.userId, [Validators.required]],
       segments: this._fb.array([], Validators.required)
@@ -178,37 +143,32 @@ export class FormControllerEditProductType extends BaseForm {
 
     return this._fb.group({
       id: [entity?.id ?? 0, []],
-      name: [entity?.name, [Validators.required]],
+      name: [entity?.name.toUpperCase(), [Validators.required, Validators.maxLength(this.nameMaxLength)]],
       companyId: [this.companyId, [Validators.required]],
       userId: [this.userId, [Validators.required]],
       segments: this._fb.array(entity?.segments ?? []),
-      // segments: this._fb.array([entity?.segments]),
       deleted: [entity?.deleted ?? this.minValue, []],
     })
-
-    // this.formSegmentArray(entity.segments);
   }
 
   formLoadSegment(entity?: SegmentDto) {
     return this.segmentForm = this._fb.group({
       id: [entity?.id ?? 0, []],
-      name: [entity?.name, [Validators.required]],
+      name: [entity?.name.toUpperCase(), [Validators.required, Validators.maxLength(this.nameMaxLength)]],
       companyId: [this.companyId, []],
       productId: [entity?.productTypeId ?? 0, []],
       manufacturers: this._fb.array([]),
-      // manufacturers: this._fb.array(entity?.manufacturers ?? []),
-      deleted: [entity?.deleted ?? new Date('0001-01-01T00:00:00.000Z'), []],
+      deleted: [entity?.deleted ?? this.minValue, []],
     })
   }
 
   formLoadManufacturer(entity?: ManufacturerDto) {
     return this.manufacturerForm = this._fb.group({
       id: [entity?.id ?? 0, []],
-      name: [entity?.name ?? '', [Validators.required]],
+      name: [entity?.name.toUpperCase() ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
       companyId: [this.companyId, []],
       segmentId: [entity?.segmentId ?? 0, []],
       models: this._fb.array([]),
-      // models: this._fb.array([], Validators.required),
       deleted: [entity?.deleted ?? this.minValue, []],
     })
   }
@@ -217,11 +177,11 @@ export class FormControllerEditProductType extends BaseForm {
     return this.modelForm = this._fb.group({
       id: [entity?.id ?? 0, []],
       companyId: [this.companyId, []],
-      name: [entity?.name ?? '', [Validators.required]],
-      speed: [entity?.speed ?? '', []],
-      capacity: [entity?.capacity ?? '', []],
+      name: [entity?.name.toUpperCase() ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
+      speed: [entity?.speed ?? '', [Validators.maxLength(this.nameMaxLength)]],
+      capacity: [entity?.capacity ?? '', [Validators.maxLength(this.nameMaxLength)]],
       manufacturerId: entity?.manufacturerId ?? 0,
-      description: [entity?.description ?? '', [Validators.required]],
+      description: [entity?.description ?? '', [Validators.maxLength(this.descriptionMaxLength)]],
       deleted: [entity?.deleted ?? this.minValue, []],
     })
   }
@@ -230,29 +190,19 @@ export class FormControllerEditProductType extends BaseForm {
   onSelectedProduct(id: number) {
 
     this.manufacturers$ = null;
-   this.segments$ = this.productsTypes$.pipe(map(x => x.find(y => y.id == id).segments));
+    this.segments$ = this.productsTypes$.pipe(map(x => x.find(y => y.id == id).segments));
 
     this.productsTypes$.subscribe((x: ProductTypeDto[]) => {
 
       const result = x.find(y => y.id == id);
 
       this.formMain.patchValue(result)
-       this.formSegmentArray(result.segments);
+      this.formSegmentArray(result.segments);
 
     });
 
     this.clearAllArray();
   }
-  // onSelectedProduct(productSelected: ProductTypeDto) {
-
-
-
-  //   this.formMain.patchValue(productSelected)
-  //   this.segments$ = of(productSelected.segments);
-  //   this.clearAllArray();
-  //   console.log(productSelected.segments)
-  //   // this.formSegmentArray(productSelected.segments)
-  // }
 
   onSelectedSegment(id: number) {
     this.clearFormArraySegmentAndSub();
@@ -272,19 +222,11 @@ export class FormControllerEditProductType extends BaseForm {
     this.manufacturers$.subscribe(
       x => this.formManufacturerArray(x)
     )
-
-
-
   }
-
-
 
   onSelectedManufacturer(id: number) {
     this.models.clear();
     this.manufacturers.clear();
-    // this.manufacturers$ = this.segments$.pipe(
-    //   map(x => x.find(segment => segment.id == id).manufacturers)
-    // )
 
     this.models$ = this.manufacturers$.pipe(
       map(x => x.find(manufacturer => manufacturer.id == id).models)
@@ -301,46 +243,15 @@ export class FormControllerEditProductType extends BaseForm {
       x => this.formManufacturerArray(x)
     )
 
-
-
     this.models$.subscribe(
       x => {
         this.formModelArray(x)
       }
     )
   }
-
-  // onSelectedModel(modelId: number) {
-
-  //   this.models$.subscribe(
-  //     x => {
-  //       const model = x.find(model => model.id == modelId);
-  //      // this.formMain.get('modelId').setValue(modelId);
-  //     }
-  //   )
-  // }
-
-  private formControlReset = (item: string, checked: boolean) => {
-    if (item == 'product') {
-      this.productformControlReset = checked;
-      this.segmentFormControlReset = checked;
-      this.manufacturerFormControlReset = checked;
-      this.modelFormControlReset = checked;
-    }
-
-    if (item == 'segment') {
-      this.segmentFormControlReset = checked;
-      this.manufacturerFormControlReset = checked;
-      this.modelFormControlReset = checked;
-    }
-
-    if (item == 'manufacturer') {
-      this.manufacturerFormControlReset = checked;
-      this.modelFormControlReset = checked;
-    }
-
-    if (item == 'model')
-      this.modelFormControlReset = checked;
-
+  
+  controlReset = false;
+  formControlReset = () => {
+    this.controlReset =!this.controlReset;
   }
 }

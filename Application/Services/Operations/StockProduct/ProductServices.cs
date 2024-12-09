@@ -147,7 +147,6 @@ namespace Application.Services.Operations.StockProduct
 
             throw new GlobalServicesException(GlobalErrorsMessagesException.UnknownError);
         }
-  
         public async Task<List<ProductTypeDto>> GetProductTypesAsync(int companyId)
         {
             var fromDb = await _GENERIC_REPO.ProductTypes.Get(
@@ -163,69 +162,6 @@ namespace Application.Services.Operations.StockProduct
             return _IStockProductObjectMapperServices.ProductTypeListMake(fromDb);
         }
      
-        // public async Task<HttpStatusCode> AddStock(ProductDto dtoView)
-        // {
-        //     if (dtoView == null)
-        //         throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
-
-        //     var entityToDb = _IStockProductObjectMapperServices.ProductMapper(dtoView);
-
-        //     entityToDb.Registered = DateTime.Now;
-
-        //     _GENERIC_REPO.Products.Add(entityToDb);
-
-        //     if (await _GENERIC_REPO.save())
-        //         return HttpStatusCode.Created;
-
-        //     throw new GlobalServicesException(GlobalErrorsMessagesException.UnknownError);
-        // }
-        // public async Task<HttpStatusCode> UpdatePartial(ProductDto dtoView, int productId)
-        // {
-        //     if (dtoView == null)
-        //         throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
-
-
-        //     var fromDb = await _GENERIC_REPO.Products.GetById(
-        //         x => x.Id == dtoView.Id,
-        //         null,
-        //         selector => selector
-        //         );
-
-        //     // dtoView.Product = _IStockProductObjectMapperServices.ProductMapper(fromDb);
-
-        //     var entityToDb = _IStockProductObjectMapperServices.ProductMapper(dtoView);
-
-
-
-        //     entityToDb.Registered = DateTime.Now;
-
-        //     _GENERIC_REPO.Products.Update(entityToDb);
-
-        //     if (await _GENERIC_REPO.save())
-        //         return HttpStatusCode.Created;
-
-        //     throw new GlobalServicesException(GlobalErrorsMessagesException.UnknownError);
-        // }
-        // public async Task<List<ProductDto>> GetAllStockByCompanyIdAsync(int companyId)
-        // {
-        //     var fromDb = await _GENERIC_REPO
-        //         .Products.Get(
-        //             predicate => predicate.CompanyId == companyId,
-        //             toInclude =>
-        //                 toInclude
-        //                     .Include(x => x.ProductType)
-        //                     .Include(x => x.Segment)
-        //                     .Include(x => x.Manufacturer)
-        //                     .Include(x => x.Model),
-        //             selector => selector
-        //         )
-        //         .ToListAsync();
-
-        //     if (fromDb == null)
-        //         throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
-
-        //     return _IStockProductObjectMapperServices.ProductListMake(fromDb);
-
-        // }
+       
     }
 }
