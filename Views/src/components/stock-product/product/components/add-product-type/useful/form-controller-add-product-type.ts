@@ -33,7 +33,7 @@ export class FormControllerAddProductType extends BaseForm {
   get models() {
     return this.manufacturerForm.get('models') as FormArray
   }
-  
+
 
   //FormGroups
   segmentForm: FormGroup;
@@ -57,7 +57,7 @@ export class FormControllerAddProductType extends BaseForm {
   formLoadSegment(segment?: SegmentDto) {
     return this.segmentForm = this._fb.group({
       id: [segment?.id ?? 0, [Validators.required]],
-      name: [segment?.name, [Validators.required, Validators.maxLength(this.nameMaxLength)]],
+      name: [segment?.name ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
       companyId: [this.companyId, [Validators.required]],
       productId: [segment?.productTypeId ?? 0, []],
       manufacturers: this._fb.array([], Validators.required)
@@ -79,8 +79,8 @@ export class FormControllerAddProductType extends BaseForm {
       id: [model?.id ?? 0, [Validators.required]],
       companyId: [this.companyId, [Validators.required]],
       name: [model?.name ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
-      speed: [model?.speed ?? '', [ Validators.maxLength(this.nameMaxLength)]],
-      capacity: [model?.capacity ?? '', [ Validators.maxLength(this.nameMaxLength)]],
+      speed: [model?.speed ?? '', [Validators.maxLength(this.nameMaxLength)]],
+      capacity: [model?.capacity ?? '', [Validators.maxLength(this.nameMaxLength)]],
       manufacturerId: model?.manufacturerId ?? 0,
       description: [model?.description ?? '', [Validators.maxLength(this.descriptionMaxLength)]],
     })

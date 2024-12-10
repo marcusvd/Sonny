@@ -16,10 +16,10 @@
                     <mat-label>{{labelInput}}</mat-label>
                     <input type="text" matInput formControlName="name">
                     <mat-error *ngIf="ctrls.get('name').hasError('required')">
-                        <span>{{labelInput + ' ' + ' ' + 'obrigatório!'}}</span>
+                        <span>{{requiredMsg}}</span>
                     </mat-error>
                     <mat-error *ngIf="ctrls.get('name').hasError('maxlength')">
-                        <span>{{nameMaxLength}}</span>
+                        <span>{{maxLengthMsg + '50' + charactersMsg}}</span>
                     </mat-error>
                 </mat-form-field>
 
@@ -29,7 +29,7 @@
                         <mat-label>Velocidade</mat-label>
                         <input type="text" matInput [placeholder]="placeholderProductType" formControlName="speed">
                         <mat-error *ngIf="ctrls.get('speed').hasError('maxlength')">
-                            <span>{{nameMaxLength}}</span>
+                            <span>{{maxLengthMsg + '50' + charactersMsg}}</span>
                         </mat-error>
                     </mat-form-field>
 
@@ -37,7 +37,7 @@
                         <mat-label>Capacidade</mat-label>
                         <input type="text" matInput [placeholder]="placeholderProductType" formControlName="capacity">
                         <mat-error *ngIf="ctrls.get('capacity').hasError('maxlength')">
-                            <span>{{nameMaxLength}}</span>
+                            <span>{{maxLengthMsg + '50' + charactersMsg}}</span>
                         </mat-error>
                     </mat-form-field>
 
@@ -45,7 +45,7 @@
                         <mat-label>Descrição</mat-label>
                         <input type="text" matInput [placeholder]="placeholderProductType" formControlName="description">
                             <mat-error *ngIf="ctrls.get('description').hasError('maxlength')">
-                                <span>{{descriptionMaxLength}}</span>
+                                <span>{{maxLengthMsg + '500' + charactersMsg}}</span>
                             </mat-error>
                     </mat-form-field>
                 </div>

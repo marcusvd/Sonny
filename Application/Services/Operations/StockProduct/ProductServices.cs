@@ -47,16 +47,43 @@ namespace Application.Services.Operations.StockProduct
             if (dtoView == null)
                 throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            var entityToDb = _IStockProductObjectMapperServices.ProductMapper(dtoView);
+            var products = new List<ProductDto>();
 
-            entityToDb.Registered = DateTime.Now;
+            if (dtoView.Quantity > 1)
+            {
+                for (int i = 0; i < dtoView.Quantity; i++)
+                {
+                    dtoView.Registered = DateTime.Now;
+                    products.Add(dtoView);
+                }
+            }
 
-            _GENERIC_REPO.Products.Add(entityToDb);
+            if (products.Count > 0)
+            {
+                var entitiesToDb = _IStockProductObjectMapperServices.ProductListMake(products);
+                _GENERIC_REPO.Products.AddRange(entitiesToDb);
 
-            if (await _GENERIC_REPO.save())
-                return HttpStatusCode.Created;
+                if (await _GENERIC_REPO.save())
+                    return HttpStatusCode.Created;
 
-            throw new GlobalServicesException(GlobalErrorsMessagesException.UnknownError);
+                throw new GlobalServicesException(GlobalErrorsMessagesException.UnknownError);
+            }
+            else
+            {
+
+                var entityToDb = _IStockProductObjectMapperServices.ProductMapper(dtoView);
+
+                entityToDb.Registered = DateTime.Now;
+
+
+                _GENERIC_REPO.Products.Add(entityToDb);
+
+                if (await _GENERIC_REPO.save())
+                    return HttpStatusCode.Created;
+
+                throw new GlobalServicesException(GlobalErrorsMessagesException.UnknownError);
+            }
+
         }
         public async Task<List<ProductTypeDto>> GetProductTypesIncludedAsync(int companyId)
         {
@@ -105,12 +132,12 @@ namespace Application.Services.Operations.StockProduct
                 {
                     x.Deleted = DateTime.Now;
 
-                        x.Manufacturers.ForEach(xy =>
-                        {
-                            xy.Deleted = DateTime.Now;
+                    x.Manufacturers.ForEach(xy =>
+                    {
+                        xy.Deleted = DateTime.Now;
 
-                            xy.Models.ForEach(mxy => mxy.Deleted = DateTime.Now);
-                        });
+                        xy.Models.ForEach(mxy => mxy.Deleted = DateTime.Now);
+                    });
                 }
 
             });
@@ -177,7 +204,7 @@ namespace Application.Services.Operations.StockProduct
 
             return _IStockProductObjectMapperServices.ProductTypeListMake(fromDb);
         }
-     
-       
+
+
     }
 }

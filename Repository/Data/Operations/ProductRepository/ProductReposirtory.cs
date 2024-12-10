@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using Domain.Entities.StockProduct;
 using Repository.Data.Context;
 using Repository.Data.Operations.Repository;
@@ -13,10 +14,10 @@ namespace Repository.Data.Operations.ProductRepository
             _CONTEXT = CONTEXT;
         }
 
-        // public async void AddRangeAsync(List<Product> entities)
-        // {
-        //     await _CONTEXT.PD_Products.AddRangeAsync(entities);
-        // }
+        public async void AddRange(List<Product> entities)
+        {
+            await _CONTEXT.PD_Products.AddRangeAsync(entities);
+        }
     
        
 

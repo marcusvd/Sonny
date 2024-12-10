@@ -6,10 +6,14 @@
         <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
 
         <div class="container-level-0">
+
             <!-- Column LEFT -->
             <div class="product">
                 <!-- product start-->
-                <field-input-g [formMain]="this.formMain" [inputLabel]="'Tipo'" [fieldControlName]="'name'">
+                <field-input-g [type]="'text'" [formMain]="this.formMain" [inputLabel]="'Tipo'"
+                    [fieldControlName]="'name'">
+                    <span msg-error *ngIf="this.formError(formMain,'name', 'required') && this.formTouched(formMain, 'name')">{{requiredMsg}}</span>
+                    <span msg-error *ngIf="this.formError(formMain,'name', 'maxlength') && this.formTouched(formMain, 'name')">{{maxLengthMsg + '50' + charactersMsg}}</span>
                 </field-input-g>
                 <!-- [productMatSelect]="this.productMatSelect" -->
 
@@ -18,7 +22,13 @@
             <div class="segment">
                 <!-- segment start-->
 
-                <field-input-g [formMain]="segmentForm" [inputLabel]="'Segmento'" [fieldControlName]="'name'">
+                <field-input-g [type]="'text'" [formMain]="segmentForm" [inputLabel]="'Segmento'"
+                    [fieldControlName]="'name'">
+                    <span msg-error
+                        *ngIf="this.formError(segmentForm,'name', 'required') && this.formTouched(segmentForm, 'name')">{{requiredMsg}}</span>
+                    <span msg-error
+                        *ngIf="this.formError(segmentForm,'name', 'maxlength') && this.formTouched(segmentForm, 'name')">{{maxLengthMsg
+                        + '50' + charactersMsg}}</span>
                 </field-input-g>
 
                 <!-- segment end-->
@@ -26,7 +36,10 @@
 
             <div class="manufacturer">
                 <!-- manufacturer start-->
-                <field-input-g [formMain]="manufacturerForm" [inputLabel]="'Fabricante'" [fieldControlName]="'name'">
+                <field-input-g [type]="'text'" [formMain]="manufacturerForm" [inputLabel]="'Fabricante'"
+                    [fieldControlName]="'name'">
+                    <span msg-error *ngIf="this.formError(manufacturerForm,'name', 'required') && this.formTouched(manufacturerForm, 'name')">{{requiredMsg}}</span>
+                    <span msg-error *ngIf="this.formError(manufacturerForm,'name', 'maxlength') && this.formTouched(manufacturerForm, 'name')">{{maxLengthMsg + '50' + charactersMsg}}</span>
                 </field-input-g>
                 <!-- manufacturer end-->
             </div>
@@ -36,33 +49,38 @@
         <div class="container-level-0-1">
             <div class="model">
                 <!-- model start-->
-                <field-input-g [formMain]="modelForm" [inputLabel]="'Modelo'" [fieldControlName]="'name'">
+                <field-input-g [type]="'text'" [formMain]="modelForm" [inputLabel]="'Modelo'"
+                    [fieldControlName]="'name'">
+                    <span msg-error *ngIf="this.formError(modelForm,'name', 'required') && this.formTouched(modelForm, 'name')">{{requiredMsg}}</span>
+                    <span msg-error *ngIf="this.formError(modelForm,'name', 'maxlength') && this.formTouched(modelForm, 'name')">{{maxLengthMsg + '50' + charactersMsg}}</span>
                 </field-input-g>
 
             </div>
 
             <div class="speed">
-                <field-input-g [formMain]="this.modelForm" [inputLabel]="'Velocidade'" [fieldControlName]="'speed'"
-                    style="width: 100%;">
+                <field-input-g [type]="'text'" [formMain]="this.modelForm" [inputLabel]="'Velocidade'"
+                    [fieldControlName]="'speed'">
+                    <span msg-error *ngIf="this.formError(modelForm,'speed', 'maxlength') && this.formTouched(modelForm, 'speed')">{{maxLengthMsg + '50' + charactersMsg}}</span>
                 </field-input-g>
             </div>
             <div class="capacity">
-                <field-input-g [formMain]="this.modelForm" [inputLabel]="'Capacidade'" [fieldControlName]="'capacity'"
-                    style="width: 100%;">
+                <field-input-g [type]="'text'" [formMain]="this.modelForm" [inputLabel]="'Capacidade'"
+                    [fieldControlName]="'capacity'">
+                    <span msg-error *ngIf="this.formError(modelForm,'capacity', 'maxlength') && this.formTouched(modelForm, 'capacity')">{{maxLengthMsg + '50' + charactersMsg}}</span>
                 </field-input-g>
             </div>
 
         </div>
         <div class="description">
-            <field-input-g [formMain]="this.modelForm" [inputLabel]="'Descrição'" [fieldControlName]="'description'"
-                style="width: 100%;">
+            <field-input-g [type]="'text'" [formMain]="this.modelForm" [inputLabel]="'Descrição'" [fieldControlName]="'description'">
+                <span msg-error *ngIf="this.formError(modelForm,'description', 'maxlength') && this.formTouched(modelForm, 'description')">{{maxLengthMsg + '500' + charactersMsg}}</span>
             </field-input-g>
         </div>
         <!-- model end-->
-        <div>
-            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
+        <div class="btn-save">
+            <btn-g  [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
         </div>
 
-        <div>{{formMain.value | json}}</div>
+        <!-- <div>{{formMain.value | json}}</div> -->
     </mat-card>
 </div>

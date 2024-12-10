@@ -9,6 +9,6 @@
         </mat-option>
     </mat-select>
     <mat-error *ngIf="selectFormControl.errors && selectFormControl.touched">
-        <span>{{'Campo obrigatório!'}}</span>
+        <span>{{requiredMsg}}</span>
     </mat-error>
 </mat-form-field>

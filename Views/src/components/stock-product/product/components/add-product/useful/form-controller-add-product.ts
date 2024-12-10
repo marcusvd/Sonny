@@ -9,6 +9,7 @@ import { ManufacturerDto } from "../../../dtos/manufacturer-dto";
 import { SegmentDto } from "../../../dtos/segment-dto";
 import { ModelDto } from "../../../dtos/model-dto";
 import { map } from "rxjs/operators";
+import { MatCheckboxChange } from "@angular/material/checkbox";
 
 
 
@@ -35,12 +36,12 @@ export class FormControllerAddProduct extends BaseForm {
         this.manufacturers$ = null;
         this.segments$ = this.productsTypes$.pipe(map(x => x.find(y => y.id == id).segments));
 
-        this.productsTypes$.subscribe((x: ProductTypeDto[]) => {
+        // this.productsTypes$.subscribe((x: ProductTypeDto[]) => {
 
-            const result = x.find(y => y.id == id);
+        //     const result = x.find(y => y.id == id);
 
-            this.formMain.patchValue(result)
-        });
+        //     this.formMain.patchValue(result)
+        // });
         
         this.formMain.get('productTypeId')?.patchValue(id);
 
@@ -53,52 +54,29 @@ export class FormControllerAddProduct extends BaseForm {
         )
        
         this.formMain.get('segmentId')?.patchValue(id);
-        // const arrayToSupply = this.formMain.controls['segments'] as FormArray;
-
-        // arrayToSupply.controls.forEach((value, i) => {
-        //   if (value.get('id').value == id)
-        //     this.manufacturers$.subscribe(x => value.get('manufacturers')?.patchValue(x))
-        // })
-
-
-        // this.manufacturers$.subscribe(
-        //   x => this.formManufacturerArray(x)
-        // )
+       
     }
 
     onSelectedManufacturer(id: number) {
-        // this.models.clear();
-        // this.manufacturers.clear();
 
         this.models$ = this.manufacturers$.pipe(
             map(x => x.find(manufacturer => manufacturer.id == id).models)
         )
         this.formMain.get('manufacturerId')?.patchValue(id);
-        
-        // const arrayToSupply = this.formMain.controls['segments'] as FormArray;
-
-        // arrayToSupply.controls.forEach((value, i) => {
-        //   if (value.get('id').value == id)
-        //     this.manufacturers$.subscribe(x => value.get('manufacturers')?.patchValue(x))
-        // })
-
-        // this.manufacturers$.subscribe(
-        //   x => this.formManufacturerArray(x)
-        // )
-
-        // this.models$.subscribe(
-        //   x => {
-        //     this.formModelArray(x)
-        //   }
-        // )
     }
+
     onSelectedModel(id: number) {
         
         this.formMain.get('modelId')?.patchValue(id);
     }
 
+    onSupplierSelected(supplier: PartnerDto) {
+        this.formMain.get('supplierId').setValue(supplier.id);
+    }
 
-    private warrantyEnd = new Date(new Date().getFullYear() + 1, new Date().getMonth(), new Date().getDate());
+    isTested(isTested:MatCheckboxChange) {
+        isTested.checked ? this.formMain.get('isTested')?.patchValue(new Date()) : this.formMain.get('isTested')?.patchValue(this.minValue);
+    }
 
     formLoad(formMain: FormGroup, userId: number, companyId: number, entity?: ProductDto) {
         return formMain = this._fb.group({
@@ -109,23 +87,27 @@ export class FormControllerAddProduct extends BaseForm {
             modelId: ['', [Validators.required]],
             userId: [userId, [Validators.required]],
             companyId: [companyId, [Validators.required]],
-            stockId: [0, [Validators.required]],
             supplierId: ['', [Validators.required]],
-            usedHistoricalOrSupplier: new FormControl({ value: '', disabled: true }, [usedHistoricalOrSupplierValidator()]),
-            purchaseInvoiceNumber: ['', [Validators.required]],
-            costPrice: ['', [Validators.required]],
-            soldPrice: ['', [Validators.required]],
+            usedHistoricalOrSupplier: new FormControl({ value: '', disabled: true, }, [usedHistoricalOrSupplierValidator()]),
+            purchaseInvoiceNumber: ['', [Validators.maxLength(30)]],
+            costPrice: [0, [Validators.required]],
+            soldPrice: [0, [Validators.required]],
             entryDate: [new Date(), [Validators.required]],
             warrantyEndLocal: [this.warrantyEnd, [Validators.required]],
             isUsed: [false, []],
-            isTested: [new Date(), []],
+            isTested: [this.minValue, []],
+            isTestedCheck: [false, []],
             quantity: [1, [Validators.required]]
         })
     }
 
+    private warrantyEnd = new Date(new Date().getFullYear() + 1, new Date().getMonth(), new Date().getDate());
 
-    onSupplierSelected(supplier: PartnerDto) {
-        this.formMain.get('supplierId').setValue(supplier.id);
+    controlReset = false;
+    formControlReset = () => {
+      this.controlReset =!this.controlReset;
     }
+
+   
 
 }

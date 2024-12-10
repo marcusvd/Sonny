@@ -25,7 +25,7 @@ export class Add extends BaseForm implements IAdd {
 
   }
   
-  saveBtnEnabledDisabled: boolean = false;
+  override saveBtnEnabledDisabled: boolean = false;
   // removeNonNumericAndConvertToNumber(str: string): number {
   //   return +str.replace(/\D/g, '');
   // }

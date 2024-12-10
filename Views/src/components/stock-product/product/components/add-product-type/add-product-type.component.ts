@@ -31,8 +31,6 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
   ngOnInit(): void {
     this.formLoad();
     this.addEmptyFormArrays();
-
-   // this.products$ = this._productService.getAllIncluded$(this.companyId.toString());
   }
 
   noEntriesFoundLabel = '';
@@ -40,7 +38,7 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
   productNameAttribute = '';
 
   formErrosValidation = false;
-  saveBtnEnabledDisabled = false;
+
 
 
   save() {
@@ -53,44 +51,6 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
       this.formErrosValidation = true;
 
   }
-
-  // save() {
-
-  //   if (this.alertSave(this.formMain)) {
-  //     this.saveBtnEnabledDisabled = true;
-
-
-
-  //     if (this.formMain.get('id').value != 0) {
-  //       this._productService.update(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm);
-  //       // const test = new MatCheckboxChange();
-  //       // test.checked = true
-  //       // this.productCheckbox(test);
-  //       // test.checked = false
-  //       // this.productCheckbox(test);
-
-  //       //  this.productformControlReset = true;
-
-  //       this.formControlReset('product', true);
-  //       this.formControlReset('segment', true);
-  //       this.formControlReset('manufacturer', true);
-  //       this.formControlReset('model', true);
-
-  //       this.clearAllFormArrays();
-  //       this.addEmptyFormArrays();
-
-
-  //     }
-  //     else
-  //       this._productService.add(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm);
-
-
-  //     //  this._productService.addOrUpdate(this.formMain);
-  //   }
-  //   else
-  //     this.formErrosValidation = true;
-
-  // }
 
 
 }

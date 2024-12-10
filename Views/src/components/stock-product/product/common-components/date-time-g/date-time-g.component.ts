@@ -30,7 +30,7 @@ export class DateTimeGComponent extends BaseForm {
     super()
   }
 
-  @Input() controlName = '';
+  @Input() fieldControlName = '';
   @Input() templateVariable =  'picker'
   @Input() labelInput = 'Data';
   @Input() startView = 'month';

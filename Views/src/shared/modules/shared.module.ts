@@ -60,7 +60,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
 };
 const maskConfigFunction: () => Partial<IConfig> = () => {
   return {
-    validation: false,
+    validation: true,
   };
 };
 

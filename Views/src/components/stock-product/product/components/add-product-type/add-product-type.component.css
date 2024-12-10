@@ -8,9 +8,11 @@
 .capacity {
     margin-top:18px;
 }
+
 .description {
     margin-top:18px;
 }
+
 
 @media(min-width: 640px) {
     .container-level-0 {
@@ -43,6 +45,9 @@
         margin-top:10px;
     }
     .description {
+        margin-top:10px;
+    }
+    .btn-save {
         margin-top:10px;
     }
 }

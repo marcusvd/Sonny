@@ -13,7 +13,7 @@ const route: Routes = [
   {
     path: '', component: StockProductRouterComponent, children: [
       { path: 'add-product-type', component: AddProductTypeComponent },
-      { path: 'add-item-product', component: EditProductComponent },
+      { path: 'edit-product-type', component: EditProductComponent },
       { path: 'add-product', component: AddProductComponent },
       //  { path: 'add-item-product', component: AddProductTypeComponent},
       //  { path: 'add-item-product', component: ProductMainAddComponent},

@@ -1,25 +1,18 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
+import { AbstractControl, ValidationErrors, ValidatorFn, Validators } from "@angular/forms";
 
 export function usedHistoricalOrSupplierValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
 
     const usedHistoricalOrSupplier = control.enabled;
 
+    if (usedHistoricalOrSupplier) {
+      control.setValidators(Validators.required);
+      control.setValidators(Validators.maxLength(250));
+      
+    }
+
     return usedHistoricalOrSupplier ? { required: true } : null;
 
   }
 }
 
-// export function isTestedToDate(): ValidatorFn {
-//   return (control: AbstractControl): ValidationErrors | null => {
-
-//     const isTested = control.value
-
-//     if (isTested)
-//       control.setValue(new Date());
-//     else
-//     control.setValue(new Date());
-
-
-//   }
-// }

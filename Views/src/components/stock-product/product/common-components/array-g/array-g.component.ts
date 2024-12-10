@@ -39,8 +39,7 @@ export class ArrayGComponent extends BaseForm {
   @Input() formArray: FormArray = null;
   @Input() labelInput = '';
   @Input() entityToEdit = '';
-  @Input() nameMaxLength = 'Limite máximo de 50 caracteres!';
-  @Input() descriptionMaxLength = 'Limite máximo de 500 caracteres!';
+
 
 
   removeItemArray = (arrayEntity: string, index: number, formArray: FormArray) => {
