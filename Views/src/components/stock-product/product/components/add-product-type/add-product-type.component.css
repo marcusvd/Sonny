@@ -1,40 +1,48 @@
-
-@media(min-width: 640px) {
-    .container-main {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto auto auto;
-        grid-template-areas: 'product segment' 'manufacturer model' 'description description';
-        align-items:center;
-        column-gap: 10px;
-    }
-    
-
-    .product {
-        grid-area: product;
-    }
-    
-    .segment {
-        grid-area: segment;
-    }
-    
-    .manufacturer {
-        grid-area: manufacturer;
-    }
-    
-    .model {
-        grid-area: model;
-    }
-    
-    .description {
-        grid-area: description;
-    }
-    
-    .input-space {
-        padding-bottom: 41px;
-    }
+.product,
+.segment,
+.manufacturer {
+    margin-top:18px;
+}
+.model,
+.speed,
+.capacity {
+    margin-top:18px;
+}
+.description {
+    margin-top:18px;
 }
 
-.mat-checkbox-add {
-    padding-bottom: 20px;
+@media(min-width: 640px) {
+    .container-level-0 {
+        display: inline-flex;
+        gap: 5px;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .product,
+    .segment,
+    .manufacturer {
+        width: 100%;
+        flex: 1;
+        margin-top:18px;
+
+    }
+
+    .container-level-0-1 {
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+    }
+
+    .model,
+    .speed,
+    .capacity {
+        width: 100%;
+        flex: 1;
+        margin-top:10px;
+    }
+    .description {
+        margin-top:10px;
+    }
 }

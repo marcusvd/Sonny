@@ -1,9 +1,0 @@
-<div [formGroup]="formMain">
-    <mat-form-field appearance="outline">
-        <mat-label>Modelo</mat-label>
-        <input type="text" matInput [placeholder]="placeholderProductType" formControlName="name">
-        <mat-error>
-            <span>{{validatorMessages.required(formMain, 'name', 'Modelo')}}</span>
-        </mat-error>
-    </mat-form-field>
-</div>

@@ -1,0 +1,12 @@
+<div [formGroup]="formMain">
+    <mat-form-field appearance="outline">
+        <mat-label>{{inputLabel}}</mat-label>
+        <input [type]="type" matInput [min]="min" [max]="max" [placeholder]="inputLabel" [attr.for]="fieldControlName" [formControlName]="fieldControlName">
+        <!-- <mat-hint>EX: Placa de rede, Placa mãe, Processador, Memórias etc...</mat-hint> -->
+        <mat-error>
+            <span *ngIf="required">{{'Obrigatório!'}}</span>
+            <span *ngIf="inUse">{{'Ja existe um produto com esse nome.'}}</span>
+            <span *ngIf="hasError(formMain, fieldControlName, 'maxlength')">{{'Limite máximo de caracteres excedido.'}}</span>
+        </mat-error>
+    </mat-form-field>
+</div>

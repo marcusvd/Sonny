@@ -1,0 +1,97 @@
+<div class="border-around">
+    <title-component [digit]="'|'" [titleString]="'Produto'" [icon]="'storage'">
+    </title-component>
+
+    <mat-card class="small-large-screen">
+        <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
+
+        <div [formGroup]="formMain" class="small-large-screen" style="width:100%">
+            <div class="container-level-0">
+                <div class="type">
+                    <field-select-g (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$"
+                        [labelInput]="'Tipo'">
+                    </field-select-g>
+                </div>
+                <div class="segment">
+                    <field-select-g (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$"
+                        [labelInput]="'Segmento'">
+                    </field-select-g>
+                </div>
+            </div>
+            <div class="container-level-0">
+                <div class="manufacturer">
+                    <field-select-g (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$"
+                        [labelInput]="'Fabricante'">
+                    </field-select-g>
+                </div>
+                <div class="model">
+                    <field-select-g (outEntitiesSelected)="onSelectedModel($event)" [entities]="models$"
+                        [labelInput]="'Modelos'">
+                    </field-select-g>
+                </div>
+            </div>
+
+            <div class="checks">
+                <mat-checkbox class="mat-checkbox-add" id="isUsed" (change)="onChangeIsUsed($event)"
+                    formControlName="isUsed">Usado</mat-checkbox>
+            </div>
+
+            <div class="container-level-0-1">
+                <div class="entryDate">
+                    <date-time-g [formMain]="formMain" [controlName]="'entryDate'" [labelInput]="'Data Entrada'"
+                        [startView]="'month'">
+                    </date-time-g>
+                </div>
+                <div class="supplier">
+                    <get-suppliers [formMain]="formMain"
+                        (supplierSelected)="onSupplierSelected($event)"></get-suppliers>
+                </div>
+
+                <div class="warrantyEndLocal">
+                    <date-time-g [formMain]="formMain" [controlName]="'warrantyEndLocal'"
+                        [labelInput]="'Garantia local'" [startView]="'month'">
+                    </date-time-g>
+                </div>
+                <div class="purchaseInvoiceNumber">
+                    <field-input-g [formMain]="this.formMain" [inputLabel]="'NF: Entrada'"
+                        [fieldControlName]="'purchaseInvoiceNumber'">
+                    </field-input-g>
+                </div>
+            </div>
+
+            <div class="usedHistoricalOrSupplier">
+                <field-input-g [formMain]="this.formMain" [inputLabel]="'Procedência'"
+                    [fieldControlName]="'usedHistoricalOrSupplier'">
+                </field-input-g>
+            </div>
+
+            <div class="checks">
+                <mat-checkbox class="mat-checkbox-add" id="isTested" formControlName="isTested">Testado</mat-checkbox>
+            </div>
+
+            <div class="container-level-0-2">
+
+                <div class="costPrice">
+                    <field-input-g [formMain]="this.formMain" [inputLabel]="'Preço de custo'"
+                        [fieldControlName]="'costPrice'">
+                    </field-input-g>
+                </div>
+                <div class="soldPrice">
+
+                    <field-input-g [formMain]="this.formMain" [inputLabel]="'Preço de venda'"
+                        [fieldControlName]="'soldPrice'">
+                    </field-input-g>
+                </div>
+                <div class="quantity">
+                    <field-input-g [formMain]="this.formMain" [type]="'number'" [min]="1" [inputLabel]="'Quantidade de peças'"
+                        [fieldControlName]="'quantity'">
+                    </field-input-g>
+                </div>
+            </div>
+
+            {{formMain.value | json}}
+        </div>
+        <div>
+            <btn-g  [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
+        </div>
+    </mat-card>

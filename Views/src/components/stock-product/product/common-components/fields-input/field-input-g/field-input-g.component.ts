@@ -10,37 +10,43 @@ import { ImportsFiledsInput } from '../useful/imports-fileds-input';
 
 
 @Component({
-  selector: 'product-input-field',
+  selector: 'field-input-g',
   standalone: true,
   imports: [ImportsFiledsInput],
-  templateUrl: './product-input.component.html',
+  templateUrl: './field-input-g.component.html',
   styles: [`
-
-    mat-form-field {
-      width: 100%;
-  }
-  `],
+    mat-form-field{
+      width:100%;
+}
+    `],
 
 })
-export class ProductInputComponent extends BaseForm {
+export class FieldInputGComponent extends BaseForm {
 
-  constructor(
-    private _fb: FormBuilder,
-    override _breakpointObserver: BreakpointObserver,
-  ) {
-    super(_breakpointObserver)
+  constructor() {
+    super()
   }
 
-  get inUse(){
+  @Input() fieldControlName = 'name';
+  @Input() inputLabel = '';
+  @Input() type = 'text';
+  @Input() min = 0;
+  @Input() max: number = null;
+  @Input() override formMain: FormGroup;
+
+  get inUse() {
     return this.formMain.get('name')?.hasError('inUse')
   }
-  get required(){
+  get required() {
     return this.formMain.get('name')?.hasError('required')
   }
 
-  @Input('products') products$ = new Observable<ProductTypeDto[]>();
-  @Input() noEntriesFoundLabel = 'Nenhum registro encontrado.';
-  @Input() placeHolderProduct = 'Pesquise pelo nome';
-  @Input() productNameAttribute = 'pesquisa tipo de produto';
-  @Input() override formMain: FormGroup;
+  get maxlength() {
+    return this.formMain.get('name')?.hasError('maxlength')
+  }
+
+  hasError = (form: FormGroup, field: string, error: string) => {
+    return form.get(field)?.hasError(error)
+  }
+
 }

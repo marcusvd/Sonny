@@ -1,0 +1,9 @@
+
+<div [formGroup]="formMain">
+    <mat-form-field appearance="outline">
+        <mat-label>{{labelInput}}</mat-label>
+        <input matInput [matDatepicker]="picker" [formControlName]="controlName">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker [startView]="startView"></mat-datepicker>
+    </mat-form-field>
+</div>

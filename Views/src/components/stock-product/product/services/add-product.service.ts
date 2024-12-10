@@ -1,46 +1,47 @@
-// import { HttpClient } from "@angular/common/http";
-// import { Injectable } from "@angular/core";
-// import { Router } from "@angular/router";
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 
 
 
-// import { FormGroup } from "@angular/forms";
-// import { environment } from "src/environments/environment";
-// import { BackEndService } from "src/shared/services/back-end/backend.service";
-// import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
+import { FormGroup } from "@angular/forms";
+import { environment } from "src/environments/environment";
+import { BackEndService } from "src/shared/services/back-end/backend.service";
+import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
+import { ProductDto } from "../dtos/product";
 
 
-// @Injectable({ providedIn: 'root' })
-// export class AddStockService extends BackEndService<ProductDto> {
+@Injectable({ providedIn: 'root' })
+export class AddProductService extends BackEndService<ProductDto> {
 
-//   constructor(
-//     override _http: HttpClient,
-//     private _communicationsAlerts: CommunicationAlerts,
-//     private _route: Router,
-//   ) {
-//     super(_http,
-//       environment._STOCK_PRODUCTS,
-//     );
+  constructor(
+    override _http: HttpClient,
+    private _communicationsAlerts: CommunicationAlerts,
+    private _route: Router,
+  ) {
+    super(_http,
+      environment._STOCK_PRODUCTS,
+    );
 
-//   }
+  }
 
 
-//   addNewProduct(form: FormGroup) {
+  add(form: FormGroup) {
 
-//     const toSave: ProductDto = { ...form.value }
+    const toSave: ProductDto = { ...form.value }
 
-//     this.add$<ProductDto>(toSave, 'AddProductAsync').subscribe({
-//       next: () => {
-//         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
-//         form.reset();
-//         //  this._route.navigateByUrl(`/side-nav/stock-product-router/add-item-product`)
-//       },
-//       error: (erroCode) => {
-//         console.log(erroCode)
-//         this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
-//       }
-//     })
-//   }
+    this.add$<ProductDto>(toSave, 'AddProductAsync').subscribe({
+      next: () => {
+        this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
+        form.reset();
+        //  this._route.navigateByUrl(`/side-nav/stock-product-router/add-item-product`)
+      },
+      error: (erroCode) => {
+        console.log(erroCode)
+        this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
+      }
+    })
+  }
 
 //   isTested(productItem: FormGroup) {
 //     productItem.value.isTested == true ? productItem.patchValue({ isTested: new Date() }) : productItem.patchValue({ isTested: new Date('0001-01-01T00:00:00') })
@@ -100,6 +101,6 @@
 
 
 
-// }
+}
 
 

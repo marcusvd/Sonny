@@ -4,13 +4,13 @@
 
     <mat-card class="small-large-screen">
         <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
-        <br>
-        <div class="container-main" *ngIf="this.products$">
+
+        <div class="container-level-0">
             <!-- Column LEFT -->
             <div class="product">
                 <!-- product start-->
-                <product-input-field [formErrors]="formErrosValidation" [products]="this.products$" [noEntriesFoundLabel]="noEntriesFoundLabel" [formMain]="this.formMain">
-                </product-input-field>
+                <field-input-g [formMain]="this.formMain" [inputLabel]="'Tipo'" [fieldControlName]="'name'">
+                </field-input-g>
                 <!-- [productMatSelect]="this.productMatSelect" -->
 
             </div>
@@ -18,53 +18,51 @@
             <div class="segment">
                 <!-- segment start-->
 
-                <segment-input-field [formErrors]="formErrosValidation" [segments]="this.segments$" [noEntriesFoundLabel]="noEntriesFoundLabel" [formMain]="segmentForm">
-                </segment-input-field>
+                <field-input-g [formMain]="segmentForm" [inputLabel]="'Segmento'" [fieldControlName]="'name'">
+                </field-input-g>
 
                 <!-- segment end-->
             </div>
 
             <div class="manufacturer">
                 <!-- manufacturer start-->
-                <manufacturer-input-field [formMain]="manufacturerForm" [formErrors]="formErrosValidation" [manufacturers]="manufacturers$" [noEntriesFoundLabel]="noEntriesFoundLabel">
-                </manufacturer-input-field>
+                <field-input-g [formMain]="manufacturerForm" [inputLabel]="'Fabricante'" [fieldControlName]="'name'">
+                </field-input-g>
                 <!-- manufacturer end-->
             </div>
 
+        </div>
+
+        <div class="container-level-0-1">
             <div class="model">
                 <!-- model start-->
-                <model-input-field [formMain]="modelForm" [formErrors]="formErrosValidation" [models]="this.models$" [noEntriesFoundLabel]="noEntriesFoundLabel">
-                </model-input-field>
-                <!-- model end-->
+                <field-input-g [formMain]="modelForm" [inputLabel]="'Modelo'" [fieldControlName]="'name'">
+                </field-input-g>
+
             </div>
 
-            <div class="description">
-                <model-description-input-field style="width: 100%;" [formMain]="this.modelForm">
-                </model-description-input-field>
+            <div class="speed">
+                <field-input-g [formMain]="this.modelForm" [inputLabel]="'Velocidade'" [fieldControlName]="'speed'"
+                    style="width: 100%;">
+                </field-input-g>
             </div>
-            <!-- <div>{{formMain.value | json}}</div> -->
+            <div class="capacity">
+                <field-input-g [formMain]="this.modelForm" [inputLabel]="'Capacidade'" [fieldControlName]="'capacity'"
+                    style="width: 100%;">
+                </field-input-g>
+            </div>
+
         </div>
+        <div class="description">
+            <field-input-g [formMain]="this.modelForm" [inputLabel]="'Descrição'" [fieldControlName]="'description'"
+                style="width: 100%;">
+            </field-input-g>
+        </div>
+        <!-- model end-->
         <div>
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
         </div>
-        <br>
+
         <div>{{formMain.value | json}}</div>
     </mat-card>
 </div>
-
-
-<!-- <div class="border-around"> -->
-
-
-
-<!-- <div>
-            <btn-g [name]="saveOrUpdate" [icon]="'save'" (btn)="save()"></btn-g>
-        </div> -->
-
-<!-- </mat-card> -->
-<!-- <add-item-product *ngIf="formMain.valid">
-        </add-item-product> -->
-<!-- <div>{{formMain.value | json}}</div> -->
-
-
-<!-- </div> -->

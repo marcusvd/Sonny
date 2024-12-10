@@ -42,6 +42,22 @@ namespace Application.Services.Operations.StockProduct
 
             throw new GlobalServicesException(GlobalErrorsMessagesException.UnknownError);
         }
+        public async Task<HttpStatusCode> AddProductAsync(ProductDto dtoView)
+        {
+            if (dtoView == null)
+                throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
+
+            var entityToDb = _IStockProductObjectMapperServices.ProductMapper(dtoView);
+
+            entityToDb.Registered = DateTime.Now;
+
+            _GENERIC_REPO.Products.Add(entityToDb);
+
+            if (await _GENERIC_REPO.save())
+                return HttpStatusCode.Created;
+
+            throw new GlobalServicesException(GlobalErrorsMessagesException.UnknownError);
+        }
         public async Task<List<ProductTypeDto>> GetProductTypesIncludedAsync(int companyId)
         {
 

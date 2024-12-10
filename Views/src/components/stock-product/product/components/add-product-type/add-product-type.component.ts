@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 
 
 import { ProductTypeService } from '../../services/product-type.service';
-import { FormControllerProductType } from './useful/form-controller-product-type';
+import { FormControllerAddProductType } from './useful/form-controller-add-product-type';
 import { ImportsProductType } from './useful/imports-product-type';
 import { ProductTypeValidatorAsync } from './useful/product-type-validator-async-fields';
 
@@ -17,7 +17,7 @@ import { ProductTypeValidatorAsync } from './useful/product-type-validator-async
   styleUrls: ['./add-product-type.component.css'],
   providers: [ProductTypeService]
 })
-export class AddProductTypeComponent extends FormControllerProductType implements OnInit {
+export class AddProductTypeComponent extends FormControllerAddProductType implements OnInit {
 
   constructor(
     public _fbMain: FormBuilder,
@@ -35,9 +35,9 @@ export class AddProductTypeComponent extends FormControllerProductType implement
    // this.products$ = this._productService.getAllIncluded$(this.companyId.toString());
   }
 
-  noEntriesFoundLabel = 'Nenhum registro encontrado.';
-  placeholderProduct = 'Pesquise pelo nome';
-  productNameAttribute = 'pesquisa tipo de produto';
+  noEntriesFoundLabel = '';
+  placeholderProduct = '';
+  productNameAttribute = '';
 
   formErrosValidation = false;
   saveBtnEnabledDisabled = false;

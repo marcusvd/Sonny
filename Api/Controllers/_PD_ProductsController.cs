@@ -28,6 +28,12 @@ namespace Api.Controllers
             var resultToView = await _IProductServices.AddProductTypeAsync(entityDto);
             return Ok(resultToView);
         }
+        [HttpPost("AddProductAsync")]
+        public async Task<IActionResult> AddProductAsync([FromBody] ProductDto entityDto)
+        {
+            var resultToView = await _IProductServices.AddProductAsync(entityDto);
+            return Ok(resultToView);
+        }
 
         [HttpGet("GetProductTypesIncludedAsync/{companyId:min(1)}")]
         public async Task<IActionResult> GetProductTypesIncludedAsync(int companyId)

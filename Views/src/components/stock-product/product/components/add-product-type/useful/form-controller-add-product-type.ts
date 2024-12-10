@@ -14,7 +14,7 @@ import { ProductTypeValidatorAsync } from "./product-type-validator-async-fields
 import validator from "cpf-cnpj-validator";
 
 
-export class FormControllerProductType extends BaseForm {
+export class FormControllerAddProductType extends BaseForm {
   constructor(
     private _fb: FormBuilder,
     public _productTypeValidatorAsync: ProductTypeValidatorAsync,
@@ -22,11 +22,6 @@ export class FormControllerProductType extends BaseForm {
     super()
   }
 
-  //OBSERVABLES
-  products$ = new Observable<ProductTypeDto[]>();
-  segments$: Observable<SegmentDto[]>;
-  manufacturers$: Observable<ManufacturerDto[]>
-  models$: Observable<ModelDto[]>
 
   //FORMS
   get segments() {
@@ -38,21 +33,21 @@ export class FormControllerProductType extends BaseForm {
   get models() {
     return this.manufacturerForm.get('models') as FormArray
   }
+  
 
-  // get saveOrUpdate() {
-  //   return this.productInput != false ? 'Adicionar':'Atualizar'
-  // }
-
+  //FormGroups
   segmentForm: FormGroup;
   manufacturerForm: FormGroup;
   modelForm: FormGroup;
 
+  //Validators
+  nameMaxLength = 50;
+  descriptionMaxLength = 500;
 
   formLoad(productType?: ProductTypeDto) {
     this.formMain = this._fb.group({
-      id: [productType?.id ?? 0, []],
-      name: new FormControl(productType?.name, { validators: [Validators.required], asyncValidators:[this._productTypeValidatorAsync.validate.bind(this._productTypeValidatorAsync)] }),
-      // name: [productType?.name, [Validators.required]],
+      id: [productType?.id ?? 0, [Validators.required]],
+      name: new FormControl(productType?.name, { validators: [Validators.required, Validators.maxLength(this.nameMaxLength)], asyncValidators: [this._productTypeValidatorAsync.validate.bind(this._productTypeValidatorAsync)] }),
       companyId: [this.companyId, [Validators.required]],
       userId: [this.userId, [Validators.required]],
       segments: this._fb.array([], Validators.required)
@@ -61,9 +56,9 @@ export class FormControllerProductType extends BaseForm {
 
   formLoadSegment(segment?: SegmentDto) {
     return this.segmentForm = this._fb.group({
-      id: [segment?.id ?? 0, []],
-      name: [segment?.name, [Validators.required]],
-      companyId: [this.companyId, []],
+      id: [segment?.id ?? 0, [Validators.required]],
+      name: [segment?.name, [Validators.required, Validators.maxLength(this.nameMaxLength)]],
+      companyId: [this.companyId, [Validators.required]],
       productId: [segment?.productTypeId ?? 0, []],
       manufacturers: this._fb.array([], Validators.required)
     })
@@ -71,9 +66,9 @@ export class FormControllerProductType extends BaseForm {
 
   formLoadManufacturer(manufacturer?: ManufacturerDto) {
     return this.manufacturerForm = this._fb.group({
-      id: [manufacturer?.id ?? 0, []],
-      name: [manufacturer?.name ?? '', [Validators.required]],
-      companyId: [this.companyId, []],
+      id: [manufacturer?.id ?? 0, [Validators.required]],
+      name: [manufacturer?.name ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
+      companyId: [this.companyId, [Validators.required]],
       segmentId: [manufacturer?.segmentId ?? 0, []],
       models: this._fb.array([], Validators.required)
     })
@@ -81,13 +76,13 @@ export class FormControllerProductType extends BaseForm {
 
   formLoadModel(model?: ModelDto) {
     return this.modelForm = this._fb.group({
-      id: [model?.id ?? 0, []],
-      companyId: [this.companyId, []],
-      name: [model?.name ?? '', [Validators.required]],
-      speed: [model?.speed ?? '', []],
-      capacity: [model?.capacity ?? '', []],
+      id: [model?.id ?? 0, [Validators.required]],
+      companyId: [this.companyId, [Validators.required]],
+      name: [model?.name ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
+      speed: [model?.speed ?? '', [ Validators.maxLength(this.nameMaxLength)]],
+      capacity: [model?.capacity ?? '', [ Validators.maxLength(this.nameMaxLength)]],
       manufacturerId: model?.manufacturerId ?? 0,
-      description: [model?.description ?? '', [Validators.required]],
+      description: [model?.description ?? '', [Validators.maxLength(this.descriptionMaxLength)]],
     })
   }
 
@@ -96,15 +91,6 @@ export class FormControllerProductType extends BaseForm {
     this.manufacturers.push(this.formLoadManufacturer())
     this.models.push(this.formLoadModel())
   }
-
-  // clearAllFormArrays() {
-  //   this.segments.clear();
-  //   this.manufacturers.clear();
-  //   this.models.clear();
-  // }
-
-  //CHECKBOX
-  
 
 
 }

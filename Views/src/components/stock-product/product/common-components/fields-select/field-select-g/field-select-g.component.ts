@@ -25,15 +25,12 @@ import { ImportsFiledsSelect } from '../useful/imports-fileds-select';
 
 export class FieldSelectGComponent extends BaseForm {
 
-  constructor(
-    override _breakpointObserver: BreakpointObserver,
-  ) {
-    super(_breakpointObserver)
+  constructor() {
+    super()
   }
 
   @Input('entities') entities$: Observable<any[]>;
-  @Input() noEntriesFoundLabel = '';
-  @Input() placeHolder = '';
+  @Input() noEntriesFoundLabel = 'Nenhum item encontrado.';
   @Input() nameAttribute = '';
   @Input() labelInput = '';
 
@@ -54,7 +51,7 @@ export class FieldSelectGComponent extends BaseForm {
   searchEntity() {
     this.entities$ = this.selectNgxFormControl.valueChanges.pipe(
       x => this.entities$.pipe(
-        map(xy => xy.filter(y => y.name.toLocaleLowerCase().includes(this.selectNgxFormControl.value.toLocaleLowerCase()))))
+        map(xy => xy.filter(y => this.removeAccentsSpecialCharacters(y.name.toLocaleLowerCase()).includes(this.removeAccentsSpecialCharacters(this.selectNgxFormControl.value.toLocaleLowerCase())))))
     )
   }
 
