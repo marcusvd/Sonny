@@ -15,10 +15,10 @@ const routes: Routes = [
         path: 'customer-dash',
         loadChildren: () => import('../../components/main/customer/modules/customer.routing.module').then(x => x.CustomerRoutingModule),
       },
-      {
-        path: 'bench-budget-service-dash',
-        loadChildren: () => import('../../components/bench-budget-service/modules/bench-budget-service.routing.module').then(x => x.BenchBudgetServiceRoutingModule)
-      },
+      // {
+      //   path: 'bench-budget-service-dash',
+      //   loadChildren: () => import('../../components/bench-budget-service/modules/bench-budget-service.routing.module').then(x => x.BenchBudgetServiceRoutingModule)
+      // },
       // {
       //   path: 'services-provision-adm-dash',
       //   loadChildren: () => import('../../components/services-provision/modules/budget.routing.module').then(x => x.BudgetRoutingModule)
@@ -31,10 +31,10 @@ const routes: Routes = [
         path: 'partner-dash',
         loadChildren: () => import('../../components/main/partner/modules/partner.module.routing').then(x => x.PartnerRoutingModule)
       },
-      {
-        path: 'outsourced-dash',
-        loadChildren: () => import('../../components/out-sourced/modules/out-sourced.routing').then(x => x.OutsourcedRoutingModule)
-      },
+      // {
+      //   path: 'outsourced-dash',
+      //   loadChildren: () => import('../../components/out-sourced/modules/out-sourced.routing').then(x => x.OutsourcedRoutingModule)
+      // },
       {
         path: 'stock-product-router',
         loadChildren: () => import('../../components/stock-product/modules/stock-product.routing.module').then(x => x.StockProductRoutingModule)

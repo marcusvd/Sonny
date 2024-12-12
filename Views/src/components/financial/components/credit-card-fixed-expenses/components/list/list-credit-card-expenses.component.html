@@ -15,7 +15,6 @@
                                     <grid-list-common-search [searchName]="'Busca'" [fxFlexInput]="100" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
                                     <financial-subtitle *ngIf="this.entities.length != 0" [singleStatusSubtitle]="true" [expiresDate]="this.entities[0].expires" [statusCollection]="statusCollection" [title]="expensesMonth">
                                     </financial-subtitle>
-
                                 </div>
                             </div>
                         </div>

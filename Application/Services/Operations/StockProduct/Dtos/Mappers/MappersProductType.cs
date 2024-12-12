@@ -48,7 +48,7 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 Name = entity.Name,
                 Deleted = entity.Deleted,
                 Segments = SegmentListMake(entity.Segments),
-                Products = ProductListMake(entity.Products)
+                // Products = ProductListMake(entity.Products)
 
             };
 
@@ -66,7 +66,7 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 Name = entity.Name,
                 Deleted = entity.Deleted,
                 Segments = SegmentListMake(entity.Segments),
-                Products = ProductListMake(entity.Products)
+                // Products = ProductListMake(entity.Products)
             };
 
             return obj;

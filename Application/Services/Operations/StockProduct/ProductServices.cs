@@ -42,49 +42,6 @@ namespace Application.Services.Operations.StockProduct
 
             throw new GlobalServicesException(GlobalErrorsMessagesException.UnknownError);
         }
-        public async Task<HttpStatusCode> AddProductAsync(ProductDto dtoView)
-        {
-            if (dtoView == null)
-                throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
-
-            var products = new List<ProductDto>();
-
-            if (dtoView.Quantity > 1)
-            {
-                for (int i = 0; i < dtoView.Quantity; i++)
-                {
-                    dtoView.Registered = DateTime.Now;
-                    products.Add(dtoView);
-                }
-            }
-
-            if (products.Count > 0)
-            {
-                var entitiesToDb = _IStockProductObjectMapperServices.ProductListMake(products);
-                _GENERIC_REPO.Products.AddRange(entitiesToDb);
-
-                if (await _GENERIC_REPO.save())
-                    return HttpStatusCode.Created;
-
-                throw new GlobalServicesException(GlobalErrorsMessagesException.UnknownError);
-            }
-            else
-            {
-
-                var entityToDb = _IStockProductObjectMapperServices.ProductMapper(dtoView);
-
-                entityToDb.Registered = DateTime.Now;
-
-
-                _GENERIC_REPO.Products.Add(entityToDb);
-
-                if (await _GENERIC_REPO.save())
-                    return HttpStatusCode.Created;
-
-                throw new GlobalServicesException(GlobalErrorsMessagesException.UnknownError);
-            }
-
-        }
         public async Task<List<ProductTypeDto>> GetProductTypesIncludedAsync(int companyId)
         {
 
@@ -205,6 +162,78 @@ namespace Application.Services.Operations.StockProduct
             return _IStockProductObjectMapperServices.ProductTypeListMake(fromDb);
         }
 
+        //Products
+          public async Task<HttpStatusCode> AddProductAsync(ProductDto dtoView)
+        {
+            if (dtoView == null)
+                throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
+            var products = new List<ProductDto>();
+
+            if (dtoView.Quantity > 1)
+            {
+                for (int i = 0; i < dtoView.Quantity; i++)
+                {
+                    dtoView.Registered = DateTime.Now;
+                    products.Add(dtoView);
+                }
+            }
+
+            if (products.Count > 0)
+            {
+                var entitiesToDb = _IStockProductObjectMapperServices.ProductListMake(products);
+                _GENERIC_REPO.Products.AddRange(entitiesToDb);
+
+                if (await _GENERIC_REPO.save())
+                    return HttpStatusCode.Created;
+
+                throw new GlobalServicesException(GlobalErrorsMessagesException.UnknownError);
+            }
+            else
+            {
+
+                var entityToDb = _IStockProductObjectMapperServices.ProductMapper(dtoView);
+
+                entityToDb.Registered = DateTime.Now;
+
+
+                _GENERIC_REPO.Products.Add(entityToDb);
+
+                if (await _GENERIC_REPO.save())
+                    return HttpStatusCode.Created;
+
+                throw new GlobalServicesException(GlobalErrorsMessagesException.UnknownError);
+            }
+
+        }
+
+        public async Task<List<ProductDto>> GetProductsIncludedAsync(int companyId)
+        {
+
+            var fromDb = await _GENERIC_REPO
+                .Products.Get(
+                    predicate => predicate.CompanyId == companyId && predicate.Deleted == DateTime.MinValue,
+                    toInclude =>
+                        toInclude
+                            .Include(x => x.ReservedForCustomer)
+                            .Include(x => x.User)
+                            .Include(x => x.IsReservedByUser)
+                        
+                            .Include(x => x.ProductType)
+                            .Include(x => x.Segment)
+                            // .Include(x => x.Segment.Deleted == DateTime.MinValue)
+                            .Include(x => x.Manufacturer)
+                            // .Include(x => x.Manufacturer.Deleted == DateTime.MinValue)
+                            .Include(x => x.Model),
+                    selector => selector
+                )
+                .ToListAsync();
+
+            if (fromDb == null)
+                throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+             return _IStockProductObjectMapperServices.ProductListMake(fromDb);
+           
+        }
     }
 }

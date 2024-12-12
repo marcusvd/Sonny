@@ -6,7 +6,6 @@ import { CollectDeliverCreateComponent } from "src/components/out-sourced/collec
 import { CollectDeliverEditComponent } from "src/components/out-sourced/collect-deliver/components/edit/collect-deliver-edit.component";
 import { CollectDeliverListComponent } from "src/components/out-sourced/collect-deliver/components/list/collect-deliver-list.component";
 import { CollectDeliverViewComponent } from "src/components/out-sourced/collect-deliver/components/view/collect-deliver-view.component";
-import { EletronicRepairComponent } from "src/components/out-sourced/eletronic-repair/component/eletronic-repair.component";
 import { GetTotalEntitiesResolver } from "src/shared/components/grid-list-common/helpers/grid-list-common-helper";
 import { OutsourcedDashComponent } from "../dash/out-sourced-dash.component";
 import { ListCollectDeliverMonthComponent } from "../collect-deliver/components/list-month/list-collect-deliver-month.component";
@@ -16,7 +15,7 @@ const RoutesPartner: Routes = [
   {
     path: '', component: OutsourcedDashComponent, children: [
 
-      { path: 'create-eletronic-repair/:id', component: EletronicRepairComponent },
+      // { path: 'create-eletronic-repair/:id', component: EletronicRepairComponent },
       //outsourced
       { path: 'add-collect-deliver', component: CollectDeliverCreateComponent },
       { path: 'list-collect-deliver-all-months', component: ListCollectDeliverMonthComponent },

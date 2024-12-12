@@ -1,6 +1,4 @@
 import { MainEntitiesBase } from 'src/components/main/inheritances/dtos/main-entities-base';
-import { ElectronicRepairDto } from 'src/components/out-sourced/eletronic-repair/dto/electronic-repair-dto';
-
 import { AdditionalCosts } from './additional-costs';
 
 
@@ -13,5 +11,5 @@ export class CustomerDto extends MainEntitiesBase{
    additionalCosts:AdditionalCosts;
    
   //  servicesExecuted:BudgetServiceDto[];
-   electronicsRepairs:ElectronicRepairDto[];
+   // electronicsRepairs:ElectronicRepairDto[];
 }

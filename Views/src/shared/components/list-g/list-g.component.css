@@ -1,0 +1,62 @@
+.table {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* border: 1px solid #ccc; */
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.row.header {
+  font-weight: bold;
+  font-size: 10px;
+  color: rgb(43, 161, 168);
+  background-color: 242, 242, 242;
+}
+
+.cell {
+  flex: 1;
+  width: 100%;
+  padding: 8px;
+  /* border: 1px solid #ccc; */
+  text-align: center;
+
+  box-sizing: border-box;
+
+}
+
+.row.header .cell {
+  min-width: 100px;
+  /* Ensures cells in header have a consistent width */
+}
+
+.row .cell {
+  min-width: 100px;
+  /* Aligns all cells with the header cells */
+}
+
+mat-card {
+  margin: 5px;
+}
+
+.btn-icon {
+  padding: 0px;
+  width: 5px;
+}
+
+.isOdd {
+  background-color:rgb(249, 249, 249);
+}
+.isOdd:hover {
+  background-color:rgb(184, 184, 184);
+}
+
+.isEven {
+  background-color:rgb(233, 233, 233);
+}
+.isEven:hover {
+  background-color:rgb(184, 184, 184);
+}

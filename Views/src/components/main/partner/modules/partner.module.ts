@@ -10,7 +10,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SharedModule } from "src/shared/modules/shared.module";
 
 
-import { EletronicRepairCreateService } from "src/components/out-sourced/eletronic-repair/services/eletronic-repair.create.service";
 import { PartnerEditResolver } from "src/components/out-sourced/resolvers/partner.edit.resolver";
 import { AddressService } from 'src/shared/components/address/services/address.service';
 import { ContactService } from 'src/shared/components/contact/services/contact.service';
@@ -55,7 +54,6 @@ import { PartnerRoutingModule } from "./partner.module.routing";
   providers: [
     PartnerListService,
     PartnerEditResolver,
-    EletronicRepairCreateService,
     AddressService,
     ContactService,
     // GetTotalEntitiesResolver

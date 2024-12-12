@@ -55,7 +55,7 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 Manufacturer = ManufacturerMapper(entity.Manufacturer),
                 ModelId = entity.ProductTypeId,
                 Model = ModelMapper(entity.Model),
-                // IsReservedByUser = MyUserMapper(entity.IsReservedByUser),
+                IsReservedByUser = entity.IsReservedByUser != null ? MyUserMapper(entity.IsReservedByUser) : null ,
                 IsReserved = entity.IsReserved,
                 ReservedForCustomerId = entity.ReservedForCustomerId,
                 ReservedForCustomer = _ICustomerObjectMapperServices.CustomerMapper(entity.ReservedForCustomer),

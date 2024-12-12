@@ -28,12 +28,6 @@ namespace Api.Controllers
             var resultToView = await _IProductServices.AddProductTypeAsync(entityDto);
             return Ok(resultToView);
         }
-        [HttpPost("AddProductAsync")]
-        public async Task<IActionResult> AddProductAsync([FromBody] ProductDto entityDto)
-        {
-            var resultToView = await _IProductServices.AddProductAsync(entityDto);
-            return Ok(resultToView);
-        }
 
         [HttpGet("GetProductTypesIncludedAsync/{companyId:min(1)}")]
         public async Task<IActionResult> GetProductTypesIncludedAsync(int companyId)
@@ -41,7 +35,7 @@ namespace Api.Controllers
             var resultToView = await _IProductServices.GetProductTypesIncludedAsync(companyId);
             return Ok(resultToView);
         }
-        
+
         [HttpGet("GetProductTypesAsync/{companyId:min(1)}")]
         public async Task<IActionResult> GetProductTypes(int companyId)
         {
@@ -63,8 +57,19 @@ namespace Api.Controllers
             return Ok(resultToView);
         }
 
+        //Product
+        [HttpPost("AddProductAsync")]
+        public async Task<IActionResult> AddProductAsync([FromBody] ProductDto entityDto)
+        {
+            var resultToView = await _IProductServices.AddProductAsync(entityDto);
+            return Ok(resultToView);
+        }
 
-
-
+        [HttpGet("GetProductsIncludedAsync/{companyId:min(1)}")]
+        public async Task<IActionResult> GetProductsIncludedAsync(int companyId)
+        {
+            var resultToView = await _IProductServices.GetProductsIncludedAsync(companyId);
+            return Ok(resultToView);
+        }
     }
 }

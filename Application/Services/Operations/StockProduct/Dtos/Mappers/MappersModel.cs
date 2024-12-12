@@ -51,7 +51,7 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 Speed = entity.Speed,
                 Capacity = entity.Capacity,
                 ManufacturerId = entity.ManufacturerId,
-                Products = ProductListMake(entity.Products)
+                // Products = ProductListMake(entity.Products)
             };
 
             return obj;
@@ -70,7 +70,7 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 Speed = entity.Speed,
                 Capacity = entity.Capacity,
                 ManufacturerId = entity.ManufacturerId,
-                Products = ProductListMake(entity.Products)
+                // Products = ProductListMake(entity.Products)
             };
 
             return obj;

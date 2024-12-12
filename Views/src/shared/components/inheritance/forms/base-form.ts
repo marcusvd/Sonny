@@ -41,6 +41,7 @@ export class BaseForm extends Responsive {
   limitMaxMsg = 'Máximo de excedido!';
   limitMinMsg = 'Abaixo do mínimo necessário!';
   charactersMsg = ' caracteres!'
+  inUseMsg = 'Já em Cadastrado!';
 
   constructor(
     override _breakpointObserver?: BreakpointObserver,

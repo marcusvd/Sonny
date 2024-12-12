@@ -1,48 +1,101 @@
 {
-    "id": 1,
-    "name": "Placa de rede",
-    "companyId": 1,
-    "userId": 1,
-    "segments": [{
-            "id": 1,
-            "name": "Desktop",
-            "companyId": 1,
-            "productId": 1,
-            "manufacturers": [],
-            "deleted": "0001-01-01T00:00:00"
-        },
-        {
-            "id": 4,
-            "name": "Servidor",
-            "companyId": 1,
-            "productId": 1,
-            "manufacturers": [{
-                    "id": 1,
-                    "name": "Realtek",
-                    "companyId": 1,
-                    "segmentId": 1,
-                    "models": [],
-                    "deleted": "0001-01-01T00:00:00"
-                },
-                {
-                    "id": 1,
-                    "name": "Realtek",
-                    "companyId": 1,
-                    "segmentId": 1,
-                    "models": [{
-                        "id": 1,
-                        "companyId": 1,
-                        "name": "RTL8139C",
-                        "speed": "10/100",
-                        "capacity": "",
-                        "manufacturerId": 1,
-                        "description": "Das antiga",
-                        "deleted": "0001-01-01T00:00:00"
-                    }],
-                    "deleted": "0001-01-01T00:00:00"
-                }
-            ],
-            "deleted": "0001-01-01T00:00:00"
-        }
-    ]
+    company
+: 
+null
+companyId
+: 
+1
+costPrice
+: 
+123
+deleted
+: 
+"0001-01-01T00:00:00"
+entryDate
+: 
+"2024-12-10T00:57:05.035"
+id
+: 
+1
+isReserved
+: 
+"0001-01-01T00:00:00"
+isReservedByUser
+: 
+null
+isReservedByUserId
+: 
+null
+isTested
+: 
+"2024-12-10T00:57:05.035"
+isUsed
+: 
+false
+manufacturer
+: 
+{name: 'Realtek', segmentId: 1, segment: null, models: null, products: null, …}
+manufacturerId
+: 
+1
+model
+: 
+{name: '8139C', capacity: '', speed: '10/100', description: 'das antiga', manufacturerId: 1, …}
+modelId
+: 
+1
+productType
+: 
+null
+productTypeId
+: 
+1
+purchaseInvoiceNumber
+: 
+"3SW4DF76"
+quantity
+: 
+0
+registered
+: 
+"2024-12-09T21:57:34.371576"
+reservedForCustomer
+: 
+null
+reservedForCustomerId
+: 
+null
+segment
+: 
+{name: 'Desktop', productTypeId: 1, productType: null, manufacturers: null, products: null, …}
+segmentId
+: 
+1
+soldDate
+: 
+"0001-01-01T00:00:00"
+soldPrice
+: 
+5421
+supplier
+: 
+null
+supplierId
+: 
+2
+usedHistoricalOrSupplier
+: 
+null
+user
+: 
+null
+userId
+: 
+1
+warrantyEnd
+: 
+"0001-01-01T00:00:00"
+warrantyEndLocal
+: 
+"2025-12-09T03:00:00"
 }

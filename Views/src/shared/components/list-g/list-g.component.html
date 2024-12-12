@@ -1,0 +1,51 @@
+<div class="small-large-screen">
+    <div class="container-paginator">
+        <div class="paginator-above">
+            <ng-content select="[paginator-above]"></ng-content>
+        </div>
+    </div>
+    <div class="container-search">
+        <div class="filter">
+            <ng-content select="[filter]"></ng-content>
+        </div>
+        <div class="field-search">
+            <field-input-g [type]="'text'" [inputLabel]="'Pesquisar'">
+
+            </field-input-g>
+        </div>
+    </div>
+
+    <!-- <field-input-g [formMain]="this.formMain" [type]="'text'" [inputLabel]="'Pesquisar'" [fieldControlName]="'purchaseInvoiceNumber'">               
+        <span msg-error
+            *ngIf="this.formError(formMain,'purchaseInvoiceNumber', 'maxlength') && this.formTouched(formMain, 'purchaseInvoiceNumber')">{{maxLengthMsg
+            + '30' + charactersMsg}}</span>
+    </field-input-g> -->
+
+    <div class="table">
+        <div class="row header">
+            <div class="cell" *ngFor="let header of headersLabel">
+                {{header}}
+            </div>
+        </div>
+
+        <div [class]="{'isOdd':isOdd, 'isEven':isEven}" class="row" *ngFor="let entity of this.entities$ | async; let isOdd = odd; let isEven = even">
+            <div class="cell" *ngFor="let field of headersFields let i = index;">
+            
+                <ng-container *ngIf="entity[field]?.split('|')[0] == 'icon'">
+                  <button class="btn-icon" mat-raised-button><mat-icon [style]="entity[field].split('|')[2]">{{entity[field].split('|')[1]}}</mat-icon></button>  
+                </ng-container>
+                <ng-container *ngIf="entity[field]?.split('|')[0] != 'icon'">
+                    <!-- <div > -->
+                        <div [style]="entity[field].split('|')[1]">{{entity[field].split('|')[0]}}</div>
+                    <!-- </div> -->
+                </ng-container>
+                
+            </div>
+        </div>
+    </div>
+    <div class="container-paginator">
+        <div class="paginator-below">
+            <ng-content select="[paginator-below]"></ng-content>
+        </div>
+    </div>
+</div>

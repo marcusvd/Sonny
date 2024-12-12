@@ -34,7 +34,7 @@ import { SharedRoutingModule } from "./shared.routing.module";
 // import { CheckButtonGModule } from "../components/check-button-g/modules/check-button-g.module";
 // import { FinancialPixComponent } from "../components/financial/pix/financial-pix.component";
 import { FormErrorPanelComponent } from "../components/form-error-panel/form-error-panel.component";
-import { GridListModule } from "../components/grid-list-opts/modules/grid-list.module.module";
+
 import { RadioButtonGModule } from "../components/radio-button-g/modules/radio-button-g.module";
 
 // import { TableGGridModule } from "../components/table-g-grid/modules/table-g-grid.module";
@@ -113,7 +113,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     RadioButtonGModule,
     // CheckButtonGModule,
 
-    GridListModule,
+    
 
     //STANDALONE
 
@@ -149,7 +149,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     RadioButtonGModule,
     // CheckButtonGModule,
 
-    // GridListModule,
+    
     //Tests
 
     //Pipes

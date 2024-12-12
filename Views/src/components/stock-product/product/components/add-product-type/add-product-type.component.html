@@ -14,6 +14,7 @@
                     [fieldControlName]="'name'">
                     <span msg-error *ngIf="this.formError(formMain,'name', 'required') && this.formTouched(formMain, 'name')">{{requiredMsg}}</span>
                     <span msg-error *ngIf="this.formError(formMain,'name', 'maxlength') && this.formTouched(formMain, 'name')">{{maxLengthMsg + '50' + charactersMsg}}</span>
+                    <span msg-error *ngIf="this.formError(formMain,'name', 'inUse') && this.formTouched(formMain, 'name')">{{inUseMsg}}</span>
                 </field-input-g>
                 <!-- [productMatSelect]="this.productMatSelect" -->
 
