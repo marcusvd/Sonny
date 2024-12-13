@@ -4,6 +4,10 @@ import { Inject } from "@angular/core";
 import * as diacritics from 'diacritics';
 import { ListGDataService } from "../data/list-g-data.service";
 import { NavigationExtras, Router } from "@angular/router";
+import { FieldsInterface } from "../data/fields-interface";
+import { FieldsLabelInterface } from "../data/fields-label-interface";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
 
 export class BaseList {
@@ -21,8 +25,8 @@ export class BaseList {
   constructor(
     protected _listGDataService:ListGDataService,
     protected _router: Router,
-    @Inject('headers') public headers: string[] = [],
-    @Inject('fields') public fields: string[] = [],
+    @Inject('headers') public headers: FieldsLabelInterface[] = [],
+    @Inject('fields') public fields: FieldsInterface[] = [],
   ) 
   {  }
 
@@ -44,6 +48,46 @@ export class BaseList {
     };
 
     this._router.navigate([url], objectRoute);
+  }
+
+  isdescending = true;
+  orderByFrontEnd(entities$: Observable<any[]>, field: any) {
+    this.isdescending = !this.isdescending;
+
+    const entityFieldProperty = Object.keys(field)[0];
+    const valueType = typeof (Object.values(field)[0]);    
+
+    if (valueType === 'string') {
+      if (this.isdescending)
+        return entities$.pipe(map(h => h.sort((x, y) => x[entityFieldProperty].key.localeCompare(y[entityFieldProperty].key))));
+      else
+        return entities$.pipe(map(h => h.sort((x, y) => y[entityFieldProperty].key.localeCompare(x[entityFieldProperty].key))));
+    }
+
+    if (valueType === 'number') {
+      return entities$.pipe(map(h => h.sort((x, y) => {
+        if (this.isdescending) {
+          const numberX: number = this.removeNonNumericAndConvertToNumber(x[entityFieldProperty].key);
+          const numberY: number = this.removeNonNumericAndConvertToNumber(y[entityFieldProperty].key);
+          return numberX - numberY;
+        }
+        else {
+          const numberX: number = this.removeNonNumericAndConvertToNumber(x[entityFieldProperty].key);
+          const numberY: number = this.removeNonNumericAndConvertToNumber(y[entityFieldProperty].key);
+          return numberY - numberX;
+        }
+      })))
+    }
+
+    if (valueType === 'object') {
+      return entities$.pipe(map(h => h.sort((x, y) => {
+        if (this.isdescending)
+          return new Date(x[entityFieldProperty].key).getTime() - new Date(y[entityFieldProperty].key).getTime();
+        else
+          return new Date(y[entityFieldProperty].key).getTime() - new Date(x[entityFieldProperty].key).getTime();
+      })))
+    }
+    return null;
   }
 
 }

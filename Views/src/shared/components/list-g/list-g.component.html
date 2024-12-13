@@ -1,48 +1,54 @@
 <div class="small-large-screen">
+
     <div class="container-paginator">
         <div class="paginator-above">
             <ng-content select="[paginator-above]"></ng-content>
         </div>
     </div>
+
     <div class="container-search">
         <div class="filter">
             <ng-content select="[filter]"></ng-content>
         </div>
         <div class="field-search">
-            <field-input-g [type]="'text'" [inputLabel]="'Pesquisar'">
-
-            </field-input-g>
+            <ng-content select="[search]"></ng-content>
         </div>
     </div>
-
-    <!-- <field-input-g [formMain]="this.formMain" [type]="'text'" [inputLabel]="'Pesquisar'" [fieldControlName]="'purchaseInvoiceNumber'">               
-        <span msg-error
-            *ngIf="this.formError(formMain,'purchaseInvoiceNumber', 'maxlength') && this.formTouched(formMain, 'purchaseInvoiceNumber')">{{maxLengthMsg
-            + '30' + charactersMsg}}</span>
-    </field-input-g> -->
 
     <div class="table">
         <div class="row header">
-            <div class="cell" *ngFor="let header of headersLabel">
-                {{header}}
+            <div class="cell" (click)="onClickHeaderField(headersFields[i].key)" [style]="header.style"
+                *ngFor="let header of headersLabel;let i = index;">
+                {{header.key}}
             </div>
         </div>
 
-        <div [class]="{'isOdd':isOdd, 'isEven':isEven}" class="row" *ngFor="let entity of this.entities$ | async; let isOdd = odd; let isEven = even">
-            <div class="cell" *ngFor="let field of headersFields let i = index;">
-            
-                <ng-container *ngIf="entity[field]?.split('|')[0] == 'icon'">
-                  <button class="btn-icon" mat-raised-button><mat-icon [style]="entity[field].split('|')[2]">{{entity[field].split('|')[1]}}</mat-icon></button>  
+        <div class="row" [class]="{'isOdd':isOdd, 'isEven':isEven }"
+            *ngFor="let entity of this.entities$ | async; let isOdd = odd; let isEven = even">
+
+            <div class="cell" [style]="entity[field.key]?.styleCell" *ngFor="let field of headersFields let i = index;">
+
+                <ng-container [ngSwitch]="entity[field.key]?.display">
+
+                    <ng-container *ngSwitchCase="'icons'">
+                        <mat-icon (click)="onClickIcon(icon)" class="btn-icon" [style]="entity[field.key]?.styleInsideCell" *ngFor="let icon of entity[field.key]?.icons">{{icon}}</mat-icon>
+                    </ng-container>
+
+                    <ng-container *ngSwitchCase="'button'">
+                        <button (click)="onClickButton(entity[field.key]?.key)" mat-raised-button [style]="entity[field.key]?.styleInsideCell">{{entity[field.key]?.button}}</button>
+                    </ng-container>
+
+                    <ng-container *ngSwitchDefault>
+                        <div [style]="entity[field.key]?.styleInsideCell">{{entity[field.key]?.key}}</div>
+                    </ng-container>
+
                 </ng-container>
-                <ng-container *ngIf="entity[field]?.split('|')[0] != 'icon'">
-                    <!-- <div > -->
-                        <div [style]="entity[field].split('|')[1]">{{entity[field].split('|')[0]}}</div>
-                    <!-- </div> -->
-                </ng-container>
-                
             </div>
+
         </div>
     </div>
+    <spinner-g [entities]="entities$" [optionalTitle]="'(Lista)'" [_empty]="spinerNoRegisterClean">
+    </spinner-g>
     <div class="container-paginator">
         <div class="paginator-below">
             <ng-content select="[paginator-below]"></ng-content>

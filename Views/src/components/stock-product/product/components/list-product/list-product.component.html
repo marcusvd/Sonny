@@ -1,17 +1,22 @@
 <div class="border-around">
- 
+
     <title-component [digit]="'|'" [titleString]="'Produto'" [icon]="'storage'">
     </title-component>
 
     <mat-card class="small-large-screen">
         <sub-title title [title]="'Produtos'" [icon]="'add'"></sub-title>
         <div class="btn-add-product">
-            <btn-g add btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="callRouter('/side-nav/stock-product-router/add-product')"></btn-g>
+            <btn-g add btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="this.callRouter('/side-nav/stock-product-router/add-product')"></btn-g>
         </div>
-        <list-g [headersLabel]="headers" [headersFields]="fields" [entities]="entities$">
+        <list-g [headersLabel]="headers" [headersFields]="fields" [entities]="entities$"
+            (outOnClickHeaderField)="onClickOrderByFields($event)" (outOnClickButton)="onClickButton($event)"
+            (outOnClickIcons)="onClickIcons($event)">
             <mat-paginator paginator-above paginator></mat-paginator>
             <mat-paginator paginator-below paginator></mat-paginator>
+            <filter-search-product-list search>
+            </filter-search-product-list>
+
         </list-g>
     </mat-card>
-    
+
 </div>

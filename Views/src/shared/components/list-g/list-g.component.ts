@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ListGDataService } from './data/list-g-data.service';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
@@ -7,6 +7,8 @@ import { MatCardModule } from '@angular/material/card';
 import { FieldInputGComponent } from 'src/components/stock-product/product/common-components/fields-input/field-input-g/field-input-g.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { SpinnerGComponent } from '../spinner-g/component/spinner-g.component';
+import { FieldsInterface } from './data/fields-interface';
 
 @Component({
   selector: 'list-g',
@@ -17,64 +19,38 @@ import { MatButtonModule } from '@angular/material/button';
     MatCardModule,
     FieldInputGComponent,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    SpinnerGComponent
   ],
   styleUrls: ['./list-g.component.css']
 })
-export class ListGComponent implements OnInit {
+export class ListGComponent {
+
+  @Input('entities') entities$: Observable<any[]>;
 
   @Input() headersLabel: string[] = [];
-  @Input() headersFields: string[] = [];
-  @Input() fields: string[] = [];
-  @Input('entities') entities$: Observable<any[]>;
-  @Input() matIcons: [key: string] = null;
+  @Input() headersFields: FieldsInterface[] = [];
+  @Output() outOnClickIcons = new EventEmitter<string>();
+  @Output() outOnClickButton = new EventEmitter<string>();
+  @Output() outOnClickHeaderField = new EventEmitter<string>();
+
+  spinerNoRegisterClean = true;
 
   constructor(
-    // private _listGDataService: ListGDataService,
     private _http: HttpClient
   ) { }
 
-  ngOnInit(): void {
-    //  this._listGDataService.loadAll$('https://fakestoreapi.com/products').subscribe(x => console.log(x));
-    // this.entities$ = this._http.get('https://fakestoreapi.com/products');
-
+  onClickHeaderField(field: string) {
+    this.outOnClickHeaderField.emit(field);
   }
 
+  onClickButton(field: string) {
+    this.outOnClickButton.emit(field);
+  }
 
+  onClickIcon(field: string) {
+    this.outOnClickIcons.emit(field);
 
-  // headers: any[] = ['id','title','category', 'description', 'price'];
-  // headers: any[] = ['Código','Titulo','Categoria', 'Descrição', 'Preço'];
-  // entities$: Observable<any>;
-
- 
-
-  itemsBodyCut:string[]=['title','description'];
-}
-
-
-interface ProductHeader {
-
-  id:string;
-
-  title:string;
-
-  category:string;
-  
-  description:string;
-    
-  price:string;
-
-}
-interface ProductBody {
-
-  id:string;
-
-  title:string;
-
-  category:string;
-  
-  description:string;
-    
-  price:string;
+  }
 
 }
