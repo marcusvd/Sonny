@@ -1,5 +1,30 @@
 .btn-add-product{
 margin-top:20px;
+margin-bottom:-45px;
 
+}
+.add-filter{
+    display: flex;
+    flex-direction: row;
+gap: 20px;
+}
+
+
+.container-search-filter{
+    display: flex;
+    flex-basis: 100%;
+    flex-direction: column;
+}
+
+.container-comp-search-filter{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;;
+}
+
+.search{
+    display: flex;
+    flex-basis: 100%;
+   flex:1;
 
 }

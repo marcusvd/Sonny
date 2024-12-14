@@ -17,11 +17,14 @@ import { TitleComponent } from "src/shared/components/title/components/title.com
 
 import { ListGComponent } from "src/shared/components/list-g/list-g.component"
 import { MatPaginatorModule } from "@angular/material/paginator"
+import { FieldSelectGComponent } from "src/components/stock-product/product/common-components/fields-select/field-select-g/field-select-g.component"
+import { BtnFilterGComponent } from "src/shared/components/btn-filter-g/btn-filter-g.component"
 
 export const ImportsListFilterSearch: any[] = [
     CommonModule,
     MatFormFieldModule,
     MatInputModule,
-    ReactiveFormsModule
-
+    MatCardModule,
+    ReactiveFormsModule,
+    FieldSelectGComponent,
 ]

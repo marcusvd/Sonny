@@ -23,10 +23,10 @@ export class BaseList {
   pageSize: number = 20;
 
   constructor(
-    protected _listGDataService:ListGDataService,
-    protected _router: Router,
-    @Inject('headers') public headers: FieldsLabelInterface[] = [],
-    @Inject('fields') public fields: FieldsInterface[] = [],
+    protected _listGDataService?:ListGDataService,
+    protected _router?: Router,
+    @Inject('headers') public headers?: FieldsLabelInterface[],
+    @Inject('fields') public fields?: FieldsInterface[],
   ) 
   {  }
 
@@ -53,7 +53,7 @@ export class BaseList {
   isdescending = true;
   orderByFrontEnd(entities$: Observable<any[]>, field: any) {
     this.isdescending = !this.isdescending;
-
+    
     const entityFieldProperty = Object.keys(field)[0];
     const valueType = typeof (Object.values(field)[0]);    
 

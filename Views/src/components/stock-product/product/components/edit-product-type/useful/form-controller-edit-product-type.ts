@@ -23,27 +23,7 @@ export class FormControllerEditProductType extends BaseForm {
   segments$: Observable<SegmentDto[]>;
   manufacturers$: Observable<ManufacturerDto[]>
   models$: Observable<ModelDto[]>
-
-  // //BOOLEANS
-  // productformControlReset = false;
-
-  // segmentFormControlReset = false;
-
-  // manufacturerFormControlReset = false;
-
-  // modelFormControlReset = false;
-
-  // description = false;
-
-  // //FormControls
-  // productTypeFormControl = new FormControl()
-  // segmentFormControl = new FormControl()
-  // manufacturerFormControl = new FormControl()
-  // modelFormControl = new FormControl()
-  // speedFormControl = new FormControl()
-  // capacityFormControl = new FormControl()
-  // descriptionFormControl = new FormControl()
-
+  
   //FormsGroup
   productTypeForm: FormGroup;
   segmentForm: FormGroup;
@@ -53,17 +33,6 @@ export class FormControllerEditProductType extends BaseForm {
   //Validators
   nameMaxLength = 50;
   descriptionMaxLength = 500;
-
-  // //CHECKS
-  // valueType = "product-type";
-  // labelProduct = "Tipo de produto";
-  // valueSegment = "segment";
-  // labelSegment = "Segmento";
-  // valueManufacturer = "manufacturer";
-  // labelManufacturer = "Fabricante";
-  // valueModel = "model";
-  // labelModel = "Modelo";
-
 
   //FORMS
   get productsTypes() {

@@ -5,16 +5,44 @@
 
     <mat-card class="small-large-screen">
         <sub-title title [title]="'Produtos'" [icon]="'add'"></sub-title>
+       <div class="add-filter">
         <div class="btn-add-product">
-            <btn-g add btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="this.callRouter('/side-nav/stock-product-router/add-product')"></btn-g>
+            <btn-g add btn-1 [name]="'Adicionar'" [icon]="'add'"
+                (btn)="this.callRouter('/side-nav/stock-product-router/add-product')"></btn-g>
         </div>
-        <list-g [headersLabel]="headers" [headersFields]="fields" [entities]="entities$"
-            (outOnClickHeaderField)="onClickOrderByFields($event)" (outOnClickButton)="onClickButton($event)"
+        <div class="btn-add-product">
+          <btn-filter-g (arrowOut)="showHideFilterMtd($event)" filter>         
+            </btn-filter-g>
+        </div>
+       </div>
+
+        <list-g [headersLabel]="headers" [headersFields]="fields" [entities]="this.entitiesFiltered$"
+            (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)"
             (outOnClickIcons)="onClickIcons($event)">
             <mat-paginator paginator-above paginator></mat-paginator>
             <mat-paginator paginator-below paginator></mat-paginator>
-            <filter-search-product-list search>
-            </filter-search-product-list>
+
+           <div class="container-comp-search-filter" filter>
+            <search-product-list search>
+            </search-product-list>
+
+            <filter-product-list [productsTypes]="productsTypes$" [productsList]="this.entities$" (outProductsListFiltered)="filteredProductsList($event)" *ngIf="showHideFilter" >
+            </filter-product-list> 
+
+          
+           </div>
+          
+            <!-- <div class="container-search-filter" >
+                <div class="search">
+                   
+                </div>
+            </div>
+            <div class="container-search-filter" >
+                <div class="filter">
+                    
+                </div>
+            </div> -->
+
 
         </list-g>
     </mat-card>

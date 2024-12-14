@@ -16,7 +16,7 @@
   color: rgb(43, 161, 168);
   background-color: 242, 242, 242;
   border-bottom: 0.5px solid rgb(43, 161, 168);
-  
+
 }
 
 
@@ -78,9 +78,10 @@ mat-card {
   margin: 0;
   border: none;
 }
+
 .btn-icon:active {
   transform: translateY(3px);
-  color: rgb(25, 93, 97); 
+  color: rgb(25, 93, 97);
 }
 
 .mat-icon:active {
@@ -135,3 +136,13 @@ mat-card {
     padding: 10px;
   }
 } */
+
+.container-search {
+  display: flex;
+  gap: 15px;
+  flex-basis: 100%;
+  /* justify-content: center;
+  position: relative;
+  top : -80px; */
+
+}

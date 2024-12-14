@@ -1,0 +1,28 @@
+<div class="container-filter">
+
+
+  <div class="type">
+
+    <field-select-g [removeValidatorNgxFormControl]="true" [removeValidatorFormControl]="true"
+      (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$" [labelInput]="'Tipo'">
+    </field-select-g>
+
+  </div>
+
+  <div class="segment">
+
+    <field-select-g [removeValidatorNgxFormControl]="true" [removeValidatorFormControl]="true"
+      (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$" [labelInput]="'Segmento'">
+    </field-select-g>
+
+  </div>
+
+  <div class="manufacturer">
+    <field-select-g [removeValidatorNgxFormControl]="true" [removeValidatorFormControl]="true"
+      (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$" [labelInput]="'Fabricante'">
+    </field-select-g>
+  </div>
+
+
+
+</div>

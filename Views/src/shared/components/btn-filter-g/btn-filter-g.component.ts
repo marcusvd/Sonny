@@ -89,6 +89,7 @@ export class BtnFilterGComponent implements OnInit {
   entities: string[] = ['PJ', 'PF']
   select = new FormControl();
   arrow: boolean = false;
+  styleSize ='width: 75px;'
   @Output() arrowOut = new EventEmitter<boolean>();
   filterMtd() {
     this.arrow = !this.arrow;

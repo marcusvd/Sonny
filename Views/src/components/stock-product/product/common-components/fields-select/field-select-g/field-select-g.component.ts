@@ -35,17 +35,33 @@ export class FieldSelectGComponent extends BaseForm {
   @Input() labelInput = '';
 
   @Input() set formControlReset(value: boolean) {
-    if (value) 
+    if (value)
       this.selectFormControl.reset();
-    
+
   }
 
   @Input() set formControlResetalways(value: boolean) {
     this.selectFormControl.reset();
   }
 
+  @Input() set removeValidatorNgxFormControl(remove: boolean) {
+   if(remove)
+    this.clearValidatorFormControl(this.selectNgxFormControl);
+  }
+
+  @Input() set removeValidatorFormControl(remove: boolean) {
+    if(remove)
+    this.clearValidatorFormControl(this.selectFormControl);
+  }
+
   selectNgxFormControl = new FormControl('', Validators.required);
   selectFormControl = new FormControl('', Validators.required);
+
+  clearValidatorFormControl(formControl:FormControl) {
+    formControl.clearValidators();
+    formControl.updateValueAndValidity();
+  }
+
 
   @Output() outEntitiesSelected = new EventEmitter<number>()
   onSelectedEntity(selectedId: number) {

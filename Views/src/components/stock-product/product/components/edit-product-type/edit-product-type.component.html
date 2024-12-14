@@ -103,7 +103,16 @@
                 </mat-radio-button>
                 <div [class]="{'array-hide': entityToEdit != 'model'}">
 
-                    <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$"
+                    <field-select-g  (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$"
+                        [labelInput]="'Tipo'">
+                    </field-select-g>
+                    <field-select-g  (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$"
+                        [labelInput]="'Segmento'">
+                    </field-select-g>
+                    <field-select-g  (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$"
+                        [labelInput]="'Fabricante'">
+                    </field-select-g>
+                    <!-- <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$"
                         [labelInput]="'Tipo'">
                     </field-select-g>
                     <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$"
@@ -111,7 +120,8 @@
                     </field-select-g>
                     <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$"
                         [labelInput]="'Fabricante'">
-                    </field-select-g>
+                    </field-select-g> -->
+
                     <array-g [formMain]="manufacturerForm" [arrayName]="'models'" [formArray]="models"
                         [labelInput]="'Modelo'" [entityToEdit]="entityToEdit"> <btn-g add btn-1
                             *ngIf="entityToEdit == 'model' && models$" [name]="'Adicionar'" [icon]="'add'"

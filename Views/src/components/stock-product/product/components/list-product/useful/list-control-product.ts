@@ -9,6 +9,7 @@ import { Observable, of } from "rxjs";
 import { ProductDto } from "../../../dtos/product";
 import { PtBrDatePipe } from "src/shared/pipes/pt-br-date.pipe";
 import { PtBrCurrencyPipe } from "src/shared/pipes/pt-br-currency.pipe";
+import { ProductTypeDto } from "../../../dtos/product-type-dto";
 
 
 export class ListControlProduct extends BaseList {
@@ -30,35 +31,37 @@ export class ListControlProduct extends BaseList {
 
   entities: ProductList[] = [];
   entities$: Observable<ProductList[]>;
+  entitiesFiltered$: Observable<ProductList[]>;
+  productsTypes$ = new Observable<ProductTypeDto[]>();
 
   controllerUrl: string = environment._STOCK_PRODUCTS.split('/')[4];
   backEndUrl: string = `${this.controllerUrl}/GetProductsIncludedAsync`;
 
-  onClickOrderByFields(field: string) {
+  onClickOrderByFields(field: string, entitiesFiltered$: Observable<ProductList[]>) {
 
     if (field == 'productType')
-      this.entities$ = this.orderByFrontEnd(this.entities$, { 'productType': 'productType' });
+      this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, { 'productType': 'productType' });
 
     if (field == 'segment')
-      this.entities$ = this.orderByFrontEnd(this.entities$, { segment: '' });
+      this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, { segment: '' });
 
     if (field == 'model')
-      this.entities$ = this.orderByFrontEnd(this.entities$, { model: '' });
+      this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, { model: '' });
 
     if (field == 'manufacturer')
-      this.entities$ = this.orderByFrontEnd(this.entities$, { manufacturer: '' });
+      this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, { manufacturer: '' });
 
     if (field == 'soldPrice')
-      this.entities$ = this.orderByFrontEnd(this.entities$, { 'soldPrice': 0 });
+      this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, { 'soldPrice': 0 });
 
     if (field == 'isReservedByUser')
-      this.entities$ = this.orderByFrontEnd(this.entities$, { isReservedByUser: new Date() });
+      this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, { isReservedByUser: new Date() });
 
     if (field == 'isTested')
-      this.entities$ = this.orderByFrontEnd(this.entities$, { isTested: '' });
+      this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, { isTested: '' });
 
     if (field == 'isUsed')
-      this.entities$ = this.orderByFrontEnd(this.entities$, { isUsed: '' });
+      this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, { isUsed: '' });
 
   }
 
