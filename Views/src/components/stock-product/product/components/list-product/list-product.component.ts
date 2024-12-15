@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
+import { ProductDto } from '../../dtos/product';
+import { ProductTypeService } from '../../services/product-type.service';
+import { ProductList } from './dto/product-list';
 import { ImportsListProduct } from './useful/imports-list-product';
 import { ListControlProduct } from './useful/list-control-product';
-import { ProductDto } from '../../dtos/product';
-import { Observable, of } from 'rxjs';
-import { ProductTypeService } from '../../services/product-type.service';
-import { ProductTypeDto } from '../../dtos/product-type-dto';
-import { ProductList } from './dto/product-list';
 
 @Component({
   selector: 'app-list-product',
@@ -57,13 +57,22 @@ export class ListProductComponent extends ListControlProduct implements OnInit {
   }
 
   filteredProductsList(producstListFiltered: Observable<ProductList[]>) {
-
     this.entitiesFiltered$ = producstListFiltered;
   }
 
+  search(term: string) {
+    // console.log(term)
+    this.entitiesFiltered$ = this.entitiesFiltered$.pipe(
+      map(x => x.filter(y => y.productType.key.includes(term)))
+    );
+  }
+
+  // x.filter(entity =>
+  //   Object.values(entity).some((value: any) =>  typeof value === 'string' && value.toLowerCase().replace('.', '').replace(',', '').includes(term.toLowerCase())
+  //   ));
+  // return x;
+
   ngOnInit(): void {
-
-
     this.productsTypes$ = this._productTypeService.getAllIncluded$(this.companyId.toString());
     this._listGDataService.getAllEntitiesInMemoryPaged(this.backEndUrl, this.companyId);
     this._listGDataService.entities$.subscribe(

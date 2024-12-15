@@ -1,27 +1,24 @@
 <div class="container-filter">
 
 
-  <div class="type">
+    <div class="type">
 
-    <field-select-g [removeValidatorNgxFormControl]="true" [removeValidatorFormControl]="true"
-      (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$" [labelInput]="'Tipo'">
-    </field-select-g>
+        <field-select-g [removeValidatorNgxFormControl]="true" [removeValidatorFormControl]="true" (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$" [formControlReset]="resetControlType" [labelInput]="'Tipo'">
+        </field-select-g>
 
-  </div>
+    </div>
 
-  <div class="segment">
+    <div class="segment">
 
-    <field-select-g [removeValidatorNgxFormControl]="true" [removeValidatorFormControl]="true"
-      (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$" [labelInput]="'Segmento'">
-    </field-select-g>
+        <field-select-g [removeValidatorNgxFormControl]="true" [removeValidatorFormControl]="true" (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$" [formControlReset]="resetControlSegment" [labelInput]="'Segmento'">
+        </field-select-g>
 
-  </div>
+    </div>
 
-  <div class="manufacturer">
-    <field-select-g [removeValidatorNgxFormControl]="true" [removeValidatorFormControl]="true"
-      (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$" [labelInput]="'Fabricante'">
-    </field-select-g>
-  </div>
+    <div class="manufacturer">
+        <field-select-g [removeValidatorNgxFormControl]="true" [removeValidatorFormControl]="true" (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$" [formControlReset]="resetControlManufacturer" [labelInput]="'Fabricante'">
+        </field-select-g>
+    </div>
 
 
 

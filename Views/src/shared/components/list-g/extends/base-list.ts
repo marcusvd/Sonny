@@ -23,12 +23,11 @@ export class BaseList {
   pageSize: number = 20;
 
   constructor(
-    protected _listGDataService?:ListGDataService,
+    protected _listGDataService?: ListGDataService,
     protected _router?: Router,
     @Inject('headers') public headers?: FieldsLabelInterface[],
     @Inject('fields') public fields?: FieldsInterface[],
-  ) 
-  {  }
+  ) { }
 
   removeNonNumericAndConvertToNumber(str: string): number {
     return +str.replace(/\D/g, '');
@@ -50,12 +49,27 @@ export class BaseList {
     this._router.navigate([url], objectRoute);
   }
 
+  termSearched: string = null;
+  searchField(entities: any[], term: string): any[] {
+    const entitiesToFilter = entities;
+
+    let result: any[] = [];
+
+    result = entitiesToFilter.filter(entity =>
+      Object.values(entity).some((value: any) => {
+        return typeof value === 'string' && value.toLowerCase().replace('.', '').replace(',', '').includes(term.toLowerCase())
+      }
+      ));
+
+    return result;
+  }
+
   isdescending = true;
   orderByFrontEnd(entities$: Observable<any[]>, field: any) {
     this.isdescending = !this.isdescending;
-    
+
     const entityFieldProperty = Object.keys(field)[0];
-    const valueType = typeof (Object.values(field)[0]);    
+    const valueType = typeof (Object.values(field)[0]);
 
     if (valueType === 'string') {
       if (this.isdescending)
@@ -81,10 +95,18 @@ export class BaseList {
 
     if (valueType === 'object') {
       return entities$.pipe(map(h => h.sort((x, y) => {
-        if (this.isdescending)
+        if (this.isdescending) {
+          console.log(y[entityFieldProperty].key)
           return new Date(x[entityFieldProperty].key).getTime() - new Date(y[entityFieldProperty].key).getTime();
-        else
+
+        }
+
+        else {
+          console.log(y[entityFieldProperty].key)
           return new Date(y[entityFieldProperty].key).getTime() - new Date(x[entityFieldProperty].key).getTime();
+        }
+
+
       })))
     }
     return null;

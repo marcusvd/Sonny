@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { flatMap, map, mergeMap } from 'rxjs/operators';
 import { ManufacturerDto } from '../../../dtos/manufacturer-dto';
 import { ModelDto } from '../../../dtos/model-dto';
 import { ProductTypeDto } from '../../../dtos/product-type-dto';
@@ -25,6 +25,10 @@ export class FilterProductListComponent extends BaseList implements OnInit {
 
   formControlSearch = new FormControl('');
 
+  resetControlType = false;
+  resetControlSegment = false;
+  resetControlManufacturer = false;
+
   //OBSERVABLES
   @Input('productsTypes') productsTypes$ = new Observable<ProductTypeDto[]>();
   @Input('productsList') productsList$ = new Observable<ProductList[]>();
@@ -34,26 +38,23 @@ export class FilterProductListComponent extends BaseList implements OnInit {
   manufacturers$: Observable<ManufacturerDto[]>
   models$: Observable<ModelDto[]>
 
+  segments: SegmentDto[] = [];
+  manufacturers: ManufacturerDto[] = [];
+  models: ModelDto[] = [];
+
   onSelectedProduct(id: number) {
-
-    this.manufacturers$ = null;
-    this.segments$ = this.productsTypes$.pipe(map(x => x.find(y => y.id == id).segments));
-
     this.productsTypes$.subscribe((x: ProductTypeDto[]) => {
 
       const result = x.find(y => y.id == id);
       this.filterType('productType', result.name, this.productsList$);
-
     });
+
+    this.resetControlType = false;
+    this.resetControlSegment = true;
+    this.resetControlManufacturer = true;
   }
 
   onSelectedSegment(id: number) {
-    // this.clearFormArraySegmentAndSub();
-
-    this.manufacturers$ = this.segments$.pipe(
-      map(x => x.find(segment => segment.id == id).manufacturers)
-    )
-
     this.segments$.subscribe((x: SegmentDto[]) => {
 
       const result = x.find(y => y.id == id);
@@ -61,25 +62,25 @@ export class FilterProductListComponent extends BaseList implements OnInit {
       this.filterType('segment', result.name, this.productsList$);
     });
 
-  
+    this.resetControlType = true;
+    this.resetControlSegment = false;
+    this.resetControlManufacturer = true;
   }
 
   onSelectedManufacturer(id: number) {
-    // this.models.clear();
-    // this.manufacturers.clear();
-
-    this.models$ = this.manufacturers$.pipe(
-      map(x => x.find(manufacturer => manufacturer.id == id).models)
-    )
 
     this.manufacturers$.subscribe((x: ManufacturerDto[]) => {
 
       const result = x.find(y => y.id == id);
 
       this.filterType('manufacturer', result.name, this.productsList$);
-    });
-  }
 
+    });
+
+    this.resetControlType = true;
+    this.resetControlSegment = true;
+    this.resetControlManufacturer = false;
+  }
 
   filterType(entityToFilter: string, type: string, productsList$: Observable<any[]>) {
 
@@ -87,17 +88,17 @@ export class FilterProductListComponent extends BaseList implements OnInit {
       map((productList: any[]) => {
         return productList.filter(x => this.removeAccentsSpecialCharacters(x[entityToFilter].key.toLowerCase()) == this.removeAccentsSpecialCharacters(type.toLowerCase()));
       }))
-      this.outProductsListFiltered$.emit(result);
+    this.outProductsListFiltered$.emit(result);
 
     // if (entityToFilter == 'productType') {
-   
+
     //   const result = productsList$.pipe(
     //     map((productList: ProductList[]) => {
     //       return productList.filter(x => this.removeAccentsSpecialCharacters(x.productType.key.toLowerCase()) == this.removeAccentsSpecialCharacters(type.toLowerCase()));
     //     }))
     //     this.outProductsListFiltered$.emit(result);
     // }
-    
+
     // if (entityToFilter == 'segment') {
 
     //   const result = productsList$.pipe(
@@ -106,7 +107,7 @@ export class FilterProductListComponent extends BaseList implements OnInit {
     //     }))
     //     this.outProductsListFiltered$.emit(result);
     // }
-   
+
     // if (entityToFilter == 'manufacturer') {
 
     //   const result = productsList$.pipe(
@@ -122,6 +123,17 @@ export class FilterProductListComponent extends BaseList implements OnInit {
 
 
   ngOnInit(): void {
-  }
+    this.productsTypes$.subscribe((x: ProductTypeDto[]) => {
+      x.forEach(y => {
 
+        y.segments.forEach(h => {
+          this.segments.push(h)
+          h.manufacturers.forEach(y => this.manufacturers.push(y))
+        })
+
+      })
+    });
+    this.segments$ = of(this.segments);
+    this.manufacturers$ = of(this.manufacturers);
+  }
 }

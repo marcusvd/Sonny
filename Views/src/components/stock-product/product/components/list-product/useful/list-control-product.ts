@@ -1,15 +1,15 @@
 import { HttpClient } from "@angular/common/http";
-import { Injectable, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
+import { ItemsInterface } from "src/shared/components/list-g/data/items-interface";
 import { ListGDataService } from "src/shared/components/list-g/data/list-g-data.service";
 import { BaseList } from "src/shared/components/list-g/extends/base-list";
-import { ProductList } from "../dto/product-list";
-import { Observable, of } from "rxjs";
-import { ProductDto } from "../../../dtos/product";
-import { PtBrDatePipe } from "src/shared/pipes/pt-br-date.pipe";
 import { PtBrCurrencyPipe } from "src/shared/pipes/pt-br-currency.pipe";
+import { PtBrDatePipe } from "src/shared/pipes/pt-br-date.pipe";
+import { ProductDto } from "../../../dtos/product";
 import { ProductTypeDto } from "../../../dtos/product-type-dto";
+import { ProductList } from "../dto/product-list";
 
 
 export class ListControlProduct extends BaseList {
@@ -58,13 +58,12 @@ export class ListControlProduct extends BaseList {
       this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, { isReservedByUser: new Date() });
 
     if (field == 'isTested')
-      this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, { isTested: '' });
+      this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, { isTested: new Date() });
 
     if (field == 'isUsed')
       this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, { isUsed: '' });
 
   }
-
 
   makeItemsGrid(x: ProductDto) {
 
@@ -80,19 +79,23 @@ export class ListControlProduct extends BaseList {
 
     items.segment = { key: x?.segment.name, icons: [''], styleInsideCell: '', route: '' };
 
-    items.manufacturer = { key: x?.manufacturer.name, display: 'button', button: 'Menu', icons: [''], styleInsideCell: buttonStyle, styleCell: buttonCellStyle, route: '' };
+    items.manufacturer = { key: x?.manufacturer.name, display: '', button: 'Menu', icons: [''], styleInsideCell: '', styleCell: '', route: '' };
+    // items.manufacturer = { key: x?.manufacturer.name, display: 'button', button: 'Menu', icons: [''], styleInsideCell: buttonStyle, styleCell: buttonCellStyle, route: '' };
 
     items.model = { key: x?.model.name, icons: [''], styleInsideCell: '', route: '' };
 
     items.soldPrice = { key: this._ptBrCurrencyPipe.transform(x?.soldPrice), icons: [''], styleInsideCell: 'border:0.5px solid red;', route: '' };
     // items.soldPrice = { key: this._ptBrCurrencyPipe.transform(x?.soldPrice), icons: [''], styleInsideCell: 'border:0.5px solid rgb(43, 161, 168);', route: '' };
 
-    items.isReservedByUser = { key: x?.isReservedByUser?.userName ?? 'Não.', icons: [''], styleInsideCell: '', route: '' };
+    items.isReservedByUser = { key: x?.isReservedByUser?.userName ?? 'Não', icons: [''], styleInsideCell: '', route: '' };
 
-    items.isTested = { key: this._ptBrDatePipe.transform(x?.isTested, 'Date'), icons: [''], styleInsideCell: '', route: '' };
+    items.isTested = this.isTested(x?.isTested)
 
-    items.isUsed = {key: x?.isUsed ? 'Sim' : 'Não'};
-    // items.isUsed = this.test(x?.isUsed);
+    // items.isTested = { key: (new Date(x?.isTested).getFullYear()) <= 1 ? 'Não' : this._ptBrDatePipe.transform(x?.isTested, 'Date'), icons: [''], styleInsideCell: '', route: '' };
+
+    // items.isUsed = { key: x?.isUsed ? 'Sim' : 'Não' };
+    items.isUsed = this.isUsed(x.isUsed);
+
 
     this.entities.push(items);
 
@@ -100,11 +103,52 @@ export class ListControlProduct extends BaseList {
 
   }
 
-  test(test: boolean) {
-    if (test)
-      return { key: 'Sim', icons: [''], styleCell: 'background-color: rgb(33, 161, 165);', styleInsideCell: 'background-color: green;', route: '' }
-    else
-      return { key: 'Não.', icons: [''], styleCell: 'background-color: rgb(245, 65, 65);', styleInsideCell: 'background-color: yellow;', route: '' }
+  isTested = (value: Date) => {
+    const iconStyleTested = `color:rgb(43, 161, 168);`
+    const iconStyleNotTested = `color:red;`;
+
+    const notTested = 'clear';
+    const tested = 'check';
+
+    const objReturn: ItemsInterface = { key: value.toString(), display: 'icons', icons: [''], styleInsideCell: '', route: '' };
+
+    const isTested = new Date(value).getFullYear();
+
+    if (isTested <= 1) {
+      objReturn.icons.push(notTested);
+      objReturn.styleInsideCell = iconStyleNotTested;
+    }
+    else {
+      objReturn.icons.push(tested);
+      objReturn.styleInsideCell = iconStyleTested;
+    }
+
+    return objReturn;
+
+  }
+
+  isUsed = (value: boolean) => {
+
+    const iconStyleUsed = `color:rgb(43, 161, 168);`
+    const iconStyleNotUsed = `color:red;`;
+
+    const notUsed = 'sentiment_very_dissatisfied';
+    const used = 'sentiment_very_satisfied';
+
+    const objReturn: ItemsInterface = { key: value ? 'Sim' : 'Não', display: 'icons', icons: [''], styleInsideCell: '', route: '' };
+
+    const isUsed = value;
+
+    if (isUsed) {
+      objReturn.icons.push(notUsed);
+      objReturn.styleInsideCell = iconStyleNotUsed;
+    }
+    else {
+      objReturn.icons.push(used);
+      objReturn.styleInsideCell = iconStyleUsed;
+    }
+
+    return objReturn;
 
   }
 

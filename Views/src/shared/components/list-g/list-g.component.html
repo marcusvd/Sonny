@@ -6,25 +6,23 @@
         </div>
     </div>
 
-    <div class="container-field-search">
-        <div class="filter">
+    <ng-content class="container-field-search" select="[filter-search]">
+        <!-- <div class="filter">
             <ng-content select="[filter]"></ng-content>
         </div>
         <div class="search">
             <ng-content select="[search]"></ng-content>
-        </div>
-    </div>
+        </div> -->
+    </ng-content>
 
     <div class="table">
         <div class="row header">
-            <div class="cell" (click)="onClickHeaderField(headersFields[i].key)" [style]="header.style"
-                *ngFor="let header of headersLabel;let i = index;">
+            <div class="cell" (click)="onClickHeaderField(headersFields[i].key)" [style]="header.style" *ngFor="let header of headersLabel;let i = index;">
                 {{header.key}}
             </div>
         </div>
 
-        <div class="row" [class]="{'isOdd':isOdd, 'isEven':isEven }"
-            *ngFor="let entity of this.entities$ | async; let isOdd = odd; let isEven = even">
+        <div class="row" [class]="{'isOdd':isOdd, 'isEven':isEven }" *ngFor="let entity of this.entities$ | async; let isOdd = odd; let isEven = even">
 
             <div class="cell" [style]="entity[field.key]?.styleCell" *ngFor="let field of headersFields let i = index;">
 

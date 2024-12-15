@@ -1,30 +1,28 @@
-.btn-add-product{
-margin-top:20px;
-margin-bottom:-45px;
-
+.btn-add-product {
+    margin-top: 20px;
+    margin-bottom: -45px;
 }
-.add-filter{
+
+.add-filter {
     display: flex;
     flex-direction: row;
-gap: 20px;
+    gap: 20px;
 }
 
-
-.container-search-filter{
+.container-search-filter {
     display: flex;
     flex-basis: 100%;
     flex-direction: column;
 }
 
-.container-comp-search-filter{
+.container-comp-search-filter {
     display: flex;
     flex-direction: row;
-    gap: 15px;;
+    gap: 15px;
 }
 
-.search{
+.search {
     display: flex;
     flex-basis: 100%;
-   flex:1;
-
+    flex: 1;
 }

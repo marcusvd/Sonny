@@ -3,8 +3,7 @@
     </title-component>
     <mat-card class="small-large-screen">
         <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
-        <mat-radio-group class="container" #selectedRadio (change)="radioChange($event)" [value]="'product-type'"
-            aria-label="selecione uma opcao">
+        <mat-radio-group class="container" #selectedRadio (change)="radioChange($event)" [value]="'product-type'" aria-label="selecione uma opcao">
             <div class="product-type">
                 <mat-radio-button class="type-radio" [value]="'product-type'">
                     <ng-container *ngIf="entityToEdit == 'type'; else elseBlock">
@@ -15,20 +14,16 @@
                     </ng-template>
                 </mat-radio-button>
                 <div [class]="{'array-hide': entityToEdit != 'type'}">
-                    <array-g [formMain]="productTypeForm" [arrayName]="'productsTypes'" [formArray]="productsTypes"
-                        [labelInput]="'Tipo de produto'">
+                    <array-g [formMain]="productTypeForm" [arrayName]="'productsTypes'" [formArray]="productsTypes" [labelInput]="'Tipo de produto'">
 
-                        <btn-g add btn-1 *ngIf="entityToEdit == 'type'" [name]="'Adicionar'" [icon]="'add'"
-                            (btn)="addAddItemArray('type')"></btn-g>
+                        <btn-g add btn-1 *ngIf="entityToEdit == 'type'" [name]="'Adicionar'" [icon]="'add'" (btn)="addAddItemArray('type')"></btn-g>
                     </array-g>
                 </div>
             </div>
 
-            <div
-                [class]="{'btn-save-show': entityToEdit == 'type' && productsTypes$, 'btn-save-hide': entityToEdit != 'type'}">
+            <div [class]="{'btn-save-show': entityToEdit == 'type' && productsTypes$, 'btn-save-hide': entityToEdit != 'type' || (productsTypes.length < 1)}">
                 <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="saveArray(productsTypes)"></btn-g>
             </div>
-
 
             <div class="segment">
                 <mat-radio-button class="segment-radio" value="segment">
@@ -41,19 +36,15 @@
                 </mat-radio-button>
                 <div *ngIf="entityToEdit == 'segment'">
 
-                    <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$"
-                        [labelInput]="'Tipo'"></field-select-g>
+                    <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$" [labelInput]="'Tipo'"></field-select-g>
 
-                    <array-g [formMain]="formMain" [arrayName]="'segments'" [formArray]="segments"
-                        [labelInput]="'Segmento'">
-                        <btn-g add btn-1 *ngIf="entityToEdit == 'segment' && segments$" [name]="'Adicionar'"
-                            [icon]="'add'" (btn)="addAddItemArray('segment')"></btn-g>
+                    <array-g [formMain]="formMain" [arrayName]="'segments'" [formArray]="segments" [labelInput]="'Segmento'">
+                        <btn-g add btn-1 *ngIf="entityToEdit == 'segment' && segments$" [name]="'Adicionar'" [icon]="'add'" (btn)="addAddItemArray('segment')"></btn-g>
                     </array-g>
                 </div>
             </div>
 
-            <div
-                [class]="{'btn-save-show': entityToEdit == 'segment' && segments, 'btn-save-hide': entityToEdit != 'segment' || (segments.length < 1)}">
+            <div [class]="{'btn-save-show': entityToEdit == 'segment' && segments, 'btn-save-hide': entityToEdit != 'segment' || (segments.length < 1)}">
                 <btn-g [name]="'Salvar'" [icon]="'save'" (click)="saveSingle()"></btn-g>
             </div>
 
@@ -69,25 +60,20 @@
 
                 <div [class]="{'array-hide': entityToEdit != 'manufacturer'}">
 
-                    <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$"
-                        [labelInput]="'Tipo'">
+                    <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$" [labelInput]="'Tipo'">
                     </field-select-g>
-                    <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$"
-                        [labelInput]="'Segmento'">
+                    <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$" [labelInput]="'Segmento'">
                     </field-select-g>
 
-                    <array-g [formMain]="segmentForm" [arrayName]="'manufacturers'" [formArray]="manufacturers"
-                        [labelInput]="'Fabricante'">
-                        <btn-g add btn-1 *ngIf="entityToEdit == 'manufacturer' && manufacturers$" [name]="'Adicionar'"
-                            [icon]="'add'" (btn)="addAddItemArray('manufacturer')"></btn-g>
+                    <array-g [formMain]="segmentForm" [arrayName]="'manufacturers'" [formArray]="manufacturers" [labelInput]="'Fabricante'">
+                        <btn-g add btn-1 *ngIf="entityToEdit == 'manufacturer' && manufacturers$" [name]="'Adicionar'" [icon]="'add'" (btn)="addAddItemArray('manufacturer')"></btn-g>
                     </array-g>
 
                 </div>
 
             </div>
 
-            <div
-                [class]="{'btn-save-show': entityToEdit == 'manufacturer' && manufacturers, 'btn-save-hide': entityToEdit != 'manufacturer' || (manufacturers.length < 1)}">
+            <div [class]="{'btn-save-show': entityToEdit == 'manufacturer' && manufacturers, 'btn-save-hide': entityToEdit != 'manufacturer' || (manufacturers.length < 1)}">
                 <btn-g [name]="'Salvar'" [icon]="'save'" (click)="saveSingle()"></btn-g>
             </div>
 
@@ -103,14 +89,11 @@
                 </mat-radio-button>
                 <div [class]="{'array-hide': entityToEdit != 'model'}">
 
-                    <field-select-g  (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$"
-                        [labelInput]="'Tipo'">
+                    <field-select-g (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$" [labelInput]="'Tipo'">
                     </field-select-g>
-                    <field-select-g  (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$"
-                        [labelInput]="'Segmento'">
+                    <field-select-g (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$" [labelInput]="'Segmento'">
                     </field-select-g>
-                    <field-select-g  (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$"
-                        [labelInput]="'Fabricante'">
+                    <field-select-g (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$" [labelInput]="'Fabricante'">
                     </field-select-g>
                     <!-- <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$"
                         [labelInput]="'Tipo'">
@@ -122,18 +105,15 @@
                         [labelInput]="'Fabricante'">
                     </field-select-g> -->
 
-                    <array-g [formMain]="manufacturerForm" [arrayName]="'models'" [formArray]="models"
-                        [labelInput]="'Modelo'" [entityToEdit]="entityToEdit"> <btn-g add btn-1
-                            *ngIf="entityToEdit == 'model' && models$" [name]="'Adicionar'" [icon]="'add'"
-                            (btn)="addAddItemArray('model')"></btn-g>
+                    <array-g [formMain]="manufacturerForm" [arrayName]="'models'" [formArray]="models" [labelInput]="'Modelo'" [entityToEdit]="entityToEdit">
+                        <btn-g add btn-1 *ngIf="entityToEdit == 'model' && models$" [name]="'Adicionar'" [icon]="'add'" (btn)="addAddItemArray('model')"></btn-g>
                     </array-g>
 
                 </div>
             </div>
 
             <div [class]="{'btn-save-show': entityToEdit == 'model' && models}">
-                <btn-g *ngIf="entityToEdit == 'model' && models$" [name]="'Salvar'" [icon]="'save'"
-                    (click)="saveSingle()"></btn-g>
+                <btn-g *ngIf="entityToEdit == 'model' && models$" [name]="'Salvar'" [icon]="'save'" (click)="saveSingle()"></btn-g>
             </div>
 
 
