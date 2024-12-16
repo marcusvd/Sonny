@@ -60,7 +60,7 @@ export class BaseList {
         return typeof value === 'string' && value.toLowerCase().replace('.', '').replace(',', '').includes(term.toLowerCase())
       }
       ));
-
+      result.forEach(x => console.log(x))
     return result;
   }
 

@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { ProductDto } from '../../dtos/product';
@@ -61,10 +60,21 @@ export class ListProductComponent extends ListControlProduct implements OnInit {
   }
 
   search(term: string) {
-    // console.log(term)
-    this.entitiesFiltered$ = this.entitiesFiltered$.pipe(
-      map(x => x.filter(y => y.productType.key.includes(term)))
-    );
+
+    const TERM_EMPTY = term === '';
+
+    if (TERM_EMPTY)
+      this.entitiesFiltered$ = this.entities$;
+    else
+    this.searchField(this.entitiesFiltered, term).forEach((x)=> console.log(x))
+   // this.entitiesFiltered$ = of(this.searchField(this.entitiesFiltered, term));
+
+      // console.log('aqui')
+
+
+      // const result = this.entitiesFiltered = this.searchField(this.entitiesFiltered, term)
+
+
   }
 
   // x.filter(entity =>

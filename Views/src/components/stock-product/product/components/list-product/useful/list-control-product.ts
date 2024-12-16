@@ -30,6 +30,7 @@ export class ListControlProduct extends BaseList {
   }
 
   entities: ProductList[] = [];
+  entitiesFiltered: ProductList[] = [];
   entities$: Observable<ProductList[]>;
   entitiesFiltered$: Observable<ProductList[]>;
   productsTypes$ = new Observable<ProductTypeDto[]>();
@@ -98,6 +99,7 @@ export class ListControlProduct extends BaseList {
 
 
     this.entities.push(items);
+    this.entitiesFiltered.push(items);
 
     return this.entities;
 
