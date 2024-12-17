@@ -7,21 +7,12 @@ mat-form-field {
     flex-direction: row;
     gap: 10px;
     flex-basis: 100%;
-    /* flex-wrap: wrap; */
 }
 
 .search-field {
     flex-basis: 100%;
     flex: 1;
 }
-
-.type,
-.segment,
-.manufacturer {
-    /* flex: 1; */
-
-}
-
 
 @media(max-width: 640px) {
     .container-filter {
@@ -46,13 +37,4 @@ mat-form-field {
         flex: 1;
 
     }
-    /* field-select-g{
-        width: 100%;
-        flex-basis: 100%;
-    }
-    mat-form-field {
-        flex-basis: 100%;
-    } */
-
-
 }

@@ -1,10 +1,9 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BaseList } from 'src/shared/components/list-g/extends/base-list';
 import { ManufacturerDto } from '../../../dtos/manufacturer-dto';
-import { ModelDto } from '../../../dtos/model-dto';
 import { ProductTypeDto } from '../../../dtos/product-type-dto';
 import { SegmentDto } from '../../../dtos/segment-dto';
 import { ProductList } from '../dto/product-list';
@@ -29,6 +28,23 @@ export class FilterProductListComponent extends BaseList implements OnInit {
     this.makemanufacturersToFilterSelect();
   }
 
+  //INPUTS-OUTPUTS
+  @Input('productsTypes') productsTypes$ = new Observable<ProductTypeDto[]>();
+  @Input('productsList') productsList$ = new Observable<ProductList[]>();
+  @Input() segments: SegmentDto[] = [];
+  @Input() manufacturers: ManufacturerDto[] = [];
+  @Output('outProductsListFiltered') outProductsListFiltered$ = new EventEmitter<Observable<ProductList[]>>();
+  @Output() fieldSearch = new EventEmitter<string>();
+
+  //OBSERVABLES
+  segments$: Observable<SegmentDto[]>;
+  manufacturers$: Observable<ManufacturerDto[]>
+
+  //SIMPLE-VARIABLES
+  resetControlForm = [false, false, false]
+  formControlSearch = new FormControl('');
+
+  //METHODS
   makeSegmentsToFilterSelect() {
     const noDuplicate = Array.from(new Set(this.segments.map(x => x.name.toLowerCase())));
     const segmentsNew: SegmentDto[] = [];
@@ -53,32 +69,9 @@ export class FilterProductListComponent extends BaseList implements OnInit {
     this.manufacturers$ = of(manufacturersNew);
   }
 
-  resetControlForm = [false, false, false]
-
-  //OBSERVABLES
-  @Input('productsTypes') productsTypes$ = new Observable<ProductTypeDto[]>();
-  @Input('productsList') productsList$ = new Observable<ProductList[]>();
-  @Output('outProductsListFiltered') outProductsListFiltered$ = new EventEmitter<Observable<ProductList[]>>();
-
-  segments$: Observable<SegmentDto[]>;
-  manufacturers$: Observable<ManufacturerDto[]>
-  models$: Observable<ModelDto[]>
-
-  @Input() segments: SegmentDto[] = [];
-  @Input() manufacturers: ManufacturerDto[] = [];
-  models: ModelDto[] = [];
-
-  formControlSearch = new FormControl('');
-
-  @Output() fieldSearch = new EventEmitter<string>();
-
-
-  search(input: string) {
-    this.fieldSearch.emit(input);
+  search = (input: string) => {
+    this.fieldSearch.emit(this.removeAccentsSpecialCharacters(input.toLowerCase()));
   }
-
-
-
 
   onSelectedProduct(id: number) {
     this.productsTypes$.subscribe((x: ProductTypeDto[]) => {
@@ -115,14 +108,15 @@ export class FilterProductListComponent extends BaseList implements OnInit {
   }
 
   resetFormControl(entity: number) {
+
     this.resetControlForm.forEach((x, index) => {
       if (index == entity)
         this.resetControlForm[index] = false;
       else
         this.resetControlForm[index] = true;
     })
-  }
 
+  }
 
   filterType(entityToFilter: string, type: string, productsList$: Observable<any[]>) {
 
@@ -133,6 +127,5 @@ export class FilterProductListComponent extends BaseList implements OnInit {
     this.outProductsListFiltered$.emit(result);
 
   }
-
 
 }

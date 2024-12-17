@@ -1,22 +1,22 @@
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { environment } from "src/environments/environment";
 import { ItemsInterface } from "src/shared/components/list-g/data/items-interface";
 import { ListGDataService } from "src/shared/components/list-g/data/list-g-data.service";
 import { BaseList } from "src/shared/components/list-g/extends/base-list";
 import { PtBrCurrencyPipe } from "src/shared/pipes/pt-br-currency.pipe";
 import { PtBrDatePipe } from "src/shared/pipes/pt-br-date.pipe";
+import { ManufacturerDto } from "../../../dtos/manufacturer-dto";
 import { ProductDto } from "../../../dtos/product";
 import { ProductTypeDto } from "../../../dtos/product-type-dto";
-import { ProductList } from "../dto/product-list";
 import { SegmentDto } from "../../../dtos/segment-dto";
-import { ManufacturerDto } from "../../../dtos/manufacturer-dto";
-import { AfterViewInit } from "@angular/core";
+import { ProductList } from "../dto/product-list";
+import { PageEvent } from "@angular/material/paginator";
+import { makeItemsGridLager, makeItemsGridSmall } from "../helpers/make-items-grid-responsive";
 
 
 export class ListControlProduct extends BaseList {
-
 
   constructor(
     override _router: Router,
@@ -28,118 +28,147 @@ export class ListControlProduct extends BaseList {
       new ListGDataService(_http),
       _router,
     )
-
-    this.headers = this.label('');
-    this.fields = this.fieldsHeader('')
-
-  }
-   screenWidth: number = window.innerWidth;
-  screen(event?: Event) {
-    const target = event.target as Window;
-    this.screenWidth = target.innerWidth;
-
-    if (this.screenWidth <= 600) {
-      this.fields = this.fieldsHeader('small')
-      this.headers = this.label('small');
-      // console.log('Width is 640px or less:', this.this.screenWidth);
-      // Adicione aqui sua lógica para telas menores
-    }
-   else if (this.screenWidth >= 601) {
-      this.fields = this.fieldsHeader('middle')
-      this.headers = this.label('middle');
-    }
-
-   if (this.screenWidth > 800) {
-      console.log(this.screenWidth)
-      this.fields = this.fieldsHeader('')
-      this.headers = this.label('');
-    }
-
-    // else {
-    //   this.fields = this.fieldsHeader('')
-    //   this.headers =  this.label('');
-    //   // console.log('Width is greater than 640px:', this.screenWidth);
-    //   // Adicione aqui sua lógica para telas maiores
-    // }
-
-  }
-startScreen() {
-  if (this.screenWidth <= 600) {
-    this.fields = this.fieldsHeader('small')
-    this.headers = this.label('small');
-    // console.log('Width is 640px or less:', this.this.screenWidth);
-    // Adicione aqui sua lógica para telas menores
-  }
- else if (this.screenWidth >= 601) {
-    this.fields = this.fieldsHeader('middle')
-    this.headers = this.label('middle');
   }
 
- if (this.screenWidth > 800) {
-    console.log(this.screenWidth)
-    this.fields = this.fieldsHeader('')
-    this.headers = this.label('');
-  }
-}
-
-  //   /* screen */
-  // /* @media (max-width: 600px) { 
-  //   .cell {
-  //     font-size: 12px;
-  //     padding: 6px;
-  //   }
-  // } */
-
-  // /* @media (min-width: 601px) and (max-width: 1024px) { 
-  //   .cell {
-  //     font-size: 14px;
-  //     padding: 8px;
-  //   }
-  // } */
-
-  // /* @media (min-width: 1025px) {
-  //   .cell {
-  //     font-size: 16px;
-  //     padding: 10px;
-  //   }
-  // } */
-
-  label = (label: string) => {
-    if (label == 'small')
-      return [{ key: 'AÇÕES', style: 'cursor: pointer;' }, { key: 'ITEM', style: 'cursor: pointer;' }, { key: 'SEGMENTO', style: 'cursor: pointer;' }]
-   
-    if (label == 'middle') {
-      return [{ key: 'AÇÕES', style: 'cursor: pointer;' }, { key: 'ITEM', style: 'cursor: pointer;' }, { key: 'SEGMENTO', style: 'cursor: pointer;' }, { key: 'MODELO', style: 'cursor: pointer;' }, { key: 'FABRICANTE', style: 'cursor: pointer;' }, { key: 'PREÇO', style: 'cursor: pointer;' }]
-    }
-
-      return [{ key: 'AÇÕES', style: 'cursor: pointer;' }, { key: 'ITEM', style: 'cursor: pointer;' }, { key: 'SEGMENTO', style: 'cursor: pointer;' }, { key: 'MODELO', style: 'cursor: pointer;' }, { key: 'FABRICANTE', style: 'cursor: pointer;' }, { key: 'PREÇO', style: 'cursor: pointer;' }, { key: 'RESERVADO', style: 'cursor: pointer;' }, { key: 'TESTADO', style: 'cursor: pointer;' }, { key: 'USADO', style: 'cursor: pointer;' }]
-  }
-
-  fieldsHeader = (label: string) => {
-    if (label == 'small')
-      return [{ key: 'id', style: '' }, { key: 'productType', style: '' }, { key: 'segment', style: '' },]
-  
-    if (label == 'middle') {
-      return [{ key: 'id', style: '' }, { key: 'productType', style: '' }, { key: 'segment', style: '' }, { key: 'model', style: '' }, { key: 'manufacturer', style: '' }, { key: 'soldPrice', style: '' }]
-    }
-
-      return [{ key: 'id', style: '' }, { key: 'productType', style: '' }, { key: 'segment', style: '' }, { key: 'model', style: '' }, { key: 'manufacturer', style: '' }, { key: 'soldPrice', style: '' }, { key: 'isReservedByUser', style: '' }, { key: 'isTested', style: '' }, { key: 'isUsed', style: '' }]
-  }
-
-
-
-
-
-  segments: SegmentDto[] = [];
-  manufacturers: ManufacturerDto[] = [];
-  entities: ProductList[] = [];
-  entitiesFiltered: ProductList[] = [];
+  //OBSERVABLES
   entities$: Observable<ProductList[]>;
   entitiesFiltered$: Observable<ProductList[]>;
   productsTypes$ = new Observable<ProductTypeDto[]>();
 
+  //PROPERIES
+  segments: SegmentDto[] = [];
+  manufacturers: ManufacturerDto[] = [];
+  entities: ProductList[] = [];
+  entitiesFiltered: ProductList[] = [];
   controllerUrl: string = environment._STOCK_PRODUCTS.split('/')[4];
   backEndUrl: string = `${this.controllerUrl}/GetProductsIncludedAsync`;
+  length = 0;
+  showHideFilter = false;
+  term: string;
+
+  //METHODS
+  label = (label: string) => {
+    if (label == 'small')
+      return [{ key: 'ITEM', style: 'cursor: pointer;' }, { key: 'FABRICANTE', style: 'cursor: pointer;' }, { key: 'PREÇO', style: 'cursor: pointer;' }]
+    // return [{ key: 'AÇÕES', style: 'cursor: pointer;' }, { key: 'ITEM', style: 'cursor: pointer;' }, { key: 'FABRICANTE', style: 'cursor: pointer;' }, { key: 'PREÇO', style: 'cursor: pointer;' }]
+
+    if (label == 'middle') {
+      return [{ key: 'AÇÕES', style: 'cursor: pointer;' }, { key: 'ITEM', style: 'cursor: pointer;' }, { key: 'SEGMENTO', style: 'cursor: pointer;' }, { key: 'MODELO', style: 'cursor: pointer;' }, { key: 'FABRICANTE', style: 'cursor: pointer;' }, { key: 'PREÇO', style: 'cursor: pointer;' }]
+    }
+
+    return [{ key: 'AÇÕES', style: 'cursor: pointer;' }, { key: 'ITEM', style: 'cursor: pointer;' }, { key: 'SEGMENTO', style: 'cursor: pointer;' }, { key: 'MODELO', style: 'cursor: pointer;' }, { key: 'FABRICANTE', style: 'cursor: pointer;' }, { key: 'PREÇO', style: 'cursor: pointer;' }, { key: 'RESERVADO', style: 'cursor: pointer;' }, { key: 'TESTADO', style: 'cursor: pointer;' }, { key: 'USADO', style: 'cursor: pointer;' }]
+  }
+
+  fieldsHeader = (label: string) => {
+    if (label == 'small')
+      return [{ key: 'productType', style: '' }, { key: 'manufacturer', style: '' }, { key: 'soldPrice', style: '' }]
+    // return [{ key: 'id', style: '' }, { key: 'productType', style: '' }, { key: 'manufacturer', style: '' }, { key: 'soldPrice', style: '' }]
+
+    if (label == 'middle') {
+      return [{ key: 'id', style: '' }, { key: 'productType', style: '' }, { key: 'segment', style: '' }, { key: 'model', style: '' }, { key: 'manufacturer', style: '' }, { key: 'soldPrice', style: '' }]
+    }
+
+    return [{ key: 'id', style: '' }, { key: 'productType', style: '' }, { key: 'segment', style: '' }, { key: 'model', style: '' }, { key: 'manufacturer', style: '' }, { key: 'soldPrice', style: '' }, { key: 'isReservedByUser', style: '' }, { key: 'isTested', style: '' }, { key: 'isUsed', style: '' }]
+  }
+
+  responsive(event?: Event) {
+
+    if (this.screen(event) <= 600) {
+      this.fields = this.fieldsHeader('small');
+      this.headers = this.label('small');
+      this.entitiesFiltered$ = of(makeItemsGridSmall(this.entitiesFiltered));
+    }
+    else if (this.screen(event) >= 601) {
+      this.fields = this.fieldsHeader('middle');
+      this.headers = this.label('middle');
+    }
+    
+    if (this.screen(event) > 800) {
+      this.fields = this.fieldsHeader('');
+      this.headers = this.label('');
+      this.entitiesFiltered$ = of(makeItemsGridLager(this.entitiesFiltered));
+    }
+
+  }
+
+  search(term: string) {
+    this.term = term;
+
+    const TERM_EMPTY = term === '';
+
+    if (!this.showHideFilter && TERM_EMPTY) {
+      this.entitiesFiltered$ = this.entities$;
+      this.entitiesFiltered = this.entities;
+      this.entities$.subscribe(x => {
+        this.length = x.length
+      })
+    }
+    else {
+      this.entitiesFiltered$ = of(this.searchListEntities(this.entitiesFiltered, term))
+      this.entitiesFiltered$.subscribe(x => {
+        this.length = x.length
+      })
+    }
+  }
+
+  onPageChange($event: PageEvent) {
+
+    if ($event.previousPageIndex < $event.pageIndex)
+      this.entitiesFiltered$ = of(this.pageChange(this.entitiesFiltered, $event))
+
+    else if ($event.previousPageIndex > $event.pageIndex)
+      this.entitiesFiltered$ = of(this.pageChange(this.entitiesFiltered, $event))
+
+    if (this.term) {
+      this.entitiesFiltered$ = of(this.pageChange(this.searchListEntities(this.entitiesFiltered, this.term), $event))
+      this.length = this.searchListEntities(this.entitiesFiltered, this.term).length
+    }
+
+  }
+
+  startSubscribe() {
+    this.entities = [];
+    this.entitiesFiltered$ = null;
+    this._listGDataService.entities$.subscribe(
+      {
+        next: (x: ProductDto[]) => {
+          this.length = x.length;
+          x.forEach(
+            (y: ProductDto) => {
+              this.entities = this.makeItemsGrid(y);
+              this.entities$ = of(this.entities);
+            })
+          this.getCurrent();
+        }
+      }
+    )
+  }
+
+  getCurrent = () => {
+    this.entitiesFiltered$ = of(this.entities.slice(0, this.pageSize));
+  }
+
+  showHideFilterMtd($event: boolean) {
+    this.showHideFilter = $event
+    if (!this.showHideFilter) {
+      this.entitiesFiltered$ = null;
+      this.paginatorAbove.firstPage();
+      this.length = this.entities.length;
+      this.entitiesFiltered = this.entities;
+      this.entitiesFiltered$ = of(this.entitiesFiltered.slice(0, this.pageSize));
+    }
+  }
+
+  filteredProductsList(producstListFiltered: Observable<ProductList[]>) {
+    this.paginatorAbove.firstPage();
+    this.length = 0;
+    producstListFiltered.subscribe(x => {
+      this.entitiesFiltered = x
+      this.length = x.length;
+    })
+
+    this.entitiesFiltered$ = of(this.entitiesFiltered.slice(0, this.pageSize));
+  }
 
   onClickOrderByFields(field: string, entitiesFiltered$: Observable<ProductList[]>) {
 
@@ -169,39 +198,38 @@ startScreen() {
 
   }
 
+
   makeItemsGrid(x: ProductDto) {
 
-    const buttonStyle = `background-color:rgb(43, 161, 168);border:none; color:white; height: 20px;  display: flex;  justify-content: center;   align-items: center;   padding: 0 12px;`
+    const buttonStyle = `background-color:rgb(43, 161, 168);border:none; color:white; height: 20px;  display: flex;  justify-content: center;   align-items: center;   padding: 0 12px; width: 100px; max-width: 100px;`
     const buttonCellStyle = `display: flex; justify-content: center; align-items: center;`
-    const iconStyle = `color:rgb(43, 161, 168); cursor: pointer; font-size:20px; float:left;`
+    const iconStyle = `color:rgb(43, 161, 168); cursor: pointer; font-size:20px; float:left; maging-right:-50px;`
+    const soldPricestyleInsideCell = 'border:0.5px solid red;'
 
     const items: ProductList = new ProductList();
 
-    items.id = { key: x?.id.toString(), display: 'icons', icons: ['list', 'edit', 'home'], styleInsideCell: iconStyle, styleCell: '', route: '' };
+    // items.id = { key: x?.id.toString(), display: 'menu', iconsLabels: ['list|Lista', 'edit|Editar', 'home|Inicio'], styleInsideCell: iconStyle, styleCell: '', route: '' };
+    // items.id = { key: x?.id.toString(), display: 'icons', icons: ['menu'], styleInsideCell: iconStyle, styleCell: '', route: '' };
+    // items.id = { key: x?.id.toString(), display: 'icons', icons: ['list', 'edit', 'home'], styleInsideCell: iconStyle, styleCell: '', route: '' };
 
-    items.productType = { key: x?.productType.name, icons: [''], styleInsideCell: '', route: '' };
+    items.productType = { key: x?.productType.name, icons: [''], button: x?.productType.name, styleInsideCell: '',  route: '' };
 
     items.segment = { key: x?.segment.name, icons: [''], styleInsideCell: '', route: '' };
 
     items.manufacturer = { key: x?.manufacturer.name, display: '', button: 'Menu', icons: [''], styleInsideCell: '', styleCell: '', route: '' };
-    // items.manufacturer = { key: x?.manufacturer.name, display: 'button', button: 'Menu', icons: [''], styleInsideCell: buttonStyle, styleCell: buttonCellStyle, route: '' };
 
     items.model = { key: x?.model.name, icons: [''], styleInsideCell: '', route: '' };
 
-    items.soldPrice = { key: this._ptBrCurrencyPipe.transform(x?.soldPrice), icons: [''], styleInsideCell: 'border:0.5px solid red;', route: '' };
-    // items.soldPrice = { key: this._ptBrCurrencyPipe.transform(x?.soldPrice), icons: [''], styleInsideCell: 'border:0.5px solid rgb(43, 161, 168);', route: '' };
+    items.soldPrice = { key: this._ptBrCurrencyPipe.transform(x?.soldPrice), icons: [''], styleInsideCell: soldPricestyleInsideCell, route: '' };
 
     items.isReservedByUser = { key: x?.isReservedByUser?.userName ?? 'Não', icons: [''], styleInsideCell: '', route: '' };
 
     items.isTested = this.isTested(x?.isTested)
 
-    // items.isTested = { key: (new Date(x?.isTested).getFullYear()) <= 1 ? 'Não' : this._ptBrDatePipe.transform(x?.isTested, 'Date'), icons: [''], styleInsideCell: '', route: '' };
-
     items.isUsed = { key: x?.isUsed ? 'Sim' : 'Não' };
 
-
-
     this.entities.push(items);
+
     this.entitiesFiltered.push(items);
 
     return this.entities;
@@ -232,10 +260,10 @@ startScreen() {
 
   }
 
-
   onClickButton(field: string) {
     console.log(field)
   }
+
   onClickIcons(field: string) {
     console.log(field)
   }

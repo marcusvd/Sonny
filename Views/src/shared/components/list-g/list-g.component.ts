@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { SpinnerGComponent } from '../spinner-g/component/spinner-g.component';
 import { FieldsInterface } from './data/fields-interface';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'list-g',
@@ -20,6 +21,7 @@ import { FieldsInterface } from './data/fields-interface';
     FieldInputGComponent,
     MatIconModule,
     MatButtonModule,
+    MatMenuModule,
     SpinnerGComponent
   ],
   styleUrls: ['./list-g.component.css']

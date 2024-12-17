@@ -1,11 +1,13 @@
 <div class="container-filter">
 
     <div class="search-field">
+ 
         <mat-form-field appearance="outline">
             <mat-label>{{'Pesquisar'}}</mat-label>
             <input #field (input)="search(field.value)" type="text" matInput placeholder="Pesquisar"
                 [attr.for]="'Pesquisar'" [formControl]="formControlSearch">
         </mat-form-field>
+
     </div>
 
     <div class="type">
@@ -32,7 +34,5 @@
             [formControlReset]="resetControlForm[2]" [labelInput]="'Fabricante'">
         </field-select-g>
     </div>
-
-
 
 </div>
