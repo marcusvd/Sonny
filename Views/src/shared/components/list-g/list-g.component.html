@@ -1,23 +1,7 @@
-<div class="small-large-screen">
-
-    <div class="container-paginator">
-        <div class="paginator-above">
-            <ng-content select="[paginator-above]"></ng-content>
-        </div>
-    </div>
-
-    <ng-content class="container-field-search" select="[filter-search]">
-        <!-- <div class="filter">
-            <ng-content select="[filter]"></ng-content>
-        </div>
-        <div class="search">
-            <ng-content select="[search]"></ng-content>
-        </div> -->
-    </ng-content>
-
+<div >
     <div class="table">
         <div class="row header">
-            <div class="cell" (click)="onClickHeaderField(headersFields[i].key)" [style]="header.style" *ngFor="let header of headersLabel;let i = index;">
+            <div  class="cell" (click)="onClickHeaderField(headersFields[i].key)" [style]="header.style" *ngFor="let header of headersLabel;let i = index;">
                 {{header.key}}
             </div>
         </div>
@@ -47,9 +31,4 @@
     </div>
     <spinner-g [entities]="entities$" [optionalTitle]="'(Lista)'" [_empty]="spinerNoRegisterClean">
     </spinner-g>
-    <div class="container-paginator">
-        <div class="paginator-below">
-            <ng-content select="[paginator-below]"></ng-content>
-        </div>
-    </div>
 </div>

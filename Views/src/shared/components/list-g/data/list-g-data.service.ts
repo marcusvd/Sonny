@@ -10,7 +10,7 @@ export class ListGDataService extends BackEndService<any> {
  private entitiesFromDb = new BehaviorSubject<any[]>([]);
   entities$ = this.entitiesFromDb.asObservable();
 
-  // lengthPaginator = new BehaviorSubject<number>(0);
+   lengthPaginator = new BehaviorSubject<number>(0);
 
   // totalEntities: number = 0;
 

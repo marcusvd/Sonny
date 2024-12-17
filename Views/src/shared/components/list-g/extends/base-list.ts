@@ -25,9 +25,13 @@ export class BaseList {
   constructor(
     protected _listGDataService?: ListGDataService,
     protected _router?: Router,
-    @Inject('headers') public headers?: FieldsLabelInterface[],
-    @Inject('fields') public fields?: FieldsInterface[],
   ) { }
+
+   headers: FieldsLabelInterface[] =[]
+   fields: FieldsInterface[] =[]
+
+
+
 
   removeNonNumericAndConvertToNumber(str: string): number {
     return +str.replace(/\D/g, '');
@@ -49,18 +53,25 @@ export class BaseList {
     this._router.navigate([url], objectRoute);
   }
 
-  termSearched: string = null;
-  searchField(entities: any[], term: string): any[] {
+  searchListEntities(entities: any[], term: string): any[] {
     const entitiesToFilter = entities;
 
     let result: any[] = [];
 
     result = entitiesToFilter.filter(entity =>
       Object.values(entity).some((value: any) => {
-        return typeof value === 'string' && value.toLowerCase().replace('.', '').replace(',', '').includes(term.toLowerCase())
-      }
-      ));
-      result.forEach(x => console.log(x))
+
+        if (value && typeof value === 'object' && 'key' in value) {
+          const stringValue = value.key;
+
+          return typeof stringValue === 'string' &&
+            stringValue.toLowerCase().replace('.', '').replace(',', '').includes(term.toLowerCase());
+        }
+
+        return false;
+      })
+    );
+
     return result;
   }
 
@@ -95,18 +106,10 @@ export class BaseList {
 
     if (valueType === 'object') {
       return entities$.pipe(map(h => h.sort((x, y) => {
-        if (this.isdescending) {
-          console.log(y[entityFieldProperty].key)
+        if (this.isdescending)
           return new Date(x[entityFieldProperty].key).getTime() - new Date(y[entityFieldProperty].key).getTime();
-
-        }
-
-        else {
-          console.log(y[entityFieldProperty].key)
+        else
           return new Date(y[entityFieldProperty].key).getTime() - new Date(x[entityFieldProperty].key).getTime();
-        }
-
-
       })))
     }
     return null;

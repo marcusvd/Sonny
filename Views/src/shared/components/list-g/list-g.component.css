@@ -137,10 +137,12 @@ mat-card {
   }
 } */
 
-.container-search {
-  display: flex;
-  gap: 15px;
-  flex-basis: 100%;
+.container-filter-search {
+  display: flex; 
+  flex-direction: column;
+
+ flex-basis: 100%;
+  width: 100%;
   /* justify-content: center;
   position: relative;
   top : -80px; */

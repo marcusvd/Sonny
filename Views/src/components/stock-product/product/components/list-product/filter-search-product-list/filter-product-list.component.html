@@ -1,22 +1,35 @@
 <div class="container-filter">
 
+    <div class="search-field">
+        <mat-form-field appearance="outline">
+            <mat-label>{{'Pesquisar'}}</mat-label>
+            <input #field (input)="search(field.value)" type="text" matInput placeholder="Pesquisar"
+                [attr.for]="'Pesquisar'" [formControl]="formControlSearch">
+        </mat-form-field>
+    </div>
 
     <div class="type">
 
-        <field-select-g [removeValidatorNgxFormControl]="true" [removeValidatorFormControl]="true" (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$" [formControlReset]="resetControlType" [labelInput]="'Tipo'">
+        <field-select-g style="width: 100%;" [removeValidatorNgxFormControl]="true" [removeValidatorFormControl]="true"
+            (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$"
+            [formControlReset]="resetControlForm[0]" [labelInput]="'Tipo'">
         </field-select-g>
 
     </div>
 
     <div class="segment">
 
-        <field-select-g [removeValidatorNgxFormControl]="true" [removeValidatorFormControl]="true" (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$" [formControlReset]="resetControlSegment" [labelInput]="'Segmento'">
+        <field-select-g [removeValidatorNgxFormControl]="true" [removeValidatorFormControl]="true"
+            (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$"
+            [formControlReset]="resetControlForm[1]" [labelInput]="'Segmento'">
         </field-select-g>
 
     </div>
 
     <div class="manufacturer">
-        <field-select-g [removeValidatorNgxFormControl]="true" [removeValidatorFormControl]="true" (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$" [formControlReset]="resetControlManufacturer" [labelInput]="'Fabricante'">
+        <field-select-g [removeValidatorNgxFormControl]="true" [removeValidatorFormControl]="true"
+            (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$"
+            [formControlReset]="resetControlForm[2]" [labelInput]="'Fabricante'">
         </field-select-g>
     </div>
 

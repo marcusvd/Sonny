@@ -1,45 +1,44 @@
-<div class="border-around">
+<div class="border-around small-large-screen" (window:resize)="screen($event)">
 
     <title-component [digit]="'|'" [titleString]="'Produto'" [icon]="'storage'">
     </title-component>
 
     <mat-card class="small-large-screen">
         <sub-title title [title]="'Produtos'" [icon]="'add'"></sub-title>
-        <div class="add-filter">
-            <div class="btn-add-product">
-                <btn-g add btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="this.callRouter('/side-nav/stock-product-router/add-product')"></btn-g>
-            </div>
-            <div class="btn-add-product">
+        <div class="container-btns-paginator-above">
+
+            <div class="btns">
+             
+                <btn-g add btn-1 [name]="'Adicionar'" [icon]="'add'"
+                    (btn)="this.callRouter('/side-nav/stock-product-router/add-product')"></btn-g>
+
                 <btn-filter-g (arrowOut)="showHideFilterMtd($event)" filter>
                 </btn-filter-g>
+
             </div>
+
+            <div class="paginator-above">
+                <mat-paginator #paginatorAbove [length]="length" [pageSize]="pageSize"
+                    (page)="onPageChange($event)"></mat-paginator>
+            </div>
+
         </div>
 
-        <list-g [headersLabel]="headers" [headersFields]="fields" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
-            <mat-paginator paginator-above paginator></mat-paginator>
-            <mat-paginator paginator-below paginator></mat-paginator>
 
-            <div class="container-comp-search-filter" filter-search>
-                <search-product-list class="search" (fieldSearch)="this.search($event)">
-                </search-product-list>
+        <div class="container-search-filter">
+            <filter-product-list [productsList]="this.entities$" [productsTypes]="productsTypes$" 
+                 [segments]="segments" [manufacturers]="manufacturers"
+                *ngIf="showHideFilter" (outProductsListFiltered)="filteredProductsList($event)"
+                (fieldSearch)="this.search($event)">
+            </filter-product-list>
+        </div>
 
-                <filter-product-list [productsTypes]="productsTypes$" [productsList]="this.entities$" (outProductsListFiltered)="filteredProductsList($event)" *ngIf="showHideFilter">
-                </filter-product-list>
-            </div>
-
-            <!-- <div class="container-search-filter" >
-                <div class="search">
-
-                </div>
-            </div>
-            <div class="container-search-filter" >
-                <div class="filter">
-
-                </div>
-            </div> -->
-
-
+        <list-g [headersLabel]="headers" [headersFields]="fields" [entities]="this.entitiesFiltered$"
+            (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)"
+            (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
         </list-g>
+        <mat-paginator #paginatorBelow [length]="length" [pageSize]="pageSize"
+            (page)="onPageChange($event)"></mat-paginator>
     </mat-card>
 
 </div>

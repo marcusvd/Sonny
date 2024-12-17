@@ -10,6 +10,9 @@ import { PtBrDatePipe } from "src/shared/pipes/pt-br-date.pipe";
 import { ProductDto } from "../../../dtos/product";
 import { ProductTypeDto } from "../../../dtos/product-type-dto";
 import { ProductList } from "../dto/product-list";
+import { SegmentDto } from "../../../dtos/segment-dto";
+import { ManufacturerDto } from "../../../dtos/manufacturer-dto";
+import { AfterViewInit } from "@angular/core";
 
 
 export class ListControlProduct extends BaseList {
@@ -24,11 +27,111 @@ export class ListControlProduct extends BaseList {
     super(
       new ListGDataService(_http),
       _router,
-      [{ key: 'AÇÕES', style: 'cursor: pointer;' }, { key: 'ITEM', style: 'cursor: pointer;' }, { key: 'SEGMENTO', style: 'cursor: pointer;' }, { key: 'MODELO', style: 'cursor: pointer;' }, { key: 'FABRICANTE', style: 'cursor: pointer;' }, { key: 'PREÇO', style: 'cursor: pointer;' }, { key: 'RESERVADO', style: 'cursor: pointer;' }, { key: 'TESTADO', style: 'cursor: pointer;' }, { key: 'USADO', style: 'cursor: pointer;' }],
-      [{ key: 'id', style: '' }, { key: 'productType', style: '' }, { key: 'segment', style: '' }, { key: 'model', style: '' }, { key: 'manufacturer', style: '' }, { key: 'soldPrice', style: '' }, { key: 'isReservedByUser', style: '' }, { key: 'isTested', style: '' }, { key: 'isUsed', style: '' }]
     )
+
+    this.headers = this.label('');
+    this.fields = this.fieldsHeader('')
+
+  }
+   screenWidth: number = window.innerWidth;
+  screen(event?: Event) {
+    const target = event.target as Window;
+    this.screenWidth = target.innerWidth;
+
+    if (this.screenWidth <= 600) {
+      this.fields = this.fieldsHeader('small')
+      this.headers = this.label('small');
+      // console.log('Width is 640px or less:', this.this.screenWidth);
+      // Adicione aqui sua lógica para telas menores
+    }
+   else if (this.screenWidth >= 601) {
+      this.fields = this.fieldsHeader('middle')
+      this.headers = this.label('middle');
+    }
+
+   if (this.screenWidth > 800) {
+      console.log(this.screenWidth)
+      this.fields = this.fieldsHeader('')
+      this.headers = this.label('');
+    }
+
+    // else {
+    //   this.fields = this.fieldsHeader('')
+    //   this.headers =  this.label('');
+    //   // console.log('Width is greater than 640px:', this.screenWidth);
+    //   // Adicione aqui sua lógica para telas maiores
+    // }
+
+  }
+startScreen() {
+  if (this.screenWidth <= 600) {
+    this.fields = this.fieldsHeader('small')
+    this.headers = this.label('small');
+    // console.log('Width is 640px or less:', this.this.screenWidth);
+    // Adicione aqui sua lógica para telas menores
+  }
+ else if (this.screenWidth >= 601) {
+    this.fields = this.fieldsHeader('middle')
+    this.headers = this.label('middle');
   }
 
+ if (this.screenWidth > 800) {
+    console.log(this.screenWidth)
+    this.fields = this.fieldsHeader('')
+    this.headers = this.label('');
+  }
+}
+
+  //   /* screen */
+  // /* @media (max-width: 600px) { 
+  //   .cell {
+  //     font-size: 12px;
+  //     padding: 6px;
+  //   }
+  // } */
+
+  // /* @media (min-width: 601px) and (max-width: 1024px) { 
+  //   .cell {
+  //     font-size: 14px;
+  //     padding: 8px;
+  //   }
+  // } */
+
+  // /* @media (min-width: 1025px) {
+  //   .cell {
+  //     font-size: 16px;
+  //     padding: 10px;
+  //   }
+  // } */
+
+  label = (label: string) => {
+    if (label == 'small')
+      return [{ key: 'AÇÕES', style: 'cursor: pointer;' }, { key: 'ITEM', style: 'cursor: pointer;' }, { key: 'SEGMENTO', style: 'cursor: pointer;' }]
+   
+    if (label == 'middle') {
+      return [{ key: 'AÇÕES', style: 'cursor: pointer;' }, { key: 'ITEM', style: 'cursor: pointer;' }, { key: 'SEGMENTO', style: 'cursor: pointer;' }, { key: 'MODELO', style: 'cursor: pointer;' }, { key: 'FABRICANTE', style: 'cursor: pointer;' }, { key: 'PREÇO', style: 'cursor: pointer;' }]
+    }
+
+      return [{ key: 'AÇÕES', style: 'cursor: pointer;' }, { key: 'ITEM', style: 'cursor: pointer;' }, { key: 'SEGMENTO', style: 'cursor: pointer;' }, { key: 'MODELO', style: 'cursor: pointer;' }, { key: 'FABRICANTE', style: 'cursor: pointer;' }, { key: 'PREÇO', style: 'cursor: pointer;' }, { key: 'RESERVADO', style: 'cursor: pointer;' }, { key: 'TESTADO', style: 'cursor: pointer;' }, { key: 'USADO', style: 'cursor: pointer;' }]
+  }
+
+  fieldsHeader = (label: string) => {
+    if (label == 'small')
+      return [{ key: 'id', style: '' }, { key: 'productType', style: '' }, { key: 'segment', style: '' },]
+  
+    if (label == 'middle') {
+      return [{ key: 'id', style: '' }, { key: 'productType', style: '' }, { key: 'segment', style: '' }, { key: 'model', style: '' }, { key: 'manufacturer', style: '' }, { key: 'soldPrice', style: '' }]
+    }
+
+      return [{ key: 'id', style: '' }, { key: 'productType', style: '' }, { key: 'segment', style: '' }, { key: 'model', style: '' }, { key: 'manufacturer', style: '' }, { key: 'soldPrice', style: '' }, { key: 'isReservedByUser', style: '' }, { key: 'isTested', style: '' }, { key: 'isUsed', style: '' }]
+  }
+
+
+
+
+
+  segments: SegmentDto[] = [];
+  manufacturers: ManufacturerDto[] = [];
   entities: ProductList[] = [];
   entitiesFiltered: ProductList[] = [];
   entities$: Observable<ProductList[]>;
@@ -94,8 +197,8 @@ export class ListControlProduct extends BaseList {
 
     // items.isTested = { key: (new Date(x?.isTested).getFullYear()) <= 1 ? 'Não' : this._ptBrDatePipe.transform(x?.isTested, 'Date'), icons: [''], styleInsideCell: '', route: '' };
 
-    // items.isUsed = { key: x?.isUsed ? 'Sim' : 'Não' };
-    items.isUsed = this.isUsed(x.isUsed);
+    items.isUsed = { key: x?.isUsed ? 'Sim' : 'Não' };
+
 
 
     this.entities.push(items);
@@ -129,29 +232,12 @@ export class ListControlProduct extends BaseList {
 
   }
 
-  isUsed = (value: boolean) => {
 
-    const iconStyleUsed = `color:rgb(43, 161, 168);`
-    const iconStyleNotUsed = `color:red;`;
-
-    const notUsed = 'sentiment_very_dissatisfied';
-    const used = 'sentiment_very_satisfied';
-
-    const objReturn: ItemsInterface = { key: value ? 'Sim' : 'Não', display: 'icons', icons: [''], styleInsideCell: '', route: '' };
-
-    const isUsed = value;
-
-    if (isUsed) {
-      objReturn.icons.push(notUsed);
-      objReturn.styleInsideCell = iconStyleNotUsed;
-    }
-    else {
-      objReturn.icons.push(used);
-      objReturn.styleInsideCell = iconStyleUsed;
-    }
-
-    return objReturn;
-
+  onClickButton(field: string) {
+    console.log(field)
+  }
+  onClickIcons(field: string) {
+    console.log(field)
   }
 
 }
