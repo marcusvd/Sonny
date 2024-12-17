@@ -20,13 +20,12 @@ export function makeItemsGridSmall(x: ProductList[]) {
         items.manufacturer = { key: x?.manufacturer.key, display: '', button: 'Menu', icons: [''], styleInsideCell: '', styleCell: '', route: '' };
 
         items.soldPrice = { key: x?.soldPrice.key, icons: [''], styleInsideCell: soldPricestyleInsideCell, route: '' };
-        
+
         createdItems.push(items);
     })
 
 
     return createdItems;
-
 }
 
 export function makeItemsGridLager(x: ProductList[]) {
@@ -44,7 +43,7 @@ export function makeItemsGridLager(x: ProductList[]) {
 
         // items.productType = { key: x?.productType.key, icons: [''], button: x?.productType.key, styleInsideCell: buttonStyle, display: 'button', route: '' };
         items.productType = { key: x?.productType.key, icons: [''], button: x?.productType.key, styleInsideCell: '',  route: '' };
-        
+
         items.segment = { key: x?.segment.key, icons: [''], styleInsideCell: '', route: '' };
 
         items.manufacturer = { key: x?.manufacturer.key, display: '', button: 'Menu', icons: [''], styleInsideCell: '', styleCell: '', route: '' };
