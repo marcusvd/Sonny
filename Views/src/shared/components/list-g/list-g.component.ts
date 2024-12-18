@@ -1,15 +1,14 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { ListGDataService } from './data/list-g-data.service';
-import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
-import { MatCardModule } from '@angular/material/card';
-import { FieldInputGComponent } from 'src/components/stock-product/product/common-components/fields-input/field-input-g/field-input-g.component';
-import { MatIconModule } from '@angular/material/icon';
+import { HttpClient } from '@angular/common/http';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { Observable } from 'rxjs';
+
+import {MatTooltipModule} from '@angular/material/tooltip';
 import { SpinnerGComponent } from '../spinner-g/component/spinner-g.component';
 import { FieldsInterface } from './data/fields-interface';
-import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'list-g',
@@ -17,11 +16,10 @@ import { MatMenuModule } from '@angular/material/menu';
   templateUrl: './list-g.component.html',
   imports: [
     CommonModule,
-    MatCardModule,
-    FieldInputGComponent,
     MatIconModule,
     MatButtonModule,
     MatMenuModule,
+    MatTooltipModule,
     SpinnerGComponent
   ],
   styleUrls: ['./list-g.component.css']

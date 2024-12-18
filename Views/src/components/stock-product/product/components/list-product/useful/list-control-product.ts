@@ -1,5 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
+import { PageEvent } from "@angular/material/paginator";
+
+
 import { Observable, of } from "rxjs";
 import { environment } from "src/environments/environment";
 import { ItemsInterface } from "src/shared/components/list-g/data/items-interface";
@@ -12,7 +15,6 @@ import { ProductDto } from "../../../dtos/product";
 import { ProductTypeDto } from "../../../dtos/product-type-dto";
 import { SegmentDto } from "../../../dtos/segment-dto";
 import { ProductList } from "../dto/product-list";
-import { PageEvent } from "@angular/material/paginator";
 import { makeItemsGridLager, makeItemsGridSmall } from "../helpers/make-items-grid-responsive";
 import { fieldsHeaders, labelHeaders } from "../helpers/make-headers-grid-responsive";
 
@@ -48,8 +50,30 @@ export class ListControlProduct extends BaseList {
   term: string;
 
   //METHODS
-  
-  
+  label = (label: string) => {
+    if (label == 'small')
+      return [{ key: 'ITEM', style: 'cursor: pointer;' }, { key: 'FABRICANTE', style: 'cursor: pointer;' }, { key: 'PREÇO', style: 'cursor: pointer;' }]
+    // return [{ key: 'AÇÕES', style: 'cursor: pointer;' }, { key: 'ITEM', style: 'cursor: pointer;' }, { key: 'FABRICANTE', style: 'cursor: pointer;' }, { key: 'PREÇO', style: 'cursor: pointer;' }]
+
+    if (label == 'middle') {
+      return [{ key: 'AÇÕES', style: 'cursor: pointer;' }, { key: 'ITEM', style: 'cursor: pointer;' }, { key: 'SEGMENTO', style: 'cursor: pointer;' }, { key: 'MODELO', style: 'cursor: pointer;' }, { key: 'FABRICANTE', style: 'cursor: pointer;' }, { key: 'PREÇO', style: 'cursor: pointer;' }]
+    }
+
+    return [{ key: 'AÇÕES', style: 'cursor: pointer;' }, { key: 'ITEM', style: 'cursor: pointer;' }, { key: 'SEGMENTO', style: 'cursor: pointer;' }, { key: 'MODELO', style: 'cursor: pointer;' }, { key: 'FABRICANTE', style: 'cursor: pointer;' }, { key: 'PREÇO', style: 'cursor: pointer;' }, { key: 'RESERVADO', style: 'cursor: pointer;' }, { key: 'TESTADO', style: 'cursor: pointer;' }, { key: 'USADO', style: 'cursor: pointer;' }]
+  }
+
+  fieldsHeader = (label: string) => {
+    if (label == 'small')
+      return [{ key: 'productType', style: '' }, { key: 'manufacturer', style: '' }, { key: 'soldPrice', style: '' }]
+    // return [{ key: 'id', style: '' }, { key: 'productType', style: '' }, { key: 'manufacturer', style: '' }, { key: 'soldPrice', style: '' }]
+
+    if (label == 'middle') {
+      return [{ key: 'id', style: '' }, { key: 'productType', style: '' }, { key: 'segment', style: '' }, { key: 'model', style: '' }, { key: 'manufacturer', style: '' }, { key: 'soldPrice', style: '' }]
+    }
+
+    return [{ key: 'id', style: '' }, { key: 'productType', style: '' }, { key: 'segment', style: '' }, { key: 'model', style: '' }, { key: 'manufacturer', style: '' }, { key: 'soldPrice', style: '' }, { key: 'isReservedByUser', style: '' }, { key: 'isTested', style: '' }, { key: 'isUsed', style: '' }]
+  }
+
   responsive(event?: Event) {
 
     if (this.screen(event) <= 600) {
@@ -61,7 +85,7 @@ export class ListControlProduct extends BaseList {
       this.fields = fieldsHeaders('middle');
       this.headers = labelHeaders('middle');
     }
-    
+
     if (this.screen(event) > 800) {
       this.fields = fieldsHeaders('');
       this.headers = labelHeaders('');
@@ -191,7 +215,7 @@ export class ListControlProduct extends BaseList {
     // items.id = { key: x?.id.toString(), display: 'icons', icons: ['menu'], styleInsideCell: iconStyle, styleCell: '', route: '' };
     // items.id = { key: x?.id.toString(), display: 'icons', icons: ['list', 'edit', 'home'], styleInsideCell: iconStyle, styleCell: '', route: '' };
 
-    items.productType = { key: x?.productType.name, icons: [''], button: x?.productType.name, styleInsideCell: '',  route: '' };
+    items.productType = { key: x?.productType.name, icons: [''], button: x?.productType.name, styleInsideCell: '', route: '' };
 
     items.segment = { key: x?.segment.name, icons: [''], styleInsideCell: '', route: '' };
 
@@ -203,9 +227,9 @@ export class ListControlProduct extends BaseList {
 
     items.isReservedByUser = { key: x?.isReservedByUser?.userName ?? 'Não', icons: [''], styleInsideCell: '', route: '' };
 
-    items.isTested = this.isTested(x?.isTested)
+    items.isTested = this.isTested(x?.isTested);
 
-    items.isUsed = { key: x?.isUsed ? 'Sim' : 'Não' };
+    items.isUsed = { key: x?.isUsed ? 'Usado' : 'Novo' };
 
     this.entities.push(items);
 
