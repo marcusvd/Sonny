@@ -14,6 +14,7 @@ import { SegmentDto } from "../../../dtos/segment-dto";
 import { ProductList } from "../dto/product-list";
 import { PageEvent } from "@angular/material/paginator";
 import { makeItemsGridLager, makeItemsGridSmall } from "../helpers/make-items-grid-responsive";
+import { fieldsHeaders, labelHeaders } from "../helpers/make-headers-grid-responsive";
 
 
 export class ListControlProduct extends BaseList {
@@ -47,45 +48,23 @@ export class ListControlProduct extends BaseList {
   term: string;
 
   //METHODS
-  label = (label: string) => {
-    if (label == 'small')
-      return [{ key: 'ITEM', style: 'cursor: pointer;' }, { key: 'FABRICANTE', style: 'cursor: pointer;' }, { key: 'PREÇO', style: 'cursor: pointer;' }]
-    // return [{ key: 'AÇÕES', style: 'cursor: pointer;' }, { key: 'ITEM', style: 'cursor: pointer;' }, { key: 'FABRICANTE', style: 'cursor: pointer;' }, { key: 'PREÇO', style: 'cursor: pointer;' }]
-
-    if (label == 'middle') {
-      return [{ key: 'AÇÕES', style: 'cursor: pointer;' }, { key: 'ITEM', style: 'cursor: pointer;' }, { key: 'SEGMENTO', style: 'cursor: pointer;' }, { key: 'MODELO', style: 'cursor: pointer;' }, { key: 'FABRICANTE', style: 'cursor: pointer;' }, { key: 'PREÇO', style: 'cursor: pointer;' }]
-    }
-
-    return [{ key: 'AÇÕES', style: 'cursor: pointer;' }, { key: 'ITEM', style: 'cursor: pointer;' }, { key: 'SEGMENTO', style: 'cursor: pointer;' }, { key: 'MODELO', style: 'cursor: pointer;' }, { key: 'FABRICANTE', style: 'cursor: pointer;' }, { key: 'PREÇO', style: 'cursor: pointer;' }, { key: 'RESERVADO', style: 'cursor: pointer;' }, { key: 'TESTADO', style: 'cursor: pointer;' }, { key: 'USADO', style: 'cursor: pointer;' }]
-  }
-
-  fieldsHeader = (label: string) => {
-    if (label == 'small')
-      return [{ key: 'productType', style: '' }, { key: 'manufacturer', style: '' }, { key: 'soldPrice', style: '' }]
-    // return [{ key: 'id', style: '' }, { key: 'productType', style: '' }, { key: 'manufacturer', style: '' }, { key: 'soldPrice', style: '' }]
-
-    if (label == 'middle') {
-      return [{ key: 'id', style: '' }, { key: 'productType', style: '' }, { key: 'segment', style: '' }, { key: 'model', style: '' }, { key: 'manufacturer', style: '' }, { key: 'soldPrice', style: '' }]
-    }
-
-    return [{ key: 'id', style: '' }, { key: 'productType', style: '' }, { key: 'segment', style: '' }, { key: 'model', style: '' }, { key: 'manufacturer', style: '' }, { key: 'soldPrice', style: '' }, { key: 'isReservedByUser', style: '' }, { key: 'isTested', style: '' }, { key: 'isUsed', style: '' }]
-  }
-
+  
+  
   responsive(event?: Event) {
 
     if (this.screen(event) <= 600) {
-      this.fields = this.fieldsHeader('small');
-      this.headers = this.label('small');
+      this.fields = fieldsHeaders('small');
+      this.headers = labelHeaders('small');
       this.entitiesFiltered$ = of(makeItemsGridSmall(this.entitiesFiltered));
     }
     else if (this.screen(event) >= 601) {
-      this.fields = this.fieldsHeader('middle');
-      this.headers = this.label('middle');
+      this.fields = fieldsHeaders('middle');
+      this.headers = labelHeaders('middle');
     }
     
     if (this.screen(event) > 800) {
-      this.fields = this.fieldsHeader('');
-      this.headers = this.label('');
+      this.fields = fieldsHeaders('');
+      this.headers = labelHeaders('');
       this.entitiesFiltered$ = of(makeItemsGridLager(this.entitiesFiltered));
     }
 
