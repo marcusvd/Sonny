@@ -47,6 +47,13 @@ export class ListProductComponent extends ListControlProduct implements OnInit {
     this.responsive(event);
   }
 
+
+
+
+
+
+  
+
   productTypes() {
     this._productTypeService.getAllIncluded$(this.companyId.toString()).subscribe((x: ProductTypeDto[]) => {
       this.productsTypes$ = of(x);

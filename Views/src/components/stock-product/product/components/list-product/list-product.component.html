@@ -29,7 +29,7 @@
             <filter-product-list [productsList]="this.entities$" [productsTypes]="productsTypes$" 
                  [segments]="segments" [manufacturers]="manufacturers"
                 *ngIf="showHideFilter" (outProductsListFiltered)="filteredProductsList($event)"
-                (fieldSearch)="this.search($event)">
+                (outFieldSearch)="this.search($event)">
             </filter-product-list>
         </div>
 

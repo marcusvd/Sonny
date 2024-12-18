@@ -40,7 +40,7 @@ export function makeItemsGridLager(x: ProductList[]) {
 
     x.forEach(x => {
         items = new ProductList();
-
+        items.id = { key: x?.id.toString(), display: 'icons', icons: ['list', 'edit', 'home'], styleInsideCell: iconStyle, styleCell: '', route: '' };
         // items.productType = { key: x?.productType.key, icons: [''], button: x?.productType.key, styleInsideCell: buttonStyle, display: 'button', route: '' };
         items.productType = { key: x?.productType.key, icons: [''], button: x?.productType.key, styleInsideCell: '',  route: '' };
 
