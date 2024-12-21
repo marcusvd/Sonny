@@ -84,7 +84,7 @@ export class DatabaseSideNavServices {
           name: 'Cadastros', opened: false, children: [
             // { name: 'add-update-product', opened: false, route: `/side-nav/stock-product-router/add-item-product` },
             { name: 'Adicionar Produto', opened: false, route: `/side-nav/stock-product-router/add-product` },
-            { name: 'Produtos', opened: false, route: `/side-nav/product-dash/add-product/${this.companyId}` },
+            { name: 'Produtos', opened: false, route: `/side-nav/stock-product-router/list-card` },
 
           ]
         },

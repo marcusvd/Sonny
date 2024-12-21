@@ -6,9 +6,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { Observable } from 'rxjs';
 
-import {MatTooltipModule} from '@angular/material/tooltip';
-import { SpinnerGComponent } from '../spinner-g/component/spinner-g.component';
-import { FieldsInterface } from './data/fields-interface';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { SpinnerGComponent } from '../../spinner-g/component/spinner-g.component';
+import { FieldsInterface } from './interfaces/fields-interface';
+
 
 @Component({
   selector: 'list-g',

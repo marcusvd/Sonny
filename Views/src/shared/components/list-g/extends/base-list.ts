@@ -1,12 +1,13 @@
-import * as diacritics from 'diacritics';
-import { ListGDataService } from "../data/list-g-data.service";
+import { Component, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { NavigationExtras, Router } from "@angular/router";
-import { FieldsInterface } from "../data/fields-interface";
-import { FieldsLabelInterface } from "../data/fields-label-interface";
+import * as diacritics from 'diacritics';
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { Component, ViewChild } from '@angular/core';
+import { ListGDataService } from "../list/data/list-g-data.service";
+import { FieldsInterface } from '../list/interfaces/fields-interface';
+import { FieldsLabelInterface } from '../list/interfaces/fields-label-interface';
+import { OrderbyInterface } from '../list/interfaces/orderby-interface';
 
 @Component({
   selector: 'list-g',
@@ -81,11 +82,11 @@ export class BaseList {
   }
 
   isdescending = true;
-  orderByFrontEnd(entities$: Observable<any[]>, field: any) {
+  orderByFrontEnd(entities$: Observable<any[]>, field: OrderbyInterface) {
     this.isdescending = !this.isdescending;
 
-    const entityFieldProperty = Object.keys(field)[0];
-    const valueType = typeof (Object.values(field)[0]);
+    const entityFieldProperty = field.key;
+    const valueType = typeof field.value;
 
     if (valueType === 'string') {
       if (this.isdescending)

@@ -1,13 +1,10 @@
 import { HttpClient } from "@angular/common/http";
-import { Router } from "@angular/router";
 import { PageEvent } from "@angular/material/paginator";
-
-
+import { Router } from "@angular/router";
 import { Observable, of } from "rxjs";
 import { environment } from "src/environments/environment";
-import { ItemsInterface } from "src/shared/components/list-g/data/items-interface";
-import { ListGDataService } from "src/shared/components/list-g/data/list-g-data.service";
 import { BaseList } from "src/shared/components/list-g/extends/base-list";
+import { ListGDataService } from "src/shared/components/list-g/list/data/list-g-data.service";
 import { PtBrCurrencyPipe } from "src/shared/pipes/pt-br-currency.pipe";
 import { PtBrDatePipe } from "src/shared/pipes/pt-br-date.pipe";
 import { ManufacturerDto } from "../../../dtos/manufacturer-dto";
@@ -15,8 +12,9 @@ import { ProductDto } from "../../../dtos/product";
 import { ProductTypeDto } from "../../../dtos/product-type-dto";
 import { SegmentDto } from "../../../dtos/segment-dto";
 import { ProductList } from "../dto/product-list";
-import { makeItemsGridLager, makeItemsGridSmall } from "../helpers/make-items-grid-responsive";
-import { fieldsHeadersLarge, fieldsHeadersMiddle, fieldsHeadersSmall, labelHeadersLarge, labelHeadersMiddle, labelHeadersSmall } from "../helpers/make-headers-grid-responsive";
+import { fieldsHeadersLarge, fieldsHeadersMiddle, fieldsHeadersSmall, labelHeadersLarge, labelHeadersMiddle, labelHeadersSmall } from "./make-headers-grid-responsive";
+import { makeItemsGridLager, makeItemsGridSmall } from "./make-items-grid-responsive";
+import { makeHeaderToOrder } from "./order-items-by-header";
 
 
 export class ListControlProduct extends BaseList {
@@ -43,15 +41,13 @@ export class ListControlProduct extends BaseList {
   manufacturers: ManufacturerDto[] = [];
   entities: ProductList[] = [];
   entitiesFiltered: ProductList[] = [];
-  controllerUrl: string = environment._STOCK_PRODUCTS.split('/')[4];
-  backEndUrl: string = `${this.controllerUrl}/GetProductsIncludedAsync`;
   length = 0;
   showHideFilter = false;
   term: string;
+  controllerUrl: string = environment._STOCK_PRODUCTS.split('/')[4];
+  backEndUrl: string = `${this.controllerUrl}/GetProductsIncludedAsync`;
 
   //METHODS
-
-
   responsive(event?: Event) {
 
     if (this.screen(event) <= 600) {
@@ -61,7 +57,7 @@ export class ListControlProduct extends BaseList {
     }
     else if (this.screen(event) >= 601) {
       this.fields = fieldsHeadersMiddle();
-      this.headers =labelHeadersMiddle();
+      this.headers = labelHeadersMiddle();
     }
 
     if (this.screen(event) > 800) {
@@ -107,7 +103,7 @@ export class ListControlProduct extends BaseList {
 
   }
 
-  startSubscribe() {
+  startSupply() {
     this.entities = [];
     this.entitiesFiltered$ = null;
     this._listGDataService.entities$.subscribe(
@@ -116,7 +112,8 @@ export class ListControlProduct extends BaseList {
           this.length = x.length;
           x.forEach(
             (y: ProductDto) => {
-              this.entities = this.makeItemsGrid(y);
+              this.entities = this.supplyItemsGrid(y);
+              this.entitiesFiltered = this.entities;
               this.entities$ = of(this.entities);
             })
           this.getCurrent();
@@ -153,91 +150,69 @@ export class ListControlProduct extends BaseList {
 
   onClickOrderByFields(field: string, entitiesFiltered$: Observable<ProductList[]>) {
 
-    if (field == 'productType')
-      this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, { 'productType': 'productType' });
 
-    if (field == 'segment')
-      this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, { segment: '' });
+    switch (field) {
+      case 'productType':
+        this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
+        break;
 
-    if (field == 'model')
-      this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, { model: '' });
+      case 'segment':
+        this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
+        break;
 
-    if (field == 'manufacturer')
-      this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, { manufacturer: '' });
+      case 'model':
+        this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
+        break;
 
-    if (field == 'soldPrice')
-      this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, { 'soldPrice': 0 });
+      case 'manufacturer':
+        this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
+        break;
 
-    if (field == 'isReservedByUser')
-      this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, { isReservedByUser: new Date() });
+      case 'soldPrice':
+        this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
+        break;
 
-    if (field == 'isTested')
-      this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, { isTested: new Date() });
+      case 'isReservedByUser':
+        this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
+        break;
 
-    if (field == 'isUsed')
-      this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, { isUsed: '' });
+      case 'isTested':
+        this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
+        break;
+
+      case 'isUsed':
+        this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
+        break;
+
+    }
 
   }
 
-
-  makeItemsGrid(x: ProductDto) {
-
-    const buttonStyle = `background-color:rgb(43, 161, 168);border:none; color:white; height: 20px;  display: flex;  justify-content: center;   align-items: center;   padding: 0 12px; width: 100px; max-width: 100px;`
-    const buttonCellStyle = `display: flex; justify-content: center; align-items: center;`
-    const iconStyle = `color:rgb(43, 161, 168); cursor: pointer; font-size:20px; float:left; maging-right:-50px;`
-    const soldPricestyleInsideCell = 'border:0.5px solid red;'
+  supplyItemsGrid = (x: ProductDto) => {
 
     const items: ProductList = new ProductList();
 
-    // items.id = { key: x?.id.toString(), display: 'menu', iconsLabels: ['list|Lista', 'edit|Editar', 'home|Inicio'], styleInsideCell: iconStyle, styleCell: '', route: '' };
-    // items.id = { key: x?.id.toString(), display: 'icons', icons: ['menu'], styleInsideCell: iconStyle, styleCell: '', route: '' };
-    items.id = { key: x?.id.toString(), display: 'icons', icons: ['list', 'edit', 'home'], styleInsideCell: iconStyle, styleCell: '', route: '' };
+    items.id = { key: x?.id?.toString() };
 
-    items.productType = { key: x?.productType.name, icons: [''], button: x?.productType.name, styleInsideCell: '', route: '' };
+    items.productType = { key: x?.productType.name };
 
-    items.segment = { key: x?.segment.name, icons: [''], styleInsideCell: '', route: '' };
+    items.segment = { key: x?.segment.name };
 
-    items.manufacturer = { key: x?.manufacturer.name, display: '', button: 'Menu', icons: [''], styleInsideCell: '', styleCell: '', route: '' };
+    items.manufacturer = { key: x?.manufacturer.name };
 
-    items.model = { key: x?.model.name, icons: [''], styleInsideCell: '', route: '' };
+    items.model = { key: x?.model.name };
 
-    items.soldPrice = { key: this._ptBrCurrencyPipe.transform(x?.soldPrice), icons: [''], styleInsideCell: soldPricestyleInsideCell, route: '' };
+    items.soldPrice = { key: this._ptBrCurrencyPipe.transform(x?.soldPrice) };
 
-    items.isReservedByUser = { key: x?.isReservedByUser?.userName ?? 'Não', icons: [''], styleInsideCell: '', route: '' };
+    items.isReservedByUser = { key: x?.isReservedByUser?.userName ?? 'Não' };
 
-    items.isTested = this.isTested(x?.isTested);
+    items.isTested = { key: x?.isTested?.toString() };
 
     items.isUsed = { key: x?.isUsed ? 'Usado' : 'Novo' };
 
     this.entities.push(items);
 
-    this.entitiesFiltered.push(items);
-
     return this.entities;
-
-  }
-
-  isTested = (value: Date) => {
-    const iconStyleTested = `color:rgb(43, 161, 168);`
-    const iconStyleNotTested = `color:red;`;
-
-    const notTested = 'clear';
-    const tested = 'check';
-
-    const objReturn: ItemsInterface = { key: value.toString(), display: 'icons', icons: [''], styleInsideCell: '', route: '' };
-
-    const isTested = new Date(value).getFullYear();
-
-    if (isTested <= 1) {
-      objReturn.icons.push(notTested);
-      objReturn.styleInsideCell = iconStyleNotTested;
-    }
-    else {
-      objReturn.icons.push(tested);
-      objReturn.styleInsideCell = iconStyleTested;
-    }
-
-    return objReturn;
 
   }
 

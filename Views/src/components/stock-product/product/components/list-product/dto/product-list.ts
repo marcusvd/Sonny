@@ -1,4 +1,5 @@
-import { ItemsInterface } from "src/shared/components/list-g/data/items-interface";
+import { ItemsInterface } from "src/shared/components/list-g/list/interfaces/items-interface";
+
 
 export class ProductList {
 

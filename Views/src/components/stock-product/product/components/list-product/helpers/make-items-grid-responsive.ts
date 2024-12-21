@@ -1,4 +1,5 @@
-import { ItemsInterface } from "src/shared/components/list-g/data/items-interface"
+
+import { ItemsInterface } from "src/shared/components/list-g/list/interfaces/items-interface"
 import { ProductList } from "../dto/product-list"
 
 export function makeItemsGridSmall(x: ProductList[]) {
@@ -42,7 +43,7 @@ export function makeItemsGridLager(x: ProductList[]) {
         items = new ProductList();
         items.id = { key: x?.id.toString(), display: 'icons', icons: ['list', 'edit', 'home'], styleInsideCell: iconStyle, styleCell: '', route: '' };
         // items.productType = { key: x?.productType.key, icons: [''], button: x?.productType.key, styleInsideCell: buttonStyle, display: 'button', route: '' };
-        items.productType = { key: x?.productType.key, icons: [''], button: x?.productType.key, styleInsideCell: '',  route: '' };
+        items.productType = { key: x?.productType.key, icons: [''], button: x?.productType.key, styleInsideCell: '', route: '' };
 
         items.segment = { key: x?.segment.key, icons: [''], styleInsideCell: '', route: '' };
 
@@ -66,7 +67,8 @@ export function makeItemsGridLager(x: ProductList[]) {
 
 }
 
-function isTested(value: string) {
+
+export function isTested(value: string) {
     const iconStyleTested = `color:rgb(43, 161, 168);`
     const iconStyleNotTested = `color:red;`;
 
