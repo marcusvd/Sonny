@@ -9,6 +9,10 @@ import { Observable } from 'rxjs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SpinnerGComponent } from '../../spinner-g/component/spinner-g.component';
 import { FieldsInterface } from './interfaces/fields-interface';
+import { OutHeaderListGDirective } from './directives/out-header-list-g.directive';
+import { OutRowListGDirective } from './directives/out-row-list-g.directive';
+import { OutCelListGDirective } from './directives/out-cel-list-g.directive';
+
 
 
 @Component({
@@ -21,6 +25,9 @@ import { FieldsInterface } from './interfaces/fields-interface';
     MatButtonModule,
     MatMenuModule,
     MatTooltipModule,
+    OutHeaderListGDirective,
+    OutRowListGDirective,
+    OutCelListGDirective,
     SpinnerGComponent
   ],
   styleUrls: ['./list-g.component.css']

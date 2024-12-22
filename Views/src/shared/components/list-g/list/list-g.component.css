@@ -1,10 +1,11 @@
-.table {
+/* .table {
   display: flex;
   flex-direction: column;
   width: 100%;
-}
+  color:blue;
+} */
 
-.row {
+ .row {
   display: flex;
   flex-direction: row;
   border-bottom: 0.5px solid rgb(224, 224, 224);
@@ -16,7 +17,13 @@
   color: rgb(43, 161, 168);
   background-color: 242, 242, 242;
   border-bottom: 0.5px solid rgb(43, 161, 168);
+} 
 
+.row.header .cell:hover {
+  min-width: 100px;
+  font-weight: bold;
+  font-size: 15px;
+  color: rgb(50, 104, 107);
 }
 
 
@@ -32,13 +39,6 @@
   min-width: 100px;
 
   /* Ensures cells in header have a consistent width */
-}
-
-.row.header .cell:hover {
-  min-width: 100px;
-  font-weight: bold;
-  font-size: 15px;
-  color: rgb(50, 104, 107);
 }
 
 
