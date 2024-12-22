@@ -13,6 +13,9 @@ import { TitleComponent } from "src/shared/components/title/components/title.com
 import { FilterProductListComponent } from "../filter-search-product-list/filter-product-list.component"
 import { CardGComponent } from "src/shared/components/card-g/card-container/card-g.component"
 import { CardHeaderComponent } from "src/shared/components/card-g/card-header/card-header.component"
+import { CardDividerComponent } from "src/shared/components/card-g/card-divider/card-divider.component"
+import { CardContentComponent } from "src/shared/components/card-g/card-content/card-content.component"
+import { CardFooterComponent } from "src/shared/components/card-g/card-footer/card-footer.component"
 
 export const ImportsListProduct:any[] =[
     CommonModule,
@@ -26,6 +29,12 @@ export const ImportsListProduct:any[] =[
     BtnFilterGComponent,
     ListCardGComponent,
     CardHeaderComponent,
+    CardDividerComponent,
+    CardContentComponent,
+    CardFooterComponent,
+    CardGComponent,
+    CardGComponent,
+    CardGComponent,
     CardGComponent,
 
 ]

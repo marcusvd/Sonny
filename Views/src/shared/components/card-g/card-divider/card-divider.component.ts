@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-card-divider',
+  selector: 'card-divider',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './card-divider.component.html',

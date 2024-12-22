@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-card-footer',
+  selector: 'card-footer',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './card-footer.component.html',
