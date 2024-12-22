@@ -8,7 +8,7 @@
         <div class="container-btns-paginator-above">
 
             <div class="btns">
-             
+
                 <btn-g add btn-1 [name]="'Adicionar'" [icon]="'add'"
                     (btn)="this.callRouter('/side-nav/stock-product-router/add-product')"></btn-g>
 
@@ -25,16 +25,24 @@
         </div>
 
         <div class="container-search-filter">
-            <filter-product-list [productsList]="this.entities$" [productsTypes]="productsTypes$" 
-                 [segments]="segments" [manufacturers]="manufacturers"
-                *ngIf="showHideFilter" (outProductsListFiltered)="filteredProductsList($event)"
-                (outFieldSearch)="this.search($event)">
+            <filter-product-list [productsList]="this.entities$" [productsTypes]="productsTypes$" [segments]="segments"
+                [manufacturers]="manufacturers" *ngIf="showHideFilter"
+                (outProductsListFiltered)="filteredProductsList($event)" (outFieldSearch)="this.search($event)">
             </filter-product-list>
         </div>
 
         <list-g [headersLabel]="headers" [headersFields]="fields" [entities]="this.entitiesFiltered$"
             (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)"
             (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
+
+            <div out-display>
+                <card-g>
+                    <card-header>
+                    </card-header>
+
+                </card-g>
+            </div>
+
         </list-g>
         <mat-paginator #paginatorBelow [length]="length" [pageSize]="pageSize"
             (page)="onPageChange($event)"></mat-paginator>

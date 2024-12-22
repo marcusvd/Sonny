@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'card-g',
+  selector: 'app-card-footer',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './card-g.component.html',
-  styleUrls: ['./card-g.component.css']
+  templateUrl: './card-footer.component.html',
+  styleUrls: ['./card-footer.component.css']
 })
-export class CardGComponent implements OnInit {
+export class CardFooterComponent implements OnInit {
 
   constructor() { }
 
