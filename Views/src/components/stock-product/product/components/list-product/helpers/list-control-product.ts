@@ -46,23 +46,29 @@ export class ListControlProduct extends BaseList {
   term: string;
   controllerUrl: string = environment._STOCK_PRODUCTS.split('/')[4];
   backEndUrl: string = `${this.controllerUrl}/GetProductsIncludedAsync`;
+  isCard = false;
 
   //METHODS
   responsive(event?: Event) {
 
     if (this.screen(event) <= 600) {
-      this.fields = fieldsHeadersSmall();
-      this.headers = labelHeadersSmall();
+      this.fields = null;
+      this.headers = null;
+      this.isCard = true;
+      // this.fields = fieldsHeadersSmall();
+      // this.headers = labelHeadersSmall();
       this.entitiesFiltered$ = of(makeItemsGridSmall(this.entitiesFiltered));
     }
     else if (this.screen(event) >= 601) {
       this.fields = fieldsHeadersMiddle();
       this.headers = labelHeadersMiddle();
+      this.isCard = false;
     }
 
     if (this.screen(event) > 800) {
       this.fields = fieldsHeadersLarge();
       this.headers = labelHeadersLarge();
+      this.isCard = false;
       this.entitiesFiltered$ = of(makeItemsGridLager(this.entitiesFiltered));
     }
 

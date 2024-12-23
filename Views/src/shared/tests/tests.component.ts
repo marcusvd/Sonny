@@ -1,13 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { MatButton, MatButtonModule } from '@angular/material/button';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { BtnGComponent } from '../components/btn-g/btn-g.component';
 
 @Component({
   selector: 'app-tests',
   standalone: true,
-  imports: [CommonModule, MatIconModule,MatMenuModule, MatButtonModule],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    BtnGComponent
+  ],
   templateUrl: './tests.component.html',
   styleUrls: ['./tests.component.css']
 })

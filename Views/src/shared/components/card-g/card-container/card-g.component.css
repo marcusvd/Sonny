@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    width: 500px;
+    border: 0.5px solid #9e9e9e;
+    /* height: 100%; */
+    padding: 10px;
+    flex-wrap: wrap;
+    .header {
+        width: 50%;
+        /* padding: 10px; */
+    }
+    .content {
+        width: 50%;
+        /* padding: 10px; */
+    }
+    .footer {
+        width: 50%;
+        /* padding: 10px; */
+    }
+    .line {
+        width: 500px;
+        border: 0.5px solid #9e9e9e;
+        margin: 0px;
+        padding: 0px;
+        /* padding: 10px; */
+        overflow: hidden;
+    }
+}

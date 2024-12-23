@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ContentInterface } from './content-interface';
 
 @Component({
   selector: 'card-content',
@@ -8,9 +9,16 @@ import { CommonModule } from '@angular/common';
   templateUrl: './card-content.component.html',
   styleUrls: ['./card-content.component.css']
 })
-export class CardContentComponent implements OnInit {
+export class CardContentComponent implements OnInit, OnChanges{
 
-  constructor() { }
+  @Input() content:ContentInterface[] = [];
+
+  constructor() {
+
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+  }
 
   ngOnInit(): void {
   }

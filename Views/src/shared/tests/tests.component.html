@@ -1,5 +1,114 @@
-<button mat-button [matMenuTriggerFor]="menu">Menu</button>
-<mat-menu #menu="matMenu">
-    <button mat-menu-item>Item 1</button>
-    <button mat-menu-item>Item 2</button>
-</mat-menu>
+<div class="container">
+
+    <div class="header">
+        <div class="header-left-side">
+            <mat-icon fontSet="material-icons-outlined">home</mat-icon>
+        </div>
+        <div class="header-middle-side">
+            <h1>Processador</h1>
+        </div>
+        <div class="header-right-side">
+            <div class="header-right-side-row">
+                Disponível
+            </div>
+            <div class="header-right-side-row-number">
+                150
+            </div>
+
+        </div>
+    </div>
+
+    <!-- <div class="line"></div> -->
+
+    <div class="content">
+
+        <div class="content-left">
+            <h2>
+                {{'Segmento:'}}
+            </h2>
+        </div>
+        <div class="content-right">
+            <p>
+                {{'Notebook'}}
+            </p>
+        </div>
+
+    </div>
+    <div class="line"></div>
+    <div class="content">
+        <div class="content-left">
+            <h2>
+                {{'Fabricante:'}}
+            </h2>
+        </div>
+        <div class="content-right">
+            <p>
+                {{'Asus'}}
+            </p>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="content">
+        <div class="content-left">
+            <h2>
+                {{'Modelo:'}}
+            </h2>
+        </div>
+        <div class="content-right">
+            <p>
+                {{'As-rock'}}
+            </p>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="content">
+        <div class="content-left">
+            <h2>
+                {{'Preço Venda:'}}
+            </h2>
+        </div>
+        <div class="content-right">
+            <p>
+                {{'R$ 1.585.00'}}
+            </p>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="content">
+        <div class="content-left">
+            <h2>
+                {{'Em reserva:'}}
+            </h2>
+        </div>
+        <div class="content-right">
+            <p>
+                {{'5'}}
+            </p>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="content">
+        <div class="content-left">
+            <h2>
+                {{'Estado:'}}
+            </h2>
+        </div>
+        <div class="content-right">
+            <p>
+                {{'Novo'}}
+            </p>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="appeareance">
+        <div class="footer">
+            <div class="footer-left-side">
+                <btn-g noIconSimpleBtn="true" add btn-1 [name]="'Detalhes'" (btn)="''"></btn-g>
+            </div>
+            <div class="footer-right-side">
+                <btn-g noIconSimpleBtn="true" add btn-1 [name]="'Vender'" (btn)="''"></btn-g>
+            </div>
+        </div>
+    </div>
+
+</div>

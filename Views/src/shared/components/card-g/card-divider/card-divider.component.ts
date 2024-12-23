@@ -4,7 +4,9 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'card-divider',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+  ],
   templateUrl: './card-divider.component.html',
   styleUrls: ['./card-divider.component.css']
 })

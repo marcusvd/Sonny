@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -9,6 +9,8 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./card-footer.component.css']
 })
 export class CardFooterComponent implements OnInit {
+
+  @Input() footer = '';
 
   constructor() { }
 
