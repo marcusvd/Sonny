@@ -31,13 +31,31 @@
         </list-g>
 
         <ng-container *ngIf="this.isCard">
-            <card-g *ngFor="let entity of this.entitiesFiltered$ | async;">
-                <card-header header [title]="entity['productType'].key"></card-header>
-                <card-divider divider></card-divider>
-                <card-content content [content]="entity"></card-content>
-                <card-divider divider></card-divider>
-                <card-footer footer [footer]="entity['productType'].key"></card-footer>
-            </card-g>
+
+            <div class="container" *ngFor="let entity of this.entitiesFiltered$ | async;">
+
+                <div class="header">
+                    <card-header [title]="'Titulo'"></card-header>
+                </div>
+
+                <div class="line"></div>
+
+                <div class="content">
+                    <card-content [content]="'conteudo'"></card-content>
+                </div>
+
+                <div class="line"></div>
+
+                <div class="footer">
+                    <card-footer [footer]="'roda pé'"></card-footer>
+                </div>
+
+            </div>
+            <!--
+            <product-card *ngFor="let entity of this.entitiesFiltered$ | async;">
+
+            </product-card> -->
+
         </ng-container>
 
         <mat-paginator #paginatorBelow [length]="length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>

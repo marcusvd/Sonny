@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardDividerComponent } from '../card-divider/card-divider.component';
 import { CardContentComponent } from '../card-content/card-content.component';
 import { CardHeaderComponent } from '../card-header/card-header.component';
 import { CardFooterComponent } from '../card-footer/card-footer.component';
@@ -11,7 +10,6 @@ import { CardFooterComponent } from '../card-footer/card-footer.component';
   imports: [
     CommonModule,
     CardHeaderComponent,
-    CardDividerComponent,
     CardContentComponent,
     CardFooterComponent,
   ],

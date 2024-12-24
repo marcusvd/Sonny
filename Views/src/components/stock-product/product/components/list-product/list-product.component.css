@@ -1,4 +1,3 @@
-
 .btns {
     margin-top: 20px;
     margin-bottom: 10px;
@@ -6,7 +5,6 @@
     flex-direction: row;
     gap: 20px;
     flex-wrap: wrap;
-
 }
 
 .paginator-above {
@@ -23,28 +21,36 @@
     flex-wrap: wrap;
 }
 
-
 @media(max-width: 640px) {
-
-    
-.container-btns-paginator-above {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    /* justify-content: space-between;
+    .container-btns-paginator-above {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        /* justify-content: space-between;
     align-items: center; */
-    flex-wrap: wrap;
-    /* align-items: s; */
-}
-
-
-
-.btns {
-    margin-bottom: -25px;
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
+        flex-wrap: wrap;
+        /* align-items: s; */
+    }
+    .btns {
+        margin-bottom: -25px;
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    .container {
+        display: flex;
+        flex-direction: column;
+        max-width: 430px;
+        max-height: 750px;
+        background-color: white;
+        border: 0.5px solid#2ba1a8;
+        margin-bottom: 30px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+    .line {
+        border: 0.5px solid #9e9e9e;
+        margin: 10px;
+    }
 }
