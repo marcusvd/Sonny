@@ -9,16 +9,11 @@ import { ContentInterface } from './content-interface';
   templateUrl: './card-content.component.html',
   styleUrls: ['./card-content.component.css']
 })
-export class CardContentComponent implements OnInit, OnChanges{
+export class CardContentComponent implements OnInit{
 
-  @Input() content:ContentInterface[] = [];
+  @Input() left: string;
+  @Input() right: string;
 
-  constructor() {
-
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-  }
 
   ngOnInit(): void {
   }

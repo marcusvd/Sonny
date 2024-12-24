@@ -42,13 +42,10 @@ export class ListProductComponent extends ListControlProduct implements OnInit {
     //start responsive screen
     const event = { target: window } as unknown as Event;
     this.responsive(event);
-    
     //get and make entities to filter
     this.productTypes();
-    
     //get entities to show grid
     this._listGDataService.getAllEntitiesInMemoryPaged(this.backEndUrl, this.companyId);
-    
     //subscribe entities and make grid list
     this.startSupply();
   }

@@ -15,11 +15,13 @@ import { MatIconModule } from '@angular/material/icon';
 export class CardHeaderComponent implements OnInit {
 
   @Input() title: string;
-  @Input() bgColor:string =  'green';
-  @Input() textColor:string;
+  @Input() headerIcon: string;
+  @Input() styleIcon:string;
+  @Input() classIcon = {};
+  @Input() textRightSideAbove: string;
+  @Input() textRightSideBelow: string;
 
-
-  constructor() { }
+    constructor() { }
 
   ngOnInit(): void {
   }

@@ -15,6 +15,7 @@ import { ProductList } from "../dto/product-list";
 import { fieldsHeadersLarge, fieldsHeadersMiddle, fieldsHeadersSmall, labelHeadersLarge, labelHeadersMiddle, labelHeadersSmall } from "./make-headers-grid-responsive";
 import { makeItemsGridLager, makeItemsGridSmall } from "./make-items-grid-responsive";
 import { makeHeaderToOrder } from "./order-items-by-header";
+import { ItemsInterface } from "src/shared/components/list-g/list/interfaces/items-interface";
 
 
 export class ListControlProduct extends BaseList {
@@ -212,7 +213,8 @@ export class ListControlProduct extends BaseList {
 
     items.isReservedByUser = { key: x?.isReservedByUser?.userName ?? 'Não' };
 
-    items.isTested = { key: x?.isTested?.toString() };
+    items.isTested = this.isTested(x?.isTested?.toString());
+    // items.isTested = { key: x?.isTested?.toString() };
 
     items.isUsed = { key: x?.isUsed ? 'Usado' : 'Novo' };
 
@@ -221,6 +223,31 @@ export class ListControlProduct extends BaseList {
     return this.entities;
 
   }
+
+ isTested(value: string) {
+    const iconStyleTested = `color:rgb(43, 161, 168);`
+    const iconStyleNotTested = `color:red;`;
+
+    const notTested = 'clear';
+    const tested = 'check';
+
+    const objReturn: ItemsInterface = { key: value.toString(), display: 'icons', icons: [''], styleInsideCell: '', route: '' };
+
+    const isTested = new Date(value).getFullYear();
+
+    if (isTested <= 1) {
+      objReturn.icons.push(notTested);
+      objReturn.styleInsideCell = iconStyleNotTested;
+    }
+    else {
+      objReturn.icons.push(tested);
+      objReturn.styleInsideCell = iconStyleTested;
+    }
+
+    return objReturn;
+
+  }
+
 
   onClickButton(field: string) {
     console.log(field)

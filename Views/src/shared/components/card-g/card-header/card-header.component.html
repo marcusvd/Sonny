@@ -1,18 +1,17 @@
 <div class="header">
     <div class="header-left-side">
-        <mat-icon fontSet="material-icons-outlined">home</mat-icon>
+        <mat-icon [style]="styleIcon" [class]="classIcon" fontSet="material-icons-outlined">{{headerIcon}}</mat-icon>
     </div>
     <div class="header-middle-side">
-        <h1>Processador</h1>
+        <h1>{{title}}</h1>
     </div>
     <div class="header-right-side">
         <div class="header-right-side-row">
-            Disponível
+            {{textRightSideAbove}}
         </div>
         <div class="header-right-side-row-number">
-            150
+            {{textRightSideBelow}}
         </div>
-
     </div>
 </div>
 <!-- headerStyle [bgColor]="bgColor" [color]="textColor" -->

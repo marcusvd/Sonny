@@ -66,6 +66,7 @@ export function makeItemsGridSmall(x: ProductList[]) {
   return createdItems;
 
 }
+
 export function makeItemsGridLager(x: ProductList[]) {
 
   const buttonStyle = `background-color:rgb(43, 161, 168);border:none; color:white; height: 20px;  display: flex;  justify-content: center;   align-items: center;   padding: 0 12px; width: 100px; max-width: 100px;`

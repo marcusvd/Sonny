@@ -34,18 +34,17 @@
 
             <div class="container" *ngFor="let entity of this.entitiesFiltered$ | async;">
 
-                <div class="header">
-                    <card-header [title]="'Titulo'"></card-header>
-                </div>
+                <card-header [headerIcon]="'storage'" [classIcon]="{'menu-icon-small':true}" [title]="entity.productType.key" [textRightSideAbove]="'Disponível'" [textRightSideBelow]="'15'"></card-header>
 
+
+                <card-content [left]="'Segmento:'" [right]="entity.segment.key"></card-content>
                 <div class="line"></div>
-
-                <div class="content">
-                    <card-content [content]="'conteudo'"></card-content>
-                </div>
-
+                <card-content [left]="'Fabricante'" [right]="entity.manufacturer.key"></card-content>
                 <div class="line"></div>
-
+                <card-content [left]="'Modelo'" [right]="entity.model.key"></card-content>
+                <div class="line"></div>
+                <card-content [left]="'Testado'" [right]="entity.isTested.key"></card-content>
+                <div class="line"></div>
                 <div class="footer">
                     <card-footer [footer]="'roda pé'"></card-footer>
                 </div>

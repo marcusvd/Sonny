@@ -1,229 +1,233 @@
-    @import "@angular/material/prebuilt-themes/indigo-pink.css";
-    /*Flag of credit cards*/
-
-    @import url(https://cdn.flnf.hu/styles/ccs.css);
-    @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
-    /* @font-face {
+        @import "@angular/material/prebuilt-themes/indigo-pink.css";
+        /*Flag of credit cards*/
+        
+        @import url(https://cdn.flnf.hu/styles/ccs.css);
+        @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+        /* @font-face {
     font-family: Tourney-Medium;
     src: url('../../Views/src/assets/fonts/tourney-medium.ttf');
 } */
-
-    @font-face {
-        font-family: 'Mynerve';
-        src: url('../src/assets/fonts/montserrat-regular.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-    }
-
-    html,
-    body {
-        /* font-family: 'Roboto', sans-serif; */
-        font-family: 'Mynerve';
-        height: 100%;
-        overflow: hidden;
-        margin: 0;
-    }
-
-    div {
-        font-family: 'Mynerve';
-    }
-
-    p {
-        font-family: 'Mynerve';
-    }
-
-    .mouse-pointer {
-        cursor: pointer;
-    }
-
-    .mat-spinner::ng-deep circle {
-        stroke: #fff;
-    }
-
-    .default-font {
-        font-family: Mynerve;
-    }
-
-    .border-around {
-        padding: 35px;
-        background-color: rgb(237, 237, 237)
-    }
-
-    .mat-form-field {
-        height: 10x;
-    }
-
-    .mat-form-field-infix {
-        border: 10px !important;
-        height: 10px;
-    }
-
-    /*below mat-form-field input outline*/
-
-    .mat-focused .mat-form-field-label {
-        color: #2ba1a8;
-    }
-
-    .mat-form-field-appearance-outline .mat-form-field-outline {
-        color: #2ba1a8;
-    }
-
-    .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-        color: #2ba1a8;
-    }
-
-    /*above mat-form-field input outline*/
-    /*  */
-    /*  */
-    /*  */
-    /*  */
-
-    .mat-form-field-underline {
-        color: #2ba1a8;
-    }
-
-    .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
-        border-color: #2ba1a8;
-    }
-
-    .mat-radio-button.mat-accent .mat-radio-inner-circle {
-        color: #2ba1a8;
-        background-color: #2ba1a8;
-    }
-
-    .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
-        background-color: rgb(255, 37, 37, .26);
-    }
-
-    /* MAT-RADIO-BUTTON-COLORS | END */
-
-    input[type="text"] {
-        font-size: 20px;
-        text-align: center;
-        font-family: Mynerve;
-    }
-
-    input[type="matDatepicker"] {
-        /* font-size: 20px; */
-        text-align: center;
-        font-family: Mynerve;
-    }
-
-    input[type="number"] {
-        font-size: 20px;
-        text-align: center;
-        font-family: Mynerve;
-    }
-
-    input[type="password"] {
-        font-size: 20px;
-        text-align: center;
-        font-family: Mynerve;
-    }
-
-    input[type="url"] {
-        font-size: 20px;
-        text-align: center;
-        font-family: Mynerve;
-    }
-
-    mat-label {
-        font-family: Mynerve;
-    }
-
-    h3 {
-        font-family: Mynerve;
-    }
-
-    h2 {
-        font-family: Mynerve;
-    }
-
-    mat-select {
-        text-align: center;
-    }
-
-    .mat-option-text {
-        text-align: center;
-    }
-
-    .btn-title:hover {
-        background-color: rgba(24, 121, 24);
-        color: white;
-    }
-
-    .small-space-horizontal-beteween-fields {
-        padding-top: 10px;
-    }
-
-    .middle-space-horizontal-beteween-fields {
-        padding-top: 20px;
-    }
-
-    .default-button {
-        background-color: #183f17;
-        color: white;
-    }
-
-    .default-snackBar-green {
-        background: #195557;
-        color: white;
-        position: fixed;
-        left: 50%;
-        transform: translate3d(-50%, 0, 0) !important;
-        text-align: center;
-        display: inline-block !important;
-    }
-
-    .error-snackBar-red {
-        background: rgb(143, 5, 5);
-        color: white;
-        position: fixed;
-        left: 50%;
-        transform: translate3d(-50%, 0, 0) !important;
-        text-align: center;
-        display: inline-block !important;
-    }
-
-    .mat-simple-snackbar {
-        display: inline-flexbox;
-        margin-bottom: 10px;
-        margin-top: -10px;
-    }
-
-    .mat-simple-snackbar-action {
-        color: white !important;
-    }
-
-    .mat-simple-snack-bar-content {
-        align-items: center;
-        font-size: 20px;
-        position: relative;
-        left: 50%;
-        top: 10px;
-        transform: translate3d(-50%, 0, 0) !important;
-    }
-
-    .mat-tooltip {
-        font-size: 20px;
-        background: rgb(23, 79, 10) !important;
-    }
-
-    /* screen web */
-    .small-large-screen {
-
-        width: calc(100% -40px);
-    }
-
-
-    .mat-paginator-page-size-value {
-        display: none;
-    }
-
-    /*screen mobile */
-    @media(max-width: 600px) {
-        .small-large-screen {
-            width: 68%;
-            /* height: 100%; */
+        
+        @font-face {
+            font-family: 'Mynerve';
+            src: url('../src/assets/fonts/montserrat-regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
         }
-    }
+        
+        html,
+        body {
+            /* font-family: 'Roboto', sans-serif; */
+            font-family: 'Mynerve';
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+        }
+        
+        div {
+            font-family: 'Mynerve';
+        }
+        
+        p {
+            font-family: 'Mynerve';
+        }
+        
+        .mouse-pointer {
+            cursor: pointer;
+        }
+        
+        .mat-spinner::ng-deep circle {
+            stroke: #fff;
+        }
+        
+        .default-font {
+            font-family: Mynerve;
+        }
+        
+        .border-around {
+            padding: 35px;
+            background-color: rgb(237, 237, 237)
+        }
+        
+        .mat-form-field {
+            height: 10x;
+        }
+        
+        .mat-form-field-infix {
+            border: 10px !important;
+            height: 10px;
+        }
+        /*below mat-form-field input outline*/
+        
+        .mat-focused .mat-form-field-label {
+            color: #2ba1a8;
+        }
+        
+        .mat-form-field-appearance-outline .mat-form-field-outline {
+            color: #2ba1a8;
+        }
+        
+        .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+            color: #2ba1a8;
+        }
+        /*above mat-form-field input outline*/
+        /*  */
+        /*  */
+        /*  */
+        /*  */
+        
+        .mat-form-field-underline {
+            color: #2ba1a8;
+        }
+        
+        .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+            border-color: #2ba1a8;
+        }
+        
+        .mat-radio-button.mat-accent .mat-radio-inner-circle {
+            color: #2ba1a8;
+            background-color: #2ba1a8;
+        }
+        
+        .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+            background-color: rgb(255, 37, 37, .26);
+        }
+        /* MAT-RADIO-BUTTON-COLORS | END */
+        
+        input[type="text"] {
+            font-size: 20px;
+            text-align: center;
+            font-family: Mynerve;
+        }
+        
+        input[type="matDatepicker"] {
+            /* font-size: 20px; */
+            text-align: center;
+            font-family: Mynerve;
+        }
+        
+        input[type="number"] {
+            font-size: 20px;
+            text-align: center;
+            font-family: Mynerve;
+        }
+        
+        input[type="password"] {
+            font-size: 20px;
+            text-align: center;
+            font-family: Mynerve;
+        }
+        
+        input[type="url"] {
+            font-size: 20px;
+            text-align: center;
+            font-family: Mynerve;
+        }
+        
+        mat-label {
+            font-family: Mynerve;
+        }
+        
+        h3 {
+            font-family: Mynerve;
+        }
+        
+        h2 {
+            font-family: Mynerve;
+        }
+        
+        mat-select {
+            text-align: center;
+        }
+        
+        .mat-option-text {
+            text-align: center;
+        }
+        
+        .btn-title:hover {
+            background-color: rgba(24, 121, 24);
+            color: white;
+        }
+        
+        .small-space-horizontal-beteween-fields {
+            padding-top: 10px;
+        }
+        
+        .middle-space-horizontal-beteween-fields {
+            padding-top: 20px;
+        }
+        
+        .default-button {
+            background-color: #183f17;
+            color: white;
+        }
+        
+        .default-snackBar-green {
+            background: #195557;
+            color: white;
+            position: fixed;
+            left: 50%;
+            transform: translate3d(-50%, 0, 0) !important;
+            text-align: center;
+            display: inline-block !important;
+        }
+        
+        .error-snackBar-red {
+            background: rgb(143, 5, 5);
+            color: white;
+            position: fixed;
+            left: 50%;
+            transform: translate3d(-50%, 0, 0) !important;
+            text-align: center;
+            display: inline-block !important;
+        }
+        
+        .mat-simple-snackbar {
+            display: inline-flexbox;
+            margin-bottom: 10px;
+            margin-top: -10px;
+        }
+        
+        .mat-simple-snackbar-action {
+            color: white !important;
+        }
+        
+        .mat-simple-snack-bar-content {
+            align-items: center;
+            font-size: 20px;
+            position: relative;
+            left: 50%;
+            top: 10px;
+            transform: translate3d(-50%, 0, 0) !important;
+        }
+        
+        .mat-tooltip {
+            font-size: 20px;
+            background: rgb(23, 79, 10) !important;
+        }
+        /* screen web */
+        
+        .small-large-screen {
+            width: calc(100% -40px);
+        }
+        
+        .mat-paginator-page-size-value {
+            display: none;
+        }
+        /*screen mobile */
+        
+        @media(max-width: 600px) {
+            .small-large-screen {
+                width: 68%;
+                /* height: 100%; */
+            }
+            @import "../src/shared/components/card-g/styles/card-g-global.css";
+        }
+        
+        .menu-icon-small {
+            color: white;
+            width: 30px;
+            height: 30px;
+            font-size: 30px;
+            padding-left: 5px;
+        }
