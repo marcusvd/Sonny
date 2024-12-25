@@ -18,7 +18,7 @@ import { ImportsListProduct } from './useful/imports-list-product';
   standalone: true,
   imports: [ImportsListProduct],
   providers: [PtBrCurrencyPipe, PtBrDatePipe],
-  styleUrls: ['./list-product.component.css']
+  styleUrls: ['./list-product.component.scss']
 })
 export class ListProductComponent extends ListControlProduct implements OnInit {
 
