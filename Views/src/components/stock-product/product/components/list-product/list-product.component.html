@@ -32,7 +32,8 @@
 
         <ng-container *ngIf="this.isCard">
 
-            <div class="container" *ngFor="let entity of this.entitiesFiltered$ | async;">
+            <div class="test-tst" *ngFor="let entity of this.entitiesFiltered$ | async;">
+            <!-- <div class="container" *ngFor="let entity of this.entitiesFiltered$ | async;"> -->
 
                 <card-header [headerIcon]="'storage'" [classIcon]="{'menu-icon-small':true}" [title]="entity.productType.key" [textRightSideAbove]="'Disponível'" [textRightSideBelow]="'15'"></card-header>
 
