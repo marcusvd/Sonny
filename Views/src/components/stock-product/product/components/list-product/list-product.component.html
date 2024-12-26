@@ -33,22 +33,21 @@
         <ng-container *ngIf="this.isCard">
 
             <div class="test-tst" *ngFor="let entity of this.entitiesFiltered$ | async;">
-            <!-- <div class="container" *ngFor="let entity of this.entitiesFiltered$ | async;"> -->
+                <!-- <div class="container" *ngFor="let entity of this.entitiesFiltered$ | async;"> -->
 
-                <card-header [headerIcon]="'storage'" [classIcon]="{'menu-icon-small':true}" [title]="entity.productType.key" [textRightSideAbove]="'Disponível'" [textRightSideBelow]="'15'"></card-header>
-
-
-                <card-content [left]="'Segmento:'" [right]="entity.segment.key"></card-content>
-                <div class="line"></div>
-                <card-content [left]="'Fabricante'" [right]="entity.manufacturer.key"></card-content>
-                <div class="line"></div>
-                <card-content [left]="'Modelo'" [right]="entity.model.key"></card-content>
-                <div class="line"></div>
-                <card-content [left]="'Testado'" [right]="entity.isTested.key"></card-content>
-                <div class="line"></div>
-                <div class="footer">
-                    <card-footer [footer]="'roda pé'"></card-footer>
-                </div>
+                <card-g>
+                    <card-header header [headerIcon]="'storage'" [classIcon]="{'menu-icon-small':true}" [title]="entity.productType.key" [textRightSideAbove]="'Disponível'" [textRightSideBelow]="'15'"></card-header>
+                    <card-content content [left]="'Segmento:'" [right]="entity.segment.key"></card-content>
+                    <card-content content [left]="'Fabricante'" [right]="entity.manufacturer.key"></card-content>
+                    <div class="line" lineBelow></div>
+                    <card-content content [left]="'Modelo'" [right]="entity.model.key"></card-content>
+                    <div class="line"></div>
+                    <card-content content [left]="'Testado'" [right]="entity.isTested.key"></card-content>
+                    <div class="line"></div>
+                    <div footer class="footer">
+                        <card-footer [footer]="'roda pé'"></card-footer>
+                    </div>
+                </card-g>
 
             </div>
             <!--
