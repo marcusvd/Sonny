@@ -8,7 +8,7 @@ import { StockProductRouterComponent } from "../router-outlet/stock-product-rout
 
 import { TestsComponent } from "src/shared/tests/tests.component";
 import { ListProductComponent } from "../product/components/list-product/list-product.component";
-import { CardGComponent } from "src/shared/components/card-g/card-container/card-g.component";
+
 // import { AddProductTypeComponent } from "../product-type/components/add/add-product-type.component";
 
 
@@ -20,7 +20,6 @@ const route: Routes = [
       { path: 'edit-product-type', component: EditProductComponent },
       { path: 'add-product', component: AddProductComponent },
       { path: 'list-product', component: ListProductComponent },
-      { path: 'card', component: CardGComponent },
       //  { path: 'card', component: TestsComponent },
       //  { path: 'add-item-product', component: AddProductTypeComponent},
       //  { path: 'add-item-product', component: ProductMainAddComponent},

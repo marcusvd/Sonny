@@ -1,0 +1,42 @@
+// Card
+.card-g-model-a-main {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+
+    p:nth-of-type(1){
+        margin-right:auto;
+    }
+
+    &--line-divider {
+        border: 0.5px solid #2ba2a870;
+    }
+
+    &--label-text {
+        flex: 1;
+        font-weight: bolder;
+    }
+
+    &--value-text {
+        flex: 1;
+        text-align: left;
+        text-transform: capitalize;
+    }
+}
+
+.header{
+    background-color: #2ba2a8f3;
+    color:white;
+    height: 40px;
+}
+
+.footer{
+    &--around{
+        margin:10px;
+        background-color: #ebebeb;
+        border-radius: 15px;
+        padding:50px;
+        width:auto;
+        height:auto;        
+    }  
+}
