@@ -19,6 +19,7 @@ import { CurrencyPipe } from '@angular/common';
     mat-form-field{
       width:100%;
     }
+    
     `],
 
 })

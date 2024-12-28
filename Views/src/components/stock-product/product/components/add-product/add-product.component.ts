@@ -36,34 +36,6 @@ export class AddProductComponent extends FormControllerAddProduct implements OnI
     this.formMain = this.formLoad(this.formMain, this.companyId, this.userId, null);
   }
 
-  // get usedHistoricalOrSupplierHasError() {
-  //   return this.formMain?.get('usedHistoricalOrSupplier').hasError('required');
-  // }
-
-  // get purchaseInvoiceNumberHasError() {
-  //   return this.formMain?.get('purchaseInvoiceNumber').hasError('required');
-  // }
-
-  // get costPriceHasError() {
-  //   return this.formMain?.get('costPrice').hasError('required');
-  // }
-
-  // get soldPriceHasError() {
-  //   return this.formMain?.get('soldPrice').hasError('required');
-  // }
-
-  // get entryDateHasError() {
-  //   return this.formMain?.get('entryDate').hasError('required');
-  // }
-
-  // get warrantyEndLocalHasError() {
-  //   return this.formMain?.get('warrantyEndLocal').hasError('required')
-  // }
-
-  // get quantity() {
-  //   return this.formMain?.get('quantity').hasError('required')
-  // }
-
 
   callRouter = (call?: string) => {
     if (call === 'add')
@@ -71,8 +43,6 @@ export class AddProductComponent extends FormControllerAddProduct implements OnI
     else
       this._router.navigate(['/side-nav/stock-product-router/edit-product-type']);
   }
-
-
 
 
   onChangeIsUsed(selection: MatCheckboxChange) {

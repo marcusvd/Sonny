@@ -6,6 +6,8 @@ import { ProductTypeService } from '../../services/product-type.service';
 import { FormControllerAddProductType } from './useful/form-controller-add-product-type';
 import { ImportsProductType } from './useful/imports-product-type';
 import { ProductTypeValidatorAsync } from './useful/product-type-validator-async-fields';
+import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
 
@@ -14,7 +16,7 @@ import { ProductTypeValidatorAsync } from './useful/product-type-validator-async
   standalone: true,
   imports: [ImportsProductType],
   templateUrl: './add-product-type.component.html',
-  styleUrls: ['./add-product-type.component.css'],
+  styleUrls: ['./add-product-type.component.scss'],
   providers: [ProductTypeService]
 })
 export class AddProductTypeComponent extends FormControllerAddProductType implements OnInit {
@@ -33,6 +35,8 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
     this.addEmptyFormArrays();
   }
 
+  speedMeasure = 'Hz'
+
   noEntriesFoundLabel = '';
   placeholderProduct = '';
   productNameAttribute = '';
@@ -40,12 +44,27 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
   formErrosValidation = false;
 
 
+  speed$ = of([{ id: 1, name: 'Hz' }, { id: 2, name: 'Khz' }, { id: 3, name: 'Mhz' }, { id: 4, name: 'Ghz' }, { id: 5, name: 'Thz' }, { id: 6, name: 'Rpm' }, { id: 7, name: 'Kbps' }, { id: 8, name: 'Mbps' }, { id: 9, name: 'Gbps' }]);
+  storage$ = of([{ id: 1, name: 'Kb' }, { id: 2, name: 'Mb' }, { id: 3, name: 'Gb' }, { id: 4, name: 'Tb' }]);
+
+
+  onSelectSpeedMeasure(id: number) {
+    this.speed$.pipe(map(x => {
+      const result = x.find(item => item.id === id)
+      this.speedMeasure = result.name;
+    })).subscribe();
+
+
+
+  }
+
 
   save() {
 
     if (this.alertSave(this.formMain)) {
       this.saveBtnEnabledDisabled = true;
       this._productTypeService.add(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm);
+      this.formControlReset();
     }
     else
       this.formErrosValidation = true;

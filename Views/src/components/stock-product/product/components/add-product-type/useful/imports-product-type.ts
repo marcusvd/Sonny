@@ -10,6 +10,7 @@ import { BtnGComponent } from "src/shared/components/btn-g/btn-g.component"
 import { SubTitleComponent } from "src/shared/components/sub-title/sub-title.component"
 import { TitleComponent } from "src/shared/components/title/components/title.component"
 import { FieldInputGComponent } from "../../../common-components/fields-input/field-input-g/field-input-g.component"
+import { FieldSelectGComponent } from "../../../common-components/fields-select/field-select-g/field-select-g.component"
 
 
 
@@ -24,4 +25,5 @@ export const ImportsProductType:any[] =[
     SubTitleComponent,
     BtnGComponent,
     FieldInputGComponent,
+    FieldSelectGComponent,
 ]

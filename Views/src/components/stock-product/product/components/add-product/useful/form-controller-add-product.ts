@@ -78,12 +78,16 @@ export class FormControllerAddProduct extends BaseForm {
             map((specificities: SpecificitiesDto[]) =>
                 specificities.map(specificity => ({
                     ...specificity,
-                    name: `${specificity.speed} - ${specificity.capacity}`, // Concatena os valores de speed e capacity
+                    name: `${specificity.speed} - ${specificity.capacity}`,
                 }))
             )
         );
 
-        // this.models$.subscribe(y => console.log(y))
+        this.formMain.get('modelId')?.patchValue(id);
+    }
+
+
+    onSelectedSpecificity(id:number){
         this.formMain.get('specificitiesId')?.patchValue(id);
     }
 

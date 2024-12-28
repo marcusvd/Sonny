@@ -107,4 +107,10 @@ export class FormControllerAddProductType extends BaseForm {
   }
 
 
+  controlReset = false;
+  formControlReset = () => {
+      this.controlReset = !this.controlReset;
+  }
+
+
 }
