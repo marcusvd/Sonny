@@ -1,0 +1,32 @@
+<div class="card-g-model-a--border">
+
+  <header-card-model-a class="header">
+      <mat-icon class="header--icon">{{'storage'}}</mat-icon>
+      <p class="header--title">{{entity.productType.key}}</p>
+      <div class="header--left-items">
+          <p class="header--value">{{'Disponível'}}</p>
+          <p class="header--value">{{'15'}}</p>
+      </div>
+  </header-card-model-a>
+
+  <line-card-divider-model-a></line-card-divider-model-a>
+  <content-card-model-a [labelText]="'Segmento:'"
+      [valueText]="entity.segment.key"></content-card-model-a>
+  <line-card-divider-model-a></line-card-divider-model-a>
+  <content-card-model-a [labelText]="'Fabricante:'"
+      [valueText]="entity.manufacturer.key"></content-card-model-a>
+  <line-card-divider-model-a></line-card-divider-model-a>
+  <content-card-model-a [labelText]="'Modelo:'" [valueText]="entity.model.key"></content-card-model-a>
+  <line-card-divider-model-a></line-card-divider-model-a>
+  <content-card-model-a [labelText]="'Testado:'"
+      [valueText]="entity.isTested.key"></content-card-model-a>
+  <line-card-divider-model-a></line-card-divider-model-a>
+
+  <footer-card-model-a>
+      <div style="display:flex; justify-content: space-between;">
+          <btn-g noIconSimpleBtn="true" add btn-1 [name]="'Detalhes'" (btn)="''"></btn-g>
+          <btn-g noIconSimpleBtn="true" add btn-1 [name]="'Vender'" (btn)="''"></btn-g>
+      </div>
+  </footer-card-model-a>
+
+</div>

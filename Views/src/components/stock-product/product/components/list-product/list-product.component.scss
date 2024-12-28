@@ -23,29 +23,29 @@
 
 @media(max-width: 640px) {
 
-    .header{
+    // .header{
     
-        p:nth-of-type(1){
-            margin-right:auto;
-        }  
+    //     p:nth-of-type(1){
+    //         margin-right:auto;
+    //     }  
         
-        &--icon{
-            margin-right:1%;
-            color:white;
-        }
+    //     &--icon{
+    //         margin-right:1%;
+    //         color:white;
+    //     }
     
-        &--title{
-            font-size: 20px;
-        }
+    //     &--title{
+    //         font-size: 20px;
+    //     }
     
-        &--value{
-            letter-spacing: 2px;
-        }
+    //     &--value{
+    //         letter-spacing: 2px;
+    //     }
 
-        &--left-items{
-            justify-items: center;
-        }
-    }
+    //     &--left-items{
+    //         justify-items: center;
+    //     }
+    // }
    
     
     // .container-btns-paginator-above {
