@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Repository.Migrations
 {
-    public partial class onemore : Migration
+    public partial class dneMore : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -1886,12 +1886,6 @@ namespace Repository.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Capacity = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Speed = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Description = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     ManufacturerId = table.Column<int>(type: "int", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
                     Deleted = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -1916,6 +1910,39 @@ namespace Repository.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "PD_Specificities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Capacity = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Speed = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ModelId = table.Column<int>(type: "int", nullable: false),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    Deleted = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Registered = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PD_Specificities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PD_Specificities_MN_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "MN_Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PD_Specificities_PD_Models_ModelId",
+                        column: x => x.ModelId,
+                        principalTable: "PD_Models",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "PD_Products",
                 columns: table => new
                 {
@@ -1925,6 +1952,7 @@ namespace Repository.Migrations
                     SegmentId = table.Column<int>(type: "int", nullable: false),
                     ManufacturerId = table.Column<int>(type: "int", nullable: false),
                     ModelId = table.Column<int>(type: "int", nullable: false),
+                    SpecificitiesId = table.Column<int>(type: "int", nullable: false),
                     IsReservedByUserId = table.Column<int>(type: "int", nullable: true),
                     IsReserved = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ReservedForCustomerId = table.Column<int>(type: "int", nullable: true),
@@ -1941,6 +1969,8 @@ namespace Repository.Migrations
                     WarrantyEndLocal = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     IsUsed = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     IsTested = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Description = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
                     Deleted = table.Column<DateTime>(type: "datetime(6)", nullable: false),
@@ -2001,6 +2031,12 @@ namespace Repository.Migrations
                         name: "FK_PD_Products_PD_Segments_SegmentId",
                         column: x => x.SegmentId,
                         principalTable: "PD_Segments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PD_Products_PD_Specificities_SpecificitiesId",
+                        column: x => x.SpecificitiesId,
+                        principalTable: "PD_Specificities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -2630,6 +2666,11 @@ namespace Repository.Migrations
                 column: "SegmentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PD_Products_SpecificitiesId",
+                table: "PD_Products",
+                column: "SpecificitiesId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PD_Products_SupplierId",
                 table: "PD_Products",
                 column: "SupplierId");
@@ -2664,6 +2705,16 @@ namespace Repository.Migrations
                 name: "IX_PD_Segments_ProductTypeId",
                 table: "PD_Segments",
                 column: "ProductTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PD_Specificities_CompanyId",
+                table: "PD_Specificities",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PD_Specificities_ModelId",
+                table: "PD_Specificities",
+                column: "ModelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SD_socialnetworks_CompanyId",
@@ -2763,7 +2814,7 @@ namespace Repository.Migrations
                 name: "OS_Destinies");
 
             migrationBuilder.DropTable(
-                name: "PD_Models");
+                name: "PD_Specificities");
 
             migrationBuilder.DropTable(
                 name: "FN_Cards");
@@ -2781,7 +2832,7 @@ namespace Repository.Migrations
                 name: "MN_Partners");
 
             migrationBuilder.DropTable(
-                name: "PD_Manufacturers");
+                name: "PD_Models");
 
             migrationBuilder.DropTable(
                 name: "FN_BankAccount");
@@ -2797,6 +2848,9 @@ namespace Repository.Migrations
 
             migrationBuilder.DropTable(
                 name: "MN_PhysicallyMovingCosts");
+
+            migrationBuilder.DropTable(
+                name: "PD_Manufacturers");
 
             migrationBuilder.DropTable(
                 name: "PD_Segments");

@@ -1,15 +1,16 @@
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { PartnerDto } from "src/components/main/partner/commons-components/dtos/partner-dto";
 import { BaseForm } from "src/shared/components/inheritance/forms/base-form";
-import { ProductDto } from "../../../dtos/product";
+import { ProductDto } from "../../../dtos/product-dto";
 import { usedHistoricalOrSupplierValidator } from "./used-historical-or-supplier.validator";
 import { ProductTypeDto } from "../../../dtos/product-type-dto";
 import { Observable } from "rxjs";
 import { ManufacturerDto } from "../../../dtos/manufacturer-dto";
 import { SegmentDto } from "../../../dtos/segment-dto";
 import { ModelDto } from "../../../dtos/model-dto";
-import { map } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
 import { MatCheckboxChange } from "@angular/material/checkbox";
+import { SpecificitiesDto } from "../../../dtos/specificities-dto";
 
 
 
@@ -24,12 +25,14 @@ export class FormControllerAddProduct extends BaseForm {
     segments$: Observable<SegmentDto[]>;
     manufacturers$: Observable<ManufacturerDto[]>
     models$: Observable<ModelDto[]>
+    specificities$: Observable<SpecificitiesDto[]>
 
     //FormsGroup
     productTypeForm: FormGroup;
     segmentForm: FormGroup;
     manufacturerForm: FormGroup;
     modelForm: FormGroup;
+    specificitiesForm: FormGroup;
 
     onSelectedProduct(id: number) {
 
@@ -42,7 +45,7 @@ export class FormControllerAddProduct extends BaseForm {
 
         //     this.formMain.patchValue(result)
         // });
-        
+
         this.formMain.get('productTypeId')?.patchValue(id);
 
     }
@@ -52,9 +55,9 @@ export class FormControllerAddProduct extends BaseForm {
         this.manufacturers$ = this.segments$.pipe(
             map(x => x.find(segment => segment.id == id).manufacturers)
         )
-       
+
         this.formMain.get('segmentId')?.patchValue(id);
-       
+
     }
 
     onSelectedManufacturer(id: number) {
@@ -66,15 +69,29 @@ export class FormControllerAddProduct extends BaseForm {
     }
 
     onSelectedModel(id: number) {
-        
-        this.formMain.get('modelId')?.patchValue(id);
+
+        this.specificities$ = this.models$.pipe(
+            map(x => x.find(models => models.id == id).specificities)
+        )
+
+        this.specificities$ =  this.specificities$.pipe(
+            map((specificities: SpecificitiesDto[]) =>
+                specificities.map(specificity => ({
+                    ...specificity,
+                    name: `${specificity.speed} - ${specificity.capacity}`, // Concatena os valores de speed e capacity
+                }))
+            )
+        );
+
+        // this.models$.subscribe(y => console.log(y))
+        this.formMain.get('specificitiesId')?.patchValue(id);
     }
 
     onSupplierSelected(supplier: PartnerDto) {
         this.formMain.get('supplierId').setValue(supplier.id);
     }
 
-    isTested(isTested:MatCheckboxChange) {
+    isTested(isTested: MatCheckboxChange) {
         isTested.checked ? this.formMain.get('isTested')?.patchValue(new Date()) : this.formMain.get('isTested')?.patchValue(this.minValue);
     }
 
@@ -85,6 +102,7 @@ export class FormControllerAddProduct extends BaseForm {
             segmentId: ['', [Validators.required]],
             manufacturerId: ['', [Validators.required]],
             modelId: ['', [Validators.required]],
+            specificitiesId: ['', [Validators.required]],
             userId: [userId, [Validators.required]],
             companyId: [companyId, [Validators.required]],
             supplierId: ['', [Validators.required]],
@@ -105,9 +123,9 @@ export class FormControllerAddProduct extends BaseForm {
 
     controlReset = false;
     formControlReset = () => {
-      this.controlReset =!this.controlReset;
+        this.controlReset = !this.controlReset;
     }
 
-   
+
 
 }

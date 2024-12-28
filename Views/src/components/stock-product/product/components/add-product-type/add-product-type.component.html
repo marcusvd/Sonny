@@ -59,29 +59,29 @@
             </div>
 
             <div class="speed">
-                <field-input-g [type]="'text'" [formMain]="this.modelForm" [inputLabel]="'Velocidade'"
+                <field-input-g [type]="'text'" [formMain]="this.specificitiesForm" [inputLabel]="'Velocidade'"
                     [fieldControlName]="'speed'">
-                    <span msg-error *ngIf="this.formError(modelForm,'speed', 'maxlength') && this.formTouched(modelForm, 'speed')">{{maxLengthMsg + '50' + charactersMsg}}</span>
+                    <span msg-error *ngIf="this.formError(specificitiesForm,'speed', 'maxlength') && this.formTouched(specificitiesForm, 'speed')">{{maxLengthMsg + '50' + charactersMsg}}</span>
                 </field-input-g>
             </div>
             <div class="capacity">
-                <field-input-g [type]="'text'" [formMain]="this.modelForm" [inputLabel]="'Capacidade'"
+                <field-input-g [type]="'text'" [formMain]="this.specificitiesForm" [inputLabel]="'Capacidade'"
                     [fieldControlName]="'capacity'">
-                    <span msg-error *ngIf="this.formError(modelForm,'capacity', 'maxlength') && this.formTouched(modelForm, 'capacity')">{{maxLengthMsg + '50' + charactersMsg}}</span>
+                    <span msg-error *ngIf="this.formError(specificitiesForm,'capacity', 'maxlength') && this.formTouched(specificitiesForm, 'capacity')">{{maxLengthMsg + '50' + charactersMsg}}</span>
                 </field-input-g>
             </div>
 
         </div>
-        <div class="description">
+        <!-- <div class="description">
             <field-input-g [type]="'text'" [formMain]="this.modelForm" [inputLabel]="'Descrição'" [fieldControlName]="'description'">
                 <span msg-error *ngIf="this.formError(modelForm,'description', 'maxlength') && this.formTouched(modelForm, 'description')">{{maxLengthMsg + '500' + charactersMsg}}</span>
             </field-input-g>
-        </div>
+        </div> -->
         <!-- model end-->
         <div class="btn-save">
             <btn-g  [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
         </div>
 
-        <!-- <div>{{formMain.value | json}}</div> -->
+        <div>{{formMain.value | json}}</div>
     </mat-card>
 </div>

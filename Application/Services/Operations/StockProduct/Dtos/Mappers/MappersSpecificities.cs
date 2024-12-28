@@ -1,70 +1,69 @@
 using System.Collections.Generic;
-
-
+using System.Linq;
 using Application.Services.Operations.StockProduct.ProductKind;
 using Application.Services.Shared.Dtos.Mappers;
 using Domain.Entities.StockProduct.ProductKind;
 
 namespace Application.Services.Operations.StockProduct.Dtos.Mappers
 {
-    public partial class StockProductObjectMapperServices:CommonObjectMapper, IStockProductObjectMapperServices
+    public partial class StockProductObjectMapperServices : CommonObjectMapper, IStockProductObjectMapperServices
     {
-        public List<ModelDto> ModelListMake(List<Model> list)
+        public List<SpecificitiesDto> SpecificitiesListMake(List<Specificities> list)
         {
             if (list == null) return null;
 
-            var toReturn = new List<ModelDto>();
+            var toReturn = new List<SpecificitiesDto>();
 
             list.ForEach(x =>
             {
-                toReturn.Add(ModelMapper(x));
+                toReturn.Add(SpecificitiesMapper(x));
             });
 
 
             return toReturn;
         }
-        public List<Model> ModelListMake(List<ModelDto> list)
+        public List<Specificities> SpecificitiesListMake(List<SpecificitiesDto> list)
         {
             if (list == null) return null;
 
-            var toReturn = new List<Model>();
+            var toReturn = new List<Specificities>();
 
             list.ForEach(x =>
             {
-                toReturn.Add(ModelMapper(x));
+                toReturn.Add(SpecificitiesMapper(x));
             });
 
 
             return toReturn;
         }
-        public ModelDto ModelMapper(Model entity)
+        public SpecificitiesDto SpecificitiesMapper(Specificities entity)
         {
             if (entity == null) return null;
 
-            var obj = new ModelDto()
+            var obj = new SpecificitiesDto()
             {
                 Id = entity.Id,
                 Deleted = entity.Deleted,
-                Name = entity.Name,
                 CompanyId = entity.CompanyId,
-                ManufacturerId = entity.ManufacturerId,
-                Specificities = SpecificitiesListMake(entity.Specificities)
+                Speed = entity.Speed,
+                Capacity = entity.Capacity,
+                ModelId = entity.ModelId,
             };
 
             return obj;
         }
-        public Model ModelMapper(ModelDto entity)
+        public Specificities SpecificitiesMapper(SpecificitiesDto entity)
         {
             if (entity == null) return null;
 
-            var obj = new Model()
+            var obj = new Specificities()
             {
                 Id = entity.Id,
                 Deleted = entity.Deleted,
-                Name = entity.Name,
                 CompanyId = entity.CompanyId,
-                ManufacturerId = entity.ManufacturerId,
-                Specificities = SpecificitiesListMake(entity.Specificities)
+                Speed = entity.Speed,
+                Capacity = entity.Capacity,
+                ModelId = entity.ModelId,
             };
 
             return obj;

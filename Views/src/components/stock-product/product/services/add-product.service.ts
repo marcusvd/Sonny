@@ -8,7 +8,7 @@ import { FormGroup } from "@angular/forms";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { ProductDto } from "../dtos/product";
+import { ProductDto } from "../dtos/product-dto";
 
 
 @Injectable({ providedIn: 'root' })

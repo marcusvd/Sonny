@@ -52,7 +52,8 @@ namespace Application.Services.Operations.StockProduct
                         toInclude
                             .Include(x => x.Segments.Where(x => x.Deleted == DateTime.MinValue))
                             .ThenInclude(x => x.Manufacturers.Where(x => x.Deleted == DateTime.MinValue))
-                            .ThenInclude(x => x.Models.Where(x => x.Deleted == DateTime.MinValue)),
+                            .ThenInclude(x => x.Models.Where(x => x.Deleted == DateTime.MinValue))
+                            .ThenInclude(x => x.Specificities.Where(x => x.Deleted == DateTime.MinValue)),
                     selector => selector
                 )
                 .ToListAsync();

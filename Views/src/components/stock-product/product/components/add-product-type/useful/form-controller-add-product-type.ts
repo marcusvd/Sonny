@@ -12,6 +12,7 @@ import { ModelDto } from "../../../dtos/model-dto";
 
 import { ProductTypeValidatorAsync } from "./product-type-validator-async-fields";
 import validator from "cpf-cnpj-validator";
+import { SpecificitiesDto } from "../../../dtos/specificities-dto";
 
 
 export class FormControllerAddProductType extends BaseForm {
@@ -33,12 +34,16 @@ export class FormControllerAddProductType extends BaseForm {
   get models() {
     return this.manufacturerForm.get('models') as FormArray
   }
+  get specificities() {
+    return this.modelForm.get('specificities') as FormArray
+  }
 
 
   //FormGroups
   segmentForm: FormGroup;
   manufacturerForm: FormGroup;
   modelForm: FormGroup;
+  specificitiesForm: FormGroup;
 
   //Validators
   nameMaxLength = 50;
@@ -79,10 +84,18 @@ export class FormControllerAddProductType extends BaseForm {
       id: [model?.id ?? 0, [Validators.required]],
       companyId: [this.companyId, [Validators.required]],
       name: [model?.name ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
-      speed: [model?.speed ?? '', [Validators.maxLength(this.nameMaxLength)]],
-      capacity: [model?.capacity ?? '', [Validators.maxLength(this.nameMaxLength)]],
       manufacturerId: model?.manufacturerId ?? 0,
-      description: [model?.description ?? '', [Validators.maxLength(this.descriptionMaxLength)]],
+      specificities: this._fb.array([], Validators.required)
+    })
+  }
+
+  formLoadSpecificities(specificities?: SpecificitiesDto) {
+    return this.specificitiesForm = this._fb.group({
+      id: [specificities?.id ?? 0, [Validators.required]],
+      companyId: [this.companyId, [Validators.required]],
+      speed: [specificities?.speed ?? '', [Validators.maxLength(this.nameMaxLength)]],
+      capacity: [specificities?.capacity ?? '', [Validators.maxLength(this.nameMaxLength)]],
+      modelId: specificities?.modelId ?? 0,
     })
   }
 
@@ -90,6 +103,7 @@ export class FormControllerAddProductType extends BaseForm {
     this.segments.push(this.formLoadSegment())
     this.manufacturers.push(this.formLoadManufacturer())
     this.models.push(this.formLoadModel())
+    this.specificities.push(this.formLoadSpecificities())
   }
 
 

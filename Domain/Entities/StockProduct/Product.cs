@@ -20,6 +20,8 @@ namespace Domain.Entities.StockProduct
         public Manufacturer Manufacturer { get; set; }
         public int ModelId { get; set; }
         public Model Model { get; set; }
+        public int SpecificitiesId { get; set; }
+        public Specificities Specificities { get; set; }
         public int? IsReservedByUserId { get; set; } = null;
         public MyUser IsReservedByUser { get; set; }
         public DateTime IsReserved { get; set; }
@@ -37,6 +39,7 @@ namespace Domain.Entities.StockProduct
         public DateTime WarrantyEndLocal { get; set; }
         public bool IsUsed { get; set; } = false;
         public DateTime IsTested { get; set; } = DateTime.MinValue;
+        public string Description { get; set; }
 
 
     }

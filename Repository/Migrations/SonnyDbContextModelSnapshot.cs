@@ -1751,6 +1751,9 @@ namespace Repository.Migrations
                     b.Property<DateTime>("Deleted")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
                     b.Property<DateTime>("EntryDate")
                         .HasColumnType("datetime(6)");
 
@@ -1793,6 +1796,9 @@ namespace Repository.Migrations
                     b.Property<decimal>("SoldPrice")
                         .HasColumnType("decimal(65,30)");
 
+                    b.Property<int>("SpecificitiesId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("SupplierId")
                         .HasColumnType("int");
 
@@ -1823,6 +1829,8 @@ namespace Repository.Migrations
                     b.HasIndex("ReservedForCustomerId");
 
                     b.HasIndex("SegmentId");
+
+                    b.HasIndex("SpecificitiesId");
 
                     b.HasIndex("SupplierId");
 
@@ -1869,17 +1877,11 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Capacity")
-                        .HasColumnType("longtext");
-
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Deleted")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
 
                     b.Property<int>("ManufacturerId")
                         .HasColumnType("int");
@@ -1890,9 +1892,6 @@ namespace Repository.Migrations
 
                     b.Property<DateTime>("Registered")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Speed")
-                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -1971,6 +1970,39 @@ namespace Repository.Migrations
                     b.HasIndex("ProductTypeId");
 
                     b.ToTable("PD_Segments");
+                });
+
+            modelBuilder.Entity("Domain.Entities.StockProduct.ProductKind.Specificities", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Capacity")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Deleted")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("ModelId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Registered")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Speed")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("ModelId");
+
+                    b.ToTable("PD_Specificities");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
@@ -3122,6 +3154,12 @@ namespace Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.StockProduct.ProductKind.Specificities", "Specificities")
+                        .WithMany("Products")
+                        .HasForeignKey("SpecificitiesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Entities.Main.Partner", "Supplier")
                         .WithMany("Products")
                         .HasForeignKey("SupplierId");
@@ -3145,6 +3183,8 @@ namespace Repository.Migrations
                     b.Navigation("ReservedForCustomer");
 
                     b.Navigation("Segment");
+
+                    b.Navigation("Specificities");
 
                     b.Navigation("Supplier");
 
@@ -3225,6 +3265,25 @@ namespace Repository.Migrations
                     b.Navigation("Company");
 
                     b.Navigation("ProductType");
+                });
+
+            modelBuilder.Entity("Domain.Entities.StockProduct.ProductKind.Specificities", b =>
+                {
+                    b.HasOne("Domain.Entities.Main.Companies.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entities.StockProduct.ProductKind.Model", "Model")
+                        .WithMany("Specificities")
+                        .HasForeignKey("ModelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("Model");
                 });
 
             modelBuilder.Entity("Domain.Entities.Authentication.MyUser", b =>
@@ -3454,6 +3513,8 @@ namespace Repository.Migrations
             modelBuilder.Entity("Domain.Entities.StockProduct.ProductKind.Model", b =>
                 {
                     b.Navigation("Products");
+
+                    b.Navigation("Specificities");
                 });
 
             modelBuilder.Entity("Domain.Entities.StockProduct.ProductKind.ProductType", b =>
@@ -3467,6 +3528,11 @@ namespace Repository.Migrations
                 {
                     b.Navigation("Manufacturers");
 
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Domain.Entities.StockProduct.ProductKind.Specificities", b =>
+                {
                     b.Navigation("Products");
                 });
 

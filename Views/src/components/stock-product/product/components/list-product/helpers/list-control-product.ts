@@ -8,7 +8,7 @@ import { ListGDataService } from "src/shared/components/list-g/list/data/list-g-
 import { PtBrCurrencyPipe } from "src/shared/pipes/pt-br-currency.pipe";
 import { PtBrDatePipe } from "src/shared/pipes/pt-br-date.pipe";
 import { ManufacturerDto } from "../../../dtos/manufacturer-dto";
-import { ProductDto } from "../../../dtos/product";
+import { ProductDto } from "../../../dtos/product-dto";
 import { ProductTypeDto } from "../../../dtos/product-type-dto";
 import { SegmentDto } from "../../../dtos/segment-dto";
 import { ProductList } from "../dto/product-list";

@@ -28,6 +28,11 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
         ModelDto ModelMapper(Model entity);
         Model ModelMapper(ModelDto entity);
 
+        List<SpecificitiesDto> SpecificitiesListMake(List<Specificities> list);
+        List<Specificities> SpecificitiesListMake(List<SpecificitiesDto> list);
+        SpecificitiesDto SpecificitiesMapper(Specificities entity);
+        Specificities SpecificitiesMapper(SpecificitiesDto entity);
+
         List<ProductDto> ProductListMake(List<Product> list);
         List<Product> ProductListMake(List<ProductDto> list);
         ProductDto ProductMapper(Product entity);

@@ -1,7 +1,7 @@
 import { RootBase } from "src/shared/entities-dtos/root-base";
 import { SegmentDto } from "./segment-dto";
 import { ModelDto } from "./model-dto";
-import { ProductDto } from "./product";
+import { ProductDto } from "./product-dto";
 
 export class ManufacturerDto extends RootBase {
     name: string;

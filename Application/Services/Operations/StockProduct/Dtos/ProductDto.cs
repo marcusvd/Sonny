@@ -18,6 +18,8 @@ namespace Application.Services.Operations.StockProduct
         public ManufacturerDto Manufacturer { get; set; }
         public int ModelId { get; set; }
         public ModelDto Model { get; set; }
+        public int SpecificitiesId { get; set; }
+        public SpecificitiesDto Specificities { get; set; }
         public int? IsReservedByUserId { get; set; } = null;
         public MyUserDto IsReservedByUser { get; set; }
         public DateTime IsReserved { get; set; }
@@ -36,5 +38,6 @@ namespace Application.Services.Operations.StockProduct
         public bool IsUsed { get; set; } = false;
         public DateTime IsTested { get; set; } = DateTime.MinValue;
         public int Quantity { get; set; }
+        public string Description { get; set; }
     }
 }

@@ -35,6 +35,16 @@
                     </field-select-g>
                 </div>
             </div>
+            <div class="container-level-0">
+                <div class="manufacturer">
+                    <field-select-g (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="specificities$" [labelInput]="'Fabricante'" [formControlResetalways]="controlReset">
+                    </field-select-g>
+                </div>
+                <!-- <div class="model">
+                    <field-select-g (outEntitiesSelected)="onSelectedModel($event)" [entities]="models$" [labelInput]="'Modelos'" [formControlResetalways]="controlReset">
+                    </field-select-g>
+                </div> -->
+            </div>
 
             <div class="checks">
                 <mat-checkbox class="isUsed" (change)="onChangeIsUsed($event)" formControlName="isUsed">Usado</mat-checkbox>
