@@ -36,6 +36,7 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
   }
 
   speedMeasure = 'Hz'
+  storageMeasure = 'Kb'
 
   noEntriesFoundLabel = '';
   placeholderProduct = '';
@@ -53,9 +54,13 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
       const result = x.find(item => item.id === id)
       this.speedMeasure = result.name;
     })).subscribe();
+  }
 
-
-
+  onSelectStorageMeasure(id: number) {
+    this.storage$.pipe(map(x => {
+      const result = x.find(item => item.id === id)
+      this.storageMeasure = result.name;
+    })).subscribe();
   }
 
 

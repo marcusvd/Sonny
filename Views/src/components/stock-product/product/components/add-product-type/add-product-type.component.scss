@@ -1,45 +1,52 @@
 .common-use {
     &--display {
         display: flex;
+        flex-direction: column;
         flex-wrap: wrap;
         gap: 15px;
     }
-    &--product {
-        flex: 1;
+    &--sub-title {
+        width: 100%
     }
-    &--segment {
-        flex: 1;
+    // &--product {
+    //     flex: 1;
+    // }
+    // &--segment {
+    //     flex: 1;
+    // }
+    // &--manufacturer {
+    //     flex: 1;
+    // }
+    // &--model {
+    //     flex: 1;
+    // }
+    // &--capacity {
+    //     flex: 1;
+    // }
+    // &--select-measure {
+    //     flex: 1;
+    // }
+    // &--select-speed {
+    //     flex: 1;
+    // }
+    &--group-measures {
+        display: flex;
+        gap: 15px;
     }
-    &--manufacturer {
+    &--measure-field {
         flex: 1;
+        width: 205px;
     }
-    &--model {
+    &--speed-field {
         flex: 1;
-    }
-    &--speed {
-        flex: 1;
-    }
-    &--speed-measure {
-        flex: 1;
-        max-width: 120px;
-    }
-    &--speed-measure-db {
-        flex: 1;
-        max-width: 20px;
-        width: 20px;
-    }
-    &--capacity {
-        flex: 1;
-    }
-    &--container-prefix-suffix,
-    .mat-form-field+mat-form-field {
-        margin-left: 8px;
+        width: 205px;
     }
     &--prefix-suffix-right-align {
         text-align: right;
     }
     &--btn-save {
         display: flex;
+        flex-direction: column;
         flex-wrap: wrap;
     }
 }
@@ -77,36 +84,63 @@ input.example-right-align {
     -moz-appearance: textfield;
 } */
 
-// @media(min-width: 640px) {
-//     .container-level-0 {
-//         display: inline-flex;
-//         gap: 5px;
-//         flex-wrap: wrap;
-//         width: 100%;
-//     }
-//     .product,
-//     .segment,
-//     .manufacturer {
-//         width: 100%;
-//         flex: 1;
-//         margin-top: 18px;
-//     }
-//     .container-level-0-1 {
-//         display: flex;
-//         gap: 5px;
-//         flex-wrap: wrap;
-//     }
-//     .model,
-//     .speed,
-//     .capacity {
-//         width: 100%;
-//         flex: 1;
-//         margin-top: 10px;
-//     }
-//     .description {
-//         margin-top: 10px;
-//     }
-//     .btn-save {
-//         margin-top: 10px;
-//     }
-// }
+@media(max-width: 640px) {
+    .common-use {
+        &--display {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            width: 300px;
+        }
+        &--group-measures {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        // &--container-prefix-suffix {
+        //     width: 70px;
+        // }
+        &--speed-field {
+            width: 150px;
+        }
+        &--measure-field {
+            width: 150px;
+        }
+        &--select-speed {
+            width: 100px;
+        }
+        &--select-measure {
+            width: 100px;
+        }
+    }
+    //     .container-level-0 {
+    //         display: inline-flex;
+    //         gap: 5px;
+    //         flex-wrap: wrap;
+    //         width: 100%;
+    //     }
+    //     .product,
+    //     .segment,
+    //     .manufacturer {
+    //         width: 100%;
+    //         flex: 1;
+    //         margin-top: 18px;
+    //     }
+    //     .container-level-0-1 {
+    //         display: flex;
+    //         gap: 5px;
+    //         flex-wrap: wrap;
+    //     }
+    //     .model,
+    //     .speed,
+    //     .capacity {
+    //         width: 100%;
+    //         flex: 1;
+    //         margin-top: 10px;
+    //     }
+    //     .description {
+    //         margin-top: 10px;
+    //     }
+    //     .btn-save {
+    //         margin-top: 10px;
+    //     }
+}

@@ -11,6 +11,7 @@ import { SubTitleComponent } from "src/shared/components/sub-title/sub-title.com
 import { TitleComponent } from "src/shared/components/title/components/title.component"
 import { FieldInputGComponent } from "../../../common-components/fields-input/field-input-g/field-input-g.component"
 import { FieldSelectGComponent } from "../../../common-components/fields-select/field-select-g/field-select-g.component"
+import { MatSelectModule } from "@angular/material/select"
 
 
 
@@ -18,6 +19,7 @@ export const ImportsProductType:any[] =[
     CommonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
     MatCardModule,
     MatCheckboxModule,
     ReactiveFormsModule,
