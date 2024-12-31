@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { SideNavComponent } from "../components/side-nav/components/side-nav.component";
 import { UserIsAuthenticatedGuard } from "../guards/user-is-authenticatedGuard";
 
@@ -31,10 +31,10 @@ const routes: Routes = [
         path: 'partner-dash',
         loadChildren: () => import('../../components/main/partner/modules/partner.module.routing').then(x => x.PartnerRoutingModule)
       },
-      // {
-      //   path: 'outsourced-dash',
-      //   loadChildren: () => import('../../components/out-sourced/modules/out-sourced.routing').then(x => x.OutsourcedRoutingModule)
-      // },
+      {
+        path: 'outsourced-dash',
+        loadChildren: () => import('../../components/out-sourced/modules/out-sourced.routing').then(x => x.OutsourcedRoutingModule)
+      },
       {
         path: 'stock-product-router',
         loadChildren: () => import('../../components/stock-product/modules/stock-product.routing.module').then(x => x.StockProductRoutingModule)

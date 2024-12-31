@@ -35,8 +35,9 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
     this.addEmptyFormArrays();
   }
 
-  speedMeasure = 'Hz'
-  storageMeasure = 'Kb'
+  speedMeasure = ''
+  storageMeasure = ''
+
 
   noEntriesFoundLabel = '';
   placeholderProduct = '';
@@ -44,32 +45,67 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
 
   formErrosValidation = false;
 
+  capacityHandle(value: string) {
+    const handledValue = value.replace(/[^\d.-]/g, '');
+    this.specificitiesForm.get('capacity').setValue(handledValue);
+  }
 
-  speed$ = of([{ id: 1, name: 'Hz' }, { id: 2, name: 'Khz' }, { id: 3, name: 'Mhz' }, { id: 4, name: 'Ghz' }, { id: 5, name: 'Thz' }, { id: 6, name: 'Rpm' }, { id: 7, name: 'Kbps' }, { id: 8, name: 'Mbps' }, { id: 9, name: 'Gbps' }]);
-  storage$ = of([{ id: 1, name: 'Kb' }, { id: 2, name: 'Mb' }, { id: 3, name: 'Gb' }, { id: 4, name: 'Tb' }]);
+  speedHandle(value: string) {
+    const handledValue = value.replace(/[^\d.-]/g, '');
+    this.specificitiesForm.get('speed').setValue(handledValue);
+  }
+
+  speed$ = of([{ id: 0, name: 'Não especificado' }, { id: 1, name: 'Hz' }, { id: 2, name: 'Khz' }, { id: 3, name: 'Mhz' }, { id: 4, name: 'Ghz' }, { id: 5, name: 'Thz' }, { id: 6, name: 'Rpm' }, { id: 7, name: 'Kbps' }, { id: 8, name: 'Mbps' }, { id: 9, name: 'Gbps' }]);
+  storage$ = of([{ id: 0, name: 'Não especificado' }, { id: 1, name: 'Kb' }, { id: 2, name: 'Mb' }, { id: 3, name: 'Gb' }, { id: 4, name: 'Tb' }, { id: 5, name: 'Volt (V)' }, { id: 6, name: 'Watt (W)' }]);
 
 
   onSelectSpeedMeasure(id: number) {
     this.speed$.pipe(map(x => {
       const result = x.find(item => item.id === id)
-      this.speedMeasure = result.name;
+      this.speedMeasure = this.specificitiesNone(result.name, 'speed');
+
     })).subscribe();
+
+    // this.specificitiesForm.get('speed').enable();
   }
 
   onSelectStorageMeasure(id: number) {
     this.storage$.pipe(map(x => {
       const result = x.find(item => item.id === id)
-      this.storageMeasure = result.name;
+
+      this.storageMeasure = this.specificitiesNone(result.name, 'capacity');
     })).subscribe();
+   
+  }
+
+  specificitiesNone = (value: string, item:string) => {
+    if (value == 'Não especificado') {
+      this.specificitiesForm.get(item).disable();
+      this.specificitiesForm.get(item).reset();
+      return null;
+    }
+    else
+    this.specificitiesForm.get(item).enable();
+
+    return value;
   }
 
 
-  save() {
+  handleFormToSave = () => {
+    const speed = this.specificitiesForm.get('speed');
+    const capacity = this.specificitiesForm.get('capacity');
+    speed.setValue(speed.value + '|' + this.speedMeasure);
+    capacity.setValue(capacity.value + '|' + this.storageMeasure);
+  }
 
+  save() {
     if (this.alertSave(this.formMain)) {
+
+      this.handleFormToSave();
       this.saveBtnEnabledDisabled = true;
-      this._productTypeService.add(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm);
+      this._productTypeService.add(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm, this.specificitiesForm);
       this.formControlReset();
+
     }
     else
       this.formErrosValidation = true;

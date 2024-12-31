@@ -71,12 +71,13 @@ export class BaseForm extends Responsive {
   }
 
   removeNonNumericAndConvertToNumber(str: string): number {
-    return +str.replace(/\D/g, '');
+    return +str?.replace(/\D/g, '');
   }
+
 
   removeAccentsSpecialCharacters(value: string): string {
     const noAccents = diacritics.remove(value);//remove accents
-    return noAccents.replace(/[^\w\s]/gi, ''); //remove special characters
+    return noAccents?.replace(/[^\w\s]/gi, ''); //remove special characters
   }
 
   formError = (form: FormGroup, field: string, error: string) => {

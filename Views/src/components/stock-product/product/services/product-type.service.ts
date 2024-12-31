@@ -51,16 +51,18 @@ export class ProductTypeService extends BackEndService<ProductTypeDto> {
 
 
 
-  add(formMain: FormGroup, segment: FormGroup, manufacturer: FormGroup, model: FormGroup) {
+  add(formMain: FormGroup, segment: FormGroup, manufacturer: FormGroup, model: FormGroup, specificitiesForm: FormGroup) {
 
     const toSave: ProductTypeDto = { ...formMain.value }
+    // console.log(toSave)
 
     this.add$<ProductTypeDto>(toSave, '_PD_Products/AddProductTypeAsync').subscribe({
       next: () => {
 
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
 
-        this.resetForms(formMain, segment, manufacturer, model)
+        this.resetForms(formMain, segment, manufacturer, model, specificitiesForm)
+
       },
       error: (erroCode) => {
         console.log(erroCode)
@@ -69,7 +71,7 @@ export class ProductTypeService extends BackEndService<ProductTypeDto> {
     })
   }
 
-  private resetForms(formMain: FormGroup, segment: FormGroup, manufacturer: FormGroup, model: FormGroup) {
+  private resetForms(formMain: FormGroup, segment: FormGroup, manufacturer: FormGroup, model: FormGroup, specificitiesForm: FormGroup) {
     formMain.reset({
       id: 0,
       name: '',
@@ -97,6 +99,15 @@ export class ProductTypeService extends BackEndService<ProductTypeDto> {
       companyId: this.companyId,
       manufacturerId: 0
     })
+
+    specificitiesForm.reset({
+      id: 0,
+      name: '',
+      companyId: this.companyId,
+      modelId: 0
+    })
+    specificitiesForm.get('speed').disable();
+    specificitiesForm.get('capacity').disable();
   }
 
   updateSingle(form: FormGroup) {

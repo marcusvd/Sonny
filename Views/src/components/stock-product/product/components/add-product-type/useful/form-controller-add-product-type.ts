@@ -93,8 +93,11 @@ export class FormControllerAddProductType extends BaseForm {
     return this.specificitiesForm = this._fb.group({
       id: [specificities?.id ?? 0, [Validators.required]],
       companyId: [this.companyId, [Validators.required]],
-      speed: [specificities?.speed ?? '', [Validators.maxLength(this.nameMaxLength)]],
-      capacity: [specificities?.capacity ?? '', [Validators.maxLength(this.nameMaxLength)]],
+      speed: new FormControl({ value: specificities?.speed ?? '', disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
+      capacity: new FormControl({ value: specificities?.capacity ?? '', disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
+      genaration: ['', []],
+      version: ['', []],
+      description:['', []],
       modelId: specificities?.modelId ?? 0,
     })
   }
@@ -109,7 +112,7 @@ export class FormControllerAddProductType extends BaseForm {
 
   controlReset = false;
   formControlReset = () => {
-      this.controlReset = !this.controlReset;
+    this.controlReset = !this.controlReset;
   }
 
 

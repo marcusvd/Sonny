@@ -1,146 +1,49 @@
-.common-use {
-    &--display {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        gap: 15px;
-    }
+.container {
     &--sub-title {
         width: 100%
     }
-    // &--product {
-    //     flex: 1;
-    // }
-    // &--segment {
-    //     flex: 1;
-    // }
-    // &--manufacturer {
-    //     flex: 1;
-    // }
-    // &--model {
-    //     flex: 1;
-    // }
-    // &--capacity {
-    //     flex: 1;
-    // }
-    // &--select-measure {
-    //     flex: 1;
-    // }
-    // &--select-speed {
-    //     flex: 1;
-    // }
-    &--group-measures {
+    &--mat-card {
+        width: 280px;
         display: flex;
-        gap: 15px;
+        flex-wrap: wrap;
     }
-    &--measure-field {
-        flex: 1;
-        width: 205px;
+    &--display {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        width: 100%;
     }
-    &--speed-field {
+
+    &--group-items {
         flex: 1;
-        width: 205px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    &--group-specificity {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
     }
     &--prefix-suffix-right-align {
         text-align: right;
+        margin-left: -5px;
     }
-    &--btn-save {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
+
+    &--space{
+        margin-bottom:50px;
     }
+    &--space-between{
+        margin-bottom:10px;
+    }
+  
 }
 
-// .product,
-// .segment,
-// .manufacturer {
-//     margin-top: 18px;
-// }
-// .model,
-// .speed,
-// .capacity {
-//     margin-top: 18px;
-// }
-// .capacity {
-//     max-width: 120px;
-// }
-// .description {
-//     margin-top: 18px;
-// }
-// .container-prefix-suffix mat-form-field+mat-form-field {
-//     margin-left: 8px;
-// }
-// .prefix-suffix-right-align {
-//     text-align: right;
-// }
 
-/*
-input.example-right-align::-webkit-outer-spin-button,
-input.example-right-align::-webkit-inner-spin-button {
-    display: none;
-}
-
-input.example-right-align {
-    -moz-appearance: textfield;
-} */
-
-@media(max-width: 640px) {
-    .common-use {
-        &--display {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            width: 300px;
-        }
-        &--group-measures {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        // &--container-prefix-suffix {
-        //     width: 70px;
-        // }
-        &--speed-field {
-            width: 150px;
-        }
-        &--measure-field {
-            width: 150px;
-        }
-        &--select-speed {
-            width: 100px;
-        }
-        &--select-measure {
-            width: 100px;
-        }
-    }
-    //     .container-level-0 {
-    //         display: inline-flex;
-    //         gap: 5px;
-    //         flex-wrap: wrap;
-    //         width: 100%;
-    //     }
-    //     .product,
-    //     .segment,
-    //     .manufacturer {
-    //         width: 100%;
-    //         flex: 1;
-    //         margin-top: 18px;
-    //     }
-    //     .container-level-0-1 {
-    //         display: flex;
-    //         gap: 5px;
-    //         flex-wrap: wrap;
-    //     }
-    //     .model,
-    //     .speed,
-    //     .capacity {
-    //         width: 100%;
-    //         flex: 1;
-    //         margin-top: 10px;
-    //     }
-    //     .description {
-    //         margin-top: 10px;
-    //     }
-    //     .btn-save {
-    //         margin-top: 10px;
-    //     }
-}
+  
+  .example-full-width {
+    width: 100%;
+  }
