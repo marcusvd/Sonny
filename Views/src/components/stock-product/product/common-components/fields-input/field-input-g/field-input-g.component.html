@@ -4,20 +4,17 @@
 
         <!-- currency -->
         <div *ngIf="type == 'currency'">
-            <input [type]="type" matInput [placeholder]="placeHolder" [attr.for]="fieldControlName" currencyMask
-                [min]="min" max="100000000" [formControlName]="fieldControlName">
+            <input (input)="onInput($event)" [type]="type" matInput [placeholder]="placeHolder" [attr.for]="fieldControlName" currencyMask [min]="min" max="100000000" [formControlName]="fieldControlName">
         </div>
 
         <!-- number -->
         <div *ngIf="type == 'number'">
-            <input [type]="type" matInput [min]="min" [max]="max" [placeholder]="inputLabel"
-                [attr.for]="fieldControlName" [formControlName]="fieldControlName">
+            <input (input)="onInput($event)" [type]="type" matInput [min]="min" [max]="max" [placeholder]="inputLabel" [attr.for]="fieldControlName" [formControlName]="fieldControlName">
         </div>
 
         <!-- text -->
         <div *ngIf="type == 'text'">
-            <input [type]="type" matInput [placeholder]="inputLabel" [attr.for]="fieldControlName"
-                [formControlName]="fieldControlName">
+            <input (input)="onInput($event)" [type]="type" matInput [placeholder]="inputLabel" [attr.for]="fieldControlName" [formControlName]="fieldControlName">
         </div>
 
         <!-- <mat-hint>EX: Placa de rede, Placa mãe, Processador, Memórias etc...</mat-hint> -->

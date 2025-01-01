@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
 
+import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ProductTypeService } from '../../services/product-type.service';
 import { FormControllerAddProductType } from './useful/form-controller-add-product-type';
 import { ImportsProductType } from './useful/imports-product-type';
 import { ProductTypeValidatorAsync } from './useful/product-type-validator-async-fields';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
-
 
 
 @Component({
@@ -38,7 +37,6 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
   speedMeasure = ''
   storageMeasure = ''
 
-
   noEntriesFoundLabel = '';
   placeholderProduct = '';
   productNameAttribute = '';
@@ -65,8 +63,6 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
       this.speedMeasure = this.specificitiesNone(result.name, 'speed');
 
     })).subscribe();
-
-    // this.specificitiesForm.get('speed').enable();
   }
 
   onSelectStorageMeasure(id: number) {
@@ -75,20 +71,52 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
 
       this.storageMeasure = this.specificitiesNone(result.name, 'capacity');
     })).subscribe();
-   
+
   }
 
-  specificitiesNone = (value: string, item:string) => {
+  specificitiesNone = (value: string, item: string) => {
     if (value == 'Não especificado') {
       this.specificitiesForm.get(item).disable();
       this.specificitiesForm.get(item).reset();
       return null;
     }
     else
-    this.specificitiesForm.get(item).enable();
+      this.specificitiesForm.get(item).enable();
 
     return value;
   }
+
+
+  makeDescription = () => {
+
+    const items = [] = ['Tipo de produto:', 'Segmento:', 'Fabricante:', 'Modelo:', 'Velocidade:', 'Capacidade:', 'Geração:', 'Versão:', 'Descrição:'];
+
+    const typeName = this.formMain.get('name').value;
+    const segmentName = this.segmentForm.get('name').value;
+    const manufacturerName = this.manufacturerForm.get('name').value;
+    const modelName = this.modelForm.get('name').value;
+
+    const specificitiesSpeed = this.specificitiesForm.get('speed').value ?? '#'
+    const specificitiesCapacity = this.specificitiesForm.get('capacity').value ?? '#'
+    const specificitiesGenaration = this.specificitiesForm.get('genaration').value;
+    const specificitiesVersion = this.specificitiesForm.get('version').value;
+    const specificitiesDescription = this.specificitiesForm.get('description').value;
+
+
+    const result = `
+    ${items[0]}  ${typeName},
+    ${items[1]} ${segmentName},
+    ${items[2]}  ${manufacturerName},
+    ${items[3]}  ${modelName},
+    ${items[4]}  ${specificitiesSpeed},
+    ${items[5]}  ${specificitiesCapacity},
+    ${items[6]}  ${specificitiesGenaration},
+    ${items[7]}  ${specificitiesVersion},`;
+
+    this.specificitiesForm.get('description').setValue(result);
+
+  }
+
 
 
   handleFormToSave = () => {

@@ -1,5 +1,5 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 
@@ -19,7 +19,7 @@ import { CurrencyPipe } from '@angular/common';
     mat-form-field{
       width:100%;
     }
-    
+
     `],
 
 })
@@ -32,11 +32,19 @@ export class FieldInputGComponent extends BaseForm {
   @Input() fieldControlName = 'name';
   @Input() inputLabel = '';
   @Input() type = 'text';
-  @Input() min:number = 0;
+  @Input() min: number = 0;
   @Input() max: number = null;
   @Input() override formMain: FormGroup;
   @Input() currency: boolean = false;
-  @Input() placeHolder:string = null;
+  @Input() placeHolder: string = null;
+  @Output() outInput = new EventEmitter<InputEvent>();
+
+  onInput = (event: InputEvent) => {
+    this.outInput.emit(event);
+  }
+
+
+
 
   // get inUse() {
   //   return this.formMain.get('name')?.hasError('inUse')
