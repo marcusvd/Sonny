@@ -1987,6 +1987,12 @@ namespace Repository.Migrations
                     b.Property<DateTime>("Deleted")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Generation")
+                        .HasColumnType("longtext");
+
                     b.Property<int>("ModelId")
                         .HasColumnType("int");
 
@@ -1994,6 +2000,9 @@ namespace Repository.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Speed")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Version")
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");

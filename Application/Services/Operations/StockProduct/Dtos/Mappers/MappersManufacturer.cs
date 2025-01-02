@@ -49,6 +49,7 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 CompanyId = entity.CompanyId,
                 SegmentId = entity.SegmentId,
                 Models = ModelListMake(entity.Models),
+                Registered = entity.Registered,
                 // Products = ProductListMake(entity.Products)
             };
 
@@ -66,6 +67,7 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 CompanyId = entity.CompanyId,
                 SegmentId = entity.SegmentId,
                 Models = ModelListMake(entity.Models),
+                Registered = entity.Registered,
                 // Products = ProductListMake(entity.Products)
             };
 

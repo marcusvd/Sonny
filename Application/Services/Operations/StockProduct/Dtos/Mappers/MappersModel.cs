@@ -45,6 +45,7 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
             {
                 Id = entity.Id,
                 Deleted = entity.Deleted,
+                Registered = entity.Registered,
                 Name = entity.Name,
                 CompanyId = entity.CompanyId,
                 ManufacturerId = entity.ManufacturerId,
@@ -61,6 +62,7 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
             {
                 Id = entity.Id,
                 Deleted = entity.Deleted,
+                Registered = entity.Registered,
                 Name = entity.Name,
                 CompanyId = entity.CompanyId,
                 ManufacturerId = entity.ManufacturerId,

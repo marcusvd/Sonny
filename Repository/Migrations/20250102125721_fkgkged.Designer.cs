@@ -9,8 +9,8 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20241228010203_dneMore")]
-    partial class dneMore
+    [Migration("20250102125721_fkgkged")]
+    partial class fkgkged
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1989,6 +1989,12 @@ namespace Repository.Migrations
                     b.Property<DateTime>("Deleted")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Generation")
+                        .HasColumnType("longtext");
+
                     b.Property<int>("ModelId")
                         .HasColumnType("int");
 
@@ -1996,6 +2002,9 @@ namespace Repository.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Speed")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Version")
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");

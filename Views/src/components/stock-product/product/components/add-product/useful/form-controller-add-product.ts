@@ -15,120 +15,125 @@ import { SpecificitiesDto } from "../../../dtos/specificities-dto";
 
 
 export class FormControllerAddProduct extends BaseForm {
-    constructor(private _fb: FormBuilder) {
-        super()
-    }
+  constructor(private _fb: FormBuilder) {
+    super()
+  }
 
 
-    //OBSERVABLES
-    productsTypes$ = new Observable<ProductTypeDto[]>();
-    segments$: Observable<SegmentDto[]>;
-    manufacturers$: Observable<ManufacturerDto[]>
-    models$: Observable<ModelDto[]>
-    specificities$: Observable<SpecificitiesDto[]>
+  //OBSERVABLES
+  productsTypes$ = new Observable<ProductTypeDto[]>();
+  segments$: Observable<SegmentDto[]>;
+  manufacturers$: Observable<ManufacturerDto[]>
+  models$: Observable<ModelDto[]>
+  specificities$: Observable<SpecificitiesDto[]>
 
-    //FormsGroup
-    productTypeForm: FormGroup;
-    segmentForm: FormGroup;
-    manufacturerForm: FormGroup;
-    modelForm: FormGroup;
-    specificitiesForm: FormGroup;
+  //FormsGroup
+  productTypeForm: FormGroup;
+  segmentForm: FormGroup;
+  manufacturerForm: FormGroup;
+  modelForm: FormGroup;
+  specificitiesForm: FormGroup;
 
-    onSelectedProduct(id: number) {
+  specificity: string;
 
-        this.manufacturers$ = null;
-        this.segments$ = this.productsTypes$.pipe(map(x => x.find(y => y.id == id).segments));
+  onSelectedProduct(id: number) {
 
-        // this.productsTypes$.subscribe((x: ProductTypeDto[]) => {
+    this.manufacturers$ = null;
+    this.segments$ = this.productsTypes$.pipe(map(x => x.find(y => y.id == id).segments));
 
-        //     const result = x.find(y => y.id == id);
+    // this.productsTypes$.subscribe((x: ProductTypeDto[]) => {
 
-        //     this.formMain.patchValue(result)
-        // });
+    //     const result = x.find(y => y.id == id);
 
-        this.formMain.get('productTypeId')?.patchValue(id);
+    //     this.formMain.patchValue(result)
+    // });
 
-    }
+    this.formMain.get('productTypeId')?.patchValue(id);
 
-    onSelectedSegment(id: number) {
+  }
 
-        this.manufacturers$ = this.segments$.pipe(
-            map(x => x.find(segment => segment.id == id).manufacturers)
-        )
+  onSelectedSegment(id: number) {
 
-        this.formMain.get('segmentId')?.patchValue(id);
+    this.manufacturers$ = this.segments$.pipe(
+      map(x => x.find(segment => segment.id == id).manufacturers)
+    )
 
-    }
+    this.formMain.get('segmentId')?.patchValue(id);
 
-    onSelectedManufacturer(id: number) {
+  }
 
-        this.models$ = this.manufacturers$.pipe(
-            map(x => x.find(manufacturer => manufacturer.id == id).models)
-        )
-        this.formMain.get('manufacturerId')?.patchValue(id);
-    }
+  onSelectedManufacturer(id: number) {
 
-    onSelectedModel(id: number) {
+    this.models$ = this.manufacturers$.pipe(
+      map(x => x.find(manufacturer => manufacturer.id == id).models)
+    )
+    this.formMain.get('manufacturerId')?.patchValue(id);
+  }
 
-        this.specificities$ = this.models$.pipe(
-            map(x => x.find(models => models.id == id).specificities)
-        )
+  onSelectedModel(id: number) {
 
-        this.specificities$ =  this.specificities$.pipe(
-            map((specificities: SpecificitiesDto[]) =>
-                specificities.map(specificity => ({
-                    ...specificity,
-                    name: `${specificity.speed} - ${specificity.capacity}`,
-                }))
-            )
-        );
+    this.specificities$ = this.models$.pipe(
+      map(x => x.find(models => models.id == id).specificities)
+    )
 
-        this.formMain.get('modelId')?.patchValue(id);
-    }
+    this.specificities$ = this.specificities$.pipe(
+      map((specificities: SpecificitiesDto[]) =>
+        specificities.map(specificity => ({
+          ...specificity,
+          name: `${specificity.description.split(',')[4]}, ${specificity.description.split(',')[5]}, ${specificity.description.split(',')[6]}, ${specificity.description.split(',')[7]}`,
+          // name: `Velocidade: ${specificity.speed} - Capacidade: ${specificity.capacity}`
 
 
-    onSelectedSpecificity(id:number){
-        this.formMain.get('specificitiesId')?.patchValue(id);
-    }
+        }))
+      )
+    );
 
-    onSupplierSelected(supplier: PartnerDto) {
-        this.formMain.get('supplierId').setValue(supplier.id);
-    }
+    this.formMain.get('modelId')?.patchValue(id);
+  }
 
-    isTested(isTested: MatCheckboxChange) {
-        isTested.checked ? this.formMain.get('isTested')?.patchValue(new Date()) : this.formMain.get('isTested')?.patchValue(this.minValue);
-    }
 
-    formLoad(formMain: FormGroup, userId: number, companyId: number, entity?: ProductDto) {
-        return formMain = this._fb.group({
-            id: [0, [Validators.required]],
-            productTypeId: ['', [Validators.required]],
-            segmentId: ['', [Validators.required]],
-            manufacturerId: ['', [Validators.required]],
-            modelId: ['', [Validators.required]],
-            specificitiesId: ['', [Validators.required]],
-            userId: [userId, [Validators.required]],
-            companyId: [companyId, [Validators.required]],
-            supplierId: ['', [Validators.required]],
-            usedHistoricalOrSupplier: new FormControl({ value: '', disabled: true, }, [usedHistoricalOrSupplierValidator()]),
-            purchaseInvoiceNumber: ['', [Validators.maxLength(30)]],
-            costPrice: [0, [Validators.required]],
-            soldPrice: [0, [Validators.required]],
-            entryDate: [new Date(), [Validators.required]],
-            warrantyEndLocal: [this.warrantyEnd, [Validators.required]],
-            isUsed: [false, []],
-            isTested: [this.minValue, []],
-            isTestedCheck: [false, []],
-            quantity: [1, [Validators.required]]
-        })
-    }
+  onSelectedSpecificity(id: number) {
+    this.formMain.get('specificitiesId')?.patchValue(id);
+  }
 
-    private warrantyEnd = new Date(new Date().getFullYear() + 1, new Date().getMonth(), new Date().getDate());
+  onSupplierSelected(supplier: PartnerDto) {
+    this.formMain.get('supplierId').setValue(supplier.id);
+  }
 
-    controlReset = false;
-    formControlReset = () => {
-        this.controlReset = !this.controlReset;
-    }
+  isTested(isTested: MatCheckboxChange) {
+    isTested.checked ? this.formMain.get('isTested')?.patchValue(new Date()) : this.formMain.get('isTested')?.patchValue(this.minValue);
+  }
+
+  formLoad(formMain: FormGroup, userId: number, companyId: number, entity?: ProductDto) {
+    return formMain = this._fb.group({
+      id: [0, [Validators.required]],
+      productTypeId: ['', [Validators.required]],
+      segmentId: ['', [Validators.required]],
+      manufacturerId: ['', [Validators.required]],
+      modelId: ['', [Validators.required]],
+      specificitiesId: ['', [Validators.required]],
+      userId: [userId, [Validators.required]],
+      companyId: [companyId, [Validators.required]],
+      supplierId: ['', [Validators.required]],
+      usedHistoricalOrSupplier: new FormControl({ value: '', disabled: true, }, [usedHistoricalOrSupplierValidator()]),
+      purchaseInvoiceNumber: ['', [Validators.maxLength(30)]],
+      costPrice: [0, [Validators.required]],
+      soldPrice: [0, [Validators.required]],
+      entryDate: [new Date(), [Validators.required]],
+      warrantyEndLocal: [this.warrantyEnd, [Validators.required]],
+      isUsed: [false, []],
+      isTested: [this.minValue, []],
+      isTestedCheck: [false, []],
+      quantity: [1, [Validators.required]]
+    })
+  }
+
+  private warrantyEnd = new Date(new Date().getFullYear() + 1, new Date().getMonth(), new Date().getDate());
+
+  controlReset = false;
+  formControlReset = () => {
+    this.controlReset = !this.controlReset;
+  }
 
 
 

@@ -83,28 +83,32 @@ export class ProductTypeService extends BackEndService<ProductTypeDto> {
       id: 0,
       name: '',
       companyId: this.companyId,
-      productId: 0
+      productId: 0,
+      registered:new Date()
     })
 
     manufacturer.reset({
       id: 0,
       name: '',
       companyId: this.companyId,
-      segmentId: 0
+      segmentId: 0,
+      registered:new Date()
     })
 
     model.reset({
       id: 0,
       name: '',
       companyId: this.companyId,
-      manufacturerId: 0
+      manufacturerId: 0,
+      registered:new Date()
     })
 
     specificitiesForm.reset({
       id: 0,
       name: '',
       companyId: this.companyId,
-      modelId: 0
+      modelId: 0,
+      registered:new Date()
     })
     specificitiesForm.get('speed').disable();
     specificitiesForm.get('capacity').disable();

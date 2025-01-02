@@ -47,7 +47,12 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 CompanyId = entity.CompanyId,
                 Speed = entity.Speed,
                 Capacity = entity.Capacity,
+                Generation = entity.Generation,
+                Version = entity.Version,
+                Description = entity.Description,
+                Registered = entity.Registered,
                 ModelId = entity.ModelId,
+                
             };
 
             return obj;
@@ -63,7 +68,12 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 CompanyId = entity.CompanyId,
                 Speed = entity.Speed,
                 Capacity = entity.Capacity,
+                Generation = entity.Generation,
+                Version = entity.Version,
+                Description = entity.Description,
+                Registered = entity.Registered,
                 ModelId = entity.ModelId,
+                
             };
 
             return obj;

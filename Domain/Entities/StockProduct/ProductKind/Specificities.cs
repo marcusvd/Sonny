@@ -9,9 +9,9 @@ namespace Domain.Entities.StockProduct.ProductKind
         public string Speed { get; set; }
         public string Generation { get; set; }
         public string Version { get; set; }
+        public string Description { get; set; }
         public int ModelId { get; set; }
         public Model Model { get; set; }
         public List<Product> Products { get; set; }
-
     }
 }

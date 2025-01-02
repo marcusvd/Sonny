@@ -10,6 +10,7 @@ namespace Application.Services.Operations.StockProduct.ProductKind
         public string Speed { get; set; }
         public string Generation { get; set; }
         public string Version { get; set; }
+        public string Description { get; set; }
         public int ModelId { get; set; }
         public ModelDto Model { get; set; }
         public List<ProductDto> Products { get; set; }

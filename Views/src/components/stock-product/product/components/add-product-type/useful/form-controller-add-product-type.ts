@@ -65,6 +65,7 @@ export class FormControllerAddProductType extends BaseForm {
       name: [segment?.name ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
       companyId: [this.companyId, [Validators.required]],
       productId: [segment?.productTypeId ?? 0, []],
+      registered:[new Date(), [Validators.required]],
       manufacturers: this._fb.array([], Validators.required)
     })
   }
@@ -75,6 +76,7 @@ export class FormControllerAddProductType extends BaseForm {
       name: [manufacturer?.name ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
       companyId: [this.companyId, [Validators.required]],
       segmentId: [manufacturer?.segmentId ?? 0, []],
+      registered:[new Date(), [Validators.required]],
       models: this._fb.array([], Validators.required)
     })
   }
@@ -85,6 +87,7 @@ export class FormControllerAddProductType extends BaseForm {
       companyId: [this.companyId, [Validators.required]],
       name: [model?.name ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
       manufacturerId: model?.manufacturerId ?? 0,
+      registered:[new Date(), [Validators.required]],
       specificities: this._fb.array([], Validators.required)
     })
   }
@@ -98,6 +101,7 @@ export class FormControllerAddProductType extends BaseForm {
       genaration: ['', []],
       version: ['', []],
       description:['', []],
+      registered:[new Date(), [Validators.required]],
       modelId: specificities?.modelId ?? 0,
     })
   }

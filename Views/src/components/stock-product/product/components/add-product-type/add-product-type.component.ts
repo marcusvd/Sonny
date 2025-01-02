@@ -105,11 +105,11 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
 
     const result = `
     ${items[0]}  ${typeName},
-    ${items[1]} ${segmentName},
+    ${items[1]}  ${segmentName},
     ${items[2]}  ${manufacturerName},
     ${items[3]}  ${modelName},
-    ${items[4]}  ${specificitiesSpeed},
-    ${items[5]}  ${specificitiesCapacity},
+    ${items[4]}  ${specificitiesSpeed} ${this.speedMeasure ?? ''},
+    ${items[5]}  ${specificitiesCapacity} ${this.storageMeasure ?? ''},
     ${items[6]}  ${specificitiesGenaration},
     ${items[7]}  ${specificitiesVersion},`;
 

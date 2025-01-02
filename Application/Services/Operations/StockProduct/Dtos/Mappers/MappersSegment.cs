@@ -48,6 +48,7 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 CompanyId = entity.CompanyId,
                 ProductTypeId = entity.ProductTypeId,
                 Manufacturers = ManufacturerListMake(entity.Manufacturers),
+                Registered = entity.Registered,
                 //Products = ProductListMake(entity.Products)
             };
 
@@ -65,6 +66,7 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 CompanyId = entity.CompanyId,
                 ProductTypeId = entity.ProductTypeId,
                 Manufacturers = ManufacturerListMake(entity.Manufacturers),
+                Registered = entity.Registered,
                 // Products = ProductListMake(entity.Products)
             };
 
