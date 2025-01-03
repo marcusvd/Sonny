@@ -34,7 +34,7 @@ export class FormControllerAddProduct extends BaseForm {
   modelForm: FormGroup;
   specificitiesForm: FormGroup;
 
-  newItemSelected = '';
+  newItemSelected: string = '';
 
   onSelectedProduct(id: number) {
 
@@ -97,7 +97,7 @@ export class FormControllerAddProduct extends BaseForm {
 
   onSelectedModel(id: number) {
     this.newItemScreenControl(id, 'model');
-    
+
     this.specificities$ = this.models$.pipe(
       map(x => x.find(models => models.id == id).specificities)
     )

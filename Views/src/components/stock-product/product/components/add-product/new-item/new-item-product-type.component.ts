@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 
 import { of } from 'rxjs';
@@ -18,7 +18,10 @@ import { ImportsProductType } from './useful/imports-product-type';
   styleUrls: ['./new-item-product-type.component.scss'],
   providers: []
 })
-export class NewItemProductTypeComponent extends FormControllerAddProductType implements OnInit, OnChanges{
+export class NewItemProductTypeComponent extends FormControllerAddProductType implements OnInit, OnChanges {
+
+  @Input() newItemSelected = ''
+  @Input() formMainFromAddProduct: FormGroup;
 
   constructor(
     public _fbMain: FormBuilder,
@@ -29,7 +32,7 @@ export class NewItemProductTypeComponent extends FormControllerAddProductType im
     super(_fbMain, _productTypeValidatorAsync)
   }
   ngOnChanges(changes: SimpleChanges): void {
-   console.log(this.newItemSelected)
+    console.log(this.newItemSelected)
   }
 
   ngOnInit(): void {
@@ -37,15 +40,6 @@ export class NewItemProductTypeComponent extends FormControllerAddProductType im
     this.addEmptyFormArrays();
   }
 
-  // newItemScreenControl = (id: number) => {
-  //   if (id == 0)
-  //     this.newItemSelected = 'segment'
-  //   else
-  //     this.newItemSelected = ''
-
-  // }
-
-  @Input() newItemSelected = ''
   speedMeasure = ''
   storageMeasure = ''
 
@@ -103,16 +97,16 @@ export class NewItemProductTypeComponent extends FormControllerAddProductType im
 
     const items = [] = ['Tipo de produto:', 'Segmento:', 'Fabricante:', 'Modelo:', 'Velocidade:', 'Capacidade:', 'Geração:', 'Versão:', 'Descrição:'];
 
-    const typeName = this.formMain.get('name').value;
-    const segmentName = this.segmentForm.get('name').value;
-    const manufacturerName = this.manufacturerForm.get('name').value;
-    const modelName = this.modelForm.get('name').value;
+    const typeName = this.formMain.get('name').value ?? this.formMainFromAddProduct.get('productTypeId').value ?? '#';
+    const segmentName = this.segmentForm.get('name').value ?? this.formMainFromAddProduct.get('segmentId').value ?? '#';
+    const manufacturerName = this.manufacturerForm.get('name').value ?? this.formMainFromAddProduct.get('manufacturerId').value ?? '#';
+    const modelName = this.modelForm.get('name').value ?? this.formMainFromAddProduct.get('modelId').value ?? '#';
 
-    const specificitiesSpeed = this.specificitiesForm.get('speed').value ?? '#'
-    const specificitiesCapacity = this.specificitiesForm.get('capacity').value ?? '#'
-    const specificitiesGenaration = this.specificitiesForm.get('genaration').value;
-    const specificitiesVersion = this.specificitiesForm.get('version').value;
-    const specificitiesDescription = this.specificitiesForm.get('description').value;
+    const specificitiesSpeed = this.specificitiesForm.get('speed').value ?? '#';
+    const specificitiesCapacity = this.specificitiesForm.get('capacity').value ?? '#';
+    const specificitiesGenaration = this.specificitiesForm.get('genaration').value ?? '#';
+    const specificitiesVersion = this.specificitiesForm.get('version').value ?? '#';
+    const specificitiesDescription = this.specificitiesForm.get('description').value ?? '#';
 
 
     const result = `

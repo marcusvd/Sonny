@@ -36,14 +36,12 @@ export class AddProductComponent extends FormControllerAddProduct implements OnI
     this.formMain = this.formLoad(this.formMain, this.companyId, this.userId, null);
   }
 
-
   callRouter = (call?: string) => {
     if (call === 'add')
       this._router.navigate(['/side-nav/stock-product-router/add-product-type']);
     else
       this._router.navigate(['/side-nav/stock-product-router/edit-product-type']);
   }
-
 
   onChangeIsUsed(selection: MatCheckboxChange) {
     if (selection.checked)

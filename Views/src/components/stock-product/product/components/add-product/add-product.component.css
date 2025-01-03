@@ -16,6 +16,7 @@
     }
 
     .manufacturer,
+    .specificity,
     .model {
         width: 100%;
         flex: 1;
