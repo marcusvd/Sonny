@@ -6,6 +6,7 @@ import { ManufacturerDto } from "./manufacturer-dto";
 import { ModelDto } from "./model-dto";
 import { ProductTypeDto } from "./product-type-dto";
 import { SegmentDto } from "./segment-dto";
+import { SpecificitiesDto } from "./specificities-dto";
 
 export class ProductDto extends RootBase {
     
@@ -17,6 +18,8 @@ export class ProductDto extends RootBase {
     manufacturer: ManufacturerDto;
     modelId:number;
     model: ModelDto;
+    specificitiesId:number;
+    specificities: SpecificitiesDto;
     isReservedByUserId: number;
     isReservedByUser: MyUser;
     isReserved: Date;

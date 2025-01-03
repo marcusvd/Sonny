@@ -112,6 +112,42 @@
                 </div>
             </div>
 
+            <div class="model">
+                <mat-radio-button class="model-radio" value="specificities">
+                    <ng-container *ngIf="entityToEdit == 'specificities'; else elseSpecificitiesBlock">
+                        <h3>Especificidades</h3>
+                    </ng-container>
+                    <ng-template #elseSpecificitiesBlock>
+                        Especificidades
+                    </ng-template>
+                </mat-radio-button>
+                <div [class]="{'array-hide': entityToEdit != 'specificities'}">
+
+                    <field-select-g  [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$" [labelInput]="'Tipo'">
+                    </field-select-g>
+                    <field-select-g  [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$" [labelInput]="'Segmento'">
+                    </field-select-g>
+                    <field-select-g  [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$" [labelInput]="'Fabricante'">
+                    </field-select-g>
+                    <field-select-g  [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedModel($event)" [entities]="models$" [labelInput]="'Modelo'">
+                    </field-select-g>
+                    <!-- <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$"
+                        [labelInput]="'Tipo'">
+                    </field-select-g>
+                    <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$"
+                        [labelInput]="'Segmento'">
+                    </field-select-g>
+                    <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$"
+                        [labelInput]="'Fabricante'">
+                    </field-select-g> -->
+
+                    <array-g [formMain]="modelForm" [arrayName]="'specificities'" [formArray]="specificities" [labelInput]="'Especificidades'" [entityToEdit]="entityToEdit">
+                        <btn-g add btn-1 *ngIf="entityToEdit == 'specificities' && models$" [name]="'Adicionar'" [icon]="'add'" (btn)="addAddItemArray('model')"></btn-g>
+                    </array-g>
+
+                </div>
+            </div>
+
             <div [class]="{'btn-save-show': entityToEdit == 'model' && models}">
                 <btn-g *ngIf="entityToEdit == 'model' && models$" [name]="'Salvar'" [icon]="'save'" (click)="saveSingle()"></btn-g>
             </div>

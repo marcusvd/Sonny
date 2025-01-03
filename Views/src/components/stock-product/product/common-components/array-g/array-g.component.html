@@ -11,8 +11,8 @@
             <div [formGroupName]="i">
                 <button id="btn-remove" mat-icon-button
                     (click)="removeItemArray('type', i, formArray)"><mat-icon>clear</mat-icon></button>
-
-                <mat-form-field [class]="{'model':(ctrls.get('name').hasError('maxlength') || ctrls.get('name').hasError('required') && entityToEdit == 'model')}" appearance="outline">
+                <div *ngIf="entityToEdit != 'specificities'">
+                    <mat-form-field [class]="{'model':(ctrls.get('name').hasError('maxlength') || ctrls.get('name').hasError('required') && entityToEdit == 'model')}" appearance="outline">
                     <mat-label>{{labelInput}}</mat-label>
                     <input type="text" matInput formControlName="name">
                     <mat-error *ngIf="ctrls.get('name').hasError('required')">
@@ -22,31 +22,34 @@
                         <span>{{maxLengthMsg + '50' + charactersMsg}}</span>
                     </mat-error>
                 </mat-form-field>
+                </div>
+                <div *ngIf="entityToEdit == 'specificities'">
 
-                <div *ngIf="entityToEdit == 'model'">
-              
                     <mat-form-field [class]="{'speed':ctrls.get('speed').hasError('maxlength')}" appearance="outline">
                         <mat-label>Velocidade</mat-label>
                         <input type="text" matInput [placeholder]="placeholderProductType" formControlName="speed">
-                        <mat-error *ngIf="ctrls.get('speed').hasError('maxlength')">
+                        <!-- <mat-error *ngIf="ctrls.get('speed').hasError('maxlength')">
                             <span>{{maxLengthMsg + '50' + charactersMsg}}</span>
-                        </mat-error>
+                        </mat-error> -->
                     </mat-form-field>
 
-                    <mat-form-field [class]="{'capacity':ctrls.get('capacity').hasError('maxlength')}" appearance="outline">
+                    <mat-form-field [class]="{'capacity':ctrls.get('capacity').hasError('maxlength')}"
+                        appearance="outline">
                         <mat-label>Capacidade</mat-label>
                         <input type="text" matInput [placeholder]="placeholderProductType" formControlName="capacity">
-                        <mat-error *ngIf="ctrls.get('capacity').hasError('maxlength')">
+                        <!-- <mat-error *ngIf="ctrls.get('capacity').hasError('maxlength')">
                             <span>{{maxLengthMsg + '50' + charactersMsg}}</span>
-                        </mat-error>
+                        </mat-error> -->
                     </mat-form-field>
 
-                    <mat-form-field [class]="{'description':ctrls.get('description').hasError('maxlength')}" appearance="outline">
+                    <mat-form-field [class]="{'description':ctrls.get('description').hasError('maxlength')}"
+                        appearance="outline">
                         <mat-label>Descrição</mat-label>
-                        <input type="text" matInput [placeholder]="placeholderProductType" formControlName="description">
-                            <mat-error *ngIf="ctrls.get('description').hasError('maxlength')">
+                        <input type="text" matInput [placeholder]="placeholderProductType"
+                            formControlName="description">
+                        <!-- <mat-error *ngIf="ctrls.get('description').hasError('maxlength')">
                                 <span>{{maxLengthMsg + '500' + charactersMsg}}</span>
-                            </mat-error>
+                            </mat-error> -->
                     </mat-form-field>
                 </div>
 

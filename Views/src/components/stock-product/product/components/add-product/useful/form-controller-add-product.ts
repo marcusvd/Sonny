@@ -34,44 +34,70 @@ export class FormControllerAddProduct extends BaseForm {
   modelForm: FormGroup;
   specificitiesForm: FormGroup;
 
-  specificity: string;
+  newItemSelected = '';
 
   onSelectedProduct(id: number) {
 
     this.manufacturers$ = null;
+
     this.segments$ = this.productsTypes$.pipe(map(x => x.find(y => y.id == id).segments));
-
-    // this.productsTypes$.subscribe((x: ProductTypeDto[]) => {
-
-    //     const result = x.find(y => y.id == id);
-
-    //     this.formMain.patchValue(result)
-    // });
+    this.segments$ = this.segments$.pipe(map(x => [...x, this.newItem()]))
 
     this.formMain.get('productTypeId')?.patchValue(id);
 
   }
 
+  newItem = () => {
+    const toRegisterNew: any = {
+      id: 0,
+      userId: 0,
+      user: null,
+      companyId: 0,
+      company: null,
+      name: 'Adicionar Novo',
+      productTypeId: 0,
+      productType: null,
+      manufacturers: null,
+      products: null,
+      deleted: null,
+      registered: null
+    };
+    return toRegisterNew
+  }
+
+  newItemScreenControl = (id: number, entity: string) => {
+    if (id == 0)
+      this.newItemSelected = entity
+    else
+      this.newItemSelected = ''
+
+  }
+
   onSelectedSegment(id: number) {
+
+    this.newItemScreenControl(id, 'segment');
 
     this.manufacturers$ = this.segments$.pipe(
       map(x => x.find(segment => segment.id == id).manufacturers)
     )
-
+    this.manufacturers$ = this.manufacturers$.pipe(map(x => [...x, this.newItem()]));
     this.formMain.get('segmentId')?.patchValue(id);
-
   }
 
   onSelectedManufacturer(id: number) {
 
+    this.newItemScreenControl(id, 'manufacturer');
+
     this.models$ = this.manufacturers$.pipe(
       map(x => x.find(manufacturer => manufacturer.id == id).models)
     )
+    this.models$ = this.models$.pipe(map(x => [...x, this.newItem()]));
     this.formMain.get('manufacturerId')?.patchValue(id);
   }
 
   onSelectedModel(id: number) {
-
+    this.newItemScreenControl(id, 'model');
+    
     this.specificities$ = this.models$.pipe(
       map(x => x.find(models => models.id == id).specificities)
     )
@@ -133,6 +159,10 @@ export class FormControllerAddProduct extends BaseForm {
   controlReset = false;
   formControlReset = () => {
     this.controlReset = !this.controlReset;
+    this.segments$ = null;
+    this.manufacturers$ = null;
+    this.models$ = null;
+    this.specificities$ = null;
   }
 
 

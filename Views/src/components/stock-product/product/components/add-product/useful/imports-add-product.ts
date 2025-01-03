@@ -17,6 +17,8 @@ import { TitleComponent } from "src/shared/components/title/components/title.com
 import { DateTimeGComponent } from "../../../common-components/date-time-g/date-time-g.component"
 import { FieldInputGComponent } from "../../../common-components/fields-input/field-input-g/field-input-g.component"
 import { FieldSelectGComponent } from "../../../common-components/fields-select/field-select-g/field-select-g.component"
+import { NgxMatSelectSearchModule } from "ngx-mat-select-search"
+import { NewItemProductTypeComponent } from "../new-item/new-item-product-type.component"
 
 export const ImportsAddProduct:any[] =[
     MatDatepickerModule,
@@ -25,7 +27,7 @@ export const ImportsAddProduct:any[] =[
     MatInputModule,
     MatCardModule,
     MatCheckboxModule,
-    MatSelectModule,
+    NewItemProductTypeComponent,
     ReactiveFormsModule,
     CurrencyMaskModule,
     TitleComponent,

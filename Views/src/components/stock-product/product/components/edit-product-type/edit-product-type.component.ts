@@ -28,6 +28,7 @@ export class EditProductComponent extends FormControllerEditProductType implemen
         this.formLoadProductTypeEdit();
         this.formLoadSegment();
         this.formLoadManufacturer();
+        this.formLoadModel();
         this.productsTypes$.subscribe(x => {
             this.formProductTypePushArray(x)
         })
@@ -50,29 +51,47 @@ export class EditProductComponent extends FormControllerEditProductType implemen
                     this.formProductTypePushArray(x)
                 })
                 this.formControlReset();
+                this.setEntitiesToNull();
                 break;
             case 'segment':
                 this.entityToEdit = "segment";
                 this.clearAllArray();
                 this.segments$ = null;
                 this.formControlReset();
+                this.setEntitiesToNull();
                 break;
-                case 'manufacturer':
-                    this.entityToEdit = "manufacturer";
-                    this.clearAllArray();
-                    this.manufacturers$ = null;
-                    this.formControlReset();
+            case 'manufacturer':
+                this.entityToEdit = "manufacturer";
+                this.clearAllArray();
+                this.manufacturers$ = null;
+                this.formControlReset();
+                this.setEntitiesToNull();
                 break;
             case 'model':
                 this.entityToEdit = "model";
                 this.clearAllArray();
                 this.models$ = null;
                 this.formControlReset();
+                this.setEntitiesToNull();
+                break;
+            case 'specificities':
+                this.entityToEdit = "specificities";
+                this.clearAllArray();
+                this.specificities$ = null;
+                this.formControlReset();
+                this.setEntitiesToNull();
                 break;
         }
 
     }
 
+
+    setEntitiesToNull() {
+        this.segments$ = null;
+        this.manufacturers$ = null;
+        this.models$ = null;
+        this.specificities$ = null;
+    }
 
     saveArray(formArray: FormArray) {
 

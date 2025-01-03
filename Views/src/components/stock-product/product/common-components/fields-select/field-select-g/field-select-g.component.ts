@@ -42,6 +42,7 @@ export class FieldSelectGComponent extends BaseForm {
 
   @Input() set formControlResetalways(value: boolean) {
     this.selectFormControl.reset();
+    this.selectNgxFormControl.reset();
   }
 
   @Input() set removeValidatorNgxFormControl(remove: boolean) {
