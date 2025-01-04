@@ -100,16 +100,16 @@ export class NewItemProductTypeComponent extends FormControllerAddProductType im
 
     const items = [] = ['Tipo de produto:', 'Segmento:', 'Fabricante:', 'Modelo:', 'Velocidade:', 'Capacidade:', 'Geração:', 'Versão:', 'Descrição:'];
 
-    const typeName = this.formMain.get('name').value ?? this.formMainFromAddProduct.get('productTypeId').value ?? '#';
-    const segmentName = this.segmentForm.get('name').value == '' || this.segmentForm.get('name').value == null ? this.formMainFromAddProduct.get('segmentId').value : '#';
-    const manufacturerName = this.manufacturerForm.get('name').value ?? this.formMainFromAddProduct.get('manufacturerId').value ?? '#';
-    const modelName = this.modelForm.get('name').value ?? this.formMainFromAddProduct.get('modelId').value ?? '#';
+    const typeName = this.formMain.get('name').value || this.formMainFromAddProduct.get('productTypeId').value || '#';
+    const segmentName = this.segmentForm.get('name').value || this.formMainFromAddProduct.get('segmentId').value || '#';
+    const manufacturerName = this.manufacturerForm.get('name').value || this.formMainFromAddProduct.get('manufacturerId').value || '#';
+    const modelName = this.modelForm.get('name').value || this.formMainFromAddProduct.get('modelId').value || '#';
 
-    const specificitiesSpeed = this.specificitiesForm.get('speed').value ?? '#';
-    const specificitiesCapacity = this.specificitiesForm.get('capacity').value ?? '#';
-    const specificitiesGenaration = this.specificitiesForm.get('genaration').value ?? '#';
-    const specificitiesVersion = this.specificitiesForm.get('version').value ?? '#';
-    const specificitiesDescription = this.specificitiesForm.get('description').value ?? '#';
+    const specificitiesSpeed = this.specificitiesForm.get('speed').value || '#';
+    const specificitiesCapacity = this.specificitiesForm.get('capacity').value || '#';
+    const specificitiesGenaration = this.specificitiesForm.get('genaration').value || '#';
+    const specificitiesVersion = this.specificitiesForm.get('version').value || '#';
+    const specificitiesDescription = this.specificitiesForm.get('description').value || '#';
 
     const result = `
     ${items[0]}  ${typeName},
