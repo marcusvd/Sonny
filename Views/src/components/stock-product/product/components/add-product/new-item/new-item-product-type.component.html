@@ -91,6 +91,8 @@
             <textarea (click)="makeDescription()" style="border:1px solid #2ba1a8; border-radius: 4px;" matInput
                 [rows]="10" [placeholder]="'Descrição'" formControlName="description"></textarea>
         </div>
+
+        <div>{{formMain.value | json}}</div>
         <!-- <mat-error>
                 <span>{{validatorMessages.minMaxLength(formMain,frmControlName, 'Observações', minLength, maxLength)}}</span>
                 <span *ngIf="required">{{validatorMessages.required(formMain, frmControlName, 'Descrição')}}</span>

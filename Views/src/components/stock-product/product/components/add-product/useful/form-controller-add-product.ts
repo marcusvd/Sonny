@@ -1,16 +1,16 @@
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { MatCheckboxChange } from "@angular/material/checkbox";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 import { PartnerDto } from "src/components/main/partner/commons-components/dtos/partner-dto";
 import { BaseForm } from "src/shared/components/inheritance/forms/base-form";
-import { ProductDto } from "../../../dtos/product-dto";
-import { usedHistoricalOrSupplierValidator } from "./used-historical-or-supplier.validator";
-import { ProductTypeDto } from "../../../dtos/product-type-dto";
-import { Observable } from "rxjs";
 import { ManufacturerDto } from "../../../dtos/manufacturer-dto";
-import { SegmentDto } from "../../../dtos/segment-dto";
 import { ModelDto } from "../../../dtos/model-dto";
-import { map, tap } from "rxjs/operators";
-import { MatCheckboxChange } from "@angular/material/checkbox";
+import { ProductDto } from "../../../dtos/product-dto";
+import { ProductTypeDto } from "../../../dtos/product-type-dto";
+import { SegmentDto } from "../../../dtos/segment-dto";
 import { SpecificitiesDto } from "../../../dtos/specificities-dto";
+import { usedHistoricalOrSupplierValidator } from "./used-historical-or-supplier.validator";
 
 
 
@@ -33,21 +33,7 @@ export class FormControllerAddProduct extends BaseForm {
   manufacturerForm: FormGroup;
   modelForm: FormGroup;
   specificitiesForm: FormGroup;
-
-  formMainFromAddProduct = this.formMain;
-
-  newItemSelected: string = '';
-
-  onSelectedProduct(id: number) {
-
-    this.manufacturers$ = null;
-
-    this.segments$ = this.productsTypes$.pipe(map(x => x.find(y => y.id == id).segments));
-    this.segments$ = this.segments$.pipe(map(x => [...x, this.newItem()]))
-
-    this.formMain.get('productTypeId')?.patchValue(id);
-
-  }
+  sendFormMainToNewItemProduct: FormGroup;
 
   newItem = () => {
     const toRegisterNew: any = {
@@ -72,14 +58,22 @@ export class FormControllerAddProduct extends BaseForm {
       this.newItemSelected = entity
     else
       this.newItemSelected = ''
-
-
   }
 
 
-  sendFormToNewItem(){
-    this.formMainFromAddProduct = this.formMain;
-    console.log('test')
+  newItemSelected: string = '';
+
+  onSelectedProduct(id: number) {
+
+    this.manufacturers$ = null;
+
+    this.segments$ = this.productsTypes$.pipe(map(x =>x.find(y => y.id == id).segments));
+
+    this.segments$ = this.segments$.pipe(map(x => [...x, this.newItem()]))
+
+    this.formMain.get('productTypeId')?.patchValue(id);
+
+    this.sendFormMainToNewItemProduct = this.formMain;
   }
 
   onSelectedSegment(id: number) {
@@ -87,10 +81,13 @@ export class FormControllerAddProduct extends BaseForm {
     this.newItemScreenControl(id, 'segment');
 
     this.manufacturers$ = this.segments$.pipe(
-      map(x => x.find(segment => segment.id == id).manufacturers)
+      map(x =>  x.find(segment => segment.id == id).manufacturers)
     )
+
+
     this.manufacturers$ = this.manufacturers$.pipe(map(x => [...x, this.newItem()]));
     this.formMain.get('segmentId')?.patchValue(id);
+    this.sendFormMainToNewItemProduct = this.formMain;
   }
 
   onSelectedManufacturer(id: number) {
@@ -101,7 +98,9 @@ export class FormControllerAddProduct extends BaseForm {
       map(x => x.find(manufacturer => manufacturer.id == id).models)
     )
     this.models$ = this.models$.pipe(map(x => [...x, this.newItem()]));
+
     this.formMain.get('manufacturerId')?.patchValue(id);
+    this.sendFormMainToNewItemProduct = this.formMain;
   }
 
   onSelectedModel(id: number) {
@@ -116,14 +115,13 @@ export class FormControllerAddProduct extends BaseForm {
         specificities.map(specificity => ({
           ...specificity,
           name: `${specificity.description.split(',')[4]}, ${specificity.description.split(',')[5]}, ${specificity.description.split(',')[6]}, ${specificity.description.split(',')[7]}`,
-          // name: `Velocidade: ${specificity.speed} - Capacidade: ${specificity.capacity}`
-
-
         }))
       )
     );
 
     this.formMain.get('modelId')?.patchValue(id);
+    this.sendFormMainToNewItemProduct = this.formMain;
+
   }
 
 

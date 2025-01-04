@@ -2,12 +2,16 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 // import { ProductTypeService } from '../../services/product-type.service';
 import { FormControllerAddProductType } from './useful/form-controller-add-product-type';
 import { ImportsProductType } from './useful/imports-product-type';
 import { ProductTypeValidatorAsync } from './useful/product-type-validator-async-fields';
+import { ProductTypeDto } from '../../../dtos/product-type-dto';
+import { SegmentDto } from '../../../dtos/segment-dto';
+import { ManufacturerDto } from '../../../dtos/manufacturer-dto';
+import { ModelDto } from '../../../dtos/model-dto';
 
 
 @Component({
@@ -21,8 +25,12 @@ import { ProductTypeValidatorAsync } from './useful/product-type-validator-async
 export class NewItemProductTypeComponent extends FormControllerAddProductType implements OnInit, OnChanges {
 
   @Input() newItemSelected = ''
-  @Input() formMainFromAddProduct: FormGroup;
-  @Output() outUpdateForm = new EventEmitter<void>();
+  @Input() formFromromAddProduct: FormGroup;
+
+  @Input('productsTypes') productsTypes$ = new Observable<ProductTypeDto[]>();
+  @Input('segments') segments$: Observable<SegmentDto[]>;
+  @Input('manufacturers') manufacturers$: Observable<ManufacturerDto[]>
+  @Input('models') models$: Observable<ModelDto[]>
 
   constructor(
     public _fbMain: FormBuilder,
@@ -36,9 +44,16 @@ export class NewItemProductTypeComponent extends FormControllerAddProductType im
     console.log(this.newItemSelected)
   }
 
+
+
   ngOnInit(): void {
     this.formLoad();
     this.addEmptyFormArrays();
+
+    this.selectedNameHandle('productTypeId', this.productsTypes$, 0);
+    this.selectedNameHandle('segmentId', this.segments$, 1);
+    this.selectedNameHandle('manufacturerId', this.manufacturers$, 2);
+    this.selectedNameHandle('modelId', this.models$, 3);
   }
 
   speedMeasure = ''
@@ -47,7 +62,7 @@ export class NewItemProductTypeComponent extends FormControllerAddProductType im
   noEntriesFoundLabel = '';
   placeholderProduct = '';
   productNameAttribute = '';
-
+  resultNames: string[] = [];
   formErrosValidation = false;
 
   capacityHandle(value: string) {
@@ -94,22 +109,32 @@ export class NewItemProductTypeComponent extends FormControllerAddProductType im
   }
 
 
-  makeDescription = () => {
+  selectedNameHandle = (entityName: string, entityObservable: Observable<any[]>, index: number) => {
+    const id = this.formFromromAddProduct.get(entityName).value;
+    entityObservable.pipe(map(x => {
+      this.resultNames[index] = x.find(y => y.id == id).name
+    })).subscribe();
 
-    this.outUpdateForm.emit();
+    return this.resultNames[index];
+  }
+
+
+
+
+  makeDescription = async () => {
 
     const items = [] = ['Tipo de produto:', 'Segmento:', 'Fabricante:', 'Modelo:', 'Velocidade:', 'Capacidade:', 'Geração:', 'Versão:', 'Descrição:'];
 
-    const typeName = this.formMain.get('name').value || this.formMainFromAddProduct.get('productTypeId').value || '#';
-    const segmentName = this.segmentForm.get('name').value || this.formMainFromAddProduct.get('segmentId').value || '#';
-    const manufacturerName = this.manufacturerForm.get('name').value || this.formMainFromAddProduct.get('manufacturerId').value || '#';
-    const modelName = this.modelForm.get('name').value || this.formMainFromAddProduct.get('modelId').value || '#';
+    const typeName = this.formMain.get('name').value || this.resultNames[0] || '#';
+    const segmentName = this.segmentForm.get('name').value || this.resultNames[1] || '#';
+    const manufacturerName = this.manufacturerForm.get('name').value || this.resultNames[2] || '#';
+    const modelName = this.modelForm.get('name').value || this.resultNames[3] || '#';
 
     const specificitiesSpeed = this.specificitiesForm.get('speed').value || '#';
     const specificitiesCapacity = this.specificitiesForm.get('capacity').value || '#';
     const specificitiesGenaration = this.specificitiesForm.get('genaration').value || '#';
     const specificitiesVersion = this.specificitiesForm.get('version').value || '#';
-    const specificitiesDescription = this.specificitiesForm.get('description').value || '#';
+    // const specificitiesDescription = this.specificitiesForm.get('description').value || '#';
 
     const result = `
     ${items[0]}  ${typeName},

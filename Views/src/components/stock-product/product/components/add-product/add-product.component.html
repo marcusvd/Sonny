@@ -45,7 +45,11 @@
 
 
             <ng-container *ngIf="this.newItemSelected !=''">
-                <new-item-product-type [formMainFromAddProduct]="formMainFromAddProduct" [newItemSelected]="newItemSelected" (outUpdateForm)="sendFormToNewItem()"></new-item-product-type>
+                <new-item-product-type 
+                [formFromromAddProduct]="sendFormMainToNewItemProduct" 
+                [productsTypes]="productsTypes$" [segments]="segments$" [manufacturers]="manufacturers$" [models]="models$"
+                [newItemSelected]="newItemSelected">
+                </new-item-product-type>
             </ng-container>
             <br>
             <div class="checks">
