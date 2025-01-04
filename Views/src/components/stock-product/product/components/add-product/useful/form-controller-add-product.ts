@@ -15,10 +15,10 @@ import { SpecificitiesDto } from "../../../dtos/specificities-dto";
 
 
 export class FormControllerAddProduct extends BaseForm {
+
   constructor(private _fb: FormBuilder) {
     super()
   }
-
 
   //OBSERVABLES
   productsTypes$ = new Observable<ProductTypeDto[]>();
@@ -33,6 +33,8 @@ export class FormControllerAddProduct extends BaseForm {
   manufacturerForm: FormGroup;
   modelForm: FormGroup;
   specificitiesForm: FormGroup;
+
+  formMainFromAddProduct = this.formMain;
 
   newItemSelected: string = '';
 
@@ -71,6 +73,13 @@ export class FormControllerAddProduct extends BaseForm {
     else
       this.newItemSelected = ''
 
+
+  }
+
+
+  sendFormToNewItem(){
+    this.formMainFromAddProduct = this.formMain;
+    console.log('test')
   }
 
   onSelectedSegment(id: number) {
@@ -164,7 +173,6 @@ export class FormControllerAddProduct extends BaseForm {
     this.models$ = null;
     this.specificities$ = null;
   }
-
 
 
 }

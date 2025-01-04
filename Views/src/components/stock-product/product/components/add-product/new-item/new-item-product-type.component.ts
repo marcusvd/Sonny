@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 
@@ -6,8 +6,8 @@ import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 // import { ProductTypeService } from '../../services/product-type.service';
 import { FormControllerAddProductType } from './useful/form-controller-add-product-type';
-import { ProductTypeValidatorAsync } from './useful/product-type-validator-async-fields';
 import { ImportsProductType } from './useful/imports-product-type';
+import { ProductTypeValidatorAsync } from './useful/product-type-validator-async-fields';
 
 
 @Component({
@@ -22,6 +22,7 @@ export class NewItemProductTypeComponent extends FormControllerAddProductType im
 
   @Input() newItemSelected = ''
   @Input() formMainFromAddProduct: FormGroup;
+  @Output() outUpdateForm = new EventEmitter<void>();
 
   constructor(
     public _fbMain: FormBuilder,
@@ -95,10 +96,12 @@ export class NewItemProductTypeComponent extends FormControllerAddProductType im
 
   makeDescription = () => {
 
+    this.outUpdateForm.emit();
+
     const items = [] = ['Tipo de produto:', 'Segmento:', 'Fabricante:', 'Modelo:', 'Velocidade:', 'Capacidade:', 'Geração:', 'Versão:', 'Descrição:'];
 
     const typeName = this.formMain.get('name').value ?? this.formMainFromAddProduct.get('productTypeId').value ?? '#';
-    const segmentName = this.segmentForm.get('name').value ?? this.formMainFromAddProduct.get('segmentId').value ?? '#';
+    const segmentName = this.segmentForm.get('name').value == '' || this.segmentForm.get('name').value == null ? this.formMainFromAddProduct.get('segmentId').value : '#';
     const manufacturerName = this.manufacturerForm.get('name').value ?? this.formMainFromAddProduct.get('manufacturerId').value ?? '#';
     const modelName = this.modelForm.get('name').value ?? this.formMainFromAddProduct.get('modelId').value ?? '#';
 
@@ -107,7 +110,6 @@ export class NewItemProductTypeComponent extends FormControllerAddProductType im
     const specificitiesGenaration = this.specificitiesForm.get('genaration').value ?? '#';
     const specificitiesVersion = this.specificitiesForm.get('version').value ?? '#';
     const specificitiesDescription = this.specificitiesForm.get('description').value ?? '#';
-
 
     const result = `
     ${items[0]}  ${typeName},
@@ -120,7 +122,6 @@ export class NewItemProductTypeComponent extends FormControllerAddProductType im
     ${items[7]}  ${specificitiesVersion},`;
 
     this.specificitiesForm.get('description').setValue(result);
-
   }
 
 
