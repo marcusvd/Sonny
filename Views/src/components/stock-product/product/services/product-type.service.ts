@@ -12,6 +12,7 @@ import { ManufacturerDto } from "../dtos/manufacturer-dto";
 import { ModelDto } from "../dtos/model-dto";
 import { ProductTypeDto } from "../dtos/product-type-dto";
 import { SegmentDto } from "../dtos/segment-dto";
+import { ProductDto } from "../dtos/product-dto";
 
 
 @Injectable({ providedIn: 'root' })
@@ -116,6 +117,27 @@ export class ProductTypeService extends BackEndService<ProductTypeDto> {
 
   updateSingle(form: FormGroup) {
     const toSave:ProductTypeDto = { ...form.value }
+    this.update$<ProductTypeDto>('_PD_Products/UpdateProductTypeAsync',toSave).subscribe({
+      next: () => {
+        console.log('deu bom')
+        this._communicationsAlerts.defaultSnackMsg('2', 0, null, 4);
+      },
+      error: (erroCode) => {
+        console.log(erroCode)
+        this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
+      }
+
+    })
+  }
+  updateSingleTest(form: FormGroup, formToAddArrayUpdate: FormGroup) {
+    const toSave:ProductTypeDto = { ...form.value }
+    toSave.products = [];
+
+    const toSaveTest:ProductDto = { ...formToAddArrayUpdate.value }
+
+    toSave.products.push(toSaveTest);
+
+
     this.update$<ProductTypeDto>('_PD_Products/UpdateProductTypeAsync',toSave).subscribe({
       next: () => {
         console.log('deu bom')

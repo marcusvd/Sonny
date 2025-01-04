@@ -93,6 +93,7 @@
         </div>
 
         <div>{{formMain.value | json}}</div>
+        <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
         <!-- <mat-error>
                 <span>{{validatorMessages.minMaxLength(formMain,frmControlName, 'Observações', minLength, maxLength)}}</span>
                 <span *ngIf="required">{{validatorMessages.required(formMain, frmControlName, 'Descrição')}}</span>

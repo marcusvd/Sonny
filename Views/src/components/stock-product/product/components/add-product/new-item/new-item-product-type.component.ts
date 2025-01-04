@@ -12,6 +12,8 @@ import { ProductTypeDto } from '../../../dtos/product-type-dto';
 import { SegmentDto } from '../../../dtos/segment-dto';
 import { ManufacturerDto } from '../../../dtos/manufacturer-dto';
 import { ModelDto } from '../../../dtos/model-dto';
+import { ProductDto } from '../../../dtos/product-dto';
+import { ProductTypeService } from '../../../services/product-type.service';
 
 
 @Component({
@@ -26,6 +28,7 @@ export class NewItemProductTypeComponent extends FormControllerAddProductType im
 
   @Input() newItemSelected = ''
   @Input() formFromromAddProduct: FormGroup;
+  @Input() formToAddArrayUpdate:FormGroup;
 
   @Input('productsTypes') productsTypes$ = new Observable<ProductTypeDto[]>();
   @Input('segments') segments$: Observable<SegmentDto[]>;
@@ -34,7 +37,7 @@ export class NewItemProductTypeComponent extends FormControllerAddProductType im
 
   constructor(
     public _fbMain: FormBuilder,
-    // public _productTypeService: ProductTypeService,
+    public _productTypeService: ProductTypeService,
     override _productTypeValidatorAsync: ProductTypeValidatorAsync,
 
   ) {
@@ -54,6 +57,8 @@ export class NewItemProductTypeComponent extends FormControllerAddProductType im
     this.selectedNameHandle('segmentId', this.segments$, 1);
     this.selectedNameHandle('manufacturerId', this.manufacturers$, 2);
     this.selectedNameHandle('modelId', this.models$, 3);
+
+    this.updateFormMain();
   }
 
   speedMeasure = ''
@@ -111,11 +116,21 @@ export class NewItemProductTypeComponent extends FormControllerAddProductType im
 
   selectedNameHandle = (entityName: string, entityObservable: Observable<any[]>, index: number) => {
     const id = this.formFromromAddProduct.get(entityName).value;
+
     entityObservable.pipe(map(x => {
       this.resultNames[index] = x.find(y => y.id == id).name
     })).subscribe();
 
     return this.resultNames[index];
+  }
+
+  updateFormMain = () => {
+    const id = this.formFromromAddProduct.get('productTypeId').value;
+
+    this.productsTypes$.pipe(map(x => {
+      this.formMain.get('name').patchValue(x.find(y => y.id == id).name)
+      this.formMain.get('id').patchValue(id)
+    })).subscribe();
   }
 
 
@@ -159,16 +174,19 @@ export class NewItemProductTypeComponent extends FormControllerAddProductType im
   }
 
   save() {
-    if (this.alertSave(this.formMain)) {
+    
+    
+    this._productTypeService.updateSingleTest(this.formMain, this.formToAddArrayUpdate);    
+    // if (this.alertSave(this.formMain)) {
 
-      this.handleFormToSave();
-      this.saveBtnEnabledDisabled = true;
-      // this._productTypeService.add(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm, this.specificitiesForm);
-      this.formControlReset();
+    //   this.handleFormToSave();
+    //   this.saveBtnEnabledDisabled = true;
+    //   this._productTypeService.updateSingleTest(this.formMain, this.formToAddArrayUpdate);
+    //   this.formControlReset();
 
-    }
-    else
-      this.formErrosValidation = true;
+    // }
+    // else
+    //   this.formErrosValidation = true;
 
   }
 
