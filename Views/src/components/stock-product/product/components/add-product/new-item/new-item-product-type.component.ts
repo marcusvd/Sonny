@@ -14,6 +14,7 @@ import { ManufacturerDto } from '../../../dtos/manufacturer-dto';
 import { ModelDto } from '../../../dtos/model-dto';
 import { ProductDto } from '../../../dtos/product-dto';
 import { ProductTypeService } from '../../../services/product-type.service';
+import { UpdateProductTypeService } from './services/update-product-type.service';
 
 
 @Component({
@@ -27,38 +28,56 @@ import { ProductTypeService } from '../../../services/product-type.service';
 export class NewItemProductTypeComponent extends FormControllerAddProductType implements OnInit, OnChanges {
 
   @Input() newItemSelected = ''
-  @Input() formFromromAddProduct: FormGroup;
-  @Input() formToAddArrayUpdate:FormGroup;
+  @Output() formMainSend = new EventEmitter<FormGroup>();
+  @Input() formMainReceived: FormGroup;
 
-  @Input('productsTypes') productsTypes$ = new Observable<ProductTypeDto[]>();
-  @Input('segments') segments$: Observable<SegmentDto[]>;
-  @Input('manufacturers') manufacturers$: Observable<ManufacturerDto[]>
-  @Input('models') models$: Observable<ModelDto[]>
+  // @Input() formFromromAddProduct: FormGroup;
+  // @Input() formToAddArrayUpdate: FormGroup;
+
+  // @Input('productsTypes') productsTypes$ = new Observable<ProductTypeDto[]>();
+  // @Input('segments') segments$: Observable<SegmentDto[]>;
+  // @Input('manufacturers') manufacturers$: Observable<ManufacturerDto[]>
+  // @Input('models') models$: Observable<ModelDto[]>
+  // @Input() setSegment: boolean = false;
+  // @Input() setManufacturer: boolean = false;
 
   constructor(
     public _fbMain: FormBuilder,
-    public _productTypeService: ProductTypeService,
+    public _productTypeService: UpdateProductTypeService,
     override _productTypeValidatorAsync: ProductTypeValidatorAsync,
 
   ) {
     super(_fbMain, _productTypeValidatorAsync)
   }
+
+
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.newItemSelected)
+
+    // if (this.newItemSelected != '') 
+
+
+    // if (changes['setSegment']?.currentValue) {
+    //   // console.log("deu bom")
+    //   this.updateForms(this.segmentForm, 'segmentId', this.segments$);
+    // }
+    // this.updateSegment();
+    // console.log(this.formFromromAddProduct.value)
   }
 
 
 
   ngOnInit(): void {
     this.formLoad();
+    this.formMainSend.emit(this.formMain);
     this.addEmptyFormArrays();
 
-    this.selectedNameHandle('productTypeId', this.productsTypes$, 0);
-    this.selectedNameHandle('segmentId', this.segments$, 1);
-    this.selectedNameHandle('manufacturerId', this.manufacturers$, 2);
-    this.selectedNameHandle('modelId', this.models$, 3);
+    // this.updateForms(this.formMain, 'productTypeId', this.productsTypes$);
 
-    this.updateFormMain();
+    // this.selectedNameHandle('productTypeId', this.productsTypes$, 0);
+    // this.selectedNameHandle('segmentId', this.segments$, 1);
+    // this.selectedNameHandle('manufacturerId', this.manufacturers$, 2);
+    // this.selectedNameHandle('modelId', this.models$, 3);
+
   }
 
   speedMeasure = ''
@@ -67,7 +86,7 @@ export class NewItemProductTypeComponent extends FormControllerAddProductType im
   noEntriesFoundLabel = '';
   placeholderProduct = '';
   productNameAttribute = '';
-  resultNames: string[] = [];
+  // resultNames: string[] = [];
   formErrosValidation = false;
 
   capacityHandle(value: string) {
@@ -113,44 +132,32 @@ export class NewItemProductTypeComponent extends FormControllerAddProductType im
     return value;
   }
 
-
-  selectedNameHandle = (entityName: string, entityObservable: Observable<any[]>, index: number) => {
-    const id = this.formFromromAddProduct.get(entityName).value;
-
-    entityObservable.pipe(map(x => {
-      this.resultNames[index] = x.find(y => y.id == id).name
-    })).subscribe();
-
-    return this.resultNames[index];
+  handleForms = () => {
+    this.segmentForm = this.formMainReceived.get('segments').get('0') as FormGroup;
+    this.manufacturerForm = this.segmentForm.get('manufacturers').get('0') as FormGroup;
   }
 
-  updateFormMain = () => {
-    const id = this.formFromromAddProduct.get('productTypeId').value;
-
-    this.productsTypes$.pipe(map(x => {
-      this.formMain.get('name').patchValue(x.find(y => y.id == id).name)
-      this.formMain.get('id').patchValue(id)
-    })).subscribe();
+  getSpecificitiesFormValues(value: string) {
+    return this.formMain.get('segments')?.get('0').get('manufacturers').get('0').get('models').get('0').get('specificities').get('0').get(value).value
   }
-
-
-
 
   makeDescription = async () => {
+   
+    this.handleForms();
 
     const items = [] = ['Tipo de produto:', 'Segmento:', 'Fabricante:', 'Modelo:', 'Velocidade:', 'Capacidade:', 'Geração:', 'Versão:', 'Descrição:'];
 
-    const typeName = this.formMain.get('name').value || this.resultNames[0] || '#';
-    const segmentName = this.segmentForm.get('name').value || this.resultNames[1] || '#';
-    const manufacturerName = this.manufacturerForm.get('name').value || this.resultNames[2] || '#';
-    const modelName = this.modelForm.get('name').value || this.resultNames[3] || '#';
+    const typeName = this.formMain.get('name').value || '#';
+    const segmentName = this.segmentForm.get('name').value || '#';
+    const manufacturerName = this.manufacturerForm.get('name').value || '#';
+    const modelName = this.modelForm.get('name').value || '#';
 
-    const specificitiesSpeed = this.specificitiesForm.get('speed').value || '#';
-    const specificitiesCapacity = this.specificitiesForm.get('capacity').value || '#';
-    const specificitiesGenaration = this.specificitiesForm.get('genaration').value || '#';
-    const specificitiesVersion = this.specificitiesForm.get('version').value || '#';
-    // const specificitiesDescription = this.specificitiesForm.get('description').value || '#';
+    const specificitiesSpeed = this.getSpecificitiesFormValues('speed') || '#';
 
+    const specificitiesCapacity = this.getSpecificitiesFormValues('capacity') || '#';
+    const specificitiesGenaration = this.getSpecificitiesFormValues('generation') || '#';
+    const specificitiesVersion = this.getSpecificitiesFormValues('version') || '#';
+ 
     const result = `
     ${items[0]}  ${typeName},
     ${items[1]}  ${segmentName},
@@ -174,19 +181,19 @@ export class NewItemProductTypeComponent extends FormControllerAddProductType im
   }
 
   save() {
-    
-    
-    this._productTypeService.updateSingleTest(this.formMain, this.formToAddArrayUpdate);    
-    // if (this.alertSave(this.formMain)) {
 
-    //   this.handleFormToSave();
-    //   this.saveBtnEnabledDisabled = true;
-    //   this._productTypeService.updateSingleTest(this.formMain, this.formToAddArrayUpdate);
-    //   this.formControlReset();
 
-    // }
-    // else
-    //   this.formErrosValidation = true;
+    console.log(this.formMain.controls)
+    if (this.alertSave(this.formMain)) {
+
+      this.handleFormToSave();
+      this.saveBtnEnabledDisabled = true;
+      this._productTypeService.updateSingle(this.formMain);
+      this.formControlReset();
+
+    }
+    else
+      this.formErrosValidation = true;
 
   }
 

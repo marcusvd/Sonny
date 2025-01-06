@@ -33,7 +33,8 @@ export class FormControllerAddProduct extends BaseForm {
   manufacturerForm: FormGroup;
   modelForm: FormGroup;
   specificitiesForm: FormGroup;
-  sendFormMainToNewItemProduct: FormGroup;
+  // sendFormMainToNewItemProduct: FormGroup;
+  newItemSelected: string = '';
 
   newItem = () => {
     const toRegisterNew: any = {
@@ -60,20 +61,33 @@ export class FormControllerAddProduct extends BaseForm {
       this.newItemSelected = ''
   }
 
+  formMainProductType: FormGroup;
+  formHandler(form: FormGroup) {
+    this.formMainProductType = form;
+  }
 
-  newItemSelected: string = '';
 
   onSelectedProduct(id: number) {
 
     this.manufacturers$ = null;
 
-    this.segments$ = this.productsTypes$.pipe(map(x =>x.find(y => y.id == id).segments));
+    this.segments$ = this.productsTypes$.pipe(map(x => {
 
-    this.segments$ = this.segments$.pipe(map(x => [...x, this.newItem()]))
+      this.formMainProductType.get('id')?.patchValue(id);
+      this.formMainProductType.get('name')?.patchValue(x.find(y => y.id == id).name);
+
+      return x.find(y => y.id == id).segments
+
+    }));
+
+    this.segments$ = this.segments$.pipe(map(x => [...x ?? [], this?.newItem()]))
 
     this.formMain.get('productTypeId')?.patchValue(id);
 
-    this.sendFormMainToNewItemProduct = this.formMain;
+
+
+
+    // this.sendFormMainToNewItemProduct = this.formMain;
   }
 
   onSelectedSegment(id: number) {
@@ -81,33 +95,57 @@ export class FormControllerAddProduct extends BaseForm {
     this.newItemScreenControl(id, 'segment');
 
     this.manufacturers$ = this.segments$.pipe(
-      map(x =>  x.find(segment => segment.id == id).manufacturers)
+      map(x => {
+        if (id != 0) {
+          this.formMainProductType.get('segments')?.get('0').get('id').setValue(id)
+          this.formMainProductType.get('segments')?.get('0').get('name').setValue(x.find(y => y.id == id).name)
+        }
+
+        return x.find(segment => segment.id == id).manufacturers
+      })
     )
 
-
-    this.manufacturers$ = this.manufacturers$.pipe(map(x => [...x, this.newItem()]));
+    this.manufacturers$ = this.manufacturers$.pipe(map(x => [...x ?? [], this?.newItem()]));
     this.formMain.get('segmentId')?.patchValue(id);
-    this.sendFormMainToNewItemProduct = this.formMain;
+    // this.sendFormMainToNewItemProduct = this.formMain;
+
+
   }
+
 
   onSelectedManufacturer(id: number) {
 
+
     this.newItemScreenControl(id, 'manufacturer');
 
-    this.models$ = this.manufacturers$.pipe(
-      map(x => x.find(manufacturer => manufacturer.id == id).models)
+    this.models$ = this.manufacturers$?.pipe(
+      map(x => {
+        if (id != 0) {
+          this.formMainProductType.get('segments')?.get('0').get('manufacturers').get('0').get('id').setValue(id)
+          this.formMainProductType.get('segments')?.get('0').get('manufacturers').get('0').get('name').setValue(x.find(y => y.id == id).name)
+        }
+        return x.find(manufacturer => manufacturer?.id == id)?.models
+      })
     )
-    this.models$ = this.models$.pipe(map(x => [...x, this.newItem()]));
+
+    this.models$ = this?.models$?.pipe(map(x => [...x ?? [], this?.newItem()]));
 
     this.formMain.get('manufacturerId')?.patchValue(id);
-    this.sendFormMainToNewItemProduct = this.formMain;
+    // this.sendFormMainToNewItemProduct = this?.formMain;
+
+
   }
 
   onSelectedModel(id: number) {
     this.newItemScreenControl(id, 'model');
 
+    // if (id != 0) {
+    //   this.formMainProductType.get('segments')?.get('0').get('manufacturers').get('0').get('models').get('0').get('id').setValue(id)
+    //   this.formMainProductType.get('segments')?.get('0').get('manufacturers').get('0').get('models').get('0').get('name').setValue(x.find(y => y.id == id).name)
+    // }
+
     this.specificities$ = this.models$.pipe(
-      map(x => x.find(models => models.id == id).specificities)
+      map(x =>  x.find(models => models.id == id).specificities)
     )
 
     this.specificities$ = this.specificities$.pipe(
@@ -120,7 +158,7 @@ export class FormControllerAddProduct extends BaseForm {
     );
 
     this.formMain.get('modelId')?.patchValue(id);
-    this.sendFormMainToNewItemProduct = this.formMain;
+    // this.sendFormMainToNewItemProduct = this.formMain;
 
   }
 

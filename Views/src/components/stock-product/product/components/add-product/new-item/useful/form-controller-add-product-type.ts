@@ -1,19 +1,15 @@
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { MatCheckboxChange } from "@angular/material/checkbox";
-import { Observable, of } from "rxjs";
 import { BaseForm } from "src/shared/components/inheritance/forms/base-form";
 
 
-import { map } from "rxjs/operators";
 
 
-import { ProductTypeValidatorAsync } from "./product-type-validator-async-fields";
-import validator from "cpf-cnpj-validator";
-import { ProductTypeDto } from "src/components/stock-product/product/dtos/product-type-dto";
-import { SegmentDto } from "src/components/stock-product/product/dtos/segment-dto";
 import { ManufacturerDto } from "src/components/stock-product/product/dtos/manufacturer-dto";
 import { ModelDto } from "src/components/stock-product/product/dtos/model-dto";
+import { ProductTypeDto } from "src/components/stock-product/product/dtos/product-type-dto";
+import { SegmentDto } from "src/components/stock-product/product/dtos/segment-dto";
 import { SpecificitiesDto } from "src/components/stock-product/product/dtos/specificities-dto";
+import { ProductTypeValidatorAsync } from "./product-type-validator-async-fields";
 
 
 
@@ -55,7 +51,7 @@ export class FormControllerAddProductType extends BaseForm {
   formLoad(productType?: ProductTypeDto) {
     this.formMain = this._fb.group({
       id: [productType?.id ?? 0, [Validators.required]],
-      name: new FormControl(productType?.name, { validators: [Validators.required, Validators.maxLength(this.nameMaxLength)], asyncValidators: [this._productTypeValidatorAsync.validate.bind(this._productTypeValidatorAsync)] }),
+      name: new FormControl(productType?.name, { validators: [Validators.required, Validators.maxLength(this.nameMaxLength)] }),
       companyId: [this.companyId, [Validators.required]],
       userId: [this.userId, [Validators.required]],
       segments: this._fb.array([], Validators.required)
@@ -101,7 +97,7 @@ export class FormControllerAddProductType extends BaseForm {
       companyId: [this.companyId, [Validators.required]],
       speed: new FormControl({ value: specificities?.speed ?? '', disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
       capacity: new FormControl({ value: specificities?.capacity ?? '', disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
-      genaration: ['', []],
+      generation: ['', []],
       version: ['', []],
       description:['', []],
       registered:[new Date(), [Validators.required]],

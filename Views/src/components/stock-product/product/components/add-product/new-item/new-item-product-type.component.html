@@ -68,11 +68,11 @@
         </mat-form-field>
 
         <field-input-g [type]="'text'" [formMain]="specificitiesForm" [inputLabel]="'Geração'"
-            [fieldControlName]="'genaration'">
+            [fieldControlName]="'generation'">
             <span msg-error
-                *ngIf="this.formError(specificitiesForm,'genaration', 'required') && this.formTouched(specificitiesForm, 'genaration')">{{requiredMsg}}</span>
+                *ngIf="this.formError(specificitiesForm,'generation', 'required') && this.formTouched(specificitiesForm, 'generation')">{{requiredMsg}}</span>
             <span msg-error
-                *ngIf="this.formError(specificitiesForm,'genaration', 'maxlength') && this.formTouched(specificitiesForm, 'genaration')">{{maxLengthMsg
+                *ngIf="this.formError(specificitiesForm,'generation', 'maxlength') && this.formTouched(specificitiesForm, 'generation')">{{maxLengthMsg
                 + '50' + charactersMsg}}</span>
         </field-input-g>
 

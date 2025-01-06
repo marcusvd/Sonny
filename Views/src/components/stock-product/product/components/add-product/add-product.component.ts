@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
 import { AddProductService } from '../../services/add-product.service';
@@ -57,7 +57,7 @@ export class AddProductComponent extends FormControllerAddProduct implements OnI
       this.formControlReset();
 
       this.formMainLoad();
-
+      this.newItemSelected = '';
     }
 
   }

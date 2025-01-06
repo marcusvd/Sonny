@@ -129,42 +129,7 @@ export class ProductTypeService extends BackEndService<ProductTypeDto> {
 
     })
   }
-  updateSingleTest(form: FormGroup, formToAddArrayUpdate: FormGroup) {
-    const toSave:ProductTypeDto = { ...form.value }
-    toSave.products = [];
-
-    const toSaveTest:ProductDto = { ...formToAddArrayUpdate.value }
-
-    toSave.products.push(toSaveTest);
-
-
-    this.update$<ProductTypeDto>('_PD_Products/UpdateProductTypeAsync',toSave).subscribe({
-      next: () => {
-        console.log('deu bom')
-        this._communicationsAlerts.defaultSnackMsg('2', 0, null, 4);
-      },
-      error: (erroCode) => {
-        console.log(erroCode)
-        this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
-      }
-
-    })
-  }
-
-  // saveRangeSegments(formArray: FormArray) {
-  //   const toUpdate = formArray.value;
-  //   const toSave: ProductTypeDto[] = [...toUpdate];
-  //   this.updateRange$<ProductTypeDto>(toSave, '_PD_ProductChildren/UpdateSegmentRangeAsync').subscribe({
-  //     next: () => {
-  //       this._communicationsAlerts.defaultSnackMsg('2', 0, null, 4);
-  //     },
-  //     error: (erroCode) => {
-  //       console.log(erroCode)
-  //       this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
-  //     }
-
-  //   })
-  // }
+  
   updateRangeTypes(formArray: FormArray) {
     const toUpdate = formArray.value;
     const toSave: ProductTypeDto[] = [...toUpdate];
