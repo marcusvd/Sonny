@@ -1,103 +1,119 @@
-<div class="container--display">
+<div class="border-around">
+    <title-component [digit]="'|'" [titleString]="'Tipo de produto'" [icon]="'storage'">
+    </title-component>
+
+    <mat-card class="container--mat-card">
+        <sub-title class="container--sub-title" title [title]="'Cadastro'" [icon]="'add'"></sub-title>
+
+        <div class="container--display">
+
+            <!-- Column LEFT -->
+            <div class="container--group-items">
+                <h3>Básico</h3>
+                  <!-- product start-->
+                  <field-input-g [type]="'text'" [formMain]="this.formMain" [inputLabel]="'Tipo'" [fieldControlName]="'name'">
+                    <span msg-error *ngIf="this.formError(formMain,'name', 'required') && this.formTouched(formMain, 'name')">{{requiredMsg}}</span>
+                    <span msg-error *ngIf="this.formError(formMain,'name', 'maxlength') && this.formTouched(formMain, 'name')">{{maxLengthMsg
+                        + '50' + charactersMsg}}</span>
+                    <span msg-error *ngIf="this.formError(formMain,'name', 'inUse') && this.formTouched(formMain, 'name')">{{inUseMsg}}</span>
+                </field-input-g>
+                <!-- segment start-->
+                <field-input-g  [type]="'text'" [formMain]="segmentForm"
+                    [inputLabel]="'Segmento'" [fieldControlName]="'name'">
+                    <span msg-error
+                        *ngIf="this.formError(segmentForm,'name', 'required') && this.formTouched(segmentForm, 'name')">{{requiredMsg}}</span>
+                    <span msg-error
+                        *ngIf="this.formError(segmentForm,'name', 'maxlength') && this.formTouched(segmentForm, 'name')">{{maxLengthMsg
+                        + '50' + charactersMsg}}</span>
+                </field-input-g>
+                <!-- segment end-->
 
 
-    <!-- Column LEFT -->
-    <div class="container--group-items">
-        <h3>Básico</h3>
-        <!-- segment start-->
-        <field-input-g *ngIf="newItemSelected == 'segment'" [type]="'text'" [formMain]="segmentForm"
-            [inputLabel]="'Segmento'" [fieldControlName]="'name'">
-            <span msg-error
-                *ngIf="this.formError(segmentForm,'name', 'required') && this.formTouched(segmentForm, 'name')">{{requiredMsg}}</span>
-            <span msg-error
-                *ngIf="this.formError(segmentForm,'name', 'maxlength') && this.formTouched(segmentForm, 'name')">{{maxLengthMsg
-                + '50' + charactersMsg}}</span>
-        </field-input-g>
-        <!-- segment end-->
+                <!-- manufacturer start-->
+                <field-input-g  [type]="'text'"
+                    [formMain]="manufacturerForm" [inputLabel]="'Fabricante'" [fieldControlName]="'name'">
+                    <span msg-error
+                        *ngIf="this.formError(manufacturerForm,'name', 'required') && this.formTouched(manufacturerForm, 'name')">{{requiredMsg}}</span>
+                    <span msg-error
+                        *ngIf="this.formError(manufacturerForm,'name', 'maxlength') && this.formTouched(manufacturerForm, 'name')">{{maxLengthMsg
+                        + '50' + charactersMsg}}</span>
+                </field-input-g>
+                <!-- manufacturer end-->
+
+                <!-- model start-->
+                <field-input-g
+                    [type]="'text'" [formMain]="modelForm" [inputLabel]="'Modelo'" [fieldControlName]="'name'">
+                    <span msg-error
+                        *ngIf="this.formError(modelForm,'name', 'required') && this.formTouched(modelForm, 'name')">{{requiredMsg}}</span>
+                    <span msg-error
+                        *ngIf="this.formError(modelForm,'name', 'maxlength') && this.formTouched(modelForm, 'name')">{{maxLengthMsg
+                        + '50' + charactersMsg}}</span>
+                </field-input-g>
+            </div>
 
 
-        <!-- manufacturer start-->
-        <field-input-g *ngIf="newItemSelected == 'manufacturer' || newItemSelected=='segment'" [type]="'text'"
-            [formMain]="manufacturerForm" [inputLabel]="'Fabricante'" [fieldControlName]="'name'">
-            <span msg-error
-                *ngIf="this.formError(manufacturerForm,'name', 'required') && this.formTouched(manufacturerForm, 'name')">{{requiredMsg}}</span>
-            <span msg-error
-                *ngIf="this.formError(manufacturerForm,'name', 'maxlength') && this.formTouched(manufacturerForm, 'name')">{{maxLengthMsg
-                + '50' + charactersMsg}}</span>
-        </field-input-g>
-        <!-- manufacturer end-->
+            <div class="container--group-specificity">
+                <h3>Especificidade</h3>
+                <field-select-g class="space-between" (outEntitiesSelected)="onSelectSpeedMeasure($event)"
+                    [entities]="speed$" [labelInput]="'Medida'" [formControlResetalways]="controlReset">
+                </field-select-g>
 
-        <!-- model start-->
-        <field-input-g *ngIf="newItemSelected == 'manufacturer' || newItemSelected=='segment' || newItemSelected=='model'" [type]="'text'"
-            [formMain]="modelForm" [inputLabel]="'Modelo'" [fieldControlName]="'name'">
-            <span msg-error
-                *ngIf="this.formError(modelForm,'name', 'required') && this.formTouched(modelForm, 'name')">{{requiredMsg}}</span>
-            <span msg-error
-                *ngIf="this.formError(modelForm,'name', 'maxlength') && this.formTouched(modelForm, 'name')">{{maxLengthMsg
-                + '50' + charactersMsg}}</span>
-        </field-input-g>
-    </div>
+                <mat-form-field class="container--space" [formGroup]="specificitiesForm" appearance="outline"
+                    floatLabel="always">
+                    <mat-label>Velocidade</mat-label>
+                    <input class="container--prefix-suffix-right-align" #speed (input)="speedHandle(speed.value)"
+                        matInput type="text" placeholder="0" formControlName="speed">
+                    <mat-hint>EX: (3.0 - 3.8) Os números a esqueda são o mínimo e os da direita o máximo.</mat-hint>
+                    <span matSuffix>{{speedMeasure}}</span>
+                </mat-form-field>
 
+                <field-select-g class="container--space-between" (outEntitiesSelected)="onSelectStorageMeasure($event)"
+                    [entities]="storage$" [labelInput]="'Medida'" [formControlResetalways]="controlReset">
+                </field-select-g>
 
-    <div class="container--group-specificity">
-        <h3>Especificidade</h3>
-        <field-select-g class="space-between" (outEntitiesSelected)="onSelectSpeedMeasure($event)" [entities]="speed$"
-            [labelInput]="'Medida'" [formControlResetalways]="controlReset">
-        </field-select-g>
+                <mat-form-field class="container--space" [formGroup]="specificitiesForm" appearance="outline"
+                    floatLabel="always">
+                    <mat-label>Capacidade</mat-label>
+                    <input class="container--prefix-suffix-right-align" #capacity
+                        (input)="capacityHandle(capacity.value)" matInput type="text" placeholder="0"
+                        formControlName="capacity">
+                    <mat-hint>EX: (240 - 280) Os números a esqueda são o mínimo e os da direita o máximo.</mat-hint>
+                    <span matSuffix>{{storageMeasure}}</span>
+                </mat-form-field>
 
-        <mat-form-field class="container--space" [formGroup]="specificitiesForm" appearance="outline"
-            floatLabel="always">
-            <mat-label>Velocidade</mat-label>
-            <input class="container--prefix-suffix-right-align" #speed (input)="speedHandle(speed.value)" matInput
-                type="text" placeholder="0" formControlName="speed">
-            <mat-hint>EX: (3.0 - 3.8) Os números a esqueda são o mínimo e os da direita o máximo.</mat-hint>
-            <span matSuffix>{{speedMeasure}}</span>
-        </mat-form-field>
+                <field-input-g [type]="'text'" [formMain]="specificitiesForm" [inputLabel]="'Geração'"
+                    [fieldControlName]="'generation'">
+                    <span msg-error
+                        *ngIf="this.formError(specificitiesForm,'generation', 'required') && this.formTouched(specificitiesForm, 'generation')">{{requiredMsg}}</span>
+                    <span msg-error
+                        *ngIf="this.formError(specificitiesForm,'generation', 'maxlength') && this.formTouched(specificitiesForm, 'generation')">{{maxLengthMsg
+                        + '50' + charactersMsg}}</span>
+                </field-input-g>
 
-        <field-select-g class="container--space-between" (outEntitiesSelected)="onSelectStorageMeasure($event)"
-            [entities]="storage$" [labelInput]="'Medida'" [formControlResetalways]="controlReset">
-        </field-select-g>
-
-        <mat-form-field class="container--space" [formGroup]="specificitiesForm" appearance="outline"
-            floatLabel="always">
-            <mat-label>Capacidade</mat-label>
-            <input class="container--prefix-suffix-right-align" #capacity (input)="capacityHandle(capacity.value)"
-                matInput type="text" placeholder="0" formControlName="capacity">
-            <mat-hint>EX: (240 - 280) Os números a esqueda são o mínimo e os da direita o máximo.</mat-hint>
-            <span matSuffix>{{storageMeasure}}</span>
-        </mat-form-field>
-
-        <field-input-g [type]="'text'" [formMain]="specificitiesForm" [inputLabel]="'Geração'"
-            [fieldControlName]="'generation'">
-            <span msg-error
-                *ngIf="this.formError(specificitiesForm,'generation', 'required') && this.formTouched(specificitiesForm, 'generation')">{{requiredMsg}}</span>
-            <span msg-error
-                *ngIf="this.formError(specificitiesForm,'generation', 'maxlength') && this.formTouched(specificitiesForm, 'generation')">{{maxLengthMsg
-                + '50' + charactersMsg}}</span>
-        </field-input-g>
-
-        <field-input-g [type]="'text'" [formMain]="specificitiesForm" [inputLabel]="'Versão'"
-            [fieldControlName]="'version'">
-            <span msg-error
-                *ngIf="this.formError(specificitiesForm,'version', 'required') && this.formTouched(specificitiesForm, 'version')">{{requiredMsg}}</span>
-            <span msg-error
-                *ngIf="this.formError(specificitiesForm,'version', 'maxlength') && this.formTouched(specificitiesForm, 'version')">{{maxLengthMsg
-                + '50' + charactersMsg}}</span>
-        </field-input-g>
+                <field-input-g [type]="'text'" [formMain]="specificitiesForm" [inputLabel]="'Versão'"
+                    [fieldControlName]="'version'">
+                    <span msg-error
+                        *ngIf="this.formError(specificitiesForm,'version', 'required') && this.formTouched(specificitiesForm, 'version')">{{requiredMsg}}</span>
+                    <span msg-error
+                        *ngIf="this.formError(specificitiesForm,'version', 'maxlength') && this.formTouched(specificitiesForm, 'version')">{{maxLengthMsg
+                        + '50' + charactersMsg}}</span>
+                </field-input-g>
 
 
-        <!-- <mat-label>{{'Descrição'}}</mat-label> -->
-        <div [formGroup]="specificitiesForm">
-            <textarea (click)="makeDescription()" style="border:1px solid #2ba1a8; border-radius: 4px;" matInput
-                [rows]="10" [placeholder]="'Descrição'" formControlName="description"></textarea>
-        </div>
+                <!-- <mat-label>{{'Descrição'}}</mat-label> -->
+                <div [formGroup]="specificitiesForm">
+                    <textarea (click)="makeDescription()" style="border:1px solid #2ba1a8; border-radius: 4px;" matInput
+                        [rows]="10" [placeholder]="'Descrição'" formControlName="description"></textarea>
+                </div>
 
-        <div>{{formMain.value | json}}</div>
-        <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
-        <!-- <mat-error>
+                <div>{{formMain.value | json}}</div>
+                <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
+                <!-- <mat-error>
                 <span>{{validatorMessages.minMaxLength(formMain,frmControlName, 'Observações', minLength, maxLength)}}</span>
                 <span *ngIf="required">{{validatorMessages.required(formMain, frmControlName, 'Descrição')}}</span>
             </mat-error> -->
 
-    </div>
+            </div>
+        </div>
+    </mat-card>
 </div>

@@ -16,17 +16,16 @@ import { ImportsAddProduct } from './useful/imports-add-product';
   styleUrls: ['./add-product.component.css']
 })
 
-
 export class AddProductComponent extends FormControllerAddProduct implements OnInit {
   constructor(
     public _fbMain: FormBuilder,
     private _productTypeService: ProductTypeService,
     private _addProductService: AddProductService,
-    private _router: Router
+    private _routerMain: Router
   ) {
-    super(_fbMain)
+    super(_fbMain,_routerMain)
   }
-
+  
   ngOnInit(): void {
     this.productsTypes$ = this._productTypeService.getAllIncluded$(this.companyId.toString());
     this.formMainLoad();
@@ -36,19 +35,13 @@ export class AddProductComponent extends FormControllerAddProduct implements OnI
     this.formMain = this.formLoad(this.formMain, this.companyId, this.userId, null);
   }
 
-  callRouter = (call?: string) => {
-    if (call === 'add')
-      this._router.navigate(['/side-nav/stock-product-router/add-product-type']);
-    else
-      this._router.navigate(['/side-nav/stock-product-router/edit-product-type']);
-  }
-
   onChangeIsUsed(selection: MatCheckboxChange) {
     if (selection.checked)
       this.formMain.get('usedHistoricalOrSupplier').enable();
     else
       this.formMain.get('usedHistoricalOrSupplier').disable();
   }
+
   save() {
 
     if (this.alertSave(this.formMain)) {
@@ -57,7 +50,7 @@ export class AddProductComponent extends FormControllerAddProduct implements OnI
       this.formControlReset();
 
       this.formMainLoad();
-      this.newItemSelected = '';
+     
     }
 
   }

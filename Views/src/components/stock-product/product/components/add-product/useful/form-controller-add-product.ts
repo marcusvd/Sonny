@@ -2,6 +2,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms"
 import { MatCheckboxChange } from "@angular/material/checkbox";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
+
+
 import { PartnerDto } from "src/components/main/partner/commons-components/dtos/partner-dto";
 import { BaseForm } from "src/shared/components/inheritance/forms/base-form";
 import { ManufacturerDto } from "../../../dtos/manufacturer-dto";
@@ -11,12 +13,16 @@ import { ProductTypeDto } from "../../../dtos/product-type-dto";
 import { SegmentDto } from "../../../dtos/segment-dto";
 import { SpecificitiesDto } from "../../../dtos/specificities-dto";
 import { usedHistoricalOrSupplierValidator } from "./used-historical-or-supplier.validator";
-
+import { NavigationExtras, Router } from "@angular/router";
+import { ProductTypeEdit } from "../dto/produc-type-edit";
 
 
 export class FormControllerAddProduct extends BaseForm {
 
-  constructor(private _fb: FormBuilder) {
+  constructor(
+    private _fb: FormBuilder,
+    private _router: Router
+  ) {
     super()
   }
 
@@ -33,8 +39,10 @@ export class FormControllerAddProduct extends BaseForm {
   manufacturerForm: FormGroup;
   modelForm: FormGroup;
   specificitiesForm: FormGroup;
-  // sendFormMainToNewItemProduct: FormGroup;
+  
+  //variables
   newItemSelected: string = '';
+  productTypeEdit: ProductTypeEdit = new ProductTypeEdit();
 
   newItem = () => {
     const toRegisterNew: any = {
@@ -66,6 +74,22 @@ export class FormControllerAddProduct extends BaseForm {
     this.formMainProductType = form;
   }
 
+  callRouter = (call?: string) => {
+    if (call === 'add')
+      this._router.navigate(['/side-nav/stock-product-router/add-product-type']);
+    else
+    this._router.navigate(['/side-nav/stock-product-router/edit-product-type']);
+  }
+
+  callRouterEditProductType(entity: ProductTypeEdit) {
+
+    const objectRoute: NavigationExtras = {
+      state: entity
+    };
+
+    this._router.navigate(['/side-nav/stock-product-router/edit-product-type-add-product'], objectRoute);
+  }
+
 
   onSelectedProduct(id: number) {
 
@@ -73,8 +97,8 @@ export class FormControllerAddProduct extends BaseForm {
 
     this.segments$ = this.productsTypes$.pipe(map(x => {
 
-      this.formMainProductType.get('id')?.patchValue(id);
-      this.formMainProductType.get('name')?.patchValue(x.find(y => y.id == id).name);
+      this.productTypeEdit.productTypeId = id;
+      this.productTypeEdit.productTypeName = x.find(y => y.id == id).name;
 
       return x.find(y => y.id == id).segments
 
@@ -83,69 +107,52 @@ export class FormControllerAddProduct extends BaseForm {
     this.segments$ = this.segments$.pipe(map(x => [...x ?? [], this?.newItem()]))
 
     this.formMain.get('productTypeId')?.patchValue(id);
-
-
-
-
-    // this.sendFormMainToNewItemProduct = this.formMain;
   }
 
   onSelectedSegment(id: number) {
-
-    this.newItemScreenControl(id, 'segment');
-
+    
     this.manufacturers$ = this.segments$.pipe(
       map(x => {
-        if (id != 0) {
-          this.formMainProductType.get('segments')?.get('0').get('id').setValue(id)
-          this.formMainProductType.get('segments')?.get('0').get('name').setValue(x.find(y => y.id == id).name)
-        }
-
+       
+          this.productTypeEdit.segmentId = id;
+          this.productTypeEdit.segmentName = x.find(y => y.id == id).name;
+    
         return x.find(segment => segment.id == id).manufacturers
       })
     )
 
     this.manufacturers$ = this.manufacturers$.pipe(map(x => [...x ?? [], this?.newItem()]));
     this.formMain.get('segmentId')?.patchValue(id);
-    // this.sendFormMainToNewItemProduct = this.formMain;
 
+    if (id == 0)
+    this.callRouterEditProductType(this.productTypeEdit);
 
   }
 
 
   onSelectedManufacturer(id: number) {
-
-
-    this.newItemScreenControl(id, 'manufacturer');
-
     this.models$ = this.manufacturers$?.pipe(
       map(x => {
-        if (id != 0) {
-          this.formMainProductType.get('segments')?.get('0').get('manufacturers').get('0').get('id').setValue(id)
-          this.formMainProductType.get('segments')?.get('0').get('manufacturers').get('0').get('name').setValue(x.find(y => y.id == id).name)
-        }
-        return x.find(manufacturer => manufacturer?.id == id)?.models
+
+          this.productTypeEdit.manufacturerId = id;
+          this.productTypeEdit.manufacturerName = x.find(y => y.id == id).name;
+
+          return x.find(manufacturer => manufacturer?.id == id)?.models
       })
     )
 
     this.models$ = this?.models$?.pipe(map(x => [...x ?? [], this?.newItem()]));
 
     this.formMain.get('manufacturerId')?.patchValue(id);
-    // this.sendFormMainToNewItemProduct = this?.formMain;
 
-
+    if (id == 0)
+      this.callRouterEditProductType(this.productTypeEdit);
   }
 
   onSelectedModel(id: number) {
-    this.newItemScreenControl(id, 'model');
-
-    // if (id != 0) {
-    //   this.formMainProductType.get('segments')?.get('0').get('manufacturers').get('0').get('models').get('0').get('id').setValue(id)
-    //   this.formMainProductType.get('segments')?.get('0').get('manufacturers').get('0').get('models').get('0').get('name').setValue(x.find(y => y.id == id).name)
-    // }
 
     this.specificities$ = this.models$.pipe(
-      map(x =>  x.find(models => models.id == id).specificities)
+      map(x => x.find(models => models.id == id).specificities)
     )
 
     this.specificities$ = this.specificities$.pipe(
@@ -158,8 +165,9 @@ export class FormControllerAddProduct extends BaseForm {
     );
 
     this.formMain.get('modelId')?.patchValue(id);
-    // this.sendFormMainToNewItemProduct = this.formMain;
 
+    if (id == 0)
+      this.callRouterEditProductType(this.productTypeEdit);
   }
 
 
@@ -168,7 +176,7 @@ export class FormControllerAddProduct extends BaseForm {
   }
 
   onSupplierSelected(supplier: PartnerDto) {
-    this.formMain.get('supplierId').setValue(supplier.id);
+    this.formMain.get('supplierId').patchValue(supplier.id);
   }
 
   isTested(isTested: MatCheckboxChange) {

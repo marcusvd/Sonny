@@ -10,6 +10,8 @@ import { ProductTypeDto } from "src/components/stock-product/product/dtos/produc
 import { SegmentDto } from "src/components/stock-product/product/dtos/segment-dto";
 import { SpecificitiesDto } from "src/components/stock-product/product/dtos/specificities-dto";
 import { ProductTypeValidatorAsync } from "./product-type-validator-async-fields";
+import { ProductTypeEdit } from "../../dto/produc-type-edit";
+import { of } from "rxjs";
 
 
 
@@ -20,8 +22,11 @@ export class FormControllerAddProductType extends BaseForm {
   ) {
     super()
   }
-  
 
+  speedMeasure = ''
+  storageMeasure = ''
+  speed$ = of([{ id: 0, name: 'Não especificado' }, { id: 1, name: 'Hz' }, { id: 2, name: 'Khz' }, { id: 3, name: 'Mhz' }, { id: 4, name: 'Ghz' }, { id: 5, name: 'Thz' }, { id: 6, name: 'Rpm' }, { id: 7, name: 'Kbps' }, { id: 8, name: 'Mbps' }, { id: 9, name: 'Gbps' }]);
+  storage$ = of([{ id: 0, name: 'Não especificado' }, { id: 1, name: 'Kb' }, { id: 2, name: 'Mb' }, { id: 3, name: 'Gb' }, { id: 4, name: 'Tb' }, { id: 5, name: 'Volt (V)' }, { id: 6, name: 'Watt (W)' }]);
 
   //FORMS
   get segments() {
@@ -37,7 +42,6 @@ export class FormControllerAddProductType extends BaseForm {
     return this.modelForm.get('specificities') as FormArray
   }
 
-
   //FormGroups
   segmentForm: FormGroup;
   manufacturerForm: FormGroup;
@@ -48,34 +52,34 @@ export class FormControllerAddProductType extends BaseForm {
   nameMaxLength = 50;
   descriptionMaxLength = 500;
 
-  formLoad(productType?: ProductTypeDto) {
+  formLoad(productType?: ProductTypeEdit) {
     this.formMain = this._fb.group({
-      id: [productType?.id ?? 0, [Validators.required]],
-      name: new FormControl(productType?.name, { validators: [Validators.required, Validators.maxLength(this.nameMaxLength)] }),
+      id: [productType?.productTypeId ?? 0, [Validators.required]],
+      name: new FormControl(productType?.productTypeName, { validators: [Validators.required, Validators.maxLength(this.nameMaxLength)] }),
       companyId: [this.companyId, [Validators.required]],
       userId: [this.userId, [Validators.required]],
       segments: this._fb.array([], Validators.required)
     })
   }
 
-  formLoadSegment(segment?: SegmentDto) {
+  formLoadSegment(productType?: ProductTypeEdit) {
     return this.segmentForm = this._fb.group({
-      id: [segment?.id ?? 0, [Validators.required]],
-      name: [segment?.name ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
+      id: [productType?.segmentId ?? 0, [Validators.required]],
+      name: [productType?.segmentName ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
       companyId: [this.companyId, [Validators.required]],
-      productId: [segment?.productTypeId ?? 0, []],
-      registered:[new Date(), [Validators.required]],
+      productId: [0, []],
+      registered: [new Date(), [Validators.required]],
       manufacturers: this._fb.array([], Validators.required)
     })
   }
 
-  formLoadManufacturer(manufacturer?: ManufacturerDto) {
+  formLoadManufacturer(productType?: ProductTypeEdit) {
     return this.manufacturerForm = this._fb.group({
-      id: [manufacturer?.id ?? 0, [Validators.required]],
-      name: [manufacturer?.name ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
+      id: [productType?.manufacturerId ?? 0, [Validators.required]],
+      name: [productType?.manufacturerName ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
       companyId: [this.companyId, [Validators.required]],
-      segmentId: [manufacturer?.segmentId ?? 0, []],
-      registered:[new Date(), [Validators.required]],
+      segmentId: [0, []],
+      registered: [new Date(), [Validators.required]],
       models: this._fb.array([], Validators.required)
     })
   }
@@ -86,7 +90,7 @@ export class FormControllerAddProductType extends BaseForm {
       companyId: [this.companyId, [Validators.required]],
       name: [model?.name ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
       manufacturerId: model?.manufacturerId ?? 0,
-      registered:[new Date(), [Validators.required]],
+      registered: [new Date(), [Validators.required]],
       specificities: this._fb.array([], Validators.required)
     })
   }
@@ -99,19 +103,58 @@ export class FormControllerAddProductType extends BaseForm {
       capacity: new FormControl({ value: specificities?.capacity ?? '', disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
       generation: ['', []],
       version: ['', []],
-      description:['', []],
-      registered:[new Date(), [Validators.required]],
+      description: ['', []],
+      registered: [new Date(), [Validators.required]],
       modelId: specificities?.modelId ?? 0,
     })
   }
 
-  addEmptyFormArrays() {
-    this.segments.push(this.formLoadSegment())
-    this.manufacturers.push(this.formLoadManufacturer())
-    this.models.push(this.formLoadModel())
-    this.specificities.push(this.formLoadSpecificities())
+  formDisabledToStart = () => {
+    this?.formMain?.get('name')?.disable();
+
+    if (this?.formMain?.get('segments')?.get('0').get('id').value != 0)
+      this?.formMain?.get('segments')?.get('0').get('name')?.disable();
+
+    if (this?.formMain?.get('segments')?.get('0').get('manufacturers').get('0').get('id').value != 0)
+      this?.formMain?.get('segments')?.get('0').get('manufacturers').get('0').get('name')?.disable();
+
+  }
+  getSpecificitiesFormValues(value: string) {
+    return this.formMain.get('segments')?.get('0').get('manufacturers').get('0').get('models').get('0').get('specificities').get('0').get(value).value
   }
 
+  makeDescription = async () => {
+
+    const items = [] = ['Tipo de produto:', 'Segmento:', 'Fabricante:', 'Modelo:', 'Velocidade:', 'Capacidade:', 'Geração:', 'Versão:', 'Descrição:'];
+
+    const typeName = this.formMain.get('name').value || '#';
+    const segmentName = this.segmentForm.get('name').value || '#';
+    const manufacturerName = this.manufacturerForm.get('name').value || '#';
+    const modelName = this.modelForm.get('name').value || '#';
+
+    const specificitiesSpeed = this.getSpecificitiesFormValues('speed') || '#';
+    const specificitiesCapacity = this.getSpecificitiesFormValues('capacity') || '#';
+    const specificitiesGenaration = this.getSpecificitiesFormValues('generation') || '#';
+    const specificitiesVersion = this.getSpecificitiesFormValues('version') || '#';
+
+    const result = `
+    ${items[0]}  ${typeName},
+    ${items[1]}  ${segmentName},
+    ${items[2]}  ${manufacturerName},
+    ${items[3]}  ${modelName},
+    ${items[4]}  ${specificitiesSpeed} ${this.speedMeasure ?? ''},
+    ${items[5]}  ${specificitiesCapacity} ${this.storageMeasure ?? ''},
+    ${items[6]}  ${specificitiesGenaration},
+    ${items[7]}  ${specificitiesVersion},`;
+
+    this.specificitiesForm.get('description').setValue(result);
+  }
+
+  formEnableToSave = () => {
+    this?.formMain?.get('name')?.enable();
+    this?.formMain?.get('segments')?.get('0').get('name')?.enable();
+    this?.formMain?.get('segments')?.get('0').get('manufacturers').get('0').get('name')?.enable();
+  }
 
   controlReset = false;
   formControlReset = () => {

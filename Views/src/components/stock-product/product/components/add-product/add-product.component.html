@@ -29,37 +29,37 @@
                 </div>
             </div>
             <div class="container-level-0">
-                <div class="manufacturer" *ngIf="newItemSelected == 'model' || newItemSelected == ''">
+                <div class="manufacturer">
                     <field-select-g (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$"
                         [labelInput]="'Fabricante'" [formControlResetalways]="controlReset">
                     </field-select-g>
                 </div>
-                <div class="model" *ngIf="newItemSelected == 'model' || newItemSelected == ''">
+                <div class="model">
                     <field-select-g (outEntitiesSelected)="onSelectedModel($event)" [entities]="models$"
                         [labelInput]="'Modelos'" [formControlResetalways]="controlReset">
                     </field-select-g>
                 </div>
             </div>
             <div class="container-level-0">
-                <div class="specificity" *ngIf="this.newItemSelected ==''">
+                <div class="specificity">
                     <field-select-g (outEntitiesSelected)="onSelectedSpecificity($event)" [entities]="specificities$"
                         [labelInput]="'Especificidade'" [formControlResetalways]="controlReset">
                     </field-select-g>
                 </div>
             </div>
             <!-- <ng-container *ngIf="this.newItemSelected !=''"> -->
-            <ng-container>
+            <!-- <ng-container>
                 <new-item-product-type [hidden]="this.newItemSelected ==''" [newItemSelected]="newItemSelected"
-                    (formMainSend)="formHandler($event)" [formMainReceived]="formMainProductType">
+                    (formMainSend)="formHandler($event)" (newItemSelectedReset)="newItemSelectedReset()" [formMainReceived]="formMainProductType">
                 </new-item-product-type>
-            </ng-container>
+            </ng-container> -->
             <br>
-            <div class="checks" *ngIf="this.newItemSelected ==''">
+            <div class="checks">
                 <mat-checkbox class="isUsed" (change)="onChangeIsUsed($event)"
                     formControlName="isUsed">Usado</mat-checkbox>
             </div>
 
-            <div class="container-level-0-1" *ngIf="this.newItemSelected ==''">
+            <div class="container-level-0-1">
                 <div class="entryDate">
                     <date-time-g [formMain]="formMain" [fieldControlName]="'entryDate'" [labelInput]="'Data Entrada'"
                         [startView]="'month'">
@@ -67,19 +67,19 @@
                             *ngIf="this.formError(formMain,'entryDate', 'required') && this.formTouched(formMain, 'entryDate')">{{requiredMsg}}</span>
                     </date-time-g>
                 </div>
-                <div class="supplier" *ngIf="this.newItemSelected ==''">
+                <div class="supplier">
                     <get-suppliers [formMain]="formMain"
                         (supplierSelected)="onSupplierSelected($event)"></get-suppliers>
                 </div>
 
-                <div class="warrantyEndLocal" *ngIf="this.newItemSelected ==''">
+                <div class="warrantyEndLocal">
                     <date-time-g [formMain]="formMain" [fieldControlName]="'warrantyEndLocal'"
                         [labelInput]="'Garantia local'" [startView]="'month'">
                         <span msg-error
                             *ngIf="this.formError(formMain,'warrantyEndLocal', 'required') && this.formTouched(formMain, 'warrantyEndLocal')">{{requiredMsg}}</span>
                     </date-time-g>
                 </div>
-                <div class="purchaseInvoiceNumber" *ngIf="this.newItemSelected ==''">
+                <div class="purchaseInvoiceNumber">
                     <field-input-g [formMain]="this.formMain" [type]="'text'" [inputLabel]="'NF: Entrada'"
                         [fieldControlName]="'purchaseInvoiceNumber'">
 
@@ -91,7 +91,7 @@
                 </div>
             </div>
 
-            <div class="usedHistoricalOrSupplier" *ngIf="this.newItemSelected ==''">
+            <div class="usedHistoricalOrSupplier">
                 <field-input-g [formMain]="this.formMain" [inputLabel]="'Procedência'"
                     [fieldControlName]="'usedHistoricalOrSupplier'">
                     <span msg-error
@@ -102,12 +102,12 @@
                 </field-input-g>
             </div>
 
-            <div class="checks" *ngIf="this.newItemSelected ==''">
+            <div class="checks">
                 <mat-checkbox class="isTested" formControlName="isTestedCheck"
                     (change)="isTested($event)">Testado</mat-checkbox>
             </div>
 
-            <div class="container-level-0-2" *ngIf="this.newItemSelected ==''">
+            <div class="container-level-0-2">
 
                 <div class="costPrice">
                     <field-input-g [type]="'currency'" [formMain]="this.formMain" [inputLabel]="'Preço de custo'"
@@ -140,11 +140,11 @@
                     </field-input-g>
                 </div>
             </div>
-            <div *ngIf="this.newItemSelected ==''">
+            <div>
                 {{formMain.value | json}}
             </div>
         </div>
-        <div *ngIf="this.newItemSelected ==''">
+        <div>
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
         </div>
     </mat-card>
