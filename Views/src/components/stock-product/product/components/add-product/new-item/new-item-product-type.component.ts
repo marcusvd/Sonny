@@ -32,7 +32,6 @@ export class NewItemProductTypeComponent extends FormControllerAddProductType im
       const obj = this._router.getCurrentNavigation().extras.state;
 
       this.productTypeEdit = (obj as ProductTypeEdit);
-      console.log(this.productTypeEdit)
     }
   }
 
@@ -44,7 +43,7 @@ export class NewItemProductTypeComponent extends FormControllerAddProductType im
     this.segments.push(this.formLoadSegment(this.productTypeEdit))
     this.manufacturers.push(this.formLoadManufacturer(this.productTypeEdit))
     this.models.push(this.formLoadModel(this.productTypeEdit))
-    this.specificities.push(this.formLoadSpecificities())
+    // this.specificities.push(this.formLoadSpecificities())
   }
 
   ngOnInit(): void {
@@ -111,6 +110,8 @@ export class NewItemProductTypeComponent extends FormControllerAddProductType im
     }
     else
       this.formErrosValidation = true;
+
+      this.controlReset = false;
   }
 
 

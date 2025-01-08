@@ -12,7 +12,8 @@ import { SegmentDto } from "src/components/stock-product/product/dtos/segment-dt
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { EditChildrenProductType } from "../../dto/produc-type-edit";
+import { ProductTypeAfterEditHandled } from "../../dto/produc-type-edit";
+
 
 
 @Injectable({ providedIn: 'root' })
@@ -50,6 +51,7 @@ export class UpdateProductTypeService extends BackEndService<ProductTypeDto> {
        
         this._communicationsAlerts.defaultSnackMsg('2', 0, null, 4);
         this.callRouterEditProductType(x as any)
+     console.log(x)
       },
       error: (erroCode) => {
         console.log(erroCode)
@@ -59,11 +61,12 @@ export class UpdateProductTypeService extends BackEndService<ProductTypeDto> {
     })
   }
 
- private callRouterEditProductType(entity: EditChildrenProductType) {
+ private callRouterEditProductType(entity: ProductTypeAfterEditHandled) {
 
     const objectRoute: NavigationExtras = {
       state: entity
     };
+
 
     this._router.navigate(['/side-nav/stock-product-router/add-product'], objectRoute);
   }

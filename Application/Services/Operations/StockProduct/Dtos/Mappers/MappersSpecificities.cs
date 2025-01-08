@@ -51,7 +51,7 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 Version = entity.Version,
                 Description = entity.Description,
                 Registered = entity.Registered,
-                ModelId = entity.ModelId,
+                // ModelId = entity.ModelId,
                 
             };
 
@@ -72,7 +72,7 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 Version = entity.Version,
                 Description = entity.Description,
                 Registered = entity.Registered,
-                ModelId = entity.ModelId,
+                // ModelId = entity.ModelId,
                 
             };
 

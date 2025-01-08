@@ -138,7 +138,7 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
     else
       this.formErrosValidation = true;
 
+    this.controlReset = false;
   }
-
 
 }

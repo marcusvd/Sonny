@@ -1,5 +1,5 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ImportsFiledsSelect } from '../useful/imports-fileds-select';
+import { number } from 'card-validator';
 
 
 @Component({
@@ -23,43 +24,56 @@ import { ImportsFiledsSelect } from '../useful/imports-fileds-select';
   `],
 })
 
-export class FieldSelectGComponent extends BaseForm {
+export class FieldSelectGComponent extends BaseForm implements OnInit {
 
   constructor() {
     super()
   }
 
+  ngOnInit(): void {
+    this.selectFormControl.patchValue(this.selectedValue);
+   
+  }
+
+
   @Input('entities') entities$: Observable<any[]>;
   @Input() noEntriesFoundLabel = 'Nenhum item encontrado.';
   @Input() nameAttribute = '';
   @Input() labelInput = '';
+  @Input() selectedValue!: string | number;
 
+
+  // @Input() set formControlReset(value: boolean) {
+  //   if (value)
+  //     this.selectFormControl.reset();
+
+  // }
 
   @Input() set formControlReset(value: boolean) {
-    if (value)
+    if (value) {
       this.selectFormControl.reset();
-
+      this.selectNgxFormControl.reset();
+    }
   }
-
-  @Input() set formControlResetalways(value: boolean) {
-    this.selectFormControl.reset();
-    this.selectNgxFormControl.reset();
-  }
+  // @Input() set formControlResetalways(value: boolean) {
+  //   this.selectFormControl.reset();
+  //   this.selectNgxFormControl.reset();
+  // }
 
   @Input() set removeValidatorNgxFormControl(remove: boolean) {
-   if(remove)
-    this.clearValidatorFormControl(this.selectNgxFormControl);
+    if (remove)
+      this.clearValidatorFormControl(this.selectNgxFormControl);
   }
 
   @Input() set removeValidatorFormControl(remove: boolean) {
-    if(remove)
-    this.clearValidatorFormControl(this.selectFormControl);
+    if (remove)
+      this.clearValidatorFormControl(this.selectFormControl);
   }
 
   selectNgxFormControl = new FormControl('', Validators.required);
-  selectFormControl = new FormControl('', Validators.required);
+  selectFormControl = new FormControl(null, Validators.required);
 
-  clearValidatorFormControl(formControl:FormControl) {
+  clearValidatorFormControl(formControl: FormControl) {
     formControl.clearValidators();
     formControl.updateValueAndValidity();
   }

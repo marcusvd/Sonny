@@ -54,10 +54,25 @@ namespace Application.Services.Operations.StockProduct
                             .Include(x => x.Segments.Where(x => x.Deleted == DateTime.MinValue))
                             .ThenInclude(x => x.Manufacturers.Where(x => x.Deleted == DateTime.MinValue))
                             .ThenInclude(x => x.Models.Where(x => x.Deleted == DateTime.MinValue))
-                            .ThenInclude(x => x.Specificities.Where(x => x.Deleted == DateTime.MinValue)),
+                            .ThenInclude(x => x.Specificities),
                     selector => selector
                 )
                 .ToListAsync();
+
+            // foreach (var productType in fromDb)
+            // {
+            //     foreach (var segment in productType.Segments)
+            //     {
+            //         foreach (var manufacturer in segment.Manufacturers)
+            //         {
+            //             foreach (var model in manufacturer.Models)
+            //             {
+            //                 if (model.Specificities.Deleted == DateTime.MinValue)
+            //                     model.Specificities = model.Specificities;
+            //             }
+            //         }
+            //     }
+            // }
 
             if (fromDb == null)
                 throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
@@ -104,18 +119,39 @@ namespace Application.Services.Operations.StockProduct
 
             if (await _GENERIC_REPO.save())
             {
-                var backToAddNewProduct = new EditChildrenProductType()
-                {
-                    ProductTypeId = dtoView.Id,
-                    ProductTypeName = dtoView.Name,
-                    // SegmentId = dtoView.Segments[0].Id,
-                    SegmentName = dtoView.Segments[0].Name,
-                    // ManufacturerId = dtoView.Segments[0].Manufacturers[0].Id,
-                    ManufacturerName = dtoView.Segments[0].Manufacturers[0].Name,
-                    ModelName = dtoView.Segments[0].Manufacturers[0].Models[0].Name,
-                    SpecificitiesName = $"{dtoView.Name},{dtoView.Segments[0].Name},{dtoView.Segments[0].Manufacturers[0].Name},{dtoView.Segments[0].Manufacturers[0].Models[0].Name}"
-                    
-                };
+
+                var productById = await _GENERIC_REPO.ProductTypes.GetById(
+                    predicate => predicate.Id == id,
+                    toinclude => toinclude.Include(x => x.Segments).ThenInclude(x => x.Manufacturers).ThenInclude(x => x.Models).ThenInclude(x => x.Specificities),
+                    selector => selector);
+
+
+                var SegmentName = dtoView.Segments[0].Name;
+                var ManufacturerName = dtoView.Segments[0].Manufacturers[0].Name;
+                var ModelName = dtoView.Segments[0].Manufacturers[0].Models[0].Name;
+
+                var segments = productById.Segments;
+                var segmentId = segments.Find(x => x.Name.ToLower() == SegmentName.ToLower()).Id;
+
+                var manufacturers = segments.Find(x => x.Id == segmentId).Manufacturers;
+                var manufacturerId = manufacturers.Find(x => x.Name.ToLower() == ManufacturerName.ToLower()).Id;
+
+                var models = manufacturers.Find(x => x.Id == manufacturerId).Models;
+                var modelsResult = models.Find(x => x.Name.ToLower() == ModelName.ToLower());
+                var modelId = modelsResult.Id;
+
+                var specificitiesId = modelsResult.Specificities.Id;
+
+
+                  var backToAddNewProduct = new EditChildrenProductType()
+                  {
+                      ProductTypesId = dtoView.Id,
+                      SegmentId = segmentId,
+                      ManufacturerId = manufacturerId,
+                      ModelId = modelId,
+                      SpecificitiesId = specificitiesId
+
+                  };
 
                 return backToAddNewProduct;
             }

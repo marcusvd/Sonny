@@ -14,7 +14,7 @@ import { SegmentDto } from "../../../dtos/segment-dto";
 import { SpecificitiesDto } from "../../../dtos/specificities-dto";
 import { usedHistoricalOrSupplierValidator } from "./used-historical-or-supplier.validator";
 import { NavigationExtras, Router } from "@angular/router";
-import { EditChildrenProductType, ProductTypeEdit } from "../dto/produc-type-edit";
+import { ProductTypeAfterEditHandled, ProductTypeEdit } from "../dto/produc-type-edit";
 
 
 export class FormControllerAddProduct extends BaseForm {
@@ -43,7 +43,7 @@ export class FormControllerAddProduct extends BaseForm {
   //variables
   newItemSelected: string = '';
   productTypeEdit: ProductTypeEdit = new ProductTypeEdit();
-  editChildrenProductType: EditChildrenProductType = new EditChildrenProductType();
+  productTypeAfterEditHandled: ProductTypeAfterEditHandled = null;
 
 
   newItem = () => {
@@ -141,7 +141,6 @@ export class FormControllerAddProduct extends BaseForm {
     this.manufacturers$ = this.manufacturers$.pipe(map(x => [...x ?? [], this?.newItem()]));
     this.formMain.get('segmentId')?.patchValue(id);
 
-    console.log(this.productTypeEdit.segmentName)
 
     if (id == 0) {
       this.callRouterEditProductType(this.productTypeEdit);
@@ -174,24 +173,44 @@ export class FormControllerAddProduct extends BaseForm {
 
   onSelectedModel(id: number) {
 
-    this.specificities$ = this.models$.pipe(
-      map(x => x.find(models => models.id == id).specificities)
-    )
+    this.models$.pipe(
+      map(x => {
+        // console.log(x.find(models => models.id == id).specificities.id)
+        this.formMain.get('specificitiesId').patchValue(x.find(models => models.id == id).specificities.id);
 
-    this.specificities$ = this.specificities$.pipe(
-      map((specificities: SpecificitiesDto[]) =>
-        specificities.map(specificity => ({
-          ...specificity,
-          name: `${specificity.description.split(',')[4]}, ${specificity.description.split(',')[5]}, ${specificity.description.split(',')[6]}, ${specificity.description.split(',')[7]}`,
-        }))
-      )
-    );
+        const specificity = x.find(models => models.id == id).specificities;
+        const name = `${specificity.description.split(',')[4]}, ${specificity.description.split(',')[5]}, ${specificity.description.split(',')[6]}, ${specificity.description.split(',')[7]}`;
 
-    this.formMain.get('modelId')?.patchValue(id);
+        this.formMain.get('specificitiesName').patchValue(name);
+      })
+    ).subscribe();
 
-    if (id == 0) 
+    // this.specificities$ = this.specificities$.pipe(
+    //   map((specificities: SpecificitiesDto[]) =>
+    //     specificities.map(specificity => ({
+    //       ...specificity,
+    //       name: `${specificity.description.split(',')[4]}, ${specificity.description.split(',')[5]}, ${specificity.description.split(',')[6]}, ${specificity.description.split(',')[7]}`,
+    //     }))
+    //   )
+    // );
+    // this.specificities$ = this.models$.pipe(
+    //   map(x => x.find(models => models.id == id).specificities)
+    // )
+
+    // this.specificities$ = this.specificities$.pipe(
+    //   map((specificities: SpecificitiesDto[]) =>
+    //     specificities.map(specificity => ({
+    //       ...specificity,
+    //       name: `${specificity.description.split(',')[4]}, ${specificity.description.split(',')[5]}, ${specificity.description.split(',')[6]}, ${specificity.description.split(',')[7]}`,
+    //     }))
+    //   )
+    // );
+
+    this?.formMain?.get('modelId')?.patchValue(id);
+
+    if (id == 0)
       this.callRouterEditProductType(this.productTypeEdit);
-    
+
   }
 
 
@@ -215,6 +234,7 @@ export class FormControllerAddProduct extends BaseForm {
       manufacturerId: ['', [Validators.required]],
       modelId: ['', [Validators.required]],
       specificitiesId: ['', [Validators.required]],
+      specificitiesName: ['', [Validators.required]],
       userId: [userId, [Validators.required]],
       companyId: [companyId, [Validators.required]],
       supplierId: ['', [Validators.required]],
@@ -235,7 +255,8 @@ export class FormControllerAddProduct extends BaseForm {
 
   controlReset = false;
   formControlReset = () => {
-    this.controlReset = !this.controlReset;
+    // this.controlReset = !this.controlReset;
+    this.controlReset = true;
     this.segments$ = null;
     this.manufacturers$ = null;
     this.models$ = null;

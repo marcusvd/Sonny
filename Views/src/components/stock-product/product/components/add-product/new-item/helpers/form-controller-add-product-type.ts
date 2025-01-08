@@ -34,9 +34,9 @@ export class FormControllerAddProductType extends BaseForm {
   get models() {
     return this.manufacturerForm.get('models') as FormArray
   }
-  get specificities() {
-    return this.modelForm.get('specificities') as FormArray
-  }
+  // get specificities() {
+  //   return this.modelForm.get('specificities') as FormArray
+  // }
 
   //FormGroups
   segmentForm: FormGroup;
@@ -87,7 +87,8 @@ export class FormControllerAddProductType extends BaseForm {
       name: new FormControl('', { validators: [Validators.required, Validators.maxLength(this.nameMaxLength)], asyncValidators: [this._validatorsAsyncField.validateModelAsync(productType?.manufacturerId)] }),
       manufacturerId:0,
       registered: [new Date(), [Validators.required]],
-      specificities: this._fb.array([], Validators.required)
+      specificities: this.formLoadSpecificities()
+      // specificities: this._fb.array([], Validators.required)
     })
   }
 
@@ -116,7 +117,7 @@ export class FormControllerAddProductType extends BaseForm {
 
   }
   getSpecificitiesFormValues(value: string) {
-    return this.formMain.get('segments')?.get('0').get('manufacturers').get('0').get('models').get('0').get('specificities').get('0').get(value).value
+    return this.formMain.get('segments')?.get('0').get('manufacturers').get('0').get('models').get('0').get('specificities').get(value).value
   }
 
   makeDescription = async () => {
@@ -154,7 +155,8 @@ export class FormControllerAddProductType extends BaseForm {
 
   controlReset = false;
   formControlReset = () => {
-    this.controlReset = !this.controlReset;
+    this.controlReset = true;
+    // this.controlReset = !this.controlReset;
   }
 
 

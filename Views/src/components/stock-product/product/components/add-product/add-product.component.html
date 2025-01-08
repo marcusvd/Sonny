@@ -18,34 +18,60 @@
             <div class="container-level-0">
                 <div class="type">
                     <field-select-g (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$"
-                        [labelInput]="'Tipo'" [formControlResetalways]="controlReset">
+                        [labelInput]="'Tipo'" [formControlReset]="controlReset"
+                        [selectedValue]="this?.productTypeAfterEditHandled?.productTypesId">
                     </field-select-g>
                 </div>
 
                 <div class="segment">
                     <field-select-g (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$"
-                        [labelInput]="'Segmento'" [formControlResetalways]="controlReset">
+                        [labelInput]="'Segmento'" [formControlReset]="controlReset"
+                        [selectedValue]="this?.productTypeAfterEditHandled?.segmentId">
                     </field-select-g>
                 </div>
             </div>
             <div class="container-level-0">
                 <div class="manufacturer">
                     <field-select-g (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$"
-                        [labelInput]="'Fabricante'" [formControlResetalways]="controlReset">
+                        [labelInput]="'Fabricante'" [formControlReset]="controlReset"
+                        [selectedValue]="this?.productTypeAfterEditHandled?.manufacturerId">
                     </field-select-g>
                 </div>
                 <div class="model">
                     <field-select-g (outEntitiesSelected)="onSelectedModel($event)" [entities]="models$"
-                        [labelInput]="'Modelos'" [formControlResetalways]="controlReset">
+                        [labelInput]="'Modelos'" [formControlReset]="controlReset"
+                        [selectedValue]="this?.productTypeAfterEditHandled?.modelId">
                     </field-select-g>
                 </div>
             </div>
             <div class="container-level-0">
-                <div class="specificity">
+                <!-- <field-input-g [formMain]="this.modelForm" [type]="'text'" [inputLabel]="'Especificidade'"
+                    [fieldControlName]="'purchaseInvoiceNumber'">
+
+                    <span msg-error
+                        *ngIf="this.formError(formMain,'purchaseInvoiceNumber', 'maxlength') && this.formTouched(formMain, 'purchaseInvoiceNumber')">{{maxLengthMsg
+                        + '30' + charactersMsg}}</span>
+                </field-input-g> -->
+                <field-input-g [hidden]="true" class="specificity" [formMain]="this.formMain" [type]="'text'"
+                    [inputLabel]="'Especificidade'" [fieldControlName]="'specificitiesId'">
+
+                    <span msg-error
+                        *ngIf="this.formError(modelForm,'specificities', 'maxlength') && this.formTouched(modelForm, 'specificities')">{{maxLengthMsg
+                        + '30' + charactersMsg}}</span>
+                </field-input-g>
+                <field-input-g class="specificity" [formMain]="this.formMain" [type]="'text'"
+                    [inputLabel]="'Especificidade'" [fieldControlName]="'specificitiesName'">
+
+                    <span msg-error
+                        *ngIf="this.formError(modelForm,'specificities', 'maxlength') && this.formTouched(modelForm, 'specificities')">{{maxLengthMsg
+                        + '30' + charactersMsg}}</span>
+                </field-input-g>
+
+                <!-- <div class="specificity">
                     <field-select-g (outEntitiesSelected)="onSelectedSpecificity($event)" [entities]="specificities$"
-                        [labelInput]="'Especificidade'" [formControlResetalways]="controlReset">
+                        [labelInput]="'Especificidade'" [formControlReset]="controlReset">
                     </field-select-g>
-                </div>
+                </div> -->
             </div>
             <!-- <ng-container *ngIf="this.newItemSelected !=''"> -->
             <!-- <ng-container>

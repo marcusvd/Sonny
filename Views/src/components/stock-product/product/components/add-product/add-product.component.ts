@@ -6,7 +6,9 @@ import { AddProductService } from '../../services/add-product.service';
 import { ProductTypeService } from '../../services/product-type.service';
 import { FormControllerAddProduct } from './useful/form-controller-add-product';
 import { ImportsAddProduct } from './useful/imports-add-product';
-import { EditChildrenProductType } from './dto/produc-type-edit';
+import { ProductTypeAfterEditHandled } from './dto/produc-type-edit';
+import { map, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 
 @Component({
@@ -24,21 +26,33 @@ export class AddProductComponent extends FormControllerAddProduct implements OnI
     private _addProductService: AddProductService,
     private _routerMain: Router
   ) {
-    super(_fbMain,_routerMain)
+    super(_fbMain, _routerMain)
     if (this._routerMain.getCurrentNavigation().extras.state) {
       const obj = this._routerMain.getCurrentNavigation().extras.state;
 
-      this.editChildrenProductType = obj as EditChildrenProductType;
+      this.productTypeAfterEditHandled = new ProductTypeAfterEditHandled();
+
+      this.productTypeAfterEditHandled = obj as ProductTypeAfterEditHandled;
+
+      console.log(this.productTypeAfterEditHandled)
     }
   }
 
   ngOnInit(): void {
     this.productsTypes$ = this._productTypeService.getAllIncluded$(this.companyId.toString());
     this.formMainLoad();
+    if(this?.productTypeAfterEditHandled){
+      this.onSelectedProduct(this?.productTypeAfterEditHandled?.productTypesId)
+      this.onSelectedSegment(this?.productTypeAfterEditHandled?.segmentId)
+      this.onSelectedManufacturer(this?.productTypeAfterEditHandled?.manufacturerId)
+      this.onSelectedModel(this?.productTypeAfterEditHandled?.modelId)
+      this.formMain.get('specificitiesId').patchValue(this?.productTypeAfterEditHandled?.specificitiesId);
+    }
   }
 
   formMainLoad = () => {
     this.formMain = this.formLoad(this.formMain, this.companyId, this.userId, null);
+
   }
 
   onChangeIsUsed(selection: MatCheckboxChange) {
@@ -56,7 +70,8 @@ export class AddProductComponent extends FormControllerAddProduct implements OnI
       this.formControlReset();
 
       this.formMainLoad();
-     
+      this.controlReset = false;
+
     }
 
   }

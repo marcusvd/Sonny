@@ -34,9 +34,10 @@ export class FormControllerAddProductType extends BaseForm {
   get models() {
     return this.manufacturerForm.get('models') as FormArray
   }
-  get specificities() {
-    return this.modelForm.get('specificities') as FormArray
-  }
+
+  // get specificities() {
+  //   return this.modelForm.get('specificities') as FormArray
+  // }
 
 
   //FormGroups
@@ -88,7 +89,8 @@ export class FormControllerAddProductType extends BaseForm {
       name: [model?.name ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
       manufacturerId: model?.manufacturerId ?? 0,
       registered:[new Date(), [Validators.required]],
-      specificities: this._fb.array([], Validators.required)
+      specificities: this.formLoadSpecificities()
+      // specificities: this._fb.array([], Validators.required)
     })
   }
 
@@ -110,13 +112,14 @@ export class FormControllerAddProductType extends BaseForm {
     this.segments.push(this.formLoadSegment())
     this.manufacturers.push(this.formLoadManufacturer())
     this.models.push(this.formLoadModel())
-    this.specificities.push(this.formLoadSpecificities())
+    // this.specificities.push(this.formLoadSpecificities())
   }
 
 
   controlReset = false;
   formControlReset = () => {
-    this.controlReset = !this.controlReset;
+    this.controlReset = true;
+    // this.controlReset = !this.controlReset;
   }
 
 

@@ -49,7 +49,7 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 Name = entity.Name,
                 CompanyId = entity.CompanyId,
                 ManufacturerId = entity.ManufacturerId,
-                Specificities = SpecificitiesListMake(entity.Specificities)
+                Specificities = SpecificitiesMapper(entity.Specificities)
             };
 
             return obj;
@@ -66,7 +66,7 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 Name = entity.Name,
                 CompanyId = entity.CompanyId,
                 ManufacturerId = entity.ManufacturerId,
-                Specificities = SpecificitiesListMake(entity.Specificities)
+                Specificities = SpecificitiesMapper(entity.Specificities)
             };
 
             return obj;

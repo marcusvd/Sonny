@@ -241,9 +241,9 @@ export class FormControllerEditProductType extends BaseForm {
     this.models.clear();
     this.manufacturers.clear();
 
-    this.specificities$ = this.models$.pipe(
-      map(x => x.find(model => model.id == id).specificities)
-    )
+    // this.specificities$ = this.models$.pipe(
+    //   map(x => x.find(model => model.id == id).specificities)
+    // )
 
     // const arrayToSupply = this.formMain.controls['models'] as FormArray;
 

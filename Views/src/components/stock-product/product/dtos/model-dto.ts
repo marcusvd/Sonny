@@ -8,5 +8,6 @@ export class ModelDto extends RootBase {
     manufacturerId: number;
     manufacturer: ManufacturerDto;
     products: ProductDto[];
-    specificities: SpecificitiesDto[];
+    specificitiesId: number;
+    specificities: SpecificitiesDto;
 }
