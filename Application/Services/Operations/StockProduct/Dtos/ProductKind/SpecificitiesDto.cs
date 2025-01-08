@@ -6,6 +6,7 @@ namespace Application.Services.Operations.StockProduct.ProductKind
     public class SpecificitiesDto : RootBase
     {
         public string Name { get; set; }
+        // public string Identification { get; set; }
         public string Capacity { get; set; }
         public string Speed { get; set; }
         public string Generation { get; set; }

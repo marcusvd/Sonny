@@ -19,4 +19,8 @@ namespace Repository.Data.Operations.ProductRepository
     {
         void UpdateRange(List<Model> entities);
     }
+    public interface ISpecificitiesReposirtory : IRepository<Specificities>
+    {
+        void UpdateRange(List<Specificities> entities);
+    }
 }

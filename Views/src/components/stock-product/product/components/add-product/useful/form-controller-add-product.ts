@@ -14,7 +14,7 @@ import { SegmentDto } from "../../../dtos/segment-dto";
 import { SpecificitiesDto } from "../../../dtos/specificities-dto";
 import { usedHistoricalOrSupplierValidator } from "./used-historical-or-supplier.validator";
 import { NavigationExtras, Router } from "@angular/router";
-import { ProductTypeEdit } from "../dto/produc-type-edit";
+import { EditChildrenProductType, ProductTypeEdit } from "../dto/produc-type-edit";
 
 
 export class FormControllerAddProduct extends BaseForm {
@@ -39,10 +39,12 @@ export class FormControllerAddProduct extends BaseForm {
   manufacturerForm: FormGroup;
   modelForm: FormGroup;
   specificitiesForm: FormGroup;
-  
+
   //variables
   newItemSelected: string = '';
   productTypeEdit: ProductTypeEdit = new ProductTypeEdit();
+  editChildrenProductType: EditChildrenProductType = new EditChildrenProductType();
+
 
   newItem = () => {
     const toRegisterNew: any = {
@@ -78,7 +80,7 @@ export class FormControllerAddProduct extends BaseForm {
     if (call === 'add')
       this._router.navigate(['/side-nav/stock-product-router/add-product-type']);
     else
-    this._router.navigate(['/side-nav/stock-product-router/edit-product-type']);
+      this._router.navigate(['/side-nav/stock-product-router/edit-product-type']);
   }
 
   callRouterEditProductType(entity: ProductTypeEdit) {
@@ -88,6 +90,21 @@ export class FormControllerAddProduct extends BaseForm {
     };
 
     this._router.navigate(['/side-nav/stock-product-router/edit-product-type-add-product'], objectRoute);
+  }
+
+  clearEntityToSendRoute = (entity: string) => {
+
+    if (entity == 'segment') {
+      this.productTypeEdit.segmentId = null;
+      this.productTypeEdit.segmentName = '';
+    }
+
+    if (entity == 'manufacturer') {
+      this.productTypeEdit.manufacturerId = null;
+      this.productTypeEdit.manufacturerName = '';
+    }
+
+
   }
 
 
@@ -110,13 +127,13 @@ export class FormControllerAddProduct extends BaseForm {
   }
 
   onSelectedSegment(id: number) {
-    
+
     this.manufacturers$ = this.segments$.pipe(
       map(x => {
-       
-          this.productTypeEdit.segmentId = id;
-          this.productTypeEdit.segmentName = x.find(y => y.id == id).name;
-    
+
+        this.productTypeEdit.segmentId = id;
+        this.productTypeEdit.segmentName = x.find(y => y.id == id).name;
+
         return x.find(segment => segment.id == id).manufacturers
       })
     )
@@ -124,8 +141,12 @@ export class FormControllerAddProduct extends BaseForm {
     this.manufacturers$ = this.manufacturers$.pipe(map(x => [...x ?? [], this?.newItem()]));
     this.formMain.get('segmentId')?.patchValue(id);
 
-    if (id == 0)
-    this.callRouterEditProductType(this.productTypeEdit);
+    console.log(this.productTypeEdit.segmentName)
+
+    if (id == 0) {
+      this.callRouterEditProductType(this.productTypeEdit);
+      this.clearEntityToSendRoute('segment');
+    }
 
   }
 
@@ -134,10 +155,10 @@ export class FormControllerAddProduct extends BaseForm {
     this.models$ = this.manufacturers$?.pipe(
       map(x => {
 
-          this.productTypeEdit.manufacturerId = id;
-          this.productTypeEdit.manufacturerName = x.find(y => y.id == id).name;
+        this.productTypeEdit.manufacturerId = id;
+        this.productTypeEdit.manufacturerName = x.find(y => y.id == id).name;
 
-          return x.find(manufacturer => manufacturer?.id == id)?.models
+        return x.find(manufacturer => manufacturer?.id == id)?.models
       })
     )
 
@@ -145,8 +166,10 @@ export class FormControllerAddProduct extends BaseForm {
 
     this.formMain.get('manufacturerId')?.patchValue(id);
 
-    if (id == 0)
+    if (id == 0) {
       this.callRouterEditProductType(this.productTypeEdit);
+      this.clearEntityToSendRoute('manufacturer');
+    }
   }
 
   onSelectedModel(id: number) {
@@ -166,8 +189,9 @@ export class FormControllerAddProduct extends BaseForm {
 
     this.formMain.get('modelId')?.patchValue(id);
 
-    if (id == 0)
+    if (id == 0) 
       this.callRouterEditProductType(this.productTypeEdit);
+    
   }
 
 

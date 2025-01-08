@@ -46,4 +46,17 @@ namespace Repository.Data.Operations.ProductRepository
             _CONTEXT.PD_Models.UpdateRange(entities);
         }
     }
+    public class SpecificitiesReposirtory : Repository<Specificities>, ISpecificitiesReposirtory
+    {
+        private readonly SonnyDbContext _CONTEXT;
+        public SpecificitiesReposirtory(SonnyDbContext CONTEXT) : base(CONTEXT)
+        {
+            _CONTEXT = CONTEXT;
+        }
+
+        public void UpdateRange(List<Specificities> entities)
+        {
+            _CONTEXT.PD_Specificities.UpdateRange(entities);
+        }
+    }
 }

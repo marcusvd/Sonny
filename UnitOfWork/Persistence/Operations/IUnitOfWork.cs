@@ -52,6 +52,7 @@ namespace UnitOfWork.Persistence.Operations
          ISegmentReposirtory Segments { get; }
          IManufacturerReposirtory Manufacturers { get; }
          IModelReposirtory Models { get; }
+         ISpecificitiesReposirtory Specificities { get; }
 
         #endregion
         #region BUDGETSERVICE

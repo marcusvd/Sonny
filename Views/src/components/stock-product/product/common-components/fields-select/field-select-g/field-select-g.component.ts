@@ -34,6 +34,7 @@ export class FieldSelectGComponent extends BaseForm {
   @Input() nameAttribute = '';
   @Input() labelInput = '';
 
+
   @Input() set formControlReset(value: boolean) {
     if (value)
       this.selectFormControl.reset();

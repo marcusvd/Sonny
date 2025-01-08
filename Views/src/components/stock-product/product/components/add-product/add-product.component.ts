@@ -6,6 +6,7 @@ import { AddProductService } from '../../services/add-product.service';
 import { ProductTypeService } from '../../services/product-type.service';
 import { FormControllerAddProduct } from './useful/form-controller-add-product';
 import { ImportsAddProduct } from './useful/imports-add-product';
+import { EditChildrenProductType } from './dto/produc-type-edit';
 
 
 @Component({
@@ -24,8 +25,13 @@ export class AddProductComponent extends FormControllerAddProduct implements OnI
     private _routerMain: Router
   ) {
     super(_fbMain,_routerMain)
+    if (this._routerMain.getCurrentNavigation().extras.state) {
+      const obj = this._routerMain.getCurrentNavigation().extras.state;
+
+      this.editChildrenProductType = obj as EditChildrenProductType;
+    }
   }
-  
+
   ngOnInit(): void {
     this.productsTypes$ = this._productTypeService.getAllIncluded$(this.companyId.toString());
     this.formMainLoad();

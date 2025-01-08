@@ -102,20 +102,9 @@ namespace Application.Services.Helpers.Extensions
 
             #region Products
             services.AddScoped<IProductServices, ProductServices>();
-            // services.AddScoped<IProductChildrenServices, ProductChildrenServices>();
+            services.AddScoped<IProductChildrenServices, ProductChildrenServices>();
             services.AddScoped<IStockProductObjectMapperServices, StockProductObjectMapperServices>();
 
-            
-            // services.AddScoped<IProductsGetServices, ProductsGetServices>();
-            // services.AddScoped<IProductsUpdateServices, ProductsUpdateServices>();
-            // services.AddScoped<IProductsTrackingGetServices, ProductsTrackingGetServices>();
-            // services.AddScoped<IEquipamentRepository, EquipamentRepository>();
-            // services.AddScoped<IItemFillCrudServices, ItemFillCrudServices>();
-            // // services.AddScoped<IEquipamentAddServices, EquipamentAddServices>();
-
-            // services.AddScoped<IQuantitiesGetServices, QuantitiesGetServices>();
-            // services.AddScoped<IQuantitiesUpdateServices, QuantitiesUpdateServices>();
-            // services.AddScoped<IQuantitiesProductRepository, QuantitiesProductRepository>();
 
 
              #endregion

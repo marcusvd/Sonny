@@ -10,44 +10,54 @@
             <!-- Column LEFT -->
             <div class="container--group-items">
                 <h3>Básico</h3>
-                  <!-- product start-->
-                  <field-input-g [type]="'text'" [formMain]="this.formMain" [inputLabel]="'Tipo'" [fieldControlName]="'name'">
-                    <span msg-error *ngIf="this.formError(formMain,'name', 'required') && this.formTouched(formMain, 'name')">{{requiredMsg}}</span>
-                    <span msg-error *ngIf="this.formError(formMain,'name', 'maxlength') && this.formTouched(formMain, 'name')">{{maxLengthMsg
+                <!-- product start-->
+                <field-input-g [type]="'text'" [formMain]="this.formMain" [inputLabel]="'Tipo'"
+                    [fieldControlName]="'name'">
+                    <span msg-error
+                        *ngIf="this.formError(formMain,'name', 'required') && this.formTouched(formMain, 'name')">{{requiredMsg}}</span>
+                    <span msg-error
+                        *ngIf="this.formError(formMain,'name', 'maxlength') && this.formTouched(formMain, 'name')">{{maxLengthMsg
                         + '50' + charactersMsg}}</span>
-                    <span msg-error *ngIf="this.formError(formMain,'name', 'inUse') && this.formTouched(formMain, 'name')">{{inUseMsg}}</span>
+                    <span msg-error
+                        *ngIf="this.formError(formMain,'name', 'inUse') && this.formTouched(formMain, 'name')">{{inUseMsg}}</span>
                 </field-input-g>
                 <!-- segment start-->
-                <field-input-g  [type]="'text'" [formMain]="segmentForm"
-                    [inputLabel]="'Segmento'" [fieldControlName]="'name'">
+                <field-input-g [type]="'text'" [formMain]="segmentForm" [inputLabel]="'Segmento'"
+                    [fieldControlName]="'name'">
                     <span msg-error
                         *ngIf="this.formError(segmentForm,'name', 'required') && this.formTouched(segmentForm, 'name')">{{requiredMsg}}</span>
                     <span msg-error
                         *ngIf="this.formError(segmentForm,'name', 'maxlength') && this.formTouched(segmentForm, 'name')">{{maxLengthMsg
                         + '50' + charactersMsg}}</span>
+                    <span msg-error
+                        *ngIf="this.formError(segmentForm,'name', 'inUse') && this.formTouched(segmentForm, 'name')">{{inUseMsg}}</span>
                 </field-input-g>
                 <!-- segment end-->
 
 
                 <!-- manufacturer start-->
-                <field-input-g  [type]="'text'"
-                    [formMain]="manufacturerForm" [inputLabel]="'Fabricante'" [fieldControlName]="'name'">
+                <field-input-g [type]="'text'" [formMain]="manufacturerForm" [inputLabel]="'Fabricante'"
+                    [fieldControlName]="'name'">
                     <span msg-error
                         *ngIf="this.formError(manufacturerForm,'name', 'required') && this.formTouched(manufacturerForm, 'name')">{{requiredMsg}}</span>
                     <span msg-error
                         *ngIf="this.formError(manufacturerForm,'name', 'maxlength') && this.formTouched(manufacturerForm, 'name')">{{maxLengthMsg
                         + '50' + charactersMsg}}</span>
+                        <span msg-error
+                        *ngIf="this.formError(manufacturerForm,'name', 'inUse') && this.formTouched(manufacturerForm, 'name')">{{inUseMsg}}</span>
                 </field-input-g>
                 <!-- manufacturer end-->
 
                 <!-- model start-->
-                <field-input-g
-                    [type]="'text'" [formMain]="modelForm" [inputLabel]="'Modelo'" [fieldControlName]="'name'">
+                <field-input-g [type]="'text'" [formMain]="modelForm" [inputLabel]="'Modelo'"
+                    [fieldControlName]="'name'">
                     <span msg-error
                         *ngIf="this.formError(modelForm,'name', 'required') && this.formTouched(modelForm, 'name')">{{requiredMsg}}</span>
                     <span msg-error
                         *ngIf="this.formError(modelForm,'name', 'maxlength') && this.formTouched(modelForm, 'name')">{{maxLengthMsg
                         + '50' + charactersMsg}}</span>
+                        <span msg-error
+                        *ngIf="this.formError(modelForm,'name', 'inUse') && this.formTouched(modelForm, 'name')">{{inUseMsg}}</span>
                 </field-input-g>
             </div>
 

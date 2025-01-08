@@ -9,6 +9,7 @@ using Application.Services.Operations.StockProduct.Dtos.Mappers;
 using UnitOfWork.Persistence.Operations;
 using Application.Services.Operations.StockProduct.ProductKind;
 using System.Linq;
+using Domain.Entities.StockProduct.ProductKind;
 
 namespace Application.Services.Operations.StockProduct
 {
@@ -63,7 +64,7 @@ namespace Application.Services.Operations.StockProduct
 
             return _IStockProductObjectMapperServices.ProductTypeListMake(fromDb);
         }
-        public async Task<HttpStatusCode> UpdateProductTypeAsync(ProductTypeDto dtoView, int id)
+        public async Task<EditChildrenProductType> UpdateProductTypeAsync(ProductTypeDto dtoView, int id)
         {
             if (dtoView == null)
                 throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
@@ -74,7 +75,6 @@ namespace Application.Services.Operations.StockProduct
             var fromDb = await _GENERIC_REPO.ProductTypes.GetById(
                 x => x.Id == id,
                 null,
-                // toInclude => toInclude.Include(x => x.Segments).ThenInclude(x => x.Manufacturers).ThenInclude(x => x.Models),
                 selector => selector
                 );
 
@@ -103,7 +103,23 @@ namespace Application.Services.Operations.StockProduct
             _GENERIC_REPO.ProductTypes.Update(entityToDb);
 
             if (await _GENERIC_REPO.save())
-                return HttpStatusCode.Created;
+            {
+                var backToAddNewProduct = new EditChildrenProductType()
+                {
+                    ProductTypeId = dtoView.Id,
+                    ProductTypeName = dtoView.Name,
+                    // SegmentId = dtoView.Segments[0].Id,
+                    SegmentName = dtoView.Segments[0].Name,
+                    // ManufacturerId = dtoView.Segments[0].Manufacturers[0].Id,
+                    ManufacturerName = dtoView.Segments[0].Manufacturers[0].Name,
+                    ModelName = dtoView.Segments[0].Manufacturers[0].Models[0].Name,
+                    SpecificitiesName = $"{dtoView.Name},{dtoView.Segments[0].Name},{dtoView.Segments[0].Manufacturers[0].Name},{dtoView.Segments[0].Manufacturers[0].Models[0].Name}"
+                    
+                };
+
+                return backToAddNewProduct;
+            }
+
 
             throw new GlobalServicesException(GlobalErrorsMessagesException.UnknownError);
         }
@@ -164,7 +180,7 @@ namespace Application.Services.Operations.StockProduct
         }
 
         //Products
-          public async Task<HttpStatusCode> AddProductAsync(ProductDto dtoView)
+        public async Task<HttpStatusCode> AddProductAsync(ProductDto dtoView)
         {
             if (dtoView == null)
                 throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
@@ -219,7 +235,7 @@ namespace Application.Services.Operations.StockProduct
                             .Include(x => x.ReservedForCustomer)
                             .Include(x => x.User)
                             .Include(x => x.IsReservedByUser)
-                        
+
                             .Include(x => x.ProductType)
                             .Include(x => x.Segment)
                             // .Include(x => x.Segment.Deleted == DateTime.MinValue)
@@ -233,8 +249,8 @@ namespace Application.Services.Operations.StockProduct
             if (fromDb == null)
                 throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
-             return _IStockProductObjectMapperServices.ProductListMake(fromDb);
-           
+            return _IStockProductObjectMapperServices.ProductListMake(fromDb);
+
         }
     }
 }

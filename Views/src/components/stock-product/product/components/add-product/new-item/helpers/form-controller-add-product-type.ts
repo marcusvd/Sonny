@@ -1,24 +1,20 @@
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { BaseForm } from "src/shared/components/inheritance/forms/base-form";
-
-
-
-
-import { ManufacturerDto } from "src/components/stock-product/product/dtos/manufacturer-dto";
-import { ModelDto } from "src/components/stock-product/product/dtos/model-dto";
-import { ProductTypeDto } from "src/components/stock-product/product/dtos/product-type-dto";
-import { SegmentDto } from "src/components/stock-product/product/dtos/segment-dto";
-import { SpecificitiesDto } from "src/components/stock-product/product/dtos/specificities-dto";
-import { ProductTypeValidatorAsync } from "./product-type-validator-async-fields";
-import { ProductTypeEdit } from "../../dto/produc-type-edit";
 import { of } from "rxjs";
+
+
+import { ModelDto } from "src/components/stock-product/product/dtos/model-dto";
+import { SpecificitiesDto } from "src/components/stock-product/product/dtos/specificities-dto";
+import { ProductTypeEdit } from "../../dto/produc-type-edit";
+import { ValidatorsProductTypeEditAsyncField } from "../form-validators/validators-product-type-edit-async-field";
+
 
 
 
 export class FormControllerAddProductType extends BaseForm {
   constructor(
     private _fb: FormBuilder,
-    public _productTypeValidatorAsync: ProductTypeValidatorAsync,
+    public _validatorsAsyncField: ValidatorsProductTypeEditAsyncField
   ) {
     super()
   }
@@ -65,7 +61,7 @@ export class FormControllerAddProductType extends BaseForm {
   formLoadSegment(productType?: ProductTypeEdit) {
     return this.segmentForm = this._fb.group({
       id: [productType?.segmentId ?? 0, [Validators.required]],
-      name: [productType?.segmentName ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
+      name: new FormControl(productType?.segmentName, { validators: [Validators.required, Validators.maxLength(this.nameMaxLength)], asyncValidators: [this._validatorsAsyncField.validateSegmentAsync(productType?.productTypeId)] }),
       companyId: [this.companyId, [Validators.required]],
       productId: [0, []],
       registered: [new Date(), [Validators.required]],
@@ -76,7 +72,7 @@ export class FormControllerAddProductType extends BaseForm {
   formLoadManufacturer(productType?: ProductTypeEdit) {
     return this.manufacturerForm = this._fb.group({
       id: [productType?.manufacturerId ?? 0, [Validators.required]],
-      name: [productType?.manufacturerName ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
+      name: new FormControl(productType?.manufacturerName, { validators: [Validators.required, Validators.maxLength(this.nameMaxLength)], asyncValidators: [this._validatorsAsyncField.validateManufacturerAsync(productType?.segmentId)] }),
       companyId: [this.companyId, [Validators.required]],
       segmentId: [0, []],
       registered: [new Date(), [Validators.required]],
@@ -84,12 +80,12 @@ export class FormControllerAddProductType extends BaseForm {
     })
   }
 
-  formLoadModel(model?: ModelDto) {
+  formLoadModel(productType?: ProductTypeEdit) {
     return this.modelForm = this._fb.group({
-      id: [model?.id ?? 0, [Validators.required]],
+      id: [0, [Validators.required]],
       companyId: [this.companyId, [Validators.required]],
-      name: [model?.name ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
-      manufacturerId: model?.manufacturerId ?? 0,
+      name: new FormControl('', { validators: [Validators.required, Validators.maxLength(this.nameMaxLength)], asyncValidators: [this._validatorsAsyncField.validateModelAsync(productType?.manufacturerId)] }),
+      manufacturerId:0,
       registered: [new Date(), [Validators.required]],
       specificities: this._fb.array([], Validators.required)
     })

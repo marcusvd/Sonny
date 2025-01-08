@@ -234,57 +234,56 @@ namespace UnitOfWork.Persistence.Operations
         }
         #endregion
         #region PRODUCTS
-        // private ProductRepository _PRODUCTS_REPO;
-        // public IProductRepository Products
-        // {
-        //     get
-        //     {
-        //         return _PRODUCTS_REPO = _PRODUCTS_REPO ?? new ProductRepository(_CONTEXT);
-        //     }
-        // }
+        private ProductReposirtory _PRODUCT_REPO;
+        public IProductReposirtory Products
+        {
+            get
+            {
+                return _PRODUCT_REPO = _PRODUCT_REPO ?? new ProductReposirtory(_CONTEXT);
+            }
+        }
 
-         private ProductReposirtory _PRODUCT_REPO;
-         public IProductReposirtory Products
-         {
-             get
-             {
-                 return _PRODUCT_REPO = _PRODUCT_REPO ?? new ProductReposirtory(_CONTEXT);
-             }
-         }
+        private ProductTypeRepository PRODUCT_REPO;
+        public IProductTypeRepository ProductTypes
+        {
+            get
+            {
+                return PRODUCT_REPO = PRODUCT_REPO ?? new ProductTypeRepository(_CONTEXT);
+            }
+        }
+        private SegmentReposirtory SEGMENT_REPO;
+        public ISegmentReposirtory Segments
+        {
+            get
+            {
+                return SEGMENT_REPO = SEGMENT_REPO ?? new SegmentReposirtory(_CONTEXT);
+            }
+        }
+        private ManufacturerReposirtory MANUFACTURER_REPO;
+        public IManufacturerReposirtory Manufacturers
+        {
+            get
+            {
+                return MANUFACTURER_REPO = MANUFACTURER_REPO ?? new ManufacturerReposirtory(_CONTEXT);
+            }
+        }
+        private ModelReposirtory MODEL_REPO;
+        public IModelReposirtory Models
+        {
+            get
+            {
+                return MODEL_REPO = MODEL_REPO ?? new ModelReposirtory(_CONTEXT);
+            }
+        }
+        private SpecificitiesReposirtory SPECIFICITIES_REPO;
+        public ISpecificitiesReposirtory Specificities
+        {
+            get
+            {
+                return SPECIFICITIES_REPO = SPECIFICITIES_REPO ?? new SpecificitiesReposirtory(_CONTEXT);
+            }
+        }
 
-         private ProductTypeRepository PRODUCT_REPO;
-         public IProductTypeRepository ProductTypes
-         {
-             get
-             {
-                 return PRODUCT_REPO = PRODUCT_REPO ?? new ProductTypeRepository(_CONTEXT);
-             }
-         }
-         private SegmentReposirtory SEGMENT_REPO;
-         public ISegmentReposirtory Segments
-         {
-             get
-             {
-                 return SEGMENT_REPO = SEGMENT_REPO ?? new SegmentReposirtory(_CONTEXT);
-             }
-         }
-         private ManufacturerReposirtory MANUFACTURER_REPO;
-         public IManufacturerReposirtory Manufacturers
-         {
-             get
-             {
-                 return MANUFACTURER_REPO = MANUFACTURER_REPO ?? new ManufacturerReposirtory(_CONTEXT);
-             }
-         }
-         private ModelReposirtory MODEL_REPO;
-         public IModelReposirtory Models
-         {
-             get
-             {
-                 return MODEL_REPO = MODEL_REPO ?? new ModelReposirtory(_CONTEXT);
-             }
-         }
-      
 
 
         #endregion

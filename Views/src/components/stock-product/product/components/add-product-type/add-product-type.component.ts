@@ -8,6 +8,7 @@ import { ProductTypeService } from '../../services/product-type.service';
 import { FormControllerAddProductType } from './useful/form-controller-add-product-type';
 import { ImportsProductType } from './useful/imports-product-type';
 import { ProductTypeValidatorAsync } from './useful/product-type-validator-async-fields';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -24,7 +25,6 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
     public _fbMain: FormBuilder,
     public _productTypeService: ProductTypeService,
     override _productTypeValidatorAsync: ProductTypeValidatorAsync,
-
   ) {
     super(_fbMain, _productTypeValidatorAsync)
   }
