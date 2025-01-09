@@ -4,7 +4,8 @@ import { ProductTypeDto } from "../../../dtos/product-type-dto";
 import { SegmentDto } from "../../../dtos/segment-dto";
 import { ManufacturerDto } from "../../../dtos/manufacturer-dto";
 import { environment } from "src/environments/environment";
-import { ProductDto } from "../../../dtos/product";
+import { ProductDto } from "../../../dtos/product-dto";
+
 
 export let _entitiesFiltered$ = new Observable<ProductList[]>();
 export let _productsTypes$ = new Observable<ProductTypeDto[]>();

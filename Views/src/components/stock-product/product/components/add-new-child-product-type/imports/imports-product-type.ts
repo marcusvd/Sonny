@@ -10,9 +10,8 @@ import { BtnGComponent } from "src/shared/components/btn-g/btn-g.component"
 import { SubTitleComponent } from "src/shared/components/sub-title/sub-title.component"
 import { TitleComponent } from "src/shared/components/title/components/title.component"
 import { MatSelectModule } from "@angular/material/select"
-import { FieldInputGComponent } from "src/components/stock-product/product/common-components/fields-input/field-input-g/field-input-g.component"
-import { FieldSelectGComponent } from "src/components/stock-product/product/common-components/fields-select/field-select-g/field-select-g.component"
-
+import { InputFieldGComponent } from "src/shared/components/input-field-g/input-field-g.component"
+import { SelectInputSearchGComponent } from "src/shared/components/select-input-search-g/select-input-search-g.component"
 
 
 export const ImportsProductType:any[] =[
@@ -26,6 +25,6 @@ export const ImportsProductType:any[] =[
     TitleComponent,
     SubTitleComponent,
     BtnGComponent,
-    FieldInputGComponent,
-    FieldSelectGComponent,
+    InputFieldGComponent,
+    SelectInputSearchGComponent,
 ]

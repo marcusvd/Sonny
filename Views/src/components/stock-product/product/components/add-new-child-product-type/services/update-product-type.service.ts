@@ -1,10 +1,10 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-
-
 import { FormGroup } from "@angular/forms";
 import { NavigationExtras, Router } from "@angular/router";
 import { Observable } from "rxjs";
+
+
 import { ManufacturerDto } from "src/components/stock-product/product/dtos/manufacturer-dto";
 import { ModelDto } from "src/components/stock-product/product/dtos/model-dto";
 import { ProductTypeDto } from "src/components/stock-product/product/dtos/product-type-dto";
@@ -12,8 +12,7 @@ import { SegmentDto } from "src/components/stock-product/product/dtos/segment-dt
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { ProductTypeAfterEditHandled } from "../../dto/produc-type-edit";
-
+import { ProductTypeAfterEditHandled } from "../../../dtos/product-type-after-edit-handled";
 
 
 @Injectable({ providedIn: 'root' })
@@ -29,7 +28,6 @@ export class UpdateProductTypeService extends BackEndService<ProductTypeDto> {
     );
 
   }
-
 
   getAllSegments$(id: string): Observable<SegmentDto[]> {
     return this.loadById$<SegmentDto[]>('_PD_ProductChildren/GetSegmentsAsync', id);

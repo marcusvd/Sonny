@@ -1,22 +1,20 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { ImportsFiledsSelect } from '../useful/imports-fileds-select';
-import { number } from 'card-validator';
+import { ImportsFiledsSelect } from './imports/imports-fileds-select-input-search-g';
 
 
 @Component({
-  selector: 'field-select-g',
+  selector: 'select-input-search-g',
   standalone: true,
   imports: [
     ImportsFiledsSelect
   ],
-  templateUrl: './field-select-g.component.html',
+  templateUrl: './select-input-search-g.component.html',
   styles: [`
   mat-form-field {
       width: 100%;
@@ -24,7 +22,7 @@ import { number } from 'card-validator';
   `],
 })
 
-export class FieldSelectGComponent extends BaseForm implements OnInit {
+export class SelectInputSearchGComponent extends BaseForm implements OnInit {
 
   constructor() {
     super()
@@ -42,24 +40,13 @@ export class FieldSelectGComponent extends BaseForm implements OnInit {
   @Input() labelInput = '';
   @Input() selectedValue!: string | number;
 
-
-  // @Input() set formControlReset(value: boolean) {
-  //   if (value)
-  //     this.selectFormControl.reset();
-
-  // }
-
   @Input() set formControlReset(value: boolean) {
     if (value) {
       this.selectFormControl.reset();
       this.selectNgxFormControl.reset();
     }
   }
-  // @Input() set formControlResetalways(value: boolean) {
-  //   this.selectFormControl.reset();
-  //   this.selectNgxFormControl.reset();
-  // }
-
+  
   @Input() set removeValidatorNgxFormControl(remove: boolean) {
     if (remove)
       this.clearValidatorFormControl(this.selectNgxFormControl);

@@ -4,11 +4,9 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
 import { AddProductService } from '../../services/add-product.service';
 import { ProductTypeService } from '../../services/product-type.service';
-import { FormControllerAddProduct } from './useful/form-controller-add-product';
-import { ImportsAddProduct } from './useful/imports-add-product';
-import { ProductTypeAfterEditHandled } from './dto/produc-type-edit';
-import { map, switchMap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { FormControllerAddProduct } from './helpers/form-controller-add-product';
+import { ImportsAddProduct } from './imports/imports-add-product';
+import { ProductTypeAfterEditHandled } from '../../dtos/product-type-after-edit-handled';
 
 
 @Component({

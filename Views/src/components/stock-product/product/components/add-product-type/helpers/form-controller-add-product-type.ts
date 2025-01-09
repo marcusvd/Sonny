@@ -1,18 +1,16 @@
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { MatCheckboxChange } from "@angular/material/checkbox";
-import { Observable, of } from "rxjs";
+import { of } from "rxjs";
 import { BaseForm } from "src/shared/components/inheritance/forms/base-form";
 
 
-import { map } from "rxjs/operators";
-import { ProductTypeDto } from "../../../dtos/product-type-dto";
-import { SegmentDto } from "../../../dtos/segment-dto";
 import { ManufacturerDto } from "../../../dtos/manufacturer-dto";
 import { ModelDto } from "../../../dtos/model-dto";
+import { ProductTypeDto } from "../../../dtos/product-type-dto";
+import { SegmentDto } from "../../../dtos/segment-dto";
 
-import { ProductTypeValidatorAsync } from "../form-validators/product-type-validator-async-fields";
-import validator from "cpf-cnpj-validator";
 import { SpecificitiesDto } from "../../../dtos/specificities-dto";
+import { ex_speed, ex_storage } from "../../common/helpers/product-type-helpers";
+import { ProductTypeValidatorAsync } from "../form-validators/product-type-validator-async-fields";
 
 
 export class FormControllerAddProductType extends BaseForm {
@@ -23,6 +21,9 @@ export class FormControllerAddProductType extends BaseForm {
     super()
   }
 
+  //Arrays
+  speed$ = of(ex_speed);
+  storage$ = of(ex_storage);
 
   //FORMS
   get segments() {
@@ -66,7 +67,7 @@ export class FormControllerAddProductType extends BaseForm {
       name: [segment?.name ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
       companyId: [this.companyId, [Validators.required]],
       productId: [segment?.productTypeId ?? 0, []],
-      registered:[new Date(), [Validators.required]],
+      registered: [new Date(), [Validators.required]],
       manufacturers: this._fb.array([], Validators.required)
     })
   }
@@ -77,7 +78,7 @@ export class FormControllerAddProductType extends BaseForm {
       name: [manufacturer?.name ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
       companyId: [this.companyId, [Validators.required]],
       segmentId: [manufacturer?.segmentId ?? 0, []],
-      registered:[new Date(), [Validators.required]],
+      registered: [new Date(), [Validators.required]],
       models: this._fb.array([], Validators.required)
     })
   }
@@ -88,7 +89,7 @@ export class FormControllerAddProductType extends BaseForm {
       companyId: [this.companyId, [Validators.required]],
       name: [model?.name ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
       manufacturerId: model?.manufacturerId ?? 0,
-      registered:[new Date(), [Validators.required]],
+      registered: [new Date(), [Validators.required]],
       specificities: this.formLoadSpecificities()
       // specificities: this._fb.array([], Validators.required)
     })
@@ -101,10 +102,10 @@ export class FormControllerAddProductType extends BaseForm {
       speed: new FormControl({ value: specificities?.speed ?? '', disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
       capacity: new FormControl({ value: specificities?.capacity ?? '', disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
       genaration: ['', []],
-      version: ['', []],
-      description:['', []],
-      manufacturerLink:['http://', []],
-      registered:[new Date(), [Validators.required]],
+      detailedDescription: ['', []],
+      description: ['', []],
+      manufacturerLink: ['http://', []],
+      registered: [new Date(), [Validators.required]],
       // modelId: specificities?.modelId ?? 0,
     })
   }

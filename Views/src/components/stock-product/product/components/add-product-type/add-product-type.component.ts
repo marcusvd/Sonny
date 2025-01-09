@@ -53,10 +53,6 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
     this.specificitiesForm.get('speed').setValue(handledValue);
   }
 
-  speed$ = of([{ id: 0, name: 'Não especificado' }, { id: 1, name: 'Hz' }, { id: 2, name: 'Khz' }, { id: 3, name: 'Mhz' }, { id: 4, name: 'Ghz' }, { id: 5, name: 'Thz' }, { id: 6, name: 'Rpm' }, { id: 7, name: 'Kbps' }, { id: 8, name: 'Mbps' }, { id: 9, name: 'Gbps' }]);
-  storage$ = of([{ id: 0, name: 'Não especificado' }, { id: 1, name: 'Kb' }, { id: 2, name: 'Mb' }, { id: 3, name: 'Gb' }, { id: 4, name: 'Tb' }, { id: 5, name: 'Volt (V)' }, { id: 6, name: 'Watt (W)' }]);
-
-
   onSelectSpeedMeasure(id: number) {
     this.speed$.pipe(map(x => {
       const result = x.find(item => item.id === id)
@@ -89,7 +85,7 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
 
   makeDescription = () => {
 
-    const items = [] = ['Tipo de produto:', 'Segmento:', 'Fabricante:', 'Modelo:', 'Velocidade:', 'Capacidade:', 'Geração:', 'Versão:', 'Descrição:'];
+    const items = [] = ['Tipo de produto:', 'Segmento:', 'Fabricante:', 'Modelo:', 'Velocidade:', 'Capacidade:', 'Geração:', 'Descrição:'];
 
     const typeName = this.formMain.get('name').value;
     const segmentName = this.segmentForm.get('name').value;
@@ -99,9 +95,6 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
     const specificitiesSpeed = this.specificitiesForm.get('speed').value ?? '#'
     const specificitiesCapacity = this.specificitiesForm.get('capacity').value ?? '#'
     const specificitiesGenaration = this.specificitiesForm.get('genaration').value;
-    const specificitiesVersion = this.specificitiesForm.get('version').value;
-    const specificitiesDescription = this.specificitiesForm.get('description').value;
-
 
     const result = `
     ${items[0]}  ${typeName},
@@ -110,14 +103,11 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
     ${items[3]}  ${modelName},
     ${items[4]}  ${specificitiesSpeed} ${this.speedMeasure ?? ''},
     ${items[5]}  ${specificitiesCapacity} ${this.storageMeasure ?? ''},
-    ${items[6]}  ${specificitiesGenaration},
-    ${items[7]}  ${specificitiesVersion},`;
+    ${items[6]}  ${specificitiesGenaration}`
 
     this.specificitiesForm.get('description').setValue(result);
 
   }
-
-
 
   handleFormToSave = () => {
     const speed = this.specificitiesForm.get('speed');

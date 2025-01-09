@@ -11,10 +11,12 @@ import { MatInputModule } from "@angular/material/input"
 import { MatRadioModule } from "@angular/material/radio"
 import { DescriptionFieldComponent } from "src/shared/components/administrative/info/description-field.component"
 import { BtnGComponent } from "src/shared/components/btn-g/btn-g.component"
+import { InputFieldGComponent } from "src/shared/components/input-field-g/input-field-g.component"
+import { SelectInputSearchGComponent } from "src/shared/components/select-input-search-g/select-input-search-g.component"
 import { SubTitleComponent } from "src/shared/components/sub-title/sub-title.component"
 import { TitleComponent } from "src/shared/components/title/components/title.component"
-import { ArrayGComponent } from "../../../common-components/array-g/array-g.component"
-import { FieldSelectGComponent } from "../../../common-components/fields-select/field-select-g/field-select-g.component"
+import { ArrayGComponent } from "../array/array-g.component"
+
 
 export const ImportsEditProductType: any[] = [
     CommonModule,
@@ -30,6 +32,7 @@ export const ImportsEditProductType: any[] = [
     SubTitleComponent,
     BtnGComponent,
     DescriptionFieldComponent,
-    FieldSelectGComponent,
-    ArrayGComponent
+    ArrayGComponent,
+    InputFieldGComponent,
+    SelectInputSearchGComponent,
 ]

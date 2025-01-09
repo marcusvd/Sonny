@@ -8,7 +8,7 @@ export class SpecificitiesDto extends RootBase {
   name: string;
   speed: string;
   capacity: string;
-  version: string;
+  detailedDescription: string;
   generation: string;
   description: string;
   manufacturerLink:string;

@@ -4,21 +4,22 @@ import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 
-import { ProductTypeEdit } from '../dto/produc-type-edit';
 import { ValidatorsProductTypeEditAsyncField } from './form-validators/validators-product-type-edit-async-field';
-import { FormControllerAddProductType } from './helpers/form-controller-add-product-type';
+import { FormControllerAddNewChildProductType } from './helpers/form-controller-add-new-child-product-type';
 import { ImportsProductType } from './imports/imports-product-type';
 import { UpdateProductTypeService } from './services/update-product-type.service';
+import { ProductTypeEdit } from '../../dtos/produc-type-edit';
+
 
 @Component({
   selector: 'new-item-product-type',
   standalone: true,
   imports: [ImportsProductType],
-  templateUrl: './new-item-product-type.component.html',
-  styleUrls: ['./new-item-product-type.component.scss'],
+  templateUrl: './add-new-child-product-type.component.html',
+  styleUrls: ['./add-new-child-product-type.component.scss'],
   providers: []
 })
-export class NewItemProductTypeComponent extends FormControllerAddProductType implements OnInit {
+export class AddNewChildProductTypeComponent extends FormControllerAddNewChildProductType implements OnInit {
 
   constructor(
     public _fbMain: FormBuilder,
@@ -39,11 +40,17 @@ export class NewItemProductTypeComponent extends FormControllerAddProductType im
   productTypeEdit: ProductTypeEdit = new ProductTypeEdit();
   formErrosValidation = false;
 
+  // ex_makeDescription(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm, this.specificitiesForm, this.speedMeasure, this.storageMeasure)
+
   addEmptyFormArrays() {
     this.segments.push(this.formLoadSegment(this.productTypeEdit))
     this.manufacturers.push(this.formLoadManufacturer(this.productTypeEdit))
     this.models.push(this.formLoadModel(this.productTypeEdit))
-    // this.specificities.push(this.formLoadSpecificities())
+
+    // getFormArrays(this.formMain, 'segments').push(this.formLoadSegment(this.productTypeEdit));
+    // getFormArrays(this.segmentForm, 'manufacturers').push(this.formLoadSegment(this.productTypeEdit));
+    // getFormArrays(this.manufacturerForm, 'models').push(this.formLoadSegment(this.productTypeEdit));
+
   }
 
   ngOnInit(): void {

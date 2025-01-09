@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Application.Services.Operations.StockProduct.ProductKind;
 using Application.Services.Shared.Dtos.Mappers;
 using Domain.Entities.StockProduct.ProductKind;
@@ -48,7 +47,7 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 Speed = entity.Speed,
                 Capacity = entity.Capacity,
                 Generation = entity.Generation,
-                Version = entity.Version,
+                DetailedDescription = entity.DetailedDescription,
                 Description = entity.Description,
                 Registered = entity.Registered,
                 // ModelId = entity.ModelId,
@@ -69,7 +68,7 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 Speed = entity.Speed,
                 Capacity = entity.Capacity,
                 Generation = entity.Generation,
-                Version = entity.Version,
+                DetailedDescription = entity.DetailedDescription,
                 Description = entity.Description,
                 Registered = entity.Registered,
                 // ModelId = entity.ModelId,

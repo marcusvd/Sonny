@@ -12,9 +12,11 @@ import { ProductDto } from "../../../dtos/product-dto";
 import { ProductTypeDto } from "../../../dtos/product-type-dto";
 import { SegmentDto } from "../../../dtos/segment-dto";
 import { SpecificitiesDto } from "../../../dtos/specificities-dto";
-import { usedHistoricalOrSupplierValidator } from "./used-historical-or-supplier.validator";
+import { usedHistoricalOrSupplierValidator } from "../form-validators/used-historical-or-supplier.validator";
 import { NavigationExtras, Router } from "@angular/router";
-import { ProductTypeAfterEditHandled, ProductTypeEdit } from "../dto/produc-type-edit";
+import { ProductTypeEdit } from "../../../dtos/produc-type-edit";
+import { ProductTypeAfterEditHandled } from "../../../dtos/product-type-after-edit-handled";
+
 
 
 export class FormControllerAddProduct extends BaseForm {

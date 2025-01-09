@@ -9,9 +9,9 @@ import { MatInputModule } from "@angular/material/input"
 import { BtnGComponent } from "src/shared/components/btn-g/btn-g.component"
 import { SubTitleComponent } from "src/shared/components/sub-title/sub-title.component"
 import { TitleComponent } from "src/shared/components/title/components/title.component"
-import { FieldInputGComponent } from "../../../common-components/fields-input/field-input-g/field-input-g.component"
-import { FieldSelectGComponent } from "../../../common-components/fields-select/field-select-g/field-select-g.component"
 import { MatSelectModule } from "@angular/material/select"
+import { InputFieldGComponent } from "src/shared/components/input-field-g/input-field-g.component"
+import { SelectInputSearchGComponent } from "src/shared/components/select-input-search-g/select-input-search-g.component"
 
 
 
@@ -26,6 +26,7 @@ export const ImportsProductType:any[] =[
     TitleComponent,
     SubTitleComponent,
     BtnGComponent,
-    FieldInputGComponent,
-    FieldSelectGComponent,
+    InputFieldGComponent,
+    SelectInputSearchGComponent,
+
 ]

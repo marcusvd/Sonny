@@ -10,7 +10,7 @@ import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { ProductTypeDto } from '../../dtos/product-type-dto';
 import { ProductTypeService } from '../../services/product-type.service';
 import { ListControlProduct } from './helpers/list-control-product';
-import { ImportsListProduct } from './useful/imports-list-product';
+import { ImportsListProduct } from './imports/imports-list-product';
 
 @Component({
   selector: 'app-list-product',

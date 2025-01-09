@@ -12,28 +12,28 @@
 
     <div class="type">
 
-        <field-select-g style="width: 100%;" [removeValidatorNgxFormControl]="true" [removeValidatorFormControl]="true"
+        <select-input-search-g style="width: 100%;" [removeValidatorNgxFormControl]="true" [removeValidatorFormControl]="true"
             (outEntitiesSelected)="this.onSelectedProduct($event, this.productsTypes$, this.productsList$, this.resetControlForm, this.removeAccentsSpecialCharacters, this.outProductsListFiltered$)"
             [entities]="productsTypes$" [formControlReset]="resetControlForm[0]" [labelInput]="'Tipo'">
-        </field-select-g>
+        </select-input-search-g>
 
     </div>
 
     <div class="segment">
 
-        <field-select-g [removeValidatorNgxFormControl]="true" [removeValidatorFormControl]="true"
+        <select-input-search-g [removeValidatorNgxFormControl]="true" [removeValidatorFormControl]="true"
             [entities]="segments$"
             (outEntitiesSelected)="this.onSelectedSegment($event, this.segments$, this.productsList$, this.resetControlForm, this.removeAccentsSpecialCharacters, this.outProductsListFiltered$)"
             [formControlReset]="resetControlForm[1]" [labelInput]="'Segmento'">
-        </field-select-g>
+        </select-input-search-g>
 
     </div>
 
     <div class="manufacturer">
-        <field-select-g [removeValidatorNgxFormControl]="true" [removeValidatorFormControl]="true"
+        <select-input-search-g [removeValidatorNgxFormControl]="true" [removeValidatorFormControl]="true"
             (outEntitiesSelected)="this.onSelectedManufacturer($event, manufacturers$, this.productsList$, this.resetControlForm, this.removeAccentsSpecialCharacters, this.outProductsListFiltered$)"
             [entities]="manufacturers$" [formControlReset]="resetControlForm[2]" [labelInput]="'Fabricante'">
-        </field-select-g>
+        </select-input-search-g>
     </div>
 
 </div>

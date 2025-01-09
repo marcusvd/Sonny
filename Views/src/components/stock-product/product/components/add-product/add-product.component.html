@@ -17,60 +17,60 @@
         <div [formGroup]="formMain" class="small-large-screen" style="width:100%">
             <div class="container-level-0">
                 <div class="type">
-                    <field-select-g (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$"
+                    <select-input-search-g (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$"
                         [labelInput]="'Tipo'" [formControlReset]="controlReset"
                         [selectedValue]="this?.productTypeAfterEditHandled?.productTypesId">
-                    </field-select-g>
+                    </select-input-search-g>
                 </div>
 
                 <div class="segment">
-                    <field-select-g (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$"
+                    <select-input-search-g (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$"
                         [labelInput]="'Segmento'" [formControlReset]="controlReset"
                         [selectedValue]="this?.productTypeAfterEditHandled?.segmentId">
-                    </field-select-g>
+                    </select-input-search-g>
                 </div>
             </div>
             <div class="container-level-0">
                 <div class="manufacturer">
-                    <field-select-g (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$"
+                    <select-input-search-g (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$"
                         [labelInput]="'Fabricante'" [formControlReset]="controlReset"
                         [selectedValue]="this?.productTypeAfterEditHandled?.manufacturerId">
-                    </field-select-g>
+                    </select-input-search-g>
                 </div>
                 <div class="model">
-                    <field-select-g (outEntitiesSelected)="onSelectedModel($event)" [entities]="models$"
+                    <select-input-search-g (outEntitiesSelected)="onSelectedModel($event)" [entities]="models$"
                         [labelInput]="'Modelos'" [formControlReset]="controlReset"
                         [selectedValue]="this?.productTypeAfterEditHandled?.modelId">
-                    </field-select-g>
+                    </select-input-search-g>
                 </div>
             </div>
             <div class="container-level-0">
-                <!-- <field-input-g [formMain]="this.modelForm" [type]="'text'" [inputLabel]="'Especificidade'"
+                <!-- <input-field-g [formMain]="this.modelForm" [type]="'text'" [inputLabel]="'Especificidade'"
                     [fieldControlName]="'purchaseInvoiceNumber'">
 
                     <span msg-error
                         *ngIf="this.formError(formMain,'purchaseInvoiceNumber', 'maxlength') && this.formTouched(formMain, 'purchaseInvoiceNumber')">{{maxLengthMsg
                         + '30' + charactersMsg}}</span>
-                </field-input-g> -->
-                <field-input-g [hidden]="true" class="specificity" [formMain]="this.formMain" [type]="'text'"
+                </input-field-g> -->
+                <input-field-g [hidden]="true" class="specificity" [formMain]="this.formMain" [type]="'text'"
                     [inputLabel]="'Especificidade'" [fieldControlName]="'specificitiesId'">
 
                     <span msg-error
                         *ngIf="this.formError(modelForm,'specificities', 'maxlength') && this.formTouched(modelForm, 'specificities')">{{maxLengthMsg
                         + '30' + charactersMsg}}</span>
-                </field-input-g>
-                <field-input-g class="specificity" [formMain]="this.formMain" [type]="'text'"
+                </input-field-g>
+                <input-field-g class="specificity" [formMain]="this.formMain" [type]="'text'"
                     [inputLabel]="'Especificidade'" [fieldControlName]="'specificitiesName'">
 
                     <span msg-error
                         *ngIf="this.formError(modelForm,'specificities', 'maxlength') && this.formTouched(modelForm, 'specificities')">{{maxLengthMsg
                         + '30' + charactersMsg}}</span>
-                </field-input-g>
+                </input-field-g>
 
                 <!-- <div class="specificity">
-                    <field-select-g (outEntitiesSelected)="onSelectedSpecificity($event)" [entities]="specificities$"
+                    <select-input-search-g (outEntitiesSelected)="onSelectedSpecificity($event)" [entities]="specificities$"
                         [labelInput]="'Especificidade'" [formControlReset]="controlReset">
-                    </field-select-g>
+                    </select-input-search-g>
                 </div> -->
             </div>
             <!-- <ng-container *ngIf="this.newItemSelected !=''"> -->
@@ -87,11 +87,11 @@
 
             <div class="container-level-0-1">
                 <div class="entryDate">
-                    <date-time-g [formMain]="formMain" [fieldControlName]="'entryDate'" [labelInput]="'Data Entrada'"
+                    <date-time-field-g [formMain]="formMain" [fieldControlName]="'entryDate'" [labelInput]="'Data Entrada'"
                         [startView]="'month'">
                         <span msg-error
                             *ngIf="this.formError(formMain,'entryDate', 'required') && this.formTouched(formMain, 'entryDate')">{{requiredMsg}}</span>
-                    </date-time-g>
+                    </date-time-field-g>
                 </div>
                 <div class="supplier">
                     <get-suppliers [formMain]="formMain"
@@ -99,33 +99,33 @@
                 </div>
 
                 <div class="warrantyEndLocal">
-                    <date-time-g [formMain]="formMain" [fieldControlName]="'warrantyEndLocal'"
+                    <date-time-field-g [formMain]="formMain" [fieldControlName]="'warrantyEndLocal'"
                         [labelInput]="'Garantia local'" [startView]="'month'">
                         <span msg-error
                             *ngIf="this.formError(formMain,'warrantyEndLocal', 'required') && this.formTouched(formMain, 'warrantyEndLocal')">{{requiredMsg}}</span>
-                    </date-time-g>
+                    </date-time-field-g>
                 </div>
                 <div class="purchaseInvoiceNumber">
-                    <field-input-g [formMain]="this.formMain" [type]="'text'" [inputLabel]="'NF: Entrada'"
+                    <input-field-g [formMain]="this.formMain" [type]="'text'" [inputLabel]="'NF: Entrada'"
                         [fieldControlName]="'purchaseInvoiceNumber'">
 
                         <span msg-error
                             *ngIf="this.formError(formMain,'purchaseInvoiceNumber', 'maxlength') && this.formTouched(formMain, 'purchaseInvoiceNumber')">{{maxLengthMsg
                             + '30' + charactersMsg}}</span>
-                    </field-input-g>
+                    </input-field-g>
 
                 </div>
             </div>
 
             <div class="usedHistoricalOrSupplier">
-                <field-input-g [formMain]="this.formMain" [inputLabel]="'Procedência'"
+                <input-field-g [formMain]="this.formMain" [inputLabel]="'Procedência'"
                     [fieldControlName]="'usedHistoricalOrSupplier'">
                     <span msg-error
                         *ngIf="this.formError(formMain,'usedHistoricalOrSupplier', 'required') && this.formTouched(formMain, 'usedHistoricalOrSupplier')">{{requiredMsg}}</span>
                     <span msg-error
                         *ngIf="this.formError(formMain,'usedHistoricalOrSupplier', 'maxlength') && this.formTouched(formMain, 'usedHistoricalOrSupplier')">{{maxLengthMsg
                         + '250' + charactersMsg}}</span>
-                </field-input-g>
+                </input-field-g>
             </div>
 
             <div class="checks">
@@ -136,7 +136,7 @@
             <div class="container-level-0-2">
 
                 <div class="costPrice">
-                    <field-input-g [type]="'currency'" [formMain]="this.formMain" [inputLabel]="'Preço de custo'"
+                    <input-field-g [type]="'currency'" [formMain]="this.formMain" [inputLabel]="'Preço de custo'"
                         [fieldControlName]="'costPrice'">
                         <span msg-error
                             *ngIf="this.formError(formMain,'costPrice', 'required') && this.formTouched(formMain, 'costPrice')">{{requiredMsg}}</span>
@@ -144,11 +144,11 @@
                             *ngIf="this.formError(formMain,'costPrice', 'max') && this.formTouched(formMain, 'costPrice')">{{limitMaxMsg}}</span>
                         <span msg-error
                             *ngIf="this.formError(formMain,'costPrice', 'min') && this.formTouched(formMain, 'costPrice')">{{limitMinMsg}}</span>
-                    </field-input-g>
+                    </input-field-g>
                 </div>
                 <div class="soldPrice">
 
-                    <field-input-g [type]="'currency'" [formMain]="this.formMain" [inputLabel]="'Preço de venda'"
+                    <input-field-g [type]="'currency'" [formMain]="this.formMain" [inputLabel]="'Preço de venda'"
                         [fieldControlName]="'soldPrice'">
                         <span msg-error
                             *ngIf="this.formError(formMain,'soldPrice', 'required') && this.formTouched(formMain, 'soldPrice')">{{requiredMsg}}</span>
@@ -156,14 +156,14 @@
                             *ngIf="this.formError(formMain,'soldPrice', 'max') && this.formTouched(formMain, 'soldPrice')">{{limitMaxMsg}}</span>
                         <span msg-error
                             *ngIf="this.formError(formMain,'soldPrice', 'min') && this.formTouched(formMain, 'soldPrice')">{{limitMinMsg}}</span>
-                    </field-input-g>
+                    </input-field-g>
                 </div>
                 <div class="quantity">
-                    <field-input-g [formMain]="this.formMain" [type]="'number'" [min]="1"
+                    <input-field-g [formMain]="this.formMain" [type]="'number'" [min]="1"
                         [inputLabel]="'Quantidade de peças'" [fieldControlName]="'quantity'">
                         <span msg-error
                             *ngIf="this.formError(formMain,'quantity', 'min') && this.formTouched(formMain, 'quantity')">{{limitMinMsg}}</span>
-                    </field-input-g>
+                    </input-field-g>
                 </div>
             </div>
             <div>

@@ -36,7 +36,7 @@
                 </mat-radio-button>
                 <div *ngIf="entityToEdit == 'segment'">
 
-                    <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$" [labelInput]="'Tipo'"></field-select-g>
+                    <select-input-search-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$" [labelInput]="'Tipo'"></select-input-search-g>
 
                     <array-g [formMain]="formMain" [arrayName]="'segments'" [formArray]="segments" [labelInput]="'Segmento'">
                         <btn-g add btn-1 *ngIf="entityToEdit == 'segment' && segments$" [name]="'Adicionar'" [icon]="'add'" (btn)="addAddItemArray('segment')"></btn-g>
@@ -60,10 +60,10 @@
 
                 <div [class]="{'array-hide': entityToEdit != 'manufacturer'}">
 
-                    <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$" [labelInput]="'Tipo'">
-                    </field-select-g>
-                    <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$" [labelInput]="'Segmento'">
-                    </field-select-g>
+                    <select-input-search-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$" [labelInput]="'Tipo'">
+                    </select-input-search-g>
+                    <select-input-search-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$" [labelInput]="'Segmento'">
+                    </select-input-search-g>
 
                     <array-g [formMain]="segmentForm" [arrayName]="'manufacturers'" [formArray]="manufacturers" [labelInput]="'Fabricante'">
                         <btn-g add btn-1 *ngIf="entityToEdit == 'manufacturer' && manufacturers$" [name]="'Adicionar'" [icon]="'add'" (btn)="addAddItemArray('manufacturer')"></btn-g>
@@ -89,21 +89,21 @@
                 </mat-radio-button>
                 <div [class]="{'array-hide': entityToEdit != 'model'}">
 
-                    <field-select-g (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$" [labelInput]="'Tipo'">
-                    </field-select-g>
-                    <field-select-g (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$" [labelInput]="'Segmento'">
-                    </field-select-g>
-                    <field-select-g (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$" [labelInput]="'Fabricante'">
-                    </field-select-g>
-                    <!-- <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$"
+                    <select-input-search-g (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$" [labelInput]="'Tipo'">
+                    </select-input-search-g>
+                    <select-input-search-g (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$" [labelInput]="'Segmento'">
+                    </select-input-search-g>
+                    <select-input-search-g (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$" [labelInput]="'Fabricante'">
+                    </select-input-search-g>
+                    <!-- <select-input-search-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$"
                         [labelInput]="'Tipo'">
-                    </field-select-g>
-                    <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$"
+                    </select-input-search-g>
+                    <select-input-search-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$"
                         [labelInput]="'Segmento'">
-                    </field-select-g>
-                    <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$"
+                    </select-input-search-g>
+                    <select-input-search-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$"
                         [labelInput]="'Fabricante'">
-                    </field-select-g> -->
+                    </select-input-search-g> -->
 
                     <array-g [formMain]="manufacturerForm" [arrayName]="'models'" [formArray]="models" [labelInput]="'Modelo'" [entityToEdit]="entityToEdit">
                         <btn-g add btn-1 *ngIf="entityToEdit == 'model' && models$" [name]="'Adicionar'" [icon]="'add'" (btn)="addAddItemArray('model')"></btn-g>
@@ -123,23 +123,23 @@
                 </mat-radio-button>
                 <div [class]="{'array-hide': entityToEdit != 'specificities'}">
 
-                    <field-select-g  [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$" [labelInput]="'Tipo'">
-                    </field-select-g>
-                    <field-select-g  [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$" [labelInput]="'Segmento'">
-                    </field-select-g>
-                    <field-select-g  [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$" [labelInput]="'Fabricante'">
-                    </field-select-g>
-                    <field-select-g  [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedModel($event)" [entities]="models$" [labelInput]="'Modelo'">
-                    </field-select-g>
-                    <!-- <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$"
+                    <select-input-search-g  [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$" [labelInput]="'Tipo'">
+                    </select-input-search-g>
+                    <select-input-search-g  [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$" [labelInput]="'Segmento'">
+                    </select-input-search-g>
+                    <select-input-search-g  [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$" [labelInput]="'Fabricante'">
+                    </select-input-search-g>
+                    <select-input-search-g  [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedModel($event)" [entities]="models$" [labelInput]="'Modelo'">
+                    </select-input-search-g>
+                    <!-- <select-input-search-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$"
                         [labelInput]="'Tipo'">
-                    </field-select-g>
-                    <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$"
+                    </select-input-search-g>
+                    <select-input-search-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$"
                         [labelInput]="'Segmento'">
-                    </field-select-g>
-                    <field-select-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$"
+                    </select-input-search-g>
+                    <select-input-search-g [formControlReset]="controlReset" (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$"
                         [labelInput]="'Fabricante'">
-                    </field-select-g> -->
+                    </select-input-search-g> -->
 
                     <array-g [formMain]="modelForm" [arrayName]="'specificities'" [formArray]="specificities" [labelInput]="'Especificidades'" [entityToEdit]="entityToEdit">
                         <btn-g add btn-1 *ngIf="entityToEdit == 'specificities' && models$" [name]="'Adicionar'" [icon]="'add'" (btn)="addAddItemArray('model')"></btn-g>

@@ -7,7 +7,8 @@ import { EditProductComponent } from "../product/components/edit-product-type/ed
 import { StockProductRouterComponent } from "../router-outlet/stock-product-router.component";
 
 import { ListProductComponent } from "../product/components/list-product/list-product.component";
-import { NewItemProductTypeComponent } from "../product/components/add-product/new-item/new-item-product-type.component";
+import { AddNewChildProductTypeComponent } from "../product/components/add-new-child-product-type/add-new-child-product-type.component";
+
 
 // import { AddProductTypeComponent } from "../product-type/components/add/add-product-type.component";
 
@@ -19,15 +20,9 @@ const route: Routes = [
       { path: 'add-product-type', component: AddProductTypeComponent },
       { path: 'edit-product-type', component: EditProductComponent },
       { path: 'add-product', component: AddProductComponent },
-      { path: 'edit-product-type-add-product', component: NewItemProductTypeComponent },
-      
+      { path: 'edit-product-type-add-product', component: AddNewChildProductTypeComponent },
       { path: 'list-product', component: ListProductComponent },
-      //  { path: 'card', component: TestsComponent },
-      //  { path: 'add-item-product', component: AddProductTypeComponent},
-      //  { path: 'add-item-product', component: ProductMainAddComponent},
-      //  { path: 'add-item-product', component: EditProductComponent},
-      //  { path: 'add-product', component: AddStockItemComponent},
-      // { path: 'list-product', component: ListStockComponent},
+
     ]
   },
 ]

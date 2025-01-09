@@ -1,17 +1,17 @@
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { BaseForm } from "src/shared/components/inheritance/forms/base-form";
 import { of } from "rxjs";
+import { BaseForm } from "src/shared/components/inheritance/forms/base-form";
 
 
-import { ModelDto } from "src/components/stock-product/product/dtos/model-dto";
 import { SpecificitiesDto } from "src/components/stock-product/product/dtos/specificities-dto";
-import { ProductTypeEdit } from "../../dto/produc-type-edit";
 import { ValidatorsProductTypeEditAsyncField } from "../form-validators/validators-product-type-edit-async-field";
+import { ProductTypeEdit } from "../../../dtos/produc-type-edit";
+import { ex_makeDescription, ex_speed, ex_storage } from "../../common/helpers/product-type-helpers";
 
 
 
 
-export class FormControllerAddProductType extends BaseForm {
+export class FormControllerAddNewChildProductType extends BaseForm {
   constructor(
     private _fb: FormBuilder,
     public _validatorsAsyncField: ValidatorsProductTypeEditAsyncField
@@ -21,8 +21,10 @@ export class FormControllerAddProductType extends BaseForm {
 
   speedMeasure = ''
   storageMeasure = ''
-  speed$ = of([{ id: 0, name: 'Não especificado' }, { id: 1, name: 'Hz' }, { id: 2, name: 'Khz' }, { id: 3, name: 'Mhz' }, { id: 4, name: 'Ghz' }, { id: 5, name: 'Thz' }, { id: 6, name: 'Rpm' }, { id: 7, name: 'Kbps' }, { id: 8, name: 'Mbps' }, { id: 9, name: 'Gbps' }]);
-  storage$ = of([{ id: 0, name: 'Não especificado' }, { id: 1, name: 'Kb' }, { id: 2, name: 'Mb' }, { id: 3, name: 'Gb' }, { id: 4, name: 'Tb' }, { id: 5, name: 'Volt (V)' }, { id: 6, name: 'Watt (W)' }]);
+
+  //Arrays
+  speed$ = of(ex_speed);
+  storage$ = of(ex_storage);
 
   //FORMS
   get segments() {
@@ -34,15 +36,17 @@ export class FormControllerAddProductType extends BaseForm {
   get models() {
     return this.manufacturerForm.get('models') as FormArray
   }
+
+
   // get specificities() {
   //   return this.modelForm.get('specificities') as FormArray
   // }
 
   //FormGroups
-  segmentForm: FormGroup;
-  manufacturerForm: FormGroup;
-  modelForm: FormGroup;
-  specificitiesForm: FormGroup;
+  segmentForm!: FormGroup;
+  manufacturerForm!: FormGroup;
+  modelForm!: FormGroup;
+  specificitiesForm!: FormGroup;
 
   //Validators
   nameMaxLength = 50;
@@ -85,7 +89,7 @@ export class FormControllerAddProductType extends BaseForm {
       id: [0, [Validators.required]],
       companyId: [this.companyId, [Validators.required]],
       name: new FormControl('', { validators: [Validators.required, Validators.maxLength(this.nameMaxLength)], asyncValidators: [this._validatorsAsyncField.validateModelAsync(productType?.manufacturerId)] }),
-      manufacturerId:0,
+      manufacturerId: 0,
       registered: [new Date(), [Validators.required]],
       specificities: this.formLoadSpecificities()
       // specificities: this._fb.array([], Validators.required)
@@ -99,9 +103,9 @@ export class FormControllerAddProductType extends BaseForm {
       speed: new FormControl({ value: specificities?.speed ?? '', disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
       capacity: new FormControl({ value: specificities?.capacity ?? '', disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
       generation: ['', []],
-      version: ['', []],
+      detailedDescription: ['', []],
       description: ['', []],
-      manufacturerLink:['http://', []],
+      manufacturerLink: ['http://', []],
       registered: [new Date(), [Validators.required]],
       // modelId: specificities?.modelId ?? 0,
     })
@@ -117,37 +121,12 @@ export class FormControllerAddProductType extends BaseForm {
       this?.formMain?.get('segments')?.get('0').get('manufacturers').get('0').get('name')?.disable();
 
   }
-  getSpecificitiesFormValues(value: string) {
-    return this.formMain.get('segments')?.get('0').get('manufacturers').get('0').get('models').get('0').get('specificities').get(value).value
+
+
+  makeDescription = () =>{
+    ex_makeDescription(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm, this.specificitiesForm, this.speedMeasure, this.storageMeasure)
   }
-
-  makeDescription = async () => {
-
-    const items = [] = ['Tipo de produto:', 'Segmento:', 'Fabricante:', 'Modelo:', 'Velocidade:', 'Capacidade:', 'Geração:', 'Versão:', 'Descrição:'];
-
-    const typeName = this.formMain.get('name').value || '#';
-    const segmentName = this.segmentForm.get('name').value || '#';
-    const manufacturerName = this.manufacturerForm.get('name').value || '#';
-    const modelName = this.modelForm.get('name').value || '#';
-
-    const specificitiesSpeed = this.getSpecificitiesFormValues('speed') || '#';
-    const specificitiesCapacity = this.getSpecificitiesFormValues('capacity') || '#';
-    const specificitiesGenaration = this.getSpecificitiesFormValues('generation') || '#';
-    const specificitiesVersion = this.getSpecificitiesFormValues('version') || '#';
-
-    const result = `
-    ${items[0]}  ${typeName},
-    ${items[1]}  ${segmentName},
-    ${items[2]}  ${manufacturerName},
-    ${items[3]}  ${modelName},
-    ${items[4]}  ${specificitiesSpeed} ${this.speedMeasure ?? ''},
-    ${items[5]}  ${specificitiesCapacity} ${this.storageMeasure ?? ''},
-    ${items[6]}  ${specificitiesGenaration},
-    ${items[7]}  ${specificitiesVersion},`;
-
-    this.specificitiesForm.get('description').setValue(result);
-  }
-
+  
   formEnableToSave = () => {
     this?.formMain?.get('name')?.enable();
     this?.formMain?.get('segments')?.get('0').get('name')?.enable();
