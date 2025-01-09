@@ -11,8 +11,7 @@ export class SpecificitiesDto extends RootBase {
   version: string;
   generation: string;
   description: string;
-  modelId: number;
-  model: ModelDto;
+  manufacturerLink:string;
   products: ProductDto[];
 
 }

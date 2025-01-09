@@ -5,9 +5,9 @@ import { FormBuilder } from '@angular/forms';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ProductTypeService } from '../../services/product-type.service';
-import { FormControllerAddProductType } from './useful/form-controller-add-product-type';
-import { ImportsProductType } from './useful/imports-product-type';
-import { ProductTypeValidatorAsync } from './useful/product-type-validator-async-fields';
+import { FormControllerAddProductType } from './helpers/form-controller-add-product-type';
+import { ImportsProductType } from './imports/imports-product-type';
+import { ProductTypeValidatorAsync } from './form-validators/product-type-validator-async-fields';
 import { Router } from '@angular/router';
 
 

@@ -101,8 +101,9 @@ export class FormControllerAddProductType extends BaseForm {
       generation: ['', []],
       version: ['', []],
       description: ['', []],
+      manufacturerLink:['http://', []],
       registered: [new Date(), [Validators.required]],
-      modelId: specificities?.modelId ?? 0,
+      // modelId: specificities?.modelId ?? 0,
     })
   }
 

@@ -3,8 +3,8 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { MatRadioChange } from '@angular/material/radio';
 import { Router } from '@angular/router';
 import { ProductTypeService } from '../../services/product-type.service';
-import { FormControllerEditProductType } from './useful/form-controller-edit-product-type';
-import { ImportsEditProductType } from './useful/imports-edit-product-type';
+import { FormControllerEditProductType } from './helpers/form-controller-edit-product-type';
+import { ImportsEditProductType } from './imports/imports-edit-product-type';
 
 @Component({
     selector: 'edit-product-type',

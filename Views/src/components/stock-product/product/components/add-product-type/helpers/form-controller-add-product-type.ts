@@ -10,7 +10,7 @@ import { SegmentDto } from "../../../dtos/segment-dto";
 import { ManufacturerDto } from "../../../dtos/manufacturer-dto";
 import { ModelDto } from "../../../dtos/model-dto";
 
-import { ProductTypeValidatorAsync } from "./product-type-validator-async-fields";
+import { ProductTypeValidatorAsync } from "../form-validators/product-type-validator-async-fields";
 import validator from "cpf-cnpj-validator";
 import { SpecificitiesDto } from "../../../dtos/specificities-dto";
 
@@ -103,8 +103,9 @@ export class FormControllerAddProductType extends BaseForm {
       genaration: ['', []],
       version: ['', []],
       description:['', []],
+      manufacturerLink:['http://', []],
       registered:[new Date(), [Validators.required]],
-      modelId: specificities?.modelId ?? 0,
+      // modelId: specificities?.modelId ?? 0,
     })
   }
 

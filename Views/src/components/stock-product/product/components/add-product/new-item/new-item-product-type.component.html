@@ -109,6 +109,15 @@
                         + '50' + charactersMsg}}</span>
                 </field-input-g>
 
+                <field-input-g [type]="'text'" [formMain]="specificitiesForm" [inputLabel]="'Link fabricante'"
+                    [fieldControlName]="'manufacturerLink'">
+                    <span msg-error
+                        *ngIf="this.formError(specificitiesForm,'manufacturerLink', 'required') && this.formTouched(specificitiesForm, 'manufacturerLink')">{{requiredMsg}}</span>
+                    <span msg-error
+                        *ngIf="this.formError(specificitiesForm,'manufacturerLink', 'maxlength') && this.formTouched(specificitiesForm, 'manufacturerLink')">{{maxLengthMsg
+                        + '50' + charactersMsg}}</span>
+                </field-input-g>
+
 
                 <!-- <mat-label>{{'Descrição'}}</mat-label> -->
                 <div [formGroup]="specificitiesForm">

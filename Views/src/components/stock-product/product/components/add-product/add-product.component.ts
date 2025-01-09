@@ -71,7 +71,7 @@ export class AddProductComponent extends FormControllerAddProduct implements OnI
 
       this.formMainLoad();
       this.controlReset = false;
-
+      this.productTypeAfterEditHandled = null;
     }
 
   }

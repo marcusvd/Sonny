@@ -172,7 +172,7 @@ export class FormControllerEditProductType extends BaseForm {
      // name: [entity?.name.toUpperCase() ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
       speed: [entity?.speed ?? '', [Validators.maxLength(this.nameMaxLength)]],
       capacity: [entity?.capacity ?? '', [Validators.maxLength(this.nameMaxLength)]],
-      modelId: entity?.modelId ?? 0,
+      // modelId: entity?.modelId ?? 0,
       description: [entity?.description ?? '', [Validators.maxLength(this.descriptionMaxLength)]],
       deleted: [entity?.deleted ?? this.minValue, []],
     })
