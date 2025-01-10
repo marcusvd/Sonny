@@ -9,8 +9,6 @@ import { ProductTypeEdit } from "../../../dtos/produc-type-edit";
 import { ex_makeDescription, ex_speed, ex_storage } from "../../common/helpers/product-type-helpers";
 
 
-
-
 export class FormControllerAddNewChildProductType extends BaseForm {
   constructor(
     private _fb: FormBuilder,
@@ -19,12 +17,13 @@ export class FormControllerAddNewChildProductType extends BaseForm {
     super()
   }
 
-  speedMeasure = ''
-  storageMeasure = ''
-
   //Arrays
   speed$ = of(ex_speed);
   storage$ = of(ex_storage);
+
+  //Variables
+  speedMeasure = ''
+  storageMeasure = ''
 
   //FORMS
   get segments() {
@@ -36,11 +35,6 @@ export class FormControllerAddNewChildProductType extends BaseForm {
   get models() {
     return this.manufacturerForm.get('models') as FormArray
   }
-
-
-  // get specificities() {
-  //   return this.modelForm.get('specificities') as FormArray
-  // }
 
   //FormGroups
   segmentForm!: FormGroup;
@@ -107,7 +101,6 @@ export class FormControllerAddNewChildProductType extends BaseForm {
       description: ['', []],
       manufacturerLink: ['http://', []],
       registered: [new Date(), [Validators.required]],
-      // modelId: specificities?.modelId ?? 0,
     })
   }
 
@@ -122,9 +115,8 @@ export class FormControllerAddNewChildProductType extends BaseForm {
 
   }
 
-
   makeDescription = () =>{
-    ex_makeDescription(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm, this.specificitiesForm, this.speedMeasure, this.storageMeasure)
+    ex_makeDescription(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm, this.specificitiesForm, this.speedMeasure, this.storageMeasure, 'edit')
   }
   
   formEnableToSave = () => {
@@ -136,7 +128,6 @@ export class FormControllerAddNewChildProductType extends BaseForm {
   controlReset = false;
   formControlReset = () => {
     this.controlReset = true;
-    // this.controlReset = !this.controlReset;
   }
 
 

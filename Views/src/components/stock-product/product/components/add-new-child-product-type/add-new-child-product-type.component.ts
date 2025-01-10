@@ -43,21 +43,14 @@ export class AddNewChildProductTypeComponent extends FormControllerAddNewChildPr
   // ex_makeDescription(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm, this.specificitiesForm, this.speedMeasure, this.storageMeasure)
 
   addEmptyFormArrays() {
-    this.segments.push(this.formLoadSegment(this.productTypeEdit))
-    this.manufacturers.push(this.formLoadManufacturer(this.productTypeEdit))
-    this.models.push(this.formLoadModel(this.productTypeEdit))
-
-    // getFormArrays(this.formMain, 'segments').push(this.formLoadSegment(this.productTypeEdit));
-    // getFormArrays(this.segmentForm, 'manufacturers').push(this.formLoadSegment(this.productTypeEdit));
-    // getFormArrays(this.manufacturerForm, 'models').push(this.formLoadSegment(this.productTypeEdit));
-
+    this.segments.push(this.formLoadSegment(this.productTypeEdit));
+    this.manufacturers.push(this.formLoadManufacturer(this.productTypeEdit));
+    this.models.push(this.formLoadModel(this.productTypeEdit));
   }
 
   ngOnInit(): void {
     this.formLoad(this.productTypeEdit);
-
     this.addEmptyFormArrays();
-
     this.formDisabledToStart();
   }
 
@@ -106,7 +99,6 @@ export class AddNewChildProductTypeComponent extends FormControllerAddNewChildPr
   }
 
   save() {
-
     
     if (this.alertSave(this.formMain)) {
       this.formEnableToSave();

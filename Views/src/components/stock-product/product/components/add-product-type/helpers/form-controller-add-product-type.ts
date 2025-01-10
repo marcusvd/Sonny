@@ -1,15 +1,14 @@
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { of } from "rxjs";
+
+
 import { BaseForm } from "src/shared/components/inheritance/forms/base-form";
-
-
 import { ManufacturerDto } from "../../../dtos/manufacturer-dto";
 import { ModelDto } from "../../../dtos/model-dto";
 import { ProductTypeDto } from "../../../dtos/product-type-dto";
 import { SegmentDto } from "../../../dtos/segment-dto";
-
 import { SpecificitiesDto } from "../../../dtos/specificities-dto";
-import { ex_speed, ex_storage } from "../../common/helpers/product-type-helpers";
+import { ex_makeDescription, ex_speed, ex_storage } from "../../common/helpers/product-type-helpers";
 import { ProductTypeValidatorAsync } from "../form-validators/product-type-validator-async-fields";
 
 
@@ -25,6 +24,10 @@ export class FormControllerAddProductType extends BaseForm {
   speed$ = of(ex_speed);
   storage$ = of(ex_storage);
 
+  //variables
+  speedMeasure = ''
+  storageMeasure = ''
+
   //FORMS
   get segments() {
     return this.formMain.get('segments') as FormArray
@@ -35,11 +38,6 @@ export class FormControllerAddProductType extends BaseForm {
   get models() {
     return this.manufacturerForm.get('models') as FormArray
   }
-
-  // get specificities() {
-  //   return this.modelForm.get('specificities') as FormArray
-  // }
-
 
   //FormGroups
   segmentForm: FormGroup;
@@ -91,7 +89,6 @@ export class FormControllerAddProductType extends BaseForm {
       manufacturerId: model?.manufacturerId ?? 0,
       registered: [new Date(), [Validators.required]],
       specificities: this.formLoadSpecificities()
-      // specificities: this._fb.array([], Validators.required)
     })
   }
 
@@ -106,22 +103,23 @@ export class FormControllerAddProductType extends BaseForm {
       description: ['', []],
       manufacturerLink: ['http://', []],
       registered: [new Date(), [Validators.required]],
-      // modelId: specificities?.modelId ?? 0,
     })
+  }
+
+  makeDescription = () => {
+    ex_makeDescription(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm, this.specificitiesForm, this.speedMeasure, this.storageMeasure)
   }
 
   addEmptyFormArrays() {
     this.segments.push(this.formLoadSegment())
     this.manufacturers.push(this.formLoadManufacturer())
     this.models.push(this.formLoadModel())
-    // this.specificities.push(this.formLoadSpecificities())
   }
 
 
   controlReset = false;
   formControlReset = () => {
     this.controlReset = true;
-    // this.controlReset = !this.controlReset;
   }
 
 

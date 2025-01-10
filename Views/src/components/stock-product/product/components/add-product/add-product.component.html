@@ -66,19 +66,8 @@
                         *ngIf="this.formError(modelForm,'specificities', 'maxlength') && this.formTouched(modelForm, 'specificities')">{{maxLengthMsg
                         + '30' + charactersMsg}}</span>
                 </input-field-g>
-
-                <!-- <div class="specificity">
-                    <select-input-search-g (outEntitiesSelected)="onSelectedSpecificity($event)" [entities]="specificities$"
-                        [labelInput]="'Especificidade'" [formControlReset]="controlReset">
-                    </select-input-search-g>
-                </div> -->
+                
             </div>
-            <!-- <ng-container *ngIf="this.newItemSelected !=''"> -->
-            <!-- <ng-container>
-                <new-item-product-type [hidden]="this.newItemSelected ==''" [newItemSelected]="newItemSelected"
-                    (formMainSend)="formHandler($event)" (newItemSelectedReset)="newItemSelectedReset()" [formMainReceived]="formMainProductType">
-                </new-item-product-type>
-            </ng-container> -->
             <br>
             <div class="checks">
                 <mat-checkbox class="isUsed" (change)="onChangeIsUsed($event)"

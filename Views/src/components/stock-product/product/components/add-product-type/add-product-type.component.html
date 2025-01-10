@@ -105,14 +105,15 @@
                 *ngIf="this.formError(specificitiesForm,'manufacturerLink', 'maxlength') && this.formTouched(specificitiesForm, 'manufacturerLink')">{{maxLengthMsg
                         + '50' + charactersMsg}}</span>
                 </input-field-g>
-                
-                <textarea (click)="makeDescription()" style="border:1px solid #2ba1a8; border-radius: 4px;" matInput
-                [rows]="10" [placeholder]="'Descrição completa'" formControlName="detailedDescription"></textarea>
-
-                <!-- <mat-label>{{'Descrição'}}</mat-label> -->
+              
                 <div [formGroup]="specificitiesForm">
                     <textarea (click)="makeDescription()" style="border:1px solid #2ba1a8; border-radius: 4px;" matInput
-                        [rows]="10" [placeholder]="'Descrição simples'" formControlName="description"></textarea>
+                        [rows]="10" [placeholder]="'Descrição curta'" formControlName="description"></textarea>
+                </div>
+                <br>
+                <div [formGroup]="specificitiesForm">
+                    <textarea style="border:1px solid #2ba1a8; border-radius: 4px;" matInput [rows]="10"
+                        [placeholder]="'Descrição completa'" formControlName="detailedDescription"></textarea>
                 </div>
                 <!-- <mat-error>
                         <span>{{validatorMessages.minMaxLength(formMain,frmControlName, 'Observações', minLength, maxLength)}}</span>

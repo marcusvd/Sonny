@@ -2,13 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
 
-import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ProductTypeService } from '../../services/product-type.service';
+import { ProductTypeValidatorAsync } from './form-validators/product-type-validator-async-fields';
 import { FormControllerAddProductType } from './helpers/form-controller-add-product-type';
 import { ImportsProductType } from './imports/imports-product-type';
-import { ProductTypeValidatorAsync } from './form-validators/product-type-validator-async-fields';
-import { Router } from '@angular/router';
 
 
 @Component({
@@ -33,9 +31,6 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
     this.formLoad();
     this.addEmptyFormArrays();
   }
-
-  speedMeasure = ''
-  storageMeasure = ''
 
   noEntriesFoundLabel = '';
   placeholderProduct = '';
@@ -82,32 +77,6 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
     return value;
   }
 
-
-  makeDescription = () => {
-
-    const items = [] = ['Tipo de produto:', 'Segmento:', 'Fabricante:', 'Modelo:', 'Velocidade:', 'Capacidade:', 'Geração:', 'Descrição:'];
-
-    const typeName = this.formMain.get('name').value;
-    const segmentName = this.segmentForm.get('name').value;
-    const manufacturerName = this.manufacturerForm.get('name').value;
-    const modelName = this.modelForm.get('name').value;
-
-    const specificitiesSpeed = this.specificitiesForm.get('speed').value ?? '#'
-    const specificitiesCapacity = this.specificitiesForm.get('capacity').value ?? '#'
-    const specificitiesGenaration = this.specificitiesForm.get('genaration').value;
-
-    const result = `
-    ${items[0]}  ${typeName},
-    ${items[1]}  ${segmentName},
-    ${items[2]}  ${manufacturerName},
-    ${items[3]}  ${modelName},
-    ${items[4]}  ${specificitiesSpeed} ${this.speedMeasure ?? ''},
-    ${items[5]}  ${specificitiesCapacity} ${this.storageMeasure ?? ''},
-    ${items[6]}  ${specificitiesGenaration}`
-
-    this.specificitiesForm.get('description').setValue(result);
-
-  }
 
   handleFormToSave = () => {
     const speed = this.specificitiesForm.get('speed');

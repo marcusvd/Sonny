@@ -99,6 +99,8 @@ export class FormControllerAddProduct extends BaseForm {
     if (entity == 'segment') {
       this.productTypeEdit.segmentId = null;
       this.productTypeEdit.segmentName = '';
+      this.productTypeEdit.manufacturerId = null;
+      this.productTypeEdit.manufacturerName = '';
     }
 
     if (entity == 'manufacturer') {
@@ -177,47 +179,40 @@ export class FormControllerAddProduct extends BaseForm {
 
     this.models$.pipe(
       map(x => {
-        // console.log(x.find(models => models.id == id).specificities.id)
-        this.formMain.get('specificitiesId').patchValue(x.find(models => models.id == id).specificities.id);
 
+        const form = this.formMain.get('specificitiesName');
         const specificity = x.find(models => models.id == id).specificities;
-        const name = `${specificity.description.split(',')[4]}, ${specificity.description.split(',')[5]}, ${specificity.description.split(',')[6]}, ${specificity.description.split(',')[7]}`;
 
-        this.formMain.get('specificitiesName').patchValue(name);
+        const speed = specificity.description.split(',')[4];
+        const capacity = specificity.description.split(',')[5];
+        const generation = specificity.description.split(',')[6];
+
+        if (speed && capacity && generation)
+            form.patchValue(`${speed}, ${capacity}, ${generation}`);
+          else
+            form.patchValue('Nenhuma especifidade cadastrada!');
+
+        this.setSpecificityId(specificity.id);
+
       })
     ).subscribe();
-
-    // this.specificities$ = this.specificities$.pipe(
-    //   map((specificities: SpecificitiesDto[]) =>
-    //     specificities.map(specificity => ({
-    //       ...specificity,
-    //       name: `${specificity.description.split(',')[4]}, ${specificity.description.split(',')[5]}, ${specificity.description.split(',')[6]}, ${specificity.description.split(',')[7]}`,
-    //     }))
-    //   )
-    // );
-    // this.specificities$ = this.models$.pipe(
-    //   map(x => x.find(models => models.id == id).specificities)
-    // )
-
-    // this.specificities$ = this.specificities$.pipe(
-    //   map((specificities: SpecificitiesDto[]) =>
-    //     specificities.map(specificity => ({
-    //       ...specificity,
-    //       name: `${specificity.description.split(',')[4]}, ${specificity.description.split(',')[5]}, ${specificity.description.split(',')[6]}, ${specificity.description.split(',')[7]}`,
-    //     }))
-    //   )
-    // );
 
     this?.formMain?.get('modelId')?.patchValue(id);
 
     if (id == 0)
       this.callRouterEditProductType(this.productTypeEdit);
 
+    this.formMain.get('specificitiesName').disable();
+
   }
 
 
-  onSelectedSpecificity(id: number) {
+  private setSpecificityId(id: number) {
     this.formMain.get('specificitiesId')?.patchValue(id);
+  }
+  
+  private setSpecificityShortDescription(id: number) {
+    this.formMain.get('specificitiesName')?.patchValue(id);
   }
 
   onSupplierSelected(supplier: PartnerDto) {
