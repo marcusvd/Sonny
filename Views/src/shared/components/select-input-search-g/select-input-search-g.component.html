@@ -1,14 +1,14 @@
 <mat-form-field appearance="outline">
     <mat-label>{{labelInput}}</mat-label>
-    <mat-select [formControl]="selectFormControl" [placeholder]="labelInput" #singleSelect (selectionChange)="onSelectedEntity(singleSelect?.value)">
+    <mat-select [formControl]="selectFieldFormControl" [placeholder]="labelInput" #singleSelect (selectionChange)="onSelectedEntity(singleSelect?.value)">
         <mat-option>
-            <ngx-mat-select-search [formControl]="selectNgxFormControl" (input)="searchEntity()" [placeholderLabel]="labelInput" [noEntriesFoundLabel]="noEntriesFoundLabel"></ngx-mat-select-search>
+            <ngx-mat-select-search [formControl]="selectFieldSearchFormControl" (input)="searchEntity()" [placeholderLabel]="labelInput" [noEntriesFoundLabel]="noEntriesFoundLabel"></ngx-mat-select-search>
         </mat-option>
         <mat-option *ngFor="let entity of entities$ | async" [value]="entity.id">
             {{entity.name | uppercase}}
         </mat-option>
     </mat-select>
-    <mat-error *ngIf="selectFormControl.errors && selectFormControl.touched">
+    <mat-error *ngIf="selectFieldFormControl.errors && selectFieldFormControl.touched">
         <span>{{requiredMsg}}</span>
     </mat-error>
 </mat-form-field>

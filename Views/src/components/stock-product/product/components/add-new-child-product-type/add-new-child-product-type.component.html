@@ -65,7 +65,7 @@
             <div class="container--group-specificity">
                 <h3>Especificidade</h3>
                 <select-input-search-g class="space-between" (outEntitiesSelected)="onSelectSpeedMeasure($event)"
-                    [entities]="speed$" [labelInput]="'Medida'" [formControlReset]="controlReset">
+                    [entities]="speed$" [labelInput]="'Medida'">
                 </select-input-search-g>
 
                 <mat-form-field class="container--space" [formGroup]="specificitiesForm" appearance="outline"
@@ -78,7 +78,7 @@
                 </mat-form-field>
 
                 <select-input-search-g class="container--space-between" (outEntitiesSelected)="onSelectStorageMeasure($event)"
-                    [entities]="storage$" [labelInput]="'Medida'" [formControlReset]="controlReset">
+                    [entities]="storage$" [labelInput]="'Medida'">
                 </select-input-search-g>
 
                 <mat-form-field class="container--space" [formGroup]="specificitiesForm" appearance="outline"

@@ -65,6 +65,12 @@ export class BaseForm extends Responsive {
       form.get(field).updateValueAndValidity();
     })
   }
+  
+  resetFields(form: FormGroup, fields: string[]) {
+    fields.forEach(field => {
+      form.get(field).reset();
+    })
+  }
 
   SetFieldFormMain(field: string, value: any) {
     this.formMain.get(field).setValue(value);

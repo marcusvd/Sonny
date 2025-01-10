@@ -4,10 +4,10 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
 import { AddProductService } from '../../services/add-product.service';
 import { ProductTypeService } from '../../services/product-type.service';
-import { FormControllerAddProduct } from './helpers/form-controller-add-product';
+import { ControllerAddProduct } from './helpers/controller-add-product';
 import { ImportsAddProduct } from './imports/imports-add-product';
 import { ProductTypeAfterEditHandled } from '../../dtos/product-type-after-edit-handled';
-
+import { ex_formLoad } from './helpers/form-main-export-helpers';
 
 @Component({
   selector: 'add-product',
@@ -17,7 +17,7 @@ import { ProductTypeAfterEditHandled } from '../../dtos/product-type-after-edit-
   styleUrls: ['./add-product.component.css']
 })
 
-export class AddProductComponent extends FormControllerAddProduct implements OnInit {
+export class AddProductComponent extends ControllerAddProduct implements OnInit {
   constructor(
     public _fbMain: FormBuilder,
     private _productTypeService: ProductTypeService,
@@ -35,22 +35,23 @@ export class AddProductComponent extends FormControllerAddProduct implements OnI
       console.log(this.productTypeAfterEditHandled)
     }
   }
+  
 
   ngOnInit(): void {
     this.productsTypes$ = this._productTypeService.getAllIncluded$(this.companyId.toString());
     this.formMainLoad();
-    if(this?.productTypeAfterEditHandled){
+    if (this?.productTypeAfterEditHandled) {
       this.onSelectedProduct(this?.productTypeAfterEditHandled?.productTypesId)
       this.onSelectedSegment(this?.productTypeAfterEditHandled?.segmentId)
       this.onSelectedManufacturer(this?.productTypeAfterEditHandled?.manufacturerId)
       this.onSelectedModel(this?.productTypeAfterEditHandled?.modelId)
       this.formMain.get('specificitiesId').patchValue(this?.productTypeAfterEditHandled?.specificitiesId);
     }
+
   }
 
   formMainLoad = () => {
-    this.formMain = this.formLoad(this.formMain, this.companyId, this.userId, null);
-
+    this.formMain = ex_formLoad(this.formMain, this.companyId, this.userId, null);
   }
 
   onChangeIsUsed(selection: MatCheckboxChange) {

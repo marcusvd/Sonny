@@ -17,41 +17,42 @@
         <div [formGroup]="formMain" class="small-large-screen" style="width:100%">
             <div class="container-level-0">
                 <div class="type">
-                    <select-input-search-g (outEntitiesSelected)="onSelectedProduct($event)" [entities]="productsTypes$"
-                        [labelInput]="'Tipo'" [formControlReset]="controlReset"
-                        [selectedValue]="this?.productTypeAfterEditHandled?.productTypesId">
+                    <select-input-search-g (outEntitiesSelected)="onSelectedProduct($event)"
+                        (outEntitiesSelected)="onSelectedProductHandleForm()" [entities]="productsTypes$"
+                        [labelInput]="'Tipo'" [selectFieldFormControl]="productTypeFormControl"
+                        [selectFieldSearchFormControl]="productTypeSearchFormControl">
                     </select-input-search-g>
                 </div>
 
                 <div class="segment">
-                    <select-input-search-g (outEntitiesSelected)="onSelectedSegment($event)" [entities]="segments$"
-                        [labelInput]="'Segmento'" [formControlReset]="controlReset"
-                        [selectedValue]="this?.productTypeAfterEditHandled?.segmentId">
+                    <select-input-search-g (outEntitiesSelected)="onSelectedSegment($event)"
+                        (outEntitiesSelected)="onSelectedSegmentHandleForm()"
+                        (outEntitiesSelected)="onSelectedSegmentCallRouteAddNew($event, this.productTypeEdit)"
+                        [entities]="segments$" [labelInput]="'Segmento'" [selectFieldFormControl]="segmentFormControl"
+                        [selectFieldSearchFormControl]="segmentSearchFormControl">
                     </select-input-search-g>
                 </div>
             </div>
             <div class="container-level-0">
                 <div class="manufacturer">
-                    <select-input-search-g (outEntitiesSelected)="onSelectedManufacturer($event)" [entities]="manufacturers$"
-                        [labelInput]="'Fabricante'" [formControlReset]="controlReset"
-                        [selectedValue]="this?.productTypeAfterEditHandled?.manufacturerId">
+                    <select-input-search-g (outEntitiesSelected)="onSelectedManufacturer($event)"
+                        (outEntitiesSelected)="onSelectedManufacturerHandleForm()"
+                        (outEntitiesSelected)="onSelectedManufacturerCallRouteAddNew($event, this.productTypeEdit)"
+                        [entities]="manufacturers$" [labelInput]="'Fabricante'"
+                        [selectFieldFormControl]="manufacturerFormControl"
+                        [selectFieldSearchFormControl]="manufacturerSearchFormControl">
                     </select-input-search-g>
                 </div>
                 <div class="model">
-                    <select-input-search-g (outEntitiesSelected)="onSelectedModel($event)" [entities]="models$"
-                        [labelInput]="'Modelos'" [formControlReset]="controlReset"
-                        [selectedValue]="this?.productTypeAfterEditHandled?.modelId">
+                    <select-input-search-g (outEntitiesSelected)="onSelectedModel($event)"
+                        (outEntitiesSelected)="onSelectedModelCallRouteAddNew($event,productTypeEdit)"
+                        [entities]="models$" [labelInput]="'Modelos'" [selectFieldFormControl]="modelFormControl"
+                        [selectFieldSearchFormControl]="modelSearchFormControl">
                     </select-input-search-g>
                 </div>
             </div>
             <div class="container-level-0">
-                <!-- <input-field-g [formMain]="this.modelForm" [type]="'text'" [inputLabel]="'Especificidade'"
-                    [fieldControlName]="'purchaseInvoiceNumber'">
 
-                    <span msg-error
-                        *ngIf="this.formError(formMain,'purchaseInvoiceNumber', 'maxlength') && this.formTouched(formMain, 'purchaseInvoiceNumber')">{{maxLengthMsg
-                        + '30' + charactersMsg}}</span>
-                </input-field-g> -->
                 <input-field-g [hidden]="true" class="specificity" [formMain]="this.formMain" [type]="'text'"
                     [inputLabel]="'Especificidade'" [fieldControlName]="'specificitiesId'">
 
@@ -66,7 +67,7 @@
                         *ngIf="this.formError(modelForm,'specificities', 'maxlength') && this.formTouched(modelForm, 'specificities')">{{maxLengthMsg
                         + '30' + charactersMsg}}</span>
                 </input-field-g>
-                
+
             </div>
             <br>
             <div class="checks">
@@ -76,8 +77,8 @@
 
             <div class="container-level-0-1">
                 <div class="entryDate">
-                    <date-time-field-g [formMain]="formMain" [fieldControlName]="'entryDate'" [labelInput]="'Data Entrada'"
-                        [startView]="'month'">
+                    <date-time-field-g [formMain]="formMain" [fieldControlName]="'entryDate'"
+                        [labelInput]="'Data Entrada'" [startView]="'month'">
                         <span msg-error
                             *ngIf="this.formError(formMain,'entryDate', 'required') && this.formTouched(formMain, 'entryDate')">{{requiredMsg}}</span>
                     </date-time-field-g>
