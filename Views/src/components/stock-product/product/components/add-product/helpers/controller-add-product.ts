@@ -60,7 +60,7 @@ export class ControllerAddProduct extends BaseForm {
 
   // formControl = new SelectFieldFormControlStaticHelpers();
   validatorRequired = Validators.required;
- 
+
   newItemScreenControl = (id: number, entity: string) => {
     if (id == 0)
       this.newItemSelected = entity
@@ -164,30 +164,44 @@ export class ControllerAddProduct extends BaseForm {
   }
 
   onSelectedModelCallRouteAddNew = (id: number, productTypeEdit: ProductTypeEdit) => {
-    if (id == 0) 
+    if (id == 0)
       this.callRouterEditProductType(productTypeEdit);
   }
   //end model
-  
 
+  selectedEntitiesAfterEdit = () => {
+    this.productTypeFormControl.patchValue(this.productTypeAfterEditHandled.productTypesId);
+    this.segmentFormControl.patchValue(this.productTypeAfterEditHandled.segmentId);
+    this.manufacturerFormControl.patchValue(this.productTypeAfterEditHandled.manufacturerId);
+    this.modelFormControl.patchValue(this.productTypeAfterEditHandled.modelId);
+  }
 
-onSupplierSelected(supplier: PartnerDto) {
-  this.formMain.get('supplierId').patchValue(supplier.id);
-}
+  onSupplierSelected(supplier: PartnerDto) {
+    this.formMain.get('supplierId').patchValue(supplier.id);
+  }
 
-isTested(isTested: MatCheckboxChange) {
-  isTested.checked ? this.formMain.get('isTested')?.patchValue(new Date()) : this.formMain.get('isTested')?.patchValue(this.minValue);
-}
+  isTested(isTested: MatCheckboxChange) {
+    isTested.checked ? this.formMain.get('isTested')?.patchValue(new Date()) : this.formMain.get('isTested')?.patchValue(this.minValue);
+  }
 
-controlReset = false;
-formControlReset = () => {
-  // this.controlReset = !this.controlReset;
-  this.controlReset = true;
-  this.segments$ = null;
-  this.manufacturers$ = null;
-  this.models$ = null;
-  this.specificities$ = null;
-}
+  formControlReset = () => {
+    this.segments$ = null;
+    this.manufacturers$ = null;
+    this.models$ = null;
+    this.specificities$ = null;
+
+    this.productTypeFormControl.reset();
+    this.productTypeSearchFormControl.reset();
+
+    this.segmentFormControl.reset();
+    this.segmentSearchFormControl.reset();
+
+    this.manufacturerFormControl.reset();
+    this.manufacturerSearchFormControl.reset();
+
+    this.modelFormControl.reset();
+    this.modelSearchFormControl.reset();
+  }
 
 
 }

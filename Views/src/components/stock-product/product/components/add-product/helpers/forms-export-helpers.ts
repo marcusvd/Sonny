@@ -54,7 +54,7 @@ const setProductTypeEdit = (entity: string, id: number, name: string, productTyp
 
 const setFormValue = (form: FormGroup, field: string, value: string | number) => {
 
-  form.get(field)?.patchValue(value);
+  form?.get(field)?.patchValue(value);
 
 }
 
@@ -128,26 +128,36 @@ export const ex_onSelectedModel = (id: number, formMain: FormGroup, models$: Obs
     map(x => {
 
       const specificity = x.find(models => models.id == id).specificities;
-      setFormValue(formMain, 'specificitiesId', specificity.id);
+      setFormValue(formMain, 'specificitiesId', specificity?.id);
       specificityBuilderFromSelectedModel(formMain, specificity);
 
     })
   ).subscribe();
 
-  setFormValue(formMain, 'model', id);
-
-  fieldFormEnableDisable(formMain, 'specificitiesName', 'disable');
-
+  setFormValue(formMain, 'modelId', id);
 }
 
 const specificityBuilderFromSelectedModel = (formMain: FormGroup, specificitiesDto: SpecificitiesDto) => {
 
-  const speed = specificitiesDto.description.split(',')[4];
-  const capacity = specificitiesDto.description.split(',')[5];
-  const generation = specificitiesDto.description.split(',')[6];
+  const speed = specificitiesDto?.speed == null ? 'Não cadastrado': specificitiesDto?.description.split(',')[4];
+  const capacity = specificitiesDto?.capacity == null ? 'Não cadastrado': specificitiesDto?.description.split(',')[5];
+  const generation = specificitiesDto?.generation == null ? 'Não cadastrado': specificitiesDto?.description.split(',')[6];
+  const detailedDescription = specificitiesDto?.detailedDescription;
+
+  console.log(speed)
+  console.log(capacity)
+  console.log(generation)
+
 
   if (speed && capacity && generation)
     setFormValue(formMain, 'specificitiesName', `${speed}, ${capacity}, ${generation}`);
   else
     setFormValue(formMain, 'specificitiesName', `Nenhuma especifidade cadastrada!`);
+
+  if (detailedDescription)
+    setFormValue(formMain, 'detailedDescription', detailedDescription);
+  else
+    setFormValue(formMain, 'detailedDescription', `Não cadastrado.`);
+
+
 }

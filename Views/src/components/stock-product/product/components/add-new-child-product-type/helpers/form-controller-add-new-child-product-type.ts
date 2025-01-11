@@ -46,6 +46,11 @@ export class FormControllerAddNewChildProductType extends BaseForm {
   nameMaxLength = 50;
   descriptionMaxLength = 500;
 
+  speedFormControl = new FormControl(null, Validators.required);
+  speedSearchFormControl = new FormControl('', Validators.required);
+  capacityFormControl = new FormControl(null, Validators.required);
+  capacitySearchFormControl = new FormControl('', Validators.required);
+
   formLoad(productType?: ProductTypeEdit) {
     this.formMain = this._fb.group({
       id: [productType?.productTypeId ?? 0, [Validators.required]],
@@ -97,8 +102,8 @@ export class FormControllerAddNewChildProductType extends BaseForm {
       speed: new FormControl({ value: specificities?.speed ?? '', disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
       capacity: new FormControl({ value: specificities?.capacity ?? '', disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
       generation: ['', []],
+      description: new FormControl({value:'', disabled:true}, [Validators.required, Validators.maxLength(this.descriptionMaxLength)]),
       detailedDescription: ['', []],
-      description: ['', []],
       manufacturerLink: ['http://', []],
       registered: [new Date(), [Validators.required]],
     })
@@ -125,10 +130,13 @@ export class FormControllerAddNewChildProductType extends BaseForm {
     this?.formMain?.get('segments')?.get('0').get('manufacturers').get('0').get('name')?.enable();
   }
 
-  controlReset = false;
   formControlReset = () => {
-    this.controlReset = true;
+    this.speedFormControl.reset();
+    this.speedSearchFormControl.reset();
+    this.capacityFormControl.reset();
+    this.capacitySearchFormControl.reset();
   }
+
 
 
 }

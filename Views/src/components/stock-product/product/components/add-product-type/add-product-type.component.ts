@@ -87,7 +87,7 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
 
   save() {
     if (this.alertSave(this.formMain)) {
-
+      this.setFormFieldEnableDisable(this.specificitiesForm, 'description', true);
       this.handleFormToSave();
       this.saveBtnEnabledDisabled = true;
       this._productTypeService.add(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm, this.specificitiesForm);
@@ -97,7 +97,6 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
     else
       this.formErrosValidation = true;
 
-    this.controlReset = false;
   }
 
 }

@@ -31,11 +31,10 @@ export class AddProductComponent extends ControllerAddProduct implements OnInit 
       this.productTypeAfterEditHandled = new ProductTypeAfterEditHandled();
 
       this.productTypeAfterEditHandled = obj as ProductTypeAfterEditHandled;
-
-      console.log(this.productTypeAfterEditHandled)
+      this.selectedEntitiesAfterEdit();
     }
   }
-  
+
 
   ngOnInit(): void {
     this.productsTypes$ = this._productTypeService.getAllIncluded$(this.companyId.toString());
@@ -67,9 +66,8 @@ export class AddProductComponent extends ControllerAddProduct implements OnInit 
       this.saveBtnEnabledDisabled = true;
       this._addProductService.add(this.formMain);
       this.formControlReset();
-
+      this.setFormFieldEnableDisable(this.specificitiesForm, 'description', true);
       this.formMainLoad();
-      this.controlReset = false;
       this.productTypeAfterEditHandled = null;
     }
 

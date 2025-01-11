@@ -69,6 +69,9 @@
                 </input-field-g>
 
             </div>
+            <textarea style="border:1px solid #2ba1a8; border-radius: 4px;" matInput [rows]="10"
+            [placeholder]="'Descrição completa'" formControlName="detailedDescription"></textarea>
+            <br>
             <br>
             <div class="checks">
                 <mat-checkbox class="isUsed" (change)="onChangeIsUsed($event)"

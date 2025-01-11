@@ -158,11 +158,11 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
       this.priceInterest(priceInterest)
     }
     else {
-      this.SetFieldFormMain('installmentPrice', 0);
+      this.setFormFieldValue(this.formMain, 'installmentPrice', 0);
     }
 
     if (installmentsQuantity_Form == 1) {
-      this.SetFieldFormMain('totalPercentageInterest', 0);
+      this.setFormFieldValue(this.formMain, 'totalPercentageInterest', 0);
       this.amount(paymentAtSight_Form);
       this.percentageInterest(0);
       this.priceInterest(0);
@@ -222,21 +222,21 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
   }
 
   amount(amountPrice: number) {
-    this.SetFieldFormMain('price', amountPrice);
+    this.setFormFieldValue(this.formMain, 'price', amountPrice);
     this.priceToPaidView = amountPrice;
   }
 
   percentageInterest(percentageInterest: number) {
-    this.SetFieldFormMain('totalPercentageInterest', percentageInterest);
+    this.setFormFieldValue(this.formMain, 'totalPercentageInterest', percentageInterest);
     this.percentageInterestView = percentageInterest;
   }
 
   priceInterest(priceInterest: number) {
-    this.SetFieldFormMain('totalPriceInterest', priceInterest);
+    this.setFormFieldValue(this.formMain, 'totalPriceInterest', priceInterest);
     this.totalPriceInterestView = priceInterest;
   }
   priceInstallment(priceInstallment: number) {
-    this.SetFieldFormMain('installmentPrice', priceInstallment);
+    this.setFormFieldValue(this.formMain, 'installmentPrice', priceInstallment);
   }
 
   add() {

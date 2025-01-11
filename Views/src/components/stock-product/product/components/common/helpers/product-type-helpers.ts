@@ -7,7 +7,7 @@ export const ex_storage = [{ id: 0, name: 'Não especificado' }, { id: 1, name: 
 
 
 
-export const ex_makeDescription = (formMain: FormGroup, segmentForm: FormGroup, manufacturerForm: FormGroup, modelForm: FormGroup, specificitiesForm: FormGroup, speedMeasure: string, storageMeasure: string, action?:string) => {
+export const ex_makeDescription = (formMain: FormGroup, segmentForm: FormGroup, manufacturerForm: FormGroup, modelForm: FormGroup, specificitiesForm: FormGroup, speedMeasure: string, storageMeasure: string, action?: string) => {
 
     const items = [] = ['Tipo de produto:', 'Segmento:', 'Fabricante:', 'Modelo:', 'Velocidade:', 'Capacidade:', 'Geração:', 'Descrição:'];
 
@@ -16,18 +16,9 @@ export const ex_makeDescription = (formMain: FormGroup, segmentForm: FormGroup, 
     const manufacturerName = manufacturerForm.get('name').value || '#';
     const modelName = modelForm.get('name').value || '#';
 
-    let formAddEdit:FormGroup = null;
-
-    if(action == 'edit')
-        formAddEdit = formMain;
-    else
-        formAddEdit = specificitiesForm;
-    
-
-    const specificitiesSpeed = getSpecificitiesFormValues(formAddEdit, 'speed') || '#';
-    const specificitiesCapacity = getSpecificitiesFormValues(formAddEdit, 'capacity') || '#';
-    const specificitiesGenaration = getSpecificitiesFormValues(formAddEdit, 'generation') || '#';
-
+    const specificitiesSpeed = getSpecificitiesFormValues(formMain, specificitiesForm, 'speed', action) || '#';
+    const specificitiesCapacity = getSpecificitiesFormValues(formMain, specificitiesForm, 'capacity', action) || '#';
+    const specificitiesGenaration = getSpecificitiesFormValues(formMain, specificitiesForm, 'generation', action) || '#';
 
     const result = `
     ${items[0]}  ${typeName},
@@ -41,6 +32,6 @@ export const ex_makeDescription = (formMain: FormGroup, segmentForm: FormGroup, 
     specificitiesForm.get('description').setValue(result);
 }
 
-const getSpecificitiesFormValues = (formMain: FormGroup, value: string) => {
+const getSpecificitiesFormValues = (formMain: FormGroup, specificitiesForm: FormGroup, value: string, action?: string) => {
     return formMain.get('segments')?.get('0').get('manufacturers').get('0').get('models').get('0').get('specificities').get(value).value
 }

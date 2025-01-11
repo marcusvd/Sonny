@@ -40,8 +40,6 @@ export class AddNewChildProductTypeComponent extends FormControllerAddNewChildPr
   productTypeEdit: ProductTypeEdit = new ProductTypeEdit();
   formErrosValidation = false;
 
-  // ex_makeDescription(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm, this.specificitiesForm, this.speedMeasure, this.storageMeasure)
-
   addEmptyFormArrays() {
     this.segments.push(this.formLoadSegment(this.productTypeEdit));
     this.manufacturers.push(this.formLoadManufacturer(this.productTypeEdit));
@@ -104,13 +102,12 @@ export class AddNewChildProductTypeComponent extends FormControllerAddNewChildPr
       this.formEnableToSave();
       this.handleFormToSave();
       this.saveBtnEnabledDisabled = true;
+      this.makeDescription();
       this._productTypeService.updateSingle(this.formMain);
       this.formControlReset();
     }
     else
       this.formErrosValidation = true;
-
-      this.controlReset = false;
   }
 
 

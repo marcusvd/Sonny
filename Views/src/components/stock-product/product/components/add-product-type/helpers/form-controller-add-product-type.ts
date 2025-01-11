@@ -20,6 +20,12 @@ export class FormControllerAddProductType extends BaseForm {
     super()
   }
 
+  //FormControls
+  speedFormControl = new FormControl(null, Validators.required);
+  speedSearchFormControl = new FormControl('', Validators.required);
+  capacityFormControl = new FormControl(null, Validators.required);
+  capacitySearchFormControl = new FormControl('', Validators.required);
+
   //Arrays
   speed$ = of(ex_speed);
   storage$ = of(ex_storage);
@@ -98,16 +104,16 @@ export class FormControllerAddProductType extends BaseForm {
       companyId: [this.companyId, [Validators.required]],
       speed: new FormControl({ value: specificities?.speed ?? '', disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
       capacity: new FormControl({ value: specificities?.capacity ?? '', disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
-      genaration: ['', []],
+      generation: ['', []],
       detailedDescription: ['', []],
-      description: ['', []],
+      description: new FormControl({value:'', disabled:true}, [Validators.required, Validators.maxLength(this.descriptionMaxLength)]),
       manufacturerLink: ['http://', []],
       registered: [new Date(), [Validators.required]],
     })
   }
 
   makeDescription = () => {
-    ex_makeDescription(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm, this.specificitiesForm, this.speedMeasure, this.storageMeasure)
+    ex_makeDescription(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm, this.specificitiesForm, this.speedMeasure, this.storageMeasure, '')
   }
 
   addEmptyFormArrays() {
@@ -117,9 +123,11 @@ export class FormControllerAddProductType extends BaseForm {
   }
 
 
-  controlReset = false;
   formControlReset = () => {
-    this.controlReset = true;
+    this.speedFormControl.reset();
+    this.speedSearchFormControl.reset();
+    this.capacityFormControl.reset();
+    this.capacitySearchFormControl.reset();
   }
 
 

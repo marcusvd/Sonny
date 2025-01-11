@@ -35,7 +35,7 @@ export class BaseForm extends Responsive {
   invalidCpfOrCnpjMaskMsg = 'CPF ou CNPJ, inválido!';
   invalidDateMsg = 'Data, inválida!';
   invalidDateMaskMsg = 'Data, inválida!';
-  invalidHourMsg= 'Horário, inválido!';
+  invalidHourMsg = 'Horário, inválido!';
   maxLengthMsg = 'Máximo de ';
   minLengthMsg = 'Mínimo de ';
   limitMaxMsg = 'Máximo de excedido!';
@@ -65,21 +65,31 @@ export class BaseForm extends Responsive {
       form.get(field).updateValueAndValidity();
     })
   }
-  
+
   resetFields(form: FormGroup, fields: string[]) {
     fields.forEach(field => {
       form.get(field).reset();
     })
   }
 
-  SetFieldFormMain(field: string, value: any) {
-    this.formMain.get(field).setValue(value);
+  setFormFieldEnableDisable(form: FormGroup, field: string, action: boolean) {
+    if (action)
+      form.get(field).enable();
+    else
+    form.get(field).disable();
+  }
+
+  setFormFieldValue(form: FormGroup, field: string, value: any) {
+    form.get(field).setValue(value);
+  }
+
+  formTouched = (form: FormGroup, field: string) => {
+    return form?.get(field).touched
   }
 
   removeNonNumericAndConvertToNumber(str: string): number {
     return +str?.replace(/\D/g, '');
   }
-
 
   removeAccentsSpecialCharacters(value: string): string {
     const noAccents = diacritics.remove(value);//remove accents
@@ -90,9 +100,7 @@ export class BaseForm extends Responsive {
     return form?.get(field)?.hasError(error)
   }
 
-  formTouched = (form: FormGroup, field: string) => {
-    return form?.get(field).touched
-  }
+
 
   alertSave(form: FormGroup) {
     if (!form.valid) {
@@ -105,8 +113,5 @@ export class BaseForm extends Responsive {
     }
 
   }
-
-
-
 }
 
