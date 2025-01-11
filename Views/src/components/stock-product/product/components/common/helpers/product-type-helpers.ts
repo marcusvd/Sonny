@@ -6,25 +6,19 @@ export const ex_storage = [{ id: 0, name: 'Não especificado' }, { id: 1, name: 
 
 
 
+const items = [] = ['Tipo de produto:', 'Segmento:', 'Fabricante:', 'Modelo:', 'Velocidade:', 'Capacidade:', 'Geração:', 'Descrição:'];
 
 export const ex_makeDescription = (formMain: FormGroup, segmentForm: FormGroup, manufacturerForm: FormGroup, modelForm: FormGroup, specificitiesForm: FormGroup, speedMeasure: string, storageMeasure: string, action?: string) => {
 
-    const items = [] = ['Tipo de produto:', 'Segmento:', 'Fabricante:', 'Modelo:', 'Velocidade:', 'Capacidade:', 'Geração:', 'Descrição:'];
-
-    const typeName = formMain.get('name').value || '#';
-    const segmentName = segmentForm.get('name').value || '#';
-    const manufacturerName = manufacturerForm.get('name').value || '#';
-    const modelName = modelForm.get('name').value || '#';
-
-    const specificitiesSpeed = getSpecificitiesFormValues(formMain, specificitiesForm, 'speed', action) || '#';
-    const specificitiesCapacity = getSpecificitiesFormValues(formMain, specificitiesForm, 'capacity', action) || '#';
-    const specificitiesGenaration = getSpecificitiesFormValues(formMain, specificitiesForm, 'generation', action) || '#';
+    const specificitiesSpeed = getSpecificitiesFormValues(formMain,'speed', action) ?? '#';
+    const specificitiesCapacity = getSpecificitiesFormValues(formMain,'capacity', action) ?? '#';
+    const specificitiesGenaration = getSpecificitiesFormValues(formMain,'generation', action) ?? '#';
 
     const result = `
-    ${items[0]}  ${typeName},
-    ${items[1]}  ${segmentName},
-    ${items[2]}  ${manufacturerName},
-    ${items[3]}  ${modelName},
+    ${items[0]}  ${getFormFieldValue(formMain, 'name')},
+    ${items[1]}  ${getFormFieldValue(segmentForm, 'name')},
+    ${items[2]}  ${getFormFieldValue(manufacturerForm, 'name')},
+    ${items[3]}  ${getFormFieldValue(modelForm, 'name')},
     ${items[4]}  ${specificitiesSpeed} ${speedMeasure ?? ''},
     ${items[5]}  ${specificitiesCapacity} ${storageMeasure ?? ''},
     ${items[6]}  ${specificitiesGenaration},`;
@@ -32,6 +26,10 @@ export const ex_makeDescription = (formMain: FormGroup, segmentForm: FormGroup, 
     specificitiesForm.get('description').setValue(result);
 }
 
-const getSpecificitiesFormValues = (formMain: FormGroup, specificitiesForm: FormGroup, value: string, action?: string) => {
+const getSpecificitiesFormValues = (formMain: FormGroup, value: string, action?: string) => {
     return formMain.get('segments')?.get('0').get('manufacturers').get('0').get('models').get('0').get('specificities').get(value).value
+}
+
+const getFormFieldValue = (form: FormGroup, field: string) => {
+    return form.get(field).value
 }
