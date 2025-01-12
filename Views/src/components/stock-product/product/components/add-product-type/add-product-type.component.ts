@@ -77,18 +77,10 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
     return value;
   }
 
-
-  handleFormToSave = () => {
-    const speed = this.specificitiesForm.get('speed');
-    const capacity = this.specificitiesForm.get('capacity');
-    speed.setValue(speed.value + '|' + this.speedMeasure);
-    capacity.setValue(capacity.value + '|' + this.storageMeasure);
-  }
-
   save() {
     if (this.alertSave(this.formMain)) {
       this.setFormFieldEnableDisable(this.specificitiesForm, 'description', true);
-      this.handleFormToSave();
+      this.makeDescription();
       this.saveBtnEnabledDisabled = true;
       this._productTypeService.add(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm, this.specificitiesForm);
       this.formControlReset();

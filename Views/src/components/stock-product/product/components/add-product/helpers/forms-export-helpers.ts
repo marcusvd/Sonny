@@ -139,17 +139,18 @@ export const ex_onSelectedModel = (id: number, formMain: FormGroup, models$: Obs
 
 const specificityBuilderFromSelectedModel = (formMain: FormGroup, specificitiesDto: SpecificitiesDto) => {
 
-  const speed = specificitiesDto?.speed == null ? 'Não cadastrado': specificitiesDto?.description.split(',')[4];
-  const capacity = specificitiesDto?.capacity == null ? 'Não cadastrado': specificitiesDto?.description.split(',')[5];
-  const generation = specificitiesDto?.generation == null ? 'Não cadastrado': specificitiesDto?.description.split(',')[6];
+  const speed = specificitiesDto?.description.split(',')[4];
+  const capacity = specificitiesDto?.description.split(',')[5];
+  const generation = specificitiesDto?.description.split(',')[6];
+
+  const speedFormField = specificitiesDto?.speed;
+  const capacityFormField = specificitiesDto?.capacity;
+  const generationFormField = specificitiesDto?.generation;
+
   const detailedDescription = specificitiesDto?.detailedDescription;
 
-  console.log(speed)
-  console.log(capacity)
-  console.log(generation)
 
-
-  if (speed && capacity && generation)
+  if (speedFormField && capacityFormField && generationFormField)
     setFormValue(formMain, 'specificitiesName', `${speed}, ${capacity}, ${generation}`);
   else
     setFormValue(formMain, 'specificitiesName', `Nenhuma especifidade cadastrada!`);

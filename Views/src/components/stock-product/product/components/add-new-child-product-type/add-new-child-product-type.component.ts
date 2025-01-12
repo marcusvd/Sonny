@@ -9,6 +9,7 @@ import { FormControllerAddNewChildProductType } from './helpers/form-controller-
 import { ImportsProductType } from './imports/imports-product-type';
 import { UpdateProductTypeService } from './services/update-product-type.service';
 import { ProductTypeEdit } from '../../dtos/produc-type-edit';
+import { ex_formLoad, ex_formLoadManufacturer, ex_formLoadModel, ex_formLoadSegment } from './helpers/forms-export-helpers';
 
 
 @Component({
@@ -41,13 +42,16 @@ export class AddNewChildProductTypeComponent extends FormControllerAddNewChildPr
   formErrosValidation = false;
 
   addEmptyFormArrays() {
-    this.segments.push(this.formLoadSegment(this.productTypeEdit));
-    this.manufacturers.push(this.formLoadManufacturer(this.productTypeEdit));
-    this.models.push(this.formLoadModel(this.productTypeEdit));
+    this.segments.push(ex_formLoadSegment(this.companyId, this.productTypeEdit));
+    this.manufacturers.push(ex_formLoadManufacturer(this.companyId, this.productTypeEdit));
+    this.models.push(ex_formLoadModel(this.companyId, this.productTypeEdit));
   }
 
+
+
+
   ngOnInit(): void {
-    this.formLoad(this.productTypeEdit);
+    ex_formLoad(this.companyId, this.userId, this.productTypeEdit);
     this.addEmptyFormArrays();
     this.formDisabledToStart();
   }
@@ -61,7 +65,7 @@ export class AddNewChildProductTypeComponent extends FormControllerAddNewChildPr
     const handledValue = value.replace(/[^\d.-]/g, '');
     this.specificitiesForm.get('speed').setValue(handledValue);
   }
- 
+
   onSelectSpeedMeasure(id: number) {
     this.speed$.pipe(map(x => {
       const result = x.find(item => item.id === id)
@@ -89,18 +93,11 @@ export class AddNewChildProductTypeComponent extends FormControllerAddNewChildPr
     return value;
   }
 
-  handleFormToSave = () => {
-    const speed = this.specificitiesForm.get('speed');
-    const capacity = this.specificitiesForm.get('capacity');
-    speed.setValue(speed.value + '|' + this.speedMeasure);
-    capacity.setValue(capacity.value + '|' + this.storageMeasure);
-  }
-
   save() {
-    
+
     if (this.alertSave(this.formMain)) {
+      this.setFormFieldEnableDisable(this.specificitiesForm, 'description', true);
       this.formEnableToSave();
-      this.handleFormToSave();
       this.saveBtnEnabledDisabled = true;
       this.makeDescription();
       this._productTypeService.updateSingle(this.formMain);
