@@ -59,25 +59,30 @@ namespace Application.Services.Operations.StockProduct
                 )
                 .ToListAsync();
 
-            // foreach (var productType in fromDb)
-            // {
-            //     foreach (var segment in productType.Segments)
-            //     {
-            //         foreach (var manufacturer in segment.Manufacturers)
-            //         {
-            //             foreach (var model in manufacturer.Models)
-            //             {
-            //                 if (model.Specificities.Deleted == DateTime.MinValue)
-            //                     model.Specificities = model.Specificities;
-            //             }
-            //         }
-            //     }
-            // }
-
             if (fromDb == null)
                 throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
 
             return _IStockProductObjectMapperServices.ProductTypeListMake(fromDb);
+        }
+        public async Task<ProductTypeDto> GetProductTypesByIdIncludedAsync(int productTypeId)
+        {
+
+            var fromDb = await _GENERIC_REPO
+                .ProductTypes.GetById(
+                    predicate => predicate.Id == productTypeId && predicate.Deleted == DateTime.MinValue,
+                    toInclude =>
+                        toInclude
+                            .Include(x => x.Segments.Where(x => x.Deleted == DateTime.MinValue))
+                            .ThenInclude(x => x.Manufacturers.Where(x => x.Deleted == DateTime.MinValue))
+                            .ThenInclude(x => x.Models.Where(x => x.Deleted == DateTime.MinValue))
+                            .ThenInclude(x => x.Specificities),
+                    selector => selector
+                );
+
+            if (fromDb == null)
+                throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+
+            return _IStockProductObjectMapperServices.ProductTypeMapper(fromDb);
         }
         public async Task<EditChildrenProductType> UpdateProductTypeAsync(ProductTypeDto dtoView, int id)
         {

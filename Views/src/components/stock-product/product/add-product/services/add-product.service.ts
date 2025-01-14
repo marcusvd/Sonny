@@ -57,8 +57,10 @@ export class AddProductService extends BackEndService<ProductDto> {
   }
 
   getAllIncluded$(id: string): Observable<ProductTypeDto[]> {
-    return this.loadById$<ProductTypeDto[]>('_PD_Products/GetProductTypesIncludedAsync', id);
+    return this.loadById$<ProductTypeDto[]>('GetProductTypesIncludedAsync', id);
   }
+
+
 }
 
 

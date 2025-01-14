@@ -55,6 +55,12 @@ export class ControllerAddProduct extends BaseForm {
 
   //variables
   newItemSelected: string = '';
+  selectedProductTypeId: number = null;
+  selectedSegmentId: number = null;
+  selectedManufacturerId: number = null;
+  selectedModelId: number = null;
+  // selectedSpecificitiesId: number = null;
+
   productTypeEdit: ProductTypeEdit = new ProductTypeEdit();
   productTypeAfterEditHandled: ProductTypeAfterEditHandled = null;
 
@@ -76,132 +82,148 @@ export class ControllerAddProduct extends BaseForm {
   callRouter = (call?: string) => {
     if (call === 'add')
       this._router.navigate(['/side-nav/stock-product-router/add-product-type']);
-    else
-      this._router.navigate(['/side-nav/stock-product-router/edit-product-type']);
-  }
+    else {
+      const productTypeAfterEditHandled = new ProductTypeAfterEditHandled();
+      productTypeAfterEditHandled.productTypesId = this.selectedProductTypeId;
+      productTypeAfterEditHandled.segmentId = this.selectedSegmentId;
+      productTypeAfterEditHandled.manufacturerId = this.selectedManufacturerId;
+      productTypeAfterEditHandled.modelId = this.selectedModelId;
 
-  callRouterEditProductType(entity: ProductTypeEdit) {
-
-    const objectRoute: NavigationExtras = {
-      state: entity
+      const objectRoute: NavigationExtras = {
+        state:productTypeAfterEditHandled
     };
 
-    this._router.navigate(['/side-nav/stock-product-router/edit-product-type-add-product'], objectRoute);
+    this._router.navigate([`/side-nav/stock-product-router/edit-product-type`], objectRoute);
+  }
+}
+
+callRouterEditProductType(entity: ProductTypeEdit) {
+
+  const objectRoute: NavigationExtras = {
+    state: entity
+  };
+
+  this._router.navigate(['/side-nav/stock-product-router/edit-product-type-add-product'], objectRoute);
+}
+
+clearEntityToSendRoute = (entity: string) => {
+
+  if (entity == 'segment') {
+    this.productTypeEdit.segmentId = null;
+    this.productTypeEdit.segmentName = '';
+    this.productTypeEdit.manufacturerId = null;
+    this.productTypeEdit.manufacturerName = '';
   }
 
-  clearEntityToSendRoute = (entity: string) => {
-
-    if (entity == 'segment') {
-      this.productTypeEdit.segmentId = null;
-      this.productTypeEdit.segmentName = '';
-      this.productTypeEdit.manufacturerId = null;
-      this.productTypeEdit.manufacturerName = '';
-    }
-
-    if (entity == 'manufacturer') {
-      this.productTypeEdit.manufacturerId = null;
-      this.productTypeEdit.manufacturerName = '';
-    }
-
-
+  if (entity == 'manufacturer') {
+    this.productTypeEdit.manufacturerId = null;
+    this.productTypeEdit.manufacturerName = '';
   }
 
-  //start type
-  onSelectedProduct(id: number) {
-    this.segments$ = ex_onSelectedProduct(id, this.formMain, this.productsTypes$, this.segments$, this.productTypeEdit)
+
+}
+
+//start type
+
+onSelectedProduct(id: number) {
+  this.selectedProductTypeId = id;
+  this.segments$ = ex_onSelectedProduct(id, this.formMain, this.productsTypes$, this.segments$, this.productTypeEdit)
+}
+
+onSelectedProductHandleForm() {
+  this.manufacturers$ = null;
+  this.models$ = null;
+  this.resetFields(this.formMain, ['segmentId', 'manufacturerId', 'modelId', 'specificitiesId']);
+}
+//end type
+
+//start segment
+onSelectedSegment(id: number) {
+  this.selectedSegmentId = id;
+  this.manufacturers$ = ex_onSelectedSegment(id, this.formMain, this.productsTypes$, this.segments$, this.manufacturers$, this.productTypeEdit)
+}
+
+onSelectedSegmentHandleForm() {
+  this.models$ = null;
+  this.resetFields(this.formMain, ['manufacturerId', 'modelId', 'specificitiesId']);
+}
+
+onSelectedSegmentCallRouteAddNew = (id: number, productTypeEdit: ProductTypeEdit) => {
+  if (id == 0) {
+    this.callRouterEditProductType(productTypeEdit);
+    this.clearEntityToSendRoute('segment');
   }
+}
+//end segment
 
-  onSelectedProductHandleForm() {
-    this.manufacturers$ = null;
-    this.models$ = null;
-    this.resetFields(this.formMain, ['segmentId', 'manufacturerId', 'modelId', 'specificitiesId']);
+//start manufacturer
+onSelectedManufacturer(id: number) {
+  this.selectedManufacturerId = id;
+  this.models$ = ex_onSelectedManufacturer(id, this.formMain, this.manufacturers$, this.models$, this.productTypeEdit)
+
+  if (id == 0) {
+    this.callRouterEditProductType(this.productTypeEdit);
+    this.clearEntityToSendRoute('manufacturer');
   }
-  //end type
+}
 
-  //start segment
-  onSelectedSegment(id: number) {
-    this.manufacturers$ = ex_onSelectedSegment(id, this.formMain, this.productsTypes$, this.segments$, this.manufacturers$, this.productTypeEdit)
+onSelectedManufacturerHandleForm() {
+  this.resetFields(this.formMain, ['modelId', 'specificitiesId']);
+}
+
+onSelectedManufacturerCallRouteAddNew = (id: number, productTypeEdit: ProductTypeEdit) => {
+  if (id == 0) {
+    this.callRouterEditProductType(productTypeEdit);
+    this.clearEntityToSendRoute('manufacturer');
   }
+}
+//end manufacturer
 
-  onSelectedSegmentHandleForm() {
-    this.models$ = null;
-    this.resetFields(this.formMain, ['manufacturerId', 'modelId', 'specificitiesId']);
-  }
+//start model
+onSelectedModel(id: number) {
+  this.selectedModelId = id;
+  ex_onSelectedModel(id, this.formMain, this.models$);
+}
 
-  onSelectedSegmentCallRouteAddNew = (id: number, productTypeEdit: ProductTypeEdit) => {
-    if (id == 0) {
-      this.callRouterEditProductType(productTypeEdit);
-      this.clearEntityToSendRoute('segment');
-    }
-  }
-  //end segment
+onSelectedModelCallRouteAddNew = (id: number, productTypeEdit: ProductTypeEdit) => {
+  if (id == 0)
+    this.callRouterEditProductType(productTypeEdit);
+}
+//end model
 
-  //start manufacturer
-  onSelectedManufacturer(id: number) {
-    this.models$ = ex_onSelectedManufacturer(id, this.formMain, this.manufacturers$, this.models$, this.productTypeEdit)
+selectedEntitiesAfterEdit = () => {
+  this.productTypeFormControl.patchValue(this.productTypeAfterEditHandled.productTypesId);
+  this.segmentFormControl.patchValue(this.productTypeAfterEditHandled.segmentId);
+  this.manufacturerFormControl.patchValue(this.productTypeAfterEditHandled.manufacturerId);
+  this.modelFormControl.patchValue(this.productTypeAfterEditHandled.modelId);
+}
 
-    if (id == 0) {
-      this.callRouterEditProductType(this.productTypeEdit);
-      this.clearEntityToSendRoute('manufacturer');
-    }
-  }
+onSupplierSelected(supplier: PartnerDto) {
+  this.formMain.get('supplierId').patchValue(supplier.id);
+}
 
-  onSelectedManufacturerHandleForm() {
-    this.resetFields(this.formMain, ['modelId', 'specificitiesId']);
-  }
+isTested(isTested: MatCheckboxChange) {
+  isTested.checked ? this.formMain.get('isTested')?.patchValue(new Date()) : this.formMain.get('isTested')?.patchValue(this.minValue);
+}
 
-  onSelectedManufacturerCallRouteAddNew = (id: number, productTypeEdit: ProductTypeEdit) => {
-    if (id == 0) {
-      this.callRouterEditProductType(productTypeEdit);
-      this.clearEntityToSendRoute('manufacturer');
-    }
-  }
-  //end manufacturer
+formControlReset = () => {
+  this.segments$ = null;
+  this.manufacturers$ = null;
+  this.models$ = null;
+  this.specificities$ = null;
 
-  //start model
-  onSelectedModel(id: number) {
-    ex_onSelectedModel(id, this.formMain, this.models$);
-  }
+  this.productTypeFormControl.reset();
+  this.productTypeSearchFormControl.reset();
 
-  onSelectedModelCallRouteAddNew = (id: number, productTypeEdit: ProductTypeEdit) => {
-    if (id == 0)
-      this.callRouterEditProductType(productTypeEdit);
-  }
-  //end model
+  this.segmentFormControl.reset();
+  this.segmentSearchFormControl.reset();
 
-  selectedEntitiesAfterEdit = () => {
-    this.productTypeFormControl.patchValue(this.productTypeAfterEditHandled.productTypesId);
-    this.segmentFormControl.patchValue(this.productTypeAfterEditHandled.segmentId);
-    this.manufacturerFormControl.patchValue(this.productTypeAfterEditHandled.manufacturerId);
-    this.modelFormControl.patchValue(this.productTypeAfterEditHandled.modelId);
-  }
+  this.manufacturerFormControl.reset();
+  this.manufacturerSearchFormControl.reset();
 
-  onSupplierSelected(supplier: PartnerDto) {
-    this.formMain.get('supplierId').patchValue(supplier.id);
-  }
-
-  isTested(isTested: MatCheckboxChange) {
-    isTested.checked ? this.formMain.get('isTested')?.patchValue(new Date()) : this.formMain.get('isTested')?.patchValue(this.minValue);
-  }
-
-  formControlReset = () => {
-    this.segments$ = null;
-    this.manufacturers$ = null;
-    this.models$ = null;
-    this.specificities$ = null;
-
-    this.productTypeFormControl.reset();
-    this.productTypeSearchFormControl.reset();
-
-    this.segmentFormControl.reset();
-    this.segmentSearchFormControl.reset();
-
-    this.manufacturerFormControl.reset();
-    this.manufacturerSearchFormControl.reset();
-
-    this.modelFormControl.reset();
-    this.modelSearchFormControl.reset();
-  }
+  this.modelFormControl.reset();
+  this.modelSearchFormControl.reset();
+}
 
 
 }

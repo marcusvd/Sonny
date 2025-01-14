@@ -29,6 +29,12 @@ namespace Api.Controllers
             return Ok(resultToView);
         }
 
+        [HttpGet("GetProductTypesByIdIncludedAsync/{companyId:min(1)}")]
+        public async Task<IActionResult> GetProductTypesByIdIncludedAsync(int companyId)
+        {
+            var resultToView = await _IProductServices.GetProductTypesByIdIncludedAsync(companyId);
+            return Ok(resultToView);
+        }
         [HttpGet("GetProductTypesIncludedAsync/{companyId:min(1)}")]
         public async Task<IActionResult> GetProductTypesIncludedAsync(int companyId)
         {

@@ -57,7 +57,11 @@ export class EditSingleProductTypeService extends BackEndService<ProductTypeDto>
   }
 
   getProductTypes$(id: string): Observable<ProductTypeDto[]> {
-    return this.loadById$<ProductTypeDto[]>('_PD_Products/GetproducttypesAsync', id);
+    return this.loadById$<ProductTypeDto[]>('GetproducttypesAsync', id);
+  }
+
+  getProductTypeByIdAllIncluded$(id: string): Observable<ProductTypeDto> {
+    return this.loadById$<ProductTypeDto>('GetProductTypesByIdIncludedAsync', id);
   }
 }
 
