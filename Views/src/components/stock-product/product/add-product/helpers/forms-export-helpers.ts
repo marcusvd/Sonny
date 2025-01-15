@@ -58,25 +58,61 @@ const setFormValue = (form: FormGroup, field: string, value: string | number) =>
 
 }
 
-// const fieldFormEnableDisable = (form: FormGroup, field: string, action: string) => {
+const specificityBuilderFromSelectedModel = (formMain: FormGroup, specificitiesDto: SpecificitiesDto) => {
 
-//   if (action == 'enable')
-//     form.get(field)?.enable();
+  const speed = specificitiesDto?.description.split(',')[4];
+  const capacity = specificitiesDto?.description.split(',')[5];
+  const generation = specificitiesDto?.description.split(',')[6];
 
-//   if (action == 'disable')
-//     form.get(field)?.disable();
+  const speedFormField = specificitiesDto?.speed;
+  const capacityFormField = specificitiesDto?.capacity;
+  const generationFormField = specificitiesDto?.generation;
 
-// }
+  const detailedDescription = specificitiesDto?.detailedDescription;
+
+  if (speedFormField || capacityFormField || generationFormField)
+    setFormValue(formMain, 'specificitiesName', `${speed}, ${capacity}, ${generation}`);
+  else
+    setFormValue(formMain, 'specificitiesName', `Nenhuma especifidade cadastrada!`);
+
+  if (detailedDescription)
+    setFormValue(formMain, 'detailedDescription', detailedDescription);
+  else
+    setFormValue(formMain, 'detailedDescription', `Não cadastrado.`);
+
+
+}
+
+
+const makeProductTypeEdit = (productType?: ProductTypeDto, segment?: SegmentDto, manufacturer?: ManufacturerDto, model?: ModelDto, specificities?: SpecificitiesDto) => {
+
+  if (productType)
+    ex_productTypeEndSubItemsSelected = productType
+
+  if (segment)
+    ex_productTypeEndSubItemsSelected.segments[0]=segment
+
+  if (manufacturer)
+    ex_productTypeEndSubItemsSelected.segments[0].manufacturers[0] = manufacturer
+
+  if (model)
+    ex_productTypeEndSubItemsSelected.segments[0].manufacturers[0].models[0] = model
+
+}
+
+export let ex_productTypeEndSubItemsSelected: ProductTypeDto = new ProductTypeDto();
 
 export const ex_onSelectedProduct = (id: number, formMain: FormGroup, productsTypes$: Observable<ProductTypeDto[]>, segments$: Observable<SegmentDto[]>, productTypeEdit: ProductTypeEdit) => {
 
   segments$ = productsTypes$.pipe(map(x => {
 
-    const segment = x.find(y => y.id == id);
+    const productType = x.find(y => y.id == id);
 
-    setProductTypeEdit('productType', id, segment.name, productTypeEdit);
+    makeProductTypeEdit(productType)
 
-    return segment.segments
+    setProductTypeEdit('productType', id, productType.name, productTypeEdit);
+
+    return productType.segments
 
   }));
 
@@ -90,11 +126,13 @@ export const ex_onSelectedSegment = (id: number, formMain: FormGroup, productsTy
   manufacturers$ = segments$.pipe(
     map(x => {
 
-      const manufacturer = x.find(y => y.id == id);
+      const segments = x.find(y => y.id == id);
 
-      setProductTypeEdit('segment', id, manufacturer.name, productTypeEdit);
+      makeProductTypeEdit(null, segments)
 
-      return manufacturer.manufacturers
+      setProductTypeEdit('segment', id, segments.name, productTypeEdit);
+
+      return segments.manufacturers
     })
   )
 
@@ -109,11 +147,13 @@ export const ex_onSelectedManufacturer = (id: number, formMain: FormGroup, manuf
   models$ = manufacturers$?.pipe(
     map(x => {
 
-      const model = x.find(y => y.id == id);
+      const manufacturers = x.find(y => y.id == id);
 
-      setProductTypeEdit('manufacturer', id, model.name, productTypeEdit);
+      makeProductTypeEdit(null, null, manufacturers)
 
-      return model.models
+      setProductTypeEdit('manufacturer', id, manufacturers.name, productTypeEdit);
+
+      return manufacturers.models
     })
   )
 
@@ -126,6 +166,8 @@ export const ex_onSelectedModel = (id: number, formMain: FormGroup, models$: Obs
 
   models$.pipe(
     map(x => {
+      
+      makeProductTypeEdit(null, null, null, x.find(models => models.id == id))
 
       const specificity = x.find(models => models.id == id).specificities;
       setFormValue(formMain, 'specificitiesId', specificity?.id);
@@ -137,28 +179,3 @@ export const ex_onSelectedModel = (id: number, formMain: FormGroup, models$: Obs
   setFormValue(formMain, 'modelId', id);
 }
 
-const specificityBuilderFromSelectedModel = (formMain: FormGroup, specificitiesDto: SpecificitiesDto) => {
-
-  const speed = specificitiesDto?.description.split(',')[4];
-  const capacity = specificitiesDto?.description.split(',')[5];
-  const generation = specificitiesDto?.description.split(',')[6];
-
-  const speedFormField = specificitiesDto?.speed;
-  const capacityFormField = specificitiesDto?.capacity;
-  const generationFormField = specificitiesDto?.generation;
-
-  const detailedDescription = specificitiesDto?.detailedDescription;
-
-
-  if (speedFormField && capacityFormField && generationFormField)
-    setFormValue(formMain, 'specificitiesName', `${speed}, ${capacity}, ${generation}`);
-  else
-    setFormValue(formMain, 'specificitiesName', `Nenhuma especifidade cadastrada!`);
-
-  if (detailedDescription)
-    setFormValue(formMain, 'detailedDescription', detailedDescription);
-  else
-    setFormValue(formMain, 'detailedDescription', `Não cadastrado.`);
-
-
-}

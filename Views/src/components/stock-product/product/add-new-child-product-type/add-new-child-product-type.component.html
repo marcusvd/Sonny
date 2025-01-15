@@ -74,7 +74,7 @@
                     <input class="container--prefix-suffix-right-align" #speed (input)="speedHandle(speed.value)"
                         matInput type="text" placeholder="0" formControlName="speed">
                     <mat-hint>EX: (3.0 - 3.8) Os números a esqueda são o mínimo e os da direita o máximo.</mat-hint>
-                    <span matSuffix>{{speedMeasure}}</span>
+                    <!-- <span matSuffix>{{speedMeasure}}</span> -->
                 </mat-form-field>
 
                 <select-input-search-g class="container--space-between" (outEntitiesSelected)="onSelectStorageMeasure($event)"
@@ -88,7 +88,7 @@
                         (input)="capacityHandle(capacity.value)" matInput type="text" placeholder="0"
                         formControlName="capacity">
                     <mat-hint>EX: (240 - 280) Os números a esqueda são o mínimo e os da direita o máximo.</mat-hint>
-                    <span matSuffix>{{storageMeasure}}</span>
+                    <!-- <span matSuffix>{{storageMeasure}}</span> -->
                 </mat-form-field>
 
                 <input-field-g (click)="makeDescription()" [type]="'text'" [formMain]="specificitiesForm" [inputLabel]="'Geração'"

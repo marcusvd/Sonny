@@ -31,7 +31,7 @@ export class FormsBuilderHelperEditSingleProductTypeService {
       name: new FormControl(productType?.name, { validators: [Validators.required, Validators.maxLength(this.nameMaxLength)], asyncValidators: [this._productTypeValidatorAsync.validate.bind(this._productTypeValidatorAsync)] }),
       companyId: [productType.companyId, [Validators.required]],
       userId: [productType.userId, [Validators.required]],
-      segments: this._fb.array([], Validators.required)
+      segments: this._fb.array([this.formLoadSegment(productType.segments[0])], Validators.required)
     })
   }
 
@@ -42,7 +42,7 @@ export class FormsBuilderHelperEditSingleProductTypeService {
       companyId: [segment.companyId, [Validators.required]],
       productId: [segment?.productTypeId ?? 0, []],
       registered: [new Date(), [Validators.required]],
-      manufacturers: this._fb.array([], Validators.required)
+      manufacturers: this._fb.array([this.formLoadManufacturer(segment.manufacturers[0])], Validators.required)
     })
   }
 
@@ -53,11 +53,12 @@ export class FormsBuilderHelperEditSingleProductTypeService {
       companyId: [manufacturer.companyId, [Validators.required]],
       segmentId: [manufacturer?.segmentId ?? 0, []],
       registered: [new Date(), [Validators.required]],
-      models: this._fb.array([], Validators.required)
+      models: this._fb.array([this.formLoadModel(manufacturer.models[0])], Validators.required)
     })
   }
 
    formLoadModel(model?: ModelDto) {
+    console.log(model)
     return this._fb.group({
       id: [model?.id ?? 0, [Validators.required]],
       companyId: [model.companyId, [Validators.required]],
@@ -72,13 +73,13 @@ export class FormsBuilderHelperEditSingleProductTypeService {
     return this._fb.group({
       id: [0, [Validators.required]],
       companyId: [specificities.companyId, [Validators.required]],
-      speed: new FormControl({ value: '', disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
-      capacity: new FormControl({ value: '', disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
-      generation: ['', []],
-      detailedDescription: ['', []],
-      description: new FormControl({ value: '', disabled: true }, [Validators.required, Validators.maxLength(this.descriptionMaxLength)]),
-      manufacturerLink: ['http://', []],
-      registered: [new Date(), [Validators.required]],
+      speed: new FormControl({ value: specificities.speed, disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
+      capacity: new FormControl({ value: specificities.capacity, disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
+      generation: [specificities.generation, []],
+      detailedDescription: [specificities.detailedDescription, []],
+      description: new FormControl({ value: specificities.description, disabled: true }, [Validators.required, Validators.maxLength(this.descriptionMaxLength)]),
+      manufacturerLink: [specificities.manufacturerLink, []],
+      registered: [specificities.registered, [Validators.required]],
     })
   }
 

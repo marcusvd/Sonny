@@ -13,7 +13,7 @@ import { ProductTypeAfterEditHandled } from "../../dtos/product-type-after-edit-
 import { ProductTypeDto } from "../../dtos/product-type-dto";
 import { SegmentDto } from "../../dtos/segment-dto";
 import { SpecificitiesDto } from "../../dtos/specificities-dto";
-import { ex_onSelectedManufacturer, ex_onSelectedModel, ex_onSelectedProduct, ex_onSelectedSegment } from "./forms-export-helpers";
+import { ex_onSelectedManufacturer, ex_onSelectedModel, ex_onSelectedProduct, ex_onSelectedSegment, ex_productTypeEndSubItemsSelected } from "./forms-export-helpers";
 
 
 
@@ -55,10 +55,10 @@ export class ControllerAddProduct extends BaseForm {
 
   //variables
   newItemSelected: string = '';
-  selectedProductTypeId: number = null;
-  selectedSegmentId: number = null;
-  selectedManufacturerId: number = null;
-  selectedModelId: number = null;
+  // selectedProductTypeId: number = null;
+  // selectedSegmentId: number = null;
+  // selectedManufacturerId: number = null;
+  // selectedModelId: number = null;
   // selectedSpecificitiesId: number = null;
 
   productTypeEdit: ProductTypeEdit = new ProductTypeEdit();
@@ -83,147 +83,141 @@ export class ControllerAddProduct extends BaseForm {
     if (call === 'add')
       this._router.navigate(['/side-nav/stock-product-router/add-product-type']);
     else {
-      const productTypeAfterEditHandled = new ProductTypeAfterEditHandled();
-      productTypeAfterEditHandled.productTypesId = this.selectedProductTypeId;
-      productTypeAfterEditHandled.segmentId = this.selectedSegmentId;
-      productTypeAfterEditHandled.manufacturerId = this.selectedManufacturerId;
-      productTypeAfterEditHandled.modelId = this.selectedModelId;
-
       const objectRoute: NavigationExtras = {
-        state:productTypeAfterEditHandled
+        state: ex_productTypeEndSubItemsSelected
+      };
+
+      this._router.navigate([`/side-nav/stock-product-router/edit-product-type`], objectRoute);
+    }
+  }
+
+  callRouterEditProductType(entity: ProductTypeEdit) {
+
+    const objectRoute: NavigationExtras = {
+      state: entity
     };
 
-    this._router.navigate([`/side-nav/stock-product-router/edit-product-type`], objectRoute);
-  }
-}
-
-callRouterEditProductType(entity: ProductTypeEdit) {
-
-  const objectRoute: NavigationExtras = {
-    state: entity
-  };
-
-  this._router.navigate(['/side-nav/stock-product-router/edit-product-type-add-product'], objectRoute);
-}
-
-clearEntityToSendRoute = (entity: string) => {
-
-  if (entity == 'segment') {
-    this.productTypeEdit.segmentId = null;
-    this.productTypeEdit.segmentName = '';
-    this.productTypeEdit.manufacturerId = null;
-    this.productTypeEdit.manufacturerName = '';
+    this._router.navigate(['/side-nav/stock-product-router/edit-product-type-add-product'], objectRoute);
   }
 
-  if (entity == 'manufacturer') {
-    this.productTypeEdit.manufacturerId = null;
-    this.productTypeEdit.manufacturerName = '';
+  clearEntityToSendRoute = (entity: string) => {
+
+    if (entity == 'segment') {
+      this.productTypeEdit.segmentId = null;
+      this.productTypeEdit.segmentName = '';
+      this.productTypeEdit.manufacturerId = null;
+      this.productTypeEdit.manufacturerName = '';
+    }
+
+    if (entity == 'manufacturer') {
+      this.productTypeEdit.manufacturerId = null;
+      this.productTypeEdit.manufacturerName = '';
+    }
+
+
   }
 
+  //start type
 
-}
-
-//start type
-
-onSelectedProduct(id: number) {
-  this.selectedProductTypeId = id;
-  this.segments$ = ex_onSelectedProduct(id, this.formMain, this.productsTypes$, this.segments$, this.productTypeEdit)
-}
-
-onSelectedProductHandleForm() {
-  this.manufacturers$ = null;
-  this.models$ = null;
-  this.resetFields(this.formMain, ['segmentId', 'manufacturerId', 'modelId', 'specificitiesId']);
-}
-//end type
-
-//start segment
-onSelectedSegment(id: number) {
-  this.selectedSegmentId = id;
-  this.manufacturers$ = ex_onSelectedSegment(id, this.formMain, this.productsTypes$, this.segments$, this.manufacturers$, this.productTypeEdit)
-}
-
-onSelectedSegmentHandleForm() {
-  this.models$ = null;
-  this.resetFields(this.formMain, ['manufacturerId', 'modelId', 'specificitiesId']);
-}
-
-onSelectedSegmentCallRouteAddNew = (id: number, productTypeEdit: ProductTypeEdit) => {
-  if (id == 0) {
-    this.callRouterEditProductType(productTypeEdit);
-    this.clearEntityToSendRoute('segment');
+  onSelectedProduct(id: number) {
+    // this.selectedProductTypeId = id;
+    this.segments$ = ex_onSelectedProduct(id, this.formMain, this.productsTypes$, this.segments$, this.productTypeEdit)
   }
-}
-//end segment
 
-//start manufacturer
-onSelectedManufacturer(id: number) {
-  this.selectedManufacturerId = id;
-  this.models$ = ex_onSelectedManufacturer(id, this.formMain, this.manufacturers$, this.models$, this.productTypeEdit)
-
-  if (id == 0) {
-    this.callRouterEditProductType(this.productTypeEdit);
-    this.clearEntityToSendRoute('manufacturer');
+  onSelectedProductHandleForm() {
+    this.manufacturers$ = null;
+    this.models$ = null;
+    this.resetFields(this.formMain, ['segmentId', 'manufacturerId', 'modelId', 'specificitiesId']);
   }
-}
+  //end type
 
-onSelectedManufacturerHandleForm() {
-  this.resetFields(this.formMain, ['modelId', 'specificitiesId']);
-}
-
-onSelectedManufacturerCallRouteAddNew = (id: number, productTypeEdit: ProductTypeEdit) => {
-  if (id == 0) {
-    this.callRouterEditProductType(productTypeEdit);
-    this.clearEntityToSendRoute('manufacturer');
+  //start segment
+  onSelectedSegment(id: number) {
+    // this.selectedSegmentId = id;
+    this.manufacturers$ = ex_onSelectedSegment(id, this.formMain, this.productsTypes$, this.segments$, this.manufacturers$, this.productTypeEdit)
   }
-}
-//end manufacturer
 
-//start model
-onSelectedModel(id: number) {
-  this.selectedModelId = id;
-  ex_onSelectedModel(id, this.formMain, this.models$);
-}
+  onSelectedSegmentHandleForm() {
+    this.models$ = null;
+    this.resetFields(this.formMain, ['manufacturerId', 'modelId', 'specificitiesId']);
+  }
 
-onSelectedModelCallRouteAddNew = (id: number, productTypeEdit: ProductTypeEdit) => {
-  if (id == 0)
-    this.callRouterEditProductType(productTypeEdit);
-}
-//end model
+  onSelectedSegmentCallRouteAddNew = (id: number, productTypeEdit: ProductTypeEdit) => {
+    if (id == 0) {
+      this.callRouterEditProductType(productTypeEdit);
+      this.clearEntityToSendRoute('segment');
+    }
+  }
+  //end segment
 
-selectedEntitiesAfterEdit = () => {
-  this.productTypeFormControl.patchValue(this.productTypeAfterEditHandled.productTypesId);
-  this.segmentFormControl.patchValue(this.productTypeAfterEditHandled.segmentId);
-  this.manufacturerFormControl.patchValue(this.productTypeAfterEditHandled.manufacturerId);
-  this.modelFormControl.patchValue(this.productTypeAfterEditHandled.modelId);
-}
+  //start manufacturer
+  onSelectedManufacturer(id: number) {
+    // this.selectedManufacturerId = id;
+    this.models$ = ex_onSelectedManufacturer(id, this.formMain, this.manufacturers$, this.models$, this.productTypeEdit)
 
-onSupplierSelected(supplier: PartnerDto) {
-  this.formMain.get('supplierId').patchValue(supplier.id);
-}
+    if (id == 0) {
+      this.callRouterEditProductType(this.productTypeEdit);
+      this.clearEntityToSendRoute('manufacturer');
+    }
+  }
 
-isTested(isTested: MatCheckboxChange) {
-  isTested.checked ? this.formMain.get('isTested')?.patchValue(new Date()) : this.formMain.get('isTested')?.patchValue(this.minValue);
-}
+  onSelectedManufacturerHandleForm() {
+    this.resetFields(this.formMain, ['modelId', 'specificitiesId']);
+  }
 
-formControlReset = () => {
-  this.segments$ = null;
-  this.manufacturers$ = null;
-  this.models$ = null;
-  this.specificities$ = null;
+  onSelectedManufacturerCallRouteAddNew = (id: number, productTypeEdit: ProductTypeEdit) => {
+    if (id == 0) {
+      this.callRouterEditProductType(productTypeEdit);
+      this.clearEntityToSendRoute('manufacturer');
+    }
+  }
+  //end manufacturer
 
-  this.productTypeFormControl.reset();
-  this.productTypeSearchFormControl.reset();
+  //start model
+  onSelectedModel(id: number) {
+    // this.selectedModelId = id;
+    ex_onSelectedModel(id, this.formMain, this.models$);
+  }
 
-  this.segmentFormControl.reset();
-  this.segmentSearchFormControl.reset();
+  onSelectedModelCallRouteAddNew = (id: number, productTypeEdit: ProductTypeEdit) => {
+    if (id == 0)
+      this.callRouterEditProductType(productTypeEdit);
+  }
+  //end model
 
-  this.manufacturerFormControl.reset();
-  this.manufacturerSearchFormControl.reset();
+  selectedEntitiesAfterEdit = () => {
+    this.productTypeFormControl.patchValue(this.productTypeAfterEditHandled.productTypesId);
+    this.segmentFormControl.patchValue(this.productTypeAfterEditHandled.segmentId);
+    this.manufacturerFormControl.patchValue(this.productTypeAfterEditHandled.manufacturerId);
+    this.modelFormControl.patchValue(this.productTypeAfterEditHandled.modelId);
+  }
 
-  this.modelFormControl.reset();
-  this.modelSearchFormControl.reset();
-}
+  onSupplierSelected(supplier: PartnerDto) {
+    this.formMain.get('supplierId').patchValue(supplier.id);
+  }
+
+  isTested(isTested: MatCheckboxChange) {
+    isTested.checked ? this.formMain.get('isTested')?.patchValue(new Date()) : this.formMain.get('isTested')?.patchValue(this.minValue);
+  }
+
+  formControlReset = () => {
+    this.segments$ = null;
+    this.manufacturers$ = null;
+    this.models$ = null;
+    this.specificities$ = null;
+
+    this.productTypeFormControl.reset();
+    this.productTypeSearchFormControl.reset();
+
+    this.segmentFormControl.reset();
+    this.segmentSearchFormControl.reset();
+
+    this.manufacturerFormControl.reset();
+    this.manufacturerSearchFormControl.reset();
+
+    this.modelFormControl.reset();
+    this.modelSearchFormControl.reset();
+  }
 
 
 }

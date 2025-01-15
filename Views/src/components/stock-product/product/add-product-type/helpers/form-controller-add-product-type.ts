@@ -1,11 +1,9 @@
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { of } from "rxjs";
-import { map } from "rxjs/operators";
 
 
 import { BaseForm } from "src/shared/components/inheritance/forms/base-form";
-import { ex_makeDescription, ex_speed, ex_storage } from "../../common/helpers/product-type-helpers";
-
+import { ex_makeDescription, ex_measurersHandle, ex_onSelectSpeedMeasure, ex_speed, ex_storage } from "../../common/helpers/product-type-helpers";
 
 export class FormControllerAddProductType extends BaseForm {
   constructor(
@@ -27,53 +25,33 @@ export class FormControllerAddProductType extends BaseForm {
   speedMeasure = ''
   storageMeasure = ''
 
+  storageHandledValue: string = '';
+  speedHandledValue: string = '';
+  
   //FormGroups
   segmentForm: FormGroup;
   manufacturerForm: FormGroup;
   modelForm: FormGroup;
   specificitiesForm: FormGroup;
-
+ 
   capacityHandle(value: string) {
-    const handledValue = value.replace(/[^\d.-]/g, '');
-    this.specificitiesForm.get('capacity').setValue(handledValue);
+    this.storageHandledValue = ex_measurersHandle(this.specificitiesForm, 'capacity', value, this.storageMeasure);
   }
-
+  
   speedHandle(value: string) {
-    const handledValue = value.replace(/[^\d.-]/g, '');
-    this.specificitiesForm.get('speed').setValue(handledValue);
+    this.speedHandledValue = ex_measurersHandle(this.specificitiesForm, 'speed', value, this.speedMeasure);
   }
 
   onSelectSpeedMeasure(id: number) {
-    this.speed$.pipe(map(x => {
-      const result = x.find(item => item.id === id)
-      this.speedMeasure = this.specificitiesNone(result.name, 'speed');
-
-    })).subscribe();
+    this.speedMeasure = ex_onSelectSpeedMeasure(id, this.specificitiesForm, this.speed$, 'speed', this.speedHandledValue);
   }
 
   onSelectStorageMeasure(id: number) {
-    this.storage$.pipe(map(x => {
-      const result = x.find(item => item.id === id)
-
-      this.storageMeasure = this.specificitiesNone(result.name, 'capacity');
-    })).subscribe();
-
-  }
-
-  specificitiesNone = (value: string, item: string) => {
-    if (value == 'Não especificado') {
-      this.specificitiesForm.get(item).disable();
-      this.specificitiesForm.get(item).reset();
-      return null;
-    }
-    else
-      this.specificitiesForm.get(item).enable();
-
-    return value;
+    this.storageMeasure = ex_onSelectSpeedMeasure(id, this.specificitiesForm, this.storage$, 'capacity', this.storageHandledValue);
   }
 
   makeDescription = () => {
-    ex_makeDescription(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm, this.specificitiesForm, this.speedMeasure, this.storageMeasure, '')
+    ex_makeDescription(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm, this.specificitiesForm, '')
   }
 
   addEmptyFormArrays() {

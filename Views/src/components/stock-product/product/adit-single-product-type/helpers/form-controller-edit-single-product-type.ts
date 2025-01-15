@@ -73,7 +73,7 @@ export class FormControllerEditSingleProductType extends BaseForm {
   }
 
   makeDescription = () => {
-    ex_makeDescription(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm, this.specificitiesForm, this.speedMeasure, this.storageMeasure, '')
+    ex_makeDescription(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm, this.specificitiesForm, '')
   }
 
   addEmptyFormArrays() {
