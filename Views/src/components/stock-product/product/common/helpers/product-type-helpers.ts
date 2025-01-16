@@ -52,12 +52,13 @@ export const ex_measurersHandle = (form: FormGroup, formValue: string, value: st
 
   const valueHandled = value.replace(/[^\d.-]/g, '');
 
-  form.get(formValue).setValue(`${valueHandled}${measurers}`);
+  form.get(formValue).setValue(`${valueHandled} ${measurers}`);
 
   return valueHandled;
 }
 
 export const ex_onSelectSpeedMeasure = (id: number, form: FormGroup, measurersSelect: Observable<any[]>, measurers: string, measurersHandledValue: string) => {
+  
   const resultMeasurers: string[] = [];
 
   measurersSelect.pipe(map(x => {

@@ -38,25 +38,15 @@ export class EditSingleProductTypeComponent extends FormControllerEditSingleProd
 
       this.speed$.subscribe(
         x => {
-          const description = this.productTypeToEdit.segments[0].manufacturers[0].models[0].specificities.description;
-          const splited = description.split(',')
-          splited.forEach(element => {
-            if (element.toLowerCase().includes('velocidade:')) {
-              this.speedFormControl.setValue(x.find(y => y.name == `(${element.split('(')[1].split(')')[0]})`).id)
-            }
-          })
+          const speed = this.productTypeToEdit.segments[0].manufacturers[0].models[0].specificities.speed.toLowerCase().replace(/[\s\d]/g, '');
+          this.speedFormControl.setValue(x.find(y => y.name.toLowerCase() == speed).id)
         }
       )
-     
+
       this.storage$.subscribe(
         x => {
-          const description = this.productTypeToEdit.segments[0].manufacturers[0].models[0].specificities.description;
-          const splited = description.split(',')
-          splited.forEach(element => {
-            if (element.toLowerCase().includes('capacidade:')) {
-              this.capacityFormControl.setValue(x.find(y => y.name == `(${element.split('(')[1].split(')')[0]})`).id)
-            }
-          })
+          const capacity = this.productTypeToEdit.segments[0].manufacturers[0].models[0].specificities.capacity.toLowerCase().replace(/[\s\d]/g, '');
+           this.capacityFormControl.setValue(x.find(y => y.name.toLowerCase() == capacity).id)
         }
       )
 
