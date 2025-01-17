@@ -13,14 +13,15 @@ const getFormFieldValue = (form: FormGroup, field: string) => {
   return form?.get(field)?.value
 }
 
-const specificitiesNone = (form: FormGroup, value: string, item: string) => {
+const specificitiesNone = (form: FormGroup, value: string, formField: string) => {
+
   if (value == 'Não especificado') {
-    form.get(item).disable();
-    form.get(item).reset();
+    form.get(formField).disable();
+    form.get(formField).reset();
     return '#';
   }
   else
-    form.get(item).enable();
+    form.get(formField).enable();
 
   return value;
 }

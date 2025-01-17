@@ -74,10 +74,6 @@ export class ControllerAddProduct extends BaseForm {
       this.newItemSelected = ''
   }
 
-  // formMainProductType: FormGroup;
-  // formHandler(form: FormGroup) {
-  //   this.formMainProductType = form;
-  // }
 
   callRouter = (call?: string) => {
     if (call === 'add')

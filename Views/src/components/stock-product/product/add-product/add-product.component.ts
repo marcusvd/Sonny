@@ -58,6 +58,12 @@ export class AddProductComponent extends ControllerAddProduct implements OnInit 
       this.formMain.get('usedHistoricalOrSupplier').disable();
   }
 
+   isBtnEditDisabled = () => {
+    
+   return  this.formMain.get('specificitiesId').value == '' || this.formMain.get('specificitiesId').value < 1
+
+  }
+
   save() {
 
     if (this.alertSave(this.formMain)) {

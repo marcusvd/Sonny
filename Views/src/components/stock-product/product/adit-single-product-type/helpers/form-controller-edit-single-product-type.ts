@@ -1,11 +1,10 @@
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { of } from "rxjs";
-import { map } from "rxjs/operators";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Observable, of } from "rxjs";
 
 
 import { BaseForm } from "src/shared/components/inheritance/forms/base-form";
-import { ex_makeDescription, ex_speed, ex_storage } from "../../common/helpers/product-type-helpers";
-
+import { ex_makeDescription, ex_measurersHandle, ex_onSelectSpeedMeasure, ex_speed, ex_storage } from "../../common/helpers/product-type-helpers";
+import { ProductTypeDto } from "../../dtos/product-type-dto";
 
 export class FormControllerEditSingleProductType extends BaseForm {
   constructor(
@@ -26,63 +25,59 @@ export class FormControllerEditSingleProductType extends BaseForm {
   //variables
   speedMeasure = ''
   storageMeasure = ''
+  storageHandledValue: string = '';
+  speedHandledValue: string = '';
+  productTypeToEdit: ProductTypeDto = new ProductTypeDto();
 
-  //FormGroups
-  segmentForm: FormGroup;
-  manufacturerForm: FormGroup;
-  modelForm: FormGroup;
-  specificitiesForm: FormGroup;
+  get segments() {
+    return this.formMain.get('segments').get('0') as FormGroup;
+  }
+  get manufacturers() {
+    return this.formMain.get('segments').get('0').get('manufacturers').get('0') as FormGroup;
+  }
+  get models() {
+    return this.formMain.get('segments').get('0').get('manufacturers').get('0').get('models').get('0') as FormGroup;
+  }
+  get specificity() {
+    return this.formMain.get('segments').get('0').get('manufacturers').get('0').get('models').get('0').get('specificities') as FormGroup;
+  }
 
   capacityHandle(value: string) {
-    const handledValue = value.replace(/[^\d.-]/g, '');
-    this.specificitiesForm.get('capacity').setValue(handledValue);
+    this.storageHandledValue = ex_measurersHandle(this.specificity, 'capacity', value, this.storageMeasure);
   }
 
   speedHandle(value: string) {
-    const handledValue = value.replace(/[^\d.-]/g, '');
-    this.specificitiesForm.get('speed').setValue(handledValue);
+    this.speedHandledValue = ex_measurersHandle(this.specificity, 'speed', value, this.speedMeasure);
   }
 
   onSelectSpeedMeasure(id: number) {
-    this.speed$.pipe(map(x => {
-      const result = x.find(item => item.id === id)
-      this.speedMeasure = this.specificitiesNone(result.name, 'speed');
-
-    })).subscribe();
+    this.speedMeasure = ex_onSelectSpeedMeasure(id, this.specificity, this.speed$, 'speed', this.speedHandledValue);
   }
 
   onSelectStorageMeasure(id: number) {
-    this.storage$.pipe(map(x => {
-      const result = x.find(item => item.id === id)
-
-      this.storageMeasure = this.specificitiesNone(result.name, 'capacity');
-    })).subscribe();
-
-  }
-
-  specificitiesNone = (value: string, item: string) => {
-    if (value == 'Não especificado') {
-      this.specificitiesForm.get(item).disable();
-      this.specificitiesForm.get(item).reset();
-      return null;
-    }
-    else
-      this.specificitiesForm.get(item).enable();
-
-    return value;
+    this.storageMeasure = ex_onSelectSpeedMeasure(id, this.specificity, this.storage$, 'capacity', this.storageHandledValue);
   }
 
   makeDescription = () => {
-    ex_makeDescription(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm, this.specificitiesForm, '')
+    ex_makeDescription(this.formMain, this.segments, this.manufacturers, this.models, this.specificity, '')
   }
 
-  addEmptyFormArrays() {
-    this.segmentForm = this.formMain.get('segments').get('0') as FormGroup;
-    this.manufacturerForm = this.formMain.get('segments').get('0').get('manufacturers').get('0') as FormGroup;
-    this.modelForm = this.formMain.get('segments').get('0').get('manufacturers').get('0').get('models').get('0') as FormGroup;
-    this.specificitiesForm = this.modelForm.get('specificities') as FormGroup;
-  }
 
+  loadMeasurers = (form: FormGroup, measurers: Observable<any[]>, productType: any, entitiy: string, formControl: FormControl) => {
+    measurers.subscribe(
+      x => {
+        const measure = productType?.segments[0]?.manufacturers[0]?.models[0]?.specificities[entitiy]?.toLowerCase()?.replace(/[\s\d]/g, '');
+        const foundMeasure = x?.find(y => y?.name?.toLowerCase() == measure);
+
+        if (foundMeasure == null || foundMeasure == undefined) {
+          this.setFormFieldEnableDisable(form, entitiy, false)
+          formControl?.setValue(x?.find(y => y?.id == 0)?.id)
+        }
+        else
+          formControl?.setValue(x?.find(y => y?.name?.toLowerCase() == foundMeasure.name.toLowerCase())?.id)
+      }
+    )
+  }
 
   formControlReset = () => {
     this.speedFormControl.reset();

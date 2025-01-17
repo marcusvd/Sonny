@@ -1,13 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 
-import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ManufacturerDto } from '../dtos/manufacturer-dto';
-import { ModelDto } from '../dtos/model-dto';
 import { ProductTypeDto } from '../dtos/product-type-dto';
-import { SegmentDto } from '../dtos/segment-dto';
-import { SpecificitiesDto } from '../dtos/specificities-dto';
 import { FormControllerEditSingleProductType } from './helpers/form-controller-edit-single-product-type';
 import { FormsBuilderHelperEditSingleProductTypeService } from './helpers/forms-builder-helper-edit-single-product-type.service';
 import { ImportsEditSingleProductType } from './imports/imports-edit-single-product-type';
@@ -22,7 +17,7 @@ import { EditSingleProductTypeService } from './services/edit-single-product-typ
   styleUrls: ['./edit-single-product-type.component.scss'],
   providers: [EditSingleProductTypeService]
 })
-export class EditSingleProductTypeComponent extends FormControllerEditSingleProductType implements OnInit {
+export class EditSingleProductTypeComponent extends FormControllerEditSingleProductType {
 
   constructor(
     private readonly _editSingleProductTypeService: EditSingleProductTypeService,
@@ -33,84 +28,20 @@ export class EditSingleProductTypeComponent extends FormControllerEditSingleProd
     super()
 
     if (this._router.getCurrentNavigation().extras.state) {
+
       const obj = this._router.getCurrentNavigation().extras.state;
       this.productTypeToEdit = (obj as ProductTypeDto);
 
-      this.speed$.subscribe(
-        x => {
-          const speed = this.productTypeToEdit.segments[0].manufacturers[0].models[0].specificities.speed.toLowerCase().replace(/[\s\d]/g, '');
-          this.speedFormControl.setValue(x.find(y => y.name.toLowerCase() == speed).id)
-        }
-      )
-
-      this.storage$.subscribe(
-        x => {
-          const capacity = this.productTypeToEdit.segments[0].manufacturers[0].models[0].specificities.capacity.toLowerCase().replace(/[\s\d]/g, '');
-           this.capacityFormControl.setValue(x.find(y => y.name.toLowerCase() == capacity).id)
-        }
-      )
-
-
+      this.formMain = this._formsBuilderHelperEditSingleProductTypeService.formLoad(this.productTypeToEdit);
+      this.loadMeasurers(this.specificity, this.speed$, this.productTypeToEdit, 'speed', this.speedFormControl)
+      this.loadMeasurers(this.specificity, this.storage$, this.productTypeToEdit, 'capacity', this.capacityFormControl)
     }
   }
 
-  productTypeToEdit: ProductTypeDto = new ProductTypeDto();
-
-  segment: SegmentDto = null;
-  manufacturer: ManufacturerDto = null;
-  model: ModelDto = null;
-  specificities: SpecificitiesDto = null;
-
-  ngOnInit(): void {
-
-
-
-    // const id = this._actRoute.snapshot.params['id'];
-    this.formMain = this._formsBuilderHelperEditSingleProductTypeService.formLoad(this.productTypeToEdit);
-
-    //   const productType: Observable<ProductTypeDto> = this._editSingleProductTypeService.getProductTypeByIdAllIncluded$(this.productTypeToEdit);
-    //   productType.subscribe(x => {
-
-    //     // this.segment = x.segments.find(y => y.id == this.productTypeAfterEditHandled.segmentId);
-
-    //     // this.manufacturer = this.segment.manufacturers.find(y => y.id == this.productTypeAfterEditHandled.manufacturerId);
-
-    //     // this.model = this.manufacturer.models.find(y => y.id == this.productTypeAfterEditHandled.modelId);
-
-    //     // console.log(this.model)
-
-    //     // this.segmentForm = this._formsBuilderHelperEditSingleProductTypeService.formLoadSegment(this.segment)
-    //     // this.manufacturerForm = this._formsBuilderHelperEditSingleProductTypeService.formLoadManufacturer(this.manufacturer)
-    //     // this.modelForm = this._formsBuilderHelperEditSingleProductTypeService.formLoadModel(this.model)
-
-    //   })
-
-
-    //   //this.addEmptyFormArrays();
-  }
-
-
-
-  get segments() {
-    return this.formMain.get('segments').get('0') as FormGroup;
-  }
-  get manufacturers() {
-    return this.formMain.get('segments').get('0').get('manufacturers').get('0') as FormGroup;
-  }
-  get models() {
-    return this.formMain.get('segments').get('0').get('manufacturers').get('0').get('models').get('0') as FormGroup;
-  }
-  get specificity() {
-    return this.formMain.get('segments').get('0').get('manufacturers').get('0').get('models').get('0').get('specificities') as FormGroup;
-  }
-
-
   save() {
     if (this.alertSave(this.formMain)) {
-      this.setFormFieldEnableDisable(this.specificitiesForm, 'description', true);
       this.makeDescription();
       this.saveBtnEnabledDisabled = true;
-      // this._editSingleProductType.add(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm, this.specificitiesForm);
       this.formControlReset();
     }
 

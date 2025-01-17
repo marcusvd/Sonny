@@ -10,7 +10,8 @@
                 <btn-g add btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="callRouter('add')"></btn-g>
             </div>
             <div class="btn-add-type">
-                <btn-g add btn-1 [name]="'Editar'" [icon]="'edit'" (btn)="callRouter()"></btn-g>
+                <btn-g add btn-1 [enableDisable]="isBtnEditDisabled()" [name]="'Editar'"
+                    [icon]="'edit'" (btn)="callRouter()"></btn-g>
             </div>
         </div>
 
@@ -70,7 +71,7 @@
 
             </div>
             <textarea style="border:1px solid #2ba1a8; border-radius: 4px;" matInput [rows]="10"
-            [placeholder]="'Descrição completa'" formControlName="detailedDescription"></textarea>
+                [placeholder]="'Descrição completa'" formControlName="detailedDescription"></textarea>
             <br>
             <br>
             <div class="checks">

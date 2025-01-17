@@ -1,5 +1,7 @@
 import { Injectable } from "@angular/core";
 import { FormBuilder, FormControl, Validators } from "@angular/forms";
+
+
 import { ManufacturerDto } from "../../dtos/manufacturer-dto";
 import { ModelDto } from "../../dtos/model-dto";
 import { ProductTypeDto } from "../../dtos/product-type-dto";
@@ -7,8 +9,6 @@ import { SegmentDto } from "../../dtos/segment-dto";
 import { ProductTypeValidatorAsync } from "../form-validators/product-type-validator-async-fields";
 import { SpecificitiesDto } from "../../dtos/specificities-dto";
 
-
-//Validators
 
 @Injectable({ providedIn: 'root' })
 export class FormsBuilderHelperEditSingleProductTypeService {
@@ -23,7 +23,6 @@ export class FormsBuilderHelperEditSingleProductTypeService {
   //Validators
   nameMaxLength = 50;
   descriptionMaxLength = 500;
-
 
   formLoad(productType?: ProductTypeDto) {
     return this._fb.group({
@@ -58,7 +57,6 @@ export class FormsBuilderHelperEditSingleProductTypeService {
   }
 
    formLoadModel(model?: ModelDto) {
-    console.log(model)
     return this._fb.group({
       id: [model?.id ?? 0, [Validators.required]],
       companyId: [model.companyId, [Validators.required]],
@@ -73,15 +71,16 @@ export class FormsBuilderHelperEditSingleProductTypeService {
     return this._fb.group({
       id: [0, [Validators.required]],
       companyId: [specificities.companyId, [Validators.required]],
-      speed: new FormControl({ value: specificities.speed, disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
-      capacity: new FormControl({ value: specificities.capacity, disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
+      speed: new FormControl(specificities.speed, [Validators.maxLength(this.nameMaxLength)]),
+      capacity: new FormControl(specificities.capacity, [Validators.maxLength(this.nameMaxLength)]),
       generation: [specificities.generation, []],
       detailedDescription: [specificities.detailedDescription, []],
-      description: new FormControl({ value: specificities.description, disabled: true }, [Validators.required, Validators.maxLength(this.descriptionMaxLength)]),
+      description: new FormControl(specificities.description, [Validators.required, Validators.maxLength(this.descriptionMaxLength)]),
       manufacturerLink: [specificities.manufacturerLink, []],
       registered: [specificities.registered, [Validators.required]],
     })
   }
+
 
 
 }
