@@ -32,6 +32,8 @@
                     <span msg-error
                         *ngIf="this.formError(segments,'name', 'maxlength') && this.formTouched(segments, 'name')">{{maxLengthMsg
                         + '50' + charactersMsg}}</span>
+                        <span msg-error
+                        *ngIf="this.formError(segments,'name', 'inUse') && this.formTouched(segments, 'name')">{{inUseMsg}}</span>
                 </input-field-g>
                 <!-- segment end-->
 
@@ -44,6 +46,8 @@
                     <span msg-error
                         *ngIf="this.formError(manufacturers,'name', 'maxlength') && this.formTouched(manufacturers, 'name')">{{maxLengthMsg
                         + '50' + charactersMsg}}</span>
+                        <span msg-error
+                        *ngIf="this.formError(manufacturers,'name', 'inUse') && this.formTouched(manufacturers, 'name')">{{inUseMsg}}</span>
                 </input-field-g>
                 <!-- manufacturer end-->
 
@@ -55,6 +59,8 @@
                     <span msg-error
                         *ngIf="this.formError(models,'name', 'maxlength') && this.formTouched(models, 'name')">{{maxLengthMsg
                         + '50' + charactersMsg}}</span>
+                        <span msg-error
+                        *ngIf="this.formError(models,'name', 'inUse') && this.formTouched(models, 'name')">{{inUseMsg}}</span>
                 </input-field-g>
             </div>
 

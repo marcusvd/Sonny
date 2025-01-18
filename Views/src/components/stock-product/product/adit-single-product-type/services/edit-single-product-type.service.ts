@@ -29,30 +29,21 @@ export class EditSingleProductTypeService extends BackEndService<ProductTypeDto>
   }
 
 
-  add(form: FormGroup) {
+  updateSingle(form: FormGroup) {
+    const toSave: ProductTypeDto = { ...form.value }
 
-    const toSave: ProductDto = { ...form.value }
-    const warrantyEnd = new Date(new Date().getFullYear() + 1, new Date().getMonth(), new Date().getDate());
-    this.add$<ProductDto>(toSave, 'AddProductAsync').subscribe({
-      next: () => {
-        this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
-        form.reset({
-          id: 0,
-          companyId: this.companyId,
-          userId: this.userId,
-          entryDate: new Date(),
-          warrantyEndLocal: warrantyEnd,
-          isTested:new Date('0001-01-01T00:00:00.000Z'),
-          isUsed:false,
-          quantity:1
-
-        });
-        //  this._route.navigateByUrl(`/side-nav/stock-product-router/add-item-product`)
+    this.update$<ProductTypeDto>('_PD_Products/UpdateProductTypeAsync', toSave).subscribe({
+      next: (x: ProductTypeDto) => {
+       
+        this._communicationsAlerts.defaultSnackMsg('2', 0, null, 4);
+    //     this.callRouterEditProductType(x as any)
+    //  console.log(x)
       },
       error: (erroCode) => {
         console.log(erroCode)
         this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
       }
+
     })
   }
 

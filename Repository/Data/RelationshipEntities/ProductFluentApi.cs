@@ -97,8 +97,8 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<Product>(x => x.Products).WithOne(x => x.Model).HasForeignKey(fk => fk.ModelId);
             // builder.HasMany<Specificities>(x => x.Specificities).WithOne(x => x.Model).HasForeignKey(fk => fk.ModelId);
 
-            builder.Property(x => x.Name).IsRequired(true);
-            builder.HasIndex(x => x.Name).IsUnique(true);
+            // builder.Property(x => x.Name).IsRequired(true);
+            // builder.HasIndex(x => x.Name).IsUnique(true);
 
             builder.Ignore(x => x.User);
             builder.Ignore(x => x.UserId);

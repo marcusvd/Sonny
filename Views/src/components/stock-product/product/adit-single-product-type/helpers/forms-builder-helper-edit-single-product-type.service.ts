@@ -27,47 +27,47 @@ export class FormsBuilderHelperEditSingleProductTypeService {
   formLoad(productType?: ProductTypeDto) {
     return this._fb.group({
       id: [productType?.id ?? 0, [Validators.required]],
-      name: new FormControl(productType?.name, { validators: [Validators.required, Validators.maxLength(this.nameMaxLength)], asyncValidators: [this._productTypeValidatorAsync.validate.bind(this._productTypeValidatorAsync)] }),
+      name: new FormControl(productType?.name, { validators: [Validators.required, Validators.maxLength(this.nameMaxLength)], asyncValidators: [this._productTypeValidatorAsync.validateProductType(productType)] }),
       companyId: [productType.companyId, [Validators.required]],
       userId: [productType.userId, [Validators.required]],
-      segments: this._fb.array([this.formLoadSegment(productType.segments[0])], Validators.required)
+      segments: this._fb.array([this.formLoadSegment(productType.segments[0], productType.id)], Validators.required)
     })
   }
 
-   formLoadSegment(segment?: SegmentDto) {
+  formLoadSegment(segment?: SegmentDto, productTypeId?: number) {
     return this._fb.group({
       id: [segment?.id ?? 0, [Validators.required]],
-      name: [segment?.name ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
+      name: new FormControl(segment?.name ?? '', { validators: [Validators.required, Validators.maxLength(this.nameMaxLength)], asyncValidators: [this._productTypeValidatorAsync.validateSegmentAsync(productTypeId, segment.id)] }),
       companyId: [segment.companyId, [Validators.required]],
       productId: [segment?.productTypeId ?? 0, []],
       registered: [new Date(), [Validators.required]],
-      manufacturers: this._fb.array([this.formLoadManufacturer(segment.manufacturers[0])], Validators.required)
+      manufacturers: this._fb.array([this.formLoadManufacturer(productTypeId, segment.id, segment.manufacturers[0])], Validators.required)
     })
   }
 
-   formLoadManufacturer(manufacturer?: ManufacturerDto) {
+  formLoadManufacturer(productTypeId: number, segmentId: number, manufacturer?: ManufacturerDto) {
     return this._fb.group({
       id: [manufacturer?.id ?? 0, [Validators.required]],
-      name: [manufacturer?.name ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
+      name: new FormControl(manufacturer?.name ?? '', { validators: [Validators.required, Validators.maxLength(this.nameMaxLength)], asyncValidators: [this._productTypeValidatorAsync.validatorManufacturer(productTypeId, segmentId, manufacturer.id)] }),
       companyId: [manufacturer.companyId, [Validators.required]],
       segmentId: [manufacturer?.segmentId ?? 0, []],
       registered: [new Date(), [Validators.required]],
-      models: this._fb.array([this.formLoadModel(manufacturer.models[0])], Validators.required)
+      models: this._fb.array([this.formLoadModel(productTypeId, segmentId, manufacturer.id, manufacturer.models[0])], Validators.required)
     })
   }
 
-   formLoadModel(model?: ModelDto) {
+  formLoadModel(roductTypeId: number, segmentId: number, manufacturerId: number, model: ModelDto) {
     return this._fb.group({
       id: [model?.id ?? 0, [Validators.required]],
       companyId: [model.companyId, [Validators.required]],
-      name: [model?.name ?? '', [Validators.required, Validators.maxLength(this.nameMaxLength)]],
+      name: new FormControl(model?.name ?? '', { validators: [Validators.required, Validators.maxLength(this.nameMaxLength)], asyncValidators: [this._productTypeValidatorAsync.validatorModel(roductTypeId, segmentId, manufacturerId, model.id)] }),
       manufacturerId: model?.manufacturerId ?? 0,
       registered: [new Date(), [Validators.required]],
       specificities: this.formLoadSpecificities(model.specificities)
     })
   }
 
-   formLoadSpecificities(specificities: SpecificitiesDto) {
+  formLoadSpecificities(specificities: SpecificitiesDto) {
     return this._fb.group({
       id: [0, [Validators.required]],
       companyId: [specificities.companyId, [Validators.required]],

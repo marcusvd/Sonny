@@ -39,9 +39,11 @@ export class EditSingleProductTypeComponent extends FormControllerEditSingleProd
   }
 
   save() {
+    console.log(this.formMain.controls)
     if (this.alertSave(this.formMain)) {
       this.makeDescription();
       this.saveBtnEnabledDisabled = true;
+      this._editSingleProductTypeService.updateSingle(this.formMain);
       this.formControlReset();
     }
 
