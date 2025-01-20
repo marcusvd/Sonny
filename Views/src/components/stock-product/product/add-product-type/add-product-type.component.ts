@@ -31,11 +31,12 @@ export class AddProductTypeComponent extends FormControllerAddProductType implem
 
   save() {
     if (this.alertSave(this.formMain)) {
-      this.setFormFieldEnableDisable(this.specificitiesForm, 'description', true);
       this.makeDescription();
       this.saveBtnEnabledDisabled = true;
       this._productTypeService.add(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm, this.specificitiesForm);
       this.formControlReset();
+      this.formGroupsReset;
+      this.variablesReset();
     }
 
   }

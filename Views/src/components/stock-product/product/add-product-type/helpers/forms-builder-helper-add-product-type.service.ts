@@ -77,7 +77,7 @@ export class FormsBuilderHelperAddProductTypeService {
       capacity: new FormControl({ value: '', disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
       generation: ['', []],
       detailedDescription: ['', []],
-      description: new FormControl({ value: '', disabled: true }, [Validators.required, Validators.maxLength(this.descriptionMaxLength)]),
+      description: new FormControl('', [Validators.required, Validators.maxLength(this.descriptionMaxLength)]),
       manufacturerLink: ['http://', []],
       registered: [new Date(), [Validators.required]],
     })

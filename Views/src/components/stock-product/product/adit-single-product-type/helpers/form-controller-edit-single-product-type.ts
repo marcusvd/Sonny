@@ -63,20 +63,37 @@ export class FormControllerEditSingleProductType extends BaseForm {
   }
 
 
-  loadMeasurers = (form: FormGroup, measurers: Observable<any[]>, productType: any, entitiy: string, formControl: FormControl) => {
+  loadMeasurers = (form: FormGroup, measurers: Observable<any[]>, productType: any, entity: string, formControl: FormControl) => {
     measurers.subscribe(
       x => {
-        const measure = productType?.segments[0]?.manufacturers[0]?.models[0]?.specificities[entitiy]?.toLowerCase()?.replace(/[\s\d]/g, '');
+        const measure = productType?.segments[0]?.manufacturers[0]?.models[0]?.specificities[entity]?.toLowerCase()?.replace(/[\s\d]/g, '');
         const foundMeasure = x?.find(y => y?.name?.toLowerCase() == measure);
 
         if (foundMeasure == null || foundMeasure == undefined) {
-          this.setFormFieldEnableDisable(form, entitiy, false)
+          this.setFormFieldEnableDisable(form, entity, false)
           formControl?.setValue(x?.find(y => y?.id == 0)?.id)
         }
-        else
+        else {
           formControl?.setValue(x?.find(y => y?.name?.toLowerCase() == foundMeasure.name.toLowerCase())?.id)
+          this.loadVariablesMeasurer(entity, foundMeasure);
+          // if (entity == 'speed')
+          //   this.speedMeasure = foundMeasure.name;
+
+          // if (entity == 'capacity')
+          //   this.storageMeasure = foundMeasure.name;
+
+        }
       }
     )
+  }
+
+  loadVariablesMeasurer = (entity: string, obj: any) => {
+    if (entity == 'speed')
+    this.speedMeasure = obj.name;
+
+
+    if (entity == 'capacity')
+      this.storageMeasure = obj.name;
   }
 
   formControlReset = () => {
@@ -85,6 +102,4 @@ export class FormControllerEditSingleProductType extends BaseForm {
     this.capacityFormControl.reset();
     this.capacitySearchFormControl.reset();
   }
-
-
 }

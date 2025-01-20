@@ -27,17 +27,17 @@ export class FormControllerAddProductType extends BaseForm {
 
   storageHandledValue: string = '';
   speedHandledValue: string = '';
-  
+
   //FormGroups
   segmentForm: FormGroup;
   manufacturerForm: FormGroup;
   modelForm: FormGroup;
   specificitiesForm: FormGroup;
- 
+
   capacityHandle(value: string) {
     this.storageHandledValue = ex_measurersHandle(this.specificitiesForm, 'capacity', value, this.storageMeasure);
   }
-  
+
   speedHandle(value: string) {
     this.speedHandledValue = ex_measurersHandle(this.specificitiesForm, 'speed', value, this.speedMeasure);
   }
@@ -69,5 +69,19 @@ export class FormControllerAddProductType extends BaseForm {
     this.capacitySearchFormControl.reset();
   }
 
+  formGroupsReset = () => {
+    this.formMain.reset();
+    this.segmentForm.reset();
+    this.manufacturerForm.reset();
+    this.modelForm.reset();
+    this.specificitiesForm.reset();
+  }
+
+  variablesReset = () => {
+    this.speedMeasure = '';
+    this.storageMeasure = '';
+    this.storageHandledValue = '';
+    this.speedHandledValue = '';
+  }
 
 }

@@ -32,9 +32,9 @@ export class EditSingleProductTypeService extends BackEndService<ProductTypeDto>
   updateSingle(form: FormGroup) {
     const toSave: ProductTypeDto = { ...form.value }
 
-    this.update$<ProductTypeDto>('_PD_Products/UpdateProductTypeAsync', toSave).subscribe({
+    this.update$<ProductTypeDto>('UpdateProductTypeAsync', toSave).subscribe({
       next: (x: ProductTypeDto) => {
-       
+
         this._communicationsAlerts.defaultSnackMsg('2', 0, null, 4);
     //     this.callRouterEditProductType(x as any)
     //  console.log(x)

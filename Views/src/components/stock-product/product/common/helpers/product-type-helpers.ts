@@ -16,8 +16,8 @@ const getFormFieldValue = (form: FormGroup, field: string) => {
 const specificitiesNone = (form: FormGroup, value: string, formField: string) => {
 
   if (value == 'Não especificado') {
-    form.get(formField).disable();
     form.get(formField).reset();
+    form.get(formField).disable();
     return '#';
   }
   else
@@ -59,7 +59,7 @@ export const ex_measurersHandle = (form: FormGroup, formValue: string, value: st
 }
 
 export const ex_onSelectSpeedMeasure = (id: number, form: FormGroup, measurersSelect: Observable<any[]>, measurers: string, measurersHandledValue: string) => {
-  
+
   const resultMeasurers: string[] = [];
 
   measurersSelect.pipe(map(x => {
