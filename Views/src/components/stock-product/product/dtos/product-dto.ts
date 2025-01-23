@@ -18,6 +18,7 @@ export class ProductDto extends RootBase {
     manufacturer: ManufacturerDto;
     modelId:number;
     model: ModelDto;
+    quantity:number;
     specificitiesId:number;
     specificities: SpecificitiesDto;
     isReservedByUserId: number;

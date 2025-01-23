@@ -11,29 +11,30 @@
     </div>
 
     <div class="type">
-<!-- 
-        <select-input-search-g style="width: 100%;" [removeValidatorNgxFormControl]="true" [removeValidatorFormControl]="true"
+
+        <select-input-search-g style="width: 100%;"
+        [entities]="productsTypes$"
+        [selectFieldFormControl]="productTypeFormControl" [selectFieldSearchFormControl]="productTypeSearchFormControl"
             (outEntitiesSelected)="this.onSelectedProduct($event, this.productsTypes$, this.productsList$, this.resetControlForm, this.removeAccentsSpecialCharacters, this.outProductsListFiltered$)"
-            [entities]="productsTypes$" [formControlReset]="resetControlForm[0]" [labelInput]="'Tipo'">
-        </select-input-search-g> -->
+              [labelInput]="'Tipo'">
+        </select-input-search-g>
 
     </div>
 
     <div class="segment">
 
-        <!-- <select-input-search-g [removeValidatorNgxFormControl]="true" [removeValidatorFormControl]="true"
-            [entities]="segments$"
-            (outEntitiesSelected)="this.onSelectedSegment($event, this.segments$, this.productsList$, this.resetControlForm, this.removeAccentsSpecialCharacters, this.outProductsListFiltered$)"
-            [formControlReset]="resetControlForm[1]" [labelInput]="'Segmento'">
-        </select-input-search-g> -->
+        <select-input-search-g
+            [entities]="segments$" [selectFieldFormControl]="segmentFormControl" [selectFieldSearchFormControl]="segmentSearchFormControl"    (outEntitiesSelected)="this.onSelectedSegment($event, this.segments$, this.productsList$, this.resetControlForm, this.removeAccentsSpecialCharacters, this.outProductsListFiltered$)"
+             [labelInput]="'Segmento'">
+        </select-input-search-g>
 
     </div>
 
     <div class="manufacturer">
-        <!-- <select-input-search-g [removeValidatorNgxFormControl]="true" [removeValidatorFormControl]="true"
-            (outEntitiesSelected)="this.onSelectedManufacturer($event, manufacturers$, this.productsList$, this.resetControlForm, this.removeAccentsSpecialCharacters, this.outProductsListFiltered$)"
-            [entities]="manufacturers$" [formControlReset]="resetControlForm[2]" [labelInput]="'Fabricante'">
-        </select-input-search-g> -->
+        <select-input-search-g
+        [entities]="manufacturers$" [selectFieldFormControl]="manufacturerFormControl" [selectFieldSearchFormControl]="manufacturerSearchFormControl" (outEntitiesSelected)="this.onSelectedManufacturer($event, manufacturers$, this.productsList$, this.resetControlForm, this.removeAccentsSpecialCharacters, this.outProductsListFiltered$)"
+              [labelInput]="'Fabricante'">
+        </select-input-search-g>
     </div>
 
 </div>

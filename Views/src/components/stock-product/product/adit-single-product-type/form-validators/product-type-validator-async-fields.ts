@@ -1,14 +1,11 @@
 import { Injectable } from "@angular/core";
-import { AbstractControl, AsyncValidator, AsyncValidatorFn, ValidationErrors, ValidatorFn } from "@angular/forms";
+import { AbstractControl, AsyncValidatorFn, ValidationErrors } from "@angular/forms";
 
 import { Observable } from "rxjs";
-import { ProductTypeDto } from "../../dtos/product-type-dto";
-import { BaseForm } from "src/shared/components/inheritance/forms/base-form";
 import { map } from "rxjs/operators";
+import { BaseForm } from "src/shared/components/inheritance/forms/base-form";
+import { ProductTypeDto } from "../../dtos/product-type-dto";
 import { EditSingleProductTypeService } from "../services/edit-single-product-type.service";
-import { SegmentDto } from "../../dtos/segment-dto";
-import { ManufacturerDto } from "../../dtos/manufacturer-dto";
-import { ModelDto } from "../../dtos/model-dto";
 
 @Injectable({ providedIn: 'root' })
 export class ProductTypeValidatorAsync extends BaseForm {
@@ -21,12 +18,13 @@ export class ProductTypeValidatorAsync extends BaseForm {
 
             return this._editSingleProductTypeService.getProductTypes$(this.companyId).pipe(
                 map((x: ProductTypeDto[]) => {
+                   
                     const productType = x.find(y => this.removeAccentsSpecialCharacters(y.name.toLowerCase()) === this.removeAccentsSpecialCharacters(control.value.toLowerCase().trim()));
 
-                    const isTheSame = productType.id == productTypeParam.id
+                    const isTheSame = productType?.id == productTypeParam?.id
 
                     return !isTheSame && productType ? { inUse: true } : null;
-
+                    
                 }))
         }
     }

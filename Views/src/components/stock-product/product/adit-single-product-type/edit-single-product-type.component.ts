@@ -33,15 +33,15 @@ export class EditSingleProductTypeComponent extends FormControllerEditSingleProd
       this.productTypeToEdit = (obj as ProductTypeDto);
 
       this.formMain = this._formsBuilderHelperEditSingleProductTypeService.formLoad(this.productTypeToEdit);
-      this.loadMeasurers(this.specificity, this.speed$, this.productTypeToEdit, 'speed', this.speedFormControl)
-      this.loadMeasurers(this.specificity, this.storage$, this.productTypeToEdit, 'capacity', this.capacityFormControl)
+      // this.loadMeasurers(this.specificity, this.speed$, this.productTypeToEdit, 'speed', this.speedFormControl)
+      // this.loadMeasurers(this.specificity, this.storage$, this.productTypeToEdit, 'capacity', this.capacityFormControl)
     }
   }
 
   save() {
     console.log(this.formMain.controls)
     if (this.alertSave(this.formMain)) {
-      this.makeDescription();
+      // this.makeDescription();
       this.saveBtnEnabledDisabled = true;
       this._editSingleProductTypeService.updateSingle(this.formMain);
       this.formControlReset();

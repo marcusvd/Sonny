@@ -73,7 +73,9 @@ export class FormsBuilderHelperAddProductTypeService {
     return this._fb.group({
       id: [0, [Validators.required]],
       companyId: [companyId, [Validators.required]],
+      speedLabel:['', [Validators.maxLength(this.nameMaxLength)]],
       speed: new FormControl({ value: '', disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
+      capacityLabel:['', [Validators.maxLength(this.nameMaxLength)]],
       capacity: new FormControl({ value: '', disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
       generation: ['', []],
       detailedDescription: ['', []],

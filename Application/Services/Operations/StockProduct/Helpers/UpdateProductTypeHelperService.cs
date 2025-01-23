@@ -12,9 +12,9 @@ using System.Linq;
 using Domain.Entities.StockProduct.ProductKind;
 
 
-namespace Application.Services.Operations.StockProduct
+namespace Application.Services.Operations.StockProduct.Helpers
 {
-    public class ProductHelperServices
+    public class UpdateProductTypeHelperService
     {
         
 

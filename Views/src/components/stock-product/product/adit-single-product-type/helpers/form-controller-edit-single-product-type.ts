@@ -3,7 +3,7 @@ import { Observable, of } from "rxjs";
 
 
 import { BaseForm } from "src/shared/components/inheritance/forms/base-form";
-import { ex_makeDescription, ex_measurersHandle, ex_onSelectSpeedMeasure, ex_speed, ex_storage } from "../../common/helpers/product-type-helpers";
+// import { ex_measurersHandle, ex_onSelectSpeedMeasure, ex_measures } from "../../common/helpers/product-type-helpers";
 import { ProductTypeDto } from "../../dtos/product-type-dto";
 
 export class FormControllerEditSingleProductType extends BaseForm {
@@ -19,8 +19,8 @@ export class FormControllerEditSingleProductType extends BaseForm {
   capacitySearchFormControl = new FormControl('', Validators.required);
 
   //Arrays
-  speed$ = of(ex_speed);
-  storage$ = of(ex_storage);
+  // speed$ = of(ex_measures);
+  // storage$ = of(ex_measures);
 
   //variables
   speedMeasure = ''
@@ -42,25 +42,25 @@ export class FormControllerEditSingleProductType extends BaseForm {
     return this.formMain.get('segments').get('0').get('manufacturers').get('0').get('models').get('0').get('specificities') as FormGroup;
   }
 
-  capacityHandle(value: string) {
-    this.storageHandledValue = ex_measurersHandle(this.specificity, 'capacity', value, this.storageMeasure);
-  }
+  // capacityHandle(value: string) {
+  //   this.storageHandledValue = ex_measurersHandle(this.specificity, 'capacity', value, this.storageMeasure);
+  // }
 
-  speedHandle(value: string) {
-    this.speedHandledValue = ex_measurersHandle(this.specificity, 'speed', value, this.speedMeasure);
-  }
+  // speedHandle(value: string) {
+  //   this.speedHandledValue = ex_measurersHandle(this.specificity, 'speed', value, this.speedMeasure);
+  // }
 
-  onSelectSpeedMeasure(id: number) {
-    this.speedMeasure = ex_onSelectSpeedMeasure(id, this.specificity, this.speed$, 'speed', this.speedHandledValue);
-  }
+  // onSelectSpeedMeasure(id: number) {
+  //   this.speedMeasure = ex_onSelectSpeedMeasure(id, this.specificity, this.speed$, 'speed', this.speedHandledValue);
+  // }
 
-  onSelectStorageMeasure(id: number) {
-    this.storageMeasure = ex_onSelectSpeedMeasure(id, this.specificity, this.storage$, 'capacity', this.storageHandledValue);
-  }
+  // onSelectStorageMeasure(id: number) {
+  //   this.storageMeasure = ex_onSelectSpeedMeasure(id, this.specificity, this.storage$, 'capacity', this.storageHandledValue);
+  // }
 
-  makeDescription = () => {
-    ex_makeDescription(this.formMain, this.segments, this.manufacturers, this.models, this.specificity, '')
-  }
+  // makeDescription = () => {
+  //   ex_makeDescription(this.formMain, this.segments, this.manufacturers, this.models, this.specificity, '')
+  // }
 
 
   loadMeasurers = (form: FormGroup, measurers: Observable<any[]>, productType: any, entity: string, formControl: FormControl) => {
@@ -76,12 +76,6 @@ export class FormControllerEditSingleProductType extends BaseForm {
         else {
           formControl?.setValue(x?.find(y => y?.name?.toLowerCase() == foundMeasure.name.toLowerCase())?.id)
           this.loadVariablesMeasurer(entity, foundMeasure);
-          // if (entity == 'speed')
-          //   this.speedMeasure = foundMeasure.name;
-
-          // if (entity == 'capacity')
-          //   this.storageMeasure = foundMeasure.name;
-
         }
       }
     )

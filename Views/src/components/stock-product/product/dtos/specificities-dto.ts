@@ -6,10 +6,12 @@ import { ModelDto } from "./model-dto";
 export class SpecificitiesDto extends RootBase {
 
   name: string;
-  speed: string;
-  capacity: string;
+  // speedLabel: string;
+  // speed: string;
+  // capacityLabel: string;
+  // capacity: string;
   detailedDescription: string;
-  generation: string;
+  // generation: string;
   description: string;
   manufacturerLink:string;
   products: ProductDto[];

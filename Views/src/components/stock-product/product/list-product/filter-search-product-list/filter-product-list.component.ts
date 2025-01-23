@@ -11,6 +11,7 @@ import { makeFilterSelectByManufacturer, makeFilterSelectBySegment } from './hel
 import { onSelectedManufacturer, onSelectedProduct, onSelectedSegment, resetControlForm } from './helpers/on-select-entity-filter';
 import { formControlSearch, search } from './helpers/search-field';
 import { ImportsListFilterSearch } from './useful/imports-list-filter-search';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'filter-product-list',
@@ -42,6 +43,16 @@ export class FilterProductListComponent extends BaseList implements OnInit {
   //OBSERVABLES
   segments$: Observable<SegmentDto[]>;
   manufacturers$: Observable<ManufacturerDto[]>
+  
+  // FORMCONTROLS
+  productTypeFormControl = new FormControl(null);
+  productTypeSearchFormControl = new FormControl('');
+
+  segmentFormControl = new FormControl(null);
+  segmentSearchFormControl = new FormControl('');
+
+  manufacturerFormControl = new FormControl(null);
+  manufacturerSearchFormControl = new FormControl('');
 
   //SIMPLE-VARIABLES
   resetControlForm = resetControlForm

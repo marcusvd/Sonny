@@ -71,9 +71,9 @@ export class FormsBuilderHelperEditSingleProductTypeService {
     return this._fb.group({
       id: [0, [Validators.required]],
       companyId: [specificities.companyId, [Validators.required]],
-      speed: new FormControl(specificities.speed, [Validators.maxLength(this.nameMaxLength)]),
-      capacity: new FormControl(specificities.capacity, [Validators.maxLength(this.nameMaxLength)]),
-      generation: [specificities.generation, []],
+      // speed: new FormControl(specificities.speed, [Validators.maxLength(this.nameMaxLength)]),
+      // capacity: new FormControl(specificities.capacity, [Validators.maxLength(this.nameMaxLength)]),
+      // generation: [specificities.generation, []],
       detailedDescription: [specificities.detailedDescription, []],
       description: new FormControl(specificities.description, [Validators.required, Validators.maxLength(this.descriptionMaxLength)]),
       manufacturerLink: [specificities.manufacturerLink, []],

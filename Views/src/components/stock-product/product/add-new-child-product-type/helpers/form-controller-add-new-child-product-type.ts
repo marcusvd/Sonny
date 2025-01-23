@@ -3,7 +3,7 @@ import { of } from "rxjs";
 
 
 import { BaseForm } from "src/shared/components/inheritance/forms/base-form";
-import { ex_makeDescription, ex_measurersHandle, ex_onSelectSpeedMeasure, ex_speed, ex_storage } from "../../common/helpers/product-type-helpers";
+// import { ex_measurersHandle, ex_onSelectSpeedMeasure} from "../../common/helpers/product-type-helpers";
 import { ValidatorsProductTypeEditAsyncField } from "../form-validators/validators-product-type-edit-async-field";
 
 
@@ -16,8 +16,8 @@ export class FormControllerAddNewChildProductType extends BaseForm {
   }
 
   //Arrays
-  speed$ = of(ex_speed);
-  storage$ = of(ex_storage);
+  // speed$ = of(ex_measures);
+  // storage$ = of(ex_measures);
 
   //Variables
   speedMeasure = ''
@@ -54,25 +54,25 @@ export class FormControllerAddNewChildProductType extends BaseForm {
   }
 
  
-  capacityHandle(value: string) {
-    this.storageHandledValue = ex_measurersHandle(this.specificitiesForm, 'capacity', value, this.storageMeasure);
-  }
+  // capacityHandle(value: string) {
+  //   this.storageHandledValue = ex_measurersHandle(this.specificitiesForm, 'capacity', value, this.storageMeasure);
+  // }
   
-  speedHandle(value: string) {
-    this.speedHandledValue = ex_measurersHandle(this.specificitiesForm, 'speed', value, this.speedMeasure);
-  }
+  // speedHandle(value: string) {
+  //   this.speedHandledValue = ex_measurersHandle(this.specificitiesForm, 'speed', value, this.speedMeasure);
+  // }
 
-  onSelectSpeedMeasure(id: number) {
-    this.speedMeasure = ex_onSelectSpeedMeasure(id, this.specificitiesForm, this.speed$, 'speed', this.speedHandledValue);
-  }
+  // onSelectSpeedMeasure(id: number) {
+  //   this.speedMeasure = ex_onSelectSpeedMeasure(id, this.specificitiesForm, this.speed$, 'speed', this.speedHandledValue);
+  // }
 
-  onSelectStorageMeasure(id: number) {
-    this.storageMeasure = ex_onSelectSpeedMeasure(id, this.specificitiesForm, this.storage$, 'capacity', this.storageHandledValue);
-  }
+  // onSelectStorageMeasure(id: number) {
+  //   this.storageMeasure = ex_onSelectSpeedMeasure(id, this.specificitiesForm, this.storage$, 'capacity', this.storageHandledValue);
+  // }
   
-  makeDescription = () => {
-    ex_makeDescription(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm, this.specificitiesForm, 'edit')
-  }
+  // makeDescription = () => {
+  //   ex_makeDescription(this.formMain, this.segmentForm, this.manufacturerForm, this.modelForm, this.specificitiesForm, 'edit')
+  // }
 
   formEnableToSave = () => {
     this?.formMain?.get('name')?.enable();

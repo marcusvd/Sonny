@@ -117,6 +117,10 @@ export class ListControlProduct extends BaseList {
       {
         next: (x: ProductDto[]) => {
           this.length = x.length;
+          // this.entities = this.supplyItemsGrid(x);
+          // this.entitiesFiltered = this.entities;
+          // this.entities$ = of(this.entities);
+
           x.forEach(
             (y: ProductDto) => {
               this.entities = this.supplyItemsGrid(y);
@@ -213,9 +217,10 @@ export class ListControlProduct extends BaseList {
 
     items.isReservedByUser = { key: x?.isReservedByUser?.userName ?? 'Não' };
 
-    items.isTested = this.isTested(x?.isTested?.toString());
-    // items.isTested = { key: x?.isTested?.toString() };
-
+    items.quantity = { key: x.quantity.toString() };
+    
+    items.description = { key: x.specificities.description };
+   
     items.isUsed = { key: x?.isUsed ? 'Usado' : 'Novo' };
 
     this.entities.push(items);
@@ -224,7 +229,7 @@ export class ListControlProduct extends BaseList {
 
   }
 
- isTested(value: string) {
+  isTested(value: string) {
     const iconStyleTested = `color:rgb(43, 161, 168);`
     const iconStyleNotTested = `color:red;`;
 
@@ -247,7 +252,6 @@ export class ListControlProduct extends BaseList {
     return objReturn;
 
   }
-
 
   onClickButton(field: string) {
     console.log(field)

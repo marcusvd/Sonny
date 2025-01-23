@@ -10,8 +10,6 @@ namespace Domain.Entities.StockProduct
 {
     public class Product : RootBase
     {
-        // public int StockId { get; set; }
-        // public Stock Stock { get; set; }
         public int ProductTypeId { get; set; }
         public ProductType ProductType { get; set; }
         public int SegmentId { get; set; }
@@ -41,6 +39,6 @@ namespace Domain.Entities.StockProduct
         public DateTime IsTested { get; set; } = DateTime.MinValue;
         public string Description { get; set; }
 
-
     }
+
 }

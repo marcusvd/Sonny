@@ -55,7 +55,7 @@ export class AddNewChildProductTypeComponent extends FormControllerAddNewChildPr
       this.setFormFieldEnableDisable(this.specificitiesForm, 'description', true);
       this.formEnableToSave();
       this.saveBtnEnabledDisabled = true;
-      this.makeDescription();
+      // this.makeDescription();
       this._productTypeService.updateSingle(this.formMain);
       this.formControlReset();
     }

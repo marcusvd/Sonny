@@ -1,8 +1,8 @@
 
 export const
-labelHeadersSmall = () => {
-  return ['']
-}
+  labelHeadersSmall = () => {
+    return ['']
+  }
 export const fieldsHeadersSmall = () => {
   return ['']
 }
@@ -16,15 +16,57 @@ export const fieldsHeadersSmall = () => {
 // }
 
 export const labelHeadersMiddle = () => {
-  return [{ key: 'AÇÕES', style: 'cursor: pointer;' }, { key: 'ITEM', style: 'cursor: pointer;' }, { key: 'SEGMENTO', style: 'cursor: pointer;' }, { key: 'MODELO', style: 'cursor: pointer;' }, { key: 'FABRICANTE', style: 'cursor: pointer;' }, { key: 'PREÇO', style: 'cursor: pointer;' }]
+  return [{ key: 'AÇÕES', style: 'cursor: pointer;' },
+  { key: 'ITEM', style: 'cursor: pointer;' },
+  { key: 'SEGMENTO', style: 'cursor: pointer;' },
+  { key: 'MODELO', style: 'cursor: pointer;' },
+  { key: 'FABRICANTE', style: 'cursor: pointer;' },
+  { key: 'PREÇO', style: 'cursor: pointer;' }]
 }
 export const fieldsHeadersMiddle = () => {
-  return [{ key: 'id', style: '' }, { key: 'productType', style: '' }, { key: 'segment', style: '' }, { key: 'model', style: '' }, { key: 'manufacturer', style: '' }, { key: 'soldPrice', style: '' }]
+  return [{ key: 'id', style: '' },
+  { key: 'productType', style: '' },
+  { key: 'segment', style: '' },
+  { key: 'model', style: '' },
+  { key: 'manufacturer', style: '' },
+  { key: 'soldPrice', style: '' }]
 }
 
 export const labelHeadersLarge = () => {
-  return [{ key: 'AÇÕES', style: 'cursor: pointer;' }, { key: 'ITEM', style: 'cursor: pointer;' }, { key: 'SEGMENTO', style: 'cursor: pointer;' }, { key: 'MODELO', style: 'cursor: pointer;' }, { key: 'FABRICANTE', style: 'cursor: pointer;' }, { key: 'PREÇO', style: 'cursor: pointer;' }, { key: 'RESERVADO', style: 'cursor: pointer;' }, { key: 'TESTADO', style: 'cursor: pointer;' }, { key: 'USADO', style: 'cursor: pointer;' }]
+  return [{ key: 'AÇÕES', style: 'cursor: pointer; text-align: center;' },
+  { key: 'ITEM', style: 'cursor: pointer;' },
+  { key: 'SEGMENTO', style: 'cursor: pointer;' },
+  { key: 'MODELO', style: 'cursor: pointer;' },
+  { key: 'FABRICANTE', style: 'cursor: pointer;' },
+  { key: 'PREÇO', style: 'cursor: pointer;' },
+  { key: 'DESCRIÇÃO', style: 'cursor: pointer; flex: 3;' },
+  ]
+  // return [{ key: 'AÇÕES', style: 'cursor: pointer;' },
+  // { key: 'ITEM', style: 'cursor: pointer;' },
+  // { key: 'SEGMENTO', style: 'cursor: pointer;' },
+  // { key: 'MODELO', style: 'cursor: pointer;' },
+  // { key: 'FABRICANTE', style: 'cursor: pointer;' },
+  // { key: 'PREÇO', style: 'cursor: pointer;' },
+  // { key: 'RESERVADO', style: 'cursor: pointer;' },
+  // { key: 'QUANTIDADE', style: 'cursor: pointer;' },
+  // { key: 'USADO', style: 'cursor: pointer;' }]
 }
 export const fieldsHeadersLarge = () => {
-  return [{ key: 'id', style: '' }, { key: 'productType', style: '' }, { key: 'segment', style: '' }, { key: 'model', style: '' }, { key: 'manufacturer', style: '' }, { key: 'soldPrice', style: '' }, { key: 'isReservedByUser', style: '' }, { key: 'isTested', style: '' }, { key: 'isUsed', style: '' }]
+  return [{ key: 'id', style: '' },
+  { key: 'productType', style: '' },
+  { key: 'segment', style: '' },
+  { key: 'model', style: '' },
+  { key: 'manufacturer', style: '' },
+  { key: 'soldPrice', style: '' },
+  { key: 'description', style: '' },
+  ]
+  // return [{ key: 'id', style: '' },
+  // { key: 'productType', style: '' },
+  // { key: 'segment', style: '' },
+  // { key: 'model', style: '' },
+  // { key: 'manufacturer', style: '' },
+  // { key: 'soldPrice', style: '' },
+  // { key: 'isReservedByUser', style: '' },
+  // { key: 'quantity', style: '' },
+  // { key: 'isUsed', style: '' }]
 }

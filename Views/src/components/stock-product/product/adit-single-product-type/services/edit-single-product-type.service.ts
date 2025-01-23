@@ -1,16 +1,16 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
+import { NavigationExtras, Router } from "@angular/router";
 
 
 
 import { FormGroup } from "@angular/forms";
+import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { ProductDto } from "../../dtos/product-dto";
+import { ProductTypeAfterEditHandled } from "../../dtos/product-type-after-edit-handled";
 import { ProductTypeDto } from "../../dtos/product-type-dto";
-import { Observable } from "rxjs";
 
 
 
@@ -20,7 +20,7 @@ export class EditSingleProductTypeService extends BackEndService<ProductTypeDto>
   constructor(
     override _http: HttpClient,
     private _communicationsAlerts: CommunicationAlerts,
-    private _route: Router,
+    private _router: Router,
   ) {
     super(_http,
       environment._STOCK_PRODUCTS,
@@ -36,8 +36,7 @@ export class EditSingleProductTypeService extends BackEndService<ProductTypeDto>
       next: (x: ProductTypeDto) => {
 
         this._communicationsAlerts.defaultSnackMsg('2', 0, null, 4);
-    //     this.callRouterEditProductType(x as any)
-    //  console.log(x)
+        this.callRouterEditProductType(x as any)
       },
       error: (erroCode) => {
         console.log(erroCode)
@@ -54,6 +53,16 @@ export class EditSingleProductTypeService extends BackEndService<ProductTypeDto>
   getProductTypeByIdAllIncluded$(id: string): Observable<ProductTypeDto> {
     return this.loadById$<ProductTypeDto>('GetProductTypesByIdIncludedAsync', id);
   }
+
+  
+private callRouterEditProductType(entity: ProductTypeAfterEditHandled) {
+
+  const objectRoute: NavigationExtras = {
+    state: entity
+  };
+  this._router.navigate(['/side-nav/stock-product-router/add-product'], objectRoute);
+}
+
 }
 
 

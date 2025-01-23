@@ -44,14 +44,13 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 Id = entity.Id,
                 Deleted = entity.Deleted,
                 CompanyId = entity.CompanyId,
-                Speed = entity.Speed,
-                Capacity = entity.Capacity,
-                Generation = entity.Generation,
+                // Speed = entity.Speed,
+                // Capacity = entity.Capacity,
+                // Generation = entity.Generation,
                 DetailedDescription = entity.DetailedDescription,
                 Description = entity.Description,
-                Registered = entity.Registered,
-                // ModelId = entity.ModelId,
-                
+                ManufacturerLink = entity.ManufacturerLink,
+                Registered = entity.Registered,                
             };
 
             return obj;
@@ -65,14 +64,13 @@ namespace Application.Services.Operations.StockProduct.Dtos.Mappers
                 Id = entity.Id,
                 Deleted = entity.Deleted,
                 CompanyId = entity.CompanyId,
-                Speed = entity.Speed,
-                Capacity = entity.Capacity,
-                Generation = entity.Generation,
+                // Speed = entity.Speed,
+                // Capacity = entity.Capacity,
+                // Generation = entity.Generation,
                 DetailedDescription = entity.DetailedDescription,
                 Description = entity.Description,
-                Registered = entity.Registered,
-                // ModelId = entity.ModelId,
-                
+                ManufacturerLink = entity.ManufacturerLink,
+                Registered = entity.Registered,                
             };
 
             return obj;

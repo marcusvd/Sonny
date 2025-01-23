@@ -59,21 +59,14 @@ const setFormValue = (form: FormGroup, field: string, value: string | number) =>
 }
 
 const specificityBuilderFromSelectedModel = (formMain: FormGroup, specificitiesDto: SpecificitiesDto) => {
-
-  const speed = specificitiesDto?.description.split(',')[4];
-  const capacity = specificitiesDto?.description.split(',')[5];
-  const generation = specificitiesDto?.description.split(',')[6];
-
-  const speedFormField = specificitiesDto?.speed;
-  const capacityFormField = specificitiesDto?.capacity;
-  const generationFormField = specificitiesDto?.generation;
-
+  
   const detailedDescription = specificitiesDto?.detailedDescription;
+  const description = specificitiesDto?.description;
 
-  if (speedFormField || capacityFormField || generationFormField)
-    setFormValue(formMain, 'specificitiesName', `${speed}, ${capacity}, ${generation}`);
+  if (description)
+    setFormValue(formMain, 'description', description);
   else
-    setFormValue(formMain, 'specificitiesName', `Nenhuma especifidade cadastrada!`);
+    setFormValue(formMain, 'description', `Nenhuma especifidade cadastrada!`);
 
   if (detailedDescription)
     setFormValue(formMain, 'detailedDescription', detailedDescription);

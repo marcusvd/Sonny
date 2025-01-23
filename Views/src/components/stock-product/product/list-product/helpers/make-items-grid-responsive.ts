@@ -45,17 +45,18 @@ export function makeItemsGridSmall(x: ProductList[]) {
     // items.productType = { key: x?.productType.key, icons: [''], button: x?.productType.key, styleInsideCell: buttonStyle, display: 'button', route: '' };
     items.productType = { key: x?.productType.key };
 
-    items.segment = { key: x?.segment.key};
+    items.segment = { key: x?.segment.key };
 
-    items.manufacturer = { key: x?.manufacturer.key};
+    items.manufacturer = { key: x?.manufacturer.key };
 
-    items.model = { key: x?.model.key};
+    items.model = { key: x?.model.key };
 
-    items.soldPrice = { key: x?.soldPrice.key};
+    items.soldPrice = { key: x?.soldPrice.key };
 
-    items.isReservedByUser = { key: x?.isReservedByUser?.key ?? 'Não'};
+    items.isReservedByUser = { key: x?.isReservedByUser?.key ?? 'Não' };
 
-    items.isTested = isTested(x?.isTested.key)
+    items.quantity = { key: x?.quantity.key.toString() };
+    // items.quantity = isTested(x?.quantity.key)
 
     items.isUsed = { key: x?.isUsed ? 'Sim' : 'Não' };
 
@@ -71,7 +72,7 @@ export function makeItemsGridLager(x: ProductList[]) {
 
   const buttonStyle = `background-color:rgb(43, 161, 168);border:none; color:white; height: 20px;  display: flex;  justify-content: center;   align-items: center;   padding: 0 12px; width: 100px; max-width: 100px;`
   const buttonCellStyle = `display: flex; justify-content: center; align-items: center;`
-  const iconStyle = `color:rgb(43, 161, 168); cursor: pointer; font-size:20px; float:left;`
+  const iconStyle = `color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`
   const soldPricestyleInsideCell = 'border:0.5px solid red;'
 
   const createdItems: ProductList[] = [];
@@ -79,21 +80,23 @@ export function makeItemsGridLager(x: ProductList[]) {
 
   x.forEach(x => {
     items = new ProductList();
-    items.id = { key: x?.id.toString(), display: 'icons', icons: ['list', 'edit', 'home'], styleInsideCell: iconStyle, styleCell: '', route: '' };
-    // items.productType = { key: x?.productType.key, icons: [''], button: x?.productType.key, styleInsideCell: buttonStyle, display: 'button', route: '' };
-    items.productType = { key: x?.productType.key, icons: [''], button: x?.productType.key, styleInsideCell: '', route: '' };
 
-    items.segment = { key: x?.segment.key, icons: [''], styleInsideCell: '', route: '' };
+    items.id = { key: x?.id.toString(), display: 'icons', icons: ['list', 'edit', 'home'], styleInsideCell: iconStyle, styleCell: 'justfy-content:center;', route: '' };
+    // items.productType = { key: x?.productType.key, icons: [''], button: x?.productType.key, styleInsideCell: buttonStyle, display: 'button', route: '' };
+    items.productType = { key: x?.productType.key, icons: [''], button: x?.productType.key, styleInsideCell: '', styleCell: '', route: '' };
+
+    items.segment = { key: x?.segment.key, icons: [''], styleInsideCell: '', styleCell: '', route: '' };
 
     items.manufacturer = { key: x?.manufacturer.key, display: '', button: 'Menu', icons: [''], styleInsideCell: '', styleCell: '', route: '' };
 
-    items.model = { key: x?.model.key, icons: [''], styleInsideCell: '', route: '' };
+    items.model = { key: x?.model.key, icons: [''], styleInsideCell: '', styleCell: '', route: '' };
 
-    items.soldPrice = { key: x?.soldPrice.key, icons: [''], styleInsideCell: soldPricestyleInsideCell, route: '' };
+    items.soldPrice = { key: x?.soldPrice.key, icons: [''], styleInsideCell: soldPricestyleInsideCell, styleCell: 'text-align: center;', route: '' };
 
-    items.isReservedByUser = { key: x?.isReservedByUser?.key ?? 'Não', icons: [''], styleInsideCell: '', route: '' };
+    items.isReservedByUser = { key: x?.isReservedByUser?.key ?? 'Não', icons: [''], styleInsideCell: '', styleCell: '', route: '' };
 
-    items.isTested = isTested(x?.isTested.key)
+    items.quantity = { key: x?.quantity.key.toString() };
+    items.description = { key: x?.description.key, icons: [''], styleInsideCell: 'text-align: center;', styleCell: 'flex: 3;', route: '' };
 
     items.isUsed = { key: x?.isUsed ? 'Sim' : 'Não' };
 

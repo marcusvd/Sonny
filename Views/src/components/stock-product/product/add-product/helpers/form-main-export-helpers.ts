@@ -13,7 +13,7 @@ export const ex_formLoad = (formMain: FormGroup, userId: number, companyId: numb
     manufacturerId: new FormControl('', [Validators.required]),
     modelId: new FormControl('', [Validators.required]),
     specificitiesId: new FormControl('', [Validators.required]),
-    specificitiesName: new FormControl({ value: '', disabled: true, }, []),
+    description: new FormControl({ value: '', disabled: true, }, []),
     detailedDescription: new FormControl({ value: '', disabled: true, }, []),
     userId: new FormControl(userId, [Validators.required]),
     companyId: new FormControl(companyId, [Validators.required]),

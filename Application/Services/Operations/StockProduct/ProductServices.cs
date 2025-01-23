@@ -9,6 +9,7 @@ using Application.Services.Operations.StockProduct.Dtos.Mappers;
 using UnitOfWork.Persistence.Operations;
 using Application.Services.Operations.StockProduct.ProductKind;
 using System.Linq;
+using Application.Services.Operations.StockProduct.Helpers;
 
 
 namespace Application.Services.Operations.StockProduct
@@ -86,12 +87,12 @@ namespace Application.Services.Operations.StockProduct
         }
         public async Task<EditChildrenProductType> UpdateProductTypeAsync(ProductTypeDto dtoView, int id)
         {
-            var helper = new ProductHelperServices();
+            var helper = new UpdateProductTypeHelperService();
 
             helper.ValidateDto(dtoView, id);
 
             var existingProduct = await helper.GetProductTypeById(id, _GENERIC_REPO);
-        
+
             if (existingProduct == null)
                 throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -108,86 +109,6 @@ namespace Application.Services.Operations.StockProduct
 
             return helper.MapToEditChildrenProductType(dtoView, updatedProduct);
         }
-        // public async Task<EditChildrenProductType> UpdateProductTypeAsync(ProductTypeDto dtoView, int id)
-        // {
-        //     if (dtoView == null)
-        //         throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
-
-        //     if (dtoView.Id != id)
-        //         throw new GlobalServicesException(GlobalErrorsMessagesException.IdIsDifferentFromEntityUpdate);
-
-        //     var fromDb = await _GENERIC_REPO.ProductTypes.GetById(
-        //         x => x.Id == id,
-        //         null,
-        //         selector => selector
-        //         );
-
-        //     if (fromDb == null)
-        //         throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
-
-
-        //     var entityToDb = _IStockProductObjectMapperServices.ProductTypeMapper(dtoView);
-
-        //     entityToDb.Segments.ForEach(x =>
-        //     {
-        //         if (x.Deleted != DateTime.MinValue)
-        //         {
-        //             x.Deleted = DateTime.Now;
-
-        //             x.Manufacturers.ForEach(xy =>
-        //             {
-        //                 xy.Deleted = DateTime.Now;
-
-        //                 xy.Models.ForEach(mxy => mxy.Deleted = DateTime.Now);
-        //             });
-        //         }
-
-        //     });
-
-        //     _GENERIC_REPO.ProductTypes.Update(entityToDb);
-
-        //     if (await _GENERIC_REPO.save())
-        //     {
-
-        //         var productById = await _GENERIC_REPO.ProductTypes.GetById(
-        //             predicate => predicate.Id == id,
-        //             toinclude => toinclude.Include(x => x.Segments).ThenInclude(x => x.Manufacturers).ThenInclude(x => x.Models).ThenInclude(x => x.Specificities),
-        //             selector => selector);
-
-
-        //         var SegmentName = dtoView.Segments[0].Name;
-        //         var ManufacturerName = dtoView.Segments[0].Manufacturers[0].Name;
-        //         var ModelName = dtoView.Segments[0].Manufacturers[0].Models[0].Name;
-
-        //         var segments = productById.Segments;
-        //         var segmentId = segments.Find(x => x.Name.ToLower() == SegmentName.ToLower()).Id;
-
-        //         var manufacturers = segments.Find(x => x.Id == segmentId).Manufacturers;
-        //         var manufacturerId = manufacturers.Find(x => x.Name.ToLower() == ManufacturerName.ToLower()).Id;
-
-        //         var models = manufacturers.Find(x => x.Id == manufacturerId).Models;
-        //         var modelsResult = models.Find(x => x.Name.ToLower() == ModelName.ToLower());
-        //         var modelId = modelsResult.Id;
-
-        //         var specificitiesId = modelsResult.Specificities.Id;
-
-
-        //           var backToAddNewProduct = new EditChildrenProductType()
-        //           {
-        //               ProductTypesId = dtoView.Id,
-        //               SegmentId = segmentId,
-        //               ManufacturerId = manufacturerId,
-        //               ModelId = modelId,
-        //               SpecificitiesId = specificitiesId
-
-        //           };
-
-        //         return backToAddNewProduct;
-        //     }
-
-
-        //     throw new GlobalServicesException(GlobalErrorsMessagesException.UnknownError);
-        // }
 
 
         public async Task<HttpStatusCode> UpdateProductTypeRangeAsync(List<ProductTypeDto> dtoView)
@@ -294,29 +215,18 @@ namespace Application.Services.Operations.StockProduct
         public async Task<List<ProductDto>> GetProductsIncludedAsync(int companyId)
         {
 
-            var fromDb = await _GENERIC_REPO
-                .Products.Get(
-                    predicate => predicate.CompanyId == companyId && predicate.Deleted == DateTime.MinValue,
-                    toInclude =>
-                        toInclude
-                            .Include(x => x.ReservedForCustomer)
-                            .Include(x => x.User)
-                            .Include(x => x.IsReservedByUser)
+            var helper = new GetProductsIncludedHelperService();
 
-                            .Include(x => x.ProductType)
-                            .Include(x => x.Segment)
-                            // .Include(x => x.Segment.Deleted == DateTime.MinValue)
-                            .Include(x => x.Manufacturer)
-                            // .Include(x => x.Manufacturer.Deleted == DateTime.MinValue)
-                            .Include(x => x.Model),
-                    selector => selector
-                )
-                .ToListAsync();
+            var fromDb = await helper.GetProductsIncluded(_GENERIC_REPO, companyId);
 
-            if (fromDb == null)
-                throw new Exception(GlobalErrorsMessagesException.ObjIsNull);
+            var toDto =  _IStockProductObjectMapperServices.ProductListMake(fromDb);
 
-            return _IStockProductObjectMapperServices.ProductListMake(fromDb);
+
+            helper.ValidateEntity(toDto);
+
+            var toSendFront = helper.GroupItemsByModelId(toDto);
+
+            return toSendFront;
 
         }
     }

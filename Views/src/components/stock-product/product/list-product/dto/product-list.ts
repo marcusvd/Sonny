@@ -11,6 +11,8 @@ export class ProductList {
   soldPrice:ItemsInterface;
   isReservedByUser:ItemsInterface;
   isTested:ItemsInterface;
+  quantity:ItemsInterface;
+  description:ItemsInterface;
   isUsed:ItemsInterface;
 
 }

@@ -12,7 +12,7 @@
             <div class="container--group-items">
                 <h3>Básico</h3>
                 <!-- product start-->
-                <input-field-g [type]="'text'" (click)="makeDescription()" [formMain]="this.formMain" [inputLabel]="'Tipo'"
+                <input-field-g [type]="'text'" [formMain]="this.formMain" [inputLabel]="'Tipo'"
                     [fieldControlName]="'name'">
                     <span msg-error
                         *ngIf="this.formError(formMain,'name', 'required') && this.formTouched(formMain, 'name')">{{requiredMsg}}</span>
@@ -25,7 +25,7 @@
                 <!-- [productMatSelect]="this.productMatSelect" -->
 
                 <!-- segment start-->
-                <input-field-g [type]="'text'" (click)="makeDescription()" [formMain]="segments" [inputLabel]="'Segmento'"
+                <input-field-g [type]="'text'" [formMain]="segments" [inputLabel]="'Segmento'"
                     [fieldControlName]="'name'">
                     <span msg-error
                         *ngIf="this.formError(segments,'name', 'required') && this.formTouched(segments, 'name')">{{requiredMsg}}</span>
@@ -39,7 +39,7 @@
 
 
                 <!-- manufacturer start-->
-                <input-field-g [type]="'text'" (click)="makeDescription()" [formMain]="manufacturers" [inputLabel]="'Fabricante'"
+                <input-field-g [type]="'text'" [formMain]="manufacturers" [inputLabel]="'Fabricante'"
                     [fieldControlName]="'name'">
                     <span msg-error
                         *ngIf="this.formError(manufacturers,'name', 'required') && this.formTouched(manufacturers, 'name')">{{requiredMsg}}</span>
@@ -52,7 +52,7 @@
                 <!-- manufacturer end-->
 
                 <!-- model start-->
-                <input-field-g [type]="'text'" (click)="makeDescription()" [formMain]="models" [inputLabel]="'Modelo'"
+                <input-field-g [type]="'text'" [formMain]="models" [inputLabel]="'Modelo'"
                     [fieldControlName]="'name'">
                     <span msg-error
                         *ngIf="this.formError(models,'name', 'required') && this.formTouched(models, 'name')">{{requiredMsg}}</span>
@@ -67,43 +67,43 @@
 
             <div class="container--group-specificity">
                 <h3>Especificidade</h3>
-                  <select-input-search-g class="space-between" (click)="makeDescription()" (outEntitiesSelected)="onSelectSpeedMeasure($event)"
+                  <!-- <select-input-search-g class="space-between" (outEntitiesSelected)="onSelectSpeedMeasure($event)"
                     [entities]="speed$" [labelInput]="'Medida'" [selectFieldFormControl]="speedFormControl" [selectFieldSearchFormControl]="speedSearchFormControl">
-                </select-input-search-g>
+                </select-input-search-g> -->
 
-                <mat-form-field class="container--space" [formGroup]="specificity" appearance="outline"
+                <!-- <mat-form-field class="container--space" [formGroup]="specificity" appearance="outline"
                     floatLabel="always">
                     <mat-label>Velocidade</mat-label>
-                    <input (click)="makeDescription()" class="container--prefix-suffix-right-align" #speed (input)="speedHandle(speed.value)"
+                    <input class="container--prefix-suffix-right-align" #speed (input)="speedHandle(speed.value)"
                         matInput type="text" placeholder="0" formControlName="speed">
                     <mat-hint>EX: (3.0 - 3.8) Os números a esqueda são o mínimo e os da direita o máximo.</mat-hint>
-                    <!-- <span matSuffix>{{speedMeasure}}</span> -->
+                    
                 </mat-form-field>
 
-                <select-input-search-g (click)="makeDescription()"  class="container--space-between" (outEntitiesSelected)="onSelectStorageMeasure($event)"
+                <select-input-search-g  class="container--space-between" (outEntitiesSelected)="onSelectStorageMeasure($event)"
                     [entities]="storage$" [labelInput]="'Medida'" [selectFieldFormControl]="capacityFormControl" [selectFieldSearchFormControl]="capacitySearchFormControl">
                 </select-input-search-g>
 
                 <mat-form-field class="container--space" [formGroup]="specificity" appearance="outline"
                     floatLabel="always">
                     <mat-label>Capacidade</mat-label>
-                    <input (click)="makeDescription()" class="container--prefix-suffix-right-align" #capacity
+                    <input class="container--prefix-suffix-right-align" #capacity
                         (input)="capacityHandle(capacity.value)" matInput type="text" placeholder="0"
                         formControlName="capacity">
                     <mat-hint>EX: (240 - 280) Os números a esqueda são o mínimo e os da direita o máximo.</mat-hint>
-                    <!-- <span matSuffix>{{storageMeasure}}</span> -->
+                    
                 </mat-form-field>
 
-                <input-field-g [type]="'text'" (click)="makeDescription()" [formMain]="specificity" [inputLabel]="'Geração'"
+                <input-field-g [type]="'text'" [formMain]="specificity" [inputLabel]="'Geração'"
                     [fieldControlName]="'generation'">
                     <span msg-error
                         *ngIf="this.formError(specificity,'generation', 'required') && this.formTouched(specificity, 'generation')">{{requiredMsg}}</span>
                     <span msg-error
                         *ngIf="this.formError(specificity,'generation', 'maxlength') && this.formTouched(specificity, 'generation')">{{maxLengthMsg
                         + '50' + charactersMsg}}</span>
-                </input-field-g>
+                </input-field-g> -->
 
-                <input-field-g [type]="'text'" (click)="makeDescription()" [formMain]="specificity" [inputLabel]="'Link fabricante'"
+                <input-field-g [type]="'text'" [formMain]="specificity" [inputLabel]="'Link fabricante'"
                 [fieldControlName]="'manufacturerLink'">
                 <span msg-error
                 *ngIf="this.formError(specificity,'manufacturerLink', 'required') && this.formTouched(specificity, 'manufacturerLink')">{{requiredMsg}}</span>
@@ -112,10 +112,10 @@
                         + '50' + charactersMsg}}</span>
                 </input-field-g>
               
-                <!-- <div [formGroup]="specificity">
-                    <textarea class="container--text-area" (click)="makeDescription()" matInput
+                <div [formGroup]="specificity">
+                    <textarea class="container--text-area" matInput
                         [rows]="10" [placeholder]="'Descrição curta'" formControlName="description"></textarea>
-                </div> -->
+                </div>
                 <br>
                 <div [formGroup]="specificity">
                     <textarea class="container--text-area" matInput [rows]="10"

@@ -69,9 +69,9 @@ export class FormsBuilderHelperAddNewChildProductTypeService {
     return new FormGroup({
       id: new FormControl(specificities?.id ?? 0, { validators: [Validators.required] }),
       companyId: new FormControl(companyId, { validators: [Validators.required] }),
-      speed: new FormControl({ value: specificities?.speed ?? '', disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
-      capacity: new FormControl({ value: specificities?.capacity ?? '', disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
-      generation: new FormControl(''),
+      // speed: new FormControl({ value: specificities?.speed ?? '', disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
+      // capacity: new FormControl({ value: specificities?.capacity ?? '', disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
+      // generation: new FormControl(''),
       description: new FormControl({ value: '', disabled: true }, [Validators.required, Validators.maxLength(this.descriptionMaxLength)]),
       detailedDescription: new FormControl('', [Validators.required, Validators.maxLength(2000)]),
       manufacturerLink: new FormControl('http://', [Validators.maxLength(this.descriptionMaxLength)]),
