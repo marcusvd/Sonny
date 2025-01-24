@@ -4,10 +4,13 @@ import { ItemsInterface } from "src/shared/components/list-g/list/interfaces/ite
 export class ProductList {
 
   id:ItemsInterface;
+  productTypeView:ItemsInterface;
+  segmentView:ItemsInterface;
+  manufacturerView:ItemsInterface;
   productType:ItemsInterface;
   segment:ItemsInterface;
-  model:ItemsInterface;
   manufacturer:ItemsInterface;
+  model:ItemsInterface;
   soldPrice:ItemsInterface;
   isReservedByUser:ItemsInterface;
   isTested:ItemsInterface;

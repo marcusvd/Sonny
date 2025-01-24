@@ -8,8 +8,8 @@ import { ProductTypeDto } from '../../dtos/product-type-dto';
 import { SegmentDto } from '../../dtos/segment-dto';
 import { ProductList } from '../dto/product-list';
 import { makeFilterSelectByManufacturer, makeFilterSelectBySegment } from './helpers/make-select-filter';
-import { onSelectedManufacturer, onSelectedProduct, onSelectedSegment, resetControlForm } from './helpers/on-select-entity-filter';
-import { formControlSearch, search } from './helpers/search-field';
+import { ex_onSelectedManufacturer, ex_onSelectedProduct, ex_onSelectedSegment, ex_resetControlForm } from './helpers/on-select-entity-filter';
+import { ex_formControlSearch, ex_search } from './helpers/search-field';
 import { ImportsListFilterSearch } from './useful/imports-list-filter-search';
 import { FormControl } from '@angular/forms';
 
@@ -55,13 +55,13 @@ export class FilterProductListComponent extends BaseList implements OnInit {
   manufacturerSearchFormControl = new FormControl('');
 
   //SIMPLE-VARIABLES
-  resetControlForm = resetControlForm
-  formControlSearch = formControlSearch;
+  resetControlForm = ex_resetControlForm
+  formControlSearch = ex_formControlSearch;
 
   //METHODS
-  search = search
-  onSelectedProduct = onSelectedProduct
-  onSelectedSegment = onSelectedSegment
-  onSelectedManufacturer = onSelectedManufacturer
+  search = ex_search
+  onSelectedProduct = ex_onSelectedProduct
+  onSelectedSegment = ex_onSelectedSegment
+  onSelectedManufacturer = ex_onSelectedManufacturer
 
 }

@@ -16,6 +16,7 @@ import { fieldsHeadersLarge, fieldsHeadersMiddle, fieldsHeadersSmall, labelHeade
 import { makeItemsGridLager, makeItemsGridSmall } from "./make-items-grid-responsive";
 import { makeHeaderToOrder } from "./order-items-by-header";
 import { ItemsInterface } from "src/shared/components/list-g/list/interfaces/items-interface";
+import { TruncatePipe } from "src/shared/pipes/truncate.pipe";
 
 
 export class ListControlProduct extends BaseList {
@@ -25,6 +26,7 @@ export class ListControlProduct extends BaseList {
     protected _http: HttpClient,
     protected _ptBrDatePipe: PtBrDatePipe,
     protected _ptBrCurrencyPipe: PtBrCurrencyPipe,
+    protected _truncatePipe: TruncatePipe,
   ) {
     super(
       new ListGDataService(_http),
@@ -205,22 +207,29 @@ export class ListControlProduct extends BaseList {
 
     items.id = { key: x?.id?.toString() };
 
+    items.productTypeView = { key: this._truncatePipe.transform(x?.productType.name, 13) };
+
+    items.segmentView = { key: this._truncatePipe.transform(x?.segment.name, 13) };
+
+    items.manufacturerView = { key: this._truncatePipe.transform(x?.manufacturer.name, 13) };
+
+
     items.productType = { key: x?.productType.name };
 
     items.segment = { key: x?.segment.name };
 
     items.manufacturer = { key: x?.manufacturer.name };
 
-    items.model = { key: x?.model.name };
+    items.model = { key: this._truncatePipe.transform(x?.model.name, 25) };
 
     items.soldPrice = { key: this._ptBrCurrencyPipe.transform(x?.soldPrice) };
 
     items.isReservedByUser = { key: x?.isReservedByUser?.userName ?? 'Não' };
 
     items.quantity = { key: x.quantity.toString() };
-    
-    items.description = { key: x.specificities.description };
-   
+
+    items.description = { key: this._truncatePipe.transform(x?.specificities.description, 35) };
+
     items.isUsed = { key: x?.isUsed ? 'Usado' : 'Novo' };
 
     this.entities.push(items);

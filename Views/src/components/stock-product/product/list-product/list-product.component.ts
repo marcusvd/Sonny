@@ -11,13 +11,15 @@ import { ProductTypeDto } from '../dtos/product-type-dto';
 import { ProductTypeService } from '../list-product/services/product-type.service';
 import { ListControlProduct } from './helpers/list-control-product';
 import { ImportsListProduct } from './imports/imports-list-product';
+import { TruncatePipe } from 'src/shared/pipes/truncate.pipe';
+
 
 @Component({
   selector: 'app-list-product',
   templateUrl: './list-product.component.html',
   standalone: true,
   imports: [ImportsListProduct],
-  providers: [PtBrCurrencyPipe, PtBrDatePipe],
+  providers: [PtBrCurrencyPipe, PtBrDatePipe,TruncatePipe],
   styleUrls: ['./list-product.component.scss']
 })
 export class ListProductComponent extends ListControlProduct implements OnInit {
@@ -28,13 +30,15 @@ export class ListProductComponent extends ListControlProduct implements OnInit {
     override _http: HttpClient,
     override _ptBrDatePipe: PtBrDatePipe,
     override _ptBrCurrencyPipe: PtBrCurrencyPipe,
+    override _truncatePipe: TruncatePipe,
   ) {
 
     super(
       _router,
       _http,
       _ptBrDatePipe,
-      _ptBrCurrencyPipe
+      _ptBrCurrencyPipe,
+      _truncatePipe
     )
   }
 

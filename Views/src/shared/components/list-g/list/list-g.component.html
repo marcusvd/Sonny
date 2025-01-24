@@ -1,7 +1,8 @@
 <div>
     <div class="table">
+
         <div class="row header">
-            <div class="cell"  [style]="header.style" (click)="onClickHeaderField(headersFields[i].key)" *ngFor="let header of headersLabel;let i = index;">
+            <div class="cell-header" [style]="header.style" (click)="onClickHeaderField(headersFields[i].key)" *ngFor="let header of headersLabel;let i = index;">
                 {{header.key}}
             </div>
         </div>
