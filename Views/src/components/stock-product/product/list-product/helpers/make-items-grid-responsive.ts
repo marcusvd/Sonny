@@ -1,6 +1,7 @@
 
 import { ItemsInterface } from "src/shared/components/list-g/list/interfaces/items-interface"
 import { ProductList } from "../dto/product-list"
+import { TruncatePipe } from "src/shared/pipes/truncate.pipe"
 
 // export function makeItemsGridSmall(x: ProductList[]) {
 
@@ -28,6 +29,8 @@ import { ProductList } from "../dto/product-list"
 
 //   return createdItems;
 // }
+
+
 
 export function makeItemsGridSmall(x: ProductList[]) {
 
@@ -74,7 +77,7 @@ export function makeItemsGridSmall(x: ProductList[]) {
 
 }
 
-export function makeItemsGridLager(x: ProductList[]) {
+export function makeItemsGridLager(x: ProductList[], _truncatePipe: TruncatePipe,) {
 
   const buttonStyle = `background-color:rgb(43, 161, 168);border:none; color:white; height: 20px;  display: flex;  justify-content: center;   align-items: center;   padding: 0 12px; width: 100px; max-width: 100px;`
   const buttonCellStyle = `display: flex; justify-content: center; align-items: center;`
@@ -89,17 +92,27 @@ export function makeItemsGridLager(x: ProductList[]) {
 
     items.id = { key: x?.id.toString(), display: 'icons', icons: ['list', 'edit', 'home'], styleInsideCell: iconStyle, styleCell: '', route: '' };
     // items.productType = { key: x?.productType.key, icons: [''], button: x?.productType.key, styleInsideCell: buttonStyle, display: 'button', route: '' };
-    items.productTypeView = { key: x?.productType.key, icons: [''], button: x?.productType.key, styleInsideCell: '', styleCell: '', route: '' };
+    items.productTypeView = { key: _truncatePipe.transform(x?.productType.key, 10), icons: [''], button: x?.productType.key, styleInsideCell: '', styleCell: '', route: '' };
 
-    items.segmentView = { key: x?.segment.key, icons: [''], styleInsideCell: '', styleCell: '', route: '' };
+    items.segmentView = { key: _truncatePipe.transform(x?.segment.key, 10), icons: [''], styleInsideCell: '', styleCell: '', route: '' };
 
-    items.manufacturerView = { key: x?.manufacturer.key, display: '', button: 'Menu', icons: [''], styleInsideCell: '', styleCell: '', route: '' };
+    items.manufacturerView = { key: _truncatePipe.transform(x?.manufacturer.key, 10), display: '', button: 'Menu', icons: [''], styleInsideCell: '', styleCell: '', route: '' };
+    // items.productTypeView = { key: x?.productType.key, icons: [''], button: x?.productType.key, styleInsideCell: '', styleCell: '', route: '' };
+
+    // items.segmentView = { key: x?.segment.key, icons: [''], styleInsideCell: '', styleCell: '', route: '' };
+
+    // items.manufacturerView = { key: x?.manufacturer.key, display: '', button: 'Menu', icons: [''], styleInsideCell: '', styleCell: '', route: '' };
+
+
+
   
     items.productType = { key: x?.productType.key, icons: [''], button: x?.productType.key, styleInsideCell: '', styleCell: '', route: '' };
 
     items.segment = { key: x?.segment.key, icons: [''], styleInsideCell: '', styleCell: '', route: '' };
 
     items.manufacturer = { key: x?.manufacturer.key, display: '', button: 'Menu', icons: [''], styleInsideCell: '', styleCell: '', route: '' };
+
+
 
     items.model = { key: x?.model.key, icons: [''], styleInsideCell: '', styleCell: '', route: '' };
 

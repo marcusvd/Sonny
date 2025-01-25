@@ -72,7 +72,7 @@ export class ListControlProduct extends BaseList {
       this.fields = fieldsHeadersLarge();
       this.headers = labelHeadersLarge();
       this.isCard = false;
-      this.entitiesFiltered$ = of(makeItemsGridLager(this.entitiesFiltered));
+      this.entitiesFiltered$ = of(makeItemsGridLager(this.entitiesFiltered, this._truncatePipe));
     }
 
   }
