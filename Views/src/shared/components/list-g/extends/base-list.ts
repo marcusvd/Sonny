@@ -88,6 +88,8 @@ export class BaseList {
     const entityFieldProperty = field.key;
     const valueType = typeof field.value;
 
+    console.log(field.value)
+
     if (valueType === 'string') {
       if (this.isdescending)
         return entities$.pipe(map(h => h.sort((x, y) => x[entityFieldProperty].key.localeCompare(y[entityFieldProperty].key))));

@@ -163,13 +163,20 @@ export class ListControlProduct extends BaseList {
 
   onClickOrderByFields(field: string, entitiesFiltered$: Observable<ProductList[]>) {
 
-
+    console.log(makeHeaderToOrder(field))
     switch (field) {
-      case 'productType':
+      case 'productTypeView':
+        {
+          this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
+          console.log(makeHeaderToOrder(field))
+        }
+        break;
+
+      case 'segmentView':
         this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
         break;
 
-      case 'segment':
+      case 'manufacturerView':
         this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
         break;
 
@@ -177,25 +184,26 @@ export class ListControlProduct extends BaseList {
         this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
         break;
 
-      case 'manufacturer':
-        this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
-        break;
 
       case 'soldPrice':
         this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
         break;
 
-      case 'isReservedByUser':
+      case 'description':
         this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
         break;
+     
+        // case 'isReservedByUser':
+        // this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
+        // break;
 
-      case 'isTested':
-        this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
-        break;
+      // case 'isTested':
+      //   this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
+      //   break;
 
-      case 'isUsed':
-        this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
-        break;
+      // case 'isUsed':
+      //   this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
+      //   break;
 
     }
 

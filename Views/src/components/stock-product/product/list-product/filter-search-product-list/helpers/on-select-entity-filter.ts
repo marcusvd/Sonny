@@ -7,10 +7,11 @@ import { ManufacturerDto } from "src/components/stock-product/product/dtos/manuf
 import { ProductTypeDto } from "src/components/stock-product/product/dtos/product-type-dto";
 import { SegmentDto } from "src/components/stock-product/product/dtos/segment-dto";
 import { ProductList } from "../../dto/product-list";
+import { FormControl } from "@angular/forms";
 
-export const ex_resetControlForm = [false, false, false]
+// export const ex_resetControlForm = [false, false, false]
 
-export const ex_onSelectedProduct = (id: number, x$: Observable<ProductTypeDto[]>, productList$: Observable<ProductList[]>, resetControlForm: boolean[], funcFilterTerm: (filterTerm: string) => string, outPut: EventEmitter<Observable<ProductList[]>>) => {
+export const ex_onSelectedProduct = (id: number, x$: Observable<ProductTypeDto[]>, productList$: Observable<ProductList[]>, resetControlForm: FormControl[], funcFilterTerm: (filterTerm: string) => string, outPut: EventEmitter<Observable<ProductList[]>>) => {
 
   x$.subscribe((x: ProductTypeDto[]) => {
 
@@ -21,7 +22,7 @@ export const ex_onSelectedProduct = (id: number, x$: Observable<ProductTypeDto[]
   resetFormControl(0, resetControlForm);
 }
 
-export const ex_onSelectedSegment = (id: number, x$: Observable<SegmentDto[]>, productList$: Observable<ProductList[]>, resetControlForm: boolean[], funcFilterTerm: (filterTerm: string) => string, outPut: EventEmitter<Observable<ProductList[]>>) => {
+export const ex_onSelectedSegment = (id: number, x$: Observable<SegmentDto[]>, productList$: Observable<ProductList[]>, resetControlForm: FormControl[], funcFilterTerm: (filterTerm: string) => string, outPut: EventEmitter<Observable<ProductList[]>>) => {
 
   x$.subscribe((x: SegmentDto[]) => {
 
@@ -33,7 +34,7 @@ export const ex_onSelectedSegment = (id: number, x$: Observable<SegmentDto[]>, p
   resetFormControl(1, resetControlForm);
 }
 
-export const ex_onSelectedManufacturer = (id: number, x$: Observable<ManufacturerDto[]>, productList$: Observable<ProductList[]>, resetControlForm: boolean[], funcFilterTerm: (filterTerm: string) => string, outPut: EventEmitter<Observable<ProductList[]>>) => {
+export const ex_onSelectedManufacturer = (id: number, x$: Observable<ManufacturerDto[]>, productList$: Observable<ProductList[]>, resetControlForm: FormControl[], funcFilterTerm: (filterTerm: string) => string, outPut: EventEmitter<Observable<ProductList[]>>) => {
 
   x$.subscribe((x: ManufacturerDto[]) => {
 
@@ -57,13 +58,16 @@ function filterType(entityToFilter: string, type: string, productsList$: Observa
 
 }
 
-function resetFormControl(entity: number, resetControlForm: boolean[]) {
+function resetFormControl(entity: number, resetControlForm: FormControl[]) {
 
   resetControlForm.forEach((x, index) => {
-    if (index == entity)
-      resetControlForm[index] = false;
-    else
-      resetControlForm[index] = true;
+
+    x.reset();
+    x.setValue(null);
+    // if (index == entity)
+    //   resetControlForm[index] = false;
+    // else
+    //   resetControlForm[index] = true;
   })
   return
 }
