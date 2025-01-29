@@ -57,6 +57,7 @@
             border: 10px !important;
             height: 10px;
         }
+
         /*below mat-form-field input outline*/
 
         .mat-focused .mat-form-field-label {
@@ -70,6 +71,7 @@
         .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
             color: #2ba1a8;
         }
+
         /*above mat-form-field input outline*/
         /*  */
         /*  */
@@ -92,6 +94,7 @@
         .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
             background-color: rgb(255, 37, 37, .26);
         }
+
         /* MAT-RADIO-BUTTON-COLORS | END */
 
         input[type="text"] {
@@ -205,25 +208,17 @@
             font-size: 20px;
             background: rgb(23, 79, 10) !important;
         }
+
         /* screen web */
 
-        .small-large-screen {
-            width: calc(100% - 40px);
-        }
 
         .mat-paginator-page-size-value {
             display: none;
         }
+
         /*screen mobile */
 
-        @media(max-width: 600px) {
-            .small-large-screen {
-                width: 68%;
-                /* height: 100%; */
-            }
-            
-             @import "../src/shared/components/card-g/card-g-model-a/styles/card-global-model-a.scss";
-        }
+     
 
         .menu-icon-small {
             color: white;
@@ -232,3 +227,6 @@
             font-size: 30px;
             padding-left: 5px;
         }
+
+        @import "../src/shared/styles/responsive-screen.scss";
+        // @import "../src/shared/components/card-g/card-g-model-a/styles/card-global-model-a.scss";

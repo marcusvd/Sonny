@@ -5,18 +5,18 @@ import { Observable, of } from "rxjs";
 import { environment } from "src/environments/environment";
 import { BaseList } from "src/shared/components/list-g/extends/base-list";
 import { ListGDataService } from "src/shared/components/list-g/list/data/list-g-data.service";
+import { ItemsInterface } from "src/shared/components/list-g/list/interfaces/items-interface";
 import { PtBrCurrencyPipe } from "src/shared/pipes/pt-br-currency.pipe";
 import { PtBrDatePipe } from "src/shared/pipes/pt-br-date.pipe";
+import { TruncatePipe } from "src/shared/pipes/truncate.pipe";
 import { ManufacturerDto } from "../../dtos/manufacturer-dto";
 import { ProductDto } from "../../dtos/product-dto";
 import { ProductTypeDto } from "../../dtos/product-type-dto";
 import { SegmentDto } from "../../dtos/segment-dto";
 import { ProductList } from "../dto/product-list";
-import { fieldsHeadersLarge, fieldsHeadersMiddle, fieldsHeadersSmall, labelHeadersLarge, labelHeadersMiddle, labelHeadersSmall } from "./make-headers-grid-responsive";
-import { makeItemsGridLager, makeItemsGridSmall } from "./make-items-grid-responsive";
+import { fieldsHeadersLarge, fieldsHeadersMiddle, labelHeadersLarge, labelHeadersMiddle } from "./make-headers-grid-responsive";
+import { ex_makeItemsGridLager, ex_makeItemsGridMedium, ex_makeItemsGridSmall } from "./make-items-grid-responsive";
 import { makeHeaderToOrder } from "./order-items-by-header";
-import { ItemsInterface } from "src/shared/components/list-g/list/interfaces/items-interface";
-import { TruncatePipe } from "src/shared/pipes/truncate.pipe";
 
 
 export class ListControlProduct extends BaseList {
@@ -54,27 +54,28 @@ export class ListControlProduct extends BaseList {
   //METHODS
   responsive(event?: Event) {
 
-    if (this.screen(event) <= 600) {
+    if (this.screen(event) <= 800) {
       this.fields = null;
       this.headers = null;
       this.isCard = true;
       // this.fields = fieldsHeadersSmall();
       // this.headers = labelHeadersSmall();
-      this.entitiesFiltered$ = of(makeItemsGridSmall(this.entitiesFiltered));
+      this.entitiesFiltered$ = of(ex_makeItemsGridSmall(this.entitiesFiltered));
     }
-    else if (this.screen(event) >= 601) {
+    else if (this.screen(event) >= 800) {
       this.fields = fieldsHeadersMiddle();
       this.headers = labelHeadersMiddle();
       this.isCard = false;
+      this.entitiesFiltered$ = of(ex_makeItemsGridMedium(this.entitiesFiltered, this._truncatePipe));
     }
 
-    if (this.screen(event) > 800) {
+    if (this.screen(event) > 1024) {
       this.fields = fieldsHeadersLarge();
       this.headers = labelHeadersLarge();
       this.isCard = false;
-      this.entitiesFiltered$ = of(makeItemsGridLager(this.entitiesFiltered, this._truncatePipe));
+      this.entitiesFiltered$ = of(ex_makeItemsGridLager(this.entitiesFiltered, this._truncatePipe));
     }
-
+   
   }
 
   search(term: string) {
@@ -119,10 +120,6 @@ export class ListControlProduct extends BaseList {
       {
         next: (x: ProductDto[]) => {
           this.length = x.length;
-          // this.entities = this.supplyItemsGrid(x);
-          // this.entitiesFiltered = this.entities;
-          // this.entities$ = of(this.entities);
-
           x.forEach(
             (y: ProductDto) => {
               this.entities = this.supplyItemsGrid(y);
@@ -130,9 +127,13 @@ export class ListControlProduct extends BaseList {
               this.entities$ = of(this.entities);
             })
           this.getCurrent();
+          const event = { target: window } as unknown as Event;
+          //start responsive screen
+          this.responsive(event);
         }
       }
     )
+   
   }
 
   getCurrent = () => {
@@ -163,13 +164,9 @@ export class ListControlProduct extends BaseList {
 
   onClickOrderByFields(field: string, entitiesFiltered$: Observable<ProductList[]>) {
 
-    console.log(makeHeaderToOrder(field))
     switch (field) {
       case 'productTypeView':
-        {
-          this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
-          console.log(makeHeaderToOrder(field))
-        }
+        this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
         break;
 
       case 'segmentView':
@@ -192,10 +189,10 @@ export class ListControlProduct extends BaseList {
       case 'description':
         this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
         break;
-     
-        // case 'isReservedByUser':
-        // this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
-        // break;
+
+      // case 'isReservedByUser':
+      // this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
+      // break;
 
       // case 'isTested':
       //   this.entitiesFiltered$ = this.orderByFrontEnd(entitiesFiltered$, makeHeaderToOrder(field));
@@ -220,7 +217,6 @@ export class ListControlProduct extends BaseList {
     items.segmentView = { key: this._truncatePipe.transform(x?.segment.name, 13) };
 
     items.manufacturerView = { key: this._truncatePipe.transform(x?.manufacturer.name, 13) };
-
 
     items.productType = { key: x?.productType.name };
 

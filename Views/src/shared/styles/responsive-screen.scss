@@ -1,0 +1,77 @@
+.small-large-screen {
+    width: calc(100% - 50px);
+}
+
+// @media(max-width: 600px) {
+//     .small-large-screen {
+//         width: 68%;
+//         /* height: 100%; */
+//     }
+// }
+
+// @media(max-width: 800px) {
+//     .small-large-screen {
+//         width: 88%;
+//         /* height: 100%; */
+//     }
+// }
+/* Mobile (pequeno) */
+@media (min-width: 0px) and (max-width: 800px) {
+    .small-large-screen {
+        width: 68%;
+        // font-size: 14px;
+        // padding: 8px;
+    }
+}
+
+/* Tablet (médio) */
+@media (min-width: 801px) and (max-width: 1024px) {
+    .small-large-screen {
+        width: 90%;
+        // font-size: 16px;
+        // padding: 10px;
+    }
+}
+@media (min-width: 1024px) {
+    .small-large-screen {
+        width: calc(100% - 50px);
+        // font-size: 16px;
+        // padding: 10px;
+    }
+}
+// <= 600
+// >= 601
+// > 800
+// /* Desktop (grande) */
+// @media (min-width: 1025px) {
+//     .small-large-screen {
+//         width: 90%;
+//         // font-size: 20px;
+//         // padding: 16px;
+//     }
+// }
+// @media (max-width: 480px) {
+//     .small-large-screen {
+//         width: 68%;
+//         // font-size: 14px;
+//         // padding: 8px;
+//     }
+// }
+
+// /* Tablet (médio) */
+// @media (min-width: 481px) and (max-width: 1024px) {
+//     .small-large-screen {
+//         width: 80%;
+//         // font-size: 16px;
+//         // padding: 10px;
+//     }
+// }
+
+// // /* Desktop (grande) */
+// // @media (min-width: 1025px) {
+// //     .small-large-screen {
+// //         width: 90%;
+// //         // font-size: 20px;
+// //         // padding: 16px;
+// //     }
+// // }

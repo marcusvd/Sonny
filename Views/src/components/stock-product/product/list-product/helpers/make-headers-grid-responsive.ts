@@ -18,18 +18,24 @@ export const fieldsHeadersSmall = () => {
 export const labelHeadersMiddle = () => {
   return [{ key: 'AÇÕES', style: 'cursor: pointer;' },
   { key: 'ITEM', style: 'cursor: pointer;' },
-  { key: 'SEGMENTO', style: 'cursor: pointer;' },
-  { key: 'FABRICANTE', style: 'cursor: pointer;' },
-  { key: 'MODELO', style: 'cursor: pointer;' },
-  { key: 'PREÇO', style: 'cursor: pointer;' }]
+  // { key: 'SEGMENTO', style: 'cursor: pointer;' },
+  // { key: 'FABRICANTE', style: 'cursor: pointer;' },
+  // { key: 'MODELO', style: 'cursor: pointer;' },
+  { key: 'PREÇO', style: 'cursor: pointer;' },
+  { key: 'DESCRIÇÃO', style: 'cursor: pointer; flex: 3;' },
+
+]
 }
 export const fieldsHeadersMiddle = () => {
   return [{ key: 'id', style: '' },
-  { key: 'productType', style: '' },
-  { key: 'segment', style: '' },
-  { key: 'manufacturer', style: '' },
-  { key: 'model', style: '' },
-  { key: 'soldPrice', style: '' }]
+  { key: 'productTypeView', style: '' },
+  // { key: 'segment', style: '' },
+  // { key: 'manufacturer', style: '' },
+  // { key: 'model', style: '' },
+  { key: 'soldPrice', style: '' },
+  { key: 'description', style: '' },
+
+]
 }
 
 export const labelHeadersLarge = () => {

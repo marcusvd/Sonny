@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 
 
 
@@ -19,10 +19,10 @@ import { TruncatePipe } from 'src/shared/pipes/truncate.pipe';
   templateUrl: './list-product.component.html',
   standalone: true,
   imports: [ImportsListProduct],
-  providers: [PtBrCurrencyPipe, PtBrDatePipe,TruncatePipe],
+  providers: [PtBrCurrencyPipe, PtBrDatePipe, TruncatePipe],
   styleUrls: ['./list-product.component.scss']
 })
-export class ListProductComponent extends ListControlProduct implements OnInit {
+export class ListProductComponent extends ListControlProduct implements OnInit, OnDestroy {
 
   constructor(
     override _router: Router,
@@ -42,10 +42,11 @@ export class ListProductComponent extends ListControlProduct implements OnInit {
     )
   }
 
+
+  productsTypesUnsubscribe: Subscription | undefined;
+
   ngOnInit(): void {
-    //start responsive screen
-    const event = { target: window } as unknown as Event;
-    this.responsive(event);
+   
     //get and make entities to filter
     this.productTypes();
     //get entities to show grid
@@ -56,18 +57,21 @@ export class ListProductComponent extends ListControlProduct implements OnInit {
 
 
   productTypes() {
-    this._productTypeService.getAllIncluded$(this.companyId.toString()).subscribe((x: ProductTypeDto[]) => {
+    this.productsTypesUnsubscribe = this._productTypeService.getAllIncluded$(this.companyId.toString()).subscribe((x: ProductTypeDto[]) => {
       this.productsTypes$ = of(x);
       x.forEach(y => {
-        y.segments.forEach((h:any) => {
+        y.segments.forEach((h: any) => {
           this.segments.push(h)
-          h.manufacturers.forEach((y:any) => this.manufacturers.push(y))
+          h.manufacturers.forEach((y: any) => this.manufacturers.push(y))
         })
 
       })
     });
   }
 
+  ngOnDestroy(): void {
+    this.productsTypesUnsubscribe?.unsubscribe();
+  }
 
 }
 
