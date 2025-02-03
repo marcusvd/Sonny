@@ -1,8 +1,6 @@
 import { ItemsInterface } from "src/shared/components/list-g/list/interfaces/items-interface";
 
-
 export class ProductList {
-
   id:ItemsInterface;
   productTypeView:ItemsInterface;
   segmentView:ItemsInterface;
@@ -17,5 +15,4 @@ export class ProductList {
   quantity:ItemsInterface;
   description:ItemsInterface;
   isUsed:ItemsInterface;
-
 }

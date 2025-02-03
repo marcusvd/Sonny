@@ -1,10 +1,14 @@
 import { Observable, of } from "rxjs";
-import { ProductList } from "../dto/product-list";
-import { ProductTypeDto } from "../../../dtos/product-type-dto";
-import { SegmentDto } from "../../../dtos/segment-dto";
-import { ManufacturerDto } from "../../../dtos/manufacturer-dto";
 import { environment } from "src/environments/environment";
-import { ProductDto } from "../../../dtos/product-dto";
+import { ProductList } from "../dto/product-list";
+import { ProductTypeDto } from "../../dtos/product-type-dto";
+import { ManufacturerDto } from "../../dtos/manufacturer-dto";
+import { SegmentDto } from "../../dtos/segment-dto";
+import { ProductDto } from "../../dtos/product-dto";
+// import { ProductTypeDto } from "../../../dtos/product-type-dto";
+// import { SegmentDto } from "../../../dtos/segment-dto";
+// import { ManufacturerDto } from "../../../dtos/manufacturer-dto";
+// import { ProductDto } from "../../../dtos/product-dto";
 
 
 export let _entitiesFiltered$ = new Observable<ProductList[]>();
@@ -22,75 +26,75 @@ export let _backEndUrl: string = `${_controllerUrl}/GetProductsIncludedAsync`;
 
 
 
-export const _getEntities = (main$: Observable<ProductDto[]>) =>{
-   _entities = [];
-   _entitiesFiltered$ = null;
-    main$.subscribe(
-      {
-        next: (x: ProductDto[]) => {
-         _length = x.length;
-          x.forEach(
-            (y: ProductDto) => {
-             _entities =_makeItemsGrid(y);
-             _entities$ = of(_entities);
-            })
-         _getCurrent();
-        }
+export const _getEntities = (main$: Observable<ProductDto[]>) => {
+  _entities = [];
+  _entitiesFiltered$ = null;
+  main$.subscribe(
+    {
+      next: (x: ProductDto[]) => {
+        _length = x.length;
+        x.forEach(
+          (y: ProductDto) => {
+            _entities = _makeItemsGrid(y);
+            _entities$ = of(_entities);
+          })
+        _getCurrent();
       }
-    )
+    }
+  )
 
 }
 
 export const _makeItemsGrid = (x: ProductDto) => {
 
 
-    const items: ProductList = new ProductList();
-    
-    items.id = { key: x?.id?.toString()};
+  const items: ProductList = new ProductList();
 
-    items.productType = { key: x?.productType.name};
+  items.id = { key: x?.id?.toString() };
 
-    items.segment = { key: x?.segment.name};
+  items.productType = { key: x?.productType.name };
 
-    items.manufacturer = { key: x?.manufacturer.name};
+  items.segment = { key: x?.segment.name };
 
-    items.model = { key: x?.model.name};
+  items.manufacturer = { key: x?.manufacturer.name };
 
-    items.soldPrice = { key: x?.soldPrice?.toString()};
+  items.model = { key: x?.model.name };
 
-    items.isReservedByUser = { key: x?.isReservedByUser?.userName ?? 'Não'};
+  items.soldPrice = { key: x?.soldPrice?.toString() };
 
-    items.isTested = { key: x?.isTested?.toString()};
+  items.isReservedByUser = { key: x?.isReservedByUser?.userName ?? 'Não' };
 
-    items.isUsed = { key: x?.isUsed?.toString()};
+  items.isTested = { key: x?.isTested?.toString() };
 
-    _entities.push(items);
+  items.isUsed = { key: x?.isUsed?.toString() };
 
-    _entitiesFiltered.push(items);
+  _entities.push(items);
 
-   
+  _entitiesFiltered.push(items);
 
-    return _entities;
 
-  }
+
+  return _entities;
+
+}
 
 export const _getCurrent = () => {
-    //first supply
-    // this.entitiesFiltered$ = of(this.entities.slice(0, this.pageSize));
+  //first supply
+  // this.entitiesFiltered$ = of(this.entities.slice(0, this.pageSize));
 
-    return of(_entities.slice(0, 20));
+  return of(_entities.slice(0, 20));
 
-  }
+}
 
 
 export const _showHideFilterMtd = ($event: boolean, funcPaginatorFistPage: () => void, _pageSize: number) => {
-    _showHideFilter = $event
-    console.log(_entities.length)
-    if (!_showHideFilter) {
-        _entitiesFiltered$ = null;
-        funcPaginatorFistPage();
-        _length = _entities.length;
-        _entitiesFiltered = _entities;
-        _entitiesFiltered$ = of(_entitiesFiltered.slice(0, _pageSize));
-    }
+  _showHideFilter = $event
+  console.log(_entities.length)
+  if (!_showHideFilter) {
+    _entitiesFiltered$ = null;
+    funcPaginatorFistPage();
+    _length = _entities.length;
+    _entitiesFiltered = _entities;
+    _entitiesFiltered$ = of(_entitiesFiltered.slice(0, _pageSize));
+  }
 }

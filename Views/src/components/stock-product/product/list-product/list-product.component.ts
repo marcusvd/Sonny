@@ -1,17 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, of, Subscription } from 'rxjs';
+import { Subscription, of } from 'rxjs';
 
 
 
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
+import { TruncatePipe } from 'src/shared/pipes/truncate.pipe';
 import { ProductTypeDto } from '../dtos/product-type-dto';
 import { ProductTypeService } from '../list-product/services/product-type.service';
 import { ListControlProduct } from './helpers/list-control-product';
 import { ImportsListProduct } from './imports/imports-list-product';
-import { TruncatePipe } from 'src/shared/pipes/truncate.pipe';
 
 
 @Component({
@@ -46,7 +46,7 @@ export class ListProductComponent extends ListControlProduct implements OnInit, 
   productsTypesUnsubscribe: Subscription | undefined;
 
   ngOnInit(): void {
-   
+
     //get and make entities to filter
     this.productTypes();
     //get entities to show grid

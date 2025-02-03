@@ -58,9 +58,7 @@ export class ListControlProduct extends BaseList {
       this.fields = null;
       this.headers = null;
       this.isCard = true;
-      // this.fields = fieldsHeadersSmall();
-      // this.headers = labelHeadersSmall();
-      this.entitiesFiltered$ = of(ex_makeItemsGridSmall(this.entitiesFiltered));
+      this.entitiesFiltered$ = of(ex_makeItemsGridSmall(this.entitiesFiltered, this._truncatePipe));
     }
     else if (this.screen(event) >= 800) {
       this.fields = fieldsHeadersMiddle();
@@ -75,7 +73,7 @@ export class ListControlProduct extends BaseList {
       this.isCard = false;
       this.entitiesFiltered$ = of(ex_makeItemsGridLager(this.entitiesFiltered, this._truncatePipe));
     }
-   
+
   }
 
   search(term: string) {
@@ -133,7 +131,7 @@ export class ListControlProduct extends BaseList {
         }
       }
     )
-   
+
   }
 
   getCurrent = () => {

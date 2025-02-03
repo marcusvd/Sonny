@@ -3,7 +3,6 @@ import { Observable, of } from "rxjs";
 
 
 import { BaseForm } from "src/shared/components/inheritance/forms/base-form";
-// import { ex_measurersHandle, ex_onSelectSpeedMeasure, ex_measures } from "../../common/helpers/product-type-helpers";
 import { ProductTypeDto } from "../../dtos/product-type-dto";
 
 export class FormControllerEditSingleProductType extends BaseForm {
