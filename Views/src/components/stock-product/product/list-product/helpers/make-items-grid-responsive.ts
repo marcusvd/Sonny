@@ -40,7 +40,10 @@ export const ex_makeItemsGridSmall = (x: ProductList[], _truncatePipe: TruncateP
 
     items.quantity = { key: x?.quantity.key.toString() };
 
-    items.description = { key: x?.description.key, icons: [''], styleInsideCell: 'text-align: center;', styleCell: 'flex: 3;', route: '' };
+    if (haveNoSpace(x?.description.key))
+      items.description = { key: x?.description.key, icons: [''], styleInsideCell: 'text-align: center;', styleCell: 'flex: 3; wrap: break-word', route: '' };
+    else
+      items.description = { key: _truncatePipe.transform(x?.description.key, 20), icons: [''], styleInsideCell: 'text-align: center;', styleCell: 'flex: 3;', route: '' };
 
     items.isUsed = { key: x?.isUsed ? 'Sim' : 'Não' };
 
@@ -50,6 +53,13 @@ export const ex_makeItemsGridSmall = (x: ProductList[], _truncatePipe: TruncateP
 
   return createdItems;
 
+}
+
+const haveNoSpace = (value: string) => {
+  if (value.includes(" "))
+    return true;
+
+  return false;
 }
 
 export const ex_makeItemsGridLager = (x: ProductList[], _truncatePipe: TruncatePipe) => {

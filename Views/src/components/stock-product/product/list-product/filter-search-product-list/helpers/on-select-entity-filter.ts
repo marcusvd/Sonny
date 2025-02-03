@@ -61,13 +61,8 @@ function filterType(entityToFilter: string, type: string, productsList$: Observa
 function resetFormControl(entity: number, resetControlForm: FormControl[]) {
 
   resetControlForm.forEach((x, index) => {
-
     x.reset();
     x.setValue(null);
-    // if (index == entity)
-    //   resetControlForm[index] = false;
-    // else
-    //   resetControlForm[index] = true;
   })
   return
 }

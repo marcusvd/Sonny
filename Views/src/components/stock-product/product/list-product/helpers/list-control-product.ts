@@ -230,7 +230,11 @@ export class ListControlProduct extends BaseList {
 
     items.quantity = { key: x.quantity.toString() };
 
-    items.description = { key: this._truncatePipe.transform(x?.specificities.description, 35) };
+    // items.description = { key: this._truncatePipe.transform(x?.specificities.description, 35) };
+    if (this.haveNoSpace(x?.specificities.description))
+      items.description = { key: x?.specificities.description, icons: [''], styleInsideCell: 'text-align: center;', styleCell: 'flex: 3; wrap: break-word', route: '' };
+    else
+      items.description = { key: this._truncatePipe.transform(x?.specificities.description, 20), icons: [''], styleInsideCell: 'text-align: center;', styleCell: 'flex: 3;', route: '' };
 
     items.isUsed = { key: x?.isUsed ? 'Usado' : 'Novo' };
 
@@ -239,6 +243,18 @@ export class ListControlProduct extends BaseList {
     return this.entities;
 
   }
+
+
+
+  
+ 
+ haveNoSpace = (value: string) => {
+if (value.includes(" "))
+  return true;
+
+return false;
+}
+
 
   isTested(value: string) {
     const iconStyleTested = `color:rgb(43, 161, 168);`
