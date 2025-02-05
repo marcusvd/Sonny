@@ -15,7 +15,7 @@ import { ProductTypeDto } from "../../dtos/product-type-dto";
 import { SegmentDto } from "../../dtos/segment-dto";
 import { ProductList } from "../dto/product-list";
 import { fieldsHeadersLarge, fieldsHeadersMiddle, labelHeadersLarge, labelHeadersMiddle } from "./make-headers-grid-responsive";
-import { ex_makeItemsGridLager, ex_makeItemsGridMedium, ex_makeItemsGridSmall } from "./make-items-grid-responsive";
+import {  ex_makeItemsGridLager, ex_makeItemsGridMedium, ex_makeItemsGridSmall, ex_supplyItemsGrid } from "./make-items-grid-responsive";
 import { makeHeaderToOrder } from "./order-items-by-header";
 
 
@@ -120,7 +120,7 @@ export class ListControlProduct extends BaseList {
           this.length = x.length;
           x.forEach(
             (y: ProductDto) => {
-              this.entities = this.supplyItemsGrid(y);
+              this.entities = ex_supplyItemsGrid(y, this._truncatePipe, this._ptBrCurrencyPipe);
               this.entitiesFiltered = this.entities;
               this.entities$ = of(this.entities);
             })
@@ -204,57 +204,45 @@ export class ListControlProduct extends BaseList {
 
   }
 
-  supplyItemsGrid = (x: ProductDto) => {
+  // supplyItemsGrid = (x: ProductDto) => {
 
-    const items: ProductList = new ProductList();
+  //   const items: ProductList = new ProductList();
 
-    items.id = { key: x?.id?.toString() };
+  //   items.id = { key: x?.id?.toString() };
 
-    items.productTypeView = { key: this._truncatePipe.transform(x?.productType.name, 13) };
+  //   items.productTypeView = { key: this._truncatePipe.transform(x?.productType.name, 13) };
 
-    items.segmentView = { key: this._truncatePipe.transform(x?.segment.name, 13) };
+  //   items.segmentView = { key: this._truncatePipe.transform(x?.segment.name, 13) };
 
-    items.manufacturerView = { key: this._truncatePipe.transform(x?.manufacturer.name, 13) };
+  //   items.manufacturerView = { key: this._truncatePipe.transform(x?.manufacturer.name, 13) };
 
-    items.productType = { key: x?.productType.name };
+  //   items.productType = { key: x?.productType.name };
 
-    items.segment = { key: x?.segment.name };
+  //   items.segment = { key: x?.segment.name };
 
-    items.manufacturer = { key: x?.manufacturer.name };
+  //   items.manufacturer = { key: x?.manufacturer.name };
 
-    items.model = { key: this._truncatePipe.transform(x?.model.name, 25) };
+  //   items.model = { key: this._truncatePipe.transform(x?.model.name, 25) };
 
-    items.soldPrice = { key: this._ptBrCurrencyPipe.transform(x?.soldPrice) };
+  //   items.soldPrice = { key: this._ptBrCurrencyPipe.transform(x?.soldPrice) };
 
-    items.isReservedByUser = { key: x?.isReservedByUser?.userName ?? 'Não' };
+  //   items.isReservedByUser = { key: x?.isReservedByUser?.userName ?? 'Não' };
 
-    items.quantity = { key: x.quantity.toString() };
+  //   items.quantity = { key: x.quantity.toString() };
 
-    // items.description = { key: this._truncatePipe.transform(x?.specificities.description, 35) };
-    if (this.haveNoSpace(x?.specificities.description))
-      items.description = { key: x?.specificities.description, icons: [''], styleInsideCell: 'text-align: center;', styleCell: 'flex: 3; wrap: break-word', route: '' };
-    else
-      items.description = { key: this._truncatePipe.transform(x?.specificities.description, 20), icons: [''], styleInsideCell: 'text-align: center;', styleCell: 'flex: 3;', route: '' };
+  //   // items.description = { key: this._truncatePipe.transform(x?.specificities.description, 35) };
+  //   if (ex_haveNoSpace(x?.specificities.description))
+  //     items.description = { key: x?.specificities.description, icons: [''], styleInsideCell: 'text-align: center;', styleCell: 'flex: 3; wrap: break-word', route: '' };
+  //   else
+  //     items.description = { key: this._truncatePipe.transform(x?.specificities.description, 20), icons: [''], styleInsideCell: 'text-align: center;', styleCell: 'flex: 3;', route: '' };
 
-    items.isUsed = { key: x?.isUsed ? 'Usado' : 'Novo' };
+  //   items.isUsed = { key: x?.isUsed ? 'Usado' : 'Novo' };
 
-    this.entities.push(items);
+  //   this.entities.push(items);
 
-    return this.entities;
+  //   return this.entities;
 
-  }
-
-
-
-  
- 
- haveNoSpace = (value: string) => {
-if (value.includes(" "))
-  return true;
-
-return false;
-}
-
+  // }
 
   isTested(value: string) {
     const iconStyleTested = `color:rgb(43, 161, 168);`

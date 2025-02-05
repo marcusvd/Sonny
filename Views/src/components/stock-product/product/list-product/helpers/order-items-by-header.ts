@@ -21,17 +21,7 @@ export const makeHeaderToOrder = (field: string) => {
       return header = { key: 'soldPrice', value: 0 };
 
     case 'description':
-      return header = { key: 'description', value: 0 };
-
-    // case 'isReservedByUser':
-    //   return header = { key: 'isReservedByUser', value: new Date() };
-
-    // case 'isTested':
-    //   return header = { key: 'isTested', value: new Date() };
-
-
-    // case 'isUsed':
-    //   return header = { key: 'isUsed', value: '' };
+      return header = { key: 'description', value: 0 }
 
   }
   return header;
