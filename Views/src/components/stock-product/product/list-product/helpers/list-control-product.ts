@@ -2,6 +2,8 @@ import { HttpClient } from "@angular/common/http";
 import { PageEvent } from "@angular/material/paginator";
 import { Router } from "@angular/router";
 import { Observable, of } from "rxjs";
+
+
 import { environment } from "src/environments/environment";
 import { BaseList } from "src/shared/components/list-g/extends/base-list";
 import { ListGDataService } from "src/shared/components/list-g/list/data/list-g-data.service";
@@ -15,7 +17,10 @@ import { ProductTypeDto } from "../../dtos/product-type-dto";
 import { SegmentDto } from "../../dtos/segment-dto";
 import { ProductList } from "../dto/product-list";
 import { fieldsHeadersLarge, fieldsHeadersMiddle, labelHeadersLarge, labelHeadersMiddle } from "./make-headers-grid-responsive";
-import {  ex_makeItemsGridLager, ex_makeItemsGridMedium, ex_makeItemsGridSmall, ex_supplyItemsGrid } from "./make-items-grid-responsive";
+import { ex_makeItemsGridSmall } from "./screen/small-grid-responsive";
+import { ex_makeItemsGridMedium } from "./screen/medium-grid-responsive";
+import { ex_makeItemsGridLager } from "./screen/large-grid-responsive";
+import { ex_supplyItemsGrid } from "./screen/supply-grid-responsive";
 import { makeHeaderToOrder } from "./order-items-by-header";
 
 
@@ -50,6 +55,8 @@ export class ListControlProduct extends BaseList {
   controllerUrl: string = environment._STOCK_PRODUCTS.split('/')[4];
   backEndUrl: string = `${this.controllerUrl}/GetProductsIncludedAsync`;
   isCard = false;
+  
+  event = { target: window } as unknown as Event;
 
   //METHODS
   responsive(event?: Event) {
@@ -125,9 +132,8 @@ export class ListControlProduct extends BaseList {
               this.entities$ = of(this.entities);
             })
           this.getCurrent();
-          const event = { target: window } as unknown as Event;
           //start responsive screen
-          this.responsive(event);
+          this.responsive(this.event);
         }
       }
     )
@@ -158,6 +164,9 @@ export class ListControlProduct extends BaseList {
     })
 
     this.entitiesFiltered$ = of(this.entitiesFiltered.slice(0, this.pageSize));
+    
+    //start responsive screen
+    this.responsive(this.event);
   }
 
   onClickOrderByFields(field: string, entitiesFiltered$: Observable<ProductList[]>) {
@@ -203,46 +212,6 @@ export class ListControlProduct extends BaseList {
     }
 
   }
-
-  // supplyItemsGrid = (x: ProductDto) => {
-
-  //   const items: ProductList = new ProductList();
-
-  //   items.id = { key: x?.id?.toString() };
-
-  //   items.productTypeView = { key: this._truncatePipe.transform(x?.productType.name, 13) };
-
-  //   items.segmentView = { key: this._truncatePipe.transform(x?.segment.name, 13) };
-
-  //   items.manufacturerView = { key: this._truncatePipe.transform(x?.manufacturer.name, 13) };
-
-  //   items.productType = { key: x?.productType.name };
-
-  //   items.segment = { key: x?.segment.name };
-
-  //   items.manufacturer = { key: x?.manufacturer.name };
-
-  //   items.model = { key: this._truncatePipe.transform(x?.model.name, 25) };
-
-  //   items.soldPrice = { key: this._ptBrCurrencyPipe.transform(x?.soldPrice) };
-
-  //   items.isReservedByUser = { key: x?.isReservedByUser?.userName ?? 'Não' };
-
-  //   items.quantity = { key: x.quantity.toString() };
-
-  //   // items.description = { key: this._truncatePipe.transform(x?.specificities.description, 35) };
-  //   if (ex_haveNoSpace(x?.specificities.description))
-  //     items.description = { key: x?.specificities.description, icons: [''], styleInsideCell: 'text-align: center;', styleCell: 'flex: 3; wrap: break-word', route: '' };
-  //   else
-  //     items.description = { key: this._truncatePipe.transform(x?.specificities.description, 20), icons: [''], styleInsideCell: 'text-align: center;', styleCell: 'flex: 3;', route: '' };
-
-  //   items.isUsed = { key: x?.isUsed ? 'Usado' : 'Novo' };
-
-  //   this.entities.push(items);
-
-  //   return this.entities;
-
-  // }
 
   isTested(value: string) {
     const iconStyleTested = `color:rgb(43, 161, 168);`
