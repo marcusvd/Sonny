@@ -218,7 +218,7 @@
 
         /*screen mobile */
 
-     
+
 
         .menu-icon-small {
             color: white;
@@ -229,4 +229,5 @@
         }
 
         @import "../src/shared/styles/responsive-screen.scss";
-         @import "../src/shared/components/card-g/card-g-model-a/styles/card-global-model-a.scss";
+        @import "../src/shared/styles/dialogs-screen.scss";
+        @import "../src/shared/components/card-g/card-g-model-a/styles/card-global-model-a.scss";

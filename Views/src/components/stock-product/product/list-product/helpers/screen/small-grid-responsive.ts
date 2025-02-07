@@ -15,7 +15,7 @@ export const ex_makeItemsGridSmall = (productList: ProductList[], _truncatePipe:
   return productList.map(x => {
 
     return {
-      id: { key: x?.id.toString() },
+      id: { key: x?.id?.key.toString() },
 
       productTypeView: { key: _truncatePipe.transform(x?.productType.key, 14), icons: [''], button: x?.productType.key, styleInsideCell: '', styleCell: '', route: '' },
 

@@ -17,6 +17,7 @@ public class GetProductsIncludedHelperService
             toInclude => toInclude.Include(x => x.ProductType)
             .Include(x => x.Segment)
             .Include(x => x.Manufacturer)
+            .Include(x => x.Supplier)
             .Include(x => x.ReservedForCustomer)
             .Include(x => x.User)
             .Include(x => x.IsReservedByUser)

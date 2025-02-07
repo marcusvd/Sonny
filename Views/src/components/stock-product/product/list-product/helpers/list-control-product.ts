@@ -22,6 +22,9 @@ import { ex_makeItemsGridMedium } from "./screen/medium-grid-responsive";
 import { ex_makeItemsGridLager } from "./screen/large-grid-responsive";
 import { ex_supplyItemsGrid } from "./screen/supply-grid-responsive";
 import { makeHeaderToOrder } from "./order-items-by-header";
+import { ex_showDetails } from "./actions-control-products";
+import { MatDialog } from "@angular/material/dialog";
+import { OnClickInterface } from "src/shared/components/list-g/list/interfaces/on-click-interface";
 
 
 export class ListControlProduct extends BaseList {
@@ -32,6 +35,7 @@ export class ListControlProduct extends BaseList {
     protected _ptBrDatePipe: PtBrDatePipe,
     protected _ptBrCurrencyPipe: PtBrCurrencyPipe,
     protected _truncatePipe: TruncatePipe,
+    protected _dialog: MatDialog
   ) {
     super(
       new ListGDataService(_http),
@@ -48,6 +52,7 @@ export class ListControlProduct extends BaseList {
   segments: SegmentDto[] = [];
   manufacturers: ManufacturerDto[] = [];
   entities: ProductList[] = [];
+  products: ProductDto[] = [];
   entitiesFiltered: ProductList[] = [];
   length = 0;
   showHideFilter = false;
@@ -55,7 +60,7 @@ export class ListControlProduct extends BaseList {
   controllerUrl: string = environment._STOCK_PRODUCTS.split('/')[4];
   backEndUrl: string = `${this.controllerUrl}/GetProductsIncludedAsync`;
   isCard = false;
-  
+
   event = { target: window } as unknown as Event;
 
   //METHODS
@@ -129,6 +134,7 @@ export class ListControlProduct extends BaseList {
             (y: ProductDto) => {
               this.entities = ex_supplyItemsGrid(y, this._truncatePipe, this._ptBrCurrencyPipe);
               this.entitiesFiltered = this.entities;
+              this.products.push(y);
               this.entities$ = of(this.entities);
             })
           this.getCurrent();
@@ -164,7 +170,7 @@ export class ListControlProduct extends BaseList {
     })
 
     this.entitiesFiltered$ = of(this.entitiesFiltered.slice(0, this.pageSize));
-    
+
     //start responsive screen
     this.responsive(this.event);
   }
@@ -241,8 +247,15 @@ export class ListControlProduct extends BaseList {
     console.log(field)
   }
 
-  onClickIcons(field: string) {
-    console.log(field)
+  onClickIcons(obj: OnClickInterface) {
+
+    console.log(obj.action)
+    console.log(obj.entityId.toString())
+
+    if (obj.action == 'list') {
+      ex_showDetails(this.products.find(x => x.id == obj.entityId), this._dialog)
+      // console.log(field)
+    }
   }
 
 }

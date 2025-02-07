@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SpinnerGComponent } from '../../spinner-g/component/spinner-g.component';
 import { FieldsInterface } from './interfaces/fields-interface';
+import { OnClickInterface } from './interfaces/on-click-interface';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class ListGComponent {
 
   @Input() headersLabel: string[] = [];
   @Input() headersFields: FieldsInterface[] = [];
-  @Output() outOnClickIcons = new EventEmitter<string>();
+  @Output() outOnClickIcons = new EventEmitter<{}>();
   @Output() outOnClickButton = new EventEmitter<string>();
   @Output() outOnClickHeaderField = new EventEmitter<string>();
 
@@ -49,8 +50,14 @@ export class ListGComponent {
     this.outOnClickButton.emit(field);
   }
 
-  onClickIcon(field: string) {
-    this.outOnClickIcons.emit(field);
+  onClickIcon(action: string, entityId:number) {
+
+    const onClick:OnClickInterface = {
+      action: action,
+      entityId: entityId
+    }
+
+    this.outOnClickIcons.emit(onClick);
 
   }
 

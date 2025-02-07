@@ -14,7 +14,7 @@ export const ex_makeItemsGridMedium = (products: ProductList[], _truncatePipe: T
     return {
 
       id: {
-        key: x?.id.toString(),
+        key: x?.id?.key.toString(),
         display: 'icons',
         icons: ['list', 'edit', 'home'],
         styleInsideCell: `color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,

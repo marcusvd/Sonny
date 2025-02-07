@@ -15,11 +15,11 @@ export const ex_makeItemsGridLager = (products: ProductList[], _truncatePipe: Tr
   let items: ProductList = null;
 
   return products.map(x => {
-
+    
     return {
 
       id: {
-        key: x?.id.toString(),
+        key: x?.id?.key.toString(),
         display: 'icons',
         icons: ['list', 'edit', 'home'],
         styleInsideCell: iconStyle,
@@ -123,6 +123,5 @@ export const ex_makeItemsGridLager = (products: ProductList[], _truncatePipe: Tr
     }
   })
 
-  return createdItems;
 
 }

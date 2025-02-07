@@ -14,7 +14,8 @@
                 <ng-container [ngSwitch]="entity[field.key]?.display">
 
                     <ng-container *ngSwitchCase="'icons'">
-                        <mat-icon class="btn-icon" [style]="entity[field.key]?.styleInsideCell" (click)="onClickIcon(icon)"   *ngFor="let icon of entity[field.key]?.icons">{{icon}}</mat-icon>
+                        <!-- {{entity.id | json}} -->
+                        <mat-icon class="btn-icon" [style]="entity[field.key]?.styleInsideCell" (click)="onClickIcon(icon, entity.id.key)"   *ngFor="let icon of entity[field.key]?.icons">{{icon}}</mat-icon>
                     </ng-container>
 
                     <ng-container *ngSwitchCase="'button'">

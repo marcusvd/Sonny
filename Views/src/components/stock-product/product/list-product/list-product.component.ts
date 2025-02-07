@@ -12,6 +12,7 @@ import { ProductTypeDto } from '../dtos/product-type-dto';
 import { ProductTypeService } from '../list-product/services/product-type.service';
 import { ListControlProduct } from './helpers/list-control-product';
 import { ImportsListProduct } from './imports/imports-list-product';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -31,6 +32,7 @@ export class ListProductComponent extends ListControlProduct implements OnInit, 
     override _ptBrDatePipe: PtBrDatePipe,
     override _ptBrCurrencyPipe: PtBrCurrencyPipe,
     override _truncatePipe: TruncatePipe,
+    override _dialog: MatDialog
   ) {
 
     super(
@@ -38,7 +40,8 @@ export class ListProductComponent extends ListControlProduct implements OnInit, 
       _http,
       _ptBrDatePipe,
       _ptBrCurrencyPipe,
-      _truncatePipe
+      _truncatePipe,
+      _dialog
     )
   }
 
