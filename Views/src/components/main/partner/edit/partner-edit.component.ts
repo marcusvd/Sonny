@@ -23,11 +23,11 @@ import { NameCpfCnpjComponent } from 'src/shared/components/administrative/name-
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { ContactComponent } from 'src/shared/components/contact/component/contact.component';
 import { ContactService } from 'src/shared/components/contact/services/contact.service';
-import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
-import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { PhoneHandlers } from "src/shared/helpers/handlers/phone-handlers";
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
+import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
+import { PhoneHandlers } from "src/shared/helpers/handlers/phone-handlers";
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { FinancialInfoTypeComponent } from '../../customer/components/commons-components/financial-info-type/financial-info-type.component';

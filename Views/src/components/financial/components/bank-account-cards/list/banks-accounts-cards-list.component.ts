@@ -19,7 +19,7 @@ import { GridListCommonTableComponent } from 'src/shared/components/grid-list-co
 import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
-import { TitleComponent } from 'src/shared/components/title/components/title.component';
+import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { BankAccountDto } from '../dto/bank-account-dto';

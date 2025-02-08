@@ -21,6 +21,8 @@ export class TitleComponent {
   @Input() subTitleString: string;
   @Input() icon: string;
   @Input() titleIdCss = 'title';
+  @Input() btnFromOut = false;
+  @Input() styleContainerBelow = 'display: flex; width: 100%; height: 60px;'
 
 
   constructor(

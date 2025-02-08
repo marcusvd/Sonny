@@ -8,7 +8,7 @@ import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-entities/bank-account/bank-account-mat-select-single.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
-import { TitleComponent } from 'src/shared/components/title/components/title.component';
+import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { PriceInteresFieldsComponent } from '../../../common-components/price-interest-fields/price-interest-fields.component';
 import { HtmlDataInfoDto } from '../../../common-components/screen-data-info/dtos/html-data-info-dto';
 import { ScreenDataInfoComponent } from '../../../common-components/screen-data-info/screen-data-info.component';

@@ -17,17 +17,17 @@ import { ListCreditCardExpensesComponent } from 'src/components/financial/compon
 import { AddFinancingsLoansExpensesComponent } from 'src/components/financial/components/financings-loans-expenses/components/add/add-financings-loans-expenses.component';
 import { ListFinancingsLoansExpensesComponent } from 'src/components/financial/components/financings-loans-expenses/components/list/list-financings-loans-expenses.component';
 import { ListMonthlyFixedExpensesComponent } from 'src/components/financial/components/monthly-fixed-expenses/components/list/list-monthly-fixed-expenses.component';
+import { PixExpensesAddComponent } from 'src/components/financial/components/pix-expenses/components/add/pix-expenses-add.component';
+import { PixExpensesListComponent } from 'src/components/financial/components/pix-expenses/components/list/pix-expenses-list.component';
 import { VariableExpensesAddComponent } from 'src/components/financial/components/variable-expenses/components/add/variable-expenses-add.component';
 import { VariableExpensesListComponent } from 'src/components/financial/components/variable-expenses/components/list/variable-expenses-list.component';
 import { ListYearlyFixedExpensesComponent } from 'src/components/financial/components/yearly-fixed-expenses/components/list/list-yearly-fixed-expenses.component';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
-import { TitleComponent } from 'src/shared/components/title/components/title.component';
+import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { EditCategorySubcategoryExpensesComponent } from '../../../category-subcategory-expenses/edit/edit-category-subcategory-expenses.component';
 import { PixesExpensesFieldsComponent } from '../../../pixes-expenses/pixes-expenses-fields.component';
-import { PixExpensesAddComponent } from 'src/components/financial/components/pix-expenses/components/add/pix-expenses-add.component';
-import { PixExpensesListComponent } from 'src/components/financial/components/pix-expenses/components/list/pix-expenses-list.component';
 
 
 

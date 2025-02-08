@@ -1,10 +1,9 @@
-import { CommonModule, CurrencyPipe } from "@angular/common"
+import { CommonModule } from "@angular/common"
 import { ReactiveFormsModule } from "@angular/forms"
 import { MatInputModule } from "@angular/material/input"
-import { MatSelectModule } from "@angular/material/select"
 import { CurrencyMaskModule } from "ng2-currency-mask"
 import { SubTitleComponent } from "src/shared/components/sub-title/sub-title.component"
-import { TitleComponent } from "src/shared/components/title/components/title.component"
+import { TitleComponent } from "src/shared/components/title/default-title/title.component"
 
 
 export const ImportsFiledsInput:any[] =[

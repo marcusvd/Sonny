@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+
+    &--digit {
+        font-size: 40px;
+        color: rgb(44, 161, 168);
+        width: 9px;
+        margin-top: -13px;
+    }
+
+    &--title {
+        font-size: 20px;
+        color: #555555;
+        font-family: Mynerve;
+        justify-content: left;
+        width: 350px;
+        font-weight: bold;
+    }
+}

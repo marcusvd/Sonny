@@ -8,16 +8,15 @@ import { Router } from '@angular/router';
 
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-entities/bank-account/bank-account-mat-select-single.component';
-import { Add } from 'src/shared/components/inheritance/add/add';
+import { Payment } from 'src/shared/components/inheritance/payment/payment';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
-import { TitleComponent } from 'src/shared/components/title/components/title.component';
+import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { PixesExpensesFieldsComponent } from '../../../common-components/pixes-expenses/pixes-expenses-fields.component';
 import { PriceInteresFieldsComponent } from '../../../common-components/price-interest-fields/price-interest-fields.component';
 import { HtmlDataInfoDto } from '../../../common-components/screen-data-info/dtos/html-data-info-dto';
 import { ScreenDataInfoComponent } from '../../../common-components/screen-data-info/screen-data-info.component';
 import { MonthlyFixedExpenseDto } from '../../dto/monthly-fixed-expense-dto';
 import { PaymentMonthlyService } from './services/payment-monthly.service';
-import { Payment } from 'src/shared/components/inheritance/payment/payment';
 
 @Component({
   selector: 'payment-monthly',

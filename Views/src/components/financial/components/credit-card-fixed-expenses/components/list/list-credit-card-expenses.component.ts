@@ -25,7 +25,7 @@ import { GridListCommonHelper } from 'src/shared/components/grid-list-common/hel
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { MonthsSelectComponent } from 'src/shared/components/months-select/months-select-g.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
-import { TitleComponent } from 'src/shared/components/title/components/title.component';
+import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 // import { MonthExpensesTrackingListFilter } from '../../common-components/static-business-rule/static-business-rule';

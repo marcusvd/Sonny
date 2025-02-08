@@ -1,55 +1,61 @@
-<!-- <div class="container">
-    <div class="card">
-        <h2>Product Details</h2>
-        <div class="details">
-            <p><strong>Product Type:</strong> {{ product.productType?.name }}</p>
-            <p><strong>Segment:</strong> {{ product.segment?.name }}</p>
-            <p><strong>Manufacturer:</strong> {{ product.manufacturer?.name }}</p>
-            <p><strong>Model:</strong> {{ product.model?.name }}</p>
-            <p><strong>Quantity:</strong> {{ product.quantity }}</p>
-            <p><strong>Specificities:</strong> {{ product.specificities?.description }}</p>
-            
-            <p><strong>Reserved Date:</strong> {{ product.isReserved | date:'short' }}</p>
-            <p><strong>Reserved for Customer:</strong> {{ product.reservedForCustomer?.name }}</p>
-            <p><strong>Supplier:</strong> {{ product.supplier?.name }}</p>
-            <p><strong>Purchase Invoice:</strong> {{ product.purchaseInvoiceNumber }}</p>
-            <p><strong>Cost Price:</strong> {{ product.costPrice | currency }}</p>
-            <p><strong>Sold Price:</strong> {{ product.soldPrice | currency }}</p>
-            <p><strong>Entry Date:</strong> {{ product.entryDate | date:'medium' }}</p>
-            <p><strong>Sold Date:</strong> {{ product.soldDate | date:'medium' }}</p>
-            <p><strong>Warranty End:</strong> {{ product.warrantyEnd | date:'medium' }}</p>
-            <p><strong>Is Used:</strong> {{ product.isUsed ? 'Yes' : 'No' }}</p>
-            <p><strong>Is Tested:</strong> {{ product.isTested | date:'medium' }}</p>
-        </div>
-    </div>
-</div> -->
+<div class="border-around small-large-screen">
+    <br>
+    <br>
+    <br>
 
-<div class="container">
-    <div class="card">
-        <h2><i class="fas fa-box"></i> Product Details</h2>
-        <div class="details">
-            <p><strong>Product Type:</strong> <span>{{ productTemplate.productType?.name }}</span></p>
-            <p><strong>Segment:</strong> <span>{{ productTemplate.segment?.name }}</span></p>
-            <p><strong>Manufacturer:</strong> <span>{{ productTemplate.manufacturer?.name }}</span></p>
-            <p><strong>Model:</strong> <span>{{ productTemplate.model?.name }}</span></p>
-            <p><strong>Quantity:</strong> <span>{{ productTemplate.quantity }}</span></p>
- 
-            <p><strong>Supplier:</strong> <span>{{ productTemplate.supplier?.name }}</span></p>
-            <p><strong>Purchase Invoice:</strong> <span>{{ productTemplate.purchaseInvoiceNumber }}</span></p>
-            <p><strong>Cost Price:</strong> <span>{{ productTemplate.costPrice | currency }}</span></p>
-            <p><strong>Sold Price:</strong> <span>{{ productTemplate.soldPrice | currency }}</span></p>
-            <p><strong>Entry Date:</strong> <span>{{ productTemplate.entryDate | date:'medium' }}</span></p>
-            <p><strong>Sold Date:</strong> <span>{{ productTemplate.soldDate | date:'medium' }}</span></p>
-            <p><strong>Warranty End:</strong> <span>{{ productTemplate.warrantyEnd | date:'medium' }}</span></p>
-            <p><strong>Is Used:</strong> <span>{{ productTemplate.isUsed ? 'Yes' : 'No' }}</span></p>
-            <p><strong>Is Tested:</strong> <span>{{ productTemplate.isTested | date:'medium' }}</span></p>
-            <!-- <p><strong>Link fabricante:</strong> <span>{{ productTemplate.specificities?.manufacturerLink }}</span></p> -->
-            <mat-label>Link fabricante:</mat-label>
-            <textarea name="" id="" [rows]="calcRows(productTemplate?.description)">{{ productTemplate.specificities?.manufacturerLink }}</textarea>
-            <mat-label>Descrição curta</mat-label>
-            <textarea name="" id="" [rows]="calcRows(productTemplate?.description)">{{ productTemplate?.description }}</textarea>
-            <mat-label>Descrição completa</mat-label>
-            <textarea name="" id="" [rows]="calcRows(productTemplate?.detailedDescription)">{{ productTemplate?.detailedDescription }}</textarea>
+    <title-details>
+    </title-details>
+    <!-- <title-component [styleContainerBelow]="'display: flex; width: 100%; height: 10px;'" [digit]="'|'"
+        [titleString]="'Detalhes'" [icon]="'storage'" [btnFromOut]="true">
+        <button mat-dialog-close class="main-bg-color white-text-color" btnFromOut mat-raised-button
+            (click)="''">Fechar</button>
+    </title-component> -->
+    <mat-card class="card">
+        <br>
+        <!-- <sub-title  title [title]="'Produtos'" [icon]="'details'"></sub-title> -->
+        <div class="card-subtitle">
+
+            <div></div>
+            <div></div>
+
         </div>
-    </div>
+
+        <p><span>PRODUTO:</span></p>
+        <p><strong>{{ productTemplate.productType?.name }}</strong></p>
+        <p><strong>SEGMENTO:</strong> </p>
+        <p><span>{{ productTemplate.segment?.name }}</span></p>
+        <p><strong>FABRICANTE:</strong> </p>
+        <p><span>{{ productTemplate.manufacturer?.name }}</span></p>
+        <p><strong>MODELO:</strong> </p>
+        <p><span>{{ productTemplate.model?.name }}</span></p>
+        <p><strong>QUANTIDADE:</strong> </p>
+        <p><span>{{ productTemplate.quantity }}</span></p>
+        <p><strong>FORNECEDOR:</strong> </p>
+        <p><span>{{ productTemplate.supplier?.name }}</span></p>
+        <p><strong>NÚMERO NF-E:</strong> </p>
+        <p><span>{{ productTemplate.purchaseInvoiceNumber }}</span></p>
+
+        <p><strong>PREÇO DE VENDA:</strong> </p>
+        <p><span>{{ productTemplate.soldPrice | currency}}</span></p>
+        <p><strong>DATA DE ENTRADA:</strong> </p>
+        <p><span>{{ productTemplate.entryDate | date:'medium'}}</span></p>
+
+        <p><strong>USADO:</strong> </p>
+        <p><span>{{ productTemplate.isUsed ? 'Yes' : 'No' }}</span></p>
+        <p><strong>TESTADO:</strong> </p>
+        <p><span>{{ productTemplate.isTested | date:'medium' }}</span>
+        </p>
+        <p><strong>LINK FABRICANTE:</strong> </p>
+        <p><span>{{productTemplate.specificities?.manufacturerLink }}</span></p>
+
+        <h4>DESCRIÇÃO:</h4>
+        <mat-label>REDUZIDA:</mat-label>
+        <textarea name="" id=""
+            [rows]="calcRows(productTemplate?.description)">{{ productTemplate?.description }}</textarea>
+
+        <mat-label>COMPLETA:</mat-label>
+        <textarea name="" id=""
+            [rows]="calcRows(productTemplate?.detailedDescription)">{{ productTemplate?.detailedDescription }}</textarea>
+
+    </mat-card>
 </div>

@@ -10,7 +10,7 @@ import { ContainerCardModelAComponent } from "src/components/stock-product/produ
 import { BtnFilterGComponent } from "src/shared/components/btn-filter-g/btn-filter-g.component"
 import { ListGComponent } from "src/shared/components/list-g/list/list-g.component"
 import { SubTitleComponent } from "src/shared/components/sub-title/sub-title.component"
-import { TitleComponent } from "src/shared/components/title/components/title.component"
+import { TitleComponent } from "src/shared/components/title/default-title/title.component"
 import { FilterProductListComponent } from "../filter-search-product-list/filter-product-list.component"
 
 export const ImportsListProduct:any[] =[

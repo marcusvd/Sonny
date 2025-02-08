@@ -8,10 +8,10 @@ import { Observable } from 'rxjs/internal/Observable';
 
 
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-import { SubTitleItemComponent } from 'src/shared/components/sub-title-item/sub-title-item.component';
-import { TitleComponent } from 'src/shared/components/title/components/title.component';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+import { SubTitleItemComponent } from 'src/shared/components/sub-title-item/sub-title-item.component';
+import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { CnpjCpfPipe } from 'src/shared/pipes/cnpj-cpf.pipe';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { CustomerDto } from '../commons-components/dtos/customer-dto';

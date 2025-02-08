@@ -21,7 +21,7 @@ import { ContactComponent } from "src/shared/components/contact/component/contac
 import { ContactService } from "src/shared/components/contact/services/contact.service";
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
-import { TitleComponent } from "src/shared/components/title/components/title.component";
+import { TitleComponent } from "src/shared/components/title/default-title/title.component";
 import { PhoneHandlers } from "src/shared/helpers/handlers/phone-handlers";
 import { FinancialInfoTypeComponent } from "../commons-components/financial-info-type/financial-info-type.component";
 import { CustomerEditService } from "./services/customer-edit.service";

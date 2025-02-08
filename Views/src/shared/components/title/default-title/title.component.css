@@ -3,11 +3,11 @@
     width: 100%;
 }
 
-#container-below {
+/* #container-below {
     display: flex;
     width: 100%;
     height: 60px;
-}
+} */
 
 .child {
     width: 100px;

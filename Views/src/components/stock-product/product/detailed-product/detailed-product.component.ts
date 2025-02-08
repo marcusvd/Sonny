@@ -1,11 +1,16 @@
-import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
+import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
+import { TruncatePipe } from 'src/shared/pipes/truncate.pipe';
 import { ProductDto } from '../dtos/product-dto';
 import { ex_haveSpace } from '../list-product/helpers/field-handle-help';
-import { TruncatePipe } from 'src/shared/pipes/truncate.pipe';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { TitleDetailsComponent } from 'src/shared/components/title/title-details/title-details.component';
 
 @Component({
   selector: 'app-detailed-product',
@@ -13,8 +18,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   imports: [
     CommonModule,
     MatInputModule,
-    MatFormFieldModule
-
+    MatFormFieldModule,
+    TitleDetailsComponent,
+    SubTitleComponent,
+    MatCardModule,
+    MatButtonModule,
+    MatDialogModule
 
   ],
   providers: [TruncatePipe],
