@@ -1,24 +1,23 @@
 <div class="border-around small-large-screen">
     <br>
+    <button fromOut mat-dialog-close class="main-bg-color white-text-color" btnFromOut mat-raised-button (click)="''">Fechar</button>
     <br>
     <br>
 
-    <title-details>
-    </title-details>
+    <!-- <title-details>
+    </title-details> -->
     <!-- <title-component [styleContainerBelow]="'display: flex; width: 100%; height: 10px;'" [digit]="'|'"
         [titleString]="'Detalhes'" [icon]="'storage'" [btnFromOut]="true">
-        <button mat-dialog-close class="main-bg-color white-text-color" btnFromOut mat-raised-button
-            (click)="''">Fechar</button>
-    </title-component> -->
-    <mat-card class="card">
-        <br>
-        <!-- <sub-title  title [title]="'Produtos'" [icon]="'details'"></sub-title> -->
-        <div class="card-subtitle">
+          </title-component> -->
+    <div class="card-subtitle">
 
-            <div></div>
-            <div></div>
-
+        <div>
+            <mat-icon>{{'view_headline'}}</mat-icon>
         </div>
+        <div>{{'Detalhes do produto'}}</div>
+
+    </div>
+    <mat-card class="card">
 
         <p><span>PRODUTO:</span></p>
         <p><strong>{{ productTemplate.productType?.name }}</strong></p>
@@ -50,12 +49,10 @@
 
         <h4>DESCRIÇÃO:</h4>
         <mat-label>REDUZIDA:</mat-label>
-        <textarea name="" id=""
-            [rows]="calcRows(productTemplate?.description)">{{ productTemplate?.description }}</textarea>
-
+        <textarea name="" id="" [rows]="calcRows(productTemplate?.description)">{{ productTemplate?.description }}</textarea>
+        <br>
         <mat-label>COMPLETA:</mat-label>
-        <textarea name="" id=""
-            [rows]="calcRows(productTemplate?.detailedDescription)">{{ productTemplate?.detailedDescription }}</textarea>
+        <textarea name="" id="" [rows]="calcRows(productTemplate?.detailedDescription)">{{ productTemplate?.detailedDescription }}</textarea>
 
     </mat-card>
 </div>

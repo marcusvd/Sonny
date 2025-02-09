@@ -11,6 +11,7 @@ import { TruncatePipe } from 'src/shared/pipes/truncate.pipe';
 import { ProductDto } from '../dtos/product-dto';
 import { ex_haveSpace } from '../list-product/helpers/field-handle-help';
 import { TitleDetailsComponent } from 'src/shared/components/title/title-details/title-details.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-detailed-product',
@@ -18,6 +19,7 @@ import { TitleDetailsComponent } from 'src/shared/components/title/title-details
   imports: [
     CommonModule,
     MatInputModule,
+    MatIconModule,
     MatFormFieldModule,
     TitleDetailsComponent,
     SubTitleComponent,
@@ -44,7 +46,7 @@ export class DetailedProductComponent implements OnInit {
   clickedNo(no: string) {
     this._dialogRef.close(no);
   }
-  
+
   productTemplate:any
 
   objectHandle = (product: ProductDto, _truncatePipe: TruncatePipe) => {
@@ -74,7 +76,7 @@ export class DetailedProductComponent implements OnInit {
 
   rows: number = 0;
   calcRows(value: string) {
-    return this.rows = value.length / 80;   
+    return this.rows = value.length / 80;
   }
 
   ngOnInit(): void {
