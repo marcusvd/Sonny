@@ -1,23 +1,22 @@
-<div class="border-around small-large-screen">
-    <br>
-    <button fromOut mat-dialog-close class="main-bg-color white-text-color" btnFromOut mat-raised-button (click)="''">Fechar</button>
-    <br>
-    <br>
+<div class="border-around">
+<!-- <div class="border-around small-large-screen"> -->
 
-    <!-- <title-details>
-    </title-details> -->
-    <!-- <title-component [styleContainerBelow]="'display: flex; width: 100%; height: 10px;'" [digit]="'|'"
-        [titleString]="'Detalhes'" [icon]="'storage'" [btnFromOut]="true">
-          </title-component> -->
-    <div class="card-subtitle">
+    <title-component [digit]="'|'" [titleString]="'Produto'" [icon]="'storage'" [styleContainerBelow]="'display:none;'">
+    </title-component>
+    <!-- <div class="card-subtitle" style="max-width: 517px;">
 
         <div>
             <mat-icon>{{'view_headline'}}</mat-icon>
         </div>
         <div>{{'Detalhes do produto'}}</div>
 
-    </div>
-    <mat-card class="card">
+    </div> -->
+    
+
+  
+  
+    <sub-title title [title]="'Produtos'" [icon]="'add'" [titleBarStyle]="'background-color: rgb(43, 161, 168); border-top-right-radius: 15px; border-top-left-radius: 15px; max-width: 532px;'"></sub-title>
+    <mat-card class="card" style="max-width: 500px;">
 
         <p><span>PRODUTO:</span></p>
         <p><strong>{{ productTemplate.productType?.name }}</strong></p>
@@ -49,10 +48,12 @@
 
         <h4>DESCRIÇÃO:</h4>
         <mat-label>REDUZIDA:</mat-label>
-        <textarea name="" id="" [rows]="calcRows(productTemplate?.description)">{{ productTemplate?.description }}</textarea>
+        <textarea name="" id=""
+            [rows]="calcRows(productTemplate?.description)">{{ productTemplate?.description }}</textarea>
         <br>
         <mat-label>COMPLETA:</mat-label>
-        <textarea name="" id="" [rows]="calcRows(productTemplate?.detailedDescription)">{{ productTemplate?.detailedDescription }}</textarea>
+        <textarea name="" id=""
+            [rows]="calcRows(productTemplate?.detailedDescription)">{{ productTemplate?.detailedDescription }}</textarea>
 
     </mat-card>
 </div>

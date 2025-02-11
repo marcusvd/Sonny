@@ -9,6 +9,7 @@ import { StockProductRouterComponent } from "../router-outlet/stock-product-rout
 import { ListProductComponent } from "../product/list-product/list-product.component";
 import { AddNewChildProductTypeComponent } from "../product/add-new-child-product-type/add-new-child-product-type.component";
 import { EditSingleProductTypeComponent } from "../product/adit-single-product-type/edit-single-product-type.component";
+import { DetailedProductComponent } from "../product/detailed-product/detailed-product.component";
 
 
 // import { AddProductTypeComponent } from "../product-type/add/add-product-type.component";
@@ -23,7 +24,7 @@ const route: Routes = [
       { path: 'add-product', component: AddProductComponent },
       { path: 'edit-product-type-add-product', component: AddNewChildProductTypeComponent },
       { path: 'list-product', component: ListProductComponent },
-
+      { path: 'detailed-product', component: DetailedProductComponent },
     ]
   },
 ]

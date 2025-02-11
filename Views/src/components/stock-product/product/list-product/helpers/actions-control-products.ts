@@ -1,5 +1,7 @@
 import { MatDialog } from "@angular/material/dialog";
 import { DetailedProductComponent } from "../../detailed-product/detailed-product.component";
+import { ProductDto } from "../../dtos/product-dto";
+import { NavigationExtras, Router } from "@angular/router";
 
 export const ex_showDetails = (entity: any, _dialog: MatDialog) => {
 
@@ -27,3 +29,5 @@ export const ex_showDetails = (entity: any, _dialog: MatDialog) => {
 
     })
 }
+
+

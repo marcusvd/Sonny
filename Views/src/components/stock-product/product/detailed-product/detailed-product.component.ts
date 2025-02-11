@@ -10,18 +10,18 @@ import { TitleComponent } from 'src/shared/components/title/default-title/title.
 import { TruncatePipe } from 'src/shared/pipes/truncate.pipe';
 import { ProductDto } from '../dtos/product-dto';
 import { ex_haveSpace } from '../list-product/helpers/field-handle-help';
-import { TitleDetailsComponent } from 'src/shared/components/title/title-details/title-details.component';
 import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-detailed-product',
+  selector: 'detailed-product',
   standalone: true,
   imports: [
     CommonModule,
     MatInputModule,
     MatIconModule,
     MatFormFieldModule,
-    TitleDetailsComponent,
+    TitleComponent,
     SubTitleComponent,
     MatCardModule,
     MatButtonModule,
@@ -34,18 +34,31 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class DetailedProductComponent implements OnInit {
 
+  product!:ProductDto;
+
   constructor(
-    private _dialogRef: MatDialogRef<DetailedProductComponent>, @Inject(MAT_DIALOG_DATA) public product: ProductDto,
+    // private _dialogRef: MatDialogRef<DetailedProductComponent>, @Inject(MAT_DIALOG_DATA) public product: ProductDto,
+    private _router: Router,
     private _truncatePipe: TruncatePipe,
-  ) { }
+  ) {
+    
+    if (this._router.getCurrentNavigation().extras.state) {
+      const obj = this._router.getCurrentNavigation().extras.state;
+      
+      this.product = obj as ProductDto;
+      console.log(this.product);
+      // console.log(this.product);
+      // console.log(this.product);
+    }
+  }
 
 
-  clickedYes(id: number, yes: string) {
-    this._dialogRef.close({ id: id });
-  }
-  clickedNo(no: string) {
-    this._dialogRef.close(no);
-  }
+  // clickedYes(id: number, yes: string) {
+  //   this._dialogRef.close({ id: id });
+  // }
+  // clickedNo(no: string) {
+  //   this._dialogRef.close(no);
+  // }
 
   productTemplate:any
 
@@ -80,8 +93,7 @@ export class DetailedProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.productTemplate = this.objectHandle(this.product, this._truncatePipe)
-    console.log(this.product);
+   this.productTemplate = this.objectHandle(this.product, this._truncatePipe)
   }
 
 }

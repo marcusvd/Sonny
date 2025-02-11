@@ -25,6 +25,7 @@ import { makeHeaderToOrder } from "./order-items-by-header";
 import { ex_showDetails } from "./actions-control-products";
 import { MatDialog } from "@angular/material/dialog";
 import { OnClickInterface } from "src/shared/components/list-g/list/interfaces/on-click-interface";
+import { ex_callRouteWithObject } from "src/shared/helpers/useful/route";
 
 
 export class ListControlProduct extends BaseList {
@@ -249,13 +250,15 @@ export class ListControlProduct extends BaseList {
 
   onClickIcons(obj: OnClickInterface) {
 
-    console.log(obj.action)
-    console.log(obj.entityId.toString())
+    ex_callRouteWithObject('/side-nav/stock-product-router/detailed-product', this.products.find(x => x.id == obj.entityId), this._router)
 
-    if (obj.action == 'list') {
-      ex_showDetails(this.products.find(x => x.id == obj.entityId), this._dialog)
-      // console.log(field)
-    }
+    // console.log(obj.action)
+    // console.log(obj.entityId.toString())
+
+    // if (obj.action == 'list') {
+    //   ex_showDetails(this.products.find(x => x.id == obj.entityId), this._dialog)
+    //   // console.log(field)
+    // }
   }
 
 }
