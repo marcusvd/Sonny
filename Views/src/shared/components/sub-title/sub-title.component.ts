@@ -7,9 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'sub-title',
   templateUrl: './sub-title.component.html',
-  styleUrls: ['./sub-title.component.css'],
+  styleUrls: ['./sub-title.component.scss'],
   standalone: true,
-  imports: [MatIconModule, FlexLayoutModule, NgIf]
+  imports: [MatIconModule]
 })
 
 export class SubTitleComponent {
@@ -18,8 +18,9 @@ export class SubTitleComponent {
   @Input() titleStyle: string;
   @Input() styleContainerTitle: string;
   @Input() icon: string;
-  // @Input() height: string;
+
   @Input() titleBarStyle: string = `
+  display: flex;
   background-color: rgb(43, 161, 168);
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
@@ -29,8 +30,8 @@ export class SubTitleComponent {
   margin-left:-16px;
   top:18px
   `;
-  @Input() plus: boolean = false;
-  // @Input() titleH1: boolean = false;
-  @Input() spaceItem: number = 100;
+  // @Input() plus: boolean = false;
+  // // @Input() titleH1: boolean = false;
+  // @Input() spaceItem: number = 100;
 
 }

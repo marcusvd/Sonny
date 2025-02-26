@@ -1,4 +1,4 @@
-<div class="border-around">
+<div class="border-around" (window:resize)="responsive($event)">
 <!-- <div class="border-around small-large-screen"> -->
 
     <title-component [digit]="'|'" [titleString]="'Produto'" [icon]="'storage'" [styleContainerBelow]="'display:none;'">
@@ -15,8 +15,11 @@
 
   
   
-    <sub-title title [title]="'Produtos'" [icon]="'add'" [titleBarStyle]="'background-color: rgb(43, 161, 168); border-top-right-radius: 15px; border-top-left-radius: 15px; max-width: 532px;'"></sub-title>
-    <mat-card class="card" style="max-width: 500px;">
+    <div class="centered">
+        <sub-title  title [title]="'Produtos'" [icon]="'add'" [titleBarStyle]="cssSubTitle"></sub-title>
+    </div>
+    
+    <mat-card class="card">
 
         <p><span>PRODUTO:</span></p>
         <p><strong>{{ productTemplate.productType?.name }}</strong></p>
