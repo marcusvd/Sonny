@@ -48,7 +48,7 @@ export class AddNewChildProductTypeComponent extends FormControllerAddNewChildPr
     this.formDisabledToStart();
   }
 
-  
+
   save() {
 
     if (this.alertSave(this.formMain)) {

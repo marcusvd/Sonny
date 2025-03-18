@@ -6,17 +6,21 @@ import { ProductDto } from "../../../dtos/product-dto";
 import { ex_haveSpace } from "../field-handle-help";
 
 
-const entities: ProductList[] = [];
+//let entities: ProductList[] = [];
 
-export const ex_supplyItemsGrid = (product: ProductDto, _truncatePipe: TruncatePipe, _ptBrCurrencyPipe: PtBrCurrencyPipe) => {
+export const ex_supplyItemsGrid = (ProductL : ProductList[], product: ProductDto, _truncatePipe: TruncatePipe, _ptBrCurrencyPipe: PtBrCurrencyPipe) => {
 
-  const items: ProductList = new ProductList();
+  // entities = [];
+
+   const items: ProductList = new ProductList();
 
   Object.assign(items, {
-    id: { key: product?.id?.toString() },
+    id: {
+      key: product?.id?.toString()
+    },
 
     productTypeView: {
-      key: _truncatePipe.transform(product?.productType.name, 3)
+      key: _truncatePipe.transform(product?.productType.name, 13)
     },
 
     segmentView: {
@@ -64,8 +68,17 @@ export const ex_supplyItemsGrid = (product: ProductDto, _truncatePipe: TruncateP
     },
   })
 
-  entities.push(items);
 
-  return entities;
+  // console.log(_truncatePipe.transform(product?.specificities.description, 30))
+  // // console.log(product?.specificities.description)
+  // // console.log(ex_haveSpace(product?.specificities.description) ? product?.specificities.description : , icons: [''], styleInsideCell: 'text-align: center;', styleCell: 'flex: 3;' + (ex_haveSpace(product?.specificities.description) ? ' wrap: break-word' : ''), route: '')
+
+
+  ProductL.push(items);
+
+  return ProductL;
+  // entities.push(items);
+
+  // return entities;
 
 }

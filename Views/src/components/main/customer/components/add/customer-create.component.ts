@@ -22,7 +22,7 @@ import { ContactComponent } from "src/shared/components/contact/component/contac
 import { ContactService } from "src/shared/components/contact/services/contact.service";
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
-import { SubTitleComponent } from "src/shared/components/sub-title/sub-title.component";
+import { SubTitleComponent } from "src/shared/components/sub-title/default/sub-title.component";
 import { TitleComponent } from "src/shared/components/title/default-title/title.component";
 import { PhoneHandlers } from "src/shared/helpers/handlers/phone-handlers";
 import { ValidatorsCustom } from "src/shared/helpers/validators/validators-custom";

@@ -24,7 +24,7 @@ import { VariableExpensesListComponent } from 'src/components/financial/componen
 import { ListYearlyFixedExpensesComponent } from 'src/components/financial/components/yearly-fixed-expenses/components/list/list-yearly-fixed-expenses.component';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
-import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
+import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { EditCategorySubcategoryExpensesComponent } from '../../../category-subcategory-expenses/edit/edit-category-subcategory-expenses.component';
 import { PixesExpensesFieldsComponent } from '../../../pixes-expenses/pixes-expenses-fields.component';

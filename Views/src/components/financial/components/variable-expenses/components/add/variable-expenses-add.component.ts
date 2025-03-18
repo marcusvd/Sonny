@@ -21,7 +21,7 @@ import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-e
 import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
 import { Payment } from 'src/shared/components/inheritance/payment/payment';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
-import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
+import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { TypeCardDtoEnum } from '../../../bank-account-cards/dto/enums/type-card-dto.enum';

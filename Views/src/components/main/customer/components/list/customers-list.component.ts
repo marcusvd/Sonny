@@ -23,7 +23,7 @@ import { GridListCommonTableComponent } from 'src/shared/components/grid-list-co
 import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
 import { IEntityGridAction } from 'src/shared/components/grid-list-common/interface/entity-grid-action';
-import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
+import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { CustomerDto } from '../commons-components/dtos/customer-dto';

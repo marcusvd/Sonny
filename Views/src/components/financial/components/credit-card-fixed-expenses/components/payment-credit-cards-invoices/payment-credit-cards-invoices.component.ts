@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-entities/bank-account/bank-account-mat-select-single.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
-import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
+import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { PriceInteresFieldsComponent } from '../../../common-components/price-interest-fields/price-interest-fields.component';
 import { HtmlDataInfoDto } from '../../../common-components/screen-data-info/dtos/html-data-info-dto';
@@ -58,11 +58,11 @@ export class PaymentCreditCardsInvoicesComponent extends Add  {
       this.fields = obj['entity'].screenInfoFields as HtmlDataInfoDto[];
     }
   }
-  
-  
+
+
   formLoad(entity: CreditCardExpenseInvoiceDto) {
     console.log(entity.cardId)
-    
+
     this.formMain = this._fb.group({
       id: [entity.id, []],
       userId: [this.userId, [Validators.required, Validators.min(1)]],
@@ -84,7 +84,7 @@ export class PaymentCreditCardsInvoicesComponent extends Add  {
   updateBtn() {
 
     this.validatorsCreditPixOthers = true;
-    
+
     if (this.alertSave(this.formMain)) {
       this.formMain.get('cardId').setValue(this.entity.cardId);
       this._services.update(this.formMain);

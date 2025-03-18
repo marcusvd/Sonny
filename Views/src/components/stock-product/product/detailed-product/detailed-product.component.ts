@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
+import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { TruncatePipe } from 'src/shared/pipes/truncate.pipe';
 import { ProductDto } from '../dtos/product-dto';
@@ -13,6 +13,8 @@ import { ex_haveSpace } from '../list-product/helpers/field-handle-help';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { ex_screen } from 'src/shared/helpers/useful/screen';
+import { SubTitleDescriptionComponent } from 'src/shared/components/sub-title/description/sub-title-description.component';
+import { AutoRowsDirectiveDirective } from 'src/shared/directivas/text-area/auto-rows-directive.directive';
 
 @Component({
   selector: 'detailed-product',
@@ -23,10 +25,11 @@ import { ex_screen } from 'src/shared/helpers/useful/screen';
     MatIconModule,
     MatFormFieldModule,
     TitleComponent,
-    SubTitleComponent,
+    SubTitleDescriptionComponent,
     MatCardModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    AutoRowsDirectiveDirective
 
   ],
   providers: [TruncatePipe],
@@ -67,17 +70,7 @@ export class DetailedProductComponent implements OnInit {
   //   SmallScreen = 'max-width: 532px;'
   // }
 
-  responsive(event?: Event) {
 
-    if (ex_screen(event) <= 640) {
-      this.cssSubTitle = 'background-color: rgb(43, 161, 168); border-top-right-radius: 15px; border-top-left-radius: 15px; max-width: 332px; ';
-    }
-    else if (ex_screen(event) >= 640) {
-      this.cssSubTitle = 'background-color: rgb(43, 161, 168); border-top-right-radius: 15px; border-top-left-radius: 15px; max-width: 532px; ';
-    }
-
-
-  }
 
   productTemplate: any
 
@@ -103,17 +96,19 @@ export class DetailedProductComponent implements OnInit {
       isUsed: product.isUsed,
       isTested: product.isTested,
     })
-    // ex_haveSpace(x.productType?.key) ? x?.productType?.key : _truncatePipe.transform(x?.productType?.key, 10)
   }
 
   rows: number = 0;
   calcRows(value: string) {
+    console.log(this.rows = value.length / 80)
     return this.rows = value.length / 80;
   }
 
   ngOnInit(): void {
     this.productTemplate = this.objectHandle(this.product, this._truncatePipe)
-    this.responsive(this.event);
+
+    console.log(this.productTemplate.specificities.description)
+    console.log(this.productTemplate.specificities.detailedDescription)
   }
 
 }

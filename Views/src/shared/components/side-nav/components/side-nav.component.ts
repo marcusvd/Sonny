@@ -6,6 +6,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { DatabaseSideNavServices } from '../services/database-side-nav.service';
 import { BaseForm } from '../../inheritance/forms/base-form';
 import { IScreen } from '../../inheritance/responsive/iscreen';
+import { MatSidenavContainer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'sideNav',
@@ -13,6 +14,8 @@ import { IScreen } from '../../inheritance/responsive/iscreen';
   styleUrls: ['./side-nav.component.css']
 })
 export class SideNavComponent extends BaseForm implements OnInit {
+
+  @ViewChild(MatSidenavContainer) sidenavContainer: MatSidenavContainer;
 
   menuLarge: boolean = true;
   menuSlim: boolean = false;
@@ -87,6 +90,7 @@ export class SideNavComponent extends BaseForm implements OnInit {
 
     this.menuSlimArrowRightHideShow = false;
   }
+
   medium() {
     if (!this.menuSlimManually) {
       this.menuLarge = true;
@@ -101,6 +105,7 @@ export class SideNavComponent extends BaseForm implements OnInit {
 
     this.menuSlimArrowRightHideShow = true;
   }
+
   large() {
     this.tootlBar = false;
 
@@ -131,24 +136,24 @@ export class SideNavComponent extends BaseForm implements OnInit {
     this.menuSlimArrowRightHideShow = true;
   }
 
-  
+
   toggleMenuLarge() {
     this.menuLarge = !this.menuLarge;
     this.menuSlim = !this.menuSlim
     this.menuSlimManually = false;
-
+    this.sidenavContainer.updateContentMargins();
   }
 
   toggleMenuSlim() {
     this.menuSlim = !this.menuSlim
     this.menuLarge = !this.menuLarge;
     this.menuSlimManually = !this.menuSlimManually
-
+    this.sidenavContainer.updateContentMargins();
   }
 
   toggleMenuSlimToolBar() {
     this.menuSlim = !this.menuSlim
-
+    this.sidenavContainer.updateContentMargins();
   }
 
 

@@ -59,7 +59,7 @@ const setFormValue = (form: FormGroup, field: string, value: string | number) =>
 }
 
 const specificityBuilderFromSelectedModel = (formMain: FormGroup, specificitiesDto: SpecificitiesDto) => {
-  
+
   const detailedDescription = specificitiesDto?.detailedDescription;
   const description = specificitiesDto?.description;
 
@@ -83,7 +83,7 @@ const makeProductTypeEdit = (productType?: ProductTypeDto, segment?: SegmentDto,
     ex_productTypeEndSubItemsSelected = productType
 
   if (segment)
-    ex_productTypeEndSubItemsSelected.segments[0]=segment
+    ex_productTypeEndSubItemsSelected.segments[0] = segment
 
   if (manufacturer)
     ex_productTypeEndSubItemsSelected.segments[0].manufacturers[0] = manufacturer
@@ -103,9 +103,9 @@ export const ex_onSelectedProduct = (id: number, formMain: FormGroup, productsTy
 
     makeProductTypeEdit(productType)
 
-    setProductTypeEdit('productType', id, productType.name, productTypeEdit);
+    setProductTypeEdit('productType', id, productType?.name, productTypeEdit);
 
-    return productType.segments
+    return productType?.segments
 
   }));
 
@@ -123,9 +123,9 @@ export const ex_onSelectedSegment = (id: number, formMain: FormGroup, productsTy
 
       makeProductTypeEdit(null, segments)
 
-      setProductTypeEdit('segment', id, segments.name, productTypeEdit);
+      setProductTypeEdit('segment', id, segments?.name, productTypeEdit);
 
-      return segments.manufacturers
+      return segments?.manufacturers
     })
   )
 
@@ -144,9 +144,9 @@ export const ex_onSelectedManufacturer = (id: number, formMain: FormGroup, manuf
 
       makeProductTypeEdit(null, null, manufacturers)
 
-      setProductTypeEdit('manufacturer', id, manufacturers.name, productTypeEdit);
+      setProductTypeEdit('manufacturer', id, manufacturers?.name, productTypeEdit);
 
-      return manufacturers.models
+      return manufacturers?.models
     })
   )
 
@@ -159,10 +159,10 @@ export const ex_onSelectedModel = (id: number, formMain: FormGroup, models$: Obs
 
   models$.pipe(
     map(x => {
-      
+
       makeProductTypeEdit(null, null, null, x.find(models => models.id == id))
 
-      const specificity = x.find(models => models.id == id).specificities;
+      const specificity = x.find(models => models.id == id)?.specificities;
       setFormValue(formMain, 'specificitiesId', specificity?.id);
       specificityBuilderFromSelectedModel(formMain, specificity);
 

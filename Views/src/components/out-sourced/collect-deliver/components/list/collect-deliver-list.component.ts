@@ -21,7 +21,7 @@ import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-c
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
 import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
-import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
+import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -94,7 +94,7 @@ export class CollectDeliverListComponent extends FrontEndListFilterCollectDelive
   override viewUrlRoute: string = `/side-nav/outsourced-dash/view-collect-deliver`;
   override addUrlRoute: string = '/side-nav/outsourced-dash/add-collect-deliver';
     override editUrlRoute: string = `/side-nav/outsourced-dash/edit-collect-deliver`;
-  
+
 
   override delete(entity: CollectDeliverListGridDto) {
 

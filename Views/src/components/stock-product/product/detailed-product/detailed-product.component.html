@@ -1,62 +1,57 @@
-<div class="border-around" (window:resize)="responsive($event)">
-<!-- <div class="border-around small-large-screen"> -->
+<div class="border-around">
 
     <title-component [digit]="'|'" [titleString]="'Produto'" [icon]="'storage'" [styleContainerBelow]="'display:none;'">
     </title-component>
-    <!-- <div class="card-subtitle" style="max-width: 517px;">
 
-        <div>
-            <mat-icon>{{'view_headline'}}</mat-icon>
-        </div>
-        <div>{{'Detalhes do produto'}}</div>
+    <div class="container">
 
-    </div> -->
-    
 
-  
-  
-    <div class="centered">
-        <sub-title  title [title]="'Produtos'" [icon]="'add'" [titleBarStyle]="cssSubTitle"></sub-title>
+        <mat-card class="container--mat-card">
+            <div class="container--card-title">
+                <sub-title-description title [title]="'Produto'" [icon]="'add'"></sub-title-description>
+            </div>
+            <div class="container--card-body">
+                <p><span>PRODUTO:</span></p>
+                <p><strong>{{ productTemplate.productType?.name }}</strong></p>
+                <p><strong>SEGMENTO:</strong> </p>
+                <p><span>{{ productTemplate.segment?.name }}</span></p>
+                <p><strong>FABRICANTE:</strong> </p>
+                <p><span>{{ productTemplate.manufacturer?.name }}</span></p>
+                <p><strong>MODELO:</strong> </p>
+                <p><span>{{ productTemplate.model?.name }}</span></p>
+                <p><strong>QUANTIDADE:</strong> </p>
+                <p><span>{{ productTemplate.quantity }}</span></p>
+                <p><strong>FORNECEDOR:</strong> </p>
+                <p><span>{{ productTemplate.supplier?.name }}</span></p>
+                <p><strong>NÚMERO NF-E:</strong> </p>
+                <p><span>{{ productTemplate.purchaseInvoiceNumber }}</span></p>
+
+                <p><strong>PREÇO DE VENDA:</strong> </p>
+                <p><span>{{ productTemplate.soldPrice | currency}}</span></p>
+                <p><strong>DATA DE ENTRADA:</strong> </p>
+                <p><span>{{ productTemplate.entryDate | date:'medium'}}</span></p>
+
+                <p><strong>USADO:</strong> </p>
+                <p><span>{{ productTemplate.isUsed ? 'Yes' : 'No' }}</span></p>
+                <p><strong>TESTADO:</strong> </p>
+                <p><span>{{ productTemplate.isTested | date:'medium' }}</span>
+                </p>
+                <p><strong>LINK FABRICANTE:</strong> </p>
+                <p><span>{{productTemplate.specificities?.manufacturerLink }}</span></p>
+                <div style="display: flex; justify-content: center;">
+                    <h4>DESCRIÇÃO:</h4>
+                </div>
+
+                <mat-label>REDUZIDA:</mat-label>
+                <br>
+                <textarea autoRows [rows]="1">{{ productTemplate?.description }}</textarea>
+                <br>
+                <br>
+                <mat-label>COMPLETA:</mat-label>
+                <br>
+                <textarea autoRows [rows]="1">{{ productTemplate?.detailedDescription }}</textarea>
+
+            </div>
+        </mat-card>
     </div>
-    
-    <mat-card class="card">
-
-        <p><span>PRODUTO:</span></p>
-        <p><strong>{{ productTemplate.productType?.name }}</strong></p>
-        <p><strong>SEGMENTO:</strong> </p>
-        <p><span>{{ productTemplate.segment?.name }}</span></p>
-        <p><strong>FABRICANTE:</strong> </p>
-        <p><span>{{ productTemplate.manufacturer?.name }}</span></p>
-        <p><strong>MODELO:</strong> </p>
-        <p><span>{{ productTemplate.model?.name }}</span></p>
-        <p><strong>QUANTIDADE:</strong> </p>
-        <p><span>{{ productTemplate.quantity }}</span></p>
-        <p><strong>FORNECEDOR:</strong> </p>
-        <p><span>{{ productTemplate.supplier?.name }}</span></p>
-        <p><strong>NÚMERO NF-E:</strong> </p>
-        <p><span>{{ productTemplate.purchaseInvoiceNumber }}</span></p>
-
-        <p><strong>PREÇO DE VENDA:</strong> </p>
-        <p><span>{{ productTemplate.soldPrice | currency}}</span></p>
-        <p><strong>DATA DE ENTRADA:</strong> </p>
-        <p><span>{{ productTemplate.entryDate | date:'medium'}}</span></p>
-
-        <p><strong>USADO:</strong> </p>
-        <p><span>{{ productTemplate.isUsed ? 'Yes' : 'No' }}</span></p>
-        <p><strong>TESTADO:</strong> </p>
-        <p><span>{{ productTemplate.isTested | date:'medium' }}</span>
-        </p>
-        <p><strong>LINK FABRICANTE:</strong> </p>
-        <p><span>{{productTemplate.specificities?.manufacturerLink }}</span></p>
-
-        <h4>DESCRIÇÃO:</h4>
-        <mat-label>REDUZIDA:</mat-label>
-        <textarea name="" id=""
-            [rows]="calcRows(productTemplate?.description)">{{ productTemplate?.description }}</textarea>
-        <br>
-        <mat-label>COMPLETA:</mat-label>
-        <textarea name="" id=""
-            [rows]="calcRows(productTemplate?.detailedDescription)">{{ productTemplate?.detailedDescription }}</textarea>
-
-    </mat-card>
 </div>

@@ -52,35 +52,35 @@ export class BaseForm extends Responsive {
 
   addValidators(form: FormGroup, fields: string[]) {
     fields.forEach(field => {
-      form.get(field).setValidators(Validators.required);
-      form.get(field).updateValueAndValidity();
+      form?.get(field).setValidators(Validators.required);
+      form?.get(field).updateValueAndValidity();
     })
   }
 
   removeValidators(form: FormGroup, fields: string[]) {
     fields.forEach(field => {
-      form.get(field).setValue(null);
-      form.get(field).removeValidators(Validators.required);
-      form.get(field).removeValidators(Validators.requiredTrue);
-      form.get(field).updateValueAndValidity();
+      form?.get(field).setValue(null);
+      form?.get(field).removeValidators(Validators.required);
+      form?.get(field).removeValidators(Validators.requiredTrue);
+      form?.get(field).updateValueAndValidity();
     })
   }
 
   resetFields(form: FormGroup, fields: string[]) {
     fields.forEach(field => {
-      form.get(field).reset();
+      form?.get(field).reset();
     })
   }
 
   setFormFieldEnableDisable(form: FormGroup, field: string, action: boolean) {
     if (action)
-      form.get(field).enable();
+      form?.get(field).enable();
     else
-    form.get(field).disable();
+    form?.get(field).disable();
   }
 
   setFormFieldValue(form: FormGroup, field: string, value: any) {
-    form.get(field).setValue(value);
+    form?.get(field).setValue(value);
   }
 
   formTouched = (form: FormGroup, field: string) => {
@@ -103,9 +103,9 @@ export class BaseForm extends Responsive {
 
 
   alertSave(form: FormGroup) {
-    if (!form.valid) {
+    if (!form?.valid) {
       alert('Todos os campos com (*) e em vermelho, são de preenchimento obrigatório. Preencha corretamente e tente novamente.')
-      form.markAllAsTouched();
+      form?.markAllAsTouched();
       return false;
     }
     else {

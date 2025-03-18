@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { View } from 'src/shared/components/inheritance/view/view';
-import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
+import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
 import { CardTypePipe } from 'src/shared/pipes/card-type.pipe';

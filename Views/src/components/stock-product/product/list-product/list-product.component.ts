@@ -47,6 +47,7 @@ export class ListProductComponent extends ListControlProduct implements OnInit, 
 
 
   productsTypesUnsubscribe: Subscription | undefined;
+  productsUnsubscribe: Subscription | undefined;
 
   ngOnInit(): void {
 
@@ -54,8 +55,9 @@ export class ListProductComponent extends ListControlProduct implements OnInit, 
     this.productTypes();
     //get entities to show grid
     this._listGDataService.getAllEntitiesInMemoryPaged(this.backEndUrl, this.companyId);
+
     //subscribe entities and make grid list
-    this.startSupply();
+    this.productsUnsubscribe = this.startSupply();
   }
 
 
@@ -74,6 +76,7 @@ export class ListProductComponent extends ListControlProduct implements OnInit, 
 
   ngOnDestroy(): void {
     this.productsTypesUnsubscribe?.unsubscribe();
+    this.productsUnsubscribe?.unsubscribe();
   }
 
 }

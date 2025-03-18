@@ -28,7 +28,7 @@ import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { DateJustDayComponent } from 'src/shared/components/date-just-day/date-just-day.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
-import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
+import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
 import { CardDto } from '../../bank-account-cards/dto/card-dto';

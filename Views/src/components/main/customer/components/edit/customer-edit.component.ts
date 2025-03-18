@@ -28,7 +28,7 @@ import { CustomerEditService } from "./services/customer-edit.service";
 
 import { Observable } from "rxjs";
 import { BtnGComponent } from "src/shared/components/btn-g/btn-g.component";
-import { SubTitleComponent } from "src/shared/components/sub-title/sub-title.component";
+import { SubTitleComponent } from "src/shared/components/sub-title/default/sub-title.component";
 import { ValidatorsCustom } from "src/shared/helpers/validators/validators-custom";
 import { CustomerDto } from "../commons-components/dtos/customer-dto";
 

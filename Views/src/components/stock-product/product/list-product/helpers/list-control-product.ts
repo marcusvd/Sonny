@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { PageEvent } from "@angular/material/paginator";
 import { Router } from "@angular/router";
-import { Observable, of } from "rxjs";
+import { Observable, Subscription, of } from "rxjs";
 
 
 import { environment } from "src/environments/environment";
@@ -124,16 +124,16 @@ export class ListControlProduct extends BaseList {
 
   }
 
-  startSupply() {
-    this.entities = [];
-    this.entitiesFiltered$ = null;
-    this._listGDataService.entities$.subscribe(
+  startSupply(): Subscription {
+
+    let entities: ProductList[] = [];
+    return this._listGDataService.entities$.subscribe(
       {
         next: (x: ProductDto[]) => {
           this.length = x.length;
           x.forEach(
             (y: ProductDto) => {
-              this.entities = ex_supplyItemsGrid(y, this._truncatePipe, this._ptBrCurrencyPipe);
+              this.entities = ex_supplyItemsGrid(entities, y, this._truncatePipe, this._ptBrCurrencyPipe);
               this.entitiesFiltered = this.entities;
               this.products.push(y);
               this.entities$ = of(this.entities);
@@ -252,13 +252,6 @@ export class ListControlProduct extends BaseList {
 
     ex_callRouteWithObject('/side-nav/stock-product-router/detailed-product', this.products.find(x => x.id == obj.entityId), this._router)
 
-    // console.log(obj.action)
-    // console.log(obj.entityId.toString())
-
-    // if (obj.action == 'list') {
-    //   ex_showDetails(this.products.find(x => x.id == obj.entityId), this._dialog)
-    //   // console.log(field)
-    // }
   }
 
 }

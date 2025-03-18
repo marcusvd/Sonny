@@ -25,7 +25,7 @@ import { GetTransporterMatSelectSingleComponent } from 'src/shared/components/ge
 import { GetPartnerMatSelectSingleComponent } from 'src/shared/components/get-entities/partner/get-partner-mat-select-single.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
-import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
+import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ConfirmDialogCollectDeliverComponent } from '../../commons-components/confirmation-panel-collect-deliver/confirm-dialog-collect-deliver.component';
@@ -390,11 +390,11 @@ export class CollectDeliverCreateComponent extends Add implements OnInit {
   save() {
     this.validatorLocal.removeValidatorsDestiny(this.destiny, ['customerId', 'partnerId', 'noRegisterName', 'noRegisterAddress']);
     this.validatorLocal.removeValidatorsPayment(this.subForm, ['customerId', 'partnerId', 'base']);
-    
+
     console.log(this.formMain.controls)
-    if (this.alertSave(this.formMain)) 
+    if (this.alertSave(this.formMain))
       this.openDialogConfirmationPanel();
-    
+
   }
 
   ngOnInit(): void {

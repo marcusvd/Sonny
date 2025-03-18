@@ -10,7 +10,7 @@ import { LoginComponent } from 'src/components/authentication/login/login.compon
 import { AuthenticationService } from 'src/components/authentication/services/authentication.service';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
-import { SubTitleComponent } from '../../sub-title/sub-title.component';
+import { SubTitleComponent } from '../../sub-title/default/sub-title.component';
 
 @Component({
   selector: 'first',

@@ -9,11 +9,11 @@ import { ValidatorsProductTypeEditAsyncField } from "../form-validators/validato
 
 @Injectable({ providedIn: 'root' })
 export class FormsBuilderHelperAddNewChildProductTypeService {
-  
+
   constructor(private readonly _validatorsAsyncField: ValidatorsProductTypeEditAsyncField) {
-    
+
   }
-  
+
   private nameMaxLength = 50;
   private descriptionMaxLength = 500;
 
@@ -72,7 +72,8 @@ export class FormsBuilderHelperAddNewChildProductTypeService {
       // speed: new FormControl({ value: specificities?.speed ?? '', disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
       // capacity: new FormControl({ value: specificities?.capacity ?? '', disabled: true }, [Validators.maxLength(this.nameMaxLength)]),
       // generation: new FormControl(''),
-      description: new FormControl({ value: '', disabled: true }, [Validators.required, Validators.maxLength(this.descriptionMaxLength)]),
+      description: new FormControl('', [Validators.required, Validators.maxLength(this.descriptionMaxLength)]),
+      // description: new FormControl({ value: '', disabled: true }, [Validators.required, Validators.maxLength(this.descriptionMaxLength)]),
       detailedDescription: new FormControl('', [Validators.required, Validators.maxLength(2000)]),
       manufacturerLink: new FormControl('http://', [Validators.maxLength(this.descriptionMaxLength)]),
       registered: new FormControl(new Date(), [Validators.required]),

@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { BtnGComponent } from '../btn-g/btn-g.component';
-import { SubTitleComponent } from '../sub-title/sub-title.component';
+import { SubTitleComponent } from '../sub-title/default/sub-title.component';
 
 @Component({
   selector: 'delete-dialog',

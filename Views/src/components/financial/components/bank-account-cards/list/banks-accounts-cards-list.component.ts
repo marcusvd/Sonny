@@ -18,7 +18,7 @@ import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-c
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
 import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
-import { SubTitleComponent } from 'src/shared/components/sub-title/sub-title.component';
+import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
@@ -86,7 +86,7 @@ export class BanksAccountsCardsListComponent extends FrontEndFilterBanksAccounts
   override viewUrlRoute: string = '/side-nav/financial-dash/view';
   override addUrlRoute: string = '/side-nav/financial-dash/create-bank-account-cards';
   override editUrlRoute: string = '/side-nav/financial-dash/edit-bank-account-cards';
-  
+
   override delete(entity: BankAccountCardListGridDto) {
 
     const dialogRef = this._dialog.open(DeleteDialogComponent, {
@@ -143,7 +143,7 @@ export class BanksAccountsCardsListComponent extends FrontEndFilterBanksAccounts
   }
 
   orderBy(field: string) {
-    
+
       this.entities$ = this.orderByFrontEnd(this.entities$, field)
 
   }

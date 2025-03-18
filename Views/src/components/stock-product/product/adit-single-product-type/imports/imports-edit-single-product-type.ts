@@ -10,7 +10,7 @@ import { MatSelectModule } from "@angular/material/select"
 import { BtnGComponent } from "src/shared/components/btn-g/btn-g.component"
 import { InputFieldGComponent } from "src/shared/components/input-field-g/input-field-g.component"
 import { SelectInputSearchGComponent } from "src/shared/components/select-input-search-g/select-input-search-g.component"
-import { SubTitleComponent } from "src/shared/components/sub-title/sub-title.component"
+import { SubTitleComponent } from "src/shared/components/sub-title/default/sub-title.component"
 import { TitleComponent } from "src/shared/components/title/default-title/title.component"
 
 
