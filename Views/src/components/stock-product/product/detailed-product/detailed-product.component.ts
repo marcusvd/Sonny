@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { ex_screen } from 'src/shared/helpers/useful/screen';
 import { SubTitleDescriptionComponent } from 'src/shared/components/sub-title/description/sub-title-description.component';
-import { AutoRowsDirectiveDirective } from 'src/shared/directivas/text-area/auto-rows-directive.directive';
+import { AutoRowsDirective } from 'src/shared/directivas/text-area/auto-rows.directive';
 
 @Component({
   selector: 'detailed-product',
@@ -29,7 +29,7 @@ import { AutoRowsDirectiveDirective } from 'src/shared/directivas/text-area/auto
     MatCardModule,
     MatButtonModule,
     MatDialogModule,
-    AutoRowsDirectiveDirective
+    AutoRowsDirective
 
   ],
   providers: [TruncatePipe],
@@ -51,7 +51,7 @@ export class DetailedProductComponent implements OnInit {
       const obj = this._router.getCurrentNavigation().extras.state;
 
       this.product = obj as ProductDto;
-      console.log(this.product);
+      //console.log(this.product);
       // console.log(this.product);
       // console.log(this.product);
     }
@@ -76,25 +76,25 @@ export class DetailedProductComponent implements OnInit {
 
   objectHandle = (product: ProductDto, _truncatePipe: TruncatePipe) => {
     return Object.assign(product, {
-      productType: product.productType,
-      segment: product.segment,
-      manufacturer: product.manufacturer,
-      model: product.model,
-      quantity: product.quantity,
-      specificities: product.specificities,
-      description: ex_haveSpace(product.specificities.description) ? product.specificities.description : _truncatePipe.transform(product.specificities.description, 10),
-      detailedDescription: ex_haveSpace(product.specificities.detailedDescription) ? product.specificities.detailedDescription : _truncatePipe.transform(product.specificities.detailedDescription, 10),
-      supplier: product.supplier,
-      usedHistoricalOrSupplier: product.usedHistoricalOrSupplier,
-      purchaseInvoiceNumber: product.purchaseInvoiceNumber,
-      costPrice: product.costPrice,
-      soldPrice: product.soldPrice,
-      entryDate: product.entryDate,
-      soldDate: product.soldDate,
-      warrantyEnd: product.warrantyEnd,
-      warrantyEndLocal: product.warrantyEndLocal,
-      isUsed: product.isUsed,
-      isTested: product.isTested,
+      productType: product?.productType,
+      segment: product?.segment,
+      manufacturer: product?.manufacturer,
+      model: product?.model,
+      quantity: product?.quantity,
+      specificities: product?.specificities,
+      description: ex_haveSpace(product?.specificities.description) ? product?.specificities.description : _truncatePipe.transform(product?.specificities.description, 10),
+      detailedDescription: ex_haveSpace(product?.specificities.detailedDescription) ? product?.specificities.detailedDescription : _truncatePipe.transform(product?.specificities.detailedDescription, 10),
+      supplier: product?.supplier,
+      usedHistoricalOrSupplier: product?.usedHistoricalOrSupplier,
+      purchaseInvoiceNumber: product?.purchaseInvoiceNumber,
+      costPrice: product?.costPrice,
+      soldPrice: product?.soldPrice,
+      entryDate: product?.entryDate,
+      soldDate: product?.soldDate,
+      warrantyEnd: product?.warrantyEnd,
+      warrantyEndLocal: product?.warrantyEndLocal,
+      isUsed: product?.isUsed,
+      isTested: product?.isTested,
     })
   }
 
@@ -107,8 +107,8 @@ export class DetailedProductComponent implements OnInit {
   ngOnInit(): void {
     this.productTemplate = this.objectHandle(this.product, this._truncatePipe)
 
-    console.log(this.productTemplate.specificities.description)
-    console.log(this.productTemplate.specificities.detailedDescription)
+    //console.log(this.productTemplate.specificities.description)
+    //console.log(this.productTemplate.specificities.detailedDescription)
   }
 
 }
