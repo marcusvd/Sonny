@@ -72,7 +72,6 @@ export class SideNavComponent extends BaseForm implements OnInit {
   toggleMenu() {
     this.menuSlim = !this.menuSlim;
     this.menuLarge = !this.menuLarge;
-
   }
 
   // toggleMenuLarge() {

@@ -1,70 +1,65 @@
-<div class="top-nav flex-column gap-10">
-
-    <div class="flex-row">
-        <mat-icon class="logo logo-align" fontSet="material-icons-outlined">language</mat-icon>
+<div>
+    <div>
+        <mat-icon fontSet="material-icons-outlined">language</mat-icon>
     </div>
-
-    <div class="flex-row" *ngIf="!this.imgProfile">
-        <div class="image-nav-bar align-center-center">
+    <div *ngIf="!this.imgProfile">
+        <div>
             <mat-label>{{userName[0] | uppercase}}</mat-label>
         </div>
     </div>
-
     <div *ngIf="this.imgProfile">
-        <img class="image-nav-bar" src="../../../../../../assets/nsti-menor.jpg" alt="logo nsti aqui">
+        <img src="../../../../../../assets/nsti-menor.jpg" alt="logo nsti aqui">
     </div>
-
-    <div class="flex-row flex-1">
-        <button class="settings-icon" mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>settings</mat-icon></button>
+    <div>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>settings</mat-icon>
+      </button>
     </div>
-
 </div>
-
-<mat-menu class="menu-overflow-hidden" #menu="matMenu">
-
-    <div class="menu-opened flex-column">
-        <div class="menu-title flex-column align-center-center">
-            <div class="flex-row">
-                <img class="image-menu-opened" src="../../../../../../assets/nsti-menor.jpg" alt="logo nsti aqui">
+<mat-menu #menu="matMenu">
+    <div>
+        <div>
+            <div>
+                <img src="../../../../../../assets/nsti-menor.jpg" alt="logo nsti aqui">
             </div>
         </div>
-        <div class="profile-menu-opended flex-column align-center-center">
-            <span class="profile-menu-opended-name">
-            {{userName ?? 'Login' | titlecase}}
+        <div>
+            <span>
+              {{userName ?? 'Login' | titlecase}}
           </span>
         </div>
-        <mat-divider class="flex-1"></mat-divider>
-        <div [routerLink]="['/side-nav/user-profile']" class="hand-pointer menu-opened-icons-main menu-opened-icons-items menu-opened-items-font flex-row align-start-center">
-            <div class="flex-10"></div>
-            <div class="flex-column align-center-center">
-                <mat-icon class="menu-opened-icons-item" fontSet="material-icons-two-tone">account_circle</mat-icon>
+        <mat-divider></mat-divider>
+        <div [routerLink]="['/side-nav/user-profile']" (click)="logOut()">
+            <div></div>
+            <div>
+                <mat-icon fontSet="material-icons-two-tone">account_circle</mat-icon>
             </div>
-            <div class="flex-10"></div>
-            <div class="flex-column">
-                <span class="menu-opened-span-font">Perfil</span>
-                <small class="menu-opened-icons-items-font hand-pointer">Informações</small>
+            <div></div>
+            <div>
+                <span>Perfil</span>
+                <small>Informações</small>
             </div>
-            <div class="flex-1"></div>
-            <div class="flex-column">
-                <mat-icon class="arrow_right">keyboard_arrow_right</mat-icon>
+            <div></div>
+            <div>
+                <mat-icon>keyboard_arrow_right</mat-icon>
             </div>
         </div>
-        <mat-divider class="flex-1"></mat-divider>
-        <div (click)="logOut()" class="hand-pointer menu-opened-icons-main menu-opened-icons-items menu-opened-items-font flex-row align-start-center">
-            <div class="flex-10"></div>
-            <div class="flex-column align-center-center">
-                <mat-icon class="menu-opened-icons-item" fontSet="material-icons-two-tone">exit_to_app</mat-icon>
+        <mat-divider></mat-divider>
+        <div>
+            <div></div>
+            <div>
+                <mat-icon fontSet="material-icons-two-tone">exit_to_app</mat-icon>
             </div>
-            <div class="flex-10"></div>
-            <div class="flex-column">
-                <span class="menu-opened-span-font ">Sair</span>
+            <div></div>
+            <div>
+                <span>Sair</span>
                 <small>Desconectar</small>
             </div>
-            <div class="flex-1"></div>
-            <div class="flex-column">
-                <mat-icon class="arrow_right">keyboard_arrow_right</mat-icon>
+            <div></div>
+            <div>
+                <mat-icon>keyboard_arrow_right</mat-icon>
             </div>
         </div>
-        <mat-divider class="flex-1"></mat-divider>
+        <mat-divider></mat-divider>
     </div>
 </mat-menu>

@@ -1,115 +1,110 @@
-<ng-content select="[top-large]"></ng-content>
+<div class="container">
 
-<div style="overflow: hidden;" class="flex-column" *ngFor="let menu of dataTree; let i = index;">
+    <!-- <ng-content select="[top-large]"></ng-content> -->
 
-    <div class="btn-container mouse-pointer flex-row flex" (click)="rootMenuArrowOpenClosedOnAction(menu.name)">
+    <div class="container--menu-box" (click)="rootMenuArrowOpenClosedOnAction(menu.name)" *ngFor="let menu of dataTree; let i = index;">
 
-        <div class="flex-column flex-1"></div>
-
-        <div class="flex-column">
+        <!-- <div> -->
+        <div class="container--menu-box-icon">
             <mat-icon>{{menu.icon}}</mat-icon>
         </div>
-        <div class="flex-column flex-3"></div>
-
-        <div class="items-main flex-column">
+        <div class="container--menu-box-item">
             <div>{{menu.name}}</div>
         </div>
-        <div class="flex-column flex"></div>
 
-        <div class="flex-column">
+
+        <div class="container--menu-box-arrow">
             <mat-icon *ngIf="!menu.opened">keyboard_arrow_right</mat-icon>
             <mat-icon *ngIf="menu.opened">keyboard_arrow_down</mat-icon>
         </div>
 
-    </div>
+        <!-- </div> -->
 
 
-    <div class="level-one flex-column flex" *ngIf="menu.opened">
+        <div *ngIf="menu.opened">
 
-        <div *ngFor="let levelOne of menu.children; let i = index;">
+            <div *ngFor="let levelOne of menu.children; let i = index;">
+
+                <div (click)="levelOneSubMenuArrowOpenClosedOnAction(menu.name, levelOne.name)">
 
 
-            <div class="flex-row" (click)="levelOneSubMenuArrowOpenClosedOnAction(menu.name, levelOne.name)">
 
-                <div class="flex-column flex-1"></div>
+                    <div>
 
-                <div class="flex-column">
-
-                    <div class="mouse-pointer level-one-items-with-children" *ngIf="levelOne.children">
-                        <menu>
-                            <li class="level-one-with-children-item-li">{{levelOne.name}}</li>
-                        </menu>
-                    </div>
-                    <div class="level-one-items-single mouse-pointer" (click)="navigateByUrl(levelOne.route)" *ngIf="!levelOne.children">
-                        <menu>
-                            <li class="level-one-single-item-li">{{levelOne.name}}</li>
-                        </menu>
-                    </div>
-
-                </div>
-                <div class="level-one-items-with-children flex-column flex" *ngIf="levelOne.children"></div>
-                <div class="level-one-items-single flex-column flex" *ngIf="!levelOne.children"></div>
-
-                <div class="align-arrow-with-menu-name level-one-items-with-children flex-column" *ngIf="levelOne.children">
-                    <mat-icon *ngIf="!levelOne.opened">keyboard_arrow_right</mat-icon>
-                    <mat-icon *ngIf="levelOne.opened">keyboard_arrow_down</mat-icon>
-                </div>
-
-                <div class="align-arrow-with-menu-name level-one-items-single flex-column" *ngIf="!levelOne.children"></div>
-
-            </div>
-
-            <div class="flex-column">
-                <div class="level-two flex-column flex" *ngIf="levelOne.opened">
-                    <div *ngFor="let levelTwo of levelOne.children; let i = index;">
-                        <div class="mouse-pointer" *ngIf="!levelTwo.children" (click)="navigateByUrl(levelTwo.route)">
+                        <div *ngIf="levelOne.children">
                             <menu>
-                                <li class="item-li-level-two">{{levelTwo.name}}</li>
+                                <li>{{levelOne.name}}</li>
                             </menu>
+                        </div>
+                        <div (click)="navigateByUrl(levelOne.route)" *ngIf="!levelOne.children">
+                            <menu>
+                                <li>{{levelOne.name}}</li>
+                            </menu>
+                        </div>
+
+                    </div>
+                    <div *ngIf="levelOne.children"></div>
+                    <div *ngIf="!levelOne.children"></div>
+
+                    <div *ngIf="levelOne.children">
+                        <mat-icon *ngIf="!levelOne.opened">keyboard_arrow_right</mat-icon>
+                        <mat-icon *ngIf="levelOne.opened">keyboard_arrow_down</mat-icon>
+                    </div>
+
+                    <div *ngIf="!levelOne.children"></div>
+
+                </div>
+
+                <div>
+                    <div *ngIf="levelOne.opened">
+                        <div *ngFor="let levelTwo of levelOne.children; let i = index;">
+                            <div *ngIf="!levelTwo.children" (click)="navigateByUrl(levelTwo.route)">
+                                <menu>
+                                    <li>{{levelTwo.name}}</li>
+                                </menu>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Bottom -->
-<div class="bottom-nav flex-column gap-50">
-    <div class="flex-row"></div>
+    <!-- Bottom -->
+    <div>
 
-    <div class="container-rectangle-bottom flex-column">
-        <div class="flex-row">
-            <mat-label class="label-rectangle-bottom">Dúvidas?</mat-label>
-        </div>
 
-        <div class="small-space-horizontal-beteween-fields"></div>
-
-        <div class="rectangle-bottom flex-row">
-            <div class="flex-column">
-                <mat-icon class="icon-inside-rectangle-bottom" fontSet="material-icons-outlined">mode_comment</mat-icon>
+        <div>
+            <div>
+                <mat-label>Dúvidas?</mat-label>
             </div>
-            <div class="flex-column label-inside-rectangle-bottom">
-                <mat-label class="label-rectangle-bottom">Fale conosco.</mat-label>
-            </div>
-        </div>
-    </div>
 
-    <div class="flex-row">
-        <div class="flex-column flex-35">
-            <mat-divider class="divider-bottom flex"></mat-divider>
-        </div>
-        <div class="circle.align-btn-collapse flex-column">
-            <div class="circle-divider-bottom flex-row">
-                <div class="arrow-align-inside-circle">
-                    <ng-content select="[arrow_left]"></ng-content>
+
+
+            <div>
+                <div>
+                    <mat-icon fontSet="material-icons-outlined">mode_comment</mat-icon>
+                </div>
+                <div>
+                    <mat-label>Fale conosco.</mat-label>
                 </div>
             </div>
         </div>
-        <div class="flex-column flex-50">
-            <mat-divider class="divider-bottom flex"></mat-divider>
-        </div>
-    </div>
 
-    <div class="flex-row"></div>
+        <div>
+            <div>
+                <mat-divider></mat-divider>
+            </div>
+            <div>
+                <!-- <div>
+                    <ng-content select="[arrow_left]"></ng-content>
+                </div> -->
+            </div>
+            <div>
+                <mat-divider></mat-divider>
+            </div>
+        </div>
+
+
+    </div>
 </div>

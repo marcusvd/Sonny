@@ -1,164 +1,31 @@
-/* Utility Classes for Flex Layout */
-
-.flex-row {
-  display: flex;
-  flex-direction: row;
-}
-
-.flex-column {
-  display: flex;
-  flex-direction: column;
-}
-
-.flex {
-  flex: 1 1 0%;
-}
-
-.flex-1 {
-  flex: 1 1 0%;
-}
-
-.flex-3 {
-  flex: 3 1 0%;
-}
-
-.flex-35 {
-  flex: 1 1 35%;
-}
-
-.flex-50 {
-  flex: 1 1 50%;
-}
-
-.gap-50 {
-  gap: 50px;
-}
-
-
-/* Existing Styles */
-
-.small-space-horizontal-beteween-fields {
-  padding-top: 10px;
-}
-
-.middle-space-horizontal-beteween-fields {
-  padding-top: 20px;
-}
-
-.align-arrow-with-menu-name {
-  padding-top: 10px;
-}
-
-.btn-container {
-  background-color: rgb(223, 223, 223);
-  padding: 8px;
-
-  &:hover {
-    background-color: rgb(236, 236, 236);
-    padding: 8px;
-    transition: background-color 400ms;
-    transition-delay: 20ms;
-  }
-}
-
-.level-two {
-  background-color: rgb(238, 238, 238);
-}
-
-.item-li-level-two {
-  background-color: rgb(238, 238, 238);
-  margin-right: 50px;
-  list-style-type: none;
-  font-size: 13px;
-  font-family: Mynerve;
-}
-
-.items-main {
-  font-size: 13px;
-  font-family: Mynerve;
-}
-
-.level-one-single-item-li {
-  margin-right: 50px;
-  background-color: rgb(236, 236, 236);
-  list-style-type: none;
-  font-size: 13px;
-  font-family: Mynerve;
-}
-
-.level-one-items-single {
-  font-size: 13px;
-  font-family: Mynerve;
-  background-color: rgb(236, 236, 236);
-}
-
-.level-one-items-with-children {
-  font-size: 13px;
-  font-family: Mynerve;
-  background-color: rgb(243, 243, 243);
-}
-
-.level-one-with-children-item-li {
-  margin-right: 50px;
-  background-color: rgb(243, 243, 243);
-  list-style-type: none;
-  font-size: 13px;
-  font-family: Mynerve;
-}
-
-.bottom-nav {
-  width: 355px;
-  height: 100%;
-  background-color: rgb(236, 236, 236);
-  margin-right: -10px;
-}
-
-.container-rectangle-bottom {
-  padding-left: 24px;
-}
-
-.rectangle-bottom {
-  background-color: #2ba1a8;
-  width: 192px;
-  height: 55px;
-  border-radius: 10px;
-}
-
-.label-rectangle-bottom {
-  font-size: 13.5px;
-  font-family: Mynerve;
-}
-
-.icon-inside-rectangle-bottom {
-  margin: 10px;
-  width: 38px;
-  height: 38px;
-  font-size: 38px;
-  color: white;
-}
-
-.label-inside-rectangle-bottom {
-  margin-top: 18px;
-  margin-left: 10px;
-  color: white;
-}
-
-.divider-bottom {
-  margin-top: 8px;
-}
-
-.circle-divider-bottom {
-  width: 18px;
-  height: 18px;
-  border: 0.5px solid black;
-  border-radius: 100%;
-}
-
-.circle.align-btn-collapse {
-  margin-bottom: 10px;
-}
-
-.arrow-align-inside-circle {
-  margin-left: -4px;
-  margin-top: -3px;
-}
+    .container {
+        display: flex;
+        flex-direction: column;
+        &--menu-box {
+            display: flex;
+            align-items: center;
+            /* Alinha verticalmente no centro */
+            gap: 16px;
+            /* Espaço entre os elementos */
+            max-width: 250px;
+            /* Ocupa toda a largura disponível */
+            padding: 8px 16px;
+        }
+        &--menu-box-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+        }
+        &--menu-box-item {
+            flex: 1;
+            /* Ocupa todo o espaço restante */
+            text-align: left;
+        }
+        &--menu-box-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            width: 24px;
+        }
+    }

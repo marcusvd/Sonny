@@ -1,54 +1,49 @@
-<ng-content select="[top-slim]"></ng-content>
-<div class="flex-column" *ngFor="let levelZero of dataTree; let i = index;">
+<div class="container">
+    <ng-content select="[top-slim]"></ng-content>
+    <div *ngFor="let levelZero of dataTree; let i = index;">
 
-    <div class="dropdown btn-container flex-row fx-flex">
-        <div class="flex-column fx-flex-1"></div>
-
-        <div class="flex-column">
+        <div>
+            <mat-icon>{{levelZero.icon}}</mat-icon>
             <div>
-                <mat-icon class="mouse-pointer mat-icon-settings">{{levelZero.icon}}</mat-icon>
-                <div class="dropdown-content">
-                    <mat-label class="btn-container-dropdown-title">{{ levelZero.name }}</mat-label>
-                    <div *ngIf="levelZero.children" class="flex-column">
-                        <div class="bg-color-btn-menu" *ngFor="let levelOne of levelZero.children">
-                            <!-- full with arrow -->
-                            <div class="btn-container-with-children mouse-pointer flex-row" (click)="(levelZero.name)" (click)="rootMenuArrowOpenClosedOnAction(levelZero.children,levelOne.name)">
-                                <div class="style-spacing-left-menu-item">{{ levelOne.name }}</div>
-                                <div class="fx-flex"></div>
-                                <div class="flex-column">
-                                    <mat-icon *ngIf="!levelOne.opened">keyboard_arrow_right</mat-icon>
-                                    <mat-icon *ngIf="levelOne.opened">keyboard_arrow_down</mat-icon>
-                                </div>
+                <mat-label>{{levelZero.name}}</mat-label>
+                <div *ngIf="levelZero.children">
+                    <div *ngFor="let levelOne of levelZero.children">
+                        <div (click)="(levelZero.name)" (click)="rootMenuArrowOpenClosedOnAction(levelZero.children,levelOne.name)">
+                            <div>{{levelOne.name}}</div>
+
+                            <div>
+                                <mat-icon *ngIf="!levelOne.opened">keyboard_arrow_right</mat-icon>
+                                <mat-icon *ngIf="levelOne.opened">keyboard_arrow_down</mat-icon>
                             </div>
-                            <!-- empty without arrow -->
-                            <div class="btn-container-with-children mouse-pointer flex-row" (click)="navigateByUrl(levelOne.route)">
-                                <div class="style-spacing-left-menu-item" *ngIf="!levelOne.children">{{ levelOne.name }}
-                                    <div class="spacing-around-no-children"></div>
-                                </div>
-                                <div class="fx-flex"></div>
-                                <div class="flex-column"></div>
+                        </div>
+                        <div (click)="navigateByUrl(levelOne.route)">
+                            <div *ngIf="!levelOne.children">{{levelOne.name}}
+
                             </div>
-                            <div class="bg-color-submenu mouse-pointer flex-row" *ngFor="let itemSubMenu of levelOne.children" (click)="navigateByUrl(itemSubMenu.route)">
-                                <div class="style-spacing-item-sub-menu bg-color-padding-submenu" *ngIf="levelOne.opened">{{itemSubMenu.name}}
-                                </div>
-                            </div>
-                            <div class="flex-row">
-                                <mat-divider class="fx-flex"></mat-divider>
-                            </div>
+
+
+                        </div>
+                        <div *ngFor="let itemSubMenu of levelOne.children" (click)="navigateByUrl(itemSubMenu.route)">
+                            <div *ngIf="levelOne.opened">{{itemSubMenu.name}}</div>
+                        </div>
+                        <div>
+                            <mat-divider></mat-divider>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
+        <div>
+            <mat-divider></mat-divider>
+        </div>
     </div>
-    <div class="flex-row">
-        <mat-divider class="fx-flex"></mat-divider>
+    <div></div>
+    <div>
+        <div>
+            <mat-icon fontSet="material-icons-outlined">mode_comment</mat-icon>
+        </div>
+        <ng-content select="[arrow_right]"></ng-content>
     </div>
-</div>
-<div class="middle-space-horizontal-beteween-fields"></div>
-<div class="circle-align-btn-collapse flex-column">
-    <div class="align-comment-icon flex-row">
-        <mat-icon fontSet="material-icons-outlined">mode_comment</mat-icon>
-    </div>
-    <ng-content select="[arrow_right]"></ng-content>
 </div>

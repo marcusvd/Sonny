@@ -1,89 +1,77 @@
-<div class="main-container">
-    <div class="top-nav">
-        <div class="logo-row">
-            <mat-icon class="logo logo-align" fontSet="material-icons-outlined">language</mat-icon>
+<div class="container">
+    <div class="container--company-box">
+        <div class="container--logo-box">
+            <mat-icon class="container--logo-box-icon" fontSet="material-icons-outlined">language</mat-icon>
         </div>
-        <div class="logo-label">
-            <mat-label>NO STOP SISTEMAS</mat-label>
+        <div class="container--company-name-box">
+            <mat-label class="container--company-name-box-name">NO STOP SISTEMAS</mat-label>
         </div>
     </div>
 
-    <div class="middle-row small-space-beteween-top-middle">
-        <div class="flex-1"></div>
-        <div class="flex-20 image-container">
-            <div *ngIf="!imgProfile">
-                <div class="image-nav-bar">
-                    <mat-label>{{userName[0] | uppercase}}</mat-label>
-                </div>
+    <div class="container--profile-box">
+        <div class="container--profile-box-img">
+            <div class="container--profile-box-first-letter" *ngIf="!imgProfile">
+                <mat-label>{{firstLetter | uppercase}}</mat-label>
             </div>
-            <div *ngIf="imgProfile">
-                <img class="image-nav-bar" src="../../../../../../assets/nsti-menor.jpg" alt="logo nsti aqui">
+            <div class="container--profile-box-img-img" *ngIf="imgProfile">
+                <img src="../../../../../../assets/nsti-menor.jpg" alt="logo nsti aqui">
             </div>
         </div>
 
-        <div class="flex-10 user-info">
-            <div>
-                <span class="username_hello"> {{'Ola,'}}</span>
+        <div class="container--profile-box-hello-user">
+            <div class="container--profile-box-hello">
+                <span>{{'Ola,'}}</span>
             </div>
-            <div>
-                <span class="username_hello">{{userName.split('@')[0] ?? 'Login' | uppercase}}</span>
+            <div class="container--profile-box-user">
+                <span>{{userName.split('@')[0] ?? 'Login' | uppercase}}</span>
             </div>
         </div>
 
-        <div class="flex-50"></div>
-
-        <div class="flex settings-container">
-            <a class="settings-icon" mat-icon-button [matMenuTriggerFor]="menu">
-                <mat-icon>settings</mat-icon>
+        <div class="container--profile-box-settings">
+            <a mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon class="container--profile-box-settings-icon">settings</mat-icon>
             </a>
         </div>
     </div>
-</div>
+    <mat-menu #menu="matMenu">
+        <div>
 
-<mat-menu class="menu-overflow-hidden" #menu="matMenu">
-    <div class="menu-opened">
-        <div class="menu-title">
-            <div class="row-container">
-                <img class="image-menu-opened" src="../../../../../../assets/nsti-menor.jpg" alt="logo nsti aqui">
+            <div>
+                <img src="../../../../../../assets/nsti-menor.jpg" alt="logo nsti aqui">
             </div>
+
+            <div>
+                <span>
+              {{userName ?? 'Login' | titlecase}}
+            </span>
+            </div>
+            <mat-divider></mat-divider>
+            <div [routerLink]="['/side-nav/user-profile']">
+                <div>
+                    <mat-icon fontSet="material-icons-two-tone">account_circle</mat-icon>
+                </div>
+                <div>
+                    <span>Perfil</span>
+                    <small>Informações</small>
+                </div>
+                <div>
+                    <mat-icon>keyboard_arrow_right</mat-icon>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div (click)="logOut()">
+                <div>
+                    <mat-icon fontSet="material-icons-two-tone">exit_to_app</mat-icon>
+                </div>
+                <div>
+                    <span>Sair</span>
+                    <small>Desconectar</small>
+                </div>
+                <div>
+                    <mat-icon>keyboard_arrow_right</mat-icon>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
         </div>
-        <div class="profile-menu-opended">
-            <span class="profile-menu-opended-name">
-            {{userName ?? 'Login' | titlecase}}
-          </span>
-        </div>
-        <mat-divider class="flex-grow"></mat-divider>
-        <div [routerLink]="['/side-nav/user-profile']" class="menu-item hand-pointer">
-            <div class="flex-10"></div>
-            <div class="icon-container">
-                <mat-icon class="menu-opened-icons-item" fontSet="material-icons-two-tone">account_circle</mat-icon>
-            </div>
-            <div class="flex-10"></div>
-            <div class="text-container">
-                <span class="menu-opened-span-font">Perfil</span>
-                <small class="menu-opened-icons-items-font hand-pointer">Informações</small>
-            </div>
-            <div class="flex-fill"></div>
-            <div class="arrow-container">
-                <mat-icon class="arrow_right">keyboard_arrow_right</mat-icon>
-            </div>
-        </div>
-        <mat-divider class="flex-grow"></mat-divider>
-        <div (click)="logOut()" class="menu-item hand-pointer">
-            <div class="flex-10"></div>
-            <div class="icon-container">
-                <mat-icon class="menu-opened-icons-item" fontSet="material-icons-two-tone">exit_to_app</mat-icon>
-            </div>
-            <div class="flex-10"></div>
-            <div class="text-container">
-                <span class="menu-opened-span-font">Sair</span>
-                <small>Desconectar</small>
-            </div>
-            <div class="flex-fill"></div>
-            <div class="arrow-container">
-                <mat-icon class="arrow_right">keyboard_arrow_right</mat-icon>
-            </div>
-        </div>
-        <mat-divider class="flex-grow"></mat-divider>
-    </div>
-</mat-menu>
+    </mat-menu>
+</div>

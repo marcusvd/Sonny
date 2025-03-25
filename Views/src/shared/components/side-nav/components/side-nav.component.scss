@@ -1,112 +1,95 @@
-* {
-    .mat-drawer-inner-container {
-        overflow: hidden;
+.container {
+    &--menu-large {
+        max-width: 250px;
+        height: 250px;
     }
 }
 
-mat-toolbar {
-    background-color: rgb(85, 85, 85);
-    height: 50px;
+
+/* Garante altura total no container principal */
+
+.mat-sidenav-container {
+    height: 100vh;
 }
+
+
+/* Habilita rolagem apenas no conteúdo principal */
+
+// .mat-sidenav-content {
+//     overflow-y: auto;
+//     /* Rolagem vertical */
+//     overflow-x: hidden;
+//     /* Evita rolagem horizontal */
+// }
+
+/* Ajuste de espaçamento para conteúdo */
 
 main {
-    background-color: rgb(224, 224, 224);
-    flex: 1;
-    padding: 20px;
-    min-height: 100%;
-    box-sizing: border-box;
-}
-
-mat-sidenav-container {
-    overflow: hidden;
-    height: 100vh;
-    width: 100%;
-}
-
-mat-sidenav-content {
-    margin-left: 250px; // Margem padrão
-    transition: margin 0.3s ease !important;
-    .mat-sidenav.menu-slim+& {
-        margin-left: 40px !important; // Margem reduzida
-    }
-    @media (max-width: 959px) {
-        margin-left: 40px !important; // Margem small em telas menores
-        .mat-sidenav.menu-large+& {
-            margin-left: 250px !important;
-        }
-    }
-}
-
-.sidenav-content {
-    // height: 100%;
-    // width: 100%;
-    display: flex;
-    flex-direction: column;
-    transition: margin 0.3s ease !important;
+    // padding: 16px;
+    min-height: calc(100vh - 96px);
+    /* Ajuste conforme suas medidas */
 }
 
 mat-sidenav {
-    width: 250px;
-    transition: width 0.3s ease !important;
-    box-shadow: 0px 0px 8px rgb(0, 0, 0);
-    background-color: rgb(236, 236, 236);
-    &.menu-slim {
-        width: 40px !important;
-    }
-    @media (max-width: 959px) {
-        width: 40px !important;
-        &.menu-large {
-            width: 250px !important;
-        }
-    }
-     ::-webkit-scrollbar {
-        width: 7px;
-    }
-    .mat-drawer-inner-container {
-        overflow: hidden;
-    }
-    /* Track */
-     ::-webkit-scrollbar-track {
-        /* background: #f1f1f1; */
-        background-color: rgba(10, 23, 55, 0.5);
-    }
-    /* Handle */
-     ::-webkit-scrollbar-thumb {
-        /* background: #888; */
-        background-color: rgba(10, 23, 55, 0.5);
-        border-radius: 80px;
-    }
-    /* Handle on hover */
-     ::-webkit-scrollbar-thumb:hover {
-        background-color: rgba(10, 23, 55, 0.5);
-        background: #555;
+    height: 100vh;
+    overflow: hidden;
+}
+
+
+/* Para navegadores WebKit (Chrome, Safari) */
+
+// ::ng-deep mat-sidenav::-webkit-scrollbar {
+//     width: 2px;
+// }
+
+/* Para Firefox */
+
+mat-sidenav {
+    scrollbar-width: thin;
+    scrollbar-color: #616161 #424242;
+}
+
+::ng-deep .mat-drawer-inner-container {
+    /* Para Firefox - Hack de redução visual */
+    scrollbar-color: #616161 transparent !important;
+    scrollbar-width: thin !important;
+}
+
+
+/* Hack para Firefox - Criar barra mais fina usando gradiente */
+
+@supports (-moz-appearance: none) {
+     ::ng-deep .mat-drawer-inner-container {
+        background-image: linear-gradient(to right, #616161 1px, transparent 1px);
+        background-size: 2px 100%;
+        background-repeat: no-repeat;
+        background-position: right top;
     }
 }
 
-.toolbar-menu-icon {
-    font-size: 35px;
-    width: 35px;
-    color: white;
-    font-weight: bolder;
+
+/* Para WebKit (Chrome, Edge, Safari) */
+
+::ng-deep .mat-drawer-inner-container::-webkit-scrollbar {
+    width: 0.5px !important;
+    /* Barra ultra-fina */
+    height: 0 !important;
 }
 
-.circle-divider-bottom {
-    width: 18px;
-    height: 18px;
-    border: 0.5px solid black;
-    border-radius: 100%;
-    margin-left: 10px;
-    &--row-container {
-        display: flex;
-        flex-direction: row;
-    }
+::ng-deep .mat-drawer-inner-container::-webkit-scrollbar-thumb {
+    background: #616161 !important;
+    border-radius: 0 !important;
 }
 
-.circle-align-btn-collapse {
-    margin-bottom: 10px;
-}
 
-.arrow-align-inside-circle {
-    margin-left: -4px;
-    margin-top: -3px;
-}
+/* Adicione isto ao seu CSS global ou use ::ng-deep no componente pai */
+
+// ::ng-deep .mat-drawer-inner-container {
+//   /* Scrollbar vertical */
+//   scrollbar-width: thin;
+//   /* Para Firefox */
+//   scrollbar-color: #616161 #424242;
+//   /* Para Firefox */
+//   /* Remover scroll horizontal */
+//   overflow-x: hidden !important;
+// }

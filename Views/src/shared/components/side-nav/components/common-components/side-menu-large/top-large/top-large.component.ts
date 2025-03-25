@@ -31,6 +31,7 @@ export class SideMenuTopLargeComponent implements OnInit {
 
 
   userName: string;
+  firstLetter: string;
   imgProfile: string;
 
   logOut() {
@@ -41,6 +42,7 @@ export class SideMenuTopLargeComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.firstLetter = this._auth.currentUser.userName[0];
     this.userName = this._auth.currentUser.userName;
     this.imgProfile = this._auth.currentUser.imgProfile;
   }
