@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { ex_screen } from 'src/shared/helpers/useful/screen';
 import { SubTitleDescriptionComponent } from 'src/shared/components/sub-title/description/sub-title-description.component';
-import { AutoRowsDirective } from 'src/shared/directivas/text-area/auto-rows.directive';
+import { AutoRowsDirective } from 'src/shared/directives/text-area/auto-rows.directive';
 
 @Component({
   selector: 'detailed-product',

@@ -1,3 +1,26 @@
+/* Classes de layout flex */
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.fx-flex {
+    flex: 1 1 0%;
+}
+
+.fx-flex-1 {
+    flex: 1;
+}
+
+
+/* Estilos existentes */
+
 .middle-space-horizontal-beteween-fields {
     padding-top: 20px;
 }
@@ -5,13 +28,12 @@
 .btn-container {
     background-color: rgb(223, 223, 223);
     padding: 8px;
-}
-
-.btn-container:hover {
-    margin-left: -5px;
-    background-color: rgb(236, 236, 236);
-    transition: background-color 400ms;
-    transition-delay: 20ms;
+    &:hover {
+        margin-left: -5px;
+        background-color: rgb(236, 236, 236);
+        transition: background-color 400ms;
+        transition-delay: 20ms;
+    }
 }
 
 .align-comment-icon {
@@ -33,16 +55,18 @@
     font-size: 11px;
     font-family: Mynerve;
     padding: 15px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .btn-container-with-children {
     font-family: Mynerve;
     margin-bottom: 1px;
     margin-top: 10px;
-}
-
-.btn-container-with-children:hover {
-    background-color: rgb(230, 230, 230);
+    &:hover {
+        background-color: rgb(230, 230, 230);
+    }
 }
 
 .bg-color-btn-menu:hover {
@@ -74,18 +98,16 @@
 .bg-color-padding-submenu {
     background-color: rgb(224, 224, 224);
     padding: 12px;
+    &:hover {
+        background-color: rgb(214, 214, 214);
+    }
 }
 
 .bg-color-submenu {
     background-color: rgb(224, 224, 224);
-}
-
-.bg-color-submenu:hover {
-    background-color: rgb(214, 214, 214);
-}
-
-.bg-color-padding-submenu:hover {
-    background-color: rgb(214, 214, 214);
+    &:hover {
+        background-color: rgb(214, 214, 214);
+    }
 }
 
 .style-spacing-left-menu-item {

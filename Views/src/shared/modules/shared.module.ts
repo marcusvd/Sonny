@@ -21,7 +21,7 @@ import { ContactV2Service } from "../components/contact/services/contact-v2.serv
 // import { DialogQuizModule } from "../components/dialog-quiz/modules/dialog-quiz.module";
 // import { FirstModule } from "../components/first/modules/first.module";
 import { InsideNavComponent } from "../components/inside-nav/inside-nav.component";
-import { SideNavModule } from "../components/side-nav/modules/side-nav.module";
+// import { SideNavModule } from "../components/side-nav/modules/side-nav.module";
 import { TabGModule } from "../components/tab-g/modules/tab-g.module";
 // import { TitleModule } from "../components/title/module/title.module";
 import { TreeGModule } from "../components/tree-g/modules/tree-g.module";
@@ -108,12 +108,12 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     // TitleModule,
     // DialogQuizModule,
     // FirstModule,
-    SideNavModule,
-    
+    // SideNavModule,
+
     RadioButtonGModule,
     // CheckButtonGModule,
 
-    
+
 
     //STANDALONE
 
@@ -144,12 +144,12 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
 
     // TitleModule,
     // DialogQuizModule,
-    SideNavModule,
-    
+    // SideNavModule,
+
     RadioButtonGModule,
     // CheckButtonGModule,
 
-    
+
     //Tests
 
     //Pipes

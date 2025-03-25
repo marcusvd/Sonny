@@ -1,28 +1,22 @@
 <ng-content select="[top-large]"></ng-content>
 
-<div fxLayout="column" *ngFor="let menu of dataTree; let i = index;">
+<div style="overflow: hidden;" class="flex-column" *ngFor="let menu of dataTree; let i = index;">
 
-    <div class="btn-container mouse-pointer" fxLayout="row" fxFlex (click)="rootMenuArrowOpenClosedOnAction(menu.name)">
+    <div class="btn-container mouse-pointer flex-row flex" (click)="rootMenuArrowOpenClosedOnAction(menu.name)">
 
-        <div fxLayout="column" fxFlex="1">
+        <div class="flex-column flex-1"></div>
 
-        </div>
-
-        <div fxLayout="column">
+        <div class="flex-column">
             <mat-icon>{{menu.icon}}</mat-icon>
         </div>
-        <div fxLayout="column" fxFlex="3">
+        <div class="flex-column flex-3"></div>
 
-        </div>
-
-        <div class="items-main" fxLayout="column">
+        <div class="items-main flex-column">
             <div>{{menu.name}}</div>
         </div>
-        <div fxLayout="column" fxFlex>
+        <div class="flex-column flex"></div>
 
-        </div>
-
-        <div fxLayout="column">
+        <div class="flex-column">
             <mat-icon *ngIf="!menu.opened">keyboard_arrow_right</mat-icon>
             <mat-icon *ngIf="menu.opened">keyboard_arrow_down</mat-icon>
         </div>
@@ -30,19 +24,16 @@
     </div>
 
 
-    <div class="level-one" fxLayout="column" fxFlex *ngIf="menu.opened">
+    <div class="level-one flex-column flex" *ngIf="menu.opened">
 
         <div *ngFor="let levelOne of menu.children; let i = index;">
 
 
-            <div fxLayout="row" (click)="levelOneSubMenuArrowOpenClosedOnAction(menu.name, levelOne.name)">
+            <div class="flex-row" (click)="levelOneSubMenuArrowOpenClosedOnAction(menu.name, levelOne.name)">
 
-                <div fxLayout="column" fxFlex="1">
+                <div class="flex-column flex-1"></div>
 
-                </div>
-
-
-                <div fxLayout="column">
+                <div class="flex-column">
 
                     <div class="mouse-pointer level-one-items-with-children" *ngIf="levelOne.children">
                         <menu>
@@ -56,26 +47,20 @@
                     </div>
 
                 </div>
-                <div class="level-one-items-with-children" fxLayout="column" fxFlex *ngIf="levelOne.children">
+                <div class="level-one-items-with-children flex-column flex" *ngIf="levelOne.children"></div>
+                <div class="level-one-items-single flex-column flex" *ngIf="!levelOne.children"></div>
 
-                </div>
-                <div class="level-one-items-single" fxLayout="column" fxFlex *ngIf="!levelOne.children">
-
-                </div>
-
-                <div class="align-arrow-with-menu-name level-one-items-with-children" fxLayout="column" *ngIf="levelOne.children">
+                <div class="align-arrow-with-menu-name level-one-items-with-children flex-column" *ngIf="levelOne.children">
                     <mat-icon *ngIf="!levelOne.opened">keyboard_arrow_right</mat-icon>
                     <mat-icon *ngIf="levelOne.opened">keyboard_arrow_down</mat-icon>
                 </div>
 
-                <div class="align-arrow-with-menu-name level-one-items-single" fxLayout="column" *ngIf="!levelOne.children">
-
-                </div>
+                <div class="align-arrow-with-menu-name level-one-items-single flex-column" *ngIf="!levelOne.children"></div>
 
             </div>
 
-            <div fxLayout="column">
-                <div class="level-two" fxLayout="column" fxFlex *ngIf="levelOne.opened">
+            <div class="flex-column">
+                <div class="level-two flex-column flex" *ngIf="levelOne.opened">
                     <div *ngFor="let levelTwo of levelOne.children; let i = index;">
                         <div class="mouse-pointer" *ngIf="!levelTwo.children" (click)="navigateByUrl(levelTwo.route)">
                             <menu>
@@ -83,74 +68,48 @@
                             </menu>
                         </div>
                     </div>
-
                 </div>
-
             </div>
-
-
         </div>
-
-
     </div>
-
-
 </div>
 
 <!-- Bottom -->
-<div class="bottom-nav" fxLayout="column" fxLayoutGap="50">
-    <div fxLayout="row">
+<div class="bottom-nav flex-column gap-50">
+    <div class="flex-row"></div>
 
-    </div>
-
-
-    <div fxLayout="column" class="container-rectangle-bottom">
-
-        <div fxLayout="row">
+    <div class="container-rectangle-bottom flex-column">
+        <div class="flex-row">
             <mat-label class="label-rectangle-bottom">Dúvidas?</mat-label>
         </div>
 
         <div class="small-space-horizontal-beteween-fields"></div>
 
-        <div class="rectangle-bottom" fxLayout="row">
-            <div fxLayout="column">
+        <div class="rectangle-bottom flex-row">
+            <div class="flex-column">
                 <mat-icon class="icon-inside-rectangle-bottom" fontSet="material-icons-outlined">mode_comment</mat-icon>
             </div>
-            <div fxLayout="column" class="label-inside-rectangle-bottom">
+            <div class="flex-column label-inside-rectangle-bottom">
                 <mat-label class="label-rectangle-bottom">Fale conosco.</mat-label>
             </div>
         </div>
-
     </div>
 
-    <div fxLayout="row">
-
-        <div fxLayout="column" fxFlex="35">
-            <mat-divider class="divider-bottom" fxFlex></mat-divider>
-
+    <div class="flex-row">
+        <div class="flex-column flex-35">
+            <mat-divider class="divider-bottom flex"></mat-divider>
         </div>
-        <div fxLayout="column" class="circle.align-btn-collapse">
-
-            <div fxLayout="row" class="circle-divider-bottom">
+        <div class="circle.align-btn-collapse flex-column">
+            <div class="circle-divider-bottom flex-row">
                 <div class="arrow-align-inside-circle">
                     <ng-content select="[arrow_left]"></ng-content>
                 </div>
             </div>
         </div>
-
-        <div fxLayout="column" fxFlex="50">
-            <mat-divider class="divider-bottom" fxFlex></mat-divider>
+        <div class="flex-column flex-50">
+            <mat-divider class="divider-bottom flex"></mat-divider>
         </div>
-
     </div>
 
-    <div fxLayout="row">
-
-        <div fxLayout="column">
-
-
-        </div>
-
-    </div>
-
+    <div class="flex-row"></div>
 </div>

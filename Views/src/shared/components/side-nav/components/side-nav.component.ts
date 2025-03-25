@@ -1,21 +1,40 @@
 import { Component, OnInit, Injectable, ViewChild, AfterViewInit, AfterViewChecked, AfterContentInit, ViewChildren } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { NavigationExtras, Router, RouterModule } from '@angular/router';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
 
 import { DatabaseSideNavServices } from '../services/database-side-nav.service';
 import { BaseForm } from '../../inheritance/forms/base-form';
 import { IScreen } from '../../inheritance/responsive/iscreen';
-import { MatSidenavContainer } from '@angular/material/sidenav';
+import { MatSidenav, MatSidenavContainer, MatSidenavModule } from '@angular/material/sidenav';
+import { CommonModule, NgClass } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { SideMenuSlimComponent } from './common-components/side-menu-slim/side-menu-slim.component';
+import { SideMenuLargeComponent } from './common-components/side-menu-large/side-menu-large.component';
+import { SideMenuTopLargeComponent } from './common-components/side-menu-large/top-large/top-large.component';
+import { SideMenuTopSlimComponent } from './common-components/side-menu-slim/top-slim/top-slim.component';
+import { MatToolbar, MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'sideNav',
   templateUrl: './side-nav.component.html',
-  styleUrls: ['./side-nav.component.css']
+  styleUrls: ['./side-nav.component.scss'],
+  standalone: true,
+  imports: [
+    MatSidenavModule,
+    RouterModule,
+    CommonModule,
+    MatIconModule,
+    MatToolbarModule,
+    SideMenuSlimComponent,
+    SideMenuLargeComponent,
+    SideMenuTopLargeComponent,
+    SideMenuTopSlimComponent
+  ],
 })
 export class SideNavComponent extends BaseForm implements OnInit {
 
-  @ViewChild(MatSidenavContainer) sidenavContainer: MatSidenavContainer;
+  @ViewChild('sidenav') sidenav!: MatSidenav;
 
   menuLarge: boolean = true;
   menuSlim: boolean = false;
@@ -24,142 +43,70 @@ export class SideNavComponent extends BaseForm implements OnInit {
   menuSlimArrowRightHideShow: boolean = false;
 
   constructor(
-    private _dataTree: DatabaseSideNavServices,
+    // private _dataTree: DatabaseSideNavServices,
     override _breakpointObserver: BreakpointObserver,
   ) { super(_breakpointObserver) }
 
-
-  get dataTree() {
-    return this._dataTree.dataTree
+  event = { target: window } as unknown as Event;
+  screenWidth: number = window.innerWidth;
+  screen(event?: Event) {
+    const target = event.target as Window;
+    this.screenWidth = target.innerWidth;
+    return this.screenWidth
   }
 
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
+  //METHODS
+  responsive(event?: Event) {
 
-        switch (result.size) {
-          case 'xsmall': {
-
-            this.xsmall();
-
-            break;
-          }
-          case 'small': {
-
-            this.small();
-
-            break;
-          }
-          case 'medium': {
-
-            this.medium();
-
-            break;
-          }
-          case 'large': {
-
-            this.large();
-
-            break;
-          }
-          case 'xlarge': {
-
-            this.xlarge();
-
-            break;
-          }
-        }
-      }
-    })
-  }
-
-  xsmall() {
-
-    this.tootlBar = true;
-
-    if (!this.menuSlimManually)
+    if (this.screen(event) <= 800) {
+      this.menuSlim = true;
       this.menuLarge = false;
-
-    this.menuSlimArrowRightHideShow = false;
-  }
-  small() {
-    this.tootlBar = true;
-
-    if (!this.menuSlimManually)
-      this.menuLarge = false;
-
-    this.menuSlimArrowRightHideShow = false;
-  }
-
-  medium() {
-    if (!this.menuSlimManually) {
-      this.menuLarge = true;
-      this.menuSlim = false
     }
     else {
-      this.menuSlim = true
-      this.menuLarge = false;
-    }
-
-    this.tootlBar = false;
-
-    this.menuSlimArrowRightHideShow = true;
-  }
-
-  large() {
-    this.tootlBar = false;
-
-    if (!this.menuSlimManually) {
+      this.menuSlim = false;
       this.menuLarge = true;
-      this.menuSlim = false
-    }
-    else {
-      this.menuSlim = true
-      this.menuLarge = false;
     }
 
-    this.menuSlimArrowRightHideShow = true;
   }
 
-  xlarge() {
-    this.tootlBar = false;
-
-    if (!this.menuSlimManually) {
-      this.menuLarge = true;
-      this.menuSlim = false
-    }
-    else {
-      this.menuSlim = true
-      this.menuLarge = false;
-    }
-
-    this.menuSlimArrowRightHideShow = true;
-  }
-
-
-  toggleMenuLarge() {
+  toggleMenu() {
+    this.menuSlim = !this.menuSlim;
     this.menuLarge = !this.menuLarge;
-    this.menuSlim = !this.menuSlim
-    this.menuSlimManually = false;
-    this.sidenavContainer.updateContentMargins();
+
   }
 
-  toggleMenuSlim() {
-    this.menuSlim = !this.menuSlim
-    this.menuLarge = !this.menuLarge;
-    this.menuSlimManually = !this.menuSlimManually
-    this.sidenavContainer.updateContentMargins();
-  }
+  // toggleMenuLarge() {
+  //   this.menuLarge = !this.menuLarge;
+  //   this.menuSlim = !this.menuSlim
+  //   this.menuSlimManually = false;
+  //   // this.sidenavContainer.updateContentMargins();
+  // }
 
-  toggleMenuSlimToolBar() {
-    this.menuSlim = !this.menuSlim
-    this.sidenavContainer.updateContentMargins();
-  }
+  // toggleMenuSlim() {
+  //   this.menuSlim = !this.menuSlim
+  //   this.menuLarge = !this.menuLarge;
+  //   this.menuSlimManually = !this.menuSlimManually
+  //   this.sidenav.toggle().then(() => {
+  //   // Trigger manual de redimensionamento
+  //   window.dispatchEvent(new Event('resize'));
+  // });
+  //   // this.sidenavContainer.updateContentMargins();
+  // }
+
+  // toggleMenuSlimToolBar() {
+  //   this.menuSlim = !this.menuSlim
+  //   this.sidenav.toggle().then(() => {
+  //   // Trigger manual de redimensionamento
+  //   window.dispatchEvent(new Event('resize'));
+  // });
+  //   // this.sidenavContainer.updateContentMargins();
+  // }
 
 
 
   ngOnInit(): void {
-    this.screen();
+    //this.screen();
+    this.responsive(this.event);
   }
 
 }

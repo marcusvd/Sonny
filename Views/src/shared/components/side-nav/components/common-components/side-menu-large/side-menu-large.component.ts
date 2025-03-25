@@ -1,16 +1,26 @@
-import { NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 import { MaterialModule } from 'src/shared/modules/material.module';
 import { DatabaseSideNavServices } from '../../../services/database-side-nav.service';
 import { Router } from '@angular/router';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { SideMenuTopLargeComponent } from './top-large/top-large.component';
 
 @Component({
   selector: 'side-menu-large',
   templateUrl: './side-menu-large.component.html',
-  styleUrls: ['./side-menu-large.component.css'],
+  styleUrls: ['./side-menu-large.component.scss'],
   standalone: true,
-  imports: [NgFor, NgIf, MaterialModule]
+  imports: [
+    CommonModule,
+    MatDividerModule,
+    MatIconModule,
+    MatFormFieldModule,
+  ]
 })
 export class SideMenuLargeComponent implements OnInit {
 

@@ -14,7 +14,6 @@ export class AutoRowsDirective implements AfterViewInit {
     this.onInput();
   }
 
-
   onInput(): void {
     const textarea = this.el.nativeElement as HTMLTextAreaElement;
     textarea.rows = textarea.value.length / 50;

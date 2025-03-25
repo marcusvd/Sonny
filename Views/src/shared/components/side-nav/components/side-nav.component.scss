@@ -1,3 +1,9 @@
+* {
+    .mat-drawer-inner-container {
+        overflow: hidden;
+    }
+}
+
 mat-toolbar {
     background-color: rgb(85, 85, 85);
     height: 50px;
@@ -5,28 +11,59 @@ mat-toolbar {
 
 main {
     background-color: rgb(224, 224, 224);
+    flex: 1;
+    padding: 20px;
+    min-height: 100%;
+    box-sizing: border-box;
 }
 
 mat-sidenav-container {
     overflow: hidden;
-}
-/* mat-sidenav-content {
-    overflow: hidden;
-} */
-
-.sidenav-content {
-    height: 100%;
+    height: 100vh;
     width: 100%;
 }
 
+mat-sidenav-content {
+    margin-left: 250px; // Margem padrão
+    transition: margin 0.3s ease !important;
+    .mat-sidenav.menu-slim+& {
+        margin-left: 40px !important; // Margem reduzida
+    }
+    @media (max-width: 959px) {
+        margin-left: 40px !important; // Margem small em telas menores
+        .mat-sidenav.menu-large+& {
+            margin-left: 250px !important;
+        }
+    }
+}
+
+.sidenav-content {
+    // height: 100%;
+    // width: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: margin 0.3s ease !important;
+}
+
 mat-sidenav {
+    width: 250px;
+    transition: width 0.3s ease !important;
     box-shadow: 0px 0px 8px rgb(0, 0, 0);
     background-color: rgb(236, 236, 236);
+    &.menu-slim {
+        width: 40px !important;
+    }
+    @media (max-width: 959px) {
+        width: 40px !important;
+        &.menu-large {
+            width: 250px !important;
+        }
+    }
      ::-webkit-scrollbar {
         width: 7px;
     }
     .mat-drawer-inner-container {
-        overflow-x: hidden;
+        overflow: hidden;
     }
     /* Track */
      ::-webkit-scrollbar-track {
@@ -53,45 +90,16 @@ mat-sidenav {
     font-weight: bolder;
 }
 
-.menu-size-width-large {
-    width: 250px;
-    transition: all .3s linear;
-    animation: effectMenuSlimShow 2s 0ms;
-}
-
-.menu-size-width-slim {
-    width: 40px;
-    animation: effectMenuSlimShow 2s 0ms;
-    transition: all .3s linear;
-}
-
-@keyframes effectMenuSlimShow {
-    0% {
-        transition: all .3s linear;
-        bottom: 100%;
-    }
-    100% {
-        transition: all .3s linear;
-    }
-}
-
-.side-nav-table {
-    padding-left: 10px;
-    padding-bottom: 80px;
-}
-
-.top-nav {
-    width: 255px;
-    height: 255px;
-    background-color: #183f17;
-}
-
 .circle-divider-bottom {
     width: 18px;
     height: 18px;
     border: 0.5px solid black;
     border-radius: 100%;
     margin-left: 10px;
+    &--row-container {
+        display: flex;
+        flex-direction: row;
+    }
 }
 
 .circle-align-btn-collapse {
@@ -101,11 +109,4 @@ mat-sidenav {
 .arrow-align-inside-circle {
     margin-left: -4px;
     margin-top: -3px;
-}
-
-.border-around-inside-menu {
-    padding-top: 20px;
-    padding-left: 10px;
-    padding-right: 300px;
-    padding-bottom: 20px;
 }
