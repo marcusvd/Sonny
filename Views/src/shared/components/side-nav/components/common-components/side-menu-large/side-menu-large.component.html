@@ -2,41 +2,37 @@
 
     <!-- <ng-content select="[top-large]"></ng-content> -->
 
-    <div class="container--menu-box" (click)="rootMenuArrowOpenClosedOnAction(menu.name)" *ngFor="let menu of dataTree; let i = index;">
+    <div class="container--menu-box"  [class]="{'isOdd':isOdd, 'isEven':isEven }" *ngFor="let menu of dataTree; let i = index;  let isOdd = odd; let isEven = even" >
 
-        <!-- <div> -->
-        <div class="container--menu-box-icon">
-            <mat-icon>{{menu.icon}}</mat-icon>
+        <div (click)="rootMenuArrowOpenClosedOnAction(menu.name)">
+            <div class="container--menu-box-icon">
+                <mat-icon>{{menu.icon}}</mat-icon>
+            </div>
+            <div class="container--menu-box-name">
+                <div>{{menu.name}}</div>
+            </div>
+
+
+            <div class="container--menu-box-arrow">
+                <mat-icon *ngIf="!menu.opened">keyboard_arrow_right</mat-icon>
+                <mat-icon *ngIf="menu.opened">keyboard_arrow_down</mat-icon>
+            </div>
         </div>
-        <div class="container--menu-box-item">
-            <div>{{menu.name}}</div>
-        </div>
 
+        <div class="container--box-children" *ngIf="menu.opened">
 
-        <div class="container--menu-box-arrow">
-            <mat-icon *ngIf="!menu.opened">keyboard_arrow_right</mat-icon>
-            <mat-icon *ngIf="menu.opened">keyboard_arrow_down</mat-icon>
-        </div>
-
-        <!-- </div> -->
-
-
-        <div *ngIf="menu.opened">
-
-            <div *ngFor="let levelOne of menu.children; let i = index;">
+            <div class="container-children--box-name-opened" *ngFor="let levelOne of menu.children; let i = index;">
 
                 <div (click)="levelOneSubMenuArrowOpenClosedOnAction(menu.name, levelOne.name)">
 
-
-
-                    <div>
+                    <div class="container-children--box-name-item-opened">
 
                         <div *ngIf="levelOne.children">
                             <menu>
                                 <li>{{levelOne.name}}</li>
                             </menu>
                         </div>
-                        <div (click)="navigateByUrl(levelOne.route)" *ngIf="!levelOne.children">
+                        <div *ngIf="!levelOne.children" (click)="navigateByUrl(levelOne.route)">
                             <menu>
                                 <li>{{levelOne.name}}</li>
                             </menu>

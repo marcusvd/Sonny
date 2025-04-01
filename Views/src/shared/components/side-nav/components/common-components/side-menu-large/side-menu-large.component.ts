@@ -55,7 +55,7 @@ export class SideMenuLargeComponent implements OnInit {
       }
     })
 
-    this.arrowMenuCustomer = !this.arrowMenuCustomer
+   // this.arrowMenuCustomer = !this.arrowMenuCustomer
   }
 
   rootMenuArrowOpenClosedOnAction(opened: string) {
@@ -66,7 +66,7 @@ export class SideMenuLargeComponent implements OnInit {
       }
     })
 
-    this.arrowMenuCustomer = !this.arrowMenuCustomer
+   // this.arrowMenuCustomer = !this.arrowMenuCustomer
   }
 
   ngOnInit(): void {
