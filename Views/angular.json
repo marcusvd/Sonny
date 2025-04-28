@@ -70,19 +70,19 @@
 				},
 				"serve": {
 					"builder": "@angular-devkit/build-angular:dev-server",
-					"options": {
-						"browserTarget": "Views:build"
+          "options": {
+            "buildTarget": "Views:build"
 					},
 					"configurations": {
-						"production": {
-							"browserTarget": "Views:build:production"
+            "production": {
+              "buildTarget": "Views:build:production"
 						}
 					}
 				},
 				"extract-i18n": {
 					"builder": "@angular-devkit/build-angular:extract-i18n",
-					"options": {
-						"browserTarget": "Views:build"
+          "options": {
+            "buildTarget": "Views:build"
 					}
 				},
 				"test": {
