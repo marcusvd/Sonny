@@ -13,23 +13,21 @@ import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 @Component({
-  selector: 'subject-contact',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    NgIf,
-    MatSelectModule,
-    MatInputModule,
-    MatCheckboxModule,
-    CurrencyMaskModule,
-    MatDatepickerModule,
-  ],
-  templateUrl: './subject-contact.component.html',
-  styles: [`
+    selector: 'subject-contact',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        NgIf,
+        MatSelectModule,
+        MatInputModule,
+        MatCheckboxModule,
+        CurrencyMaskModule,
+        MatDatepickerModule,
+    ],
+    templateUrl: './subject-contact.component.html',
+    styles: [`
 
-  `],
-
+  `]
 })
 export class SubjectContactComponent extends BaseForm implements OnInit {
 

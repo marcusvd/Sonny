@@ -10,8 +10,8 @@ import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 @Component({
-  selector: 'description-field',
-  template: `
+    selector: 'description-field',
+    template: `
   <div [formGroup]="formMain">
         <div  >
             <mat-form-field appearance="outline">
@@ -25,16 +25,15 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
         </div>
 </div>
   `,
-  styles: [`
+    styles: [`
 
   `],
-  standalone: true,
-  imports: [
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    CommonModule
-  ]
+    imports: [
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        CommonModule
+    ]
 })
 export class DescriptionFieldComponent extends BaseForm implements OnInit {
 

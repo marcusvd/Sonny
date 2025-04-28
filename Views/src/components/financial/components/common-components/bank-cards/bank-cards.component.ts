@@ -47,40 +47,39 @@ export const MY_FORMATS = {
 };
 
 @Component({
-  selector: 'bank-cards',
-  templateUrl: './bank-cards.component.html',
-  providers: [{
-    provide: DateAdapter,
-    useClass: MomentDateAdapter,
-    deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
-  },
-  { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-    BankCardNumberPipe
-  ],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatFormFieldModule,
-    MatDatepickerModule,
-    CurrencyMaskModule,
-    NgxMaskModule,
-    MatIconModule,
-    MatCardModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatDividerModule,
-    MatSelectModule,
-    MatButtonModule,
-    NgFor,
-    NgIf,
-    NgClass,
-    SubTitleComponent,
-    DateJustDayComponent,
-    BtnGComponent,
-    DescriptionFieldComponent,
-    BankCardNumberPipe
-  ],
-  styles: [`
+    selector: 'bank-cards',
+    templateUrl: './bank-cards.component.html',
+    providers: [{
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+        BankCardNumberPipe
+    ],
+    imports: [
+        CommonModule,
+        MatFormFieldModule,
+        MatDatepickerModule,
+        CurrencyMaskModule,
+        NgxMaskModule,
+        MatIconModule,
+        MatCardModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatDividerModule,
+        MatSelectModule,
+        MatButtonModule,
+        NgFor,
+        NgIf,
+        NgClass,
+        SubTitleComponent,
+        DateJustDayComponent,
+        BtnGComponent,
+        DescriptionFieldComponent,
+        BankCardNumberPipe
+    ],
+    styles: [`
   dle-sphorizontal-beteween-fields {
          padding-top: 20px;
       }
@@ -107,8 +106,7 @@ export const MY_FORMATS = {
       }
 
 
-  `],
-
+  `]
 })
 export class BankCardsComponent extends Add implements OnInit, OnChanges {
 

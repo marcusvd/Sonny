@@ -30,34 +30,32 @@ import { MonthlyFixedExpensesService } from './services/monthly-fixed-expenses.s
 
 
 @Component({
-  selector: 'monthly-fixed-expenses',
-  templateUrl: './monthly-fixed-expenses-add.component.html',
-  styleUrls: ['./monthly-fixed-expenses-add.component.css'],
-  providers: [
-    MonthlyFixedExpensesService,
-    CategoryExpensesService
-  ],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatButtonModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatTooltipModule,
-    CurrencyMaskModule,
-    TitleComponent,
-    SubTitleComponent,
-    DateJustDayComponent,
-    CategorySubcategoryExpensesSelectComponent,
-    LinkCopyBillComponent,
-    BtnGComponent
-  ],
-
+    selector: 'monthly-fixed-expenses',
+    templateUrl: './monthly-fixed-expenses-add.component.html',
+    styleUrls: ['./monthly-fixed-expenses-add.component.css'],
+    providers: [
+        MonthlyFixedExpensesService,
+        CategoryExpensesService
+    ],
+    imports: [
+        CommonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCheckboxModule,
+        MatButtonModule,
+        MatCardModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatTooltipModule,
+        CurrencyMaskModule,
+        TitleComponent,
+        SubTitleComponent,
+        DateJustDayComponent,
+        CategorySubcategoryExpensesSelectComponent,
+        LinkCopyBillComponent,
+        BtnGComponent
+    ]
 })
 
 export class MonthlyFixedExpensesAddComponent extends Add implements OnInit {

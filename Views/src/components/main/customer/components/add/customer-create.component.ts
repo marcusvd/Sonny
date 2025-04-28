@@ -32,28 +32,27 @@ import { CustomerCreateService } from "./services/customer-create.service";
 
 
 @Component({
-  selector: 'customer-create',
-  templateUrl: './customer-create.component.html',
-  styleUrls: ['./customer-create.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    RouterModule,
-    MatDividerModule,
-    TitleComponent,
-    SubTitleComponent,
-    NameCpfCnpjComponent,
-    MainEntitiesBaseComponent,
-    DescriptionFieldComponent,
-    FinancialInfoTypeComponent,
-    PhysicallyMovingCostsComponent,
-    ContactComponent,
-    AddressComponent,
-    BtnGComponent
-  ]
+    selector: 'customer-create',
+    templateUrl: './customer-create.component.html',
+    styleUrls: ['./customer-create.component.css'],
+    imports: [
+        CommonModule,
+        MatButtonModule,
+        MatCardModule,
+        ReactiveFormsModule,
+        RouterModule,
+        MatDividerModule,
+        TitleComponent,
+        SubTitleComponent,
+        NameCpfCnpjComponent,
+        MainEntitiesBaseComponent,
+        DescriptionFieldComponent,
+        FinancialInfoTypeComponent,
+        PhysicallyMovingCostsComponent,
+        ContactComponent,
+        AddressComponent,
+        BtnGComponent
+    ]
 })
 
 export class CustomerCreateComponent extends BaseForm implements OnInit {

@@ -10,9 +10,10 @@ import { FieldsLabelInterface } from '../list/interfaces/fields-label-interface'
 import { OrderbyInterface } from '../list/interfaces/orderby-interface';
 
 @Component({
-  selector: 'list-g',
-  template: `
-  `
+    selector: 'list-g',
+    template: `
+  `,
+    standalone: false
 })
 
 export class BaseList {

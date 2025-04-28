@@ -17,24 +17,22 @@ import { SubTitleDescriptionComponent } from 'src/shared/components/sub-title/de
 import { AutoRowsDirective } from 'src/shared/directives/text-area/auto-rows.directive';
 
 @Component({
-  selector: 'detailed-product',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatInputModule,
-    MatIconModule,
-    MatFormFieldModule,
-    TitleComponent,
-    SubTitleDescriptionComponent,
-    MatCardModule,
-    MatButtonModule,
-    MatDialogModule,
-    AutoRowsDirective
-
-  ],
-  providers: [TruncatePipe],
-  templateUrl: './detailed-product.component.html',
-  styleUrls: ['./detailed-product.component.scss']
+    selector: 'detailed-product',
+    imports: [
+        CommonModule,
+        MatInputModule,
+        MatIconModule,
+        MatFormFieldModule,
+        TitleComponent,
+        SubTitleDescriptionComponent,
+        MatCardModule,
+        MatButtonModule,
+        MatDialogModule,
+        AutoRowsDirective
+    ],
+    providers: [TruncatePipe],
+    templateUrl: './detailed-product.component.html',
+    styleUrls: ['./detailed-product.component.scss']
 })
 export class DetailedProductComponent implements OnInit {
 

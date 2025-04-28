@@ -6,8 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
-  selector: 'title-description-auth',
-  template: `
+    selector: 'title-description-auth',
+    template: `
    <div  fxLayoutAlign="start start"class="around" [style]="height">
     <div >
       <div >
@@ -19,7 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
     </div>
    </div>
   `,
-  styles: [`
+    styles: [`
 .around{
   background-color: rgb(43, 161, 168);
   border-top-right-radius: 15px;
@@ -56,8 +56,7 @@ import { MatIconModule } from '@angular/material/icon';
 }
 
 `],
-  standalone: true,
-  imports: [MatIconModule, ]
+    imports: [MatIconModule,]
 })
 export class TitleDescriptionAuthComponent {
 

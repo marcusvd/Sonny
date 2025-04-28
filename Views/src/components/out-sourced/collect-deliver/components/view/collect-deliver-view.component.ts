@@ -18,22 +18,21 @@ import { CollectDeliverDto } from '../../dto/collect-deliver-dto';
 import { CollectDeliverViewService } from './services/collect-deliver-view.service';
 
 @Component({
-  selector: 'collect-deliver-view',
-  standalone: true,
-  templateUrl: './collect-deliver-view.component.html',
-  styleUrls: ['./collect-deliver-view.component.css'],
-  imports: [
-    CommonModule,
-    MatCardModule,
-    CnpjCpfPipe,
-    PtBrCurrencyPipe,
-    TitleComponent,
-    SubTitleItemComponent,
-    BtnGComponent
-  ],
-  providers: [
-    CollectDeliverViewService
-  ]
+    selector: 'collect-deliver-view',
+    templateUrl: './collect-deliver-view.component.html',
+    styleUrls: ['./collect-deliver-view.component.css'],
+    imports: [
+        CommonModule,
+        MatCardModule,
+        CnpjCpfPipe,
+        PtBrCurrencyPipe,
+        TitleComponent,
+        SubTitleItemComponent,
+        BtnGComponent
+    ],
+    providers: [
+        CollectDeliverViewService
+    ]
 })
 export class CollectDeliverViewComponent extends BaseForm implements OnInit {
   constructor(

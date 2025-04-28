@@ -14,15 +14,14 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { PartnerTransporterGetService } from './partner-transporter-get.service';
 
 @Component({
-  selector: 'get-transporter-matselect-single',
-  standalone: true,
-  imports: [
-    MatSelectModule,
-    NgxMatSelectSearchModule,
-    ReactiveFormsModule,
-    CommonModule
-  ],
-  template: `
+    selector: 'get-transporter-matselect-single',
+    imports: [
+        MatSelectModule,
+        NgxMatSelectSearchModule,
+        ReactiveFormsModule,
+        CommonModule
+    ],
+    template: `
  <div [formGroup]="formMain" >
  <mat-form-field  appearance="outline" >
         <mat-label>Transportador</mat-label>
@@ -38,10 +37,10 @@ import { PartnerTransporterGetService } from './partner-transporter-get.service'
     </mat-form-field>
  </div>
   `,
-  styles: [`
+    styles: [`
 
   `],
-  providers: [PartnerTransporterGetService],
+    providers: [PartnerTransporterGetService]
 })
 export class GetTransporterMatSelectSingleComponent extends BaseForm implements OnChanges {
 

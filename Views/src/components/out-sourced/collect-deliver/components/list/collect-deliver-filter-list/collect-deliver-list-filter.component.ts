@@ -16,9 +16,9 @@ import { ValidatorMessagesCustomer } from 'src/components/main/customer/validato
 import { FilterSearch } from './interface/filter-search';
 
 @Component({
-  selector: 'collect-deliver-list-filter',
-  templateUrl: './collect-deliver-list-filter.component.html',
-  styles: [`
+    selector: 'collect-deliver-list-filter',
+    templateUrl: './collect-deliver-list-filter.component.html',
+    styles: [`
             .btn-settings {
               font-size: 15px;
               color: white;
@@ -69,21 +69,20 @@ import { FilterSearch } from './interface/filter-search';
           #btn-apply{
             margin-top: 35px;
           }`],
-  standalone: true,
-  imports: [
-    NgIf,
-    NgFor,
-    MatButtonModule,
-    MatIconModule,
-    MatDividerModule,
-    MatInputModule,
-    MatCardModule,
-    MatCheckboxModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    NgxMaskModule,
-    JsonPipe,
-  ]
+    imports: [
+        NgIf,
+        NgFor,
+        MatButtonModule,
+        MatIconModule,
+        MatDividerModule,
+        MatInputModule,
+        MatCardModule,
+        MatCheckboxModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        NgxMaskModule,
+        JsonPipe,
+    ]
 })
 
 export class CollectDeliverListFilterComponent implements OnInit {

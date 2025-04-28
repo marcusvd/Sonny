@@ -34,36 +34,34 @@ import { PixesExpensesFieldsComponent } from '../../../pixes-expenses/pixes-expe
 
 
 @Component({
-  selector: 'select-expenses',
-  templateUrl: './select-expenses.component.html',
-  styleUrls: ['./select-expenses.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatButtonModule,
-    MatCardModule,
-    MatTabsModule,
-    ReactiveFormsModule,
-    TitleComponent,
-    SubTitleComponent,
-    BtnGComponent,
-    ListYearlyFixedExpensesComponent,
-    VariableExpensesAddComponent,
-    VariableExpensesListComponent,
-    AddFinancingsLoansExpensesComponent,
-    ListCreditCardExpensesComponent,
-    ListCreditCardInvoicesComponent,
-    EditCategorySubcategoryExpensesComponent,
-    ListMonthlyFixedExpensesComponent,
-    ListFinancingsLoansExpensesComponent,
-    AddCreditCardExpensesComponent,
-    PixesExpensesFieldsComponent,
-    PixExpensesAddComponent,
-    PixExpensesListComponent
-  ],
-
+    selector: 'select-expenses',
+    templateUrl: './select-expenses.component.html',
+    styleUrls: ['./select-expenses.component.css'],
+    imports: [
+        CommonModule,
+        MatInputModule,
+        MatCheckboxModule,
+        MatButtonModule,
+        MatCardModule,
+        MatTabsModule,
+        ReactiveFormsModule,
+        TitleComponent,
+        SubTitleComponent,
+        BtnGComponent,
+        ListYearlyFixedExpensesComponent,
+        VariableExpensesAddComponent,
+        VariableExpensesListComponent,
+        AddFinancingsLoansExpensesComponent,
+        ListCreditCardExpensesComponent,
+        ListCreditCardInvoicesComponent,
+        EditCategorySubcategoryExpensesComponent,
+        ListMonthlyFixedExpensesComponent,
+        ListFinancingsLoansExpensesComponent,
+        AddCreditCardExpensesComponent,
+        PixesExpensesFieldsComponent,
+        PixExpensesAddComponent,
+        PixExpensesListComponent
+    ]
 })
 
 export class SelectExpensesComponent extends Add implements OnInit {

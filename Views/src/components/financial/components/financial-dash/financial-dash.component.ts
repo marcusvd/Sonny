@@ -5,14 +5,13 @@ import { RouterModule } from '@angular/router';
 
 
 @Component({
-  selector: 'financial-dash',
-  templateUrl: './financial-dash.component.html',
-  styleUrls: ['./financial-dash.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule
-  ],
+    selector: 'financial-dash',
+    templateUrl: './financial-dash.component.html',
+    styleUrls: ['./financial-dash.component.css'],
+    imports: [
+        CommonModule,
+        RouterModule
+    ]
 })
 export class FinancialDashComponent implements OnInit {
 

@@ -5,7 +5,7 @@ import { CommonModule, NgIf } from '@angular/common';
 import { RecaptchaComponent, RecaptchaFormsModule, RecaptchaModule } from 'ng-recaptcha';
 
 @Component({
-  selector: 'captcha', template: `
+    selector: 'captcha', template: `
    <div >
         <form #form="ngForm" >
             <div >
@@ -23,22 +23,21 @@ import { RecaptchaComponent, RecaptchaFormsModule, RecaptchaModule } from 'ng-re
 
     <!-- <div>{{token}}</div> -->
 `,
-  styles: [
-    `
+    styles: [
+        `
 .error-message {
   color:red;
 }
 
 `,
-  ],
-  standalone: true,
-  imports: [
-    NgIf,
-    CommonModule,
-    RecaptchaModule,
-    RecaptchaFormsModule,
-    FormsModule
-  ]
+    ],
+    imports: [
+        NgIf,
+        CommonModule,
+        RecaptchaModule,
+        RecaptchaFormsModule,
+        FormsModule
+    ]
 })
 
 export class CaptchaComponent {

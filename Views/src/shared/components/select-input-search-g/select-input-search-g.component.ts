@@ -9,17 +9,16 @@ import { ImportsFiledsSelect } from './imports/imports-fileds-select-input-searc
 
 
 @Component({
-  selector: 'select-input-search-g',
-  standalone: true,
-  imports: [
-    ImportsFiledsSelect
-  ],
-  templateUrl: './select-input-search-g.component.html',
-  styles: [`
+    selector: 'select-input-search-g',
+    imports: [
+        ImportsFiledsSelect
+    ],
+    templateUrl: './select-input-search-g.component.html',
+    styles: [`
   mat-form-field {
       width: 100%;
   }
-  `],
+  `]
 })
 
 export class SelectInputSearchGComponent extends BaseForm implements OnInit {

@@ -22,16 +22,15 @@ export const MY_FORMATS = {
 };
 
 @Component({
-  selector: 'date-just-day',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatFormFieldModule,
-    MatDatepickerModule,
-    MatInputModule,
-    ReactiveFormsModule,
-  ],
-  template: `
+    selector: 'date-just-day',
+    imports: [
+        CommonModule,
+        MatFormFieldModule,
+        MatDatepickerModule,
+        MatInputModule,
+        ReactiveFormsModule,
+    ],
+    template: `
   <div *ngIf="formMain" [fxLayout]="layoutColumnRow">
     <mat-form-field appearance="outline" [formGroup]="formMain"  []="Width">
       <mat-label>{{labelTitle}}</mat-label>
@@ -44,15 +43,14 @@ export const MY_FORMATS = {
     </mat-form-field>
   </div>
         `,
-  providers: [{
-    provide: DateAdapter,
-    useClass: MomentDateAdapter,
-    deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
-  },
-  { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-
-  ],
-  styles: [`
+    providers: [{
+            provide: DateAdapter,
+            useClass: MomentDateAdapter,
+            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+        },
+        { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    ],
+    styles: [`
 
   `]
 })

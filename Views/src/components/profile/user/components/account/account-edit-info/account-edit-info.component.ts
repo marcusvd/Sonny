@@ -10,9 +10,10 @@ import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custo
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 @Component({
-  selector: 'account-edit-info',
-  templateUrl: './account-edit-info.component.html',
-  styleUrls: ['./account-edit-info.component.css']
+    selector: 'account-edit-info',
+    templateUrl: './account-edit-info.component.html',
+    styleUrls: ['./account-edit-info.component.css'],
+    standalone: false
 })
 export class AccountEditInfoComponent extends BaseForm implements OnInit {
 

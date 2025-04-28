@@ -39,37 +39,35 @@ import { ListCreditCardInvoicesService } from './services/list-credit-card-invoi
 import { TriggerCreditCardsInvoices } from './trigger-credit-cards-invoices';
 
 @Component({
-  selector: 'list-credit-card-invoices',
-  templateUrl: './list-credit-card-invoices.component.html',
-  styleUrls: ['./list-credit-card-invoices.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatCardModule,
-    MatPaginatorModule,
-    MatButtonModule,
-    MatMenuModule,
-    RouterModule,
-    MatCheckboxModule,
-    MatRadioModule,
-    BankCardNumberPipe,
-    GridListCommonComponent,
-    GridListCommonTableComponent,
-    GridListCommonSearchComponent,
-    TitleComponent,
-    BtnGComponent,
-    SubTitleComponent,
-    MonthsSelectComponent,
-    CreditCardInvoicesMatSelectSingleComponent,
-    ViewBankAccountComponent,
-  ],
-  providers: [
-    ListCreditCardInvoicesService,
-    PtBrDatePipe,
-    PtBrCurrencyPipe,
-  ]
-
+    selector: 'list-credit-card-invoices',
+    templateUrl: './list-credit-card-invoices.component.html',
+    styleUrls: ['./list-credit-card-invoices.component.css'],
+    imports: [
+        CommonModule,
+        FormsModule,
+        MatCardModule,
+        MatPaginatorModule,
+        MatButtonModule,
+        MatMenuModule,
+        RouterModule,
+        MatCheckboxModule,
+        MatRadioModule,
+        BankCardNumberPipe,
+        GridListCommonComponent,
+        GridListCommonTableComponent,
+        GridListCommonSearchComponent,
+        TitleComponent,
+        BtnGComponent,
+        SubTitleComponent,
+        MonthsSelectComponent,
+        CreditCardInvoicesMatSelectSingleComponent,
+        ViewBankAccountComponent,
+    ],
+    providers: [
+        ListCreditCardInvoicesService,
+        PtBrDatePipe,
+        PtBrCurrencyPipe,
+    ]
 })
 export class ListCreditCardInvoicesComponent extends FrontEndListFilterCreditCardInvoices implements OnInit, AfterViewInit {
   constructor(

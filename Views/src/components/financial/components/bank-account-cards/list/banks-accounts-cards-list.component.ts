@@ -29,28 +29,26 @@ import { AccountTypePipe } from './pipes/account-type.pipe';
 import { BankAccountCardsListService } from './services/bank-account-cards-list.service';
 
 @Component({
-  selector: 'banks-accounts-cards-list',
-  templateUrl: './banks-accounts-cards-list.component.html',
-  styleUrls: ['./banks-accounts-cards-list.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatPaginatorModule,
-    RouterModule,
-    GridListCommonComponent,
-    GridListCommonTableComponent,
-    GridListCommonSearchComponent,
-    TitleComponent,
-    SubTitleComponent,
-    BtnGComponent,
-  ],
-  providers: [
-    PtBrCurrencyPipe,
-    AccountTypePipe,
-    BankAccountCardsListService
-  ]
-
+    selector: 'banks-accounts-cards-list',
+    templateUrl: './banks-accounts-cards-list.component.html',
+    styleUrls: ['./banks-accounts-cards-list.component.css'],
+    imports: [
+        CommonModule,
+        MatCardModule,
+        MatPaginatorModule,
+        RouterModule,
+        GridListCommonComponent,
+        GridListCommonTableComponent,
+        GridListCommonSearchComponent,
+        TitleComponent,
+        SubTitleComponent,
+        BtnGComponent,
+    ],
+    providers: [
+        PtBrCurrencyPipe,
+        AccountTypePipe,
+        BankAccountCardsListService
+    ]
 })
 export class BanksAccountsCardsListComponent extends FrontEndFilterBanksAccountsCardsList implements OnInit {
   constructor(

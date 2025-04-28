@@ -4,8 +4,8 @@ import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
-  selector: 'sub-title-item',
-  template: `
+    selector: 'sub-title-item',
+    template: `
    <div  class="around" [style]="stylePerItem">
     <div >
       <div >
@@ -17,7 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
     </div>
    </div>
   `,
-  styles: [`
+    styles: [`
 .around{
   background-color: rgb(43, 161, 168);
   border-top-left-radius: 15px;
@@ -40,8 +40,7 @@ import { MatIconModule } from '@angular/material/icon';
     margin-left:10px;
 }
 `],
-  standalone: true,
-  imports: [MatIconModule, ]
+    imports: [MatIconModule,]
 })
 export class SubTitleItemComponent {
 

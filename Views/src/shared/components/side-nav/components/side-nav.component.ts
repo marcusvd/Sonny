@@ -16,21 +16,20 @@ import { SideMenuTopSlimComponent } from './common-components/side-menu-slim/top
 import { MatToolbar, MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
-  selector: 'sideNav',
-  templateUrl: './side-nav.component.html',
-  styleUrls: ['./side-nav.component.scss'],
-  standalone: true,
-  imports: [
-    MatSidenavModule,
-    RouterModule,
-    CommonModule,
-    MatIconModule,
-    MatToolbarModule,
-    SideMenuSlimComponent,
-    SideMenuLargeComponent,
-    SideMenuTopLargeComponent,
-    SideMenuTopSlimComponent
-  ],
+    selector: 'sideNav',
+    templateUrl: './side-nav.component.html',
+    styleUrls: ['./side-nav.component.scss'],
+    imports: [
+        MatSidenavModule,
+        RouterModule,
+        CommonModule,
+        MatIconModule,
+        MatToolbarModule,
+        SideMenuSlimComponent,
+        SideMenuLargeComponent,
+        SideMenuTopLargeComponent,
+        SideMenuTopSlimComponent
+    ]
 })
 export class SideNavComponent extends BaseForm implements OnInit {
 

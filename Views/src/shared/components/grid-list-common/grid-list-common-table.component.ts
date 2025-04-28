@@ -15,20 +15,19 @@ import { SpinnerGComponent } from '../spinner-g/component/spinner-g.component';
 import { IEntityGridAction } from './interface/entity-grid-action';
 
 @Component({
-  selector: 'grid-list-common-table',
-  templateUrl: './grid-list-common-table.component.html',
-  styleUrls: ['./grid-list-common.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    NgFor,
-    NgIf,
-    MatIconModule,
-    MatButtonModule,
-    MatMenuModule,
-    SpinnerGComponent,
-    PhoneNumberPipe
-  ],
+    selector: 'grid-list-common-table',
+    templateUrl: './grid-list-common-table.component.html',
+    styleUrls: ['./grid-list-common.component.css'],
+    imports: [
+        CommonModule,
+        NgFor,
+        NgIf,
+        MatIconModule,
+        MatButtonModule,
+        MatMenuModule,
+        SpinnerGComponent,
+        PhoneNumberPipe
+    ]
 })
 export class GridListCommonTableComponent implements OnInit, OnChanges {
   spinner = true;

@@ -21,24 +21,23 @@ import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 
 
 @Component({
-  selector: 'payment-bank-account',
-  templateUrl: './payment-bank-account.component.html',
-  standalone: true,
-  imports: [
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatDividerModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    NgFor,
-    NgIf,
-    BtnGComponent
-  ],
-  providers: [PtBrDatePipe],
-  styles: [`
+    selector: 'payment-bank-account',
+    templateUrl: './payment-bank-account.component.html',
+    imports: [
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatDividerModule,
+        MatCardModule,
+        ReactiveFormsModule,
+        NgFor,
+        NgIf,
+        BtnGComponent
+    ],
+    providers: [PtBrDatePipe],
+    styles: [`
 
-  `],
+  `]
 })
 export class PaymentBankAccountComponent extends BaseForm implements OnInit {
 

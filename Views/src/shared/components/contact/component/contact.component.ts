@@ -14,20 +14,19 @@ import { NgxMaskModule } from 'ngx-mask';
 import { BtnGComponent } from '../../btn-g/btn-g.component';
 import { ContactService } from '../services/contact.service';
 @Component({
-  selector: 'contact',
-  templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatButtonModule,
-    MatInputModule,
-    NgxMaskModule,
-    BtnGComponent
-  ]
+    selector: 'contact',
+    templateUrl: './contact.component.html',
+    styleUrls: ['./contact.component.css'],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatButtonModule,
+        MatInputModule,
+        NgxMaskModule,
+        BtnGComponent
+    ]
 })
 export class ContactComponent implements OnInit {
 

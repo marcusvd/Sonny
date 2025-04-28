@@ -5,14 +5,13 @@ import { RouterModule } from '@angular/router';
 
 
 @Component({
-  selector: 'stock-product-router',
-  templateUrl: './stock-product-router.component.html',
-  styleUrls: ['./stock-product-router.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-  ]
+    selector: 'stock-product-router',
+    templateUrl: './stock-product-router.component.html',
+    styleUrls: ['./stock-product-router.component.css'],
+    imports: [
+        CommonModule,
+        RouterModule,
+    ]
 })
 export class StockProductRouterComponent  {
 

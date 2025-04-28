@@ -25,23 +25,22 @@ import { BankAccountGetService } from './bank-account-get.service';
 import { RadioOptions } from './dto/radio-options';
 
 @Component({
-  selector: 'get-bank-account-select-single',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatSelectModule,
-    MatFormFieldModule,
-    MatInputModule,
-    NgxMatSelectSearchModule,
-    ReactiveFormsModule,
-    MatRadioModule,
-    BankCard4LastDigitsPipe,
-    BankCardNumberPipe,
-    SpinnerGComponent
-  ],
-  templateUrl: './bank-account-mat-select-single.component.html',
-  styles: [`
+    selector: 'get-bank-account-select-single',
+    imports: [
+        CommonModule,
+        FormsModule,
+        MatSelectModule,
+        MatFormFieldModule,
+        MatInputModule,
+        NgxMatSelectSearchModule,
+        ReactiveFormsModule,
+        MatRadioModule,
+        BankCard4LastDigitsPipe,
+        BankCardNumberPipe,
+        SpinnerGComponent
+    ],
+    templateUrl: './bank-account-mat-select-single.component.html',
+    styles: [`
             .warning{
                   color:red;
                   margin-top:-10px;
@@ -55,7 +54,7 @@ import { RadioOptions } from './dto/radio-options';
               font-weight: bolder;
               }
   `],
-  providers: [BankAccountGetService],
+    providers: [BankAccountGetService]
 })
 export class BankAccountMatSelectSingleComponent extends BaseForm implements OnInit, OnChanges {
 

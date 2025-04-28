@@ -14,15 +14,14 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { GetSupliersService } from './get-supliers.service';
 
 @Component({
-  selector: 'get-suppliers',
-  standalone: true,
-  imports: [
-    MatSelectModule,
-    NgxMatSelectSearchModule,
-    ReactiveFormsModule,
-    CommonModule
-  ],
-  template: `
+    selector: 'get-suppliers',
+    imports: [
+        MatSelectModule,
+        NgxMatSelectSearchModule,
+        ReactiveFormsModule,
+        CommonModule
+    ],
+    template: `
 
  <mat-form-field  appearance="outline" [formGroup]="formMain" >
         <mat-label>Fornecedor</mat-label>
@@ -38,7 +37,7 @@ import { GetSupliersService } from './get-supliers.service';
     </mat-form-field>
 
   `,
-  styles: [`
+    styles: [`
     mat-form-field{
       width: 100%;
     }
@@ -46,7 +45,7 @@ import { GetSupliersService } from './get-supliers.service';
       width: 100%;
     }
   `],
-  providers: [GetSupliersService],
+    providers: [GetSupliersService]
 })
 export class GetSuppliersComponent extends BaseForm implements OnChanges {
 

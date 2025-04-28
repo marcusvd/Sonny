@@ -40,36 +40,34 @@ import { AddCreditCardExpensesService } from './services/add-credit-card-expense
 
 
 @Component({
-  selector: 'add-credit-card-expenses',
-  templateUrl: './add-credit-card-expenses.component.html',
-  styleUrls: ['./add-credit-card-expenses.component.css'],
-  providers: [
-    AddCreditCardExpensesService,
-    CategoryExpensesService
-  ],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatButtonModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatTooltipModule,
-    CurrencyMaskModule,
-    PtBrDatePipe,
-    PtBrCurrencyPipe,
-    TitleComponent,
-    SubTitleComponent,
-    DateJustDayComponent,
-    CategorySubcategoryExpensesSelectComponent,
-    BankAccountMatSelectSingleComponent,
-    BtnGComponent
-  ],
-
+    selector: 'add-credit-card-expenses',
+    templateUrl: './add-credit-card-expenses.component.html',
+    styleUrls: ['./add-credit-card-expenses.component.css'],
+    providers: [
+        AddCreditCardExpensesService,
+        CategoryExpensesService
+    ],
+    imports: [
+        CommonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCheckboxModule,
+        MatButtonModule,
+        MatCardModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatTooltipModule,
+        CurrencyMaskModule,
+        PtBrDatePipe,
+        PtBrCurrencyPipe,
+        TitleComponent,
+        SubTitleComponent,
+        DateJustDayComponent,
+        CategorySubcategoryExpensesSelectComponent,
+        BankAccountMatSelectSingleComponent,
+        BtnGComponent
+    ]
 })
 
 export class AddCreditCardExpensesComponent extends Add implements OnInit {

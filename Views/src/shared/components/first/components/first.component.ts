@@ -13,16 +13,15 @@ import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { SubTitleComponent } from '../../sub-title/default/sub-title.component';
 
 @Component({
-  selector: 'first',
-  standalone:true,
-  // encapsulation: ViewEncapsulation.None,
-  imports:[
-    MatCardModule,
-    MatIconModule,
-    SubTitleComponent
-  ],
-  templateUrl: './first.component.html',
-  styleUrls: ['./first.component.css']
+    selector: 'first',
+    // encapsulation: ViewEncapsulation.None,
+    imports: [
+        MatCardModule,
+        MatIconModule,
+        SubTitleComponent
+    ],
+    templateUrl: './first.component.html',
+    styleUrls: ['./first.component.css']
 })
 export class FirstComponent extends BaseForm implements OnInit {
 

@@ -18,22 +18,21 @@ import { FinancingAndLoanExpenseInstallmentDto } from '../../dto/financing-and-l
 import { PaymentFinancingsLoansInstallmentService } from './services/payment-financings-loans-installment.service';
 
 @Component({
-  selector: 'payment-financings-loans-expenses-installment',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    BankAccountMatSelectSingleComponent,
-    ScreenDataInfoComponent,
-    PriceInteresFieldsComponent,
-    SubTitleComponent,
-    TitleComponent,
-    BtnGComponent,
-    PixesExpensesFieldsComponent,
-  ],
-  templateUrl: './payment-financings-loans-expenses-installment.component.html',
-  styleUrls: ['./payment-financings-loans-expenses-installment.component.css'],
-  providers: [PaymentFinancingsLoansInstallmentService]
+    selector: 'payment-financings-loans-expenses-installment',
+    imports: [
+        CommonModule,
+        MatCardModule,
+        BankAccountMatSelectSingleComponent,
+        ScreenDataInfoComponent,
+        PriceInteresFieldsComponent,
+        SubTitleComponent,
+        TitleComponent,
+        BtnGComponent,
+        PixesExpensesFieldsComponent,
+    ],
+    templateUrl: './payment-financings-loans-expenses-installment.component.html',
+    styleUrls: ['./payment-financings-loans-expenses-installment.component.css'],
+    providers: [PaymentFinancingsLoansInstallmentService]
 })
 
 

@@ -17,15 +17,14 @@ import { BaseForm } from '../../inheritance/forms/base-form';
 
 
 @Component({
-  selector: 'get-customer-matselect-single',
-  standalone: true,
-  imports: [
-    MatSelectModule,
-    NgxMatSelectSearchModule,
-    ReactiveFormsModule,
-    CommonModule
-  ],
-  template: `
+    selector: 'get-customer-matselect-single',
+    imports: [
+        MatSelectModule,
+        NgxMatSelectSearchModule,
+        ReactiveFormsModule,
+        CommonModule
+    ],
+    template: `
  <div [formGroup]="formMain" >
  <mat-form-field  appearance="outline">
   <mat-label>Cliente</mat-label>
@@ -43,10 +42,10 @@ import { BaseForm } from '../../inheritance/forms/base-form';
 </mat-form-field>
  </div>
   `,
-  styles: [`
+    styles: [`
 
   `],
-  providers: [CustomersGetService],
+    providers: [CustomersGetService]
 })
 export class GetCustomerMatSelectSingleComponent extends BaseForm implements OnChanges {
 

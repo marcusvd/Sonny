@@ -10,20 +10,19 @@ import { AuthenticationService } from 'src/components/authentication/services/au
 import { MaterialModule } from 'src/shared/modules/material.module';
 
 @Component({
-  selector: 'top-large',
-  templateUrl: './top-large.component.html',
-  styleUrls: ['./top-large.component.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatIconModule,
-    MatMenuModule,
-    MatDividerModule,
-    MatFormFieldModule,
-    RouterLink,
-    UpperCasePipe,
-    TitleCasePipe
-  ]
+    selector: 'top-large',
+    templateUrl: './top-large.component.html',
+    styleUrls: ['./top-large.component.scss'],
+    imports: [
+        CommonModule,
+        MatIconModule,
+        MatMenuModule,
+        MatDividerModule,
+        MatFormFieldModule,
+        RouterLink,
+        UpperCasePipe,
+        TitleCasePipe
+    ]
 })
 export class SideMenuTopLargeComponent implements OnInit {
 

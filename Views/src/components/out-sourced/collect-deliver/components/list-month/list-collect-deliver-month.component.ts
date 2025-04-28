@@ -37,36 +37,34 @@ import { TriggerCollectDeliverMonth } from './trigger-collect-deliver-month';
 
 
 @Component({
-  selector: 'list-collect-deliver-month',
-  templateUrl: './list-collect-deliver-month.component.html',
-  styleUrls: ['./list-collect-deliver-month.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatCardModule,
-    MatPaginatorModule,
-    MatButtonModule,
-    MatMenuModule,
-    RouterModule,
-    MatCheckboxModule,
-    MatRadioModule,
-    BankCardNumberPipe,
-    GridListCommonComponent,
-    GridListCommonTableComponent,
-    GridListCommonSearchComponent,
-    TitleComponent,
-    BtnGComponent,
-    SubTitleComponent,
-    MonthsSelectComponent,
-    PtBrCurrencyPipe
-  ],
-  providers: [
-    ListCollectDeliverMonthService,
-    PtBrDatePipe,
-    PtBrCurrencyPipe,
-  ]
-
+    selector: 'list-collect-deliver-month',
+    templateUrl: './list-collect-deliver-month.component.html',
+    styleUrls: ['./list-collect-deliver-month.component.css'],
+    imports: [
+        CommonModule,
+        FormsModule,
+        MatCardModule,
+        MatPaginatorModule,
+        MatButtonModule,
+        MatMenuModule,
+        RouterModule,
+        MatCheckboxModule,
+        MatRadioModule,
+        BankCardNumberPipe,
+        GridListCommonComponent,
+        GridListCommonTableComponent,
+        GridListCommonSearchComponent,
+        TitleComponent,
+        BtnGComponent,
+        SubTitleComponent,
+        MonthsSelectComponent,
+        PtBrCurrencyPipe
+    ],
+    providers: [
+        ListCollectDeliverMonthService,
+        PtBrDatePipe,
+        PtBrCurrencyPipe,
+    ]
 })
 export class ListCollectDeliverMonthComponent extends FrontEndListFilterMonthCollectDeliver implements OnInit, AfterViewInit {
   constructor(

@@ -35,28 +35,27 @@ import { CustomerDto } from "../commons-components/dtos/customer-dto";
 
 
 @Component({
-  selector: 'customer-edit',
-  templateUrl: './customer-edit.component.html',
-  styleUrls: ['./customer-edit.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    RouterModule,
-    MatDividerModule,
-    TitleComponent,
-    SubTitleComponent,
-    NameCpfCnpjComponent,
-    MainEntitiesBaseComponent,
-    DescriptionFieldComponent,
-    FinancialInfoTypeComponent,
-    PhysicallyMovingCostsComponent,
-    ContactComponent,
-    AddressComponent,
-    BtnGComponent,
-  ]
+    selector: 'customer-edit',
+    templateUrl: './customer-edit.component.html',
+    styleUrls: ['./customer-edit.component.css'],
+    imports: [
+        CommonModule,
+        MatButtonModule,
+        MatCardModule,
+        ReactiveFormsModule,
+        RouterModule,
+        MatDividerModule,
+        TitleComponent,
+        SubTitleComponent,
+        NameCpfCnpjComponent,
+        MainEntitiesBaseComponent,
+        DescriptionFieldComponent,
+        FinancialInfoTypeComponent,
+        PhysicallyMovingCostsComponent,
+        ContactComponent,
+        AddressComponent,
+        BtnGComponent,
+    ]
 })
 
 export class CustomerEditComponent extends BaseForm implements OnInit {

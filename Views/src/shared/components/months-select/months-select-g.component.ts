@@ -7,13 +7,12 @@ import { MatLegacySelectModule as MatSelectModule } from '@angular/material/lega
 import { MonthsDto } from './months-dto';
 
 @Component({
-  selector: 'months-select',
-  templateUrl: './months-select-g.component.html',
-  styles: [`
+    selector: 'months-select',
+    templateUrl: './months-select-g.component.html',
+    styles: [`
 
         `],
-  standalone: true,
-  imports: [MatSelectModule, NgFor, MatFormFieldModule, FormsModule]
+    imports: [MatSelectModule, NgFor, MatFormFieldModule, FormsModule]
 })
 
 export class MonthsSelectComponent implements OnInit {

@@ -38,35 +38,33 @@ import { TriggerPaymentMonthly } from './trigger-payment-monthly';
 
 
 @Component({
-  selector: 'list-monthly-fixed-expenses',
-  templateUrl: './list-monthly-fixed-expenses.component.html',
-  styleUrls: ['./list-monthly-fixed-expenses.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatCardModule,
-    MatPaginatorModule,
-    MatButtonModule,
-    MatMenuModule,
-    RouterModule,
-    MatCheckboxModule,
-    MatRadioModule,
-    GridListCommonComponent,
-    GridListCommonTableComponent,
-    GridListCommonSearchComponent,
-    TitleComponent,
-    BtnGComponent,
-    SubTitleComponent,
-    MonthsSelectComponent,
-    FilterBtnRadioComponent
-  ],
-  providers: [
-    ListMonthlyFixedExpensesService,
-    PtBrDatePipe,
-    PtBrCurrencyPipe,
-  ]
-
+    selector: 'list-monthly-fixed-expenses',
+    templateUrl: './list-monthly-fixed-expenses.component.html',
+    styleUrls: ['./list-monthly-fixed-expenses.component.css'],
+    imports: [
+        CommonModule,
+        FormsModule,
+        MatCardModule,
+        MatPaginatorModule,
+        MatButtonModule,
+        MatMenuModule,
+        RouterModule,
+        MatCheckboxModule,
+        MatRadioModule,
+        GridListCommonComponent,
+        GridListCommonTableComponent,
+        GridListCommonSearchComponent,
+        TitleComponent,
+        BtnGComponent,
+        SubTitleComponent,
+        MonthsSelectComponent,
+        FilterBtnRadioComponent
+    ],
+    providers: [
+        ListMonthlyFixedExpensesService,
+        PtBrDatePipe,
+        PtBrCurrencyPipe,
+    ]
 })
 export class ListMonthlyFixedExpensesComponent extends FrontEndListFilterMonthlyExpenses implements OnInit, AfterViewInit {
   constructor(

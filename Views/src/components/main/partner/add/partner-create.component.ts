@@ -33,32 +33,31 @@ import { PhysicallyMovingCostsService } from '../../inheritances/physically-movi
 import { PaymentDataComponent } from '../commons-components/payment/payment-data.component';
 import { PartnerCreateService } from './services/partner-create.service';
 @Component({
-  selector: 'partner-create',
-  templateUrl: './partner-create.component.html',
-  styleUrls: ['./partner-create.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatDividerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatTooltipModule,
-    NameCpfCnpjComponent,
-    TitleComponent,
-    SubTitleComponent,
-    MainEntitiesBaseComponent,
-    DescriptionFieldComponent,
-    FinancialInfoTypeComponent,
-    PhysicallyMovingCostsComponent,
-    ContactComponent,
-    AddressComponent,
-    PaymentDataComponent,
-    NameCpfCnpjComponent,
-    BtnGComponent
-  ]
+    selector: 'partner-create',
+    templateUrl: './partner-create.component.html',
+    styleUrls: ['./partner-create.component.css'],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatDividerModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCardModule,
+        MatCheckboxModule,
+        MatTooltipModule,
+        NameCpfCnpjComponent,
+        TitleComponent,
+        SubTitleComponent,
+        MainEntitiesBaseComponent,
+        DescriptionFieldComponent,
+        FinancialInfoTypeComponent,
+        PhysicallyMovingCostsComponent,
+        ContactComponent,
+        AddressComponent,
+        PaymentDataComponent,
+        NameCpfCnpjComponent,
+        BtnGComponent
+    ]
 })
 export class PartnerCreateComponent extends BaseForm implements OnInit {
 

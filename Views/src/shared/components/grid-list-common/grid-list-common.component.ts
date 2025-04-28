@@ -7,11 +7,10 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 
 @Component({
-  selector: 'grid-list-common',
-  templateUrl: './grid-list-common.component.html',
-  styleUrls: ['./grid-list-common.component.css'],
-  standalone: true,
-  imports: []
+    selector: 'grid-list-common',
+    templateUrl: './grid-list-common.component.html',
+    styleUrls: ['./grid-list-common.component.css'],
+    imports: []
 })
 
 export class GridListCommonComponent extends BaseForm implements OnInit {

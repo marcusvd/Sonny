@@ -10,20 +10,19 @@ import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { IConfirmDialogCollectDeliver } from './interface/i-confirm-dialog-collect-deliver';
 
 @Component({
-  selector: 'confirm-dialog-collect-deliver',
-  templateUrl: 'confirm-dialog-collect-deliver.component.html',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatCardModule,
-    PtBrCurrencyPipe,
-    SubTitleComponent,
-    BtnGComponent
-  ],
-  styles: [
-    `
+    selector: 'confirm-dialog-collect-deliver',
+    templateUrl: 'confirm-dialog-collect-deliver.component.html',
+    imports: [
+        CommonModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatCardModule,
+        PtBrCurrencyPipe,
+        SubTitleComponent,
+        BtnGComponent
+    ],
+    styles: [
+        `
     /*need to put it inside the component caller dialog*/
 .confirm-dialog-collect-deliver {
       mat-dialog-container {
@@ -69,7 +68,7 @@ import { IConfirmDialogCollectDeliver } from './interface/i-confirm-dialog-colle
       }
 
     `
-  ]
+    ]
 })
 
 

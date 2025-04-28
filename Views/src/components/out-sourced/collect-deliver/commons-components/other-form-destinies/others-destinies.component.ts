@@ -9,14 +9,13 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 
 
 @Component({
-  selector: 'others-destinies',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatInputModule
-  ],
-  template: `
+    selector: 'others-destinies',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatInputModule
+    ],
+    template: `
 <div  >
       <div >
         <mat-form-field appearance="outline" []="">
@@ -42,7 +41,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 </div>
 <br>
   `,
-  styles: [`
+    styles: [`
 
 ::ng-deep .mat-focused .mat-form-field-label {
     /*change color of label*/

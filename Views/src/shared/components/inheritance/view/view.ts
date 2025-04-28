@@ -7,9 +7,10 @@ import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { IView } from './iview';
 
 @Component({
-  selector: 'list',
-  template: `
-  `
+    selector: 'list',
+    template: `
+  `,
+    standalone: false
 })
 
 

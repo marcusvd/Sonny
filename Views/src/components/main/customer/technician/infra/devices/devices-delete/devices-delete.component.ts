@@ -4,9 +4,10 @@ import { environment } from 'src/environments/environment';
 //import { ClientCrudService } from '../../../../services/client-create-crud.service';
 
 @Component({
-  selector: 'devices-delete',
-  templateUrl: './devices-delete.component.html',
-  styleUrls: ['./devices-delete.component.css']
+    selector: 'devices-delete',
+    templateUrl: './devices-delete.component.html',
+    styleUrls: ['./devices-delete.component.css'],
+    standalone: false
 })
 export class DevicesDeleteComponent implements OnInit {
   // private readonly _API_URL: string = `${environment._DEVNETWORK}`

@@ -16,9 +16,9 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { ValidatorMessagesCustomer } from 'src/components/main/customer/validators/customer/validators-messages-customer';
 
 @Component({
-  selector: 'btn-filter-g',
-  templateUrl: './btn-filter-g.component.html',
-  styles: [`
+    selector: 'btn-filter-g',
+    templateUrl: './btn-filter-g.component.html',
+    styles: [`
 
             .btn-settings {
               font-size: 15px;
@@ -63,12 +63,11 @@ import { ValidatorMessagesCustomer } from 'src/components/main/customer/validato
 
 
   `],
-  standalone: true,
-  imports: [
-    NgIf,
-    MatButtonModule,
-    MatIconModule,
-  ]
+    imports: [
+        NgIf,
+        MatButtonModule,
+        MatIconModule,
+    ]
 })
 
 export class BtnFilterGComponent implements OnInit {

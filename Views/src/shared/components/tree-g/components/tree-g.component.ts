@@ -19,9 +19,9 @@ interface TreeNode {
  * @title Tree with flat nodes
  */
 @Component({
-  selector: 'tree-g',
-  templateUrl: 'tree-g.component.html',
-  styles: [`
+    selector: 'tree-g',
+    templateUrl: 'tree-g.component.html',
+    styles: [`
   .mouse{
     cursor: pointer;
   }
@@ -41,6 +41,7 @@ interface TreeNode {
     font-size:20px;
 }
   `],
+    standalone: false
 })
 export class TreeGComponent implements OnChanges {
 

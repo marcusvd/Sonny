@@ -8,11 +8,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MaterialModule } from 'src/shared/modules/material.module';
 
 @Component({
-  selector: 'title-component',
-  templateUrl: './title.component.html',
-  styleUrls: ['./title.component.css'],
-  standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule, ]
+    selector: 'title-component',
+    templateUrl: './title.component.html',
+    styleUrls: ['./title.component.css'],
+    imports: [CommonModule, MatIconModule, MatButtonModule,]
 })
 export class TitleComponent {
 

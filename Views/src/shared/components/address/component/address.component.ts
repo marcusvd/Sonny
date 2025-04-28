@@ -13,21 +13,20 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { AddressService } from '../services/address.service';
 
 @Component({
-  selector: 'address',
-  templateUrl: './address.component.html',
-  styleUrls: ['./address.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    MatInputModule,
-    NgxMaskModule
-  ],
-  providers: [
-    AddressService,
-  ]
+    selector: 'address',
+    templateUrl: './address.component.html',
+    styleUrls: ['./address.component.css'],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        MatInputModule,
+        NgxMaskModule
+    ],
+    providers: [
+        AddressService,
+    ]
 })
 export class AddressComponent implements OnInit {
 

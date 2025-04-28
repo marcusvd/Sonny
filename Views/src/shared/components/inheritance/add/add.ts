@@ -7,10 +7,11 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { IAdd } from './iadd';
 
 @Component({
-  selector: 'list',
-  template: `
+    selector: 'list',
+    template: `
 
-  `
+  `,
+    standalone: false
 })
 
 

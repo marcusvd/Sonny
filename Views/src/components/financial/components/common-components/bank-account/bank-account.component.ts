@@ -32,22 +32,21 @@ export const MY_FORMATS = {
 };
 
 @Component({
-  selector: 'bank-account',
-  templateUrl: './bank-account.component.html',
-  standalone: true,
-  imports: [
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    NgFor,
-    NgIf,
-    MatCardModule,
-    CurrencyMaskModule,
-    SubTitleComponent,
-  ],
-  styles: [`
-  `],
+    selector: 'bank-account',
+    templateUrl: './bank-account.component.html',
+    imports: [
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        NgFor,
+        NgIf,
+        MatCardModule,
+        CurrencyMaskModule,
+        SubTitleComponent,
+    ],
+    styles: [`
+  `]
 })
 export class BankAccountComponent extends BaseForm implements OnInit , OnChanges{
 

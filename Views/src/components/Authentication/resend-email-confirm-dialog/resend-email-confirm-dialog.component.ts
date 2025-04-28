@@ -19,25 +19,23 @@ import { AuthenticationService } from '../services/authentication.service';
 
 
 @Component({
-  selector: 'resend-email-confirm-dialog',
-  standalone: true,
-  // encapsulation: ViewEncapsulation.None,
-  imports: [
-    MatDialogModule,
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    MatInputModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    NgIf,
-    SubTitleComponent,
-    BtnGComponent,
-    CaptchaComponent
-
-  ],
-  template: `
+    selector: 'resend-email-confirm-dialog',
+    // encapsulation: ViewEncapsulation.None,
+    imports: [
+        MatDialogModule,
+        MatButtonModule,
+        MatCardModule,
+        MatIconModule,
+        MatInputModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        NgIf,
+        SubTitleComponent,
+        BtnGComponent,
+        CaptchaComponent
+    ],
+    template: `
     <mat-card *ngIf="resend">
       <sub-title title class="font-title" [title]="'Email não confirmado!'" [styleContainerTitle]="'padding-top:8px;'" [titleStyle]="'font-family: Mynerve; font-size: 24px;'" [height]="'height:60px'"></sub-title>
          <mat-dialog-content style="padding-top: 20px" *ngIf="resend">
@@ -108,8 +106,8 @@ import { AuthenticationService } from '../services/authentication.service';
        </div>
 </mat-card>
 `,
-  styles: [
-    ` .delete-dialog-class {
+    styles: [
+        ` .delete-dialog-class {
       mat-dialog-container {
           position: fixed;
           top: 0;
@@ -160,7 +158,7 @@ import { AuthenticationService } from '../services/authentication.service';
                       }
 
    `
-  ]
+    ]
 })
 export class ResendEmailConfirmDialogComponent extends BaseForm implements OnInit {
 

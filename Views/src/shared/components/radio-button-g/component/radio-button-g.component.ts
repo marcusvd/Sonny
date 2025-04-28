@@ -8,8 +8,8 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 
 @Component({
-  selector: 'radio-button',
-  template: `
+    selector: 'radio-button',
+    template: `
    <mat-radio-group   (window:resize)="screen()"   [(ngModel)]="selectedStart"  (change)="onChangeRadioChoice($event.value)">
    <div  *ngFor="let radio of this.entities | keyvalue">
      <div >
@@ -21,11 +21,12 @@ import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
   </mat-radio-group>
 
   `,
-  styles: [`
+    styles: [`
 tr:hover  {
   background-color:yellow;
 }
-  `]
+  `],
+    standalone: false
 })
 export class RadioButtonGComponent extends BaseForm implements OnChanges, OnInit {
 

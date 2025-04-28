@@ -4,8 +4,8 @@ import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
-  selector: 'footer-login',
-  template: `
+    selector: 'footer-login',
+    template: `
    <div  class="around" [style]="height">
     <div >
       <div >
@@ -17,7 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
     </div>
    </div>
   `,
-  styles: [`
+    styles: [`
 .around{
   background-color: rgb(43, 161, 168);
 
@@ -42,8 +42,7 @@ import { MatIconModule } from '@angular/material/icon';
 }
 
 `],
-  standalone: true,
-  imports: [MatIconModule, ]
+    imports: [MatIconModule,]
 })
 export class FooterLoginComponent {
 

@@ -32,31 +32,29 @@ import { VariableExpensesListService } from './services/variable-expenses-list.s
 
 
 @Component({
-  selector: 'variable-expenses-list',
-  templateUrl: './variable-expenses-list.component.html',
-  styleUrls: ['./variable-expenses-list.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatPaginatorModule,
-    RouterModule,
-    PtBrDatePipe,
-    GridListCommonComponent,
-    GridListCommonTableComponent,
-    GridListCommonSearchComponent,
-    TitleComponent,
-    SubTitleComponent,
-    BtnGComponent,
-    MonthsSelectComponent,
-    FilterBtnRadioComponent
-  ],
-  providers: [
-    PtBrDatePipe,
-    PtBrCurrencyPipe,
-    VariableExpensesListService
-  ]
-
+    selector: 'variable-expenses-list',
+    templateUrl: './variable-expenses-list.component.html',
+    styleUrls: ['./variable-expenses-list.component.css'],
+    imports: [
+        CommonModule,
+        MatCardModule,
+        MatPaginatorModule,
+        RouterModule,
+        PtBrDatePipe,
+        GridListCommonComponent,
+        GridListCommonTableComponent,
+        GridListCommonSearchComponent,
+        TitleComponent,
+        SubTitleComponent,
+        BtnGComponent,
+        MonthsSelectComponent,
+        FilterBtnRadioComponent
+    ],
+    providers: [
+        PtBrDatePipe,
+        PtBrCurrencyPipe,
+        VariableExpensesListService
+    ]
 })
 export class VariableExpensesListComponent extends FrontEndFilterVariableExpenseslist implements OnInit {
 

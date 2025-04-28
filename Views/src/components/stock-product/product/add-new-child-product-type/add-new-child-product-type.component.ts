@@ -13,12 +13,11 @@ import { FormsBuilderHelperAddNewChildProductTypeService } from './helpers/forms
 
 
 @Component({
-  selector: 'new-item-product-type',
-  standalone: true,
-  imports: [ImportsProductType],
-  templateUrl: './add-new-child-product-type.component.html',
-  styleUrls: ['./add-new-child-product-type.component.scss'],
-  providers: []
+    selector: 'new-item-product-type',
+    imports: [ImportsProductType],
+    templateUrl: './add-new-child-product-type.component.html',
+    styleUrls: ['./add-new-child-product-type.component.scss'],
+    providers: []
 })
 export class AddNewChildProductTypeComponent extends FormControllerAddNewChildProductType implements OnInit {
 

@@ -21,19 +21,18 @@ import { ProfileEditService } from '../services/profile-edit.service';
 import { MyUser } from 'src/components/authentication/dto/my-user';
 
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css'],
-  standalone:true,
-  imports:[
-    CommonModule,
-     ReactiveFormsModule,
-     MatFormFieldModule,
-     MatCardModule,
-     MatTabsModule,
-     ContactComponent,
-     AddressComponent,
-     MatDividerModule
+    selector: 'app-user-profile',
+    templateUrl: './user-profile.component.html',
+    styleUrls: ['./user-profile.component.css'],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatCardModule,
+        MatTabsModule,
+        ContactComponent,
+        AddressComponent,
+        MatDividerModule
     ]
 })
 export class UserProfileComponent extends BaseForm implements OnInit {

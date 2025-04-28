@@ -13,18 +13,17 @@ import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 @Component({
-  selector: 'price-interest-fields',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    BtnGComponent,
-    CurrencyMaskModule,
-  ],
-  template: `
+    selector: 'price-interest-fields',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        BtnGComponent,
+        CurrencyMaskModule,
+    ],
+    template: `
     <div (window:resize)="screen()" [fxLayout]="fxLayout" ="30" [formGroup]="formMain" *ngIf="formMain">
     <div  *ngIf="priceHideShow">
         <mat-form-field ="30" appearance="outline">
@@ -52,11 +51,9 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 
 </div>
   `,
-  styles: [`
+    styles: [`
 `],
-  providers: [
-
-  ]
+    providers: []
 })
 
 export class PriceInteresFieldsComponent extends BaseForm implements OnInit {

@@ -11,17 +11,16 @@ import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 @Component({
-  selector: 'main-entities-base',
-  templateUrl: './main-entities-base.component.html',
-  styleUrls: ['./main-entities-base.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule
-  ]
+    selector: 'main-entities-base',
+    templateUrl: './main-entities-base.component.html',
+    styleUrls: ['./main-entities-base.component.css'],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule
+    ]
 })
 export class MainEntitiesBaseComponent extends BaseForm implements OnInit, OnChanges {
 

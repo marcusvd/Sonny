@@ -32,31 +32,29 @@ import { PixExpensesListService } from './services/pix-expenses-list.service';
 
 
 @Component({
-  selector: 'pix-expenses-list',
-  templateUrl: './pix-expenses-list.component.html',
-  styleUrls: ['./pix-expenses-list.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatPaginatorModule,
-    RouterModule,
-    // PtBrDatePipe,
-    GridListCommonComponent,
-    GridListCommonTableComponent,
-    GridListCommonSearchComponent,
-    TitleComponent,
-    SubTitleComponent,
-    BtnGComponent,
-    MonthsSelectComponent,
-    // FilterBtnRadioComponent
-  ],
-  providers: [
-    PtBrDatePipe,
-    PtBrCurrencyPipe,
-    PixExpensesListService
-  ]
-
+    selector: 'pix-expenses-list',
+    templateUrl: './pix-expenses-list.component.html',
+    styleUrls: ['./pix-expenses-list.component.css'],
+    imports: [
+        CommonModule,
+        MatCardModule,
+        MatPaginatorModule,
+        RouterModule,
+        // PtBrDatePipe,
+        GridListCommonComponent,
+        GridListCommonTableComponent,
+        GridListCommonSearchComponent,
+        TitleComponent,
+        SubTitleComponent,
+        BtnGComponent,
+        MonthsSelectComponent,
+        // FilterBtnRadioComponent
+    ],
+    providers: [
+        PtBrDatePipe,
+        PtBrCurrencyPipe,
+        PixExpensesListService
+    ]
 })
 export class PixExpensesListComponent extends FrontEndFilterPixExpenseslist implements OnInit {
 

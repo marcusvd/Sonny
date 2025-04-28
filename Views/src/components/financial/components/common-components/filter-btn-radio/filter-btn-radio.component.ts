@@ -9,8 +9,8 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
 
 @Component({
-  selector: 'filter-radio-btns',
-  template: `
+    selector: 'filter-radio-btns',
+    template: `
   <mat-radio-group (change)="filter($event)"  [disabled]="disabledRadioInput">
 
   <div  ="20">
@@ -40,7 +40,7 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
   </div>
 </mat-radio-group>
   `,
-  styles: [`
+    styles: [`
 
 .bg-color-expired {
   background-color: red;
@@ -73,12 +73,10 @@ mat-radio-button {
   margin-top: -6px;
 }
   `],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatRadioModule
-  ],
-
+    imports: [
+        CommonModule,
+        MatRadioModule
+    ]
 })
 
 export class FilterBtnRadioComponent extends BaseForm implements OnInit {

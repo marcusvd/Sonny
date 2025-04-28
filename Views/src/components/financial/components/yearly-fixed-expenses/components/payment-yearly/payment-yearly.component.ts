@@ -17,22 +17,21 @@ import { YearlyFixedExpenseDto } from '../../dto/yearly-fixed-expense-dto';
 import { PaymentYearlyService } from './services/payment-yearly.service';
 
 @Component({
-  selector: 'payment-yearly',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    BankAccountMatSelectSingleComponent,
-    ScreenDataInfoComponent,
-    PriceInteresFieldsComponent,
-    SubTitleComponent,
-    TitleComponent,
-    BtnGComponent,
-    PixesExpensesFieldsComponent
-  ],
-  templateUrl: './payment-yearly.component.html',
-  styleUrls: ['./payment-yearly.component.css'],
-  providers: [PaymentYearlyService]
+    selector: 'payment-yearly',
+    imports: [
+        CommonModule,
+        MatCardModule,
+        BankAccountMatSelectSingleComponent,
+        ScreenDataInfoComponent,
+        PriceInteresFieldsComponent,
+        SubTitleComponent,
+        TitleComponent,
+        BtnGComponent,
+        PixesExpensesFieldsComponent
+    ],
+    templateUrl: './payment-yearly.component.html',
+    styleUrls: ['./payment-yearly.component.css'],
+    providers: [PaymentYearlyService]
 })
 
 

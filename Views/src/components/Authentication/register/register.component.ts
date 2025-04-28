@@ -25,23 +25,22 @@ import { ValidatorsMessagesAuthentication } from '../validators/validators-messa
 
 
 @Component({
-  selector: 'register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
-  standalone: true,
-  imports: [
-    MatCardModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatIconModule,
-    MatInputModule,
-    MatButtonModule,
-    MatDividerModule,
-    RouterModule,
-    NgIf,
-    CaptchaComponent,
-    TitleDescriptionAuthComponent
-  ]
+    selector: 'register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.css'],
+    imports: [
+        MatCardModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatIconModule,
+        MatInputModule,
+        MatButtonModule,
+        MatDividerModule,
+        RouterModule,
+        NgIf,
+        CaptchaComponent,
+        TitleDescriptionAuthComponent
+    ]
 })
 export class RegisterComponent extends BaseForm implements OnInit {
 

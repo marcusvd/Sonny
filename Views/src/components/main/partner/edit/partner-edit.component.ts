@@ -43,32 +43,31 @@ import { PaymentDataComponent } from '../commons-components/payment/payment-data
 
 
 @Component({
-  selector: 'partner-edit',
-  templateUrl: './partner-edit.component.html',
-  styleUrls: ['./partner-edit.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatDividerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatTooltipModule,
-    NameCpfCnpjComponent,
-    TitleComponent,
-    SubTitleComponent,
-    MainEntitiesBaseComponent,
-    DescriptionFieldComponent,
-    FinancialInfoTypeComponent,
-    PhysicallyMovingCostsComponent,
-    ContactComponent,
-    AddressComponent,
-    PaymentDataComponent,
-    NameCpfCnpjComponent,
-    BtnGComponent
-  ]
+    selector: 'partner-edit',
+    templateUrl: './partner-edit.component.html',
+    styleUrls: ['./partner-edit.component.css'],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatDividerModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCardModule,
+        MatCheckboxModule,
+        MatTooltipModule,
+        NameCpfCnpjComponent,
+        TitleComponent,
+        SubTitleComponent,
+        MainEntitiesBaseComponent,
+        DescriptionFieldComponent,
+        FinancialInfoTypeComponent,
+        PhysicallyMovingCostsComponent,
+        ContactComponent,
+        AddressComponent,
+        PaymentDataComponent,
+        NameCpfCnpjComponent,
+        BtnGComponent
+    ]
 })
 export class PartnerEditComponent extends BaseForm implements OnInit {
 

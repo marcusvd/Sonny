@@ -22,21 +22,19 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 
 
 @Component({
-  selector: 'select-category-subcategory-expenses',
-  templateUrl: './category-subcategory-expenses-select.component.html',
-  styleUrls: ['./category-subcategory-expenses-select.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    SpinnerGComponent
-  ],
-  providers: [
-    CategoryExpensesService,
-  ]
-
+    selector: 'select-category-subcategory-expenses',
+    templateUrl: './category-subcategory-expenses-select.component.html',
+    styleUrls: ['./category-subcategory-expenses-select.component.css'],
+    imports: [
+        CommonModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        SpinnerGComponent
+    ],
+    providers: [
+        CategoryExpensesService,
+    ]
 })
 
 export class CategorySubcategoryExpensesSelectComponent extends BaseForm implements OnInit, OnChanges {

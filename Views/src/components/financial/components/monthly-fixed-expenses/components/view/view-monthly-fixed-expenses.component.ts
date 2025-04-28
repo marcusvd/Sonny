@@ -23,27 +23,26 @@ import { MonthlyFixedExpenseDto } from '../../dto/monthly-fixed-expense-dto';
 import { ViewMonthlyFixedExpensesService } from './services/view-monthly-fixed-expenses.service';
 
 @Component({
-  selector: 'view-monthly-fixed-expenses',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatCardModule,
-    CurrencyMaskModule,
-    CnpjCpfPipe,
-    PtBrCurrencyPipe,
-    PtBrDatePipe,
-    BankCardNumberPipe,
-    PhoneNumberPipe,
-    CardTypePipe,
-    BtnGComponent,
-    SubTitleComponent,
-    TitleComponent,
-  ],
-  templateUrl: './view-monthly-fixed-expenses.component.html',
-  styleUrls: ['./view-monthly-fixed-expenses.component.css']
+    selector: 'view-monthly-fixed-expenses',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        MatCardModule,
+        CurrencyMaskModule,
+        CnpjCpfPipe,
+        PtBrCurrencyPipe,
+        PtBrDatePipe,
+        BankCardNumberPipe,
+        PhoneNumberPipe,
+        CardTypePipe,
+        BtnGComponent,
+        SubTitleComponent,
+        TitleComponent,
+    ],
+    templateUrl: './view-monthly-fixed-expenses.component.html',
+    styleUrls: ['./view-monthly-fixed-expenses.component.css']
 })
 export class ViewMonthlyFixedExpensesComponent extends View implements OnInit {
 

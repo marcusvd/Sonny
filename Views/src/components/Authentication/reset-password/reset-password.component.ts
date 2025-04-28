@@ -19,21 +19,20 @@ import { AuthenticationService } from '../services/authentication.service';
 
 
 @Component({
-  selector: 'reset-password',
-  templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.css'],
-  standalone: true,
-  imports: [
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    MatInputModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    SubTitleComponent,
-    CaptchaComponent
-  ],
+    selector: 'reset-password',
+    templateUrl: './reset-password.component.html',
+    styleUrls: ['./reset-password.component.css'],
+    imports: [
+        MatButtonModule,
+        MatCardModule,
+        MatIconModule,
+        MatInputModule,
+        MatButtonModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        SubTitleComponent,
+        CaptchaComponent
+    ]
 })
 
 export class ResetPasswordComponent implements OnInit {

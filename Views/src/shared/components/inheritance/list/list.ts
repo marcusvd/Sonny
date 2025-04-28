@@ -15,9 +15,10 @@ import { MonthsDto } from '../../months-select/months-dto';
 import { IList } from './ilist';
 
 @Component({
-  selector: 'list',
-  template: `
-  `
+    selector: 'list',
+    template: `
+  `,
+    standalone: false
 })
 
 export class List extends BaseForm implements IList, AfterViewInit {

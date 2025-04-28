@@ -36,37 +36,34 @@ import { CollectDeliverCreateService } from './services/collect-deliver-create.s
 
 
 @Component({
-  selector: 'collect-deliver-create',
-  // encapsulation: ViewEncapsulation.None,
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatSelectModule,
-    NgxMatSelectSearchModule,
-    MatDividerModule,
-    MatInputModule,
-    MatRadioModule,
-    MatCheckboxModule,
-    MatCardModule,
-    MatButtonModule,
-    MatDialogModule,
-    CurrencyMaskModule,
-    TitleComponent,
-    SubTitleComponent,
-    SubjectContactComponent,
-    GetCustomerMatSelectSingleComponent,
-    GetPartnerMatSelectSingleComponent,
-    OthersDestiniesComponent,
-    GetTransporterMatSelectSingleComponent,
-    DescriptionFieldComponent,
-    BtnGComponent
-
-  ],
-  templateUrl: './collect-deliver-create.component.html',
-  styleUrls: ['./collect-deliver-create.component.css'],
-  providers: [CollectDeliverCreateService],
+    selector: 'collect-deliver-create',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatSelectModule,
+        NgxMatSelectSearchModule,
+        MatDividerModule,
+        MatInputModule,
+        MatRadioModule,
+        MatCheckboxModule,
+        MatCardModule,
+        MatButtonModule,
+        MatDialogModule,
+        CurrencyMaskModule,
+        TitleComponent,
+        SubTitleComponent,
+        SubjectContactComponent,
+        GetCustomerMatSelectSingleComponent,
+        GetPartnerMatSelectSingleComponent,
+        OthersDestiniesComponent,
+        GetTransporterMatSelectSingleComponent,
+        DescriptionFieldComponent,
+        BtnGComponent
+    ],
+    templateUrl: './collect-deliver-create.component.html',
+    styleUrls: ['./collect-deliver-create.component.css'],
+    providers: [CollectDeliverCreateService]
 })
 export class CollectDeliverCreateComponent extends Add implements OnInit {
 

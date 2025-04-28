@@ -32,34 +32,32 @@ import { VariableExpensesService } from './services/variable-expenses.service';
 
 
 @Component({
-  selector: 'variable-expenses',
-  templateUrl: './variable-expenses-add.component.html',
-  styleUrls: ['./variable-expenses-add.component.css'],
-  providers: [
-    VariableExpensesService,
-    CategoryExpensesService
-  ],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatButtonModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatTooltipModule,
-    CurrencyMaskModule,
-    TitleComponent,
-    SubTitleComponent,
-    BankAccountMatSelectSingleComponent,
-    CategorySubcategoryExpensesSelectComponent,
-    BtnGComponent,
-    PixesExpensesFieldsComponent
-  ],
-
+    selector: 'variable-expenses',
+    templateUrl: './variable-expenses-add.component.html',
+    styleUrls: ['./variable-expenses-add.component.css'],
+    providers: [
+        VariableExpensesService,
+        CategoryExpensesService
+    ],
+    imports: [
+        CommonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCheckboxModule,
+        MatButtonModule,
+        MatCardModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatTooltipModule,
+        CurrencyMaskModule,
+        TitleComponent,
+        SubTitleComponent,
+        BankAccountMatSelectSingleComponent,
+        CategorySubcategoryExpensesSelectComponent,
+        BtnGComponent,
+        PixesExpensesFieldsComponent
+    ]
 })
 
 export class VariableExpensesAddComponent extends Payment implements OnInit {

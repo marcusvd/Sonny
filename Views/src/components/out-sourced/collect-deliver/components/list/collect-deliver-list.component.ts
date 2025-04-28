@@ -35,31 +35,29 @@ import { FrontEndListFilterCollectDeliver } from './filter-list/front-end-list-f
 import { CollectDeliverListService } from './services/collect-deliver-list.service';
 
 @Component({
-  selector: 'collect-deliver-list',
-  templateUrl: './collect-deliver-list.component.html',
-  styleUrls: ['./collect-deliver-list.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatPaginatorModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatIconModule,
-    RouterModule,
-    GridListCommonComponent,
-    GridListCommonTableComponent,
-    GridListCommonSearchComponent,
-    TitleComponent,
-    SubTitleComponent,
-    CollectDeliverListFilterComponent,
-    BtnFilterGComponent,
-    BtnGComponent
-  ],
-  providers: [
-    CollectDeliverListService, PtBrDatePipe, PtBrCurrencyPipe
-  ]
-
+    selector: 'collect-deliver-list',
+    templateUrl: './collect-deliver-list.component.html',
+    styleUrls: ['./collect-deliver-list.component.css'],
+    imports: [
+        CommonModule,
+        MatCardModule,
+        MatPaginatorModule,
+        MatButtonModule,
+        MatMenuModule,
+        MatIconModule,
+        RouterModule,
+        GridListCommonComponent,
+        GridListCommonTableComponent,
+        GridListCommonSearchComponent,
+        TitleComponent,
+        SubTitleComponent,
+        CollectDeliverListFilterComponent,
+        BtnFilterGComponent,
+        BtnGComponent
+    ],
+    providers: [
+        CollectDeliverListService, PtBrDatePipe, PtBrCurrencyPipe
+    ]
 })
 export class CollectDeliverListComponent extends FrontEndListFilterCollectDeliver implements OnInit {
   constructor(

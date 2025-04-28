@@ -18,22 +18,21 @@ import { CustomerDto } from '../commons-components/dtos/customer-dto';
 import { CustomerListService } from '../list/services/customer-list.service';
 
 @Component({
-  selector: 'customer-view',
-  standalone: true,
-  templateUrl: './customer-view.component.html',
-  styleUrls: ['./customer-view.component.css'],
-  imports: [
-    CommonModule,
-    MatCardModule,
-    CnpjCpfPipe,
-    PtBrCurrencyPipe,
-    TitleComponent,
-    SubTitleItemComponent,
-    BtnGComponent
-  ],
-  providers: [
-    CustomerListService
-  ]
+    selector: 'customer-view',
+    templateUrl: './customer-view.component.html',
+    styleUrls: ['./customer-view.component.css'],
+    imports: [
+        CommonModule,
+        MatCardModule,
+        CnpjCpfPipe,
+        PtBrCurrencyPipe,
+        TitleComponent,
+        SubTitleItemComponent,
+        BtnGComponent
+    ],
+    providers: [
+        CustomerListService
+    ]
 })
 export class CustomerViewComponent extends BaseForm implements OnInit {
   constructor(

@@ -17,19 +17,18 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 
 @Component({
-  selector: 'financial-info-type',
-  templateUrl: './financial-info-type.component.html',
-  styleUrls: ['./financial-info-type.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCheckboxModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatInputModule,
-    CurrencyMaskModule,
-  ]
+    selector: 'financial-info-type',
+    templateUrl: './financial-info-type.component.html',
+    styleUrls: ['./financial-info-type.component.css'],
+    imports: [
+        CommonModule,
+        MatCheckboxModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatInputModule,
+        CurrencyMaskModule,
+    ]
 })
 export class FinancialInfoTypeComponent extends BaseForm implements OnInit {
 

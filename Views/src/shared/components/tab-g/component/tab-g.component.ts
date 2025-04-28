@@ -2,9 +2,10 @@ import { AfterContentInit, Component, EventEmitter, Input, OnInit, Output, } fro
 import { UntypedFormControl } from '@angular/forms';
 
 @Component({
-  selector: 'tab-g',
-  templateUrl: './tab-g.component.html',
-  styleUrls: ['./tab-g.component.css']
+    selector: 'tab-g',
+    templateUrl: './tab-g.component.html',
+    styleUrls: ['./tab-g.component.css'],
+    standalone: false
 })
 export class TabGComponent implements OnInit, AfterContentInit {
 

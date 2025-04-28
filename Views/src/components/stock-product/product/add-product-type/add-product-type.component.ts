@@ -8,12 +8,11 @@ import { ProductTypeService } from './services/product-type.service';
 
 
 @Component({
-  selector: 'product-add-update',
-  standalone: true,
-  imports: [ImportsProductType],
-  templateUrl: './add-product-type.component.html',
-  styleUrls: ['./add-product-type.component.scss'],
-  providers: [ProductTypeService]
+    selector: 'product-add-update',
+    imports: [ImportsProductType],
+    templateUrl: './add-product-type.component.html',
+    styleUrls: ['./add-product-type.component.scss'],
+    providers: [ProductTypeService]
 })
 export class AddProductTypeComponent extends FormControllerAddProductType implements OnInit {
 

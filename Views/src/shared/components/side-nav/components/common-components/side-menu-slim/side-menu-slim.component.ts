@@ -11,15 +11,14 @@ import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
-  selector: 'side-menu-slim',
-  templateUrl: './side-menu-slim.component.html',
-  styleUrls: ['./side-menu-slim.component.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatDividerModule,
-    MatIconModule,
-  ]
+    selector: 'side-menu-slim',
+    templateUrl: './side-menu-slim.component.html',
+    styleUrls: ['./side-menu-slim.component.scss'],
+    imports: [
+        CommonModule,
+        MatDividerModule,
+        MatIconModule,
+    ]
 })
 
 

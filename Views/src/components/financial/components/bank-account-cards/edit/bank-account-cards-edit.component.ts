@@ -25,22 +25,21 @@ import { PixDto } from '../dto/pix-dto';
 
 
 @Component({
-  selector: 'bank-account-cards-edit',
-  templateUrl: './bank-account-cards-edit.component.html',
-  styleUrls: ['./bank-account-cards-edit.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatCardModule,
-    BankAccountComponent,
-    BankCardsComponent,
-    TitleComponent,
-    SubTitleComponent,
-    BtnGComponent,
-    PixComponent
-  ],
-  providers: [BankAccountCardsEditService]
+    selector: 'bank-account-cards-edit',
+    templateUrl: './bank-account-cards-edit.component.html',
+    styleUrls: ['./bank-account-cards-edit.component.css'],
+    imports: [
+        CommonModule,
+        MatButtonModule,
+        MatCardModule,
+        BankAccountComponent,
+        BankCardsComponent,
+        TitleComponent,
+        SubTitleComponent,
+        BtnGComponent,
+        PixComponent
+    ],
+    providers: [BankAccountCardsEditService]
 })
 export class BankAccountCardsEditComponent extends BaseForm implements OnInit {
 

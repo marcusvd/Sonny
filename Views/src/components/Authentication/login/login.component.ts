@@ -23,22 +23,21 @@ import { FooterLoginComponent } from './footer-login.component';
 
 
 @Component({
-  selector: 'login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-  standalone: true,
-  imports: [
-    MatCardModule,
-    ReactiveFormsModule,
-    MatIconModule,
-    CommonModule,
-    MatButtonModule,
-    MatInputModule,
-    MatFormFieldModule,
-    RouterModule,
-    TitleDescriptionAuthComponent,
-    FooterLoginComponent
-  ]
+    selector: 'login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css'],
+    imports: [
+        MatCardModule,
+        ReactiveFormsModule,
+        MatIconModule,
+        CommonModule,
+        MatButtonModule,
+        MatInputModule,
+        MatFormFieldModule,
+        RouterModule,
+        TitleDescriptionAuthComponent,
+        FooterLoginComponent
+    ]
 })
 export class LoginComponent extends BaseForm implements OnInit {
 

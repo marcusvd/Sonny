@@ -19,22 +19,21 @@ import { MonthlyFixedExpenseDto } from '../../dto/monthly-fixed-expense-dto';
 import { PaymentMonthlyService } from './services/payment-monthly.service';
 
 @Component({
-  selector: 'payment-monthly',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    BankAccountMatSelectSingleComponent,
-    ScreenDataInfoComponent,
-    PriceInteresFieldsComponent,
-    SubTitleComponent,
-    TitleComponent,
-    BtnGComponent,
-    PixesExpensesFieldsComponent
-  ],
-  templateUrl: './payment-monthly.component.html',
-  styleUrls: ['./payment-monthly.component.css'],
-  providers: [PaymentMonthlyService]
+    selector: 'payment-monthly',
+    imports: [
+        CommonModule,
+        MatCardModule,
+        BankAccountMatSelectSingleComponent,
+        ScreenDataInfoComponent,
+        PriceInteresFieldsComponent,
+        SubTitleComponent,
+        TitleComponent,
+        BtnGComponent,
+        PixesExpensesFieldsComponent
+    ],
+    templateUrl: './payment-monthly.component.html',
+    styleUrls: ['./payment-monthly.component.css'],
+    providers: [PaymentMonthlyService]
 })
 
 export class PaymentMonthlyComponent extends Payment {

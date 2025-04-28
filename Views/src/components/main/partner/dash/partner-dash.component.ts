@@ -3,10 +3,11 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 
 
 @Component({
-  selector: 'partner-dash',
-  templateUrl: './partner-dash.component.html',
-  styleUrls: ['./partner-dash.component.css'],
-  providers: []
+    selector: 'partner-dash',
+    templateUrl: './partner-dash.component.html',
+    styleUrls: ['./partner-dash.component.css'],
+    providers: [],
+    standalone: false
 })
 export class PartnerDashComponent implements OnInit {
 

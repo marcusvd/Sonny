@@ -34,30 +34,28 @@ import { CustomerListGridDto } from './dto/customer-list-grid.dto';
 import { CustomerListService } from './services/customer-list.service';
 
 @Component({
-  selector: 'customers-list',
-  templateUrl: './customers-list.component.html',
-  styleUrls: ['./customers-list.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatPaginatorModule,
-    MatButtonModule,
-    MatMenuModule,
-    RouterModule,
-    GridListCommonComponent,
-    GridListCommonTableComponent,
-    GridListCommonSearchComponent,
-    TitleComponent,
-    SubTitleComponent,
-    BtnFilterGComponent,
-    BtnGComponent,
-    CustomerFilterListGComponent
-  ],
-  providers:[
-    CustomerListService
-  ]
-
+    selector: 'customers-list',
+    templateUrl: './customers-list.component.html',
+    styleUrls: ['./customers-list.component.css'],
+    imports: [
+        CommonModule,
+        MatCardModule,
+        MatPaginatorModule,
+        MatButtonModule,
+        MatMenuModule,
+        RouterModule,
+        GridListCommonComponent,
+        GridListCommonTableComponent,
+        GridListCommonSearchComponent,
+        TitleComponent,
+        SubTitleComponent,
+        BtnFilterGComponent,
+        BtnGComponent,
+        CustomerFilterListGComponent
+    ],
+    providers: [
+        CustomerListService
+    ]
 })
 export class CustomersListComponent implements OnInit {
   constructor(

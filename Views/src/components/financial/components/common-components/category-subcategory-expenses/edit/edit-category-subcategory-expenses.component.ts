@@ -25,25 +25,23 @@ import { SubcategoryExpenseDto } from '../dto/subcategory-expense-dto';
 import { CategorySubcategoryExpensesService } from '../services/category-subcategory-expenses.service';
 
 @Component({
-  selector: 'edit-category-subcategory-expenses',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCardModule,
-    MatSelectModule,
-    MatCheckboxModule,
-    NgFor,
-    TitleComponent,
-    SubTitleComponent,
-    BtnGComponent,
-
-  ],
-  templateUrl: './edit-category-subcategory-expenses.component.html',
-  styleUrls: ['./edit-category-subcategory-expenses.component.css']
+    selector: 'edit-category-subcategory-expenses',
+    imports: [
+        CommonModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatButtonModule,
+        MatCardModule,
+        MatSelectModule,
+        MatCheckboxModule,
+        NgFor,
+        TitleComponent,
+        SubTitleComponent,
+        BtnGComponent,
+    ],
+    templateUrl: './edit-category-subcategory-expenses.component.html',
+    styleUrls: ['./edit-category-subcategory-expenses.component.css']
 })
 export class EditCategorySubcategoryExpensesComponent extends Add implements OnInit {
 

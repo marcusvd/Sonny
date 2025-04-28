@@ -13,17 +13,16 @@ import { MatLegacyInput as MatInput, MatLegacyInputModule as MatInputModule } fr
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 @Component({
-  selector: 'physically-moving-costs',
-  templateUrl: './physically-moving-costs.component.html',
-  styleUrls: ['./physically-moving-costs.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    CurrencyMaskModule
-  ]
+    selector: 'physically-moving-costs',
+    templateUrl: './physically-moving-costs.component.html',
+    styleUrls: ['./physically-moving-costs.component.css'],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        CurrencyMaskModule
+    ]
 })
 export class PhysicallyMovingCostsComponent extends BaseForm implements OnInit {
 

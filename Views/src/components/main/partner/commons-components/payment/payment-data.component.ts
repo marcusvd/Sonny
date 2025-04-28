@@ -20,25 +20,23 @@ import { PaymentBankAccountComponent } from '../payment-bank-account/payment-ban
 
 
 @Component({
-  selector: 'payment-data',
-  templateUrl: './payment-data.component.html',
-  styles: [`
+    selector: 'payment-data',
+    templateUrl: './payment-data.component.html',
+    styles: [`
 #space-beteween-fields{
   padding:10px;
 }
   `],
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDividerModule,
-    MatCheckboxModule,
-    PaymentBankAccountComponent,
-    PixComponent,
-
-  ]
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDividerModule,
+        MatCheckboxModule,
+        PaymentBankAccountComponent,
+        PixComponent,
+    ]
 })
 export class PaymentDataComponent extends BaseForm implements OnInit {
 

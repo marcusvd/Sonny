@@ -11,16 +11,15 @@ import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/materia
 import { SideMenuTopLargeComponent } from './top-large/top-large.component';
 
 @Component({
-  selector: 'side-menu-large',
-  templateUrl: './side-menu-large.component.html',
-  styleUrls: ['./side-menu-large.component.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatDividerModule,
-    MatIconModule,
-    MatFormFieldModule,
-  ]
+    selector: 'side-menu-large',
+    templateUrl: './side-menu-large.component.html',
+    styleUrls: ['./side-menu-large.component.scss'],
+    imports: [
+        CommonModule,
+        MatDividerModule,
+        MatIconModule,
+        MatFormFieldModule,
+    ]
 })
 export class SideMenuLargeComponent implements OnInit {
 

@@ -19,23 +19,22 @@ import { BtnGComponent } from '../../btn-g/btn-g.component';
 import { PixValidator } from './pix.validator';
 
 @Component({
-  selector: 'pix',
-  templateUrl: './pix.component.html',
-  styleUrls: ['./pix.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    MatSelectModule,
-    MatDividerModule,
-    NgxMaskModule,
-    NgFor,
-    NgIf,
-    BtnGComponent
-  ]
+    selector: 'pix',
+    templateUrl: './pix.component.html',
+    styleUrls: ['./pix.component.css'],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCardModule,
+        MatSelectModule,
+        MatDividerModule,
+        NgxMaskModule,
+        NgFor,
+        NgIf,
+        BtnGComponent
+    ]
 })
 export class PixComponent extends BaseForm implements OnInit, OnChanges {
 

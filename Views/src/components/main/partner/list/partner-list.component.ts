@@ -30,30 +30,28 @@ import { PartnerFilterListGComponent } from './partner-filter-list/partner-filte
 import { PartnerListService } from './services/partner-list.service';
 
 @Component({
-  selector: 'partner-list',
-  templateUrl: './partner-list.component.html',
-  styleUrls: ['./partner-list.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatPaginatorModule,
-    MatButtonModule,
-    MatMenuModule,
-    RouterModule,
-    GridListCommonComponent,
-    GridListCommonTableComponent,
-    GridListCommonSearchComponent,
-    TitleComponent,
-    SubTitleComponent,
-    BtnFilterGComponent,
-    BtnGComponent,
-    PartnerFilterListGComponent
-  ],
-  providers: [
-    PartnerListService,
-  ]
-
+    selector: 'partner-list',
+    templateUrl: './partner-list.component.html',
+    styleUrls: ['./partner-list.component.css'],
+    imports: [
+        CommonModule,
+        MatCardModule,
+        MatPaginatorModule,
+        MatButtonModule,
+        MatMenuModule,
+        RouterModule,
+        GridListCommonComponent,
+        GridListCommonTableComponent,
+        GridListCommonSearchComponent,
+        TitleComponent,
+        SubTitleComponent,
+        BtnFilterGComponent,
+        BtnGComponent,
+        PartnerFilterListGComponent
+    ],
+    providers: [
+        PartnerListService,
+    ]
 })
 export class PartnerListComponent implements OnInit {
   constructor(

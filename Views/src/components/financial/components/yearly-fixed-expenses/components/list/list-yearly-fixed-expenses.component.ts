@@ -36,34 +36,32 @@ import { ListYearlyFixedExpensesService } from './services/list-yearly-fixed-exp
 import { TriggerPaymentYearly } from './trigger-payment-yearly';
 
 @Component({
-  selector: 'list-yearly-fixed-expenses',
-  templateUrl: './list-yearly-fixed-expenses.component.html',
-  styleUrls: ['./list-yearly-fixed-expenses.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatCardModule,
-    MatPaginatorModule,
-    MatButtonModule,
-    MatMenuModule,
-    RouterModule,
-    MatCheckboxModule,
-    MatRadioModule,
-    GridListCommonComponent,
-    GridListCommonTableComponent,
-    GridListCommonSearchComponent,
-    TitleComponent,
-    BtnGComponent,
-    SubTitleComponent,
-    FilterBtnRadioComponent
-  ],
-  providers: [
-    ListYearlyFixedExpensesService,
-    PtBrDatePipe,
-    PtBrCurrencyPipe,
-  ]
-
+    selector: 'list-yearly-fixed-expenses',
+    templateUrl: './list-yearly-fixed-expenses.component.html',
+    styleUrls: ['./list-yearly-fixed-expenses.component.css'],
+    imports: [
+        CommonModule,
+        FormsModule,
+        MatCardModule,
+        MatPaginatorModule,
+        MatButtonModule,
+        MatMenuModule,
+        RouterModule,
+        MatCheckboxModule,
+        MatRadioModule,
+        GridListCommonComponent,
+        GridListCommonTableComponent,
+        GridListCommonSearchComponent,
+        TitleComponent,
+        BtnGComponent,
+        SubTitleComponent,
+        FilterBtnRadioComponent
+    ],
+    providers: [
+        ListYearlyFixedExpensesService,
+        PtBrDatePipe,
+        PtBrCurrencyPipe,
+    ]
 })
 export class ListYearlyFixedExpensesComponent extends FrontEndListFilterYearlyExpenses implements OnInit, AfterViewInit {
   constructor(

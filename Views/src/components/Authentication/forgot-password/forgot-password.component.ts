@@ -21,25 +21,23 @@ import { ForgotPassword } from '../dto/forgot-password';
 import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
-  selector: 'forgot-password',
-  templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.css'],
-  standalone: true,
-  imports: [
-    MatDividerModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    CaptchaComponent,
-    MatCardModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    RouterModule,
-    NgIf,
-    TitleDescriptionAuthComponent
-
-  ],
-  providers: [CaptchaComponent]
+    selector: 'forgot-password',
+    templateUrl: './forgot-password.component.html',
+    styleUrls: ['./forgot-password.component.css'],
+    imports: [
+        MatDividerModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        CaptchaComponent,
+        MatCardModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        RouterModule,
+        NgIf,
+        TitleDescriptionAuthComponent
+    ],
+    providers: [CaptchaComponent]
 })
 export class ForgotPasswordComponent extends BaseForm implements OnInit {
 

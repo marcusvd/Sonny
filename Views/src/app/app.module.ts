@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // below function get cnpj customer create partner create etc...
-import { provideHttpClient, withInterceptorsFromDi, withJsonpSupport } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withInterceptorsFromDi, withJsonpSupport } from '@angular/common/http';
 //
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MatLegacyPaginatorIntl as MatPaginatorIntl } from '@angular/material/legacy-paginator';
+import { MatPaginatorIntl as MatPaginatorIntl } from '@angular/material/paginator';
 import { AppRoutingModule } from 'src/app/app.routing.module';
 import { FinancialModule } from 'src/components/financial/modules/financial.module';
 import { CustomerModule } from 'src/components/main/customer/modules/customer.module';
@@ -22,8 +22,11 @@ import { HttpErrorHandler } from './http-error-handler.service';
 import { OutsourcedRoutingModule } from 'src/components/out-sourced/modules/out-sourced.routing';
 import { StockProductRoutingModule } from 'src/components/stock-product/modules/stock-product.routing.module';
 import { provideRouter, ROUTES, withPreloading } from '@angular/router';
+import { NgxMaskConfig, provideNgxMask } from 'ngx-mask';
 
-
+const maskConfig: Partial<NgxMaskConfig> = {
+  validation: false,
+};
 
 @NgModule({ declarations: [
         AppComponent,
@@ -53,6 +56,7 @@ import { provideRouter, ROUTES, withPreloading } from '@angular/router';
         OutsourcedRoutingModule,
         //StockProduct
         StockProductRoutingModule], providers: [
+          provideNgxMask(maskConfig),
         HttpErrorHandler,
         { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
         provideHttpClient(withInterceptorsFromDi(), withJsonpSupport()),

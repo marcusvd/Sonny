@@ -12,18 +12,17 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
 
 @Component({
-  selector: 'array-g',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatIconModule,
-    MatInputModule,
-    MatButtonModule,
-    MatDividerModule
-  ],
-  templateUrl: './array-g.component.html',
-  styleUrls:['./array-g.component.css'],
+    selector: 'array-g',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatIconModule,
+        MatInputModule,
+        MatButtonModule,
+        MatDividerModule
+    ],
+    templateUrl: './array-g.component.html',
+    styleUrls: ['./array-g.component.css']
 })
 
 export class ArrayGComponent extends BaseForm {

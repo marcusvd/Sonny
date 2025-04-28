@@ -15,15 +15,14 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { PartnerGetService } from './partner-get.service';
 
 @Component({
-  selector: 'get-partner-matselect-single',
-  standalone: true,
-  imports: [
-    MatSelectModule,
-    NgxMatSelectSearchModule,
-    ReactiveFormsModule,
-    CommonModule
-  ],
-  template: `
+    selector: 'get-partner-matselect-single',
+    imports: [
+        MatSelectModule,
+        NgxMatSelectSearchModule,
+        ReactiveFormsModule,
+        CommonModule
+    ],
+    template: `
  <div  [formGroup]="formMain" >
  <mat-form-field  appearance="outline" >
         <mat-label>Parceiros</mat-label>
@@ -41,10 +40,10 @@ import { PartnerGetService } from './partner-get.service';
     </mat-form-field>
  </div>
   `,
-  styles: [`
+    styles: [`
 
   `],
-  providers: [PartnerGetService],
+    providers: [PartnerGetService]
 })
 export class GetPartnerMatSelectSingleComponent extends BaseForm implements OnChanges {
 

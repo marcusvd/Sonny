@@ -16,12 +16,11 @@ import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 
 
 @Component({
-  selector: 'app-list-product',
-  templateUrl: './list-product.component.html',
-  standalone: true,
-  imports: [ImportsListProduct],
-  providers: [PtBrCurrencyPipe, PtBrDatePipe, TruncatePipe],
-  styleUrls: ['./list-product.component.scss']
+    selector: 'app-list-product',
+    templateUrl: './list-product.component.html',
+    imports: [ImportsListProduct],
+    providers: [PtBrCurrencyPipe, PtBrDatePipe, TruncatePipe],
+    styleUrls: ['./list-product.component.scss']
 })
 export class ListProductComponent extends ListControlProduct implements OnInit, OnDestroy {
 

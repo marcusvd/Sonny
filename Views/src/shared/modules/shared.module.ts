@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { MaterialModule } from "./material.module";
 import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule } from 'ng2-currency-mask';
-import { IConfig, NgxMaskModule } from "ngx-mask";
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { LOCALE_ID } from '@angular/core';
@@ -30,11 +29,11 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   suffix: "",
   thousands: "."
 };
-const maskConfigFunction: () => Partial<IConfig> = () => {
-  return {
-    validation: true,
-  };
-};
+// const maskConfigFunction: () => Partial<IConfig> = () => {
+//   return {
+//     validation: true,
+//   };
+// };
 
 @NgModule({
   declarations: [
@@ -45,14 +44,12 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
 
   imports: [
     CommonModule,
-    ReactiveFormsModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
     SharedRoutingModule,
     CurrencyMaskModule,
-    // NgxMaskModule.forRoot(maskConfigFunction),
     TabGModule,
     TreeGModule,
     RadioButtonGModule,
@@ -64,7 +61,6 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     MaterialModule,
     SharedRoutingModule,
     CurrencyMaskModule,
-    NgxMaskModule,
     TabGModule,
     TreeGModule,
     RadioButtonGModule

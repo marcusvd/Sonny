@@ -10,12 +10,11 @@ import { EditSingleProductTypeService } from './services/edit-single-product-typ
 
 
 @Component({
-  selector: 'product-edit-single-update',
-  standalone: true,
-  imports: [ImportsEditSingleProductType],
-  templateUrl: './edit-single-product-type.component.html',
-  styleUrls: ['./edit-single-product-type.component.scss'],
-  providers: [EditSingleProductTypeService]
+    selector: 'product-edit-single-update',
+    imports: [ImportsEditSingleProductType],
+    templateUrl: './edit-single-product-type.component.html',
+    styleUrls: ['./edit-single-product-type.component.scss'],
+    providers: [EditSingleProductTypeService]
 })
 export class EditSingleProductTypeComponent extends FormControllerEditSingleProductType {
 

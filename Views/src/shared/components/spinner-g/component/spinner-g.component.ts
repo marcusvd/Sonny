@@ -9,8 +9,8 @@ import { map } from 'rxjs/operators';
 
 
 @Component({
-  selector: 'spinner-g',
-  template: `
+    selector: 'spinner-g',
+    template: `
   <div *ngIf="spinner" class="middle-space-horizontal-beteween-fields"> </div>
   <div *ngIf="spinner"  >
     <mat-spinner  diameter="30"></mat-spinner>&nbsp;&nbsp;
@@ -21,13 +21,11 @@ import { map } from 'rxjs/operators';
   <div  id="space-top" >{{'Nenhum registro encontrado!'}}</div>
   </div>
   `,
-  standalone: true,
-  imports: [
-    MatProgressSpinnerModule,
-    NgIf
-  ],
-
-  styles: [`
+    imports: [
+        MatProgressSpinnerModule,
+        NgIf
+    ],
+    styles: [`
     .mat-spinner::ng-deep circle {
           stroke: #2ba1a8;
     }

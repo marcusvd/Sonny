@@ -5,9 +5,9 @@ import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/lega
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'btn-g',
-  templateUrl:'./btn-g.component.html',
-  styles: [`
+    selector: 'btn-g',
+    templateUrl: './btn-g.component.html',
+    styles: [`
 
           .btn-settings {
 
@@ -24,8 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
             }
 
   `],
-  standalone: true,
-  imports: [MatButtonModule, MatIconModule, NgIf]
+    imports: [MatButtonModule, MatIconModule, NgIf]
 })
 
 export class BtnGComponent {

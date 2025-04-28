@@ -38,34 +38,32 @@ import { TriggerPaymentFinancingsLoans } from './trigger-payment-financings-loan
 
 
 @Component({
-  selector: 'list-financings-loans-expenses',
-  templateUrl: './list-financings-loans-expenses.component.html',
-  styleUrls: ['./list-financings-loans-expenses.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatCardModule,
-    MatPaginatorModule,
-    MatButtonModule,
-    MatMenuModule,
-    RouterModule,
-    MatCheckboxModule,
-    MatRadioModule,
-    GridListCommonComponent,
-    GridListCommonTableComponent,
-    GridListCommonSearchComponent,
-    TitleComponent,
-    BtnGComponent,
-    SubTitleComponent,
-    FilterBtnRadioComponent
-  ],
-  providers: [
-    ListFinancingsLoansExpensesService,
-    PtBrDatePipe,
-    PtBrCurrencyPipe,
-  ]
-
+    selector: 'list-financings-loans-expenses',
+    templateUrl: './list-financings-loans-expenses.component.html',
+    styleUrls: ['./list-financings-loans-expenses.component.css'],
+    imports: [
+        CommonModule,
+        FormsModule,
+        MatCardModule,
+        MatPaginatorModule,
+        MatButtonModule,
+        MatMenuModule,
+        RouterModule,
+        MatCheckboxModule,
+        MatRadioModule,
+        GridListCommonComponent,
+        GridListCommonTableComponent,
+        GridListCommonSearchComponent,
+        TitleComponent,
+        BtnGComponent,
+        SubTitleComponent,
+        FilterBtnRadioComponent
+    ],
+    providers: [
+        ListFinancingsLoansExpensesService,
+        PtBrDatePipe,
+        PtBrCurrencyPipe,
+    ]
 })
 export class ListFinancingsLoansExpensesComponent extends FrontEndListFilterFinancingsLoansExpenses implements OnInit, AfterViewInit {
   constructor(

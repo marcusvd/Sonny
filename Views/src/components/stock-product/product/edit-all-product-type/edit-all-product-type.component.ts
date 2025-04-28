@@ -8,10 +8,9 @@ import { EditAllProductTypeService } from './services/edit-all-product-type.serv
 
 @Component({
     selector: 'edit-all-product-type',
-    standalone: true,
     templateUrl: './edit-all-product-type.component.html',
     styleUrls: ['./edit-all-product-type.component.css'],
-    imports: [ImportsEditProductType],
+    imports: [ImportsEditProductType]
 })
 export class EditAllProductComponent extends FormControllerEditProductType implements OnInit {
 

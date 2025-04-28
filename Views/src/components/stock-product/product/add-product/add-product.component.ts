@@ -9,11 +9,10 @@ import { ex_formLoad } from './helpers/form-main-export-helpers';
 import { AddProductService } from './services/add-product.service';
 
 @Component({
-  selector: 'add-product',
-  standalone: true,
-  imports: [ImportsAddProduct],
-  templateUrl: './add-product.component.html',
-  styleUrls: ['./add-product.component.css']
+    selector: 'add-product',
+    imports: [ImportsAddProduct],
+    templateUrl: './add-product.component.html',
+    styleUrls: ['./add-product.component.css']
 })
 
 export class AddProductComponent extends ControllerAddProduct implements OnInit {

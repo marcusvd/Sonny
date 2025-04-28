@@ -4,10 +4,11 @@ import { Component } from '@angular/core';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
 @Component({
-  selector: 'list',
-  template: `
+    selector: 'list',
+    template: `
 
-  `
+  `,
+    standalone: false
 })
 
 

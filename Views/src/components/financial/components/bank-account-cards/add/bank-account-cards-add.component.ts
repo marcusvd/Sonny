@@ -20,24 +20,23 @@ import { BankAccountAddService } from './services/bank-account-add.service';
 
 
 @Component({
-  selector: 'bank-account-cards-add',
-  templateUrl: './bank-account-cards-add.component.html',
-  styleUrls: ['./bank-account-cards-add.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatCardModule,
-    BankAccountComponent,
-    BankCardsComponent,
-    TitleComponent,
-    SubTitleComponent,
-    BtnGComponent,
-    PixComponent
-  ],
-  providers:[
-    BankAccountAddService
-  ]
+    selector: 'bank-account-cards-add',
+    templateUrl: './bank-account-cards-add.component.html',
+    styleUrls: ['./bank-account-cards-add.component.css'],
+    imports: [
+        CommonModule,
+        MatButtonModule,
+        MatCardModule,
+        BankAccountComponent,
+        BankCardsComponent,
+        TitleComponent,
+        SubTitleComponent,
+        BtnGComponent,
+        PixComponent
+    ],
+    providers: [
+        BankAccountAddService
+    ]
 })
 export class BankAccountCardsAddComponent extends Add implements OnInit {
 

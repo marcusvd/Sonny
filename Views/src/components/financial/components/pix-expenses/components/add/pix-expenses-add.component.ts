@@ -26,30 +26,28 @@ import { PixExpensesService } from './services/pix-expenses.service';
 
 
 @Component({
-  selector: 'pix-expenses',
-  templateUrl: './pix-expenses-add.component.html',
-  styleUrls: ['./pix-expenses-add.component.css'],
-  providers: [
-    PixExpensesService,
-    CategoryExpensesService
-  ],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    MatDatepickerModule,
-    CurrencyMaskModule,
-    TitleComponent,
-    SubTitleComponent,
-    BankAccountMatSelectSingleComponent,
-    CategorySubcategoryExpensesSelectComponent,
-    BtnGComponent,
-    PixesExpensesFieldsComponent
-  ],
-
+    selector: 'pix-expenses',
+    templateUrl: './pix-expenses-add.component.html',
+    styleUrls: ['./pix-expenses-add.component.css'],
+    providers: [
+        PixExpensesService,
+        CategoryExpensesService
+    ],
+    imports: [
+        CommonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCardModule,
+        ReactiveFormsModule,
+        MatDatepickerModule,
+        CurrencyMaskModule,
+        TitleComponent,
+        SubTitleComponent,
+        BankAccountMatSelectSingleComponent,
+        CategorySubcategoryExpensesSelectComponent,
+        BtnGComponent,
+        PixesExpensesFieldsComponent
+    ]
 })
 
 export class PixExpensesAddComponent extends Add implements OnInit {

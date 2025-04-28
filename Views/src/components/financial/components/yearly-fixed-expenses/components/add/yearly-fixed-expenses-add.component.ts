@@ -30,34 +30,31 @@ import { YearlyFixedExpensesService } from './services/yearly-fixed-expenses.ser
 import { YearlyFixedExpensesAddValidator } from './validators/yearly-fixed-expenses-add.validator';
 
 @Component({
-  selector: 'yearly-fixed-expenses',
-  templateUrl: './yearly-fixed-expenses-add.component.html',
-  styleUrls: ['./yearly-fixed-expenses-add.component.css'],
-  providers: [
-    YearlyFixedExpensesService,
-    CategoryExpensesService
-  ],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatButtonModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatTooltipModule,
-    CurrencyMaskModule,
-    TitleComponent,
-    SubTitleComponent,
-    BtnGComponent,
-    CategorySubcategoryExpensesSelectComponent,
-    LinkCopyBillComponent
-
-  ],
-
+    selector: 'yearly-fixed-expenses',
+    templateUrl: './yearly-fixed-expenses-add.component.html',
+    styleUrls: ['./yearly-fixed-expenses-add.component.css'],
+    providers: [
+        YearlyFixedExpensesService,
+        CategoryExpensesService
+    ],
+    imports: [
+        CommonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCheckboxModule,
+        MatButtonModule,
+        MatCardModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatTooltipModule,
+        CurrencyMaskModule,
+        TitleComponent,
+        SubTitleComponent,
+        BtnGComponent,
+        CategorySubcategoryExpensesSelectComponent,
+        LinkCopyBillComponent
+    ]
 })
 
 export class YearlyFixedExpensesAddComponent extends Add implements OnInit {

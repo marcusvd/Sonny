@@ -13,18 +13,17 @@ import { OnClickInterface } from './interfaces/on-click-interface';
 
 
 @Component({
-  selector: 'list-g',
-  standalone: true,
-  templateUrl: './list-g.component.html',
-  imports: [
-    CommonModule,
-    MatIconModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatTooltipModule,
-    SpinnerGComponent
-  ],
-  styleUrls: ['./list-g.component.scss']
+    selector: 'list-g',
+    templateUrl: './list-g.component.html',
+    imports: [
+        CommonModule,
+        MatIconModule,
+        MatButtonModule,
+        MatMenuModule,
+        MatTooltipModule,
+        SpinnerGComponent
+    ],
+    styleUrls: ['./list-g.component.scss']
 })
 export class ListGComponent {
 

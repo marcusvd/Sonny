@@ -31,34 +31,32 @@ import { FinancingsLoansExpensesService } from './services/financings-loans-expe
 
 
 @Component({
-  selector: 'financings-loans-expenses',
-  templateUrl: './add-financings-loans-expenses.component.html',
-  styleUrls: ['./add-financings-loans-expenses.component.css'],
-  providers: [
-    FinancingsLoansExpensesService,
-    CategoryExpensesService
-  ],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatButtonModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatTooltipModule,
-    CurrencyMaskModule,
-    PtBrCurrencyPipe,
-    TitleComponent,
-    SubTitleComponent,
-    DateJustDayComponent,
-    BtnGComponent,
-    CategorySubcategoryExpensesSelectComponent
-  ],
-
+    selector: 'financings-loans-expenses',
+    templateUrl: './add-financings-loans-expenses.component.html',
+    styleUrls: ['./add-financings-loans-expenses.component.css'],
+    providers: [
+        FinancingsLoansExpensesService,
+        CategoryExpensesService
+    ],
+    imports: [
+        CommonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCheckboxModule,
+        MatButtonModule,
+        MatCardModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        MatDatepickerModule,
+        MatTooltipModule,
+        CurrencyMaskModule,
+        PtBrCurrencyPipe,
+        TitleComponent,
+        SubTitleComponent,
+        DateJustDayComponent,
+        BtnGComponent,
+        CategorySubcategoryExpensesSelectComponent
+    ]
 })
 
 export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {

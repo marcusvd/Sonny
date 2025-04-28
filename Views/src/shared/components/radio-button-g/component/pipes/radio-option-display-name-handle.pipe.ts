@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'radioOptionDisplayNameHandle'
+    name: 'radioOptionDisplayNameHandle',
+    standalone: false
 })
 export class RadioOptionDisplayNameHandlePipe implements PipeTransform {
 

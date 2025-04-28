@@ -16,21 +16,20 @@ import { CreditCardExpenseInvoiceDto } from '../../dto/credit-card-expense-invoi
 import { PaymentCreditCardsInvoicesService } from './services/payment-credit-cards-invoices.service';
 
 @Component({
-  selector: 'payment-credit-cards-invoices',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    BankAccountMatSelectSingleComponent,
-    ScreenDataInfoComponent,
-    PriceInteresFieldsComponent,
-    SubTitleComponent,
-    TitleComponent,
-    BtnGComponent
-  ],
-  templateUrl: './payment-credit-cards-invoices.component.html',
-  styleUrls: ['./payment-credit-cards-invoices.component.css'],
-  providers: [PaymentCreditCardsInvoicesService]
+    selector: 'payment-credit-cards-invoices',
+    imports: [
+        CommonModule,
+        MatCardModule,
+        BankAccountMatSelectSingleComponent,
+        ScreenDataInfoComponent,
+        PriceInteresFieldsComponent,
+        SubTitleComponent,
+        TitleComponent,
+        BtnGComponent
+    ],
+    templateUrl: './payment-credit-cards-invoices.component.html',
+    styleUrls: ['./payment-credit-cards-invoices.component.css'],
+    providers: [PaymentCreditCardsInvoicesService]
 })
 
 

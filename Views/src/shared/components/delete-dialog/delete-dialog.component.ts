@@ -7,17 +7,16 @@ import { BtnGComponent } from '../btn-g/btn-g.component';
 import { SubTitleComponent } from '../sub-title/default/sub-title.component';
 
 @Component({
-  selector: 'delete-dialog',
-  standalone: true,
-  encapsulation: ViewEncapsulation.None,
-  imports: [
-    MatDialogModule,
-    MatButtonModule,
-    MatCardModule,
-    SubTitleComponent,
-    BtnGComponent
-  ],
-  template: `
+    selector: 'delete-dialog',
+    encapsulation: ViewEncapsulation.None,
+    imports: [
+        MatDialogModule,
+        MatButtonModule,
+        MatCardModule,
+        SubTitleComponent,
+        BtnGComponent
+    ],
+    template: `
     <mat-card>
       <sub-title title class="font-title" [title]="'Confirmação de exclusão'" [styleContainerTitle]="'padding-top:8px;'" [titleStyle]="'font-family: Mynerve; font-size: 24px; '" [titleBarStyle]="test"></sub-title>
 
@@ -37,8 +36,8 @@ import { SubTitleComponent } from '../sub-title/default/sub-title.component';
        </div>
     </mat-card>
 `,
-  styles: [
-    ` .delete-dialog-class {
+    styles: [
+        ` .delete-dialog-class {
       mat-dialog-container {
           position: fixed;
           top: 0;
@@ -79,7 +78,7 @@ import { SubTitleComponent } from '../sub-title/default/sub-title.component';
       }
 
    `
-  ]
+    ]
 })
 export class DeleteDialogComponent implements OnInit {
 

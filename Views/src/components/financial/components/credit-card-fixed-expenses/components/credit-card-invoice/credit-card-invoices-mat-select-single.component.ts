@@ -20,18 +20,17 @@ import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto
 import { CreditCardInvoicesGetService } from './credit-card-invoices-get.service';
 
 @Component({
-  selector: 'credit-card-invoices-mat-select-single',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatSelectModule,
-    MatCardModule,
-    MatFormFieldModule,
-    BankCardNumberPipe,
-    SpinnerGComponent
-  ],
-  templateUrl: './credit-card-invoices-mat-select-single.component.html',
-  styles: [`
+    selector: 'credit-card-invoices-mat-select-single',
+    imports: [
+        CommonModule,
+        MatSelectModule,
+        MatCardModule,
+        MatFormFieldModule,
+        BankCardNumberPipe,
+        SpinnerGComponent
+    ],
+    templateUrl: './credit-card-invoices-mat-select-single.component.html',
+    styles: [`
             .warning{
                   color:red;
                   margin-top:-10px;
@@ -41,7 +40,7 @@ import { CreditCardInvoicesGetService } from './credit-card-invoices-get.service
               margin-bottom:100px;
             }
   `],
-  providers: [CreditCardInvoicesGetService],
+    providers: [CreditCardInvoicesGetService]
 })
 export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm implements OnInit, OnChanges {
 

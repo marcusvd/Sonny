@@ -13,7 +13,6 @@ import { BankAccountDto } from '../../bank-account-cards/dto/bank-account-dto';
 
 @Component({
     selector: 'view-bank-account',
-    standalone: true,
     imports: [
         CommonModule,
         MatSelectModule,
@@ -42,7 +41,7 @@ import { BankAccountDto } from '../../bank-account-cards/dto/bank-account-dto';
          padding-right: 10px;
         }
   `],
-    providers: [],
+    providers: []
 })
 export class ViewBankAccountComponent extends View implements OnInit {
 

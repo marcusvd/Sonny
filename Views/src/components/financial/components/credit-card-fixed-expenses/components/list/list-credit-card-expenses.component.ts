@@ -43,36 +43,34 @@ import { ListCreditCardExpensesService } from './services/list-credit-card-expen
 
 
 @Component({
-  selector: 'list-credit-card-expenses',
-  templateUrl: './list-credit-card-expenses.component.html',
-  styleUrls: ['./list-credit-card-expenses.component.css'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatCardModule,
-    MatPaginatorModule,
-    MatButtonModule,
-    MatMenuModule,
-    RouterModule,
-    MatCheckboxModule,
-    MatRadioModule,
-    GridListCommonComponent,
-    GridListCommonTableComponent,
-    GridListCommonSearchComponent,
-    TitleComponent,
-    BtnGComponent,
-    SubTitleComponent,
-    MonthsSelectComponent,
-    FilterBtnRadioComponent,
-    FinancialSubtitleComponent,
-  ],
-  providers: [
-    ListCreditCardExpensesService,
-    PtBrDatePipe,
-    PtBrCurrencyPipe,
-  ]
-
+    selector: 'list-credit-card-expenses',
+    templateUrl: './list-credit-card-expenses.component.html',
+    styleUrls: ['./list-credit-card-expenses.component.css'],
+    imports: [
+        CommonModule,
+        FormsModule,
+        MatCardModule,
+        MatPaginatorModule,
+        MatButtonModule,
+        MatMenuModule,
+        RouterModule,
+        MatCheckboxModule,
+        MatRadioModule,
+        GridListCommonComponent,
+        GridListCommonTableComponent,
+        GridListCommonSearchComponent,
+        TitleComponent,
+        BtnGComponent,
+        SubTitleComponent,
+        MonthsSelectComponent,
+        FilterBtnRadioComponent,
+        FinancialSubtitleComponent,
+    ],
+    providers: [
+        ListCreditCardExpensesService,
+        PtBrDatePipe,
+        PtBrCurrencyPipe,
+    ]
 })
 export class ListCreditCardExpensesComponent extends FrontEndListFilterCreditCardExpenses implements OnInit, AfterViewInit {
   constructor(

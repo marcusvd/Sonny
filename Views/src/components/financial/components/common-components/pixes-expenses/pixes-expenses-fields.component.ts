@@ -14,28 +14,25 @@ import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 @Component({
-  selector: 'pixes-expenses-fields',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule,
-    MatDatepickerModule,
-    BtnGComponent,
-  ],
-  templateUrl: './pixes-expenses-fields.component.html',
-  styles: [`
+    selector: 'pixes-expenses-fields',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatCardModule,
+        MatButtonModule,
+        MatDatepickerModule,
+        BtnGComponent,
+    ],
+    templateUrl: './pixes-expenses-fields.component.html',
+    styles: [`
     #label{
               color:rgb(122,142,99);
               font-weight: bolder;
               }
 `],
-  providers: [
-
-  ]
+    providers: []
 })
 
 export class PixesExpensesFieldsComponent extends BaseForm implements OnInit {

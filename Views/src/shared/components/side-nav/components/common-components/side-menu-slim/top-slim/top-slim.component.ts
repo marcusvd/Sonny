@@ -8,18 +8,17 @@ import { AuthenticationService } from 'src/components/authentication/services/au
 import { MaterialModule } from 'src/shared/modules/material.module';
 
 @Component({
-  selector: 'top-slim',
-  templateUrl: './top-slim.component.html',
-  styleUrls: ['./top-slim.component.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatIconModule,
-    MatMenuModule,
-    MatDividerModule,
-    RouterLink,
-     UpperCasePipe,
-     TitleCasePipe
+    selector: 'top-slim',
+    templateUrl: './top-slim.component.html',
+    styleUrls: ['./top-slim.component.scss'],
+    imports: [
+        CommonModule,
+        MatIconModule,
+        MatMenuModule,
+        MatDividerModule,
+        RouterLink,
+        UpperCasePipe,
+        TitleCasePipe
     ]
 })
 export class SideMenuTopSlimComponent implements OnInit {
