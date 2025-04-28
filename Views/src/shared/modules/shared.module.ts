@@ -52,7 +52,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     MaterialModule,
     SharedRoutingModule,
     CurrencyMaskModule,
-    NgxMaskModule.forRoot(maskConfigFunction),
+    // NgxMaskModule.forRoot(maskConfigFunction),
     TabGModule,
     TreeGModule,
     RadioButtonGModule,
