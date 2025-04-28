@@ -12,7 +12,7 @@ import { ProductTypeDto } from '../dtos/product-type-dto';
 import { ProductTypeService } from '../list-product/services/product-type.service';
 import { ListControlProduct } from './helpers/list-control-product';
 import { ImportsListProduct } from './imports/imports-list-product';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 
 
 @Component({

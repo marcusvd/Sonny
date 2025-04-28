@@ -3,10 +3,10 @@ import { CommonModule, NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
+import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';

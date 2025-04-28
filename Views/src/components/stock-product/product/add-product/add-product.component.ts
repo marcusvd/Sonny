@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatLegacyCheckboxChange as MatCheckboxChange } from '@angular/material/legacy-checkbox';
 import { Router } from '@angular/router';
 import { ControllerAddProduct } from './helpers/controller-add-product';
 import { ImportsAddProduct } from './imports/imports-add-product';

@@ -1,4 +1,4 @@
-import { PageEvent } from '@angular/material/paginator';
+import { LegacyPageEvent as PageEvent } from '@angular/material/legacy-paginator';
 import { of } from "rxjs";
 import { List } from 'src/shared/components/inheritance/list/list';
 import { PixExpenseListGridDto } from '../dto/pix-expense-list-grid-dto';

@@ -2,7 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
-import { MatRadioButton, MatRadioChange, MatRadioModule } from '@angular/material/radio';
+import { MatLegacyRadioButton as MatRadioButton, MatLegacyRadioChange as MatRadioChange, MatLegacyRadioModule as MatRadioModule } from '@angular/material/legacy-radio';
 
 
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';

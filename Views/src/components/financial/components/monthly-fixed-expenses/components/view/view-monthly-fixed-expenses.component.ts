@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';

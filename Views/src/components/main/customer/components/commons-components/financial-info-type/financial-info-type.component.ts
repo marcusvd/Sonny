@@ -9,10 +9,10 @@ import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 
 import { CommonModule } from '@angular/common';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
+import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
+import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 

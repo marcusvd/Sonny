@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatLegacyPaginator as MatPaginator, LegacyPageEvent as PageEvent } from '@angular/material/legacy-paginator';
 import { NavigationExtras, Router } from "@angular/router";
 import * as diacritics from 'diacritics';
 import { Observable } from "rxjs";

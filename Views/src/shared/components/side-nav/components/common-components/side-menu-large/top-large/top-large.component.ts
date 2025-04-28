@@ -2,9 +2,9 @@ import { CommonModule, NgIf, TitleCasePipe, UpperCasePipe } from '@angular/commo
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDivider, MatDividerModule } from '@angular/material/divider';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatMenu, MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
+import { MatLegacyMenu as MatMenu, MatLegacyMenuModule as MatMenuModule, MatLegacyMenuTrigger as MatMenuTrigger } from '@angular/material/legacy-menu';
 import { RouterLink } from '@angular/router';
 import { AuthenticationService } from 'src/components/authentication/services/authentication.service';
 import { MaterialModule } from 'src/shared/modules/material.module';

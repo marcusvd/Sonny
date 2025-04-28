@@ -1,6 +1,6 @@
 import { of } from "rxjs";
 
-import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatLegacyCheckboxChange as MatCheckboxChange } from '@angular/material/legacy-checkbox';
 import { List } from 'src/shared/components/inheritance/list/list';
 
 

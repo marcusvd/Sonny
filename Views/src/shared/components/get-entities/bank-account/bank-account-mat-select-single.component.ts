@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatSelectModule } from '@angular/material/select';
+import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
+import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
+import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatLegacyRadioChange as MatRadioChange, MatLegacyRadioModule as MatRadioModule } from '@angular/material/legacy-radio';
 import { Observable } from 'rxjs/internal/Observable';
 import { BankAccountDto } from 'src/components/financial/components/bank-account-cards/dto/bank-account-dto';
 import { CardDto } from 'src/components/financial/components/bank-account-cards/dto/card-dto';

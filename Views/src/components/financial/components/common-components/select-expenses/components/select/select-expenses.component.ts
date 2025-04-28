@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
+import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
 
 
 
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatTabsModule } from '@angular/material/tabs';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
+import { MatLegacyTabsModule as MatTabsModule } from '@angular/material/legacy-tabs';
 import { AddCreditCardExpensesComponent } from 'src/components/financial/components/credit-card-fixed-expenses/components/add/add-credit-card-expenses.component';
 import { ListCreditCardInvoicesComponent } from 'src/components/financial/components/credit-card-fixed-expenses/components/list -invoices/list-credit-card-invoices.component';
 import { ListCreditCardExpensesComponent } from 'src/components/financial/components/credit-card-fixed-expenses/components/list/list-credit-card-expenses.component';

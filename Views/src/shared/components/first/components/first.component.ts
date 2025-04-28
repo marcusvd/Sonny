@@ -1,8 +1,8 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
-import { MatCardModule } from '@angular/material/card';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { MatIconModule } from '@angular/material/icon';
 
 

@@ -6,7 +6,7 @@ import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 //
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MatPaginatorIntl } from '@angular/material/paginator';
+import { MatLegacyPaginatorIntl as MatPaginatorIntl } from '@angular/material/legacy-paginator';
 import { AppRoutingModule } from 'src/app/app.routing.module';
 import { FinancialModule } from 'src/components/financial/modules/financial.module';
 import { CustomerModule } from 'src/components/main/customer/modules/customer.module';
