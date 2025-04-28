@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // below function get cnpj customer create partner create etc...
-import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withJsonpSupport } from '@angular/common/http';
 //
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -25,62 +25,38 @@ import { provideRouter, ROUTES, withPreloading } from '@angular/router';
 
 
 
-@NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  imports: [
-    //Angular
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    FormsModule,
-    AppRoutingModule,
-    //just works fine here
-    MatGridListModule,
-    //MY IMPORTS
-    SharedModule,
-    MaterialModule,
-   //MY IMPORTS Features
-    ProfilesModule,
-    //Main
-    PartnerModule,
-    CustomerModule,
-    TechnicianModule,
-    FinancialModule,
-    
-    
-    //OUTSOURCED
-    OutsourcedRoutingModule,
-    //StockProduct
-    StockProductRoutingModule,
-    //test
-    // TestsComponent,
-
-    // GridListCommonTableComponent
-    // below function get cnpj customer create partner create etc...
-    HttpClientJsonpModule,
-    HttpClientModule,
-    //
-  ],
-
-  exports: [
-
-  ],
-
-  providers: [
-    HttpErrorHandler,
-
-      { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
-
-
-    //change appearance of all mat-form-field in all app
-    // {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}
-
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+    ],
+    exports: [],
+    bootstrap: [AppComponent], imports: [
+        //Angular
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        FormsModule,
+        AppRoutingModule,
+        //just works fine here
+        MatGridListModule,
+        //MY IMPORTS
+        SharedModule,
+        MaterialModule,
+        //MY IMPORTS Features
+        ProfilesModule,
+        //Main
+        PartnerModule,
+        CustomerModule,
+        TechnicianModule,
+        FinancialModule,
+        //OUTSOURCED
+        OutsourcedRoutingModule,
+        //StockProduct
+        StockProductRoutingModule], providers: [
+        HttpErrorHandler,
+        { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
+        provideHttpClient(withInterceptorsFromDi(), withJsonpSupport()),
+    ] })
 export class AppModule { }
 
 
