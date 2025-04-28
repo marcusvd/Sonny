@@ -32,7 +32,7 @@
     "ng-recaptcha": "^10.0.0",
     "ng2-currency-mask": "^13.0.3",
     "ngx-mask": "^13.1.15",
-    "ngx-mat-select-search": "^5.0.0",
+    "ngx-mat-select-search": "^6.0.0",
     "ngx-material-timepicker": "^5.5.3",
     "ngx-toastr": "^16.1.1",
     "rxjs": "~6.6.0",
