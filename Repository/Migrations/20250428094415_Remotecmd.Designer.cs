@@ -2,22 +2,28 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository.Data.Context;
 
+#nullable disable
+
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20250108200633_specificities")]
-    partial class specificities
+    [Migration("20250428094415_Remotecmd")]
+    partial class Remotecmd
     {
+        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 64)
-                .HasAnnotation("ProductVersion", "5.0.13");
+                .HasAnnotation("ProductVersion", "8.0.13")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+
+            MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
             modelBuilder.Entity("Domain.Entities.Authentication.UserRole", b =>
                 {
@@ -31,7 +37,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("aspnetUserRoles");
+                    b.ToTable("aspnetUserRoles", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Finances.Bank.BankAccount", b =>
@@ -39,6 +45,8 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Account")
                         .HasColumnType("longtext");
@@ -93,6 +101,8 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("BankAccountId")
                         .HasColumnType("int");
@@ -156,6 +166,8 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("CardId")
                         .HasColumnType("int");
 
@@ -198,6 +210,8 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("BankAccountId")
                         .HasColumnType("int");
 
@@ -222,6 +236,8 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
@@ -252,6 +268,8 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CategoryExpenseId")
                         .HasColumnType("int");
@@ -286,6 +304,8 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CardId")
                         .HasColumnType("int");
@@ -394,6 +414,8 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int?>("CardId")
                         .HasColumnType("int");
 
@@ -452,6 +474,8 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CategoryExpenseId")
                         .HasColumnType("int");
@@ -535,6 +559,8 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int?>("BankAccountId")
                         .HasColumnType("int");
 
@@ -602,6 +628,8 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("BankAccountId")
                         .HasColumnType("int");
@@ -688,6 +716,8 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<string>("BenefitedKey")
                         .HasColumnType("longtext");
 
@@ -757,6 +787,8 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("BankAccountId")
                         .HasColumnType("int");
@@ -836,6 +868,8 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("AutoRenew")
                         .HasColumnType("tinyint(1)");
@@ -928,6 +962,8 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int?>("AddressId")
                         .HasColumnType("int");
 
@@ -955,6 +991,8 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
@@ -979,6 +1017,8 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("AdditionalCostsId")
                         .HasColumnType("int");
@@ -1057,6 +1097,8 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<decimal>("Apps")
                         .HasColumnType("decimal(65,30)");
 
@@ -1090,6 +1132,8 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("AddressId")
                         .HasColumnType("int");
@@ -1159,6 +1203,8 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<string>("Account")
                         .HasColumnType("longtext");
 
@@ -1201,6 +1247,8 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
@@ -1237,6 +1285,8 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
@@ -1264,6 +1314,8 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Base")
                         .HasColumnType("tinyint(1)");
@@ -1299,6 +1351,8 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("BillingFromId")
                         .HasColumnType("int");
@@ -1369,6 +1423,8 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
@@ -1406,6 +1462,8 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
@@ -1465,6 +1523,8 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<string>("UserProfileImage")
                         .HasColumnType("longtext");
 
@@ -1473,11 +1533,95 @@ namespace Repository.Migrations
                     b.ToTable("UserProfile");
                 });
 
+            modelBuilder.Entity("Domain.Entities.RemoteCmd.RemoteCmdMachine", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Disabled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("DomainExecution")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ExecutionSecretCode")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("RD_RemotesCmdsMachines");
+                });
+
+            modelBuilder.Entity("Domain.Entities.RemoteCmd.ReturnResults.ResultExecutedCommand", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("Relational:JsonPropertyName", "Id");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Body")
+                        .HasColumnType("longtext")
+                        .HasAnnotation("Relational:JsonPropertyName", "Body");
+
+                    b.Property<string>("FilesPath")
+                        .HasColumnType("longtext")
+                        .HasAnnotation("Relational:JsonPropertyName", "FilesPath");
+
+                    b.Property<string>("Subject")
+                        .HasColumnType("longtext")
+                        .HasAnnotation("Relational:JsonPropertyName", "Subject");
+
+                    b.Property<int>("TargetId")
+                        .HasColumnType("int")
+                        .HasAnnotation("Relational:JsonPropertyName", "TargetId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TargetId");
+
+                    b.ToTable("RD_ResultsExecutedCommands");
+                });
+
+            modelBuilder.Entity("Domain.Entities.RemoteCmd.Target", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Computer")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("RemoteCmdMachineId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RemoteCmdMachineId");
+
+                    b.ToTable("RD_Targets");
+
+                    b.HasAnnotation("Relational:JsonPropertyName", "Target");
+                });
+
             modelBuilder.Entity("Domain.Entities.ServicesBench.BudgetService", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("CollectsDeliversCostsId")
                         .HasColumnType("int");
@@ -1536,6 +1680,8 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("CostFrom")
                         .HasColumnType("int");
 
@@ -1555,6 +1701,8 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Added")
                         .HasColumnType("datetime(6)");
@@ -1590,6 +1738,8 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<string>("Comments")
                         .HasColumnType("longtext");
 
@@ -1614,6 +1764,8 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
@@ -1640,6 +1792,8 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("City")
                         .HasColumnType("longtext");
@@ -1679,6 +1833,8 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<string>("Cel")
                         .HasColumnType("longtext");
 
@@ -1710,6 +1866,8 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
@@ -1743,6 +1901,8 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
@@ -1847,6 +2007,8 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
@@ -1879,6 +2041,8 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
@@ -1889,8 +2053,7 @@ namespace Repository.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("Registered")
                         .HasColumnType("datetime(6)");
@@ -1904,9 +2067,6 @@ namespace Repository.Migrations
 
                     b.HasIndex("ManufacturerId");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
-
                     b.HasIndex("SpecificitiesId");
 
                     b.ToTable("PD_Models");
@@ -1917,6 +2077,8 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
@@ -1953,6 +2115,8 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
@@ -1985,8 +2149,7 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Capacity")
-                        .HasColumnType("longtext");
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
@@ -1997,17 +2160,14 @@ namespace Repository.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Generation")
+                    b.Property<string>("DetailedDescription")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ManufacturerLink")
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("Registered")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Speed")
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Version")
-                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -2022,12 +2182,15 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("longtext");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(21)
+                        .HasColumnType("varchar(21)");
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
@@ -2037,9 +2200,11 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("aspnetRoles");
+                    b.ToTable("aspnetRoles", (string)null);
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole<int>");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -2047,6 +2212,8 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("longtext");
@@ -2059,7 +2226,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("aspnetRoleClaims");
+                    b.ToTable("aspnetRoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser<int>", b =>
@@ -2067,6 +2234,8 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
@@ -2076,7 +2245,8 @@ namespace Repository.Migrations
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(21)
+                        .HasColumnType("varchar(21)");
 
                     b.Property<string>("Email")
                         .HasColumnType("longtext");
@@ -2116,9 +2286,11 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("aspnetUsers");
+                    b.ToTable("aspnetUsers", (string)null);
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser<int>");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
@@ -2126,6 +2298,8 @@ namespace Repository.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("longtext");
@@ -2138,7 +2312,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("aspnetUserClaims");
+                    b.ToTable("aspnetUserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
@@ -2147,18 +2321,22 @@ namespace Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("UserId"));
+
                     b.Property<string>("LoginProvider")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("longtext");
 
                     b.Property<string>("ProviderKey")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("UserId");
 
-                    b.ToTable("aspnetUserLogins");
+                    b.ToTable("aspnetUserLogins", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
@@ -2177,7 +2355,7 @@ namespace Repository.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens");
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Authentication.Role", b =>
@@ -3034,6 +3212,39 @@ namespace Repository.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Domain.Entities.RemoteCmd.RemoteCmdMachine", b =>
+                {
+                    b.HasOne("Domain.Entities.Main.Customers.Customer", "Customer")
+                        .WithMany("RemotesCmdsMachines")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("Domain.Entities.RemoteCmd.ReturnResults.ResultExecutedCommand", b =>
+                {
+                    b.HasOne("Domain.Entities.RemoteCmd.Target", "Target")
+                        .WithMany("ResultsExecutedCommands")
+                        .HasForeignKey("TargetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Target");
+                });
+
+            modelBuilder.Entity("Domain.Entities.RemoteCmd.Target", b =>
+                {
+                    b.HasOne("Domain.Entities.RemoteCmd.RemoteCmdMachine", "RemoteCmdMachine")
+                        .WithMany("Targets")
+                        .HasForeignKey("RemoteCmdMachineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RemoteCmdMachine");
+                });
+
             modelBuilder.Entity("Domain.Entities.ServicesBench.BudgetService", b =>
                 {
                     b.HasOne("Domain.Entities.ServicesBench.CollectDeliverCosts", "CollectsDeliversCosts")
@@ -3458,9 +3669,9 @@ namespace Repository.Migrations
 
                     b.Navigation("Partners");
 
-                    b.Navigation("Products");
-
                     b.Navigation("ProductTypes");
+
+                    b.Navigation("Products");
 
                     b.Navigation("Segments");
 
@@ -3480,6 +3691,8 @@ namespace Repository.Migrations
                     b.Navigation("CollectDeliverDestinies");
 
                     b.Navigation("Products");
+
+                    b.Navigation("RemotesCmdsMachines");
                 });
 
             modelBuilder.Entity("Domain.Entities.Main.Partner", b =>
@@ -3500,6 +3713,16 @@ namespace Repository.Migrations
                     b.Navigation("BanksAccounts");
 
                     b.Navigation("Pixes");
+                });
+
+            modelBuilder.Entity("Domain.Entities.RemoteCmd.RemoteCmdMachine", b =>
+                {
+                    b.Navigation("Targets");
+                });
+
+            modelBuilder.Entity("Domain.Entities.RemoteCmd.Target", b =>
+                {
+                    b.Navigation("ResultsExecutedCommands");
                 });
 
             modelBuilder.Entity("Domain.Entities.ServicesBench.Service", b =>

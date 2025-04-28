@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Application.Exceptions;
 using Application.Services.Operations.Authentication;
 using Application.Services.Operations.Authentication.Dtos;
-using AutoMapper;
 using Domain.Entities.Authentication;
 using Domain.Entities.Main.Companies;
 using Microsoft.AspNetCore.Identity;
@@ -24,7 +23,6 @@ namespace Application.Services.Operations.Authentication.Register
               UserManager<MyUser> userManager,
               EmailServer email,
               JwtHandler jwtHandler,
-              IMapper iMapper,
               IUrlHelper url
 
           )

@@ -1,27 +1,22 @@
 using System;
-using AutoMapper;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using UnitOfWork.Persistence.Operations;
 using Application.Exceptions;
-using Pagination.Models;
-using Application.Services.Helpers;
 using Domain.Entities.Main;
 using Application.Services.Operations.Main.Partners.Dtos;
-using Domain.Entities.Main.Partners.Enums;
+using Application.Services.Operations.Main.Partners.Dtos.Mappers;
 
 namespace Application.Services.Operations.Main.Partners
 {
     public class PartnerAddServices : IPartnerAddServices
     {
-        private readonly IMapper _MAP;
+        private readonly IPartnerObjectMapperServices _mapper;
         private readonly IUnitOfWork _GENERIC_REPO;
         public PartnerAddServices(
                          IUnitOfWork GENERIC_REPO,
-                         IMapper MAP
-                        )
+                         IPartnerObjectMapperServices mapper                        )
         {
-            _MAP = MAP;
+            _mapper = mapper;
             _GENERIC_REPO = GENERIC_REPO;
         }
 
@@ -30,7 +25,7 @@ namespace Application.Services.Operations.Main.Partners
 
             if (entityDto == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            Partner entityToDb = _MAP.Map<Partner>(entityDto);
+            Partner entityToDb = _mapper.PartnerMapper(entityDto);
 
             entityToDb.Registered = DateTime.Now;
           
@@ -64,7 +59,7 @@ namespace Application.Services.Operations.Main.Partners
                     null,
                     selector => selector
                     );
-                return _MAP.Map<PartnerDto>(entityFromoDb);
+                return _mapper.PartnerMapper(entityFromoDb);
             }
 
             return entityDto;

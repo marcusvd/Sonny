@@ -1,5 +1,4 @@
 using System;
-using AutoMapper;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnitOfWork.Persistence.Operations;
@@ -10,21 +9,22 @@ using Application.Services.Operations.Main.Partners.Dtos;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Domain.Entities.Main.Partners.Enums;
+using Application.Services.Operations.Main.Partners.Dtos.Mappers;
 
 
 namespace Application.Services.Operations.Main.Partners
 {
     public class PartnerGetServices : IPartnerGetServices
     {
-        private readonly IMapper _MAP;
+        private readonly IPartnerObjectMapperServices _mapper;
         private readonly IUnitOfWork _GENERIC_REPO;
         public PartnerGetServices(
                          IUnitOfWork GENERIC_REPO,
-                         IMapper MAP
+                        IPartnerObjectMapperServices mapper
 
                         )
         {
-            _MAP = MAP;
+            _mapper = mapper;
             _GENERIC_REPO = GENERIC_REPO;
         }
         public async Task<List<PartnerDto>> GetAllByCompanyIdAsync(int id)
@@ -32,7 +32,7 @@ namespace Application.Services.Operations.Main.Partners
 
             var fromDb = await _GENERIC_REPO.Partners.Get(x => x.CompanyId == id && x.Deleted == DateTime.MinValue).ToListAsync();
 
-            var toReturn = _MAP.Map<List<PartnerDto>>(fromDb);
+            var toReturn = _mapper.PartnerListMake(fromDb);
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -51,7 +51,7 @@ namespace Application.Services.Operations.Main.Partners
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toReturnViewDto = _MAP.Map<List<PartnerDto>>(entityFromDb);
+            var toReturnViewDto = _mapper.PartnerListMake(entityFromDb);
 
             return toReturnViewDto;
         }
@@ -61,7 +61,7 @@ namespace Application.Services.Operations.Main.Partners
             var fromDb = await _GENERIC_REPO.Partners.Get(
                 predicate => predicate.CompanyId == companyId && predicate.Deleted ==DateTime.MinValue && predicate.PartnerBusiness == PartnerBusinessEnum.HardwareSupplier).ToListAsync();
 
-            var toReturn = _MAP.Map<List<PartnerDto>>(fromDb);
+            var toReturn = _mapper.PartnerListMake(fromDb);
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
             return toReturn;
@@ -77,7 +77,7 @@ namespace Application.Services.Operations.Main.Partners
                 null
             ).ToListAsync();
 
-            var toReturn = _MAP.Map<List<PartnerDto>>(fromDb);
+            var toReturn = _mapper.PartnerListMake(fromDb);
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
             return toReturn;
@@ -87,7 +87,7 @@ namespace Application.Services.Operations.Main.Partners
         {
             var fromDb = await _GENERIC_REPO.Partners.Get(predicate => predicate.CompanyId == companyId && predicate.Deleted ==DateTime.MinValue).Where(x => x.PartnerBusiness == PartnerBusinessEnum.ElectronicRepair).ToListAsync();
 
-            var toReturn = _MAP.Map<List<PartnerDto>>(fromDb);
+            var toReturn = _mapper.PartnerListMake(fromDb);
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -109,7 +109,7 @@ namespace Application.Services.Operations.Main.Partners
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            List<PartnerDto> ViewDto = _MAP.Map<List<PartnerDto>>(fromDb);
+            List<PartnerDto> ViewDto = _mapper.PartnerListMake(fromDb);
 
             var PgDto = new PagedList<PartnerDto>()
             {
@@ -129,7 +129,7 @@ namespace Application.Services.Operations.Main.Partners
         {
             var fromDb = await _GENERIC_REPO.Partners.Get(x => x.CompanyId == id && x.Deleted == DateTime.MinValue).ToListAsync();
 
-            var toReturn = _MAP.Map<List<PartnerDto>>(fromDb);
+            var toReturn = _mapper.PartnerListMake(fromDb);
 
             if (fromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
@@ -157,7 +157,7 @@ namespace Application.Services.Operations.Main.Partners
 
             if (entityFromDb == null) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);
 
-            var toReturnViewDto = _MAP.Map<PartnerDto>(entityFromDb);
+            var toReturnViewDto = _mapper.PartnerMapper(entityFromDb);
 
             return toReturnViewDto;
 

@@ -1,13 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Domain.Entities.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Application.Services.Operations.Authentication.Dtos;
-using Application.Exceptions;
-using Application.Services.Helpers;
-using System.IdentityModel.Tokens.Jwt;
-using AutoMapper;
+using Application.Services.Shared.Dtos.Mappers;
 
 namespace Application.Services.Operations.Authentication
 {
@@ -15,24 +9,24 @@ namespace Application.Services.Operations.Authentication
     {
 
         private readonly IAuthHelpersServices _iAuthHelpersServices;
-        private readonly IMapper _iMapper;
+        private readonly ICommonObjectMapper _mapper;
 
         // private readonly JwtHandler _jwtHandler;
         // private readonly Email _email;
         public AccountServices(
         IAuthHelpersServices iAuthHelpersServices,
-        IMapper iMapper
+        ICommonObjectMapper mapper
         )
         {
             _iAuthHelpersServices = iAuthHelpersServices;
-            _iMapper = iMapper;
+            _mapper = mapper;
         }
 
         public async Task<MyUserDto> GetUserByNameAsync(string name)
         {
             var myUserFromDb = await _iAuthHelpersServices.FindUserByNameAsync(name);
 
-            var myUserDtoReturn = _iMapper.Map<MyUserDto>(myUserFromDb);
+            var myUserDtoReturn = _mapper.MyUserMapper(myUserFromDb);
 
             return myUserDtoReturn;
         }
@@ -40,7 +34,7 @@ namespace Application.Services.Operations.Authentication
         {
             var myUserFromDb = await _iAuthHelpersServices.FindUserByNameAllIncludedAsync(name);
 
-            var myUserDtoReturn = _iMapper.Map<MyUserDto>(myUserFromDb);
+            var myUserDtoReturn = _mapper.MyUserMapper(myUserFromDb);
 
             return myUserDtoReturn;
         }
@@ -48,54 +42,54 @@ namespace Application.Services.Operations.Authentication
         {
             var myUserFromDb = await _iAuthHelpersServices.FindUserByIdAsync(id);
 
-            var myUserDtoReturn = _iMapper.Map<MyUserDto>(myUserFromDb);
+            var myUserDtoReturn = _mapper.MyUserMapper(myUserFromDb);
 
             return myUserDtoReturn;
         }
         public async Task<List<MyUserDto>> GetAllUsersAsync()
         {
             var myUsersFromDb = await _iAuthHelpersServices.FindAllUsersAsync();
-            var myUsersDtoReturn = _iMapper.Map<List<MyUserDto>>(myUsersFromDb);
+            var myUsersDtoReturn = _mapper.MyUserListMake(myUsersFromDb);
             return myUsersDtoReturn;
         }
 
-        public async Task<MyUserDto> UpdateUserAsync(MyUserDto user)
-        {
+        // public async Task<MyUserDto> UpdateUserAsync(MyUserDto user)
+        // {
 
-            var myUserFromDb = await _iAuthHelpersServices.FindUserByIdAsync(user.Id);
+        //     var myUserFromDb = await _iAuthHelpersServices.FindUserByIdAsync(user.Id);
 
-            var toUpdate = _iMapper.Map(user, myUserFromDb);
+        //     var toUpdate = _iMapper.Map(user, myUserFromDb);
 
-            if (myUserFromDb.NormalizedEmail != user.Email.ToUpper())
-            {
-                toUpdate.EmailConfirmed = false;
-            }
+        //     if (myUserFromDb.NormalizedEmail != user.Email.ToUpper())
+        //     {
+        //         toUpdate.EmailConfirmed = false;
+        //     }
 
 
-            var result = await _iAuthHelpersServices.UserUpdateAsync(toUpdate);
-            if (user.PasswordChanged)
-            {
+        //     var result = await _iAuthHelpersServices.UserUpdateAsync(toUpdate);
+        //     if (user.PasswordChanged)
+        //     {
 
-                var resetPwd = new ResetPasswordDto()
-                {
-                    Password = user.Password,
-                    Email = myUserFromDb.Email,
-                    Token =  await _iAuthHelpersServices.GeneratePasswordResetTokenAsync(myUserFromDb)
-                };
+        //         var resetPwd = new ResetPasswordDto()
+        //         {
+        //             Password = user.Password,
+        //             Email = myUserFromDb.Email,
+        //             Token =  await _iAuthHelpersServices.GeneratePasswordResetTokenAsync(myUserFromDb)
+        //         };
 
-                await _iAuthHelpersServices.ResetPasswordAsync(resetPwd);
-            }
+        //         await _iAuthHelpersServices.ResetPasswordAsync(resetPwd);
+        //     }
             
             
-            if (result.Succeeded)
-            {
-                var myUserUpdatedFropmDb = await _iAuthHelpersServices.FindUserByNameAsync(user.UserName);
-                return _iMapper.Map<MyUserDto>(myUserUpdatedFropmDb);
-            }
+        //     if (result.Succeeded)
+        //     {
+        //         var myUserUpdatedFropmDb = await _iAuthHelpersServices.FindUserByNameAsync(user.UserName);
+        //         return _iMapper.Map<MyUserDto>(myUserUpdatedFropmDb);
+        //     }
 
-            return user;
+        //     return user;
 
-        }
+        // }
 
 
 

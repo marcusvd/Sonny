@@ -23,12 +23,12 @@ namespace Api.Controllers
             return "value";
         }
 
-        [HttpPost("CreateRole")]
-        public async Task<IActionResult> CreateRole(RoleDto role)
-        {
-            var result = await _iAuthServices.CreateRole(role);
-            return Ok(result);
-        }
+        // [HttpPost("CreateRole")]
+        // public async Task<IActionResult> CreateRole(RoleDto role)
+        // {
+        //     var result = await _iAuthServices.CreateRole(role);
+        //     return Ok(result);
+        // }
 
         [HttpPut("UpdateUserRole")]
         public async Task<IActionResult> UpdateUserRole(UpdateUserRoleDto model)

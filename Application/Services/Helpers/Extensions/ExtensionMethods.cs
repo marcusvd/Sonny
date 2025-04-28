@@ -65,6 +65,9 @@ using Application.Services.Operations.Main.Partners.Dtos.Mappers;
 using Application.Services.Operations.StockProduct.ProductKind;
 using Application.Services.Operations.StockProduct;
 using Application.Services.Operations.StockProduct.Dtos.Mappers;
+using Application.Services.Operations.RemoteCmd;
+using Application.Services.Operations.RemoteCmd.Dtos.Mappers;
+using Application.Services.Shared.Dtos.Mappers;
 
 
 namespace Application.Services.Helpers.Extensions
@@ -99,16 +102,16 @@ namespace Application.Services.Helpers.Extensions
             #region seed
             services.AddScoped<SeedSonnyDbServices>();
             #endregion
-
+            #region ObjectMapper
+            services.AddScoped<ICommonObjectMapper, CommonObjectMapper>();
+            #endregion
+           
             #region Products
             services.AddScoped<IProductServices, ProductServices>();
             services.AddScoped<IProductChildrenServices, ProductChildrenServices>();
             services.AddScoped<IStockProductObjectMapperServices, StockProductObjectMapperServices>();
 
-
-
-             #endregion
-            
+            #endregion
             #region Accounts
             services.AddScoped<IAccountServices, AccountServices>();
             #endregion
@@ -149,23 +152,21 @@ namespace Application.Services.Helpers.Extensions
             #region BudgetServiceBench
             services.AddScoped<IBudgetServiceRepository, BudgetServiceRepository>();
 
-            services.AddScoped<IBudgetServiceAddServices, BudgetServiceAddServices>();
-            services.AddScoped<IBudgetServiceGetServices, BudgetServiceGetServices>();
-            services.AddScoped<IOpenBudgetServiceServices, OpenBudgetServiceServices>();
-            services.AddScoped<ITableProvidedServicePriceAddServices, TableProvidedServicePriceAddServices>();
-            services.AddScoped<ITableProvidedServicePriceGetServices, TableProvidedServicePriceGetServices>();
+            // services.AddScoped<IBudgetServiceAddServices, BudgetServiceAddServices>();
+            // services.AddScoped<IBudgetServiceGetServices, BudgetServiceGetServices>();
+            // services.AddScoped<IOpenBudgetServiceServices, OpenBudgetServiceServices>();
+            // services.AddScoped<ITableProvidedServicePriceAddServices, TableProvidedServicePriceAddServices>();
+            // services.AddScoped<ITableProvidedServicePriceGetServices, TableProvidedServicePriceGetServices>();
             #endregion
-
             #region Outsourced
 
             services.AddScoped<IOutsourcedObjectMapperServices, OutsourcedObjectMapperServices>();
-            services.AddScoped<IElectronicRepairServices, ElectronicRepairServices>();
+            // services.AddScoped<IElectronicRepairServices, ElectronicRepairServices>();
             services.AddScoped<IElectronicRepairRepository, ElectronicRepairRepository>();
             services.AddScoped<ICollectDeliverServices, CollectDeliverServices>();
             services.AddScoped<ICollectDeliverRepository, CollectDeliverRepository>();
 
             #endregion
-
             #region Customer
             services.AddScoped<ICustomerObjectMapperServices, CustomerObjectMapperServices>();
             services.AddScoped<ICustomerAddServices, CustomerAddServices>();
@@ -174,7 +175,6 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<ICustomerUpdateServices, CustomerUpdateServices>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             #endregion
-
             #region Partner
             services.AddScoped<IPartnerObjectMapperServices, PartnerObjectMapperServices>();
             services.AddScoped<IPartnerAddServices, PartnerAddServices>();
@@ -202,6 +202,11 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<EmailServer>();
             services.AddScoped<Email>();
             #endregion
+            #region RemoteCmd          
+            services.AddScoped<IRemoteCmdMachineServices, RemoteCmdMachineServices>();
+            services.AddScoped<IRemoteCmdMachineObjectMapperServices, RemoteCmdMachineObjectMapperServices>();
+            #endregion
+
             #region Tests1
             services.AddScoped<ITableProvidedServicesPricesRepository, TableProvidedServicesPricesRepository>();
 

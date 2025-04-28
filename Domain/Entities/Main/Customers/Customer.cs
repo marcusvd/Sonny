@@ -2,9 +2,9 @@ using Domain.Entities.Main.Inheritances;
 using Domain.Entities.Main.Inheritances.Enums;
 using System;
 using Domain.Entities.Shared;
-
-namespace Domain.Entities.Main.Customers
-{
+using Domain.Entities.RemoteCmd;
+using System.Collections.Generic;
+namespace Domain.Entities.Main.Customers;
 
     public class Customer : MainEntitiesBase
     {
@@ -52,12 +52,9 @@ namespace Domain.Entities.Main.Customers
         }
         public DateTime Assured { get; set; }
         public decimal Payment { get; set; }
+        public List<RemoteCmdMachine> RemotesCmdsMachines { get; set; }
         public DateTime Expires { get; set; }
         public decimal Discount { get; set; }
         public AdditionalCosts AdditionalCosts { get; set; }
-        // public List<Tracking> Trackings { get; set; }
-        // public List<BudgetService> ServicesExecuted { get; set; }
-        // public List<ElectronicRepair> ElectronicsRepairs { get; set; }
-    }
 
-}
+    }

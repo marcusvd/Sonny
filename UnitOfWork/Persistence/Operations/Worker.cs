@@ -18,6 +18,7 @@ using Repository.Data.Operations.Finances.CreditCardExpenses;
 using Repository.Data.Operations.Finances.CreditCardInvoiceExpense;
 using Repository.Data.Operations.Finances.PixesExpenses;
 using Repository.Data.Operations.ProductRepository;
+using Repository.Data.Operations.RemoteCmd;
 
 namespace UnitOfWork.Persistence.Operations
 {
@@ -284,8 +285,16 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
 
-
-
+        #endregion
+        #region REMOTECMD
+        private RemoteCmdMachineRepository REMOTECMDMACHINE_REPO;
+        public IRemoteCmdMachineRepository RemoteCmdMachine
+        {
+            get
+            {
+                return REMOTECMDMACHINE_REPO = REMOTECMDMACHINE_REPO ?? new RemoteCmdMachineRepository(_CONTEXT);
+            }
+        }
         #endregion
 
         public async Task<bool> save()

@@ -4,7 +4,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Application.Exceptions;
 using Application.Services.Operations.Main.Partners.Dtos;
-using AutoMapper;
+using Application.Services.Operations.Main.Partners.Dtos.Mappers;
 using Microsoft.EntityFrameworkCore;
 using Repository.Data.Operations.Main.Partners;
 using UnitOfWork.Persistence.Operations;
@@ -15,18 +15,18 @@ namespace Application.Services.Operations.Main.Partners
     {
 
         private readonly IPartnerRepository _iPartnerRepository;
-        private readonly IMapper _MAP;
+        private readonly IPartnerObjectMapperServices _mapper;
         private readonly IUnitOfWork _GENERIC_REPO;
 
 
         public PartnerUpdateServices(
             IPartnerRepository IPartnerRepository,
-            IMapper MAP,
+            IPartnerObjectMapperServices mapper,
             IUnitOfWork GENERIC_REPO
             )
         {
             _iPartnerRepository = IPartnerRepository;
-            _MAP = MAP;
+            _mapper = mapper;
             _GENERIC_REPO = GENERIC_REPO;
         }
 
@@ -41,7 +41,7 @@ namespace Application.Services.Operations.Main.Partners
                 selector => selector
                 );
 
-            var updated = _MAP.Map(entity, fromDb);
+            var updated = _mapper.PartnerUpdateMapper(entity, fromDb);
 
             _GENERIC_REPO.Partners.Update(updated);
 

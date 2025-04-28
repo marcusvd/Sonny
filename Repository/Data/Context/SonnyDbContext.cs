@@ -22,6 +22,8 @@ using Microsoft.Extensions.Configuration;
 using Domain.Entities.Finances.PixExpenses;
 using Domain.Entities.StockProduct.ProductKind;
 using Domain.Entities.StockProduct;
+using Domain.Entities.RemoteCmd;
+using Domain.Entities.RemoteCmd.ReturnResults;
 
 namespace Repository.Data.Context
 {
@@ -66,7 +68,7 @@ namespace Repository.Data.Context
         public DbSet<PixExpense> FN_PixExpenses { get; set; }
 
         #endregion
-        #region  Products
+        #region Products
         public DbSet<Product> PD_Products { get; set; }
         public DbSet<ProductType> PD_ProductTypes { get; set; }
         public DbSet<Manufacturer> PD_Manufacturers { get; set; }
@@ -75,7 +77,7 @@ namespace Repository.Data.Context
         public DbSet<Specificities> PD_Specificities { get; set; }
 
         #endregion
-        #region  Customers/Companies/Partners
+        #region Customers/Companies/Partners
         public DbSet<Customer> MN_Customers { get; set; }
         public DbSet<Partner> MN_Partners { get; set; }
         public DbSet<PaymentData> MN_PaymentsData { get; set; }
@@ -85,6 +87,13 @@ namespace Repository.Data.Context
         public DbSet<AdditionalCosts> MN_AdditionalCosts { get; set; }
         public DbSet<PhysicallyMovingCosts> MN_PhysicallyMovingCosts { get; set; }
         #endregion
+        #region RemoteCmd
+        public DbSet<RemoteCmdMachine> RD_RemotesCmdsMachines { get; set; }
+        public DbSet<Target> RD_Targets { get; set; }
+        public DbSet<ResultExecutedCommand> RD_ResultsExecutedCommands { get; set; }
+        #endregion
+
+
 
         private IConfiguration _configuration;
         public SonnyDbContext(DbContextOptions<SonnyDbContext> opt, IConfiguration Configuration) : base(opt)
@@ -163,6 +172,10 @@ namespace Repository.Data.Context
             builder.ApplyConfiguration(new IdentityUserTokenFluentApi());
             builder.ApplyConfiguration(new UserRoleFluentApi());
             builder.ApplyConfiguration(new MyUserFluentApi());
+
+            //RemoteCmd
+            builder.ApplyConfiguration(new RemoteCmdMachineApi());
+            builder.ApplyConfiguration(new TargetApi());
         }
     }
 }

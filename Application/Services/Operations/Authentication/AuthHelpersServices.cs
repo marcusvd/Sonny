@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using AutoMapper;
 using Domain.Entities.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using Application.Services.Operations.Authentication.Dtos;
 using Domain.Entities.Main.Companies;
+using Application.Services.Shared.Dtos.Mappers;
 
 namespace Application.Services.Operations.Authentication
 {
@@ -19,7 +19,7 @@ namespace Application.Services.Operations.Authentication
     {
         private readonly UserManager<MyUser> _userManager;
         private readonly RoleManager<Role> _roleManager;
-        private readonly IMapper _iMapper;
+        private readonly ICommonObjectMapper _mapper;
         private readonly IUrlHelper _url;
         private readonly IConfiguration _configuration;
         private readonly IConfigurationSection _jwtSettings;
@@ -28,14 +28,14 @@ namespace Application.Services.Operations.Authentication
             UserManager<MyUser> userManager,
             IUrlHelper url,
             RoleManager<Role> roleManager,
-            IMapper iMapper,
+            ICommonObjectMapper mapper,
             IConfiguration configuration,
             EmailServer email
             )
         {
             _userManager = userManager;
             _roleManager = roleManager;
-            _iMapper = iMapper;
+            _mapper = mapper;
             _url = url;
             _configuration = configuration;
             _jwtSettings = _configuration.GetSection("JwtSettings");
@@ -221,7 +221,7 @@ namespace Application.Services.Operations.Authentication
         {
 
             var company = new Company(companyName);
-          
+
             var myUser = new MyUser()
             {
                 UserName = email,
@@ -247,7 +247,7 @@ namespace Application.Services.Operations.Authentication
         }
         public MyUserDto MyUserToMyUserDto(MyUser user)
         {
-            var myUserDto = _iMapper.Map<MyUserDto>(user);
+            var myUserDto = _mapper.MyUserMapper(user);
             return myUserDto;
         }
 
@@ -313,14 +313,14 @@ namespace Application.Services.Operations.Authentication
         }
 
         //ROLES
-        public async Task<IdentityResult> CreateRole(RoleDto role)
-        {
-            var roleDtoToRoleEntity = _iMapper.Map<Role>(role);
+        // public async Task<IdentityResult> CreateRole(RoleDto role)
+        // {
+        //     var roleDtoToRoleEntity = _iMapper.Map<Role>(role);
 
-            var result = await _roleManager.CreateAsync(roleDtoToRoleEntity);
+        //     var result = await _roleManager.CreateAsync(roleDtoToRoleEntity);
 
-            return result;
-        }
+        //     return result;
+        // }
         public async Task<string> UpdateUserRoles(UpdateUserRoleDto model)
         {
             var myUser = await _userManager.FindByNameAsync(model.UserName);
@@ -351,7 +351,7 @@ namespace Application.Services.Operations.Authentication
 
         public async Task<List<Claim>> GetClaims(MyUserDto user, Task<IList<string>> roles)
         {
-            var userToUserDto = _iMapper.Map<MyUser>(user);
+           // var userToUserDto = _iMapper.Map<MyUser>(user);
 
             var getRoles = await roles;
 

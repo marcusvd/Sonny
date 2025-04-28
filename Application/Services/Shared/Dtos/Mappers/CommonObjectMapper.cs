@@ -36,6 +36,33 @@ namespace Application.Services.Shared.Dtos.Mappers
             };
             return obj;
         }
+        public List<CompanyDto> CompanyListMake(List<Company> list)
+        {
+            if (list == null) return null;
+
+            var toReturn = new List<CompanyDto>();
+
+            list.ForEach(x =>
+            {
+                toReturn.Add(CompanyMapper(x));
+            });
+
+            return toReturn;
+        }
+        public List<Company> CompanyListMake(List<CompanyDto> list)
+        {
+            if (list == null) return null;
+
+            var toReturn = new List<Company>();
+
+            list.ForEach(x =>
+            {
+                toReturn.Add(CompanyMapper(x));
+            });
+
+            return toReturn;
+        }
+
         public MyUserDto MyUserMapper(MyUser entity)
         {
             var user = new MyUserDto()
@@ -57,6 +84,32 @@ namespace Application.Services.Shared.Dtos.Mappers
                 Email = entity.Email,
             };
             return user;
+        }
+        public List<MyUserDto> MyUserListMake(List<MyUser> list)
+        {
+            if (list == null) return null;
+
+            var toReturn = new List<MyUserDto>();
+
+            list.ForEach(x =>
+            {
+                toReturn.Add(MyUserMapper(x));
+            });
+
+            return toReturn;
+        }
+        public List<MyUser> MyUserListMake(List<MyUserDto> list)
+        {
+            if (list == null) return null;
+
+            var toReturn = new List<MyUser>();
+
+            list.ForEach(x =>
+            {
+                toReturn.Add(MyUserMapper(x));
+            });
+
+            return toReturn;
         }
 
         public List<AddressDto> AddressListMake(List<Address> list)
@@ -350,6 +403,7 @@ namespace Application.Services.Shared.Dtos.Mappers
             db.MotoBoy = dto.MotoBoy;
             return db;
         }
+
 
     }
 }

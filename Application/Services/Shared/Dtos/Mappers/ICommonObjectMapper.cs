@@ -16,8 +16,13 @@ namespace Application.Services.Shared.Dtos.Mappers
     {
         CompanyDto CompanyMapper(Company entity);
         Company CompanyMapper(CompanyDto entity);
+        List<CompanyDto> CompanyListMake(List<Company> list);
+        List<Company> CompanyListMake(List<CompanyDto> list);
+
         MyUserDto MyUserMapper(MyUser entity);
         MyUser MyUserMapper(MyUserDto entity);
+        List<MyUserDto> MyUserListMake(List<MyUser> list);
+        List<MyUser> MyUserListMake(List<MyUserDto> list);
 
         List<AddressDto> AddressListMake(List<Address> list);
         List<Address> AddressListMake(List<AddressDto> list);
@@ -33,7 +38,6 @@ namespace Application.Services.Shared.Dtos.Mappers
         List<SocialNetwork> SocialNetworkListMake(List<SocialNetworkDto> list);
         SocialNetworkDto SocialNetworkMapper(SocialNetwork entity);
         SocialNetwork SocialNetworkMapper(SocialNetworkDto entity);
-
 
         List<PhysicallyMovingCostsDto> PhysicallyMovingCostsListMake(List<PhysicallyMovingCosts> list);
         List<PhysicallyMovingCosts> PhysicallyMovingCostsListMake(List<PhysicallyMovingCostsDto> list);

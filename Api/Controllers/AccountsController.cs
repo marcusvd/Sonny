@@ -44,12 +44,12 @@ namespace Api.Controllers
             return Ok(result);
         }
 
-        [HttpPut("UpdateUserAsync/{id:int:min(1)}")]
-        public async Task<IActionResult> UpdateUserAsync(int id, [FromBody] MyUserDto user)
-        {
-            var result = await _iAccountServices.UpdateUserAsync(user);
-            return Ok(result);
-        }
+        // [HttpPut("UpdateUserAsync/{id:int:min(1)}")]
+        // public async Task<IActionResult> UpdateUserAsync(int id, [FromBody] MyUserDto user)
+        // {
+        //     var result = await _iAccountServices.UpdateUserAsync(user);
+        //     return Ok(result);
+        // }
 
     }
 }

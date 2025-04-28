@@ -1,22 +1,22 @@
 using System;
 using System.Threading.Tasks;
-using AutoMapper;
 using UnitOfWork.Persistence.Operations;
 using Domain.Entities.Main.Companies;
 using Application.Services.Operations.Main.Companies.Dtos;
+using Application.Services.Shared.Dtos.Mappers;
 
 namespace Application.Services.Operations.Main.Companies
 {
     public class CompanyAddService : ICompanyAddService
     {
 
-        private readonly IMapper _MAP;
+        private readonly ICommonObjectMapper _mapper;
         private readonly IUnitOfWork _GENERIC_REPO;
         public CompanyAddService(
-                        IMapper MAP,
+                        ICommonObjectMapper mapper,
                         IUnitOfWork GENERIC_REPO)
         {
-            _MAP = MAP;
+            _mapper = mapper;
             _GENERIC_REPO = GENERIC_REPO;
         }
 
@@ -25,14 +25,14 @@ namespace Application.Services.Operations.Main.Companies
         {
             if (entityDto == null) throw new Exception("Objeto era nulo.");
 
-            Company entityConvertedToDb = _MAP.Map<Company>(entityDto);
+            Company entityConvertedToDb = _mapper.CompanyMapper(entityDto);
 
             _GENERIC_REPO.Companies.Add(entityConvertedToDb);
 
             if (await _GENERIC_REPO.save())
             {
-                var entityFromDb = _GENERIC_REPO.Companies.GetById(x => x.Id == entityConvertedToDb.Id);
-                return _MAP.Map<CompanyDto>(entityFromDb);
+                var entityFromDb = await _GENERIC_REPO.Companies.GetById(x => x.Id == entityConvertedToDb.Id);
+                return _mapper.CompanyMapper(entityFromDb);
             }
             return entityDto;
 

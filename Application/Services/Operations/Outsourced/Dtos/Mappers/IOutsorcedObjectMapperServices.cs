@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using Domain.Entities.Outsourced;
-using Application.Services.Operations.Outsourced.Dtos;
-
 
 namespace Application.Services.Operations.Outsourced.Dtos.Mappers
 {
@@ -13,13 +11,11 @@ namespace Application.Services.Operations.Outsourced.Dtos.Mappers
         CollectDeliver CollectDeliverMapper(CollectDeliverDto entity);
         CollectDeliver CollectDeliverUpdateMapper(CollectDeliverUpdateDto dto, CollectDeliver db);
 
-
         List<BillingFromDto> BillingFromListMake(List<BillingFrom> list);
         List<BillingFrom> BillingFromListMake(List<BillingFromDto> list);
         BillingFromDto BillingFromMapper(BillingFrom entity);
         BillingFrom BillingFromMapper(BillingFromDto entity);
         BillingFrom BillingFromUpdateMapper(BillingFromDto dto, BillingFrom db);
-
 
         List<DestinyDto> DestinyListMake(List<Destiny> list);
         List<Destiny> DestinyListMake(List<DestinyDto> list);

@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using AutoMapper;
 using UnitOfWork.Persistence.Operations;
 using System;
 using Application.Services.Operations.Finances.Dtos;

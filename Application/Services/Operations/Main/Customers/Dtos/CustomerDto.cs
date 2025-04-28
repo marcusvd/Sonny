@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Application.Services.Operations.Main.Inheritances;
+using Application.Services.Operations.RemoteCmd.Dto;
 using Domain.Entities.Main.Customers;
 
 namespace Application.Services.Operations.Main.Customers.Dtos
@@ -11,5 +13,6 @@ namespace Application.Services.Operations.Main.Customers.Dtos
         public DateTime Expires { get; set; }
         public decimal Discount { get; set; }
         public AdditionalCostsDto AdditionalCosts { get; set; }
+        public List<RemoteCmdMachineDto> RemotesCmdsMachines { get; set; }
     }
 }

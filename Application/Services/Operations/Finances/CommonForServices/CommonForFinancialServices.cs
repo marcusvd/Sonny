@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using AutoMapper;
 using UnitOfWork.Persistence.Operations;
 using System;
 using Application.Exceptions;
@@ -13,15 +12,12 @@ namespace Application.Services.Operations.Finances.CommonForServices
 {
     public class CommonForFinancialServices : InheritanceForFinancialServices, ICommonForFinancialServices
     {
-        private readonly IMapper _MAP;
         private readonly IUnitOfWork _GENERIC_REPO;
         public CommonForFinancialServices(
-            IUnitOfWork GENERIC_REPO,
-            IMapper MAP
+            IUnitOfWork GENERIC_REPO
             )
         {
             _GENERIC_REPO = GENERIC_REPO;
-            _MAP = MAP;
         }
         public async Task<BankAccount> GetBankAccountByIdUpdateBalance(int bankId, decimal totalPriceInvoice)
         {

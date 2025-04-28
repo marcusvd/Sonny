@@ -85,13 +85,13 @@ namespace Application.Services.Operations.Authentication
                                      _iAuthHelpersServices.GetRoles(myUser)),
                                      _iAuthHelpersServices.MyUserToMyUserDto(myUser));
         }
-        public async Task<IdentityResult> CreateRole(RoleDto role)
-        {
-            _iAuthHelpersServices.ObjIsNull(role);
+        // public async Task<IdentityResult> CreateRole(RoleDto role)
+        // {
+        //     _iAuthHelpersServices.ObjIsNull(role);
 
-            return await _iAuthHelpersServices.CreateRole(role);
+        //     return await _iAuthHelpersServices.CreateRole(role);
 
-        }
+        // }
         public async Task<string> UpdateUserRoles(UpdateUserRoleDto role)
         {
             _iAuthHelpersServices.ObjIsNull(role);

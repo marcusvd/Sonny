@@ -29,7 +29,7 @@ namespace Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api", Version = "v1" });
             });
 
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+           // services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddIdentity();
             services.AddDependencyInjectionIdentity();
             services.AddScopedDependencyInjection();

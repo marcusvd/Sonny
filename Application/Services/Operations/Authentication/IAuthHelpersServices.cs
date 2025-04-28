@@ -38,7 +38,7 @@ namespace Application.Services.Operations.Authentication
         Task<string> UrlPasswordReset(MyUser myUser, string controller, string action);
         Task<string> GeneratePasswordResetTokenAsync(MyUser myUser);
         //ROLES
-        Task<IdentityResult> CreateRole(RoleDto role);
+      //  Task<IdentityResult> CreateRole(RoleDto role);
         Task<string> UpdateUserRoles(UpdateUserRoleDto model);
         Task<IList<string>> GetRoles(MyUser user);
 

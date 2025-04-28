@@ -1,22 +1,23 @@
 using System;
 using System.Threading.Tasks;
-using AutoMapper;
 using UnitOfWork.Persistence.Operations;
 using Application.Services.Operations.Main.Companies.Dtos;
 using Microsoft.EntityFrameworkCore;
+using Application.Services.Shared.Dtos.Mappers;
+using System.Collections.Generic;
 
 namespace Application.Services.Operations.Main.Companies
 {
     public class CompanyGetService : ICompanyGetService
     {
 
-        private readonly IMapper _MAP;
+       private readonly ICommonObjectMapper _mapper;
         private readonly IUnitOfWork _GENERIC_REPO;
         public CompanyGetService(
-                        IMapper MAP,
+                        ICommonObjectMapper mapper,
                         IUnitOfWork GENERIC_REPO)
         {
-            _MAP = MAP;
+            _mapper = mapper;
             _GENERIC_REPO = GENERIC_REPO;
         }
         // public async Task<CompanyDto> GetByIdStockIncludedAsync(int id)
@@ -28,13 +29,13 @@ namespace Application.Services.Operations.Main.Companies
         //     return _MAP.Map<CompanyDto>(entityFromDb);
         // }
 
-        public async Task<CompanyDto[]> GetAllAsync()
+        public async Task<List<CompanyDto>> GetAllAsync()
         {
             var entityFromDb = await _GENERIC_REPO.Companies.Get().ToListAsync();
 
             if (entityFromDb == null) throw new Exception("Objeto era nulo.");
 
-            return _MAP.Map<CompanyDto[]>(entityFromDb);
+            return _mapper.CompanyListMake(entityFromDb);
         }
 
 

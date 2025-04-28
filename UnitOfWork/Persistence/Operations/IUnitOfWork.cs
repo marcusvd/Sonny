@@ -16,6 +16,7 @@ using Repository.Data.Operations.Finances.CreditCardExpenses;
 using Repository.Data.Operations.Finances.CreditCardInvoiceExpense;
 using Repository.Data.Operations.Finances.PixesExpenses;
 using Repository.Data.Operations.ProductRepository;
+using Repository.Data.Operations.RemoteCmd;
 
 namespace UnitOfWork.Persistence.Operations
 {
@@ -45,14 +46,14 @@ namespace UnitOfWork.Persistence.Operations
         #region CUSTOMER
         ICustomerRepository Customers { get; }
         #endregion
-         #region PRODUCT
+        #region PRODUCT
         // IProductRepository Products { get; }
-         IProductReposirtory Products { get; }
-         IProductTypeRepository ProductTypes { get; }
-         ISegmentReposirtory Segments { get; }
-         IManufacturerReposirtory Manufacturers { get; }
-         IModelReposirtory Models { get; }
-         ISpecificitiesReposirtory Specificities { get; }
+        IProductReposirtory Products { get; }
+        IProductTypeRepository ProductTypes { get; }
+        ISegmentReposirtory Segments { get; }
+        IManufacturerReposirtory Manufacturers { get; }
+        IModelReposirtory Models { get; }
+        ISpecificitiesReposirtory Specificities { get; }
 
         #endregion
         #region BUDGETSERVICE
@@ -69,6 +70,12 @@ namespace UnitOfWork.Persistence.Operations
         #region CONTACTS
         IContactsRepository Contacts { get; }
         #endregion
+        #region REMOTECMD
+        IRemoteCmdMachineRepository RemoteCmdMachine { get; }
+        #endregion
+
+
+
         Task<bool> save();
     }
 }

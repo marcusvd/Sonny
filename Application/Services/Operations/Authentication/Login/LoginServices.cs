@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Application.Exceptions;
 using Application.Services.Operations.Authentication;
 using Application.Services.Operations.Authentication.Dtos;
-using AutoMapper;
+using Application.Services.Shared.Dtos.Mappers;
 using Domain.Entities.Authentication;
 using Microsoft.AspNetCore.Identity;
 
@@ -17,19 +17,19 @@ namespace Application.Services.Operations.Authentication.Login
         private UserManager<MyUser> _userManager;
         private readonly EmailServer _email;
         private readonly JwtHandler _jwtHandler;
-        private readonly IMapper _iMapper;
+        private readonly ICommonObjectMapper _mapper;
         public LoginServices(
               UserManager<MyUser> userManager,
               EmailServer email,
               JwtHandler jwtHandler,
-              IMapper iMapper
+               ICommonObjectMapper mapper
 
           )
         {
             _userManager = userManager;
             _email = email;
             _jwtHandler = jwtHandler;
-            _iMapper = iMapper;
+            _mapper = mapper;
         }
 
         public async Task<UserToken> Login(MyUserDto user)
@@ -54,7 +54,7 @@ namespace Application.Services.Operations.Authentication.Login
                         return returnUserToken;
                     }
 
-                    return await _jwtHandler.GenerateUserToken(GetClaims(user, _userManager.GetRolesAsync(myUser)), _iMapper.Map<MyUserDto>(myUser));
+                    return await _jwtHandler.GenerateUserToken(GetClaims(user, _userManager.GetRolesAsync(myUser)), _mapper.MyUserMapper(myUser));
                 }
                 else
                     throw new AuthServicesException(AuthErrorsMessagesException.InvalidUserNameOrPassword);
@@ -118,7 +118,7 @@ namespace Application.Services.Operations.Authentication.Login
         }
         public async Task<List<Claim>> GetClaims(MyUserDto user, Task<IList<string>> roles)
         {
-            var userToUserDto = _iMapper.Map<MyUser>(user);
+            //var userToUserDto = _mapper.MyUserMapper(user);
 
             var getRoles = await roles;
 

@@ -2,10 +2,14 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
+#nullable disable
+
 namespace Repository.Migrations
 {
-    public partial class fkgkged : Migration
+    /// <inheritdoc />
+    public partial class Remotecmd : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterDatabase()
@@ -41,7 +45,7 @@ namespace Repository.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ConcurrencyStamp = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Discriminator = table.Column<string>(type: "longtext", nullable: false)
+                    Discriminator = table.Column<string>(type: "varchar(21)", maxLength: 21, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -74,9 +78,9 @@ namespace Repository.Migrations
                 {
                     UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    LoginProvider = table.Column<string>(type: "longtext", nullable: true)
+                    LoginProvider = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    ProviderKey = table.Column<string>(type: "longtext", nullable: true)
+                    ProviderKey = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ProviderDisplayName = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
@@ -209,14 +213,12 @@ namespace Repository.Migrations
                         name: "FK_MN_Companies_SD_Addresses_AddressId",
                         column: x => x.AddressId,
                         principalTable: "SD_Addresses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_MN_Companies_SD_Contacts_ContactId",
                         column: x => x.ContactId,
                         principalTable: "SD_Contacts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -248,7 +250,7 @@ namespace Repository.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(type: "datetime(6)", nullable: true),
                     LockoutEnabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     AccessFailedCount = table.Column<int>(type: "int", nullable: false),
-                    Discriminator = table.Column<string>(type: "longtext", nullable: false)
+                    Discriminator = table.Column<string>(type: "varchar(21)", maxLength: 21, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     CompanyId = table.Column<int>(type: "int", nullable: true),
                     ProfileId = table.Column<int>(type: "int", nullable: true),
@@ -272,20 +274,17 @@ namespace Repository.Migrations
                         name: "FK_aspnetUsers_SD_Addresses_AddressId",
                         column: x => x.AddressId,
                         principalTable: "SD_Addresses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_aspnetUsers_SD_Contacts_ContactId",
                         column: x => x.ContactId,
                         principalTable: "SD_Contacts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_aspnetUsers_UserProfile_ProfileId",
                         column: x => x.ProfileId,
                         principalTable: "UserProfile",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -379,6 +378,34 @@ namespace Repository.Migrations
                     table.PrimaryKey("PK_MN_PhysicallyMovingCosts", x => x.Id);
                     table.ForeignKey(
                         name: "FK_MN_PhysicallyMovingCosts_MN_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "MN_Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "PD_Specificities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    DetailedDescription = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Description = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ManufacturerLink = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CompanyId = table.Column<int>(type: "int", nullable: false),
+                    Deleted = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Registered = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PD_Specificities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PD_Specificities_MN_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "MN_Companies",
                         principalColumn: "Id",
@@ -499,15 +526,15 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_FN_BankAccount", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FN_BankAccount_aspnetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "aspnetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_FN_BankAccount_MN_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "MN_Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FN_BankAccount_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -530,15 +557,15 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_FN_CategoriesExpenses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FN_CategoriesExpenses_aspnetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "aspnetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_FN_CategoriesExpenses_MN_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "MN_Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FN_CategoriesExpenses_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -561,15 +588,15 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_PD_ProductTypes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PD_ProductTypes_aspnetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "aspnetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_PD_ProductTypes_MN_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "MN_Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PD_ProductTypes_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -608,8 +635,7 @@ namespace Repository.Migrations
                         name: "FK_MN_PartnerPaymentBankAccounts_MN_PaymentsData_PaymentDataId",
                         column: x => x.PaymentDataId,
                         principalTable: "MN_PaymentsData",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -643,8 +669,7 @@ namespace Repository.Migrations
                         name: "FK_MN_PartnerPaymentPixes_MN_PaymentsData_PaymentDataId",
                         column: x => x.PaymentDataId,
                         principalTable: "MN_PaymentsData",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -682,17 +707,10 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_MN_Customers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MN_Customers_aspnetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "aspnetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_MN_Customers_MN_AdditionalCosts_AdditionalCostsId",
                         column: x => x.AdditionalCostsId,
                         principalTable: "MN_AdditionalCosts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_MN_Customers_MN_Companies_CompanyId",
                         column: x => x.CompanyId,
@@ -703,20 +721,23 @@ namespace Repository.Migrations
                         name: "FK_MN_Customers_MN_PhysicallyMovingCosts_PhysicallyMovingCostsId",
                         column: x => x.PhysicallyMovingCostsId,
                         principalTable: "MN_PhysicallyMovingCosts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_MN_Customers_SD_Addresses_AddressId",
                         column: x => x.AddressId,
                         principalTable: "SD_Addresses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_MN_Customers_SD_Contacts_ContactId",
                         column: x => x.ContactId,
                         principalTable: "SD_Contacts",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_MN_Customers_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -751,12 +772,6 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_MN_Partners", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MN_Partners_aspnetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "aspnetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_MN_Partners_MN_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "MN_Companies",
@@ -766,26 +781,28 @@ namespace Repository.Migrations
                         name: "FK_MN_Partners_MN_PaymentsData_PaymentsDataId",
                         column: x => x.PaymentsDataId,
                         principalTable: "MN_PaymentsData",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_MN_Partners_MN_PhysicallyMovingCosts_PhysicallyMovingCostsId",
                         column: x => x.PhysicallyMovingCostsId,
                         principalTable: "MN_PhysicallyMovingCosts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_MN_Partners_SD_Addresses_AddressId",
                         column: x => x.AddressId,
                         principalTable: "SD_Addresses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_MN_Partners_SD_Contacts_ContactId",
                         column: x => x.ContactId,
                         principalTable: "SD_Contacts",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_MN_Partners_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -847,21 +864,20 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_FN_Cards", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FN_Cards_aspnetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "aspnetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_FN_Cards_FN_BankAccount_BankAccountId",
                         column: x => x.BankAccountId,
                         principalTable: "FN_BankAccount",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FN_Cards_MN_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "MN_Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FN_Cards_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -976,23 +992,15 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_BS_BudgetsServices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_BS_BudgetsServices_aspnetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "aspnetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_BS_BudgetsServices_BS_CollectsDeliversCosts_CollectsDelivers~",
                         column: x => x.CollectsDeliversCostsId,
                         principalTable: "BS_CollectsDeliversCosts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_BS_BudgetsServices_BS_Services_ServiceId",
                         column: x => x.ServiceId,
                         principalTable: "BS_Services",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_BS_BudgetsServices_MN_Companies_CompanyId",
                         column: x => x.CompanyId,
@@ -1001,6 +1009,37 @@ namespace Repository.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_BS_BudgetsServices_MN_Customers_CustomerId",
+                        column: x => x.CustomerId,
+                        principalTable: "MN_Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BS_BudgetsServices_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "RD_RemotesCmdsMachines",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
+                    Disabled = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    DomainExecution = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ExecutionSecretCode = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RD_RemotesCmdsMachines", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RD_RemotesCmdsMachines_MN_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "MN_Customers",
                         principalColumn: "Id",
@@ -1034,14 +1073,12 @@ namespace Repository.Migrations
                         name: "FK_OS_BillingsFroms_MN_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "MN_Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_OS_BillingsFroms_MN_Partners_PartnerId",
                         column: x => x.PartnerId,
                         principalTable: "MN_Partners",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -1074,14 +1111,12 @@ namespace Repository.Migrations
                         name: "FK_OS_Destinies_MN_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "MN_Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_OS_Destinies_MN_Partners_PartnerId",
                         column: x => x.PartnerId,
                         principalTable: "MN_Partners",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -1115,12 +1150,6 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_OS_ElectronicsRepairs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OS_ElectronicsRepairs_aspnetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "aspnetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_OS_ElectronicsRepairs_MN_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "MN_Companies",
@@ -1136,6 +1165,12 @@ namespace Repository.Migrations
                         name: "FK_OS_ElectronicsRepairs_MN_Partners_ServiceProviderId",
                         column: x => x.ServiceProviderId,
                         principalTable: "MN_Partners",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OS_ElectronicsRepairs_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -1169,27 +1204,25 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_FN_CreditCardExpensesInvoices", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FN_CreditCardExpensesInvoices_aspnetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "aspnetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_FN_CreditCardExpensesInvoices_FN_BankAccount_PaidFromBankAcc~",
                         column: x => x.PaidFromBankAccountId,
                         principalTable: "FN_BankAccount",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FN_CreditCardExpensesInvoices_FN_Cards_CardId",
                         column: x => x.CardId,
                         principalTable: "FN_Cards",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FN_CreditCardExpensesInvoices_MN_Companies_UserId",
                         column: x => x.UserId,
                         principalTable: "MN_Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FN_CreditCardExpensesInvoices_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -1214,12 +1247,6 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_FN_CreditCardLimitOperations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FN_CreditCardLimitOperations_aspnetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "aspnetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_FN_CreditCardLimitOperations_FN_Cards_CardId",
                         column: x => x.CardId,
                         principalTable: "FN_Cards",
@@ -1229,6 +1256,12 @@ namespace Repository.Migrations
                         name: "FK_FN_CreditCardLimitOperations_MN_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "MN_Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FN_CreditCardLimitOperations_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -1271,12 +1304,6 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_FN_FinancingsAndLoansExpenses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FN_FinancingsAndLoansExpenses_aspnetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "aspnetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_FN_FinancingsAndLoansExpenses_FN_CategoriesExpenses_Category~",
                         column: x => x.CategoryExpenseId,
                         principalTable: "FN_CategoriesExpenses",
@@ -1292,6 +1319,12 @@ namespace Repository.Migrations
                         name: "FK_FN_FinancingsAndLoansExpenses_MN_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "MN_Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FN_FinancingsAndLoansExpenses_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -1335,23 +1368,15 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_FN_MonthlyFixedExpenses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FN_MonthlyFixedExpenses_aspnetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "aspnetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_FN_MonthlyFixedExpenses_FN_BankAccount_BankAccountId",
                         column: x => x.BankAccountId,
                         principalTable: "FN_BankAccount",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FN_MonthlyFixedExpenses_FN_Cards_CardId",
                         column: x => x.CardId,
                         principalTable: "FN_Cards",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FN_MonthlyFixedExpenses_FN_CategoriesExpenses_CategoryExpens~",
                         column: x => x.CategoryExpenseId,
@@ -1362,8 +1387,7 @@ namespace Repository.Migrations
                         name: "FK_FN_MonthlyFixedExpenses_FN_Pixes_PixId",
                         column: x => x.PixId,
                         principalTable: "FN_Pixes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FN_MonthlyFixedExpenses_FN_SubcategoriesExpenses_Subcategory~",
                         column: x => x.SubcategoryExpenseId,
@@ -1374,6 +1398,12 @@ namespace Repository.Migrations
                         name: "FK_FN_MonthlyFixedExpenses_MN_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "MN_Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FN_MonthlyFixedExpenses_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -1413,23 +1443,15 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_FN_VariablesExpenses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FN_VariablesExpenses_aspnetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "aspnetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_FN_VariablesExpenses_FN_BankAccount_BankAccountId",
                         column: x => x.BankAccountId,
                         principalTable: "FN_BankAccount",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FN_VariablesExpenses_FN_Cards_CardId",
                         column: x => x.CardId,
                         principalTable: "FN_Cards",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FN_VariablesExpenses_FN_CategoriesExpenses_CategoryExpenseId",
                         column: x => x.CategoryExpenseId,
@@ -1440,8 +1462,7 @@ namespace Repository.Migrations
                         name: "FK_FN_VariablesExpenses_FN_Pixes_PixId",
                         column: x => x.PixId,
                         principalTable: "FN_Pixes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FN_VariablesExpenses_FN_SubcategoriesExpenses_SubcategoryExp~",
                         column: x => x.SubcategoryExpenseId,
@@ -1452,6 +1473,12 @@ namespace Repository.Migrations
                         name: "FK_FN_VariablesExpenses_MN_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "MN_Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FN_VariablesExpenses_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -1497,23 +1524,15 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_FN_YearlyFixedExpenses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FN_YearlyFixedExpenses_aspnetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "aspnetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_FN_YearlyFixedExpenses_FN_BankAccount_BankAccountId",
                         column: x => x.BankAccountId,
                         principalTable: "FN_BankAccount",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FN_YearlyFixedExpenses_FN_Cards_CardId",
                         column: x => x.CardId,
                         principalTable: "FN_Cards",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FN_YearlyFixedExpenses_FN_CategoriesExpenses_CategoryExpense~",
                         column: x => x.CategoryExpenseId,
@@ -1524,8 +1543,7 @@ namespace Repository.Migrations
                         name: "FK_FN_YearlyFixedExpenses_FN_Pixes_PixId",
                         column: x => x.PixId,
                         principalTable: "FN_Pixes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FN_YearlyFixedExpenses_FN_SubcategoriesExpenses_SubcategoryE~",
                         column: x => x.SubcategoryExpenseId,
@@ -1536,6 +1554,12 @@ namespace Repository.Migrations
                         name: "FK_FN_YearlyFixedExpenses_MN_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "MN_Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FN_YearlyFixedExpenses_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -1573,6 +1597,28 @@ namespace Repository.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "RD_Targets",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Computer = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    RemoteCmdMachineId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RD_Targets", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RD_Targets_RD_RemotesCmdsMachines_RemoteCmdMachineId",
+                        column: x => x.RemoteCmdMachineId,
+                        principalTable: "RD_RemotesCmdsMachines",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "OS_CollectsDelivers",
                 columns: table => new
                 {
@@ -1602,12 +1648,6 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_OS_CollectsDelivers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OS_CollectsDelivers_aspnetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "aspnetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_OS_CollectsDelivers_MN_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "MN_Companies",
@@ -1617,20 +1657,23 @@ namespace Repository.Migrations
                         name: "FK_OS_CollectsDelivers_MN_Partners_TransporterId",
                         column: x => x.TransporterId,
                         principalTable: "MN_Partners",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_OS_CollectsDelivers_OS_BillingsFroms_BillingFromId",
                         column: x => x.BillingFromId,
                         principalTable: "OS_BillingsFroms",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_OS_CollectsDelivers_OS_Destinies_DestinyId",
                         column: x => x.DestinyId,
                         principalTable: "OS_Destinies",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_OS_CollectsDelivers_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -1663,39 +1706,35 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_FN_FinancingsAndLoansExpensesInstallments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FN_FinancingsAndLoansExpensesInstallments_aspnetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "aspnetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_FN_FinancingsAndLoansExpensesInstallments_FN_BankAccount_Ban~",
                         column: x => x.BankAccountId,
                         principalTable: "FN_BankAccount",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FN_FinancingsAndLoansExpensesInstallments_FN_Cards_CardId",
                         column: x => x.CardId,
                         principalTable: "FN_Cards",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FN_FinancingsAndLoansExpensesInstallments_FN_FinancingsAndLo~",
                         column: x => x.FinancingAndLoanExpenseId,
                         principalTable: "FN_FinancingsAndLoansExpenses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FN_FinancingsAndLoansExpensesInstallments_FN_Pixes_PixId",
                         column: x => x.PixId,
                         principalTable: "FN_Pixes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FN_FinancingsAndLoansExpensesInstallments_MN_Companies_Compa~",
                         column: x => x.CompanyId,
                         principalTable: "MN_Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FN_FinancingsAndLoansExpensesInstallments_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -1743,12 +1782,6 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_FN_CreditCardExpenses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FN_CreditCardExpenses_aspnetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "aspnetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_FN_CreditCardExpenses_FN_Cards_CardId",
                         column: x => x.CardId,
                         principalTable: "FN_Cards",
@@ -1770,14 +1803,12 @@ namespace Repository.Migrations
                         name: "FK_FN_CreditCardExpenses_FN_FinancingsAndLoansExpenses_Financin~",
                         column: x => x.FinancingAndLoanExpenseId,
                         principalTable: "FN_FinancingsAndLoansExpenses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FN_CreditCardExpenses_FN_MonthlyFixedExpenses_MonthlyFixedEx~",
                         column: x => x.MonthlyFixedExpenseId,
                         principalTable: "FN_MonthlyFixedExpenses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FN_CreditCardExpenses_FN_SubcategoriesExpenses_SubcategoryEx~",
                         column: x => x.SubcategoryExpenseId,
@@ -1788,18 +1819,22 @@ namespace Repository.Migrations
                         name: "FK_FN_CreditCardExpenses_FN_VariablesExpenses_VariableExpenseId",
                         column: x => x.VariableExpenseId,
                         principalTable: "FN_VariablesExpenses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FN_CreditCardExpenses_FN_YearlyFixedExpenses_YearlyFixedExpe~",
                         column: x => x.YearlyFixedExpenseId,
                         principalTable: "FN_YearlyFixedExpenses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FN_CreditCardExpenses_MN_Companies_UserId",
                         column: x => x.UserId,
                         principalTable: "MN_Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FN_CreditCardExpenses_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -1834,23 +1869,15 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_FN_PixExpenses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FN_PixExpenses_aspnetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "aspnetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_FN_PixExpenses_FN_FinancingsAndLoansExpenses_FinancingAndLoa~",
                         column: x => x.FinancingAndLoanExpenseId,
                         principalTable: "FN_FinancingsAndLoansExpenses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FN_PixExpenses_FN_MonthlyFixedExpenses_MonthlyFixedExpenseId",
                         column: x => x.MonthlyFixedExpenseId,
                         principalTable: "FN_MonthlyFixedExpenses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FN_PixExpenses_FN_Pixes_PixOutId",
                         column: x => x.PixOutId,
@@ -1861,18 +1888,22 @@ namespace Repository.Migrations
                         name: "FK_FN_PixExpenses_FN_VariablesExpenses_VariableExpenseId",
                         column: x => x.VariableExpenseId,
                         principalTable: "FN_VariablesExpenses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FN_PixExpenses_FN_YearlyFixedExpenses_YearlyFixedExpenseId",
                         column: x => x.YearlyFixedExpenseId,
                         principalTable: "FN_YearlyFixedExpenses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FN_PixExpenses_MN_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "MN_Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FN_PixExpenses_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -1884,9 +1915,10 @@ namespace Repository.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "varchar(255)", nullable: false)
+                    Name = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ManufacturerId = table.Column<int>(type: "int", nullable: false),
+                    SpecificitiesId = table.Column<int>(type: "int", nullable: true),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
                     Deleted = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Registered = table.Column<DateTime>(type: "datetime(6)", nullable: false)
@@ -1906,43 +1938,35 @@ namespace Repository.Migrations
                         principalTable: "PD_Manufacturers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PD_Models_PD_Specificities_SpecificitiesId",
+                        column: x => x.SpecificitiesId,
+                        principalTable: "PD_Specificities",
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "PD_Specificities",
+                name: "RD_ResultsExecutedCommands",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Capacity = table.Column<string>(type: "longtext", nullable: true)
+                    FilesPath = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Speed = table.Column<string>(type: "longtext", nullable: true)
+                    Subject = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Generation = table.Column<string>(type: "longtext", nullable: true)
+                    Body = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Version = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Description = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ModelId = table.Column<int>(type: "int", nullable: false),
-                    CompanyId = table.Column<int>(type: "int", nullable: false),
-                    Deleted = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Registered = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                    TargetId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PD_Specificities", x => x.Id);
+                    table.PrimaryKey("PK_RD_ResultsExecutedCommands", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PD_Specificities_MN_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "MN_Companies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PD_Specificities_PD_Models_ModelId",
-                        column: x => x.ModelId,
-                        principalTable: "PD_Models",
+                        name: "FK_RD_ResultsExecutedCommands_RD_Targets_TargetId",
+                        column: x => x.TargetId,
+                        principalTable: "RD_Targets",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -1986,18 +2010,6 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_PD_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PD_Products_aspnetUsers_IsReservedByUserId",
-                        column: x => x.IsReservedByUserId,
-                        principalTable: "aspnetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_PD_Products_aspnetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "aspnetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_PD_Products_MN_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "MN_Companies",
@@ -2007,14 +2019,12 @@ namespace Repository.Migrations
                         name: "FK_PD_Products_MN_Customers_ReservedForCustomerId",
                         column: x => x.ReservedForCustomerId,
                         principalTable: "MN_Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_PD_Products_MN_Partners_SupplierId",
                         column: x => x.SupplierId,
                         principalTable: "MN_Partners",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_PD_Products_PD_Manufacturers_ManufacturerId",
                         column: x => x.ManufacturerId,
@@ -2043,6 +2053,17 @@ namespace Repository.Migrations
                         name: "FK_PD_Products_PD_Specificities_SpecificitiesId",
                         column: x => x.SpecificitiesId,
                         principalTable: "PD_Specificities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PD_Products_aspnetUsers_IsReservedByUserId",
+                        column: x => x.IsReservedByUserId,
+                        principalTable: "aspnetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_PD_Products_aspnetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "aspnetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -2631,10 +2652,9 @@ namespace Repository.Migrations
                 column: "ManufacturerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PD_Models_Name",
+                name: "IX_PD_Models_SpecificitiesId",
                 table: "PD_Models",
-                column: "Name",
-                unique: true);
+                column: "SpecificitiesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PD_Products_CompanyId",
@@ -2718,9 +2738,19 @@ namespace Repository.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PD_Specificities_ModelId",
-                table: "PD_Specificities",
-                column: "ModelId");
+                name: "IX_RD_RemotesCmdsMachines_CustomerId",
+                table: "RD_RemotesCmdsMachines",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RD_ResultsExecutedCommands_TargetId",
+                table: "RD_ResultsExecutedCommands",
+                column: "TargetId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RD_Targets_RemoteCmdMachineId",
+                table: "RD_Targets",
+                column: "RemoteCmdMachineId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SD_socialnetworks_CompanyId",
@@ -2733,6 +2763,7 @@ namespace Repository.Migrations
                 column: "ContactId");
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
@@ -2787,6 +2818,9 @@ namespace Repository.Migrations
                 name: "PD_Products");
 
             migrationBuilder.DropTable(
+                name: "RD_ResultsExecutedCommands");
+
+            migrationBuilder.DropTable(
                 name: "SD_socialnetworks");
 
             migrationBuilder.DropTable(
@@ -2820,7 +2854,10 @@ namespace Repository.Migrations
                 name: "OS_Destinies");
 
             migrationBuilder.DropTable(
-                name: "PD_Specificities");
+                name: "PD_Models");
+
+            migrationBuilder.DropTable(
+                name: "RD_Targets");
 
             migrationBuilder.DropTable(
                 name: "FN_Cards");
@@ -2832,13 +2869,16 @@ namespace Repository.Migrations
                 name: "FN_SubcategoriesExpenses");
 
             migrationBuilder.DropTable(
-                name: "MN_Customers");
-
-            migrationBuilder.DropTable(
                 name: "MN_Partners");
 
             migrationBuilder.DropTable(
-                name: "PD_Models");
+                name: "PD_Manufacturers");
+
+            migrationBuilder.DropTable(
+                name: "PD_Specificities");
+
+            migrationBuilder.DropTable(
+                name: "RD_RemotesCmdsMachines");
 
             migrationBuilder.DropTable(
                 name: "FN_BankAccount");
@@ -2847,22 +2887,22 @@ namespace Repository.Migrations
                 name: "FN_CategoriesExpenses");
 
             migrationBuilder.DropTable(
-                name: "MN_AdditionalCosts");
-
-            migrationBuilder.DropTable(
                 name: "MN_PaymentsData");
-
-            migrationBuilder.DropTable(
-                name: "MN_PhysicallyMovingCosts");
-
-            migrationBuilder.DropTable(
-                name: "PD_Manufacturers");
 
             migrationBuilder.DropTable(
                 name: "PD_Segments");
 
             migrationBuilder.DropTable(
+                name: "MN_Customers");
+
+            migrationBuilder.DropTable(
                 name: "PD_ProductTypes");
+
+            migrationBuilder.DropTable(
+                name: "MN_AdditionalCosts");
+
+            migrationBuilder.DropTable(
+                name: "MN_PhysicallyMovingCosts");
 
             migrationBuilder.DropTable(
                 name: "aspnetUsers");

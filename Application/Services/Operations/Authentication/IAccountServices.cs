@@ -10,6 +10,6 @@ namespace Application.Services.Operations.Authentication
         Task<MyUserDto> GetUserByNameAsync(string name);
         Task<MyUserDto> GetUserByNameAllIncludedAsync(string name);
         Task<List<MyUserDto>> GetAllUsersAsync();
-        Task<MyUserDto> UpdateUserAsync(MyUserDto user);
+        // Task<MyUserDto> UpdateUserAsync(MyUserDto user);
     }
 }
