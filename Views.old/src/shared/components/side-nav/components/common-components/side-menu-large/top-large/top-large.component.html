@@ -1,0 +1,77 @@
+<div class="container">
+    <div class="container--company-box">
+        <div class="container--logo-box">
+            <mat-icon class="container--logo-box-icon" fontSet="material-icons-outlined">language</mat-icon>
+        </div>
+        <div class="container--company-name-box">
+            <mat-label class="container--company-name-box-name">NO STOP SISTEMAS</mat-label>
+        </div>
+    </div>
+
+    <div class="container--profile-box">
+        <div class="container--profile-box-img">
+            <div class="container--profile-box-first-letter" *ngIf="!imgProfile">
+                <mat-label>{{firstLetter | uppercase}}</mat-label>
+            </div>
+            <div class="container--profile-box-img-img" *ngIf="imgProfile">
+                <img src="../../../../../../assets/nsti-menor.jpg" alt="logo nsti aqui">
+            </div>
+        </div>
+
+        <div class="container--profile-box-hello-user">
+            <div class="container--profile-box-hello">
+                <span>{{'Ola,'}}</span>
+            </div>
+            <div class="container--profile-box-user">
+                <span>{{userName.split('@')[0] ?? 'Login' | uppercase}}</span>
+            </div>
+        </div>
+
+        <div class="container--profile-box-settings">
+            <a mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon class="container--profile-box-settings-icon">settings</mat-icon>
+            </a>
+        </div>
+    </div>
+    <mat-menu #menu="matMenu">
+        <div>
+
+            <div>
+                <img src="../../../../../../assets/nsti-menor.jpg" alt="logo nsti aqui">
+            </div>
+
+            <div>
+                <span>
+              {{userName ?? 'Login' | titlecase}}
+            </span>
+            </div>
+            <mat-divider></mat-divider>
+            <div [routerLink]="['/side-nav/user-profile']">
+                <div>
+                    <mat-icon fontSet="material-icons-two-tone">account_circle</mat-icon>
+                </div>
+                <div>
+                    <span>Perfil</span>
+                    <small>Informações</small>
+                </div>
+                <div>
+                    <mat-icon>keyboard_arrow_right</mat-icon>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div (click)="logOut()">
+                <div>
+                    <mat-icon fontSet="material-icons-two-tone">exit_to_app</mat-icon>
+                </div>
+                <div>
+                    <span>Sair</span>
+                    <small>Desconectar</small>
+                </div>
+                <div>
+                    <mat-icon>keyboard_arrow_right</mat-icon>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+        </div>
+    </mat-menu>
+</div>

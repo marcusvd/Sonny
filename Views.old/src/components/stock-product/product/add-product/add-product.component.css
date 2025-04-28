@@ -1,0 +1,148 @@
+@media(min-width: 640px) {
+    .container-level-0 {
+        display: inline-flex;
+        gap: 5px;
+        flex-wrap: wrap;
+        width: 100%;
+
+    }
+
+    .type,
+    .segment {
+        width: 100%;
+        flex: 1;
+        margin-top: 18px;
+
+    }
+
+    .manufacturer,
+    .specificity,
+    .model {
+        width: 100%;
+        flex: 1;
+
+    }
+
+    .container-level-0-1 {
+        display: inline-flex;
+        gap: 5px;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .supplier,
+    .purchaseInvoiceNumber {
+        width: 100%;
+        max-width: 100vw;
+        flex: 1;
+        margin-top: 18px;
+
+    }
+
+    .usedHistoricalOrSupplier {
+        width: 100%;
+        max-width: 100vw;
+        flex: 1;
+        margin-top: 18px;
+
+    }
+
+    .entryDate,
+    .warrantyEndLocal {
+        width: 180px;
+
+        margin-top: 18px;
+    }
+
+
+    .container-level-0-2 {
+        display: flex;
+        gap: 5px;
+        flex-wrap: wrap;
+    }
+
+    .costPrice,
+    .soldPrice,
+    .quantity {
+        width: 100%;
+        flex: 1;
+        margin-top: 10px;
+    }
+
+    .isUsed {
+        margin-bottom: 10px;
+    }
+
+    .isTested {
+        margin-bottom: 10px;
+    }
+
+    .container-btns-add-edit {
+        display: inline-flex;
+        gap: 5px
+    }
+
+    .btn-add-type {
+        margin-top: 10px;
+    }
+
+
+
+
+}
+
+@media(max-width: 640px) {
+.container-btns-add-edit {
+    display: block;
+    gap: 50px;
+    margin: 10px;
+}
+
+.btn-add-type {
+    margin-top: 10px;
+}
+}
+
+.type,
+.segment {
+    margin-top: 18px;
+    margin-bottom: 10px;
+}
+
+.manufacturer,
+.model {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.supplier,
+.purchaseInvoiceNumber {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.usedHistoricalOrSupplier {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.entryDate,
+.warrantyEndLocal {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.isUsed {
+    margin-bottom: 10px;
+}
+
+.isTested {
+    margin-bottom: 10px;
+}
+
+.costPrice,
+.soldPrice,
+.quantity {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

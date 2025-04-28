@@ -1,0 +1,50 @@
+<div [formGroup]="formMain" fxLayout="column" fxFlex>
+    <div fxLayout="row">
+        <h3>Financeiro Formas de pagamento </h3>
+    </div>
+    <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="15">
+        <div [formGroup]="formMain">
+            <div fxLayout="row" fxLayoutGap="10" fxFlex>
+                <div fxLayout="column">
+                    <mat-checkbox formControlName="money">
+                    </mat-checkbox>
+                    <div class="check-box-label-space"></div>
+                    <mat-label>Dinheiro</mat-label>
+                </div>
+                <div fxLayout="column ">
+                    <!-- (change)="othersMtd($event.checked)" -->
+                    <mat-checkbox #others formControlName="fakeOthers">
+                    </mat-checkbox>
+                    <div class="check-box-label-space"></div>
+                    <mat-label>Outros</mat-label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="middle-space-horizontal-beteween-fields"> </div>
+    <div [formGroup]="formMain" fxLayout="row" *ngIf="others.checked">
+        <mat-form-field appearance="outline" fxFlex>
+            <mat-label>Outras formas</mat-label>
+            <input matInput type="text " formControlName="others" aria-label="Outras formas">
+            <!-- <mat-error>
+            <span>{{validatorMessages.required(paymentDataForm,'others', 'Outras formas')}}</span>
+        </mat-error> -->
+        </mat-form-field>
+    </div>
+    <div class="middle-space-horizontal-beteween-fields"> </div>
+    <mat-divider></mat-divider>
+    <div class="middle-space-horizontal-beteween-fields"> </div>
+    <div fxLayout="row">
+        <h5>PIXES</h5>
+    </div>
+    <pix [formMain]="formMain" [noBeneficiaryField]="true">
+    </pix>
+    <div class="middle-space-horizontal-beteween-fields"> </div>
+    <mat-divider></mat-divider>
+    <div class="middle-space-horizontal-beteween-fields"> </div>
+    <div fxLayout="row">
+        <h5>CONTAS BANCÁRIAS</h5>
+    </div>
+    <payment-bank-account [formMain]="formMain" (addOutput)="addBank()" (removeOutput)="removeBank($event)">
+    </payment-bank-account>
+</div>

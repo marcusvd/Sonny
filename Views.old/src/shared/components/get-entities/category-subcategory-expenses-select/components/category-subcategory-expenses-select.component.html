@@ -1,0 +1,41 @@
+<spinner-g [entities]="entities$" [optionalTitle]="'(Categorias)'" (spinnerStatusOut)="spinnerEvent($event)">
+</spinner-g>
+
+<div *ngIf="spinner" [formGroup]="formMain" fxLayoutGap="10" [fxLayout]="screenFieldPosition" (window:resize)="screen()" [fxLayout]="screenFieldPosition" >
+    <div fxLayout="column" [fxFlex]="fxFlexInput">
+        <mat-form-field [fxFlex]="fxFlexInput" appearance="outline">
+            <mat-label>Categoria</mat-label>
+            <mat-select formControlName="categoryExpenseId"
+                (selectionChange)="selectedCategoryExpenseId($event.value)">
+                <mat-option [value]="expense.id" *ngFor="let expense of entities$ | async">
+                    {{expense.name | uppercase}}</mat-option>
+            </mat-select>
+            <mat-error>
+                <span>{{validatorMessages.required(formMain,'categoryExpenseId', 'Categoria')}}</span>
+                <span>{{validatorMessages.changeSelection(formMain,'categoryExpenseId', 'Categoria')}}</span>
+                <span>{{validatorMessages.minMaxLength(formMain,'categoryExpenseId',
+                    'Categoria',null,150)}}</span>
+            </mat-error>
+
+        </mat-form-field>
+    </div>
+    <div fxLayout="column" [fxFlex]="fxFlexInput">
+        <mat-form-field [fxFlex]="fxFlexInput" appearance="outline">
+            <mat-label>Subcategoria</mat-label>
+            <mat-select formControlName="subcategoryExpenseId">
+                <mat-option [value]="subcategory.id" *ngFor="let subcategory of subcategoriesExpenses | async">
+                    {{subcategory.name | uppercase}}</mat-option>
+            </mat-select>
+            <mat-error>
+                <span>{{validatorMessages.required(formMain,'subcategoryExpenseId', 'Subcategoria')}}</span>
+                <span>{{validatorMessages.changeSelection(formMain,'subcategoryExpenseId',
+                    'Subcategoria')}}</span>
+                <span>{{validatorMessages.minMaxLength(formMain,'subcategoryExpenseId',
+                    'Subcategoria',null,150)}}</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <!-- <div fxLayout="column" [fxFlex]="fxFlexInput" *ngIf="!subcategoryNotFound">
+        <mat-label>Sem subcategorias cadastradas</mat-label>
+    </div> -->
+</div>

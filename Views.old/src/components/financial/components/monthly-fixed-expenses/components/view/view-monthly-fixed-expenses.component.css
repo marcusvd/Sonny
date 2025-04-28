@@ -1,0 +1,52 @@
+.pipe-title {
+    font-size: 30px;
+    color: rgb(43, 161, 168);
+}
+
+.pipe-column-title {
+    margin-top: -25px;
+}
+
+.weight-title-space-left {
+    font-weight: bolder;
+    /* padding-right: 10px; */
+}
+
+.space-right {
+    padding-right: 10px;
+}
+
+
+/* .bg-color-expired {
+    background-color: red;
+}
+
+.bg-color-will-expire {
+    background-color: orange;
+}
+
+.bg-color-paid {
+    background-color: green;
+} */
+
+.no-paid {
+    color: red;
+}
+
+.expired {
+    color: red;
+}
+
+.pending {
+    color: orange;
+}
+
+.paid {
+    color: green;
+    font-size: 20px;
+}
+
+.cost {
+    color: red;
+    font-size: 20px;
+}

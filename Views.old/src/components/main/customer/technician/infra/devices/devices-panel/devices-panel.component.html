@@ -1,0 +1,174 @@
+<div fxLayout="row wrap" fxLayoutAlign="start start" fxLayoutGap="20px grid">
+    <mat-tab-group>
+        <div>
+
+            <div [formGroup]="_devicesForm">
+                <div fxLayout="fxFlex">
+
+                    <mat-form-field>
+                        <mat-label>Equipamento:</mat-label>
+                        <input matInput formControlName="equipament">
+                        <!-- <mat-error> <span>{{_Fv.required('equipament',
+                                'Equipamento requer um minimo de 2 caracteres.'
+                                , 'Equipamento é limitado a 30 caracteres.'
+                                , 'Equipamento é de preenchimento obrigatório.', _devicesForm)}}</span> </mat-error> -->
+                    </mat-form-field>
+                    &nbsp;
+                    <mat-form-field>
+                        <mat-label>Fabricante:</mat-label>
+                        <input matInput formControlName="manufacturer">
+
+                        <!-- <mat-error> <span>{{_Fv.required('manufacturer',
+                                'Fabricante requer um minimo de 2 caracteres.'
+                                , 'Fabricante é limitado a 30 caracteres.'
+                                , 'Fabricante é de preenchimento obrigatório.', _devicesForm)}}</span> </mat-error> -->
+
+                    </mat-form-field>
+                    &nbsp;
+                    <mat-form-field>
+                        <mat-label>Modelo:</mat-label>
+                        <input matInput formControlName="model">
+
+                        <!-- <mat-error>
+                            <span>{{_Fv.commonFields('model',
+                                'Modelo requer um minimo de 2 caracteres.'
+                                , 'Modelo é limitado a 150 caracteres.', _devicesForm)}}</span>
+                        </mat-error> -->
+
+                    </mat-form-field>
+                </div>
+                <br>
+                <div fxLayout="fxFlex">
+                    <mat-form-field>
+                        <mat-label>Usuário:</mat-label>
+                        <input matInput formControlName="user">
+
+                        <!-- <mat-error>
+                            <span>{{_Fv.commonFields('user',
+                                'Usuário requer um minimo de 2 caracteres.'
+                                , 'Usuário é limitado a 150 caracteres.', _devicesForm)}}</span>
+                        </mat-error> -->
+
+                    </mat-form-field>
+                    &nbsp;
+                    <mat-form-field>
+                        <mat-label>Senha:</mat-label>
+                        <input matInput formControlName="password">
+
+                        <!-- <mat-error>
+                            <span>{{_Fv.commonFields('password',
+                                ''
+                                , 'Senha é limitado a 30 caracteres.', _devicesForm)}}</span>
+                        </mat-error> -->
+
+                    </mat-form-field>
+                    &nbsp;
+                    <mat-form-field>
+                        <mat-label>Número de série:</mat-label>
+                        <input matInput formControlName="sn">
+
+                        <!-- <mat-error>
+                            <span>{{_Fv.commonFields('sn',
+                                'Número de série requer um minimo de 2 caracteres.'
+                                , 'Número de série é limitado a 100 caracteres.', _devicesForm)}}</span>
+                        </mat-error> -->
+
+                    </mat-form-field>
+                </div>
+                <br>
+                <!-- <mat-checkbox [(ngModel)]="hasNet">Tem Rede?</mat-checkbox>-->
+                <div fxLayout="fxFlex">
+                    <mat-form-field>
+                        <mat-label>IP:</mat-label>
+                        <input matInput formControlName="ip">
+
+                        <!-- <mat-error>
+                            <span>{{_Fv.commonFields('ip',
+                                'Endreço IP requer um minimo de 2 caracteres.'
+                                , 'Endreço IP é limitado a 15 caracteres.', _devicesForm)}}</span>
+                        </mat-error> -->
+
+                    </mat-form-field>
+                    &nbsp;
+                    <mat-form-field>
+                        <mat-label>MAC:</mat-label>
+                        <input matInput formControlName="mac">
+
+                        <!-- <mat-error>
+                            <span>{{_Fv.commonFields('mac',
+                                'Endereço MAC requer um minimo de 12 caracteres.'
+                                , 'Endereço MAC é limitado a 20 caracteres.', _devicesForm)}}</span>
+                        </mat-error> -->
+
+                    </mat-form-field>
+                    &nbsp;
+                    <mat-form-field>
+                        <mat-label>Porta:</mat-label>
+                        <input matInput formControlName="door">
+
+                        <!-- <mat-error>
+                            <span>{{_Fv.commonFields('door',
+                                'Porta requer um minimo de 2 caracteres.'
+                                , 'Porta é limitado a 10 caracteres.', _devicesForm)}}</span>
+                        </mat-error> -->
+
+                    </mat-form-field>
+                </div>
+
+
+                &nbsp;
+                <mat-form-field>
+                    <mat-label>APPS:</mat-label>
+                    <input matInput formControlName="apps">
+
+                    <!-- <mat-error>
+                        <span>{{_Fv.commonFields('apps',
+                            'Aplicativos requer um minimo de 2 caracteres.'
+                            , 'Aplicativos é limitado a 100 caracteres.', _devicesForm)}}</span>
+                    </mat-error> -->
+
+                </mat-form-field>
+
+                &nbsp;
+                <mat-form-field>
+                    <mat-label>Conectividade:</mat-label>
+                    <input matInput formControlName="connectivity">
+
+                    <!-- <mat-error>
+                        <span>{{_Fv.commonFields('connectivity',
+                            'Interface de conectividade requer um minimo de 2 caracteres.'
+                            , 'Interface de conectividade é limitado a 50 caracteres.', _devicesForm)}}</span>
+                    </mat-error> -->
+
+                </mat-form-field>
+                &nbsp;
+                <mat-form-field>
+                    <mat-label>Local Físico:</mat-label>
+                    <input matInput formControlName="physicalLocation">
+
+                    <!-- <mat-error> <span>{{_Fv.required('physicalLocation',
+                            'Local Físico requer um minimo de 2 caracteres.'
+                            , 'Local Físico é limitado a 150 caracteres.'
+                            , 'Local Físico é de preenchimento obrigatório.', _devicesForm)}}</span> </mat-error> -->
+                </mat-form-field>
+
+                <br>
+                <mat-form-field>
+                    <mat-label>Notas:</mat-label>
+                    <textarea matInput formControlName="notes"></textarea>
+
+                    <!-- <mat-error>
+                        <span>{{_Fv.commonFields('notes',
+                            'Observações requer um minimo de 2 caracteres.'
+                            , 'Observações é limitado a 2000 caracteres.', _devicesForm)}}</span>
+                    </mat-error> -->
+
+                </mat-form-field>
+
+
+                &nbsp;
+
+            </div>
+        </div>
+    </mat-tab-group>
+</div>

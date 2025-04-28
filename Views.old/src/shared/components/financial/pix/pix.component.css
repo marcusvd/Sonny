@@ -1,0 +1,42 @@
+/* .date-card {
+    height: 5px;
+    margin-top: 5px;
+}
+
+#mat-select-padding {
+    padding-top: 5px;
+}
+
+.example-month-picker .mat-calendar-period-button {
+    pointer-events: none;
+}
+
+.example-month-picker .mat-calendar-arrow {
+    display: none;
+}
+
+.middle-space-horizontal-beteween-fields {
+    padding-top: 20px;
+}
+ */
+
+
+/* ::ng-deep .mat-datepicker-content .mat-calendar {
+    height: 20px !important;
+}
+
+.year-month-picker .mat-calendar-period-button {
+    pointer-events: none;
+}
+
+.year-month-picker .mat-calendar-arrow {
+    display: none;
+} */
+
+middle-space-horizontal-beteween-fields {
+    padding-top: 20px;
+}
+
+#btn-remove {
+    margin-top: -20px;
+}

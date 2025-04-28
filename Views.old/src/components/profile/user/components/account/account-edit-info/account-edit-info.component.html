@@ -1,0 +1,104 @@
+<mat-card>
+    <div class="mat-card-title">
+        <div fxLayout="row" (window:resize)="screen()">
+            <div fxLayout="column">
+                <h3>Informações de conta</h3>
+            </div>
+            <div fxLayout="column" fxFlex>
+            </div>
+            <div *ngIf="!btnSaveStyle">
+                <div fxLayout="column">
+                    <button class="default-button" mat-raised-button (click)="updateUser()"> Salvar </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <mat-divider>
+    </mat-divider>
+    <br>
+
+    <div fxLayout="row" (window:resize)="screen()" fxLayoutGap="15px" [formGroup]="formMain">
+
+        <div fxLayout="column" [formGroup]="subForm" fxFlex>
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>Nome Empresa</mat-label>
+                <input matInput formControlName="name" aria-label="Nome Empresa">
+                <mat-error>
+                    <!-- <span>{{validatorMessages.required(formMain,'name', 'Nome de Usuário')}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'name', 'Nome de Usuário',null,2)}}</span> -->
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex>
+            <mat-form-field fxFlex="99%" appearance="outline">
+                <mat-label>Nome de Usuário</mat-label>
+                <input matInput formControlName="userName" aria-label="Nome de Usuário">
+                <!-- <mat-error>
+                <span>{{validatorMessages.required(formMain,'district', 'Bairro')}}</span>
+                <span>{{validatorMessages.minMaxLength(formMain,'district', 'Bairro',null,150)}}</span>
+            </mat-error> -->
+            </mat-form-field>
+
+        </div>
+        <div fxLayout="column" fxFlex>
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>E-mail</mat-label>
+                <input matInput formControlName="email" aria-label="E-mail">
+                <!-- <mat-error>
+                    <span>{{validatorMessages.required(formMain,'city', 'Cidade')}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,'city', 'Cidade',null,150)}}</span>
+                </mat-error> -->
+            </mat-form-field>
+
+        </div>
+
+    </div>
+
+    <div fxLayout="row" (window:resize)="screen()" fxLayoutGap="50px">
+        <div fxLayout="column" fxFlex>
+        </div>
+        <div fxLayout="column">
+
+            <div fxLayout="column" fxFlex fxLayoutAlign="center center">
+                <mat-icon class="padloock mat-icon-style" fontSet="material-icons-outlined">https</mat-icon>
+            </div>
+
+        </div>
+
+        <div fxLayout="column" fxFlex>
+            <mat-form-field fxFlex>
+                <mat-label>
+                    <mat-icon>https</mat-icon> <b> Senha</b>
+                </mat-label>
+                <input matInput type="password" (input)="validatorCustom.fieldCompare(formMain, 'password', 'confirmPassword')" formControlName="password" placeholder="Senha">
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'password', '')}}
+                {{validatorMessages.compareFields(formMain,
+                'confirmPassword')}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="column" fxFlex>
+            <mat-form-field fxFlex>
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'confirmPassword', '')}}
+                {{validatorMessages.compareFields(formMain,
+                'confirmPassword')}}</span>
+                </mat-error>
+                <mat-label>
+                    <mat-icon>https</mat-icon> <b> Confirmar Senha</b>
+                </mat-label>
+                <input matInput type="password" (input)="validatorCustom.fieldCompare(formMain, 'confirmPassword', 'password')" formControlName="confirmPassword" placeholder="Confirma senha">
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div *ngIf="btnSaveStyle" fxLayoutAlign="center center">
+
+        <button class="default-button" mat-raised-button (click)="updateUser()"> Salvar </button>
+
+    </div>
+    <!-- {{formMain.value | json}} -->
+
+</mat-card>

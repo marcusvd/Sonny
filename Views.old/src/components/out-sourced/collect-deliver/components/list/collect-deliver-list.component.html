@@ -1,0 +1,66 @@
+<div class="border-around">
+    <title-component [digit]="'|'" [titleString]="titleGrid" [icon]="'compare_arrows'">
+        <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
+    </title-component>
+
+
+    <div>
+        <div fxLayout="column" fxFlex>
+
+            <mat-card class="mat-card-sub-title" fxFlex>
+                <grid-list-common>
+                    <sub-title title [title]="'Coletas, entregas e serviços'" [icon]="'list'"></sub-title>
+                    <!-- <div search-filter fxLayout="row">
+                        <btn-filter-g (arrowOut)="showHideFilterMtd($event)">
+                            <collect-deliver-list-filter class="menu-size-width-large" (filterFormOut)="filter($event)" options-filter [showHideFilter]="showHideFilter">
+                            </collect-deliver-list-filter>
+                        </btn-filter-g>
+                    </div> -->
+                    <div search-filter id="space-components" fxLayout="row">
+
+                    </div>
+                    <div search-pagination fxLayout="row" fxFlex>
+                        <div fxLayout="column" fxFlex>
+                            <grid-list-common-search [searchName]="'Busca'" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
+                        </div>
+                        <div fxLayout="column" fxFlex>
+                        </div>
+
+                        <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
+
+                    </div>
+                    <grid-list-common-table fxFlex body-table 
+                    [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" 
+                    [fieldsInEnglish]="fieldsInEnglish" 
+                    [entities$]="this.entities$" 
+                    [headers]="headers" 
+                    [statusShow]="true"
+                    (getColumnEntityName)="orderBy($event)" 
+                    (getEntityOut)="getEntity($event)">
+                    </grid-list-common-table>
+                    <div pagination-below fxLayout="column">
+                        <div class="mat-paginator-above-margin" fxLayout="row" fxFlex>
+
+                        </div>
+                        <div fxLayout="row" fxFlex>
+                            <div fxLayout="column" fxFlex>
+
+                            </div>
+
+                            <mat-paginator pagination-below #paginatorBelow [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
+
+                        </div>
+                        <div class="mat-paginator-below-margin" fxLayout="row" fxFlex>
+
+                        </div>
+                    </div>
+                </grid-list-common>
+            </mat-card>
+
+        </div>
+    </div>
+</div>
+<!-- <br>
+<br>
+<br>
+<br> -->

@@ -1,0 +1,24 @@
+.btn-save-show {
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+.btn-save-hide {
+  display: none;
+}
+
+.type-radio,
+.segment-radio,
+.manufacturer-radio,
+.model-radio{
+  margin: 10px;
+}
+
+h3{
+  margin: 0px;
+  margin-bottom: 10px;
+}
+
+.array-hide{
+  display: none;
+}
+

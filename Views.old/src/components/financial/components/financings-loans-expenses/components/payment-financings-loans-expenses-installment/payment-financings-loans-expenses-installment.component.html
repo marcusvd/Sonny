@@ -1,0 +1,45 @@
+<div class="border-around" *ngIf="formMain">
+    <title-component [digit]="'|'" [titleString]="'Pagamento'" [icon]="'payment'">
+        <!-- <btn-add-g btn-1 (add)="add()"></btn-add-g> -->
+    </title-component>
+    <div>
+        <div fxLayout="column" fxFlex>
+            <mat-card class="mat-card-sub-title" fxFlex>
+                <sub-title title [title]="'Despesa'" [icon]="'payment'"></sub-title>
+                <screen-data-info *ngIf="hideShowScreenDataInfo" [fields]="fields">
+                </screen-data-info>
+                <!-- 
+                [radioOptionRemove]="['Cartão', 'Pix','Outros' ]"
+                [radioHideShow]="true"
+                -->
+                <get-bank-account-select-single 
+                    [urlBackEndApi]="'GetAllFnBankAccount'" 
+                    [formMain]="formMain"
+                    [selectedRadio]="0" 
+                    [validatorsPaymentBtnAction]="validatorsCreditPixOthers"
+                    [alignRadios]="'start start'"
+                    (selectedRadioOut)="selectedRadio($event)"
+                    >
+                </get-bank-account-select-single>
+                <pixes-expenses-fields [expenseDayDisabled]="true" [priceDisabled]="false" [formMain]="subForm" fxFlex *ngIf="selectedPixRadio == 0 && formMain.get('bankAccountId').value">
+                </pixes-expenses-fields>
+
+                <price-interest-fields [formMain]="formMain" [priceFormControlName]="'priceWasPaidInstallment'">
+                </price-interest-fields>
+             
+                <div fxLayout="column" id="warning-expired" *ngIf="checkExpires()">
+                    {{'Já vencido, provável multa/juros, não esqueça de preencher o campo juros corretamente.'}}
+                </div>
+                <div class="middle-space-horizontal-beteween-fields"> </div>
+
+                <div fxLayout="column" btn>
+                    <btn-g [name]="'Pagar'" [icon]="'payment'" (click)="updateBtn()"
+                        [enableDisable]="paymentBtnEnabledDisabled"></btn-g>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>
+<!-- <div fxLayout="row" fxlayoutAlign="center center">
+<div>{{formMain.value | json}}</div>
+</div> -->

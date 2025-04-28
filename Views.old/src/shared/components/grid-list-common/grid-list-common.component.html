@@ -1,0 +1,26 @@
+<div>
+    <div>
+        <ng-content select="[title]"></ng-content>
+    </div>
+    <div class="middle-space-horizontal-beteween-fields"> </div>
+    <div>
+        <ng-content fxFlex select="[search-filter]">
+
+        </ng-content>
+    </div>
+    <div>
+        <ng-content fxFlex select="[search-pagination]">
+
+        </ng-content>
+    </div>
+    <div class="middle-space-horizontal-beteween-fields"> </div>
+    <div>
+        <ng-content select="[body-table]"></ng-content>
+    </div>
+
+    <div>
+        <ng-content fxFlex select="[pagination-below]">
+
+        </ng-content>
+    </div>
+</div>

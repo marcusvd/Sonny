@@ -1,0 +1,27 @@
+/* mat-card {
+    background-color: #F9F9F9;
+} */
+
+.mat-card-sub-title {
+    height: 100%;
+    background-color: rgb(249, 249, 249);
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    padding: -330px;
+}
+
+#responsible {
+    height: 135px;
+}
+
+.small-space-horizontal-beteween-fields {
+    padding-top: 10px;
+}
+
+.middle-space-horizontal-beteween-fields {
+    padding-top: 20px;
+}
+
+.mat-label {
+    color: #287206;
+}

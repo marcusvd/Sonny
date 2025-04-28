@@ -1,0 +1,12 @@
+
+<div [formGroup]="formMain">
+    <mat-form-field appearance="outline">
+        <mat-label>{{labelInput}}</mat-label>
+        <input matInput [matDatepicker]="picker" [formControlName]="fieldControlName">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker [startView]="startView"></mat-datepicker>
+        <mat-error>
+            <ng-content select="[msg-error]"></ng-content>
+        </mat-error>
+    </mat-form-field>
+</div>

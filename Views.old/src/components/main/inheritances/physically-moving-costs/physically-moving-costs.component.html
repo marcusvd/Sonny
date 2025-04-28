@@ -1,0 +1,54 @@
+<div fxLayout="row">
+    <h3>Custos Deslocamento</h3>
+</div>
+<div [formGroup]="formMain" [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="5">
+
+    <div fxLayout="column" fxFlex>
+        <mat-label fxLayoutAlign="center center" class="mat-label">Combustível
+        </mat-label>
+        <mat-form-field fxFlex>
+            <input matInput type="text" currencyMask formControlName="fuel" aria-label="Combustível">
+            <mat-error>
+
+                <span>{{validatorMessages.minMaxLength(formMain,'fuel', 'Valor',null,150)}}</span>
+                <span>{{validatorMessagesCustomer.currencyValuePayment(formMain,'fuel', 'Valor', 'R$ 1,00')}}</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div fxLayout="column" fxFlex>
+        <mat-label fxLayoutAlign="center center" class="mat-label">Aplicativo
+        </mat-label>
+        <mat-form-field fxFlex>
+            <input matInput type="text" currencyMask formControlName="apps" aria-label="Aplicativo">
+            <mat-error>
+
+                <span>{{validatorMessages.minMaxLength(formMain,'apps', 'Valor',null,150)}}</span>
+                <span>{{validatorMessagesCustomer.currencyValuePayment(formMain,'apps', 'Valor', 'R$ 1,00')}}</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="small-space-horizontal-beteween-fields"> </div>
+    <div fxLayout="column" fxFlex>
+        <mat-label fxLayoutAlign="center center" class="mat-label">Transporte publico
+        </mat-label>
+        <mat-form-field fxFlex>
+            <input matInput type="text" currencyMask formControlName="publicTransport" aria-label="Transporte publico">
+            <mat-error>
+
+                <span>{{validatorMessages.minMaxLength(formMain,'publicTransport', 'Valor',null,150)}}</span>
+                <span>{{validatorMessagesCustomer.currencyValuePayment(formMain,'publicTransport', 'Valor', 'R$ 1,00')}}</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div fxLayout="column" fxFlex>
+        <mat-label fxLayoutAlign="center center" class="mat-label">Moto Boy
+        </mat-label>
+        <mat-form-field fxFlex>
+            <input matInput type="text" currencyMask formControlName="motoBoy" aria-label="Moto Boy">
+            <mat-error>
+                <span>{{validatorMessages.minMaxLength(formMain,'motoBoy', 'Valor',null,150)}}</span>
+                <span>{{validatorMessagesCustomer.currencyValuePayment(formMain,'motoBoy', 'Valor', 'R$ 1,00')}}</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+</div>

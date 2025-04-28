@@ -1,0 +1,51 @@
+<div class="border-around" (window:resize)="screen()" *ngIf="this.entities">
+    <title-component [digit]="'|'" [titleString]="'Cartão de Crédito'" [icon]="'attach_money'"></title-component>
+    <div>
+        <div fxLayout="column" fxFlex>
+
+            <mat-card class="mat-card-sub-title" fxFlex>
+                <grid-list-common>
+                    <sub-title title [title]="'Fatura ' +expensesMonth" [icon]="'list'"></sub-title>
+                    <div search-filter fxLayout="column">
+                        <div class="small-space-horizontal-beteween-fields"></div>
+                        <div [fxLayout]="screenFieldPosition" fxLayoutGap="10">
+
+                            <div fxLayout="column">
+                                <div fxLayout="column">
+                                    <grid-list-common-search [searchName]="'Busca'" [fxFlexInput]="100" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
+                                    <financial-subtitle *ngIf="this.entities.length != 0" [singleStatusSubtitle]="true" [expiresDate]="this.entities[0].expires" [statusCollection]="statusCollection" [title]="expensesMonth">
+                                    </financial-subtitle>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div search-filter id="space-components" fxLayout="row">
+
+                    </div>
+                    <div search-pagination [fxLayout]="screenFieldPosition" fxFlex>
+                        <div fxLayout="column" fxFlex>
+                        </div>
+                        <br>
+                        <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
+                        <br>
+                    </div>
+                    <grid-list-common-table fxFlex body-table [statusShow]="false" [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)"
+                        (getEntityOut)="getEntity($event, 'fixedExpenses')" (toPayOut)="pay.toPay($event)">
+                    </grid-list-common-table>
+                    <div pagination-below fxLayout="column">
+                        <div class="mat-paginator-above-margin" fxLayout="row" fxFlex>
+                        </div>
+                        <div fxLayout="row" fxFlex>
+                            <div fxLayout="column" fxFlex>
+                            </div>
+                            <mat-paginator pagination-below #paginatorBelow [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
+                        </div>
+                        <div class="mat-paginator-below-margin" fxLayout="row" fxFlex>
+
+                        </div>
+                    </div>
+                </grid-list-common>
+            </mat-card>
+        </div>
+    </div>
+</div>

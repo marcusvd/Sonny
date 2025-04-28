@@ -1,0 +1,54 @@
+.middle-space-horizontal-beteween-fields {
+    padding-top: 20px;
+}
+
+.image {
+    width: 220px;
+    height: 220px;
+    border-radius: 150px;
+    border: 2px solid rgb(31, 104, 3);
+}
+
+.header-overlap {
+    background-color: #0b300a !important;
+    height: 210px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    margin-left: -17px;
+    margin-right: -17px;
+}
+
+.mat-card-settings {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.btn-update-position {
+    margin-top: 20px;
+}
+
+.btn-update-color {
+    background-color: #156912;
+    color: white;
+}
+
+.btn-update-size {
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+}
+
+::ng-deep .mat-tab-label {
+    /* font-weight: bolder; */
+    color: black;
+    text-transform: uppercase;
+    font-size: 17px;
+}
+
+
+/* customize mat-tab-group */
+
+::ng-deep .mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background-color: #156912;
+}

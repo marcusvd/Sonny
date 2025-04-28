@@ -1,0 +1,23 @@
+.header{
+    
+    p:nth-of-type(1){
+        margin-right:auto;
+    }  
+    
+    &--icon{
+        margin-right:1%;
+        color:white;
+    }
+
+    &--title{
+        font-size: 20px;
+    }
+
+    &--value{
+        letter-spacing: 2px;
+    }
+
+    &--left-items{
+        justify-items: center;
+    }
+}

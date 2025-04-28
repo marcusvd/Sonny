@@ -1,0 +1,43 @@
+<div [formGroup]="formMain">
+    <div class="middle-space-horizontal-beteween-fields"> </div>
+    <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="15">
+
+        <div fxLayout="column" fxFlex>
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>Responsável</mat-label>
+                <input matInput type="text" formControlName="responsible" aria-label="Responsável">
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'responsible', 'Responsável')}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,'responsible', 'Responsável',null,100)}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex *ngIf="businessLine">
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label class="mat-label">Área de atuação / Segmento
+                </mat-label>
+                <input matInput type="text" formControlName="businessLine" aria-label="Área de atenção / Segmento">
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'businessLine', 'Valor')}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,'businessLine', 'Valor',null,150)}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxFlex *ngIf="specificBusinessLine">
+            <mat-form-field appearance="outline" fxFlex>
+                <mat-label>Serviço prestado</mat-label>
+                <mat-select placeholder="Pesquise pelo nome" #singleSelect formControlName="partnerBusiness">
+                    <!-- [value]="this.formMain.get('partnerBusiness').value" -->
+                    <mat-option *ngFor="let specific of businesslineArray" [value]="specific.id">
+                        {{specific.businessLine}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- <div fxLayout="row" fxFlex fxLayoutGap="5">
+</div> -->

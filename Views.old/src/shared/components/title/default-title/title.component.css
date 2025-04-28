@@ -1,0 +1,57 @@
+.container {
+    display: flex;
+    width: 100%;
+}
+
+/* #container-below {
+    display: flex;
+    width: 100%;
+    height: 60px;
+} */
+
+.child {
+    width: 100px;
+}
+
+#icon {
+    color: rgb(44, 161, 168);
+    font-size: 50px;
+    width: 50px;
+    height: 50px;
+}
+
+#container-icon {}
+
+#pipe {
+    font-size: 40px;
+    color: rgb(44, 161, 168);
+    width: 9px;
+    margin-top: -13px;
+}
+
+#title {
+    font-size: 20px;
+    color: #555555;
+    font-family: Mynerve;
+    justify-content: left;
+    width: 350px;
+    font-weight: bold;
+}
+
+
+#btn-back {
+    background-color: rgb(44, 161, 168);
+    color: white;
+    font-family: Mynerve;
+}
+
+#container-middle {
+    height: 20px;
+}
+
+#sub-title-string {
+    color: rgb(44, 161, 168);
+    font-family: Mynerve;
+    font-weight: bolder;
+    font-size: 20px;
+}

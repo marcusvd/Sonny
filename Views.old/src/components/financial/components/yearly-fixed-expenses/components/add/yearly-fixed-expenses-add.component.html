@@ -1,0 +1,94 @@
+<div fxLayout="column" class="border-around" *ngIf="formMain" fxFlex>
+    <title-component [digit]="'|'" [titleString]="'Despesas Anuais'" [icon]="'attach_money'">
+        <btn-g btn-1 [styleSize]="'width:150px;'" [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
+    </title-component>
+    <mat-card [formGroup]="formMain" fxLayout="column" *ngIf="formMain">
+        <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
+        <div class="middle-space-horizontal-beteween-fields"> </div>
+        <div (window:resize)="screen()" [fxLayout]="screenFieldPosition"  fxLayoutGap="10" fxFlex>
+            <div [fxLayout]="'column'" fxFlex>
+                <mat-form-field appearance="outline" fxFlex>
+                    <mat-label>Despesa</mat-label>
+                    <input matInput type="text" formControlName="name" aria-label="Despesa">
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'name', 'Despesa')}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'name', 'Despesa',null,150)}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="column" fxFlex>
+                <mat-form-field appearance="outline">
+                    <mat-label>Valor</mat-label>
+                    <input currencyMask matInput type="text" formControlName="price" aria-label="Valor">
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'price', 'Valor')}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="column" fxFlex fxLayoutAlign="center center">
+                <mat-checkbox formControlName="autoRenew">Renovação Automatica</mat-checkbox>
+            </div>
+        </div>
+        <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10" fxFlex>
+            <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle" fxFlex>
+            </select-category-subcategory-expenses>
+        </div>
+        <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
+            <div fxLayout="column" fxFlex>
+                <mat-form-field appearance="outline">
+                    <mat-label>Início</mat-label>
+                    <input matInput formControlName="start" [matDatepicker]="start" aria-label="início"
+                    (dateChange)="onStartDateChanged()">
+                    <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
+                    <mat-datepicker #start></mat-datepicker>
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'start', 'Vencimento')}}</span>
+                        <span>{{validatorYearlyAction.incorrectDate(formMain,'start', 'Inicio')}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxLayout="column" fxFlex>
+                <mat-form-field appearance="outline">
+                    <mat-label>Vencimento</mat-label>
+                    <input matInput formControlName="expires" [matDatepicker]="picker" aria-label="Dia do vencimento"
+                        (dateChange)="validatorYearlyAction.validateDate(formMain, 'start', 'expires')">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'expires', 'Vencimento')}}</span>
+                        <span>{{validatorYearlyAction.incorrectDate(formMain,'expires', 'Vencimento')}}</span>
+                    </mat-error>
+                </mat-form-field>
+
+
+            </div>
+        </div>
+
+        <div class="middle-space-horizontal-beteween-fields"> </div>
+
+
+        <div [fxLayout]="screenFieldPosition" fxFlex>
+            <link-copy-bill [formMain]="formMain" fxFlex>
+            </link-copy-bill>
+
+        </div>
+        <div [fxLayout]="'row'" fxLayoutGap="10" fxFlex>
+            <mat-form-field fxFlex appearance="outline" fxFlex>
+                <mat-label>Despesa descritivo</mat-label>
+                <input matInput type="text" formControlName="description" aria-label="Descrição">
+                <mat-hint>EX: Seguro Casa, Seguro Escritório, Luz residência, Internet loja etc...</mat-hint>
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'description', 'Despesa descritivo')}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,'description', 'Despesa
+                        descritivo',null,150)}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <!-- <div>{{formMain.value | json}}</div> -->
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
+            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
+        </div>
+    </mat-card>
+</div>

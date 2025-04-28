@@ -1,0 +1,12 @@
+<div fxLayout="row">
+    <div fxLayout="column">
+        <mat-form-field appearance="outline">
+            <mat-label>Ano</mat-label>
+            <mat-select [(value)]="selectedValue" (selectionChange)="onSelect($event.value)">
+                <mat-option *ngFor="let year of years" [value]="year" [selected]="year === selectedValue">
+                    {{year.year}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+</div>

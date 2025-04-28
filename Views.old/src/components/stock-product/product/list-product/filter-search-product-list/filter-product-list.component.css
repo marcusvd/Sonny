@@ -1,0 +1,30 @@
+mat-form-field {
+    width: 100%;
+}
+
+.container-filter {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex-basis: 100%;
+    flex-wrap: wrap;
+    
+}
+
+.search-field {
+    flex-basis: 100%;
+    flex: 1;
+}
+
+
+@media(max-width: 800px) {
+   
+    .search-field,
+    .type,
+    .segment,
+    .manufacturer {
+        width: 100vw;
+        flex: 1;
+
+    }
+}

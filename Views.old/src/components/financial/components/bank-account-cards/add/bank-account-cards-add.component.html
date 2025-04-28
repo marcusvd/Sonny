@@ -1,0 +1,18 @@
+<div class="border-around" fxLayout="column">
+    <title-component [digit]="'|'" [titleString]="'Cadastro de contas e cartões'" [icon]="'attach_money'">
+    </title-component>
+
+    <bank-account [formMain]="formMain" [mainIcon]="'add'" [mainTitle]="formMain.get('institution').value">
+        <pix pix [formMain]="formMain" [noBeneficiaryField]="false">
+        </pix>
+        <div class="middle-space-horizontal-beteween-fields"> </div>
+    </bank-account>
+    <div class="middle-space-horizontal-beteween-fields"> </div>
+    <bank-cards [formMain]="formMain" [mainIcon]="'payment'">
+    </bank-cards>
+
+    {{formMain.value | json}}
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
+    </div>
+</div>

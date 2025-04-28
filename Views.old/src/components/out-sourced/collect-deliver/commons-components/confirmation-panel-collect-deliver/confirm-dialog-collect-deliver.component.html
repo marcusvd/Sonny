@@ -1,0 +1,142 @@
+<mat-card id="card">
+    <sub-title title class="font-body font-title" [title]="data.title" [styleContainerTitle]="'padding-top:8px;'" [titleStyle]="'font-family: Mynerve; font-size: 24px;'" [titleBarStyle]="'height:60px'"></sub-title>
+    <mat-dialog-content>
+
+        <table>
+            <tr>
+
+                <td>
+                    <p class="font-body label-field">{{'Motivo'}}</p>
+
+                </td>
+                <td>
+                    <p class="font-body">{{data.subject}}</p>
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>
+                    <p class="font-body label-field">{{'Preço'}}</p>
+
+                </td>
+                <td>
+                    <p class="font-body">{{data.price | ptBrCurrency}}</p>
+
+                </td>
+
+            </tr>
+            <tr>
+
+                <td>
+                    <p class="font-body label-field">{{'Contato no local'}}</p>
+
+                </td>
+                <td>
+                    <p class="font-body">{{data.contact}}</p>
+
+                </td>
+
+            </tr>
+            <tr>
+
+                <td>
+                    <p class="font-body label-field">{{'Coleta?'}}</p>
+
+                </td>
+                <td>
+                    <p class="font-body">{{data.collect}}</p>
+
+                </td>
+
+            </tr>
+            <tr>
+
+                <td>
+                    <p class="font-body label-field">{{'Entrega?'}}</p>
+
+                </td>
+                <td>
+                    <p class="font-body">{{data.deliver}}</p>
+
+                </td>
+
+            </tr>
+            <tr>
+
+                <td>
+                    <p class="font-body label-field">{{'Sem cadastrado'}}</p>
+
+                </td>
+                <td>
+                    <p class="font-body">{{data.other}}</p>
+
+                </td>
+
+            </tr>
+            <tr>
+
+                <td>
+                    <p class="font-body label-field">{{'Itens Transportados - Serviço'}}</p>
+
+                </td>
+                <td>
+                    <p class="font-body">{{data.itemsOrService}}</p>
+
+                </td>
+
+            </tr>
+            <tr>
+
+                <td>
+                    <p class="font-body label-field">{{'Destino'}}</p>
+
+                </td>
+                <td>
+                    <p class="font-body">{{data.destiny}}</p>
+
+                </td>
+
+            </tr>
+            <tr>
+
+                <td>
+                    <p class="font-body label-field">{{'Transportador'}}</p>
+
+                </td>
+                <td>
+                    <p class="font-body">{{data.transporter}}</p>
+
+                </td>
+
+            </tr>
+            <tr>
+
+                <td>
+                    <p class="font-body label-field">{{'Cobrança'}}</p>
+
+                </td>
+                <td>
+                    <p class="font-body">{{data.payer}}</p>
+
+                </td>
+
+            </tr>
+        </table>
+
+    </mat-dialog-content>
+    <div fxLayout="row" class="font-body margin" fxLayoutGap="30px">
+        <div fxLayout="column" fxFlex>
+        </div>
+        <div fxLayout="column">
+            <btn-g mat-dialog-close [name]="'Cancelar'" [icon]="'cancel'" (btn)="clickedNo()"></btn-g>
+        </div>
+        <div fxLayout="column">
+            <btn-g [name]="'Confirmar'" [icon]="'add'" (btn)="clickedYes()"></btn-g>
+            <!-- <btn-g mat-dialog-close [name]="'Confirmar'" [icon]="'add'" (btn)="clickedYes('yes')"></btn-g> -->
+        </div>
+    </div>
+
+</mat-card>

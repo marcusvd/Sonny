@@ -1,0 +1,46 @@
+<div fxLayout="column" class="border-around">
+    <title-component [digit]="'|'" [titleString]="'Despesas Pix'" [icon]="'attach_money'">
+    </title-component>
+    <mat-card [formGroup]="formMain" fxLayout="column" *ngIf="formMain">
+        <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
+        <div class="middle-space-horizontal-beteween-fields"> </div>
+        <div fxLayout="row">
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>Beneficiado / Nome</mat-label>
+                <input matInput type="text" formControlName="benefitedName" aria-label="Beneficiado">
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'benefitedName', 'Beneficiado')}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,'benefitedName', 'Beneficiado',null,150)}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
+
+            <pixes-expenses-fields fxFlex [formMain]="formMain" [expenseDayDisabled]="false" [fxFlexBenefitedKey]="'100'" [fxFlexExpenseDay]="'35'">
+               
+            </pixes-expenses-fields>
+        </div>
+        <div fxLayout="column" fxFlex>
+            <get-bank-account-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [validatorsPaymentBtnAction]="validatorsCreditPixOthers" [alignRadios]="'start start'" [radioOptionRemove]="[1,2]" [optionsRadio]="[{ id: 0, name: 'Pix' }, { id: 1, name: 'Cartão Débito' }, { id: 2, name: 'Outros' }]"
+                (pixesFromSelectedBan)="getPixId($event)">
+            </get-bank-account-select-single>
+        </div>
+        <div fxLayout="row">
+            <mat-form-field fxFlex appearance="outline">
+                <mat-label>Despesa descritivo</mat-label>
+                <input matInput type="text" formControlName="description" aria-label="Descrição">
+                <mat-hint>EX: Conta restaurante, Jogo online no site.com etc...</mat-hint>
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'description', 'Despesa descritivo')}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,'description', 'Despesa descritivo',null,150)}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <!-- <div>{{formMain.value | json}}</div> -->
+
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
+            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
+        </div>
+    </mat-card>
+</div>

@@ -1,0 +1,39 @@
+<div class="border-around small-large-screen" (window:resize)="responsive($event)">
+
+    <title-component [digit]="'|'" [titleString]="'Produtos'" [icon]="'storage'">
+    </title-component>
+
+    <mat-card class="small-large-screen">
+        <sub-title title [title]="'Produtos'" [icon]="'add'"></sub-title>
+        <div class="container-btns-paginator-above">
+
+            <div class="btns">
+                <btn-g add btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="this.callRouter('/side-nav/stock-product-router/add-product')"></btn-g>
+
+                <btn-filter-g (arrowOut)="showHideFilterMtd($event)">
+                </btn-filter-g>
+            </div>
+            <div class="paginator-above">
+                <mat-paginator #paginatorAbove [length]="length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
+            </div>
+        </div>
+
+        <div class="container-search-filter">
+            <filter-product-list [productsList]="this.entities$" [productsTypes]="productsTypes$" [segments]="segments" [manufacturers]="manufacturers" *ngIf="showHideFilter" (outProductsListFiltered)="filteredProductsList($event)" (outFieldSearch)="this.search($event)">
+            </filter-product-list>
+        </div>
+
+        <list-g *ngIf="!this.isCard" [headersLabel]="headers" [headersFields]="fields" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
+        </list-g>
+
+        <ng-container *ngIf="this.isCard">
+            <div *ngFor="let entity of this.entitiesFiltered$ | async;">
+                <container-card-model-a [entity]="entity">
+                </container-card-model-a>
+            </div>
+         </ng-container>
+
+        <mat-paginator #paginatorBelow [length]="length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
+    </mat-card>
+
+</div>

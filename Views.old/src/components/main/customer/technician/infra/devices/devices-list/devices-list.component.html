@@ -1,0 +1,175 @@
+<div fxLayout="row" style="color: rgb(255, 174, 0);">
+    <mat-form-field id="fieldSeacher" fxFlex="30%" style="color: rgb(255, 174, 0);">
+        <br>
+        <mat-label style="color: rgb(255, 174, 0);">
+            Procurar...
+        </mat-label>
+        <mat-icon style="font-size: 80px; color: rgb(255, 174, 0);">search</mat-icon>
+        <input style="font-size: 50px; color: rgb(255, 174, 0);" matInput type="text" ç>
+
+    </mat-form-field>
+</div>
+
+<button matTooltip="Adiciona um novo dispositivo." mat-button style="float:right; color:green;">
+  <mat-icon (click)="addNewDevice()" id="btnNew" class="material-icons md-48">library_add</mat-icon>
+</button>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div [style.margin.px]="50" [style.margin-bottom.px]="50">
+    <mat-accordion *ngFor="let item of _allClients" fxLayout="column">
+        <mat-expansion-panel hideToggle>
+
+            <mat-expansion-panel-header>
+                <mat-panel-title id="titleDev" class="fas fa-chevron-circle-down fa-1x">
+                    &nbsp; &nbsp;
+                    <table>
+
+
+                        {{item.equipament}}
+
+                        <tr>
+                            <td style="text-align:right;">
+                                {{item.physicalLocation}}
+                            </td>
+                        </tr>
+                    </table>
+
+                </mat-panel-title>
+                <mat-panel-description>
+                    <!--i class="fas fa-chevron-circle-down fa-2x"></-->
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div>
+                <div>
+
+                </div>
+                <br>
+            </div>
+            <div>
+
+
+                <div *ngFor="let img of item.images">
+
+                    <div>
+                        <!--&nbsp; {{1+i}}-->
+
+                        <!--img id="img" src={{_pathImg}}{{img.img}} style="width:100px; height:100px;"-->&nbsp;
+                        <!--_Cam.webcamImage-->
+                        <img id="img" [src]="_Api+img.img" style="width:50px; height:50px;" />&nbsp;
+                        <br>
+
+                    </div>
+
+
+                </div>
+
+                <br>
+                <td>
+                    Fabricante:
+                </td>
+                <td>
+                    {{item.manufacturer}}
+                </td>
+                <br>
+                <td>
+                    Modelo:
+                </td>
+                <td>
+                    {{item.model}}
+                </td>
+                <br>
+                <td>
+                    Usuário:
+                </td>
+                <td>
+                    {{item.user}}
+                </td>
+                <br>
+                <td>
+                    Local Físico:
+                </td>
+                <td>
+                    {{item.physicalLocation}}
+                </td>
+                <br>
+                <td>
+                    Senha:
+                </td>
+                <td>
+                    {{item.password}}
+                </td>
+                <br>
+                <td>
+                    Número de série:
+                </td>
+                <td>
+                    {{item.sn}}
+                </td>
+                <br>
+                <td>
+                    Endereço Ip:
+                </td>
+                <td>
+                    {{item.ip}}
+                </td>
+                <br>
+                <td>
+                    Endereço Mac:
+                </td>
+                <td>
+                    {{item.mac}}
+                </td>
+                <br>
+                <td>
+                    Porta:
+                </td>
+                <td>
+                    {{item.door}}
+                </td>
+                <br>
+                <td>
+                    Aplicativo:
+                </td>
+                <td>
+                    {{item.apps}}
+                </td>
+                <br>
+                <td>
+                    Conectividade:
+                </td>
+                <td>
+                    {{item.connectivity}}
+                </td>
+                <br>
+                <td>
+                    Anotações:
+                </td>
+                <td>
+                    {{item.notes}}
+                </td>
+                <br>
+
+                <mat-action-row>
+                    <table>
+                        <tr>
+                            <td>
+                                <span (click)="deleteDevice(item.id)" matTooltip="Deletar registro de ." class="far fa-trash-alt fa-2x">
+                </span>
+                            </td>
+                            <td>
+                                <span (click)="editNewDevice(data, item.id)" matTooltip="Editar registro de " class="fas fa-edit fa-2x">
+                </span>
+                            </td>
+                        </tr>
+
+                    </table>
+                </mat-action-row>
+
+            </div>
+        </mat-expansion-panel>
+        <br>
+    </mat-accordion>
+    <div>
+        <!-- <button class="btn btn-success" mat-button mat-dialog-close style="float:right;">Fechar</button> -->
+    </div>
+</div>
+<!--devices-create [_client]="data"></!--devices-create-->

@@ -1,0 +1,31 @@
+<div fxLayout="row">
+    <div fxLayout="column">
+        <button class="btn-settings" mat-raised-button type="button" mat-raised-button (click)="filterMtd()">
+        <div fxLayout="row">
+          <div fxLayout="column" id="mat-icon-search-column">
+            <mat-icon>search</mat-icon>
+          </div>
+        <div fxLayout="column" [style]="styleSize">
+        Filtrar
+          </div>
+        <span id="space-items-left-vertical-line"></span>
+
+          <div fxLayout="column" id="vertical-line-divider">
+          </div>
+
+          <span id="space-items-rigt-vertical-line"></span>
+
+          <div fxLayout="column" id="icons-arrow-up-down">
+            <mat-icon *ngIf="arrow" >keyboard_arrow_down</mat-icon>
+            <mat-icon *ngIf="!arrow" >keyboard_arrow_up</mat-icon>
+          </div>
+
+          </div>
+      </button>
+    </div>
+
+</div>
+<div id="button-arrow-space"></div>
+<div>
+    <ng-content select="[options-filter]"></ng-content>
+</div>
