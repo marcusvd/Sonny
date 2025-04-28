@@ -2,13 +2,13 @@
 <div>
     <mat-card class="mat-card-settings">
         <div class="mat-card-title">
-            <div [fxLayout]="screenFieldPosition" (window:resize)="screen()">
+            <div  (window:resize)="screen()">
 
-                <div fxLayout="column" fxFlex>
+                <div  >
                     <h3>Informações de conta</h3>
                 </div>
 
-                <div fxLayout="column">
+                <div >
                     <button class="default-button" mat-raised-button (click)="edit()"> Alterar </button>
                 </div>
 
@@ -18,44 +18,44 @@
         </mat-divider>
         <mat-card-content>
             <br>
-            <div [fxLayout]="screenFieldPosition" (window:resize)="screen()">
-                <div fxLayout="column" fxLayout="column" fxFlex>
-                    <div fxLayout="row">
+            <div  (window:resize)="screen()">
+                <div   >
+                    <div >
                         <h2>Empresa</h2>
                     </div>
-                    <div fxLayout="row">
-                        <div fxLayout="column">
+                    <div >
+                        <div >
                             <mat-icon class="mat-icon-style" fontSet="material-icons-outlined">domain</mat-icon>
                         </div>
-                        <div class="data-from-db" fxLayout="column">
+                        <div class="data-from-db" >
                             <b>{{user?.company?.name}}</b>
                         </div>
                     </div>
                 </div>
 
-                <div fxLayout="column" fxLayout="column" fxFlex>
-                    <div fxLayout="row">
+                <div   >
+                    <div >
                         <h2>Usuário</h2>
                     </div>
-                    <div fxLayout="row">
-                        <div fxLayout="column">
+                    <div >
+                        <div >
                             <mat-icon class="mat-icon-style" fontSet="material-icons-round">group</mat-icon>
                         </div>
-                        <div class="data-from-db" fxLayout="column">
+                        <div class="data-from-db" >
                             <b>{{user?.userName}}</b>
                         </div>
                     </div>
                 </div>
-                <div fxLayout="column" fxLayout="column" fxFlex>
+                <div   >
 
-                    <div fxLayout="row">
+                    <div >
                         <h2>Email</h2>
                     </div>
-                    <div fxLayout="row">
-                        <div fxLayout="column">
+                    <div >
+                        <div >
                             <mat-icon class="mat-icon-style" fontSet="material-icons-round">email</mat-icon>
                         </div>
-                        <div class="data-from-db" fxLayout="column">
+                        <div class="data-from-db" >
                             <b>{{user?.email}}</b>
                         </div>
                     </div>

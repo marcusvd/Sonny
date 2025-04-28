@@ -2,7 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormBuilder, FormControl, FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -50,7 +50,6 @@ import { TriggerPaymentFinancingsLoans } from './trigger-payment-financings-loan
     MatButtonModule,
     MatMenuModule,
     RouterModule,
-    FlexLayoutModule,
     MatCheckboxModule,
     MatRadioModule,
     GridListCommonComponent,

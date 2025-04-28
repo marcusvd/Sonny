@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
@@ -23,12 +23,11 @@ import { BaseForm } from '../../inheritance/forms/base-form';
     MatSelectModule,
     NgxMatSelectSearchModule,
     ReactiveFormsModule,
-    FlexLayoutModule,
     CommonModule
   ],
   template: `
- <div [formGroup]="formMain" fxLayout="column">
- <mat-form-field fxFlex appearance="outline">
+ <div [formGroup]="formMain" >
+ <mat-form-field  appearance="outline">
   <mat-label>Cliente</mat-label>
   <mat-select   placeholder="Pesquise pelo nome" #singleSelect name="customerId" (blur)="onBlur()"  (blur)="onCustomerSelected(singleSelect?.value)" formControlName="customerId">
       <mat-option>
@@ -80,7 +79,7 @@ export class GetCustomerMatSelectSingleComponent extends BaseForm implements OnC
   @Input() set editEntity(edit: boolean) {
     this.editEntityField = edit;
   }
-  
+
   $customers: Observable<CustomerDto[]>;
 
   $customersResult = new Observable<CustomerDto[]>();

@@ -2,18 +2,18 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { MaterialModule } from 'src/shared/modules/material.module';
 import { MatIconModule } from '@angular/material/icon';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 
 @Component({
   selector: 'title-description-auth',
   template: `
-   <div fxLayout="column" fxLayoutAlign="start start"class="around" [style]="height">
-    <div fxLayout="row">
-      <div fxLayout="column">
+   <div  fxLayoutAlign="start start"class="around" [style]="height">
+    <div >
+      <div >
      <mat-icon class="logo">{{icon}}</mat-icon>
       </div>
-      <div  fxLayout="column"[style]="styleContainerTitle">
+      <div  [style]="styleContainerTitle">
       <h3 class="title-text" [style]="titleStyle">{{title}}</h3>
       </div>
     </div>
@@ -57,7 +57,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 `],
   standalone: true,
-  imports: [MatIconModule, FlexLayoutModule]
+  imports: [MatIconModule, ]
 })
 export class TitleDescriptionAuthComponent {
 

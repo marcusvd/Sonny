@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Inject } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -16,7 +16,6 @@ import { IConfirmDialogCollectDeliver } from './interface/i-confirm-dialog-colle
   imports: [
     CommonModule,
     MatDialogModule,
-    FlexLayoutModule,
     MatButtonModule,
     MatCardModule,
     PtBrCurrencyPipe,

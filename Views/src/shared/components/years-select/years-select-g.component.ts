@@ -1,6 +1,6 @@
 import { NgFor } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -13,7 +13,7 @@ import { YearsDto } from './years-dto';
 
         `],
   standalone: true,
-  imports: [MatSelectModule, FlexLayoutModule, NgFor, MatFormFieldModule, FormsModule]
+  imports: [MatSelectModule, , NgFor, MatFormFieldModule, FormsModule]
 })
 
 export class YearsSelectComponent implements OnInit {

@@ -4,7 +4,7 @@ import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custo
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,7 +20,6 @@ import { ContactService } from '../services/contact.service';
   standalone: true,
   imports: [
     CommonModule,
-    FlexLayoutModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatIconModule,

@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatRadioButton, MatRadioChange, MatRadioModule } from '@angular/material/radio';
 
 
@@ -11,9 +11,9 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 @Component({
   selector: 'filter-radio-btns',
   template: `
-  <mat-radio-group (change)="filter($event)" [fxLayout]="fxLayoutInput" [disabled]="disabledRadioInput">
+  <mat-radio-group (change)="filter($event)"  [disabled]="disabledRadioInput">
 
-  <div fxLayout="row" fxFlex="20">
+  <div  ="20">
 
       <mat-radio-button class="align-radio-button" #radioExpired
           [value]="'expired'"></mat-radio-button>
@@ -23,7 +23,7 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
   <div class="small-space-horizontal-beteween-fields"></div>
 
-  <div fxLayout="row" fxFlex="20" *ngIf="!pedingRadioHide">
+  <div  ="20" *ngIf="!pedingRadioHide">
       <mat-radio-button class="align-radio-button" #radioPedding
           [value]="'pending'"></mat-radio-button>
 
@@ -31,7 +31,7 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
           class="space-subtitle">Pendente</span>
   </div>
   <div class="small-space-horizontal-beteween-fields"></div>
-  <div fxLayout="row" fxFlex="20">
+  <div  ="20">
       <mat-radio-button class="align-radio-button" #radioPaid
           [value]="'paid'"></mat-radio-button>
 
@@ -41,7 +41,7 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 </mat-radio-group>
   `,
   styles: [`
-  
+
 .bg-color-expired {
   background-color: red;
 }
@@ -76,7 +76,6 @@ mat-radio-button {
   standalone: true,
   imports: [
     CommonModule,
-    FlexLayoutModule,
     MatRadioModule
   ],
 

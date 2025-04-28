@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -40,7 +40,6 @@ import { YearlyFixedExpensesAddValidator } from './validators/yearly-fixed-expen
   standalone: true,
   imports: [
     CommonModule,
-    FlexLayoutModule,
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,

@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
@@ -25,7 +25,6 @@ import { CustomerListService } from '../list/services/customer-list.service';
   imports: [
     CommonModule,
     MatCardModule,
-    FlexLayoutModule,
     CnpjCpfPipe,
     PtBrCurrencyPipe,
     TitleComponent,

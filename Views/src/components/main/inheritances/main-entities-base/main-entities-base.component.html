@@ -1,9 +1,9 @@
 <div [formGroup]="formMain">
     <div class="middle-space-horizontal-beteween-fields"> </div>
-    <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="15">
+    <div  (window:resize)="screen()" fxLayoutGap="15">
 
-        <div fxLayout="column" fxFlex>
-            <mat-form-field fxFlex appearance="outline">
+        <div  >
+            <mat-form-field  appearance="outline">
                 <mat-label>Responsável</mat-label>
                 <input matInput type="text" formControlName="responsible" aria-label="Responsável">
                 <mat-error>
@@ -12,8 +12,8 @@
                 </mat-error>
             </mat-form-field>
         </div>
-        <div fxLayout="column" fxFlex *ngIf="businessLine">
-            <mat-form-field fxFlex appearance="outline">
+        <div   *ngIf="businessLine">
+            <mat-form-field  appearance="outline">
                 <mat-label class="mat-label">Área de atuação / Segmento
                 </mat-label>
                 <input matInput type="text" formControlName="businessLine" aria-label="Área de atenção / Segmento">
@@ -23,8 +23,8 @@
                 </mat-error>
             </mat-form-field>
         </div>
-        <div fxLayout="column" fxFlex *ngIf="specificBusinessLine">
-            <mat-form-field appearance="outline" fxFlex>
+        <div   *ngIf="specificBusinessLine">
+            <mat-form-field appearance="outline" >
                 <mat-label>Serviço prestado</mat-label>
                 <mat-select placeholder="Pesquise pelo nome" #singleSelect formControlName="partnerBusiness">
                     <!-- [value]="this.formMain.get('partnerBusiness').value" -->
@@ -39,5 +39,5 @@
 </div>
 
 
-<!-- <div fxLayout="row" fxFlex fxLayoutGap="5">
+<!-- <div   fxLayoutGap="5">
 </div> -->

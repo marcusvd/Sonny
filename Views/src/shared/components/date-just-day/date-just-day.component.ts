@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
@@ -26,7 +26,6 @@ export const MY_FORMATS = {
   standalone: true,
   imports: [
     CommonModule,
-    FlexLayoutModule,
     MatFormFieldModule,
     MatDatepickerModule,
     MatInputModule,
@@ -34,7 +33,7 @@ export const MY_FORMATS = {
   ],
   template: `
   <div *ngIf="formMain" [fxLayout]="layoutColumnRow">
-    <mat-form-field appearance="outline" [formGroup]="formMain"  [fxFlex]="fxFlexWidth">
+    <mat-form-field appearance="outline" [formGroup]="formMain"  []="Width">
       <mat-label>{{labelTitle}}</mat-label>
       <input matInput  [matDatepicker]="picker" [placeholder]="placeholder" [formControlName]="formCtrlName">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -67,7 +66,7 @@ export class DateJustDayComponent {
   @Input() placeholder: string;
   @Input() labelTitle: string;
   @Input() formMain: FormGroup;
-  @Input() fxFlexWidth: string;
+  @Input() Width: string;
   @Input() layoutColumnRow: string;
 
 }

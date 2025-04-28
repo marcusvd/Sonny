@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
@@ -35,7 +35,6 @@ import { RadioOptions } from './dto/radio-options';
     MatInputModule,
     NgxMatSelectSearchModule,
     ReactiveFormsModule,
-    FlexLayoutModule,
     MatRadioModule,
     BankCard4LastDigitsPipe,
     BankCardNumberPipe,
@@ -150,7 +149,7 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   onSelectedRadio(value?: MatRadioChange) {
     this.selectedRadio = value.value;
     this.selectedRadioOut.emit(value.value)
-    
+
     if (this.selectedRadio === 0)
       this.AddValidatorsPix();
 
@@ -181,7 +180,7 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   removeAllValidators() {
     this.removeValidators(this.formMain, ['cardId', 'pixId', 'othersPaymentMethods']);
   }
-  
+
   @Output() banckAccountSelected = new EventEmitter<BankAccountDto>();
   onBankAccountSelected(value: number) {
     this?.$banckAccount?.subscribe(x => {

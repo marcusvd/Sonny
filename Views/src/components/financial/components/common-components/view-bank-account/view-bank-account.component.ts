@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -19,7 +19,6 @@ import { BankAccountDto } from '../../bank-account-cards/dto/bank-account-dto';
         MatSelectModule,
         MatCardModule,
         MatFormFieldModule,
-        FlexLayoutModule,
         BankCardNumberPipe,
         CommonModule
     ],
@@ -29,19 +28,19 @@ import { BankAccountDto } from '../../bank-account-cards/dto/bank-account-dto';
         font-size: 30px;
         color: rgb(43, 161, 168);
         }
-    
+
     .pipe-column-title {
         margin-top: -25px;
         }
-    
+
     .weight-title-space-left {
         font-weight: bolder;
         /* padding-right: 10px; */
         }
-    
+
     .space-right {
          padding-right: 10px;
-        }   
+        }
   `],
     providers: [],
 })

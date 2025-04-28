@@ -3,8 +3,8 @@
         <!-- <btn-add-g btn-1 (add)="add()"></btn-add-g> -->
     </title-component>
     <div>
-        <div fxLayout="column" fxFlex>
-            <mat-card class="mat-card-sub-title" fxFlex>
+        <div  >
+            <mat-card class="mat-card-sub-title" >
                 <sub-title title [title]="'Despesa'" [icon]="'payment'"></sub-title>
                 <screen-data-info *ngIf="hideShowScreenDataInfo" [fields]="fields" [reiceverThisComponentToDisplay]="'payment'">
                 </screen-data-info>
@@ -25,11 +25,11 @@
                 <price-interest-fields [formMain]="formMain">
                 </price-interest-fields>
 
-                <div fxLayout="column" btn>
+                <div  btn>
                     <btn-g [name]="'Pagar'" [icon]="'payment'" (click)="updateBtn()"
                         [enableDisable]="saveBtnEnabledDisabled"></btn-g>
                 </div>
-                <div fxLayout="row" fxlayoutAlign="center center">
+                <div  >
                 <div>{{formMain.value | json}}</div>
                 </div>
             </mat-card>

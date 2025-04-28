@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -41,7 +41,6 @@ import { FinancingsLoansExpensesService } from './services/financings-loans-expe
   standalone: true,
   imports: [
     CommonModule,
-    FlexLayoutModule,
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,

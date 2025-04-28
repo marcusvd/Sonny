@@ -2,7 +2,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule, NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatButtonModule } from '@angular/material/button';
@@ -60,7 +60,6 @@ export const MY_FORMATS = {
   standalone: true,
   imports: [
     CommonModule,
-    FlexLayoutModule,
     MatFormFieldModule,
     MatDatepickerModule,
     CurrencyMaskModule,
@@ -353,8 +352,8 @@ export class BankCardsComponent extends Add implements OnInit, OnChanges {
   }
 
   spaceItem: number = 88;
-  closingDateFxFlex: string = '73';
-  expiresDateFxFlex: string = '73';
+  closingDate: string = '73';
+  expiresDate: string = '73';
   layoutColumnRowDateJustDay = 'column';
   spaceClosingExpires: boolean = false;
 
@@ -365,8 +364,8 @@ export class BankCardsComponent extends Add implements OnInit, OnChanges {
           case 'xsmall': {
             this.screenFieldPosition = 'column';
             this.spaceItem = 90;
-            this.closingDateFxFlex = '25';
-            this.expiresDateFxFlex = '25';
+            this.closingDate = '25';
+            this.expiresDate = '25';
             this.layoutColumnRowDateJustDay = 'row';
             this.spaceClosingExpires = true;
             break;
@@ -374,8 +373,8 @@ export class BankCardsComponent extends Add implements OnInit, OnChanges {
           case 'small': {
             this.screenFieldPosition = 'column';
             this.spaceItem = 90;
-            this.closingDateFxFlex = '25';
-            this.expiresDateFxFlex = '25';
+            this.closingDate = '25';
+            this.expiresDate = '25';
             this.layoutColumnRowDateJustDay = 'row';
             this.spaceClosingExpires = true;
 
@@ -384,8 +383,8 @@ export class BankCardsComponent extends Add implements OnInit, OnChanges {
           case 'medium': {
             this.screenFieldPosition = 'row';
             this.spaceItem = 93;
-            this.closingDateFxFlex = '73';
-            this.expiresDateFxFlex = '73';
+            this.closingDate = '73';
+            this.expiresDate = '73';
             this.layoutColumnRowDateJustDay = 'column';
             this.spaceClosingExpires = false;
             break;
@@ -393,8 +392,8 @@ export class BankCardsComponent extends Add implements OnInit, OnChanges {
           case 'large': {
             this.screenFieldPosition = 'row';
             this.spaceItem = 95;
-            this.closingDateFxFlex = '73';
-            this.expiresDateFxFlex = '73';
+            this.closingDate = '73';
+            this.expiresDate = '73';
             this.layoutColumnRowDateJustDay = 'column';
             this.spaceClosingExpires = false;
             break;
@@ -402,8 +401,8 @@ export class BankCardsComponent extends Add implements OnInit, OnChanges {
           case 'xlarge': {
             this.screenFieldPosition = 'row';
             this.spaceItem = 95.5;
-            this.closingDateFxFlex = '73';
-            this.expiresDateFxFlex = '73';
+            this.closingDate = '73';
+            this.expiresDate = '73';
             this.layoutColumnRowDateJustDay = 'column';
             this.spaceClosingExpires = false;
             break;

@@ -1,6 +1,6 @@
 import { JsonPipe, NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -74,7 +74,6 @@ import { FilterSearch } from './interface/filter-search';
     NgIf,
     NgFor,
     MatButtonModule,
-    FlexLayoutModule,
     MatIconModule,
     MatDividerModule,
     MatInputModule,

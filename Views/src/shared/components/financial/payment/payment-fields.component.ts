@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,15 +20,14 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    FlexLayoutModule,
     MatButtonModule,
     BtnGComponent,
     CurrencyMaskModule,
   ],
   template: `
-    <div [fxLayout]="fxLayout" fxflex="30" [formGroup]="formMain" *ngIf="formMain">
-    <div fxLayout="column">
-        <mat-form-field fxFlex="30" appearance="outline">
+    <div [fxLayout]="fxLayout" ="30" [formGroup]="formMain" *ngIf="formMain">
+    <div >
+        <mat-form-field ="30" appearance="outline">
             <mat-label>Valor Despesa</mat-label>
             <input matInput type="text" currencyMask [formControlName]="priceFormControlName" aria-label="Valor despesa">
             <mat-error>
@@ -37,17 +36,17 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
             </mat-error>
         </mat-form-field>
     </div>
-    <div fxLayout="column" fxFlex="5">
+    <div  ="5">
 
     </div>
-    <div fxLayout="column" *ngIf="interestShow">
-        <mat-form-field fxFlex="30" appearance="outline">
+    <div  *ngIf="interestShow">
+        <mat-form-field ="30" appearance="outline">
             <mat-label>Juros</mat-label>
             <input matInput type="text" currencyMask [formControlName]="interestFormControlName" aria-label="Valor juros">
         </mat-form-field>
     </div>
 
-    <div fxLayout="column" fxFlex="5">
+    <div  ="5">
 
     </div>'
 

@@ -5,7 +5,7 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -30,7 +30,6 @@ import { PaymentBankAccountComponent } from '../payment-bank-account/payment-ban
   standalone: true,
   imports: [
     CommonModule,
-    FlexLayoutModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,

@@ -1,17 +1,17 @@
 import { Component, Input } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
   selector: 'footer-login',
   template: `
-   <div fxLayout="column" fxLayoutAlign="center center"class="around" [style]="height">
-    <div fxLayout="row">
-      <div fxLayout="column">
+   <div  class="around" [style]="height">
+    <div >
+      <div >
      <mat-icon class="icon">{{icon}}</mat-icon>
       </div>
-      <div  fxLayout="column"[style]="styleContainerTitle">
+      <div  [style]="styleContainerTitle">
       <h3 class="title-text" [style]="titleStyle">{{title}}</h3>
       </div>
     </div>
@@ -43,7 +43,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 `],
   standalone: true,
-  imports: [MatIconModule, FlexLayoutModule]
+  imports: [MatIconModule, ]
 })
 export class FooterLoginComponent {
 

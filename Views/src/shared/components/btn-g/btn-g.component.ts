@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -25,7 +25,7 @@ import { MatIconModule } from '@angular/material/icon';
 
   `],
   standalone: true,
-  imports: [MatButtonModule, FlexLayoutModule, MatIconModule, NgIf]
+  imports: [MatButtonModule, MatIconModule, NgIf]
 })
 
 export class BtnGComponent {

@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { Router } from '@angular/router';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { View } from 'src/shared/components/inheritance/view/view';
@@ -12,7 +12,6 @@ import { ViewExpensesGDto } from './dtos/view-expense-g-dto';
   standalone: true,
   imports: [
     CommonModule,
-    FlexLayoutModule,
     NgFor,
     NgIf,
 

@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormBuilder } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 
@@ -27,7 +27,6 @@ import { CreditCardInvoicesGetService } from './credit-card-invoices-get.service
     MatSelectModule,
     MatCardModule,
     MatFormFieldModule,
-    FlexLayoutModule,
     BankCardNumberPipe,
     SpinnerGComponent
   ],
@@ -58,7 +57,7 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
   spinnerEvent($event: boolean) {
     this.spinner = !$event
   }
-  
+
   ngOnChanges(changes: SimpleChanges): void {
     this.entities$ = this._creditCardInvoiceGetService.getAll(this.companyId.toString(), `${this.controllerUrl}/${this.urlBackEndApi}`);
     // this.entities$.subscribe(x=> {
@@ -79,7 +78,7 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
 
   @Input() screenFieldPosition: string = "column";
   @Input() alignRadios: string = "center center";
- 
+
   screen() {
     this.screenSize().subscribe({
       next: (result: IScreen) => {
@@ -125,7 +124,7 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
     this.bankAccount = creditCard.bankAccount;
     this.creditCardIdOutput.emit(creditCard)
   }
-  
+
   ngOnInit(): void {
     this.screen();
   }

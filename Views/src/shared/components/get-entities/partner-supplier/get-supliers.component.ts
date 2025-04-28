@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
@@ -24,7 +24,7 @@ import { GetSupliersService } from './get-supliers.service';
   ],
   template: `
 
- <mat-form-field  appearance="outline" [formGroup]="formMain" fxLayout="column">
+ <mat-form-field  appearance="outline" [formGroup]="formMain" >
         <mat-label>Fornecedor</mat-label>
         <mat-select  #singleSelect (blur)="onBlur()" (selectionChange)="onPartnerSelected(singleSelect.value)" formControlName="supplierId">
             <mat-option *ngFor="let supplier of suppliers$ | async" [value]="supplier.id">

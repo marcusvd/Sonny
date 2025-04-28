@@ -1,8 +1,8 @@
 <spinner-g [entities]="entities$" [optionalTitle]="'(Cartões)'" (spinnerStatusOut)="spinnerEvent($event)">
 </spinner-g>
 <br>
-<div *ngIf="spinner" [fxLayout]="screenFieldPosition" [fxLayoutGap]="'10'">
-    <mat-form-field appearance="outline" fxFlex>
+<div *ngIf="spinner"  [fxLayoutGap]="'10'">
+    <mat-form-field appearance="outline" >
         <mat-label>Conta bancária</mat-label>
         <mat-select placeholder="Selecione o Cartão de credito" #singleSelect
             (selectionChange)="onCardsSelected(singleSelect.value)">

@@ -1,21 +1,21 @@
 <div [class.border-around]="false">
-    <div fxLayout="column" fxFlex>
+    <div  >
         <!-- <div class="middle-space-horizontal-beteween-fields"></div>
         <div class="middle-space-horizontal-beteween-fields"></div> -->
-        <mat-tab-group dynamicHeight fxLayout="column" (selectedTabChange)="tabIndexSelected($event)" animationDuration="0ms" mat-align-tabs="left">
+        <mat-tab-group dynamicHeight  (selectedTabChange)="tabIndexSelected($event)" animationDuration="0ms" mat-align-tabs="left">
             <mat-tab label="Conta">
                 <!-- <account-get-info [user]="user">
                 </account-get-info> -->
-                <div fxLayout="row" fxFlex (window:resize)="screen()">
-                    <mat-card class="mat-card-settings" fxLayout="column" style="width: 100%;">
+                <div   (window:resize)="screen()">
+                    <mat-card class="mat-card-settings"  style="width: 100%;">
 
-                        <div fxLayout="row" fxLayoutAlign="center center">
+                        <div  >
                             <button class="default-button" mat-raised-button (click)="''"> Alterar </button>
                         </div>
                         <div class="middle-space-horizontal-beteween-fields"></div>
-                        <div fxLayout="row" fxLayoutAlign="center center">
-                            <mat-divider fxFlex></mat-divider>
-                            <div fxLayout="column">
+                        <div  >
+                            <mat-divider ></mat-divider>
+                            <div >
 
                                 <img class="image" src="../../../../../../assets/nsti-menor.jpg" alt="Description of the image">
 
@@ -30,8 +30,8 @@
                 <br>
                 <mat-card>
                     <address [formMain]="this.addressFormMain" #address></address>
-                    <div class="btn-update-position" fxLayout="row">
-                        <div fxLayout="row">
+                    <div class="btn-update-position" >
+                        <div >
                             <button class="btn-update-color btn-update-size" *ngIf="updateBtnHide" mat-button type="submit" (click)="update(contact.getForm())">Atualizar</button>
                         </div>
                     </div>
@@ -40,8 +40,8 @@
 
             </mat-tab>
             <mat-tab label="Contatos">
-                <div class="btn-update-position" fxLayout="row">
-                    <div fxLayout="row">
+                <div class="btn-update-position" >
+                    <div >
                         <button class="btn-update-color btn-update-size" *ngIf="updateBtnHide" mat-button type="submit" (click)="update()">Atualizar</button>
                     </div>
                 </div>

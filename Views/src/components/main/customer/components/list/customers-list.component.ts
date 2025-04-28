@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -45,7 +45,6 @@ import { CustomerListService } from './services/customer-list.service';
     MatButtonModule,
     MatMenuModule,
     RouterModule,
-    FlexLayoutModule,
     GridListCommonComponent,
     GridListCommonTableComponent,
     GridListCommonSearchComponent,

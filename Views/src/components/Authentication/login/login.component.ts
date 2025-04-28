@@ -6,7 +6,7 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
 
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -29,7 +29,6 @@ import { FooterLoginComponent } from './footer-login.component';
   standalone: true,
   imports: [
     MatCardModule,
-    FlexLayoutModule,
     ReactiveFormsModule,
     MatIconModule,
     CommonModule,

@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
@@ -20,12 +20,11 @@ import { PartnerTransporterGetService } from './partner-transporter-get.service'
     MatSelectModule,
     NgxMatSelectSearchModule,
     ReactiveFormsModule,
-    FlexLayoutModule,
     CommonModule
   ],
   template: `
- <div [formGroup]="formMain" fxLayout="column">
- <mat-form-field  appearance="outline" fxFlex>
+ <div [formGroup]="formMain" >
+ <mat-form-field  appearance="outline" >
         <mat-label>Transportador</mat-label>
         <mat-select placeholder="Pesquise pelo nome" #singleSelect (blur)="onBlur()" (selectionChange)="onPartnerSelected(singleSelect.value)" formControlName="transporterId">
             <mat-option *ngFor="let transporter of $transporters | async" [value]="transporter.id">

@@ -1,17 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 
 @Component({
   selector: 'sub-title-item',
   template: `
-   <div fxLayout="column" class="around" [style]="stylePerItem">
-    <div fxLayout="row">
-      <div fxLayout="column">
+   <div  class="around" [style]="stylePerItem">
+    <div >
+      <div >
      <mat-icon class="icon">{{icon}}</mat-icon>
       </div>
-      <div fxLayout="column">
+      <div >
       <h3 class="title-text">{{title}}</h3>
       </div>
     </div>
@@ -41,7 +41,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 }
 `],
   standalone: true,
-  imports: [MatIconModule, FlexLayoutModule]
+  imports: [MatIconModule, ]
 })
 export class SubTitleItemComponent {
 

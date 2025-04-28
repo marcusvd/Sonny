@@ -2,46 +2,46 @@
     <title-component [digit]="'|'" [titleString]="'Cartão de Crédito'" [icon]="'attach_money'"></title-component>
     <div>
        
-        <div fxLayout="column" fxFlex>
-            <mat-card class="mat-card-sub-title" fxFlex>
+        <div  >
+            <mat-card class="mat-card-sub-title" >
                
                 <grid-list-common>
                     <sub-title title  [title]="'Faturas Cartões de credito.'" [icon]="'list'"></sub-title>
-                    <div search-filter fxLayout="column">
+                    <div search-filter >
 
-                        <div fxLayout="column">
+                        <div >
                             <div class="small-space-horizontal-beteween-fields"></div>
-                            <div fxLayout="row" *ngIf="!this.showDataBank" class="child" id="title">{{'Selecione um cartão de crédito'}}</div>
-                            <div fxLayout="row" fxFlex fxLayoutGap="10">
-                                <div fxLayout="column" fxFlex="50">
+                            <div  *ngIf="!this.showDataBank" class="child" id="title">{{'Selecione um cartão de crédito'}}</div>
+                            <div   >
+                                <div  ="50">
                                     <credit-card-invoices-mat-select-single
                                     [urlBackEndApi]="'GetAllCreditCardsOnlyByCompanyId'"
                                     (creditCardIdOutput)="getCreditCardIdOutput($event)">
                                 </credit-card-invoices-mat-select-single>
                                 </div>
                             </div>
-                            <div fxLayout="row" fxFlex="50" *ngIf="this.showDataBank">
+                            <div  ="50" *ngIf="this.showDataBank">
                                 <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="false"
-                                [changeSelection]="monthFilter" [fxFlexInput]="searchFieldMonthSelect"
+                                [changeSelection]="monthFilter" [Input]="searchFieldMonthSelect"
                                 (sendSelected)="selectedMonth($event)">
                             </months-select>
                             </div>
-                            <div fxLayout="row" *ngIf="showDataBank">
+                            <div  *ngIf="showDataBank">
                                 <view-bank-account [bankAccount]="bankAccount">
                                 </view-bank-account>
                             </div>
                         </div>
                         
                         <div class="small-space-horizontal-beteween-fields"></div>
-                        <div [fxLayout]="screenFieldPosition" fxLayoutGap="10">
-                            <div fxLayout="column">
+                        <div  >
+                            <div >
                                 <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
                             </div>
                           
-                            <div fxLayout="screenFieldPosition" fxFlex>
+                            <div fxLayout="screenFieldPosition" >
 
                             </div>
-                            <!-- <div fxLayout="column" *ngIf="screenFieldPosition == 'row'">
+                            <!-- <div  *ngIf="screenFieldPosition == 'row'">
                                 <btn-g btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="add()"></btn-g>
                             </div> -->
 
@@ -50,13 +50,13 @@
                     </div>
                  
 
-                    <div search-filter id="space-components" fxLayout="row">
+                    <div search-filter id="space-components" >
                    
                     </div>
 
 
                     <!-- [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }" -->
-                    <grid-list-common-table *ngIf="this.showDataBank" fxFlex body-table 
+                    <grid-list-common-table *ngIf="this.showDataBank"  body-table 
                     [statusShow]="false"
                     [fieldsInEnglish]="fieldsInEnglish" 
                     [entities$]="entities$" [headers]="headers"

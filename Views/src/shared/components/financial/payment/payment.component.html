@@ -3,8 +3,8 @@
         <!-- <btn-add-g btn-1 (add)="add()"></btn-add-g> -->
     </title-component>
     <div>
-        <div fxLayout="column" fxFlex>
-            <mat-card class="mat-card-sub-title" fxFlex>
+        <div  >
+            <mat-card class="mat-card-sub-title" >
                 <sub-title title [title]="'Despesa'" [icon]="'payment'"></sub-title>
 
                 <payment-screen-data [fields]="fields">
@@ -18,7 +18,7 @@
                 <br>
                 <payment-month-fixed-btns-fields [formMain]="formMain" [interestShow]="true">
                 </payment-month-fixed-btns-fields>
-                <div fxLayout="column" btn>
+                <div  btn>
                     <btn-g [name]="'Pagar'" [icon]="'payment'" (click)="updateBtn()"
                         ></btn-g>
                         <!-- [enableDisable]="!formMain.valid" -->

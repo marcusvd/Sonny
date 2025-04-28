@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -12,7 +12,6 @@ import { SubTitleComponent } from '../sub-title/default/sub-title.component';
   encapsulation: ViewEncapsulation.None,
   imports: [
     MatDialogModule,
-    FlexLayoutModule,
     MatButtonModule,
     MatCardModule,
     SubTitleComponent,
@@ -26,13 +25,13 @@ import { SubTitleComponent } from '../sub-title/default/sub-title.component';
           <span class="font-body">{{messageBody}}</span><span class="itemToBeDelete">{{itemToBeDelete}}</span><span>?</span>
          </mat-dialog-content>
 
-              <div fxLayout="row"  class="margin" fxLayoutGap="30px">
-                <div fxLayout="column" fxFlex>
+              <div   class="margin" >
+                <div  >
                 </div>
-                <div fxLayout="column">
+                <div >
                  <btn-g mat-dialog-close [name]="'Cancelar'" [icon]="'cancel'" [styleColors]="'font-size: 15px;color: white;background-color: rgb(110,110,110);'" (click)="clickedNo('cancel')"></btn-g>
                 </div>
-                <div fxLayout="column">
+                <div >
                  <btn-g mat-dialog-close [name]="'Apagar'" [icon]="'delete_outline'" [styleColors]="'font-size: 15px;color: white;background-color: rgb(156,33,29);'" (click)="clickedYes(this.id,'yes')"></btn-g>
               </div>
        </div>

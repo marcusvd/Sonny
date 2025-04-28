@@ -1,7 +1,7 @@
-<div [formGroup]="formMain" fxLayout="column">
+<div [formGroup]="formMain" >
 
-    <div fxLayout="column" fxFlex>
-        <div fxLayout="column" fxFlex *ngIf="!formMain.get('entityType').value">
+    <div  >
+        <div   *ngIf="!formMain.get('entityType').value">
             <mat-form-field appearance="outline">
                 <mat-label>CPF</mat-label>
                 <input type="text" #cpf (blur)="isValid(cpf.value,'cpf',formMain, 'cnpj')" matInput [mask]="pixInputMask('CPF')" [placeholder]="pixInputMask('CPF')" formControlName="cnpj" aria-label="CPF">
@@ -11,9 +11,9 @@
             </mat-form-field>
         </div>
 
-        <div fxLayout="column" fxFlex *ngIf="formMain.get('entityType').value">
-            <div fxLayout="row" fxLayoutGap="30px">
-                <mat-form-field appearance="outline" fxLayout="column" fxFlex>
+        <div   *ngIf="formMain.get('entityType').value">
+            <div  >
+                <mat-form-field appearance="outline"  >
                     <mat-label>CNPJ</mat-label>
                     <input type="text" #cnpj (blur)="isValid(cnpj.value,'cnpj',formMain, 'cnpj')" matInput [mask]="pixInputMask('CNPJ')" [placeholder]="pixInputMask('CNPJ')" formControlName="cnpj" aria-label="CNPJ">
                     <mat-error>
@@ -21,8 +21,8 @@
                     </mat-error>
                 </mat-form-field>
                 <div *ngIf="btnGetData">
-                    <div fxLayout="column" *ngIf="formMain.get('entityType').value">
-                        <div fxLayoutAlign="center center">
+                    <div  *ngIf="formMain.get('entityType').value">
+                        <div >
                             <button class="get-btn" mat-raised-button (click)="getCnpjData(cnpj.value,'cnpj',formMain, 'cnpj')" (blur)="isValid(cnpj.value,'cnpj',formMain, 'cnpj')">Obter dados</button>
                         </div>
                     </div>
@@ -30,8 +30,8 @@
             </div>
         </div>
     </div>
-    <div fxLayout="column" fxFlex>
-        <div fxLayout="row">
+    <div  >
+        <div >
             <mat-checkbox formControlName="entityType">
             </mat-checkbox>
             <!-- <mat-checkbox [formControlName]="entityType">

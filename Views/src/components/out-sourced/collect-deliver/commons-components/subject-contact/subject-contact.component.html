@@ -1,6 +1,6 @@
-<div [fxLayout]="screenFieldPosition" fxLayoutGap="10px" *ngIf="formMain" [formGroup]="formMain">
-    <div fxLayout="column" fxFlex>
-        <mat-form-field appearance="outline" fxFlex>
+<div  fxLayoutGap="10px" *ngIf="formMain" [formGroup]="formMain">
+    <div  >
+        <mat-form-field appearance="outline" >
             <mat-label>Contato no local</mat-label>
             <input matInput type="text" formControlName="contactName" aria-label="Contato no local">
             <mat-error>
@@ -8,7 +8,7 @@
             </mat-error>
         </mat-form-field>
     </div>
-    <div fxLayout="column" fxFlex="25">
+    <div  ="25">
         <mat-form-field appearance="outline">
             <mat-label>Data</mat-label>
             <input matInput formControlName="start" [matDatepicker]="startDate" aria-label="início">

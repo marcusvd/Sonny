@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, ElementRef, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -47,7 +47,6 @@ import { CollectDeliverListService } from './services/collect-deliver-list.servi
     MatMenuModule,
     MatIconModule,
     RouterModule,
-    FlexLayoutModule,
     GridListCommonComponent,
     GridListCommonTableComponent,
     GridListCommonSearchComponent,

@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { Observable } from 'rxjs';
@@ -21,12 +21,11 @@ import { PartnerGetService } from './partner-get.service';
     MatSelectModule,
     NgxMatSelectSearchModule,
     ReactiveFormsModule,
-    FlexLayoutModule,
     CommonModule
   ],
   template: `
- <div  [formGroup]="formMain" fxLayout="column">
- <mat-form-field  appearance="outline" fxFlex>
+ <div  [formGroup]="formMain" >
+ <mat-form-field  appearance="outline" >
         <mat-label>Parceiros</mat-label>
       <mat-select placeholder="Pesquise pelo nome" #singleSelect name="partnerId" (blur)="onBlur()" (selectionChange)="onPartnerSelected(singleSelect.value)" formControlName="partnerId">
             <mat-option>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -24,7 +24,6 @@ import { AuthenticationService } from '../services/authentication.service';
   styleUrls: ['./reset-password.component.css'],
   standalone: true,
   imports: [
-    FlexLayoutModule,
     MatButtonModule,
     MatCardModule,
     MatIconModule,

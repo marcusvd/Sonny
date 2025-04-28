@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { NgIf } from '@angular/common';
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -24,7 +24,6 @@ import { AuthenticationService } from '../services/authentication.service';
   // encapsulation: ViewEncapsulation.None,
   imports: [
     MatDialogModule,
-    FlexLayoutModule,
     MatButtonModule,
     MatCardModule,
     MatIconModule,
@@ -44,22 +43,22 @@ import { AuthenticationService } from '../services/authentication.service';
          <mat-dialog-content style="padding-top: 20px" *ngIf="resend">
           <span class="font-body">{{messageBody}}</span><span class="itemToBeDelete">{{itemToBeDelete}}</span><span>?</span>
          </mat-dialog-content>
-       <div fxLayout="row"  class="margin" fxLayoutGap="30px">
-                <div fxLayout="column" fxFlex>
+       <div   class="margin" >
+                <div  >
                 </div>
-                <div fxLayout="column">
+                <div >
                  <btn-g mat-dialog-close [name]="'Cancelar'" [icon]="'cancel'" (btn)="clickedNo('cancel')"></btn-g>
                 </div>
-                <div fxLayout="column">
+                <div >
                  <button class="btn-settings" mat-raised-button type="button" mat-raised-button (click)="clickedYes()">
-                     <div fxLayout="row">
-                       <div fxLayout="column" id="mat-icon-search-column">
+                     <div >
+                       <div  id="mat-icon-search-column">
                          <mat-icon>arrow_forward</mat-icon>
                        </div>
-                       <div fxLayout="column" id="vertical-line-divider">
+                       <div  id="vertical-line-divider">
                        </div>
 
-                         <div fxLayout="column">Reenviar </div>
+                         <div >Reenviar </div>
                        </div>
                   </button>
               </div>
@@ -69,9 +68,9 @@ import { AuthenticationService } from '../services/authentication.service';
 <mat-card *ngIf="!resend">
       <sub-title title class="font-title" [title]="'Email não confirmado!'" [styleContainerTitle]="'padding-top:8px;'" [titleStyle]="'font-family: Mynerve; font-size: 24px;'" [height]="'height:60px'"></sub-title>
       <div class="space-top"></div>
-      <div fxLayout="column" [formGroup]="formMain">
-            <div fxLayout="row">
-            <mat-form-field fxFlex appearance="outline">
+      <div  [formGroup]="formMain">
+            <div >
+            <mat-form-field  appearance="outline">
                     <mat-label>
                         <mat-icon id="email-icon">email</mat-icon> <b>Email</b>
                     </mat-label>
@@ -84,25 +83,25 @@ import { AuthenticationService } from '../services/authentication.service';
             </div>
 
 
-            <div fxLayout="row" fxLayoutAlign="center center">
+            <div  >
                 <captcha #token [hidden]="!formMain.valid"></captcha>
             </div>
         </div>
-        <div fxLayout="row"  class="margin" fxLayoutGap="30px">
-                <div fxLayout="column" fxFlex>
+        <div   class="margin" >
+                <div  >
                 </div>
-                <div fxLayout="column">
+                <div >
                  <btn-g mat-dialog-close [name]="'Cancelar'" [icon]="'cancel'" (btn)="clickedNo('cancel')"></btn-g>
                 </div>
-                <div fxLayout="column">
+                <div >
                  <button mat-dialog-close [disabled]="token.token == undefined" class="btn-settings" mat-raised-button type="button" mat-raised-button (click)="recovery(token.sendForm())">
-                     <div fxLayout="row">
-                       <div fxLayout="column" id="mat-icon-search-column">
+                     <div >
+                       <div  id="mat-icon-search-column">
                          <mat-icon>arrow_forward</mat-icon>
                        </div>
-                       <div fxLayout="column" id="vertical-line-divider">
+                       <div  id="vertical-line-divider">
                        </div>
-                         <div fxLayout="column">Reenviar</div>
+                         <div >Reenviar</div>
                        </div>
                   </button>
               </div>

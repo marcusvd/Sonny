@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 
 import { View } from 'src/shared/components/inheritance/view/view';
@@ -13,7 +13,6 @@ import { FinancialSubtitleDto } from './financial-subtitle-dto';
     standalone: true,
     imports: [
         CommonModule,
-        FlexLayoutModule,
         CommonModule,
         PtBrDatePipe,
         NgFor,

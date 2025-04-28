@@ -1,9 +1,9 @@
-<mat-card [formGroup]="formMain" fxLayout="column" *ngIf="formMain">
+<mat-card [formGroup]="formMain"  *ngIf="formMain">
     <sub-title title [title]="mainTitle" [icon]="mainIcon"></sub-title>
     <h3>Dados Bancários</h3>
-    <div [fxLayout]=" screenFieldPosition" fxLayoutGap="10">
-        <div fxLayout="column" fxFlex>
-            <mat-form-field fxFlex appearance="outline">
+    <div [fxLayout]=" screenFieldPosition" >
+        <div  >
+            <mat-form-field  appearance="outline">
                 <mat-label>Titular</mat-label>
                 <input matInput type="text" formControlName="holder" aria-label="Titular">
                 <mat-error>
@@ -12,8 +12,8 @@
                 </mat-error>
             </mat-form-field>
         </div>
-        <div fxLayout="column" fxFlex>
-            <mat-form-field fxFlex appearance="outline">
+        <div  >
+            <mat-form-field  appearance="outline">
                 <mat-label>Instituição Financeira</mat-label>
                 <input matInput type="text" formControlName="institution" aria-label="Instituição Financeira">
                 <mat-error>
@@ -23,9 +23,9 @@
             </mat-form-field>
         </div>
     </div>
-    <div [fxLayout]="screenFieldPosition" fxLayoutGap="10">
-        <div fxLayout="column" fxFlex>
-            <mat-form-field fxFlex appearance="outline">
+    <div  >
+        <div  >
+            <mat-form-field  appearance="outline">
                 <mat-label>Agência</mat-label>
                 <input matInput type="text" formControlName="agency" aria-label="Agência">
                 <mat-error>
@@ -34,8 +34,8 @@
                 </mat-error>
             </mat-form-field>
         </div>
-        <div fxLayout="column" fxFlex>
-            <mat-form-field fxFlex appearance="outline">
+        <div  >
+            <mat-form-field  appearance="outline">
                 <mat-label>Conta</mat-label>
                 <input matInput type="text" formControlName="account" aria-label="Conta">
                 <mat-error>
@@ -44,8 +44,8 @@
                 </mat-error>
             </mat-form-field>
         </div>
-        <div fxLayout="column" fxFlex>
-            <mat-form-field fxFlex appearance="outline">
+        <div  >
+            <mat-form-field  appearance="outline">
                 <mat-label>Tipo de Conta</mat-label>
                 <mat-select formControlName="type">
                     <mat-option [value]="typesAccount.id" *ngFor="let typesAccount of typeAccountsArray">
@@ -60,9 +60,9 @@
     </ng-content>
 
     <div class="middle-space-horizontal-beteween-fields"> </div>
-    <div [fxLayout]="screenFieldPosition" fxLayoutGap="10">
-        <div fxLayout="column" fxFlex>
-            <mat-form-field fxFlex appearance="outline">
+    <div  >
+        <div  >
+            <mat-form-field  appearance="outline">
                 <mat-label>Gerente Nome</mat-label>
                 <input formControlName="managerName" matInput type="text" aria-label="Gerente Nome">
                 <mat-error>
@@ -71,8 +71,8 @@
             </mat-form-field>
         </div>
 
-        <div fxLayout="column" fxFlex>
-            <mat-form-field fxFlex appearance="outline">
+        <div  >
+            <mat-form-field  appearance="outline">
                 <mat-label>Contato Gerente</mat-label>
                 <input matInput type="text" formControlName="managerContact" aria-label="Contato Gerente">
                 <mat-error>
@@ -90,7 +90,7 @@
 
 
 
-    <mat-form-field fxFlex appearance="outline">
+    <mat-form-field  appearance="outline">
         <mat-label>Saldo</mat-label>
         <input matInput type="text" currencyMask formControlName="balance" aria-label="Saldo">
         <mat-error>

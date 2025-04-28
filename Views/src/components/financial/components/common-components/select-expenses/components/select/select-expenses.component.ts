@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 
@@ -40,7 +40,6 @@ import { PixesExpensesFieldsComponent } from '../../../pixes-expenses/pixes-expe
   standalone: true,
   imports: [
     CommonModule,
-    FlexLayoutModule,
     MatInputModule,
     MatCheckboxModule,
     MatButtonModule,

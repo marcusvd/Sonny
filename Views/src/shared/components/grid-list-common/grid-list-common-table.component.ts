@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { PhoneNumberPipe } from 'src/shared/pipes/phone-number.pipe';
 
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { map } from 'rxjs/operators';
 import { FinancialStaticBusinessRule } from 'src/components/financial/components/common-components/static-business-rule/static-business-rule';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
@@ -27,7 +27,6 @@ import { IEntityGridAction } from './interface/entity-grid-action';
     MatButtonModule,
     MatMenuModule,
     SpinnerGComponent,
-    FlexLayoutModule,
     PhoneNumberPipe
   ],
 })

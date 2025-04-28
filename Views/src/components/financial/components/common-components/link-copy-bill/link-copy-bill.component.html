@@ -1,6 +1,6 @@
 <div [formGroup]="formMain">
-    <div fxLayout="row">
-        <mat-form-field fxFlex appearance="outline">
+    <div >
+        <mat-form-field  appearance="outline">
             <mat-label>Link Segunda via</mat-label>
             <input matInput type="text" formControlName="linkCopyBill" placeholder="Link Segunda via"
                 aria-label="Link Segunda via">
@@ -10,10 +10,10 @@
             </mat-error>
         </mat-form-field>
     </div>
-    <div (window:resize)="screen()"  [fxLayout]="screenFieldPosition" fxLayoutGap="30">
-        <div fxLayout="column" fxFlex>
+    <div (window:resize)="screen()"   fxLayoutGap="30">
+        <div  >
     
-            <mat-form-field fxFlex appearance="outline">
+            <mat-form-field  appearance="outline">
                 <mat-label>Usuário</mat-label>
                 <input matInput type="text" formControlName="userLinkCopyBill" aria-label="Usuário">
                 <mat-error>
@@ -22,8 +22,8 @@
             </mat-form-field>
     
         </div>
-        <div fxLayout="column" fxFlex>
-            <mat-form-field fxFlex appearance="outline">
+        <div  >
+            <mat-form-field  appearance="outline">
                 <mat-label>Senha</mat-label>
                 <input matInput type="password" formControlName="passLinkCopyBill" aria-label="Senha">
                 <mat-error>

@@ -5,7 +5,7 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { NgFor, NgIf } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -36,7 +36,6 @@ export const MY_FORMATS = {
   templateUrl: './bank-account.component.html',
   standalone: true,
   imports: [
-    FlexLayoutModule,
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,

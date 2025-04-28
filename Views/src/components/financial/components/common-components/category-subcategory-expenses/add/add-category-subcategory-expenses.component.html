@@ -1,25 +1,25 @@
-<div fxLayout="column" class="border-around">
+<div  class="border-around">
     <!-- <title-component [digit]="'|'"[titleString]="'Cadastro de despesas fixas'"[icon]="'attach_money'">
         </title-component> -->
-    <section id="container-above" fxLayout="row">
+    <section id="container-above" >
         <button id="btn-back" mat-raised-button (click)="back()">{{'Voltar'}}</button>
     </section>
     <br>
     <br>
-    <!-- <mat-card [formGroup]="formMain"fxLayout="column"*ngIf="formMain">
+    <!-- <mat-card [formGroup]="formMain"*ngIf="formMain">
         <sub-title title [title]="'Categoria / Subcategorias'"[icon]="'add'"></sub-title>
-        <div fxLayout="row">
+        <div >
             <h3>Cadastro</h3>
         </div>
      
     </mat-card> -->
-    <mat-card [formGroup]="formMain" fxLayout="column" *ngIf="formMain">
+    <mat-card [formGroup]="formMain"  *ngIf="formMain">
         <sub-title title [title]="'Categoria / Subcategorias'" [icon]="'add'"></sub-title>
-        <div fxLayout="row">
+        <div >
             <h3>Cadastro</h3>
         </div>
-        <div fxLayout="row" fxFlex>
-            <mat-form-field appearance="outline" fxFlex>
+        <div  >
+            <mat-form-field appearance="outline" >
                 <mat-label> Categoria</mat-label>
                 <input matInput formControlName="name" aria-label="Categoria">
                 <mat-error>
@@ -30,19 +30,19 @@
             </mat-form-field>
         </div>
 
-        <div fxLayout="row">
+        <div >
             <btn-g btn-1 [name]="'Subcategoria'" [icon]="'add'" (btn)="addSubcategories()"></btn-g>
         </div>
         <br>
-        <div fxLayout="column" formArrayName="subcategoriesExpenses"
+        <div  formArrayName="subcategoriesExpenses"
             *ngFor="let subCat of getSubcategories.controls; let i = index;">
-            <div [formGroupName]="i" fxLayout="column">
-                <btn-g fxLayout="row" [name]="'Remover'" [icon]="'clear'"
+            <div [formGroupName]="i" >
+                <btn-g  [name]="'Remover'" [icon]="'clear'"
                     [styleColors]="'font-size: 15px;color: white;background-color: rgb(156,33,29);'"
                     (btn)="removeSubcategory(i)"></btn-g>
                 <br>
-                <div fxLayout="row" fxFlex>
-                    <mat-form-field appearance="outline" fxFlex>
+                <div  >
+                    <mat-form-field appearance="outline" >
                         <mat-label>Subcategoria</mat-label>
                         <input matInput formControlName="name" aria-label="Subcategoria">
                         <mat-error>
@@ -56,10 +56,10 @@
 
 
         </div>
-        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
+        <div   fxLayoutGap="50px">
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
         </div>
-        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
+        <div   fxLayoutGap="50px">
             <div>{{formMain.value | json}}</div>
         </div>
     </mat-card>

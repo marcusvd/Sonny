@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -38,7 +38,6 @@ import { BankAccountCardsListService } from './services/bank-account-cards-list.
     MatCardModule,
     MatPaginatorModule,
     RouterModule,
-    FlexLayoutModule,
     GridListCommonComponent,
     GridListCommonTableComponent,
     GridListCommonSearchComponent,

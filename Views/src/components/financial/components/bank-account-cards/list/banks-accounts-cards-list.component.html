@@ -5,12 +5,12 @@
 
 
     <div>
-        <div fxLayout="column" fxFlex>
+        <div  >
 
-            <mat-card class="mat-card-sub-title" fxFlex>
+            <mat-card class="mat-card-sub-title" >
                 <grid-list-common>
                     <sub-title title [title]="'Contas bancárias cadastradas'" [icon]="'list'"></sub-title>
-                    <grid-list-common-table fxFlex body-table 
+                    <grid-list-common-table  body-table 
                     (getColumnEntityName)="orderBy($event)"
                     [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" 
                     [fieldsInEnglish]="fieldsInEnglish" 

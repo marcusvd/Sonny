@@ -2,7 +2,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { outputAst } from '@angular/compiler';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MaterialModule } from 'src/shared/modules/material.module';
@@ -12,7 +12,7 @@ import { MaterialModule } from 'src/shared/modules/material.module';
   templateUrl: './title.component.html',
   styleUrls: ['./title.component.css'],
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule, FlexLayoutModule]
+  imports: [CommonModule, MatIconModule, MatButtonModule, ]
 })
 export class TitleComponent {
 

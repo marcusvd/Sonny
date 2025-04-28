@@ -1,13 +1,13 @@
 <mat-card>
     <div class="mat-card-title">
-        <div fxLayout="row" (window:resize)="screen()">
-            <div fxLayout="column">
+        <div  (window:resize)="screen()">
+            <div >
                 <h3>Informações de conta</h3>
             </div>
-            <div fxLayout="column" fxFlex>
+            <div  >
             </div>
             <div *ngIf="!btnSaveStyle">
-                <div fxLayout="column">
+                <div >
                     <button class="default-button" mat-raised-button (click)="updateUser()"> Salvar </button>
                 </div>
             </div>
@@ -17,10 +17,10 @@
     </mat-divider>
     <br>
 
-    <div fxLayout="row" (window:resize)="screen()" fxLayoutGap="15px" [formGroup]="formMain">
+    <div  (window:resize)="screen()" fxLayoutGap="15px" [formGroup]="formMain">
 
-        <div fxLayout="column" [formGroup]="subForm" fxFlex>
-            <mat-form-field fxFlex appearance="outline">
+        <div  [formGroup]="subForm" >
+            <mat-form-field  appearance="outline">
                 <mat-label>Nome Empresa</mat-label>
                 <input matInput formControlName="name" aria-label="Nome Empresa">
                 <mat-error>
@@ -29,8 +29,8 @@
                 </mat-error>
             </mat-form-field>
         </div>
-        <div fxLayout="column" fxFlex>
-            <mat-form-field fxFlex="99%" appearance="outline">
+        <div  >
+            <mat-form-field ="99%" appearance="outline">
                 <mat-label>Nome de Usuário</mat-label>
                 <input matInput formControlName="userName" aria-label="Nome de Usuário">
                 <!-- <mat-error>
@@ -40,8 +40,8 @@
             </mat-form-field>
 
         </div>
-        <div fxLayout="column" fxFlex>
-            <mat-form-field fxFlex appearance="outline">
+        <div  >
+            <mat-form-field  appearance="outline">
                 <mat-label>E-mail</mat-label>
                 <input matInput formControlName="email" aria-label="E-mail">
                 <!-- <mat-error>
@@ -54,19 +54,19 @@
 
     </div>
 
-    <div fxLayout="row" (window:resize)="screen()" fxLayoutGap="50px">
-        <div fxLayout="column" fxFlex>
+    <div  (window:resize)="screen()" fxLayoutGap="50px">
+        <div  >
         </div>
-        <div fxLayout="column">
+        <div >
 
-            <div fxLayout="column" fxFlex fxLayoutAlign="center center">
+            <div   >
                 <mat-icon class="padloock mat-icon-style" fontSet="material-icons-outlined">https</mat-icon>
             </div>
 
         </div>
 
-        <div fxLayout="column" fxFlex>
-            <mat-form-field fxFlex>
+        <div  >
+            <mat-form-field >
                 <mat-label>
                     <mat-icon>https</mat-icon> <b> Senha</b>
                 </mat-label>
@@ -79,8 +79,8 @@
             </mat-form-field>
         </div>
 
-        <div fxLayout="column" fxFlex>
-            <mat-form-field fxFlex>
+        <div  >
+            <mat-form-field >
                 <mat-error>
                     <span>{{validatorMessages.required(formMain,'confirmPassword', '')}}
                 {{validatorMessages.compareFields(formMain,
@@ -94,7 +94,7 @@
         </div>
     </div>
 
-    <div *ngIf="btnSaveStyle" fxLayoutAlign="center center">
+    <div *ngIf="btnSaveStyle" >
 
         <button class="default-button" mat-raised-button (click)="updateUser()"> Salvar </button>
 

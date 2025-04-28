@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { SideMenuTopLargeComponent } from './top-large/top-large.component';
 
 @Component({

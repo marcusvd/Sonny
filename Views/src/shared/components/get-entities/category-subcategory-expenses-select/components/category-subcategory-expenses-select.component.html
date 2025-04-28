@@ -1,9 +1,9 @@
 <spinner-g [entities]="entities$" [optionalTitle]="'(Categorias)'" (spinnerStatusOut)="spinnerEvent($event)">
 </spinner-g>
 
-<div *ngIf="spinner" [formGroup]="formMain" fxLayoutGap="10" [fxLayout]="screenFieldPosition" (window:resize)="screen()" [fxLayout]="screenFieldPosition" >
-    <div fxLayout="column" [fxFlex]="fxFlexInput">
-        <mat-form-field [fxFlex]="fxFlexInput" appearance="outline">
+<div *ngIf="spinner" [formGroup]="formMain"   (window:resize)="screen()"  >
+    <div  >
+        <mat-form-field  appearance="outline">
             <mat-label>Categoria</mat-label>
             <mat-select formControlName="categoryExpenseId"
                 (selectionChange)="selectedCategoryExpenseId($event.value)">
@@ -19,8 +19,8 @@
 
         </mat-form-field>
     </div>
-    <div fxLayout="column" [fxFlex]="fxFlexInput">
-        <mat-form-field [fxFlex]="fxFlexInput" appearance="outline">
+    <div  >
+        <mat-form-field  appearance="outline">
             <mat-label>Subcategoria</mat-label>
             <mat-select formControlName="subcategoryExpenseId">
                 <mat-option [value]="subcategory.id" *ngFor="let subcategory of subcategoriesExpenses | async">
@@ -35,7 +35,7 @@
             </mat-error>
         </mat-form-field>
     </div>
-    <!-- <div fxLayout="column" [fxFlex]="fxFlexInput" *ngIf="!subcategoryNotFound">
+    <!-- <div   *ngIf="!subcategoryNotFound">
         <mat-label>Sem subcategorias cadastradas</mat-label>
     </div> -->
 </div>

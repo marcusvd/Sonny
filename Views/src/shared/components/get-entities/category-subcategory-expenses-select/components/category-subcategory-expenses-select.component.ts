@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 
@@ -28,7 +28,6 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
   standalone: true,
   imports: [
     CommonModule,
-    FlexLayoutModule,
     MatInputModule,
     ReactiveFormsModule,
     MatSelectModule,
@@ -55,7 +54,7 @@ export class CategorySubcategoryExpensesSelectComponent extends BaseForm impleme
   @Input() override formMain: FormGroup
   @Input() payCycle: PayCycleEnumDto;
   @Input() payCycle2: PayCycleEnumDto;
-  @Input() fxFlexInput: number = 100;
+  @Input() Input: number = 100;
 
 
   private valMessages = ValidatorMessages;

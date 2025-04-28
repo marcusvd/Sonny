@@ -2,7 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormControl } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
@@ -41,7 +41,6 @@ import { VariableExpensesListService } from './services/variable-expenses-list.s
     MatCardModule,
     MatPaginatorModule,
     RouterModule,
-    FlexLayoutModule,
     PtBrDatePipe,
     GridListCommonComponent,
     GridListCommonTableComponent,

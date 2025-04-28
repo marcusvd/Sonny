@@ -6,13 +6,13 @@ import { RecaptchaComponent, RecaptchaFormsModule, RecaptchaModule } from 'ng-re
 
 @Component({
   selector: 'captcha', template: `
-   <div fxLayout="column">
+   <div >
         <form #form="ngForm" >
-            <div fxLayout="row">
+            <div >
                 <re-captcha  id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="token" required [class.is-invalid]="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)"></re-captcha>
             </div>
             <br>
-            <div fxLayout="row" class="error-message">
+            <div  class="error-message">
                 <div *ngIf="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)" class="invalid-feedback">
                     <div *ngIf="recaptcha.errors?.['required']">Resposta incorreta para o desafio do captcha.</div>
                     <div *ngIf="recaptcha.errors?.['required']">Tente novamente.</div>

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 
@@ -14,13 +14,12 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MatInputModule,
-    FlexLayoutModule,
+    MatInputModule
   ],
   template: `
-<div fxLayout="column" >
-      <div fxLayout="row">
-        <mat-form-field appearance="outline" [fxFlex]="fxFlex">
+<div  >
+      <div >
+        <mat-form-field appearance="outline" []="">
             <mat-label>Nome / Identificação</mat-label>
           <input matInput type="text"  [formControl]="noRegisterName">
           <mat-error>
@@ -30,8 +29,8 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
         </mat-form-field>
     </div>
     <br>
-    <div fxLayout="row" >
-        <mat-form-field appearance="outline" [fxFlex]="fxFlex">
+    <div  >
+        <mat-form-field appearance="outline" []="">
             <mat-label>Endereço / Contatos</mat-label>
           <input matInput type="text"  [formControl]="noRegisterAddress">
           <mat-error>
@@ -71,9 +70,6 @@ export class OthersDestiniesComponent implements OnInit {
   @Input() noRegisterName = new FormControl();
 
   @Input() noRegisterAddress = new FormControl();
-
-  @Input() fxFlex: number;
-
 
   ngOnInit(): void {
 

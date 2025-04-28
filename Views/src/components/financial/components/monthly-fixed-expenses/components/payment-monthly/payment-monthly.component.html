@@ -2,8 +2,8 @@
     <title-component [digit]="'|'" [titleString]="'Pagamento'" [icon]="'payment'">
     </title-component>
     <div>
-        <div fxLayout="column" fxFlex>
-            <mat-card class="mat-card-sub-title" fxFlex>
+        <div  >
+            <mat-card class="mat-card-sub-title" >
                 <sub-title title [title]="'Despesa'" [icon]="'payment'"></sub-title>
                 <screen-data-info *ngIf="hideShowScreenDataInfo" [fields]="fields" [reiceverThisComponentToDisplay]="'payment'">
                 </screen-data-info>
@@ -11,20 +11,20 @@
                 [radioOptionRemove]="['Cartão', 'Pix','Outros' ]"
                 [radioHideShow]="true"
                 -->
-                <get-bank-account-select-single fxFlex [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [validatorsPaymentBtnAction]="validatorsCreditPixOthers" [alignRadios]="'start start'" [selectedRadio]="0" 
+                <get-bank-account-select-single  [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [validatorsPaymentBtnAction]="validatorsCreditPixOthers" [alignRadios]="'start start'" [selectedRadio]="0" 
                 (selectedRadioOut)="selectedRadio($event)">
                 </get-bank-account-select-single>
 
-                <pixes-expenses-fields [expenseDayDisabled]="true" [priceDisabled]="false" [formMain]="subForm" fxFlex *ngIf="selectedPixRadio == 0 && formMain.get('bankAccountId').value">
+                <pixes-expenses-fields [expenseDayDisabled]="true" [priceDisabled]="false" [formMain]="subForm"  *ngIf="selectedPixRadio == 0 && formMain.get('bankAccountId').value">
                 </pixes-expenses-fields>
 
                 <price-interest-fields [formMain]="formMain">
                 </price-interest-fields>
 
-                <div fxLayout="column" btn>
+                <div  btn>
                     <btn-g [name]="'Pagar'" [icon]="'payment'" (click)="updateBtn()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
                 </div>
-                <!-- <div fxLayout="row" fxlayoutAlign="center center">
+                <!-- <div  >
                     <div>{{formMain.value | json}}</div>
                 </div> -->
 

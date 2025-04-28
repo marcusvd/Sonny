@@ -1,4 +1,4 @@
-<div fxLayout="column" class="border-around" *ngIf="formMain" [formGroup]="formMain">
+<div  class="border-around" *ngIf="formMain" [formGroup]="formMain">
 
     <title-component [digit]="'|'" [titleString]="'Cadastro de corrida'" [icon]="'compare_arrows'">
 
@@ -6,19 +6,19 @@
     <mat-card class="mat-card-sub-title">
         <sub-title title [title]="'Cadastro de coletas e entregas'" [icon]="'compare_arrows'"></sub-title>
         <div class="middle-space-horizontal-beteween-fields"></div>
-        <div fxLayout="row">
+        <div >
             <h3>Informações</h3>
         </div>
         <subject-contact [formMain]="formMain"></subject-contact>
         <!-- <mat-divider></mat-divider>
-        <div fxLayout="row">
+        <div >
             <h3>Itens Transportados / Serviço</h3>
         </div> -->
         <div class="small-space-horizontal-beteween-fields"></div>
 
-        <div [fxLayout]="screenFieldPosition" [fxLayoutGap]="'35'" [fxLayoutAlign]="checkBoxAlign">
+        <div  [fxLayoutGap]="'35'" [fxLayoutAlign]="checkBoxAlign">
 
-            <div fxLayout="column" style="padding-top:17px;">
+            <div  style="padding-top:17px;">
                 <mat-checkbox #collect formControlName="collect"
                     (change)="validatorLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])"
                     (change)="onCollectChecked($event)">
@@ -44,7 +44,7 @@
                     <span>{{validatorMessages.required(formMain, 'other', '')}}</span>
                 </mat-error>
             </div>
-            <div fxLayout="column" fxFlex>
+            <div  >
                 <description-field [formMain]="formMain" [frmControlName]="'taskOverView'"
                     [label]="'Descrição da corrida'" [required]="true" [rows]="5">
                 </description-field>
@@ -53,11 +53,11 @@
 
         </div>
         <mat-divider></mat-divider>
-        <div fxLayout="row">
+        <div >
             <h3>Destino</h3>
         </div>
         <!-- <mat-divider></mat-divider>
-        <div fxLayout="row" fxLayoutGap="50" [fxLayoutAlign]="checkBoxAlign">
+        <div  fxLayoutGap="50" [fxLayoutAlign]="checkBoxAlign">
             <p>
 
                 <mat-checkbox formControlName="collect" (change)="validatorLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])">Coleta</mat-checkbox>
@@ -82,8 +82,8 @@
         </div>
         <mat-divider></mat-divider> -->
 
-        <!-- <div [fxLayout]="screenFieldPosition" [fxLayoutGap]="fxLayoutAlignTypeTransportPriceDestiny"> -->
-        <div [fxLayout]="screenFieldPosition">
+        <!-- <div  [fxLayoutGap]="fxLayoutAlignTypeTransportPriceDestiny"> -->
+        <div >
             <!-- <div [fxLayout]="screenFieldPositionSub" [style]="rightSideBorder"> -->
 
             <mat-radio-group aria-labelledby="radio-group-label" class="radio-group" [(ngModel)]="selectedDestiny"
@@ -94,18 +94,18 @@
             </mat-radio-group>
 
 
-            <div [fxLayout]="'column'" fxFlex style="padding-left:10px;">
+            <div [fxLayout]="'column'"  style="padding-left:10px;">
 
                 <!-- [ngClass]="{'middle-space-horizontal-top-single':!topBottomPaddingEntitiesRadio, 'middle-space-horizontal-bottom-single':topBottomPaddingEntitiesRadio}" -->
                 <get-customer-matselect-single *ngIf="selectedDestiny == 'Clientes'" [formMain]="destiny"
                     [editEntity]="true" [selectedEntity]="cleanEntity"
                     [urlBackEndApi]="'GetCustomersByCompanyIdIncludedPhysicallyMovingCosts'"
                     (customerSelected)="onCustomerSelectedDestiny($event)"
-                    (customerSelected)="onPriceSelectedDestiny('Combustível')" fxFlex>
+                    (customerSelected)="onPriceSelectedDestiny('Combustível')" >
                 </get-customer-matselect-single>
 
                 <!-- [ngClass]="{'middle-space-horizontal-top-single':!topBottomPaddingEntitiesRadio, 'middle-space-horizontal-bottom-single':topBottomPaddingEntitiesRadio}" -->
-                <get-partner-matselect-single fxFlex *ngIf="selectedDestiny == 'Parceiros'" [formMain]="destiny"
+                <get-partner-matselect-single  *ngIf="selectedDestiny == 'Parceiros'" [formMain]="destiny"
                     [urlBackEndApi]="'GetPartnersByCompanyIdIncludedPhysicallyMovingCosts'" [editEntity]="true"
                     (partnerSelected)="onPartnerSelectedDestiny($event)">
                 </get-partner-matselect-single>
@@ -113,40 +113,40 @@
                 <!-- [ngClass]="{'middle-space-horizontal-top':!topBottomPaddingEntitiesRadio, 'middle-space-horizontal-bottom':topBottomPaddingEntitiesRadio}" -->
                 <others-destinies [noRegisterName]="this.destiny.controls['noRegisterName']"
                     [noRegisterAddress]="this.destiny.controls['noRegisterAddress']" [form]="destiny"
-                    *ngIf="selectedDestiny == 'Outros'" [formMain]="formMain" fxFlex>
+                    *ngIf="selectedDestiny == 'Outros'" [formMain]="formMain" >
                 </others-destinies>
 
                 <get-transporter-matselect-single [formMain]="formMain"
                     (click)="this.formMain.controls['transporterId'].markAsTouched()"
                     (transporterSelected)="onTransporterSelected($event)"
-                    [urlBackEndApi]="'GetAllTransportersByCompanyIdAsync'" fxFlex>
+                    [urlBackEndApi]="'GetAllTransportersByCompanyIdAsync'" >
                 </get-transporter-matselect-single>
 
 
             </div>
         </div>
 
-        <!-- <div fxLayout="row">
+        <!-- <div >
             <h3>Transportador</h3>
         </div> -->
 
         <mat-divider></mat-divider>
 
-        <div fxLayout="row" [formGroup]="subForm">
-            <div fxLayout="column" *ngIf="!disablePaymentDestiny">
+        <div  [formGroup]="subForm">
+            <div  *ngIf="!disablePaymentDestiny">
                 <h3>Cobrança:</h3>
             </div>
-            <!-- <div fxLayout="column" *ngIf="!disablePaymentDestiny" fxFlex="35">
+            <!-- <div  *ngIf="!disablePaymentDestiny" ="35">
                 
             </div> -->
 
         </div>
         <!-- <mat-divider *ngIf="!disablePaymentDestiny"></mat-divider> -->
-        <div [fxLayout]="screenFieldPosition">
+        <div >
             <!--  -->
             <!-- <div [fxLayout]="screenFieldPositionSub" [style]="rightSideBorder"> -->
             <div [fxLayout]="'column'">
-                <!-- <div fxLayout="row">
+                <!-- <div >
                 </div> -->
                 <mat-radio-group *ngIf="!disablePaymentDestiny" aria-labelledby="radio-group-label" class="radio-group"
                     [(ngModel)]="selectedEntityToPayment" [ngModelOptions]="{standalone: true}"
@@ -163,23 +163,23 @@
                 <div *ngIf="disablePaymentDestiny" class="middle-space-horizontal-beteween-fields"> </div>
             </div>
             <div style="padding-top:30px; padding-left:10px;" *ngIf="!disablePaymentDestiny"
-                [fxLayout]="screenFieldPositionSub" fxFlex>
+                [fxLayout]="screenFieldPositionSub" >
 
 
-                <get-customer-matselect-single *ngIf="selectedEntityToPayment == 'Clientes'" [formMain]="subForm" fxFlex
+                <get-customer-matselect-single *ngIf="selectedEntityToPayment == 'Clientes'" [formMain]="subForm" 
                     (customerSelected)="onCustomerSelectedPayment($event)"
                     (customerSelected)="onPriceSelectedPayment('Combustível')" [editEntity]="true"
                     [urlBackEndApi]="'GetCustomersByCompanyIdIncludedPhysicallyMovingCosts'"></get-customer-matselect-single>
 
                 <!-- [ngClass]="{'middle-space-horizontal-top-single':!topBottomPaddingEntitiesRadio, 'middle-space-horizontal-bottom-single':topBottomPaddingEntitiesRadio}" -->
-                <get-partner-matselect-single *ngIf="selectedEntityToPayment == 'Parceiros'" [formMain]="subForm" fxFlex
+                <get-partner-matselect-single *ngIf="selectedEntityToPayment == 'Parceiros'" [formMain]="subForm" 
                     (partnerSelected)="onPartnerSelectedPayment($event)"
                     (partnerSelected)="onPriceSelectedPayment('Combustível')" [editEntity]="true"
                     [urlBackEndApi]="'GetPartnersByCompanyIdIncludedPhysicallyMovingCosts'"></get-partner-matselect-single>
             </div>
-            <div [fxLayout]="'column'" fxFlex *ngIf="selectedCustomerPayment || selectedPartnerPayment">
-                <div [fxLayout]="'row'" fxFlex [style]="pricePayment">
-                    <mat-form-field appearance="outline" fxFlex>
+            <div [fxLayout]="'column'"  *ngIf="selectedCustomerPayment || selectedPartnerPayment">
+                <div [fxLayout]="'row'"  [style]="pricePayment">
+                    <mat-form-field appearance="outline" >
                         <mat-label>Valor pre cadastrado</mat-label>
                         <mat-select #singleSelect (selectionChange)="onPriceSelectedPayment(singleSelect.value)"
                             formControlName="kindTransport">
@@ -190,8 +190,8 @@
                     </mat-form-field>
                 </div>
 
-                <div [fxLayout]="'row'" fxFlex>
-                    <mat-form-field fxFlex>
+                <div [fxLayout]="'row'" >
+                    <mat-form-field >
                         <mat-label>Preço</mat-label>
                         <input matInput currencyMask type="text" formControlName="price" aria-label="Preço">
                         <mat-error>
@@ -203,9 +203,9 @@
         </div>
         <!-- <mat-divider></mat-divider> -->
         <!-- [ngClass]="{'smallTransportPrice':this.sizeScreenIsSmall, 'middleTransportPrice':!this.sizeScreenIsSmall}" -->
-        <div [fxLayout]="screenFieldPosition" fxLayoutGap="30">
-            <div [fxLayout]="screenFieldPositionSub" fxFlex>
-                <mat-form-field appearance="outline" fxFlex *ngIf="disablePaymentDestiny">
+        <div  fxLayoutGap="30">
+            <div [fxLayout]="screenFieldPositionSub" >
+                <mat-form-field appearance="outline"  *ngIf="disablePaymentDestiny">
                     <mat-label>Valor pre cadastrado</mat-label>
                     <mat-select #singleSelect (selectionChange)="onPriceSelectedDestiny(singleSelect.value)"
                         formControlName="kindTransport">
@@ -215,8 +215,8 @@
                     </mat-select>
                 </mat-form-field>
             </div>
-            <div [fxLayout]="screenFieldPositionSub" fxFlex>
-                <mat-form-field fxFlex *ngIf="disablePaymentDestiny">
+            <div [fxLayout]="screenFieldPositionSub" >
+                <mat-form-field  *ngIf="disablePaymentDestiny">
                     <mat-label>Preço</mat-label>
                     <input matInput currencyMask type="text" formControlName="price" aria-label="Preço">
                     <mat-error>

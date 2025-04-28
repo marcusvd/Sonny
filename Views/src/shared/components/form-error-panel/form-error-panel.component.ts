@@ -11,7 +11,7 @@ import { IControlErrorsDictionary } from './interfaces/icontrols-errors-dictiona
       <li>Motivo:</li>
         <br>
         <div *ngFor="let control of formTranslated.value | keyvalue">
-           <div fxLayout="row">
+           <div >
                 <mat-error>
                   <span>{{validatorMessages.required(form, control.key, control.value)}}</span>
                 </mat-error>

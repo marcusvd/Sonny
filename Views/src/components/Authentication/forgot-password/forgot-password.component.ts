@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -35,7 +35,6 @@ import { AuthenticationService } from '../services/authentication.service';
     ReactiveFormsModule,
     MatButtonModule,
     RouterModule,
-    FlexLayoutModule,
     NgIf,
     TitleDescriptionAuthComponent
 

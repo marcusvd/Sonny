@@ -4,21 +4,21 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'search-g',
   template: `
-  <mat-toolbar class="inputBackgroundColor" fxFlex>
-    <div fxFlex fxLayout="row" fxLayoutAlign="center center" style="margin-left:-13px;">
-      <div  fxFlex  fxLayout="column" style="font-size:10px; heigth:20px; padding-top:18px;">
+  <mat-toolbar class="inputBackgroundColor" >
+    <div    style="margin-left:-13px;">
+      <div     style="font-size:10px; heigth:20px; padding-top:18px;">
         <mat-form-field appearance="outline">
                 <mat-label>Pesquisar</mat-label>
                 <input  [formControl]="queryFieldFormControl" (input)="searching(queryFieldFormControl)" matInput type="text">
         </mat-form-field>
       </div>
-      <div fxFlex fxLayout="column" >
-        <div fxLayout="row" >
-          <div fxFlex></div>
-                <div fxLayout="column">
+      <div   >
+        <div  >
+          <div ></div>
+                <div >
                     {{'Encontrados:'}}
                 </div>
-                <div fxLayout="column">
+                <div >
                     <ng-content fxLayoutAling="center center" select="[found]"></ng-content>
                 </div>
             </div>
@@ -63,7 +63,7 @@ export class SearchGComponent {
 
   constructor() { }
 
-  @Input() inputFxFlex: number;
+  @Input() input: number;
   queryFieldFormControl = new FormControl();
   @Output() queryField = new EventEmitter<FormControl>(null);
 

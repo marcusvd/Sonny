@@ -1,6 +1,6 @@
 import { NgFor } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -13,7 +13,7 @@ import { MonthsDto } from './months-dto';
 
         `],
   standalone: true,
-  imports: [MatSelectModule, FlexLayoutModule, NgFor, MatFormFieldModule, FormsModule]
+  imports: [MatSelectModule, NgFor, MatFormFieldModule, FormsModule]
 })
 
 export class MonthsSelectComponent implements OnInit {
@@ -34,7 +34,7 @@ export class MonthsSelectComponent implements OnInit {
   @Output() onChangeSelection = new EventEmitter<MonthsDto>();
   @Input() startCurrentDate: boolean;
   @Input() showOnlyUntilCurrentDate: boolean;
-  @Input() fxFlexInput: number=0;
+  @Input() Input: number=0;
 
   @Input() set changeSelection(value: MonthsDto) {
     this.selectedValue = this.months.find(x => x?.id === value?.id);

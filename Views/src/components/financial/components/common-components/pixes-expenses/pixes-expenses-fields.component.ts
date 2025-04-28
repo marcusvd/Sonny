@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -22,7 +22,6 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-    FlexLayoutModule,
     MatButtonModule,
     MatDatepickerModule,
     BtnGComponent,
@@ -47,8 +46,8 @@ export class PixesExpensesFieldsComponent extends BaseForm implements OnInit {
   }
 
   @Input() override formMain: FormGroup;
-  @Input() fxFlexBenefitedKey:string = '100';
-  @Input() fxFlexExpenseDay:string = '100';
+  @Input() BenefitedKey:string = '100';
+  @Input() ExpenseDay:string = '100';
   @Input('expenseDayDisabled') expenseDayDisabled:boolean = false;
   @Input('priceDisabled') priceDisabled:boolean = true;
 

@@ -1,17 +1,17 @@
-<div class="border-around main-height" [fxLayout]="fxLayoutDirection" fxLayoutAlign="center center" fxLayoutGap="10" fxFlex>
-    <mat-card fxLayout="column" fxFlex>
+<div class="border-around main-height"    >
+    <mat-card  >
         <title-description-auth title class="font-title" [icon]="'language'" [title]="'Sonny App'" [styleContainerTitle]="'padding-top:8px;'" [titleStyle]="'font-family: Mynerve; font-size: 24px;'" [height]="'height:60px'"></title-description-auth>
         <div class="space-title-logo"></div>
 
-        <div fxLayout="row" fxLayoutAlign="center center">
-            <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
+        <div  >
+            <div   >
                 <h1 class="title">Acesso ao sistema</h1>
             </div>
         </div>
         <div class="space-form-title-logo"></div>
-        <div fxLayout="column" [formGroup]="formMain">
-            <div fxLayout="row">
-                <mat-form-field fxFlex appearance="outline">
+        <div  [formGroup]="formMain">
+            <div >
+                <mat-form-field  appearance="outline">
                     <mat-label>
                         <mat-icon>email</mat-icon> <b>Email</b>
                     </mat-label>
@@ -22,8 +22,8 @@
                 </mat-form-field>
             </div>
 
-            <div fxLayout="row">
-                <mat-form-field fxFlex appearance="outline">
+            <div >
+                <mat-form-field  appearance="outline">
                     <mat-label>
                         <mat-icon>https</mat-icon> <b> Senha</b>
                     </mat-label>
@@ -34,22 +34,22 @@
                 </mat-form-field>
             </div>
 
-            <div fxLayout="row">
-                <div fxLayout="column">
+            <div >
+                <div >
                     <h3 class="mouse-pointer" [routerLink]="['register']"> Cadastrar</h3>
                 </div>
-                <div fxLayout="column" fxFlex>
+                <div  >
 
                 </div>
-                <div fxLayout="column">
+                <div >
                     <h3 class="mouse-pointer" [routerLink]="['forgot']">Esqueceu?</h3>
                 </div>
             </div>
         </div>
-        <div fxLayout="row" fxLayoutAlign="center center">
+        <div  >
             <h5 id="msg-login-error">{{loginErrorMessage}}</h5>
         </div>
-        <div fxLayout="row" fxLayoutAlign="center center">
+        <div  >
             <button mat-button class="btn-settings" (click)="login()"><span>Acessar</span></button>
         </div>
     </mat-card>

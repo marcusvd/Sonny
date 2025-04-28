@@ -1,4 +1,4 @@
-<div class="border-around" fxLayout="column">
+<div class="border-around" >
     <title-component [digit]="'|'" [titleString]="institution" [icon]="'attach_money'">
     </title-component>
 
@@ -11,7 +11,7 @@
     <bank-cards [formMain]="formMain" [edit]="true" [cards]="cards" [mainIcon]="'payment'">
     </bank-cards>
     <!-- {{formMain.value | json}} -->
-    <div fxLayout="row" fxLayoutAlign="center center">
+    <div  >
         <btn-g [name]="'Atualizar'" [icon]="'save'" (btn)="update()"></btn-g>
     </div>
 </div>

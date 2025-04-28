@@ -2,18 +2,18 @@
 // import { NgFor, NgIf } from '@angular/common';
 // import { MaterialModule } from 'src/shared/modules/material.module';
 // import { MatIconModule } from '@angular/material/icon';
-// import { FlexLayoutModule } from '@angular/flex-layout';
+// 
 
 
 // @Component({
 //   selector: 'sub-title-description-login',
 //   template: `
-//    <div fxLayout="column" class="around" [style]="height">
-//     <div fxLayout="row">
-//       <div fxLayout="column">
+//    <div  class="around" [style]="height">
+//     <div >
+//       <div >
 //      <mat-icon class="icon">{{icon}}</mat-icon>
 //       </div>
-//       <div  fxLayout="column"[style]="styleContainerTitle">
+//       <div  [style]="styleContainerTitle">
 //       <h3 class="title-text" [style]="titleStyle">{{title}}</h3>
 //       </div>
 //     </div>
@@ -48,7 +48,7 @@
 
 // `],
 //   standalone: true,
-//   imports: [MatIconModule, FlexLayoutModule]
+//   imports: [MatIconModule, ]
 // })
 // export class SubTitleDescriptionLoginComponent {
 

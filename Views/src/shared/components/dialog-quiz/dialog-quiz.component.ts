@@ -6,15 +6,15 @@ import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
   selector: 'dialog-quiz',
   template: `
   <div class="break">
-  <div fxLayout="row" fxLayoutGap="30px">
-      <div fxLayout="column">
+  <div  >
+      <div >
           <h2 mat-dialog-title>{{title}}</h2>
       </div>
   </div>
   <mat-dialog-content class="break">
       {{messageBody}}
   </mat-dialog-content>
-  <div fxLayout="row" fxLayoutAlign="space-between stretch" style="margin-top:30px;">
+  <div  fxLayoutAlign="space-between stretch" style="margin-top:30px;">
       <button mat-dialog-close mat-button style="background-color: rgb(38, 187, 38); color: white;" (click)="clickedYes(btn1)">{{btn1}}</button>
       <button mat-button mat-dialog-close style="background-color: rgb(24, 121, 24); color: white; " (click)="clickedNo(btn2)">{{btn2}}</button>
   </div>

@@ -1,6 +1,6 @@
 <!-- <mat-grid-list (window:resize)="screen()" [cols]="navCols" [rowHeight]="navRowHeight">
     <mat-toolbar>
-        <div fxLayout="row">
+        <div >
             <mat-grid-tile>
                 <img src="../../../../../../assets/nsti-globe.png" alt="" style="padding-top:25px; width:150x; height:80px;">
             </mat-grid-tile>
@@ -9,11 +9,11 @@
             </mat-grid-tile>
             <mat-grid-tile>
                 <a *ngIf="true" (click)="openDialogLogin()" style="padding-top:20px;">
-                    <div fxLayout="column" fxLayoutGap="-20px">
-                        <div fxFlex="row" style="padding-left: 20px;">
+                    <div  fxLayoutGap="-20px">
+                        <div ="row" style="padding-left: 20px;">
                             <mat-icon>lock_open</mat-icon>
                         </div>
-                        <div fxFlex="row">
+                        <div ="row">
                             <small> ENTRAR</small>
                         </div>
                     </div>
@@ -26,15 +26,15 @@
     <div id="welcome">
 
     </div>
-    <div fxLayout="column" fxLayoutAlign="center center">
+    <div  >
 
-        <div fxLayout="row">
+        <div >
             <div>
                 <h1>Bem-vindo ao SONNY!</h1>
             </div>
 
         </div>
-        <div fxLayout="row" style="padding-left:50px; padding-right:50px;">
+        <div  style="padding-left:50px; padding-right:50px;">
             <div>
                 <p>Nosso aplicativo de administração de serviços de informática! Desenvolvido com o objetivo de simplificar o gerenciamento de clientes, finanças, estoque e serviços prestados por técnicos de informática, nosso aplicativo oferece uma solução
                     completa e eficiente para os profissionais da área.</p>
@@ -43,7 +43,7 @@
     </div>
     <br>
     <mat-grid-list (window:resize)="screen()" [cols]="informationCols" [rowHeight]="informationRowHeight">
-        <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">
+        <div  fxLayoutGap="5px" >
             <mat-grid-tile>
 
             </mat-grid-tile>
@@ -61,11 +61,11 @@
 
 </main> -->
 
-<div class="border-around" fxLayout="row">
-    <div fxLayout="column" style="width:70%">
+<div class="border-around" >
+    <div  style="width:70%">
 
     </div>
-    <div fxLayout="column" style="overflow: auto;max-width:350px; max-height: 50%px;">
+    <div  style="overflow: auto;max-width:350px; max-height: 50%px;">
         <div style="padding:20px;"></div>
         <mat-card class="mat-card-sub-title">
             <sub-title title [title]="'Financeiro'" [icon]="'attach_money'"></sub-title>

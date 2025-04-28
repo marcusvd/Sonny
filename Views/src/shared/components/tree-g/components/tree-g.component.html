@@ -6,20 +6,20 @@
     </mat-tree-node>
     <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
         <!-- Left Icons -->
-        <div fxLayout="column" *ngIf="node.icon">
+        <div  *ngIf="node.icon">
             <i class="side-nav-i">
         <mat-icon #tooltip="matTooltip" [matTooltip]="node.toolTip" matTooltipPosition="right"  class="menu-side-icons" fontSet="material-icons-two-tone" (click)="expandContractMtd()">{{node.icon}}</mat-icon>
       </i>
         </div>
-        <div fxFlex></div>
+        <div ></div>
         <span matTreeNodeToggle class="mouse appearance-main-menu">{{node.name}}</span>
-        <div fxFlex></div>
+        <div ></div>
         <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
-    <div fxLayout="row">
-     <div fxLayout="column" fxFlex>
+    <div >
+     <div  >
 
      </div>
-     <div fxLayout="column">
+     <div >
 
       <mat-icon class="mat-icon-rtl-mirror" fxLayoutAlign="end end">
         {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}

@@ -1,16 +1,16 @@
-<div (window:resize)="screen()" [fxLayout]="smallCurrentSizeScreen" fxFlex>
+<div (window:resize)="screen()"  >
     <!-- defaultSubtitle -->
     <div [fxLayout]="'column'" *ngIf="singleStatusSubtitle">
-        <div *ngIf="defaultSubtitle" id="space-components" [fxLayout]="bigCurrentSizeScreen" fxLayoutGap="10" fxFlex>
-            <div fxLayout="row">
+        <div *ngIf="defaultSubtitle" id="space-components" [fxLayout]="bigCurrentSizeScreen"  >
+            <div >
                 <span class="dimensions-subtitle bg-color-expired"></span><span class="space-subtitle">Vencida</span>
             </div>
             <div class="small-space-horizontal-beteween-fields"></div>
-            <div fxLayout="row">
+            <div >
                 <span class="dimensions-subtitle bg-color-will-expire"></span><span class="space-subtitle">Pendente</span>
             </div>
             <div class="small-space-horizontal-beteween-fields"></div>
-            <div fxLayout="row">
+            <div >
                 <span class="dimensions-subtitle bg-color-paid"></span><span class="space-subtitle">Liquidada</span>
             </div>
         </div>
@@ -20,12 +20,12 @@
     </div>
     <br>
 
-    <div [fxLayout]="smallCurrentSizeScreen" fxLayout="row">
+    <div  >
         {{title}}
     </div>
 
 
-    <div fxFlex="30" *ngIf="smallCurrentSizeScreen == 'row'">
+    <div ="30" *ngIf="smallCurrentSizeScreen == 'row'">
 
     </div>
     <div id="whenSmallSpaceTop" *ngIf="smallCurrentSizeScreen == 'column'">
@@ -38,7 +38,7 @@
             <div fxLayout="smallCurrentSizeScreen" [class]="status.squareBgColor" style="height: 50px; width: 50px;" *ngIf="status.visible">
 
             </div>
-            <div fxFlex="5" *ngIf="bigCurrentSizeScreen == 'row'">
+            <div ="5" *ngIf="bigCurrentSizeScreen == 'row'">
 
             </div>
             <span *ngIf="bigCurrentSizeScreen == 'row'">
@@ -58,7 +58,7 @@
         </div>
     </div>
     <br>
-    <div [fxLayout]="smallCurrentSizeScreen" *ngFor="let status of statusCollection">
+    <div  *ngFor="let status of statusCollection">
         <div *ngIf="status.visible" [class]="status.monthColorName">
             {{'VENCIMENTO:'}} {{expiresDate | ptBrDate:'Date'}}
         </div>

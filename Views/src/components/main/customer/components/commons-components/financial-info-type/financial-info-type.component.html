@@ -1,30 +1,30 @@
-<div fxLayout="row">
+<div >
     <h3>Financeiro</h3>
 </div>
-<div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="5" [formGroup]="formMain">
-    <div fxLayout="column">
-        <div fxLayout="row" fxLayoutGap="5">
+<div  (window:resize)="screen()" fxLayoutGap="5" [formGroup]="formMain">
+    <div >
+        <div  fxLayoutGap="5">
             <mat-checkbox (change)="assured()" (change)="validatorCustom.checkedBoxValidator(additionalCosts,$event.checked, ['fixedPhysicallyMovingCosts'])" (change)="validatorCustom.checkedBoxValidator(formMain,$event.checked,['payment','expiration'])" formControlName="assured">
             </mat-checkbox>
-            <div fxFlex="3"></div>
+            <div ="3"></div>
             <mat-label>Mensal
             </mat-label>
         </div>
     </div>
-    <!-- <div fxFlex="10"></div>
+    <!-- <div ="10"></div>
     <div class="small-space-horizontal-beteween-fields"> </div>
-    <div fxLayout="column">
-        <div fxLayout="row" fxLayoutGap="5">
+    <div >
+        <div  fxLayoutGap="5">
             <mat-checkbox formControlName="customerType">
             </mat-checkbox>
-            <div fxFlex="3"></div>
+            <div ="3"></div>
             <mat-label>Empresa</mat-label>
         </div>
     </div>
     <br>
-    <div fxFlex="5"></div> -->
+    <div ="5"></div> -->
 
-    <div fxLayout="column" fxFlex fxLayoutAlign="center center">
+    <div   >
         <mat-label class="mat-label">Mensalidade
         </mat-label>
         <mat-form-field>
@@ -36,10 +36,10 @@
             </mat-error>
         </mat-form-field>
     </div>
-    <div fxLayout="column" fxFlex formGroupName="additionalCosts">
-        <mat-label class="mat-label" fxLayoutAlign="center center">Custo Fixo in loco
+    <div   formGroupName="additionalCosts">
+        <mat-label class="mat-label" >Custo Fixo in loco
         </mat-label>
-        <mat-form-field fxFlex>
+        <mat-form-field >
             <input matInput type="text" currencyMask formControlName="fixedPhysicallyMovingCosts" aria-label="Custo Fixo in loco">
             <mat-error>
                 <span>{{validatorMessages.required(additionalCosts,'fixedPhysicallyMovingCosts', 'Valor')}}</span>
@@ -49,7 +49,7 @@
         </mat-form-field>
     </div>
     <div class="small-space-horizontal-beteween-fields"> </div>
-    <div fxLayout="column" fxFlex fxLayoutAlign="center center">
+    <div   >
         <mat-label class="mat-label">Dia do vencimento
         </mat-label>
         <mat-form-field>
@@ -61,7 +61,7 @@
         </mat-form-field>
     </div>
     <div class="small-space-horizontal-beteween-fields"> </div>
-    <div fxLayout="column" fxFlex fxLayoutAlign="center center">
+    <div   >
         <mat-label class="mat-label">Desconto
         </mat-label>
         <mat-form-field>

@@ -1,7 +1,7 @@
-<div *ngFor="let field of fields" fxLayout="row">
+<div *ngFor="let field of fields" >
 
     
-        <div *ngIf="field.order % 2 == 0" fxLayout="column">
+        <div *ngIf="field.order % 2 == 0" >
             <p>
                 <span class="span-pipe">|</span>
                 <span>{{field.label}}:</span>
@@ -9,7 +9,7 @@
                     {{' '+field.value}}</span>
             </p>
         </div>
-        <div *ngIf="field.order % 2 != 0" fxLayout="row">
+        <div *ngIf="field.order % 2 != 0" >
             <p>
                 <span class="span-pipe">|</span>
                 <span>{{field.label}}:</span>

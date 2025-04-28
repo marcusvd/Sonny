@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatCardModule } from '@angular/material/card';
 
 
@@ -27,7 +27,6 @@ import { CollectDeliverViewService } from './services/collect-deliver-view.servi
     MatCardModule,
     CnpjCpfPipe,
     PtBrCurrencyPipe,
-    FlexLayoutModule,
     TitleComponent,
     SubTitleItemComponent,
     BtnGComponent

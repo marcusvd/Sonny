@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -13,7 +13,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
   selector: 'description-field',
   template: `
   <div [formGroup]="formMain">
-        <div fxLayout="column" fxFlex>
+        <div  >
             <mat-form-field appearance="outline">
                 <mat-label>{{	label	}}</mat-label>
                 <textarea matInput [formControlName]="frmControlName" [rows]="rows" [placeholder]="label"></textarea>
@@ -26,12 +26,11 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 </div>
   `,
   styles: [`
-    
+
   `],
   standalone: true,
   imports: [
     MatFormFieldModule,
-    FlexLayoutModule,
     MatInputModule,
     ReactiveFormsModule,
     CommonModule

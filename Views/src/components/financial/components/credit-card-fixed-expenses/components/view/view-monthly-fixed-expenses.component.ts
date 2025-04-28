@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -28,7 +28,6 @@ import { ViewMonthlyFixedExpensesService } from './services/view-monthly-fixed-e
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    FlexLayoutModule,
     MatButtonModule,
     MatFormFieldModule,
     MatCardModule,

@@ -1,9 +1,9 @@
 <div>
     <h3>Contatos</h3>
 
-    <div fxLayout="column" [formGroup]="formMain">
-        <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="15px">
-            <div fxLayout="column" fxFlex>
+    <div  [formGroup]="formMain">
+        <div  (window:resize)="screen()" fxLayoutGap="15px">
+            <div  >
 
                 <mat-form-field appearance="outline">
                     <mat-label> E-mail:</mat-label>
@@ -15,7 +15,7 @@
                 </mat-form-field>
 
             </div>
-            <div fxLayout="column" fxFlex>
+            <div  >
 
                 <mat-form-field appearance="outline">
                     <mat-label>Site:</mat-label>
@@ -27,8 +27,8 @@
 
             </div>
         </div>
-        <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="15px">
-            <div fxLayout="column" fxFlex>
+        <div  (window:resize)="screen()" fxLayoutGap="15px">
+            <div  >
 
                 <mat-form-field appearance="outline">
                     <mat-label> Celular:</mat-label>
@@ -41,7 +41,7 @@
                 </mat-form-field>
 
             </div>
-            <div fxLayout="column" fxFlex>
+            <div  >
 
                 <mat-form-field appearance="outline">
                     <mat-label>WhatsApp</mat-label>
@@ -54,7 +54,7 @@
                 </mat-form-field>
 
             </div>
-            <div fxLayout="column" fxFlex>
+            <div  >
 
                 <mat-form-field appearance="outline">
                     <mat-label>Tel. Fixo:</mat-label>
@@ -68,30 +68,30 @@
 
             </div>
         </div>
-        <div fxLayout="column" fxLayoutAlign="center center">
+        <div  >
 
-            <div fxLayout="row" fxLayoutAlign="end end">
+            <div  fxLayoutAlign="end end">
                 <btn-g [name]="'Adicionar'" [icon]="'add'" (btn)="addSocialNets()"></btn-g>
                 <!-- <button mat-raised-button class="add-btn" (click)="addSocialNets()">
           <mat-icon>add</mat-icon>Adicionar
         </button> -->
             </div>
             <br>
-            <div id="labelBtnAdd" fxLayout="row" fxLayoutAlign="end end">
+            <div id="labelBtnAdd"  fxLayoutAlign="end end">
                 <h1>Rede Social</h1>
             </div>
         </div>
 
         <div formArrayName="socialMedias" *ngFor="let scnw of formSocialNets.controls; let i = index;">
-            <div [formGroupName]="i" fxLayout="column" fxLayoutGap="20">
-                <div fxLayout="row" fxFlex="15">
+            <div [formGroupName]="i"  fxLayoutGap="20">
+                <div  ="15">
 
                     <button type="button" mat-raised-button color="warn" (click)="removeNets(i)">
             <mat-icon>clear</mat-icon>&nbsp;&nbsp;Remover
           </button>
 
                 </div>
-                <div fxLayout="column" fxFlex>
+                <div  >
                     <mat-form-field appearance="outline">
                         <mat-label>Rede Social</mat-label>
                         <input matInput id="socialnetName" formControlName="name" aria-label="Rede Social">
@@ -102,7 +102,7 @@
                     </mat-form-field>
 
                 </div>
-                <div fxLayout="column" fxFlex>
+                <div  >
 
                     <mat-form-field appearance="outline">
                         <mat-label>Url (Link)</mat-label>

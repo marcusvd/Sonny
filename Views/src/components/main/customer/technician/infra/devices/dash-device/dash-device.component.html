@@ -3,7 +3,7 @@
         <mat-label>Pesquisar...</mat-label>
         <input matInput [(ngModel)]="FilteringString" placeholder="Clientes...">
     </mat-form-field>
-    <div fxLayout="row" *ngFor="let cli of FilteredCliFromObservable">
+    <div  *ngFor="let cli of FilteredCliFromObservable">
         <div>
             <a (click)="selectedCli(cli.netWorkDevices)">{{cli.name}}</a>
         </div>

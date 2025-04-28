@@ -1,6 +1,6 @@
 import { JsonPipe, NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -67,7 +67,6 @@ import { ValidatorMessagesCustomer } from 'src/components/main/customer/validato
   imports: [
     NgIf,
     MatButtonModule,
-    FlexLayoutModule,
     MatIconModule,
   ]
 })

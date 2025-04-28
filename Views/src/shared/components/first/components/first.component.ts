@@ -1,6 +1,6 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,7 +19,6 @@ import { SubTitleComponent } from '../../sub-title/default/sub-title.component';
   imports:[
     MatCardModule,
     MatIconModule,
-    FlexLayoutModule,
     SubTitleComponent
   ],
   templateUrl: './first.component.html',

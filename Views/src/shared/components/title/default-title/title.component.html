@@ -1,5 +1,5 @@
 <ng-container *ngIf="!btnFromOut else fromOut">
-    <section id="container-above" fxLayout="row">
+    <section id="container-above">
         <button id="btn-back" mat-raised-button (click)="back()">{{'Voltar'}}</button>
     </section>
 </ng-container>
@@ -8,26 +8,25 @@
     <ng-content select="[btnFromOut]"></ng-content>
 </ng-template>
 
-<section id="container-middle" fxLayout="row">
+<section id="container-middle">
 
 </section>
-<section class="container" fxLayout="row">
-    <div fxLayout="column" class="child" id="pipe">{{digit}}</div>
-    <div  fxLayout="column" class="child" [id]="titleIdCss">{{titleString}}</div>
-    <div fxLayout="column" class="child">
-        <mat-icon fxLayout="column" class="child" id="icon">{{icon}}</mat-icon>
+<section class="container">
+    <div class="child" id="pipe">{{digit}}</div>
+    <div class="child" [id]="titleIdCss">{{titleString}}</div>
+    <div class="child">
+        <mat-icon class="child" id="icon">{{icon}}</mat-icon>
     </div>
-    <div fxLayout="column" class="child">
+    <div class="child">
         <ng-content select="[btn-1]"></ng-content>
     </div>
-    <div fxFlex="4"></div>
-    <div fxLayout="column" class="child">
+    <div class="child">
         <ng-content select="[btn-2]"></ng-content>
     </div>
 </section>
-<!-- <section class="container" fxLayout="row" *ngIf="subTitleString">
-    <p fxLayout="column" id="sub-title-string">{{subTitleString}}</p>
+<!-- <section class="container"  *ngIf="subTitleString">
+    <p  id="sub-title-string">{{subTitleString}}</p>
 </section> -->
-<section [style]="styleContainerBelow" fxLayout="row">
+<section [style]="styleContainerBelow">
 
 </section>

@@ -4,16 +4,16 @@
     </title-component>
     <mat-card class="mat-card-sub-title">
         <sub-title title [title]="'Cadastro de clientes'" [icon]="'add'"></sub-title>
-        <div fxLayout="row">
+        <div >
             <h3>Identificação Cliente</h3>
         </div>
-        <div fxLayout="column">
-            <div fxLayout="row">
-                <name-cpf-cnpj (cpfCnpjBusinessData)="cpfCnpjBusinessData($event)" [formMain]="formMain" fxFlex> </name-cpf-cnpj>
-                <!-- <name-cpf-cnpj (cpfCnpjBusinessData)="cpfCnpjBusinessData($event)" [formMain]="formMain" [entityType]="'entityType'" fxFlex> </name-cpf-cnpj> -->
+        <div >
+            <div >
+                <name-cpf-cnpj (cpfCnpjBusinessData)="cpfCnpjBusinessData($event)" [formMain]="formMain" > </name-cpf-cnpj>
+                <!-- <name-cpf-cnpj (cpfCnpjBusinessData)="cpfCnpjBusinessData($event)" [formMain]="formMain" [entityType]="'entityType'" > </name-cpf-cnpj> -->
             </div>
-            <div fxLayout="row">
-                <main-entities-base [formMain]="formMain" [businessLine]="true" fxFlex>
+            <div >
+                <main-entities-base [formMain]="formMain" [businessLine]="true" >
 
                 </main-entities-base>
             </div>
@@ -26,9 +26,9 @@
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <mat-divider></mat-divider>
         <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div fxLayout="column">
-            <div fxLayout="row">
-                <physically-moving-costs [formMain]="subForm" fxFlex>
+        <div >
+            <div >
+                <physically-moving-costs [formMain]="subForm" >
                 </physically-moving-costs>
             </div>
         </div>
@@ -37,15 +37,15 @@
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <mat-divider></mat-divider>
         <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div fxLayout="column">
-            <div fxLayout="row">
-                <address [formMain]="this.address" fxFlex></address>
+        <div >
+            <div >
+                <address [formMain]="this.address" ></address>
             </div>
             <div class="middle-space-horizontal-beteween-fields"> </div>
             <mat-divider></mat-divider>
             <div class="middle-space-horizontal-beteween-fields"> </div>
-            <div fxLayout="row">
-                <contact fxFlex [formMain]="this.contact"></contact>
+            <div >
+                <contact  [formMain]="this.contact"></contact>
             </div>
         </div>
         <div class="middle-space-horizontal-beteween-fields"> </div>
@@ -54,5 +54,5 @@
         <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
     </mat-card>
 </div>
-<!-- <div class="border-around" fxLayoutAlign="center center">
+<!-- <div class="border-around" >
     <div>{{formMain.value|json}}</div> -->

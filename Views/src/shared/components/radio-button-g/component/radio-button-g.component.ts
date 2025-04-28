@@ -10,9 +10,9 @@ import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 @Component({
   selector: 'radio-button',
   template: `
-   <mat-radio-group [fxLayout]="screenFieldPosition"  (window:resize)="screen()" fxLayoutAlign="center center" fxFlex [(ngModel)]="selectedStart" fxLayoutGap="30px" (change)="onChangeRadioChoice($event.value)">
+   <mat-radio-group   (window:resize)="screen()"   [(ngModel)]="selectedStart"  (change)="onChangeRadioChoice($event.value)">
    <div  *ngFor="let radio of this.entities | keyvalue">
-     <div fxLayout="row">
+     <div >
      <mat-radio-button #radioButton value={{radio.value}} >
                     {{radio.key | radioOptionDisplayNameHandle}}
       </mat-radio-button>

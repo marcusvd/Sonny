@@ -2,7 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormBuilder, FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -49,7 +49,6 @@ import { TriggerCollectDeliverMonth } from './trigger-collect-deliver-month';
     MatButtonModule,
     MatMenuModule,
     RouterModule,
-    FlexLayoutModule,
     MatCheckboxModule,
     MatRadioModule,
     BankCardNumberPipe,

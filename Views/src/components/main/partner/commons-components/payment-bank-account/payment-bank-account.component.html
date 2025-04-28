@@ -1,13 +1,13 @@
-<div [formGroup]="formMain" fxLayout="column" (window:resize)="screen()">
+<div [formGroup]="formMain"  (window:resize)="screen()">
     <div formArrayName="banksAccounts" *ngFor="let bkAcc of bankAccountsArray.controls; let i = index;">
         <div [formGroupName]="i">
             <div class="middle-space-horizontal-beteween-fields"> </div>
             <div>{{'Conta ' }}{{i+1}}</div>
             <mat-divider></mat-divider>
             <div class="middle-space-horizontal-beteween-fields"> </div>
-            <div [fxLayout]="screenFieldPosition" [fxLayoutGap]="fxLayoutGap">
-                <div fxLayout="column" fxFlex>
-                    <mat-form-field fxFlex appearance="outline">
+            <div  >
+                <div  >
+                    <mat-form-field  appearance="outline">
                         <mat-label>Titular</mat-label>
                         <input matInput type="text" formControlName="holder" aria-label="Titular">
                         <mat-error>
@@ -16,8 +16,8 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <div fxLayout="column" fxFlex>
-                    <mat-form-field fxFlex appearance="outline">
+                <div  >
+                    <mat-form-field  appearance="outline">
                         <mat-label>Instituição Financeira</mat-label>
                         <input matInput type="text" formControlName="institution" aria-label="Instituição Financeira">
                         <mat-error>
@@ -28,9 +28,9 @@
                 </div>
             </div>
             <div class="middle-space-horizontal-beteween-fields "> </div>
-            <div [fxLayout]="screenFieldPosition" [fxLayoutGap]="fxLayoutGap">
-                <div fxLayout="column" fxFlex>
-                    <mat-form-field fxFlex appearance="outline">
+            <div  >
+                <div  >
+                    <mat-form-field  appearance="outline">
                         <mat-label>Agência</mat-label>
                         <input matInput type="text" formControlName="agency" aria-label="Agência">
                         <mat-error>
@@ -39,8 +39,8 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <div fxLayout="column" fxFlex>
-                    <mat-form-field fxFlex appearance="outline">
+                <div  >
+                    <mat-form-field  appearance="outline">
                         <mat-label>Conta</mat-label>
                         <input matInput type="text" formControlName="account" aria-label="Conta">
                         <mat-error>
@@ -50,8 +50,8 @@
                     </mat-form-field>
                 </div>
                 <div *ngIf="screenFieldPosition != 'column'" class="middle-space-horizontal-beteween-fields"> </div>
-                <div fxLayout="column" fxFlex>
-                    <mat-form-field fxFlex appearance="outline">
+                <div  >
+                    <mat-form-field  appearance="outline">
                         <mat-label>Tipo de Conta</mat-label>
                         <mat-select formControlName="type">
                             <mat-option [value]="typesAccount.id" *ngFor="let typesAccount of typeAccountsArray">
@@ -60,30 +60,30 @@
                     </mat-form-field>
                 </div>
             </div>
-            <div fxLayout="row">
-                <div fxLayout="column">
+            <div >
+                <div >
                     <btn-remove-g (remove)="remove(0)" id="btn-remove">
                     </btn-remove-g>
                 </div>
-                <div fxLayout="column" fxFlex>
+                <div  >
 
                 </div>
-                <div fxLayout="column">
+                <div >
 
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div fxLayout="row">
-    <div fxLayout="column" fxFlex>
+<div >
+    <div  >
 
 
     </div>
-    <div fxLayout="column">
+    <div >
         <btn-g [name]="'Adicionar'" [icon]="'add'" (click)="add()"></btn-g>
     </div>
-    <div fxLayout="column" fxFlex>
+    <div  >
 
     </div>
 </div>

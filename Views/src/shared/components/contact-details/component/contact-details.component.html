@@ -1,9 +1,9 @@
 <div>
     <mat-card-title>Contatos</mat-card-title>
     <mat-card>
-        <div fxLayout="column" [formGroup]="formMain">
-            <div fxLayout="row" fxFlex="100%" fxLayoutGap="30px">
-                <div fxFlex="50%" fxLayout="column">
+        <div  [formGroup]="formMain">
+            <div  ="100%" >
+                <div ="50%" >
                     <mat-form-field>
                         <mat-label> E-mail:</mat-label>
                         <input matInput formControlName="email">
@@ -15,7 +15,7 @@
                     </mat-form-field>
                 </div>
 
-                <div fxFlex="50%" fxLayout="column">
+                <div ="50%" >
                     <mat-form-field>
                         <mat-label>Site:</mat-label>
                         <input matInput formControlName="site">
@@ -31,9 +31,9 @@
 
             </div>
 
-            <div fxLayoutGap="30px" fxFlex="100%">
+            <div  ="100%">
 
-                <mat-form-field fxFlex="33%">
+                <mat-form-field ="33%">
                     <mat-label> Celular:</mat-label>
                     <input matInput mask="(00) 0-0000-0000" formControlName="cel" placeholder="(00) 0-0000-0000">
                     <!-- <mat-error>
@@ -43,7 +43,7 @@
               </mat-error> -->
                 </mat-form-field>
 
-                <mat-form-field fxFlex="33%">
+                <mat-form-field ="33%">
                     <mat-label>WhatsApp</mat-label>
                     <input matInput mask="(00) 0-0000-0000" formControlName="zap" placeholder="(00) 0-0000-0000">
                     <!-- <mat-error>
@@ -53,7 +53,7 @@
             </mat-error> -->
                 </mat-form-field>
 
-                <mat-form-field fxFlex="33%">
+                <mat-form-field ="33%">
                     <mat-label>Tel. Fixo:</mat-label>
                     <input matInput mask="(00) 0-000-0000" formControlName="landline" placeholder="(00) 0-000-0000">
                     <!-- <mat-error>
@@ -70,28 +70,28 @@
           </mat-error> -->
             </div>
 
-            <div fxLayout="column">
-                <div id="labelBtnAdd" fxLayout="row" fxLayoutAlign="end end">
+            <div >
+                <div id="labelBtnAdd"  fxLayoutAlign="end end">
                     <h6>Rede Social</h6>
                 </div>
-                <div fxLayout="row" fxLayoutAlign="end end">
+                <div  fxLayoutAlign="end end">
                     <button mat-raised-button color="primary" style="width: 180px; height: 40px; font-size: 25px;" (click)="validator.addSocialNets()">Adicionar</button>
                 </div>
             </div>
             <div class="pt-3"></div>
-            <div fxFlex="100%" fxLayout="column">
+            <div ="100%" >
                 <div formArrayName="socialnetworks" *ngFor="let scnw of formSocialNets.controls; let i = index;">
-                    <div fxLayoutGap="30px" [formGroupName]="i">
-                        <mat-form-field fxFlex="40%">
+                    <div  [formGroupName]="i">
+                        <mat-form-field ="40%">
                             <mat-label>Rede Social</mat-label>
                             <input matInput id="socialnetName" formControlName="name">
                         </mat-form-field>
-                        <mat-form-field fxFlex="40%">
+                        <mat-form-field ="40%">
                             <mat-label>Url (Link)</mat-label>
                             <input matInput id="socialnetUrl" formControlName="url">
                         </mat-form-field>
 
-                        <button mat-raised-button color="warn" fxLayoutAlign="center center" style="float: right; width: 180px; height: 40px; font-size: 25px;" (click)="_CntValService.removeNets(i)">Remover</button>
+                        <button mat-raised-button color="warn"  style="float: right; width: 180px; height: 40px; font-size: 25px;" (click)="_CntValService.removeNets(i)">Remover</button>
 
 
                     </div>

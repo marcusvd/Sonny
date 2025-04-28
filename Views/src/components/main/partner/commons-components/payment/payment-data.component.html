@@ -1,11 +1,11 @@
-<div [formGroup]="formMain" fxLayout="column" fxFlex>
-    <div fxLayout="row">
+<div [formGroup]="formMain"  >
+    <div >
         <h3>Financeiro Formas de pagamento </h3>
     </div>
-    <div [fxLayout]="screenFieldPosition" (window:resize)="screen()" fxLayoutGap="15">
+    <div  (window:resize)="screen()" fxLayoutGap="15">
         <div [formGroup]="formMain">
-            <div fxLayout="row" fxLayoutGap="10" fxFlex>
-                <div fxLayout="column">
+            <div   >
+                <div >
                     <mat-checkbox formControlName="money">
                     </mat-checkbox>
                     <div class="check-box-label-space"></div>
@@ -22,8 +22,8 @@
         </div>
     </div>
     <div class="middle-space-horizontal-beteween-fields"> </div>
-    <div [formGroup]="formMain" fxLayout="row" *ngIf="others.checked">
-        <mat-form-field appearance="outline" fxFlex>
+    <div [formGroup]="formMain"  *ngIf="others.checked">
+        <mat-form-field appearance="outline" >
             <mat-label>Outras formas</mat-label>
             <input matInput type="text " formControlName="others" aria-label="Outras formas">
             <!-- <mat-error>
@@ -34,7 +34,7 @@
     <div class="middle-space-horizontal-beteween-fields"> </div>
     <mat-divider></mat-divider>
     <div class="middle-space-horizontal-beteween-fields"> </div>
-    <div fxLayout="row">
+    <div >
         <h5>PIXES</h5>
     </div>
     <pix [formMain]="formMain" [noBeneficiaryField]="true">
@@ -42,7 +42,7 @@
     <div class="middle-space-horizontal-beteween-fields"> </div>
     <mat-divider></mat-divider>
     <div class="middle-space-horizontal-beteween-fields"> </div>
-    <div fxLayout="row">
+    <div >
         <h5>CONTAS BANCÁRIAS</h5>
     </div>
     <payment-bank-account [formMain]="formMain" (addOutput)="addBank()" (removeOutput)="removeBank($event)">

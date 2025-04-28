@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule, NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -22,7 +22,6 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
     MatSelectModule,
     MatInputModule,
     MatCheckboxModule,
-    FlexLayoutModule,
     CurrencyMaskModule,
     MatDatepickerModule,
   ],

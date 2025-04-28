@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -27,7 +27,6 @@ import { MyUser } from 'src/components/authentication/dto/my-user';
   standalone:true,
   imports:[
     CommonModule,
-     FlexLayoutModule,
      ReactiveFormsModule,
      MatFormFieldModule,
      MatCardModule,

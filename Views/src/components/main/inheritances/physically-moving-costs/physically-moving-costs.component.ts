@@ -7,7 +7,7 @@ import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
@@ -19,7 +19,6 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
   standalone: true,
   imports: [
     CommonModule,
-    FlexLayoutModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,

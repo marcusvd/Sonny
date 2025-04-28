@@ -7,7 +7,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { CommonModule } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -23,7 +23,6 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
   standalone: true,
   imports: [
     CommonModule,
-    FlexLayoutModule,
     MatCheckboxModule,
     MatFormFieldModule,
     ReactiveFormsModule,

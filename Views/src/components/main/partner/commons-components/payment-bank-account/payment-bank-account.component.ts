@@ -2,7 +2,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
@@ -25,7 +25,6 @@ import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
   templateUrl: './payment-bank-account.component.html',
   standalone: true,
   imports: [
-    FlexLayoutModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,

@@ -1,13 +1,13 @@
-<div fxLayout="column" class="border-around">
+<div  class="border-around">
     <title-component [digit]="'|'" [titleString]="'Despesas Variáveis'" [icon]="'attach_money'">
         <btn-g btn-1 [styleSize]="'width:150px;'" [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
     </title-component>
-    <mat-card [formGroup]="formMain" fxLayout="column" *ngIf="formMain">
+    <mat-card [formGroup]="formMain"  *ngIf="formMain">
         <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
         <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div fxLayout="row" fxFlex fxLayoutGap="10" (window:resize)="screen()" [fxLayout]="screenFieldPosition">
-            <div fxLayout="column" fxFlex>
-                <mat-form-field fxFlex appearance="outline">
+        <div    (window:resize)="screen()" >
+            <div  >
+                <mat-form-field  appearance="outline">
                     <mat-label>Despesa</mat-label>
                     <input matInput type="text" formControlName="name" aria-label="nome">
                     <mat-error>
@@ -16,8 +16,8 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div fxLayout="column" fxFlex>
-                <mat-form-field fxFlex appearance="outline">
+            <div  >
+                <mat-form-field  appearance="outline">
                     <mat-label>Local</mat-label>
                     <input matInput type="text" formControlName="place" placeholder="Local da despesa"
                         aria-label="Local da despesa">
@@ -30,11 +30,11 @@
 
 
         </div>
-        <div (window:resize)="screen()" [fxLayout]="screenFieldPosition" fxLayoutGap="10">
+        <div (window:resize)="screen()"  >
             <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle">
             </select-category-subcategory-expenses>
 
-            <div fxLayout="column" fxFlex="20">
+            <div  ="20">
                 <mat-form-field appearance="outline">
                     <mat-label>Data despesa</mat-label>
                     <input matInput formControlName="wasPaid" [matDatepicker]="expenses" aria-label="Data despesa">
@@ -46,8 +46,8 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div fxLayout="column" fxFlex>
-                <mat-form-field fxFlex appearance="outline" fxFlex>
+            <div  >
+                <mat-form-field  appearance="outline" >
                     <mat-label>Valor</mat-label>
                     <input currencyMask matInput type="text" formControlName="price" aria-label="Valor">
                     <mat-error>
@@ -59,7 +59,7 @@
 
         <div class="middle-space-horizontal-beteween-fields"> </div>
 
-        <div fxLayout="column" fxFlex>
+        <div  >
             <get-bank-account-select-single 
             [urlBackEndApi]="'GetAllFnBankAccount'" 
             [formMain]="formMain"
@@ -71,11 +71,11 @@
             </get-bank-account-select-single>
         </div>
         <div pixExpense>
-            <pixes-expenses-fields [expenseDayDisabled]="true" pixExpense [formMain]="subForm" fxFlex *ngIf="selectedPixRadio == 0">
+            <pixes-expenses-fields [expenseDayDisabled]="true" pixExpense [formMain]="subForm"  *ngIf="selectedPixRadio == 0">
             </pixes-expenses-fields>
         </div>
-        <div fxLayout="row">
-            <mat-form-field fxFlex appearance="outline">
+        <div >
+            <mat-form-field  appearance="outline">
                 <mat-label>Despesa descritivo</mat-label>
                 <input matInput type="text" formControlName="description" aria-label="Descrição">
                 <mat-hint>EX: Seguro Casa, Seguro Escritório, Luz residência, Internet loja etc...</mat-hint>
@@ -89,7 +89,7 @@
 
         <!-- <div>{{formMain.value | json}}</div> -->
 
-        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="50px">
+        <div   fxLayoutGap="50px">
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
         </div>
     </mat-card>

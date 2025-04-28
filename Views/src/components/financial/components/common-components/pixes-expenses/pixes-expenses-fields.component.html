@@ -1,17 +1,17 @@
-<div fxLayout="row">
+<div >
     <mat-label id="label">Pix do beneficiado:</mat-label>
 </div>
 <div class="middle-space-horizontal-beteween-fields"> </div>
-<div (window:resize)="screen()" [fxLayout]="fxLayout" fxflex [formGroup]="formMain" *ngIf="formMain" fxLayoutGap="10">
+<div (window:resize)="screen()" [fxLayout]="fxLayout"  [formGroup]="formMain" *ngIf="formMain" >
 
-    <div fxLayout="column" [fxFlex]="fxFlexBenefitedKey">
-    <!-- <div fxLayout="column" [fxFlex]="fxFlexBenefitedKey"> -->
+    <div  []="BenefitedKey">
+    <!-- <div  []="BenefitedKey"> -->
         <mat-form-field appearance="outline">
             <mat-label>Chave Pix Beneficiado</mat-label>
             <input matInput type="text" [formControlName]="'benefitedKey'" aria-label="Valor juros">
         </mat-form-field>
     </div>
-    <div fxLayout="column" [fxFlex]="fxFlexExpenseDay">
+    <div  []="ExpenseDay">
         <mat-form-field appearance="outline">
             <mat-label>Dia despesa</mat-label>
             <input [disabled]="expenseDayDisabled" matInput [matDatepicker]="picker3" formControlName="expenseDay">
@@ -24,8 +24,8 @@
         </mat-form-field>
     </div>
 
-    <div fxLayout="column" [fxFlex]="fxFlexExpenseDay" *ngIf="priceDisabled">
-        <mat-form-field fxFlex appearance="outline" fxFlex="100">
+    <div  []="ExpenseDay" *ngIf="priceDisabled">
+        <mat-form-field  appearance="outline" ="100">
             <mat-label>Valor</mat-label>
             <input currencyMask matInput type="text" formControlName="price" aria-label="Valor">
             <mat-error>
