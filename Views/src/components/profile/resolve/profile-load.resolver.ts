@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { Observable } from "rxjs";
 import { AccountService } from "src/components/authentication/services/account.service";
 
@@ -11,7 +11,7 @@ import { AuthenticationService } from "src/components/authentication/services/au
 
 
 @Injectable()
-export class ProfileLoadResolver implements Resolve<Observable<MyUser>> {
+export class ProfileLoadResolver  {
   constructor(
     private _account: AccountService,
     private _auth: AuthenticationService,
