@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormControl } from "@angular/forms";
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { PaginationDto } from "src/shared/entities-dtos/pagination-dto";
@@ -99,7 +99,7 @@ export class GridListCommonHelper extends BackEndService<any> {
 }
 
 @Injectable()
-export class GetTotalEntitiesResolver extends BackEndService<any> implements Resolve<number> {
+export class GetTotalEntitiesResolver extends BackEndService<any>  {
 
   constructor(
     override _http: HttpClient,
