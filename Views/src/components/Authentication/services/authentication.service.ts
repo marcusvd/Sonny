@@ -5,7 +5,7 @@ import { take} from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { BackEndService } from 'src/shared/services/back-end/backend.service';
 import { CommunicationAlerts } from 'src/shared/services/messages/snack-bar.service';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog as MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { UserToken } from '../dto/user-token';

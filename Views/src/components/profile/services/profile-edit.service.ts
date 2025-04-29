@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog as MatDialog } from '@angular/material/dialog';
 import { AccountEditInfoComponent } from '../user/components/account/account-edit-info/account-edit-info.component';
 import { MyUser } from 'src/components/authentication/dto/my-user';
 import { BackEndService } from 'src/shared/services/back-end/backend.service';

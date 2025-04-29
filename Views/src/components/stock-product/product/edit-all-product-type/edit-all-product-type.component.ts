@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { MatLegacyRadioChange as MatRadioChange } from '@angular/material/legacy-radio';
+import { MatRadioChange as MatRadioChange } from '@angular/material/radio';
 import { Router } from '@angular/router';
 import { FormControllerEditProductType } from './helpers/form-controller-edit-product-type';
 import { ImportsEditProductType } from './imports/imports-edit-product-type';

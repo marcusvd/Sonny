@@ -2,9 +2,9 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
+import { MatSelectModule as MatSelectModule } from '@angular/material/select';
+import { MatCardModule as MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule as MatFormFieldModule } from '@angular/material/form-field';
 
 
 import { View } from 'src/shared/components/inheritance/view/view';

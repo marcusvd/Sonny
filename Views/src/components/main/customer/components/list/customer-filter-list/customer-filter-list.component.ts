@@ -1,18 +1,17 @@
 import { JsonPipe, NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MatLegacyCheckbox as MatCheckbox, MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { NgxMaskModule } from 'ngx-mask';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorMessagesCustomer } from 'src/components/main/customer/validators/customer/validators-messages-customer';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { FilterSearch } from './interface/filter-search';
 
 @Component({
@@ -74,7 +73,7 @@ import { FilterSearch } from './interface/filter-search';
     NgIf,
     NgFor,
     MatButtonModule,
-    
+
     MatIconModule,
     MatDividerModule,
     MatInputModule,

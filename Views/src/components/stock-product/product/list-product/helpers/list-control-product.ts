@@ -1,5 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { LegacyPageEvent as PageEvent } from "@angular/material/legacy-paginator";
+import { LegacyPageEvent as PageEvent } from "@angular/material/paginator";
 import { Router } from "@angular/router";
 import { Observable, Subscription, of } from "rxjs";
 
@@ -23,7 +23,7 @@ import { ex_makeItemsGridLager } from "./screen/large-grid-responsive";
 import { ex_supplyItemsGrid } from "./screen/supply-grid-responsive";
 import { makeHeaderToOrder } from "./order-items-by-header";
 import { ex_showDetails } from "./actions-control-products";
-import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
+import { MatDialog as MatDialog } from "@angular/material/dialog";
 import { OnClickInterface } from "src/shared/components/list-g/list/interfaces/on-click-interface";
 import { ex_callRouteWithObject } from "src/shared/helpers/useful/route";
 

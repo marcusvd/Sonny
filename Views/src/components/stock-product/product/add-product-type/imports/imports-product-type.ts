@@ -1,12 +1,12 @@
 import { CommonModule } from "@angular/common"
 import { ReactiveFormsModule } from "@angular/forms"
-import { MatLegacyCardModule as MatCardModule } from "@angular/material/legacy-card"
-import { MatLegacyCheckboxModule as MatCheckboxModule } from "@angular/material/legacy-checkbox"
-import { MatLegacyFormFieldModule as MatFormFieldModule } from "@angular/material/legacy-form-field"
-import { MatLegacyInputModule as MatInputModule } from "@angular/material/legacy-input"
+import { MatCardModule as MatCardModule } from "@angular/material/card"
+import { MatCheckboxModule as MatCheckboxModule } from "@angular/material/checkbox"
+import { MatFormFieldModule as MatFormFieldModule } from "@angular/material/form-field"
+import { MatInputModule as MatInputModule } from "@angular/material/input"
 
 
-import { MatLegacySelectModule as MatSelectModule } from "@angular/material/legacy-select"
+import { MatSelectModule as MatSelectModule } from "@angular/material/select"
 import { BtnGComponent } from "src/shared/components/btn-g/btn-g.component"
 import { InputFieldGComponent } from "src/shared/components/input-field-g/input-field-g.component"
 import { SelectInputSearchGComponent } from "src/shared/components/select-input-search-g/select-input-search-g.component"

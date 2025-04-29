@@ -2,7 +2,7 @@ import { CommonModule, NgIf, TitleCasePipe, UpperCasePipe } from '@angular/commo
 import { Component, OnInit } from '@angular/core';
 import { MatDivider, MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
+import { MatMenuModule as MatMenuModule } from '@angular/material/menu';
 import { RouterLink } from '@angular/router';
 import { AuthenticationService } from 'src/components/authentication/services/authentication.service';
 import { MaterialModule } from 'src/shared/modules/material.module';

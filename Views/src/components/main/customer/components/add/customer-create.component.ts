@@ -3,8 +3,8 @@ import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { MatLegacyButtonModule as MatButtonModule } from "@angular/material/legacy-button";
-import { MatLegacyCardModule as MatCardModule } from "@angular/material/legacy-card";
+import { MatButtonModule as MatButtonModule } from "@angular/material/button";
+import { MatCardModule as MatCardModule } from "@angular/material/card";
 import { MatDividerModule } from "@angular/material/divider";
 import { RouterModule } from "@angular/router";
 

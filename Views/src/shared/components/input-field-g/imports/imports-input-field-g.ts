@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common"
 import { ReactiveFormsModule } from "@angular/forms"
-import { MatLegacyInputModule as MatInputModule } from "@angular/material/legacy-input"
+import { MatInputModule as MatInputModule } from "@angular/material/input"
 import { CurrencyMaskModule } from "ng2-currency-mask"
 import { SubTitleComponent } from "src/shared/components/sub-title/default/sub-title.component"
 import { TitleComponent } from "src/shared/components/title/default-title/title.component"

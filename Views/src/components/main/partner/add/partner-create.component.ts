@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatCardModule as MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip';
+import { MatFormFieldModule as MatFormFieldModule } from '@angular/material/form-field';
+import { MatTooltipModule as MatTooltipModule } from '@angular/material/tooltip';
 
 
-import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatCheckboxModule as MatCheckboxModule } from '@angular/material/checkbox';
+import { MatInputModule as MatInputModule } from '@angular/material/input';
 import { AddressComponent } from 'src/shared/components/address/component/address.component';
 import { AddressService } from 'src/shared/components/address/services/address.service';
 import { DescriptionFieldComponent } from 'src/shared/components/administrative/info/description-field.component';

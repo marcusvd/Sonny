@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common"
-import { MatLegacyCardModule as MatCardModule } from "@angular/material/legacy-card"
-import { MatLegacyPaginatorModule as MatPaginatorModule } from "@angular/material/legacy-paginator"
+import { MatCardModule as MatCardModule } from "@angular/material/card"
+import { MatPaginatorModule as MatPaginatorModule } from "@angular/material/paginator"
 
 
 import { BtnGComponent } from "src/shared/components/btn-g/btn-g.component"

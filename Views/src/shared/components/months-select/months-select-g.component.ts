@@ -2,8 +2,8 @@ import { NgFor } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import { MatFormFieldModule as MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule as MatSelectModule } from '@angular/material/select';
 import { MonthsDto } from './months-dto';
 
 @Component({
