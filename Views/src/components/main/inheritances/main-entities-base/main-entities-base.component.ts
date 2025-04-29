@@ -3,24 +3,26 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 @Component({
-    selector: 'main-entities-base',
-    templateUrl: './main-entities-base.component.html',
-    styleUrls: ['./main-entities-base.component.css'],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule
-    ]
+  selector: 'main-entities-base',
+  templateUrl: './main-entities-base.component.html',
+  styleUrls: ['./main-entities-base.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule
+  ]
 })
 export class MainEntitiesBaseComponent extends BaseForm implements OnInit, OnChanges {
 

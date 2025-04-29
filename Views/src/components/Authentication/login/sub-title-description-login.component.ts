@@ -48,7 +48,7 @@
 
 // `],
 //   standalone: true,
-//   imports: [MatIconModule, ]
+//   imports: [MatIconModule]
 // })
 // export class SubTitleDescriptionLoginComponent {
 

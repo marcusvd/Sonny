@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
 
 
@@ -26,28 +26,31 @@ import { PixExpensesService } from './services/pix-expenses.service';
 
 
 @Component({
-    selector: 'pix-expenses',
-    templateUrl: './pix-expenses-add.component.html',
-    styleUrls: ['./pix-expenses-add.component.css'],
-    providers: [
-        PixExpensesService,
-        CategoryExpensesService
-    ],
-    imports: [
-        CommonModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatCardModule,
-        ReactiveFormsModule,
-        MatDatepickerModule,
-        CurrencyMaskModule,
-        TitleComponent,
-        SubTitleComponent,
-        BankAccountMatSelectSingleComponent,
-        CategorySubcategoryExpensesSelectComponent,
-        BtnGComponent,
-        PixesExpensesFieldsComponent
-    ]
+  selector: 'pix-expenses',
+  templateUrl: './pix-expenses-add.component.html',
+  styleUrls: ['./pix-expenses-add.component.css'],
+  providers: [
+    PixExpensesService,
+    CategoryExpensesService
+  ],
+  standalone: true,
+  imports: [
+    CommonModule,
+    
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    CurrencyMaskModule,
+    TitleComponent,
+    SubTitleComponent,
+    BankAccountMatSelectSingleComponent,
+    CategorySubcategoryExpensesSelectComponent,
+    BtnGComponent,
+    PixesExpensesFieldsComponent
+  ],
+
 })
 
 export class PixExpensesAddComponent extends Add implements OnInit {

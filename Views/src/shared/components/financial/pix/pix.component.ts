@@ -3,12 +3,12 @@ import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { NgxMaskModule } from 'ngx-mask';
 import { PixDto } from 'src/components/financial/components/bank-account-cards/dto/pix-dto';
@@ -19,22 +19,24 @@ import { BtnGComponent } from '../../btn-g/btn-g.component';
 import { PixValidator } from './pix.validator';
 
 @Component({
-    selector: 'pix',
-    templateUrl: './pix.component.html',
-    styleUrls: ['./pix.component.css'],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatCardModule,
-        MatSelectModule,
-        MatDividerModule,
-        NgxMaskModule,
-        NgFor,
-        NgIf,
-        BtnGComponent
-    ]
+  selector: 'pix',
+  templateUrl: './pix.component.html',
+  styleUrls: ['./pix.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatSelectModule,
+    MatDividerModule,
+    
+    NgxMaskModule,
+    NgFor,
+    NgIf,
+    BtnGComponent
+  ]
 })
 export class PixComponent extends BaseForm implements OnInit, OnChanges {
 

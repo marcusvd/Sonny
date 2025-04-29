@@ -4,11 +4,11 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 
 
@@ -21,23 +21,25 @@ import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 
 
 @Component({
-    selector: 'payment-bank-account',
-    templateUrl: './payment-bank-account.component.html',
-    imports: [
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatDividerModule,
-        MatCardModule,
-        ReactiveFormsModule,
-        NgFor,
-        NgIf,
-        BtnGComponent
-    ],
-    providers: [PtBrDatePipe],
-    styles: [`
+  selector: 'payment-bank-account',
+  templateUrl: './payment-bank-account.component.html',
+  standalone: true,
+  imports: [
+    
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDividerModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    NgFor,
+    NgIf,
+    BtnGComponent
+  ],
+  providers: [PtBrDatePipe],
+  styles: [`
 
-  `]
+  `],
 })
 export class PaymentBankAccountComponent extends BaseForm implements OnInit {
 

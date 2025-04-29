@@ -15,15 +15,12 @@
 			"prefix": "app",
 			"architect": {
 				"build": {
-					"builder": "@angular-devkit/build-angular:application",
+					"builder": "@angular-devkit/build-angular:browser",
 					"options": {
-						"outputPath": {
-              "base": "./dist/views"
-            },
-            "index": "src/index.html",
-						"polyfills": [
-              "src/polyfills.ts"
-            ],
+						"outputPath": "./dist/views",
+						"index": "src/index.html",
+						"main": "src/main.ts",
+						"polyfills": "src/polyfills.ts",
 						"tsConfig": "tsconfig.app.json",
 						"assets": [
 							"src/favicon.ico",
@@ -32,12 +29,13 @@
 						"styles": [
 							"src/styles.scss"
 						],
-            "scripts": [],
-            "extractLicenses": false,
+						"scripts": [],
+						"vendorChunk": true,
+						"extractLicenses": false,
+						"buildOptimizer": false,
 						"sourceMap": true,
 						"optimization": false,
-            "namedChunks": true,
-            "browser": "src/main.ts"
+						"namedChunks": true
 					},
 					"configurations": {
 						"production": {
@@ -51,7 +49,9 @@
 							"outputHashing": "all",
 							"sourceMap": false,
 							"namedChunks": false,
-              "extractLicenses": true,
+							"extractLicenses": true,
+							"vendorChunk": false,
+							"buildOptimizer": true,
 							"budgets": [
 								{
 									"type": "initial",
@@ -70,19 +70,19 @@
 				},
 				"serve": {
 					"builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "buildTarget": "Views:build"
+					"options": {
+						"browserTarget": "Views:build"
 					},
 					"configurations": {
-            "production": {
-              "buildTarget": "Views:build:production"
+						"production": {
+							"browserTarget": "Views:build:production"
 						}
 					}
 				},
 				"extract-i18n": {
 					"builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "buildTarget": "Views:build"
+					"options": {
+						"browserTarget": "Views:build"
 					}
 				},
 				"test": {

@@ -1,8 +1,8 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { PhoneNumberPipe } from 'src/shared/pipes/phone-number.pipe';
@@ -15,19 +15,20 @@ import { SpinnerGComponent } from '../spinner-g/component/spinner-g.component';
 import { IEntityGridAction } from './interface/entity-grid-action';
 
 @Component({
-    selector: 'grid-list-common-table',
-    templateUrl: './grid-list-common-table.component.html',
-    styleUrls: ['./grid-list-common.component.css'],
-    imports: [
-        CommonModule,
-        NgFor,
-        NgIf,
-        MatIconModule,
-        MatButtonModule,
-        MatMenuModule,
-        SpinnerGComponent,
-        PhoneNumberPipe
-    ]
+  selector: 'grid-list-common-table',
+  templateUrl: './grid-list-common-table.component.html',
+  styleUrls: ['./grid-list-common.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    NgFor,
+    NgIf,
+    MatIconModule,
+    MatButtonModule,
+    MatMenuModule,
+    SpinnerGComponent,
+    PhoneNumberPipe
+  ],
 })
 export class GridListCommonTableComponent implements OnInit, OnChanges {
   spinner = true;

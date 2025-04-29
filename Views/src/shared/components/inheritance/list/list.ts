@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { AfterViewInit, Component, Inject, ViewChild } from '@angular/core';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MatLegacyPaginator as MatPaginator, LegacyPageEvent as PageEvent } from '@angular/material/legacy-paginator';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -15,10 +15,9 @@ import { MonthsDto } from '../../months-select/months-dto';
 import { IList } from './ilist';
 
 @Component({
-    selector: 'list',
-    template: `
-  `,
-    standalone: false
+  selector: 'list',
+  template: `
+  `
 })
 
 export class List extends BaseForm implements IList, AfterViewInit {

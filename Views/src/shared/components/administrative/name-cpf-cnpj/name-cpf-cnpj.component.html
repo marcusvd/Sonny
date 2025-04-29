@@ -12,7 +12,7 @@
         </div>
 
         <div   *ngIf="formMain.get('entityType').value">
-            <div  >
+            <div  fxLayoutGap="30px">
                 <mat-form-field appearance="outline"  >
                     <mat-label>CNPJ</mat-label>
                     <input type="text" #cnpj (blur)="isValid(cnpj.value,'cnpj',formMain, 'cnpj')" matInput [mask]="pixInputMask('CNPJ')" [placeholder]="pixInputMask('CNPJ')" formControlName="cnpj" aria-label="CNPJ">
@@ -22,7 +22,7 @@
                 </mat-form-field>
                 <div *ngIf="btnGetData">
                     <div  *ngIf="formMain.get('entityType').value">
-                        <div >
+                        <div fxLayoutAlign="center center">
                             <button class="get-btn" mat-raised-button (click)="getCnpjData(cnpj.value,'cnpj',formMain, 'cnpj')" (blur)="isValid(cnpj.value,'cnpj',formMain, 'cnpj')">Obter dados</button>
                         </div>
                     </div>

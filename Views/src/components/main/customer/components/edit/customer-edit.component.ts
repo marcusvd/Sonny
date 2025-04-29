@@ -4,9 +4,9 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 
 
 import { CommonModule } from "@angular/common";
-import {  } from "@angular/flex-layout";
-import { MatLegacyButtonModule as MatButtonModule } from "@angular/material/legacy-button";
-import { MatLegacyCardModule as MatCardModule } from "@angular/material/legacy-card";
+
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
 import { MatDividerModule } from "@angular/material/divider";
 import { ActivatedRoute, RouterModule } from "@angular/router";
 import { MainEntitiesBaseComponent } from "src/components/main/inheritances/main-entities-base/main-entities-base.component";
@@ -35,27 +35,29 @@ import { CustomerDto } from "../commons-components/dtos/customer-dto";
 
 
 @Component({
-    selector: 'customer-edit',
-    templateUrl: './customer-edit.component.html',
-    styleUrls: ['./customer-edit.component.css'],
-    imports: [
-        CommonModule,
-        MatButtonModule,
-        MatCardModule,
-        ReactiveFormsModule,
-        RouterModule,
-        MatDividerModule,
-        TitleComponent,
-        SubTitleComponent,
-        NameCpfCnpjComponent,
-        MainEntitiesBaseComponent,
-        DescriptionFieldComponent,
-        FinancialInfoTypeComponent,
-        PhysicallyMovingCostsComponent,
-        ContactComponent,
-        AddressComponent,
-        BtnGComponent,
-    ]
+  selector: 'customer-edit',
+  templateUrl: './customer-edit.component.html',
+  styleUrls: ['./customer-edit.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    
+    MatButtonModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    RouterModule,
+    MatDividerModule,
+    TitleComponent,
+    SubTitleComponent,
+    NameCpfCnpjComponent,
+    MainEntitiesBaseComponent,
+    DescriptionFieldComponent,
+    FinancialInfoTypeComponent,
+    PhysicallyMovingCostsComponent,
+    ContactComponent,
+    AddressComponent,
+    BtnGComponent,
+  ]
 })
 
 export class CustomerEditComponent extends BaseForm implements OnInit {

@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MatLegacyCheckboxChange as MatCheckboxChange, MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
-import { MatLegacyDialog as MatDialog, MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
-import { MatLegacyRadioButton as MatRadioButton, MatLegacyRadioChange as MatRadioChange, MatLegacyRadioModule as MatRadioModule } from '@angular/material/legacy-radio';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioButton, MatRadioChange, MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
@@ -36,34 +36,38 @@ import { CollectDeliverCreateService } from './services/collect-deliver-create.s
 
 
 @Component({
-    selector: 'collect-deliver-create',
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        FormsModule,
-        MatSelectModule,
-        NgxMatSelectSearchModule,
-        MatDividerModule,
-        MatInputModule,
-        MatRadioModule,
-        MatCheckboxModule,
-        MatCardModule,
-        MatButtonModule,
-        MatDialogModule,
-        CurrencyMaskModule,
-        TitleComponent,
-        SubTitleComponent,
-        SubjectContactComponent,
-        GetCustomerMatSelectSingleComponent,
-        GetPartnerMatSelectSingleComponent,
-        OthersDestiniesComponent,
-        GetTransporterMatSelectSingleComponent,
-        DescriptionFieldComponent,
-        BtnGComponent
-    ],
-    templateUrl: './collect-deliver-create.component.html',
-    styleUrls: ['./collect-deliver-create.component.css'],
-    providers: [CollectDeliverCreateService]
+  selector: 'collect-deliver-create',
+  // encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatSelectModule,
+    NgxMatSelectSearchModule,
+    MatDividerModule,
+    MatInputModule,
+    MatRadioModule,
+    MatCheckboxModule,
+    MatCardModule,
+    MatButtonModule,
+    MatDialogModule,
+    
+    CurrencyMaskModule,
+    TitleComponent,
+    SubTitleComponent,
+    SubjectContactComponent,
+    GetCustomerMatSelectSingleComponent,
+    GetPartnerMatSelectSingleComponent,
+    OthersDestiniesComponent,
+    GetTransporterMatSelectSingleComponent,
+    DescriptionFieldComponent,
+    BtnGComponent
+
+  ],
+  templateUrl: './collect-deliver-create.component.html',
+  styleUrls: ['./collect-deliver-create.component.css'],
+  providers: [CollectDeliverCreateService],
 })
 export class CollectDeliverCreateComponent extends Add implements OnInit {
 

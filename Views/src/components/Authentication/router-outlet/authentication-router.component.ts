@@ -5,13 +5,14 @@ import { RouterModule } from '@angular/router';
 
 
 @Component({
-    selector: 'authentication-router',
-    templateUrl: './authentication-router.component.html',
-    styleUrls: ['./authentication-router.component.css'],
-    imports: [
-        CommonModule,
-        RouterModule,
-    ]
+  selector: 'authentication-router',
+  templateUrl: './authentication-router.component.html',
+  styleUrls: ['./authentication-router.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule,
+  ]
 })
 export class AuthenticationRouterComponent  {
 

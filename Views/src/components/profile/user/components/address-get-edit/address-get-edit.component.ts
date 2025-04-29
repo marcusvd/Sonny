@@ -6,10 +6,9 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
 
 @Component({
-    selector: 'address-get-edit',
-    templateUrl: './address-get-edit.component.html',
-    styleUrls: ['./address-get-edit.component.css'],
-    standalone: false
+  selector: 'address-get-edit',
+  templateUrl: './address-get-edit.component.html',
+  styleUrls: ['./address-get-edit.component.css']
 })
 export class AddressGetEditComponent extends BaseForm implements OnInit {
 

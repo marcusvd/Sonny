@@ -3,13 +3,13 @@ import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 
 
@@ -25,22 +25,24 @@ import { ValidatorsMessagesAuthentication } from '../validators/validators-messa
 
 
 @Component({
-    selector: 'register',
-    templateUrl: './register.component.html',
-    styleUrls: ['./register.component.css'],
-    imports: [
-        MatCardModule,
-        MatFormFieldModule,
-        ReactiveFormsModule,
-        MatIconModule,
-        MatInputModule,
-        MatButtonModule,
-        MatDividerModule,
-        RouterModule,
-        NgIf,
-        CaptchaComponent,
-        TitleDescriptionAuthComponent
-    ]
+  selector: 'register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css'],
+  standalone: true,
+  imports: [
+    MatCardModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDividerModule,
+    RouterModule,
+    
+    NgIf,
+    CaptchaComponent,
+    TitleDescriptionAuthComponent
+  ]
 })
 export class RegisterComponent extends BaseForm implements OnInit {
 

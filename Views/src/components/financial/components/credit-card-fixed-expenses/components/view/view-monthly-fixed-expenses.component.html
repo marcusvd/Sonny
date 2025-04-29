@@ -72,7 +72,7 @@
 
                     <!-- data bank -->
 
-                    <div [fxLayout]="this.fxLayoutRes" >
+                    <div [fxLayout]="this.fxLayoutRes" fxLayoutGap="10">
                         <div >
                             <div >
                                 <div  class="pipe-column-title">
@@ -156,7 +156,7 @@
 
                     <!-- Card -->
 
-                    <div [fxLayout]="this.fxLayoutRes"  *ngIf="fixedExpensesTracking?.cardId && wasPaid">
+                    <div [fxLayout]="this.fxLayoutRes" fxLayoutGap="10" *ngIf="fixedExpensesTracking?.cardId && wasPaid">
 
                         <div >
                             <div  class="pipe-column-title">
@@ -295,7 +295,7 @@
                         </div>
 
 
-                        <div  >
+                        <div  fxLayoutAlign="center center">
                             <btn-g [name]="'Liquidar'" [icon]="'payment'" (click)="toPay()"></btn-g>
                         </div>
                     </div>
@@ -329,7 +329,7 @@
                                 <p>{{fixedExpensesTracking?.price | ptBrCurrency}}</p>
                             </div>
                         </div>
-                        <div  >
+                        <div  fxLayoutAlign="center center">
                             <btn-g [name]="'Liquidar'" [icon]="'payment'" (click)="toPay()"></btn-g>
                         </div>
                     </div>

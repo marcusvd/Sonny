@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatLegacyPaginator as MatPaginator, LegacyPageEvent as PageEvent } from '@angular/material/legacy-paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { NavigationExtras, Router } from "@angular/router";
 import * as diacritics from 'diacritics';
 import { Observable } from "rxjs";
@@ -10,10 +10,9 @@ import { FieldsLabelInterface } from '../list/interfaces/fields-label-interface'
 import { OrderbyInterface } from '../list/interfaces/orderby-interface';
 
 @Component({
-    selector: 'list-g',
-    template: `
-  `,
-    standalone: false
+  selector: 'list-g',
+  template: `
+  `
 })
 
 export class BaseList {

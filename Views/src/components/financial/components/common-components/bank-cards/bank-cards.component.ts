@@ -5,15 +5,15 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 
@@ -47,39 +47,41 @@ export const MY_FORMATS = {
 };
 
 @Component({
-    selector: 'bank-cards',
-    templateUrl: './bank-cards.component.html',
-    providers: [{
-            provide: DateAdapter,
-            useClass: MomentDateAdapter,
-            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
-        },
-        { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-        BankCardNumberPipe
-    ],
-    imports: [
-        CommonModule,
-        MatFormFieldModule,
-        MatDatepickerModule,
-        CurrencyMaskModule,
-        NgxMaskModule,
-        MatIconModule,
-        MatCardModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        MatDividerModule,
-        MatSelectModule,
-        MatButtonModule,
-        NgFor,
-        NgIf,
-        NgClass,
-        SubTitleComponent,
-        DateJustDayComponent,
-        BtnGComponent,
-        DescriptionFieldComponent,
-        BankCardNumberPipe
-    ],
-    styles: [`
+  selector: 'bank-cards',
+  templateUrl: './bank-cards.component.html',
+  providers: [{
+    provide: DateAdapter,
+    useClass: MomentDateAdapter,
+    deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+  },
+  { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    BankCardNumberPipe
+  ],
+  standalone: true,
+  imports: [
+    CommonModule,
+    
+    MatFormFieldModule,
+    MatDatepickerModule,
+    CurrencyMaskModule,
+    NgxMaskModule,
+    MatIconModule,
+    MatCardModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatDividerModule,
+    MatSelectModule,
+    MatButtonModule,
+    NgFor,
+    NgIf,
+    NgClass,
+    SubTitleComponent,
+    DateJustDayComponent,
+    BtnGComponent,
+    DescriptionFieldComponent,
+    BankCardNumberPipe
+  ],
+  styles: [`
   dle-sphorizontal-beteween-fields {
          padding-top: 20px;
       }
@@ -106,7 +108,8 @@ export const MY_FORMATS = {
       }
 
 
-  `]
+  `],
+
 })
 export class BankCardsComponent extends Add implements OnInit, OnChanges {
 

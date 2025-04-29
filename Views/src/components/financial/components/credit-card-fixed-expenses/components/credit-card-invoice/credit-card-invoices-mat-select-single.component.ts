@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 import { FormBuilder } from '@angular/forms';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import { MatSelectModule } from '@angular/material/select';
 
 
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { Observable } from 'rxjs/internal/Observable';
 import { CardDto } from 'src/components/financial/components/bank-account-cards/dto/card-dto';
 import { environment } from 'src/environments/environment';
@@ -20,17 +20,19 @@ import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto
 import { CreditCardInvoicesGetService } from './credit-card-invoices-get.service';
 
 @Component({
-    selector: 'credit-card-invoices-mat-select-single',
-    imports: [
-        CommonModule,
-        MatSelectModule,
-        MatCardModule,
-        MatFormFieldModule,
-        BankCardNumberPipe,
-        SpinnerGComponent
-    ],
-    templateUrl: './credit-card-invoices-mat-select-single.component.html',
-    styles: [`
+  selector: 'credit-card-invoices-mat-select-single',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatSelectModule,
+    MatCardModule,
+    MatFormFieldModule,
+    
+    BankCardNumberPipe,
+    SpinnerGComponent
+  ],
+  templateUrl: './credit-card-invoices-mat-select-single.component.html',
+  styles: [`
             .warning{
                   color:red;
                   margin-top:-10px;
@@ -40,7 +42,7 @@ import { CreditCardInvoicesGetService } from './credit-card-invoices-get.service
               margin-bottom:100px;
             }
   `],
-    providers: [CreditCardInvoicesGetService]
+  providers: [CreditCardInvoicesGetService],
 })
 export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm implements OnInit, OnChanges {
 
@@ -56,7 +58,7 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
   spinnerEvent($event: boolean) {
     this.spinner = !$event
   }
-
+  
   ngOnChanges(changes: SimpleChanges): void {
     this.entities$ = this._creditCardInvoiceGetService.getAll(this.companyId.toString(), `${this.controllerUrl}/${this.urlBackEndApi}`);
     // this.entities$.subscribe(x=> {
@@ -77,7 +79,7 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
 
   @Input() screenFieldPosition: string = "column";
   @Input() alignRadios: string = "center center";
-
+ 
   screen() {
     this.screenSize().subscribe({
       next: (result: IScreen) => {
@@ -123,7 +125,7 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
     this.bankAccount = creditCard.bankAccount;
     this.creditCardIdOutput.emit(creditCard)
   }
-
+  
   ngOnInit(): void {
     this.screen();
   }

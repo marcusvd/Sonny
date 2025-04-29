@@ -9,14 +9,15 @@ import { HtmlDataInfoDto } from './dtos/html-data-info-dto';
 
 
 @Component({
-    selector: 'screen-data-info',
-    imports: [
-        CommonModule,
-        NgFor,
-        NgIf
-    ],
-    templateUrl: './screen-data-info.component.html',
-    styles: [`
+  selector: 'screen-data-info',
+  standalone: true,
+  imports: [
+    CommonModule,
+    NgFor,
+    NgIf
+  ],
+  templateUrl:'./screen-data-info.component.html',
+  styles: [`
   .span-pipe {
     font-size: 30px;
     color: rgb(43, 161, 168);
@@ -25,7 +26,9 @@ import { HtmlDataInfoDto } from './dtos/html-data-info-dto';
     font-weight: bolder;
   }
 `],
-    providers: []
+  providers: [
+
+  ]
 })
 
 export class ScreenDataInfoComponent extends View implements OnInit, OnChanges {

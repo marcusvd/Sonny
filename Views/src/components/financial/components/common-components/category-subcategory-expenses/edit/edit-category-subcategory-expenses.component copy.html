@@ -21,7 +21,7 @@
             </mat-checkbox>
         </div>
         <br>
-        <div  >
+        <div  fxLayoutGap="10">
             <div   *ngIf="!edit.checked">
                 <mat-form-field  appearance="outline">
                     <mat-label>Categoria</mat-label>
@@ -138,16 +138,16 @@
 
 
         </div>
-        <div   fxLayoutGap="50px">
+        <div  fxLayoutAlign="center center" fxLayoutGap="50px">
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="btnSave"></btn-g>
         </div>
         <br>
 
-        <div   fxLayoutGap="50px">
+        <div  fxLayoutAlign="center center" fxLayoutGap="50px">
             <div>{{formMain.value | json}}</div>
             <br>
         </div>
-        <div   fxLayoutGap="50px">
+        <div  fxLayoutAlign="center center" fxLayoutGap="50px">
             <br>
             <div>{{formLoadEditCat.value | json}}</div>
         </div>

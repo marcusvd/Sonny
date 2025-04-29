@@ -5,7 +5,7 @@
             <!-- <div>{{'Pix ' }}{{i+1}}</div> -->
             <img src="../../../../assets/finances/pix.png" alt="pix" style="width:50px; height: 20px;">
             <div class="middle-space-horizontal-beteween-fields"></div>
-            <div  [formGroupName]="i" >
+            <div  [formGroupName]="i" fxLayoutGap="10">
                 <div  >
                     <mat-form-field  appearance="outline">
                         <mat-label>PIX</mat-label>
@@ -21,19 +21,19 @@
                         <mat-label>{{pixFormGroup.get('key').value}}</mat-label>
                         <input matInput #cpfcnpj (blur)="pixValidator(pixFormGroup, pixFormGroup.get('key').value, cpfcnpj.value)" [mask]="pixInputMask(pixFormGroup.get('key').value)" [placeholder]="pixInputPlaceHolder(pixFormGroup.get('key').value)" formControlName="value"
                             aria-label="pix">
-                        <mat-error  >
+                        <mat-error  fxLayoutAlign="center center">
 
-                            <span  *ngIf="pixFormGroup.get('key').value === 'CEL'">{{validatorMessages.required(pixFormGroup,'value', 'Chave pix'+' '+pixFormGroup.get('key').value)}}</span>
-                            <span  *ngIf="pixFormGroup.get('key').value === 'CEL'">{{validatorMessages.minMaxLength(pixFormGroup,'value', '', 11, null)}}</span>
+                            <span fxLayoutAlign="center center" *ngIf="pixFormGroup.get('key').value === 'CEL'">{{validatorMessages.required(pixFormGroup,'value', 'Chave pix'+' '+pixFormGroup.get('key').value)}}</span>
+                            <span fxLayoutAlign="center center" *ngIf="pixFormGroup.get('key').value === 'CEL'">{{validatorMessages.minMaxLength(pixFormGroup,'value', '', 11, null)}}</span>
 
-                            <span  *ngIf="pixFormGroup.get('key').value === 'CPF'">{{validatorMessages.required(pixFormGroup,'value', 'Chave pix'+' '+pixFormGroup.get('key').value)}}</span>
-                            <span  *ngIf="pixFormGroup.get('key').value === 'CPF'">{{validatorMessages.isValidCpf(pixFormGroup,'value')}}</span>
+                            <span fxLayoutAlign="center center" *ngIf="pixFormGroup.get('key').value === 'CPF'">{{validatorMessages.required(pixFormGroup,'value', 'Chave pix'+' '+pixFormGroup.get('key').value)}}</span>
+                            <span fxLayoutAlign="center center" *ngIf="pixFormGroup.get('key').value === 'CPF'">{{validatorMessages.isValidCpf(pixFormGroup,'value')}}</span>
 
-                            <span  *ngIf="pixFormGroup.get('key').value === 'CNPJ'">{{validatorMessages.required(pixFormGroup,'value', 'Chave pix'+' '+pixFormGroup.get('key').value)}}</span>
-                            <span  *ngIf="pixFormGroup.get('key').value === 'CNPJ'">{{validatorMessages.isValidCnpj(pixFormGroup,'value','value')}}</span>
+                            <span fxLayoutAlign="center center" *ngIf="pixFormGroup.get('key').value === 'CNPJ'">{{validatorMessages.required(pixFormGroup,'value', 'Chave pix'+' '+pixFormGroup.get('key').value)}}</span>
+                            <span fxLayoutAlign="center center" *ngIf="pixFormGroup.get('key').value === 'CNPJ'">{{validatorMessages.isValidCnpj(pixFormGroup,'value','value')}}</span>
 
-                            <span  *ngIf="pixFormGroup.get('key').value === 'E-MAIL'">{{validatorMessages.mailField(pixFormGroup,'value')}}</span>
-                            <span  *ngIf="pixFormGroup.get('key').value === 'E-MAIL'">{{validatorMessages.required(pixFormGroup,'value', 'Chave pix'+' '+pixFormGroup.get('key').value)}}</span>
+                            <span fxLayoutAlign="center center" *ngIf="pixFormGroup.get('key').value === 'E-MAIL'">{{validatorMessages.mailField(pixFormGroup,'value')}}</span>
+                            <span fxLayoutAlign="center center" *ngIf="pixFormGroup.get('key').value === 'E-MAIL'">{{validatorMessages.required(pixFormGroup,'value', 'Chave pix'+' '+pixFormGroup.get('key').value)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </div>

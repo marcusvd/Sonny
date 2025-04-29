@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatCardModule } from '@angular/material/card';
 
 
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -18,21 +18,23 @@ import { CollectDeliverDto } from '../../dto/collect-deliver-dto';
 import { CollectDeliverViewService } from './services/collect-deliver-view.service';
 
 @Component({
-    selector: 'collect-deliver-view',
-    templateUrl: './collect-deliver-view.component.html',
-    styleUrls: ['./collect-deliver-view.component.css'],
-    imports: [
-        CommonModule,
-        MatCardModule,
-        CnpjCpfPipe,
-        PtBrCurrencyPipe,
-        TitleComponent,
-        SubTitleItemComponent,
-        BtnGComponent
-    ],
-    providers: [
-        CollectDeliverViewService
-    ]
+  selector: 'collect-deliver-view',
+  standalone: true,
+  templateUrl: './collect-deliver-view.component.html',
+  styleUrls: ['./collect-deliver-view.component.css'],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    CnpjCpfPipe,
+    PtBrCurrencyPipe,
+    
+    TitleComponent,
+    SubTitleItemComponent,
+    BtnGComponent
+  ],
+  providers: [
+    CollectDeliverViewService
+  ]
 })
 export class CollectDeliverViewComponent extends BaseForm implements OnInit {
   constructor(

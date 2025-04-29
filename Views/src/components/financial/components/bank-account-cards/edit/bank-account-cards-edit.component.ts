@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -25,21 +25,22 @@ import { PixDto } from '../dto/pix-dto';
 
 
 @Component({
-    selector: 'bank-account-cards-edit',
-    templateUrl: './bank-account-cards-edit.component.html',
-    styleUrls: ['./bank-account-cards-edit.component.css'],
-    imports: [
-        CommonModule,
-        MatButtonModule,
-        MatCardModule,
-        BankAccountComponent,
-        BankCardsComponent,
-        TitleComponent,
-        SubTitleComponent,
-        BtnGComponent,
-        PixComponent
-    ],
-    providers: [BankAccountCardsEditService]
+  selector: 'bank-account-cards-edit',
+  templateUrl: './bank-account-cards-edit.component.html',
+  styleUrls: ['./bank-account-cards-edit.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatCardModule,
+    BankAccountComponent,
+    BankCardsComponent,
+    TitleComponent,
+    SubTitleComponent,
+    BtnGComponent,
+    PixComponent
+  ],
+  providers: [BankAccountCardsEditService]
 })
 export class BankAccountCardsEditComponent extends BaseForm implements OnInit {
 

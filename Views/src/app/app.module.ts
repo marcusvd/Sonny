@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // below function get cnpj customer create partner create etc...
-import { HttpClientModule, provideHttpClient, withInterceptorsFromDi, withJsonpSupport } from '@angular/common/http';
+import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 //
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { MatPaginatorIntl as MatPaginatorIntl } from '@angular/material/paginator';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import { AppRoutingModule } from 'src/app/app.routing.module';
 import { FinancialModule } from 'src/components/financial/modules/financial.module';
 import { CustomerModule } from 'src/components/main/customer/modules/customer.module';
@@ -22,45 +22,65 @@ import { HttpErrorHandler } from './http-error-handler.service';
 import { OutsourcedRoutingModule } from 'src/components/out-sourced/modules/out-sourced.routing';
 import { StockProductRoutingModule } from 'src/components/stock-product/modules/stock-product.routing.module';
 import { provideRouter, ROUTES, withPreloading } from '@angular/router';
-import { NgxMaskConfig, provideNgxMask } from 'ngx-mask';
 
-const maskConfig: Partial<NgxMaskConfig> = {
-  validation: false,
-};
 
-@NgModule({ declarations: [
-        AppComponent,
-    ],
-    exports: [],
-    bootstrap: [AppComponent], imports: [
-        //Angular
-        BrowserModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        FormsModule,
-        AppRoutingModule,
-        //just works fine here
-        MatGridListModule,
-        //MY IMPORTS
-        SharedModule,
-        MaterialModule,
-        //MY IMPORTS Features
-        ProfilesModule,
-        //Main
-        PartnerModule,
-        CustomerModule,
-        TechnicianModule,
-        FinancialModule,
-        //OUTSOURCED
-        OutsourcedRoutingModule,
-        //StockProduct
-        StockProductRoutingModule], providers: [
-          provideNgxMask(maskConfig),
-        HttpErrorHandler,
-        { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
-        provideHttpClient(withInterceptorsFromDi(), withJsonpSupport()),
-    ] })
+
+@NgModule({
+  declarations: [
+    AppComponent,
+  ],
+  imports: [
+    //Angular
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    AppRoutingModule,
+    //just works fine here
+    MatGridListModule,
+    //MY IMPORTS
+    SharedModule,
+    MaterialModule,
+   //MY IMPORTS Features
+    ProfilesModule,
+    //Main
+    PartnerModule,
+    CustomerModule,
+    TechnicianModule,
+    FinancialModule,
+    
+    
+    //OUTSOURCED
+    OutsourcedRoutingModule,
+    //StockProduct
+    StockProductRoutingModule,
+    //test
+    // TestsComponent,
+
+    // GridListCommonTableComponent
+    // below function get cnpj customer create partner create etc...
+    HttpClientJsonpModule,
+    HttpClientModule,
+    //
+  ],
+
+  exports: [
+
+  ],
+
+  providers: [
+    HttpErrorHandler,
+
+      { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
+
+
+    //change appearance of all mat-form-field in all app
+    // {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}
+
+  ],
+  bootstrap: [AppComponent]
+})
 export class AppModule { }
 
 

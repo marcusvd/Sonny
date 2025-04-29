@@ -6,7 +6,7 @@ import { MsgOperation } from 'src/shared/services/messages/snack-bar.service';
   selector: 'dialog-quiz',
   template: `
   <div class="break">
-  <div  >
+  <div  fxLayoutGap="30px">
       <div >
           <h2 mat-dialog-title>{{title}}</h2>
       </div>

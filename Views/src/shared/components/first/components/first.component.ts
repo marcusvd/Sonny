@@ -1,8 +1,8 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 
 
@@ -13,15 +13,17 @@ import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { SubTitleComponent } from '../../sub-title/default/sub-title.component';
 
 @Component({
-    selector: 'first',
-    // encapsulation: ViewEncapsulation.None,
-    imports: [
-        MatCardModule,
-        MatIconModule,
-        SubTitleComponent
-    ],
-    templateUrl: './first.component.html',
-    styleUrls: ['./first.component.css']
+  selector: 'first',
+  standalone:true,
+  // encapsulation: ViewEncapsulation.None,
+  imports:[
+    MatCardModule,
+    MatIconModule,
+    
+    SubTitleComponent
+  ],
+  templateUrl: './first.component.html',
+  styleUrls: ['./first.component.css']
 })
 export class FirstComponent extends BaseForm implements OnInit {
 

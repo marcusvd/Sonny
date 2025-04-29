@@ -3,15 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
 
-import { MatLegacyPaginator as MatPaginator, MatLegacyPaginatorModule as MatPaginatorModule, LegacyPageEvent as PageEvent } from '@angular/material/legacy-paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { map, tap } from 'rxjs/operators';
 
 
@@ -34,28 +34,31 @@ import { CustomerListGridDto } from './dto/customer-list-grid.dto';
 import { CustomerListService } from './services/customer-list.service';
 
 @Component({
-    selector: 'customers-list',
-    templateUrl: './customers-list.component.html',
-    styleUrls: ['./customers-list.component.css'],
-    imports: [
-        CommonModule,
-        MatCardModule,
-        MatPaginatorModule,
-        MatButtonModule,
-        MatMenuModule,
-        RouterModule,
-        GridListCommonComponent,
-        GridListCommonTableComponent,
-        GridListCommonSearchComponent,
-        TitleComponent,
-        SubTitleComponent,
-        BtnFilterGComponent,
-        BtnGComponent,
-        CustomerFilterListGComponent
-    ],
-    providers: [
-        CustomerListService
-    ]
+  selector: 'customers-list',
+  templateUrl: './customers-list.component.html',
+  styleUrls: ['./customers-list.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    MatMenuModule,
+    RouterModule,
+    
+    GridListCommonComponent,
+    GridListCommonTableComponent,
+    GridListCommonSearchComponent,
+    TitleComponent,
+    SubTitleComponent,
+    BtnFilterGComponent,
+    BtnGComponent,
+    CustomerFilterListGComponent
+  ],
+  providers:[
+    CustomerListService
+  ]
+
 })
 export class CustomersListComponent implements OnInit {
   constructor(

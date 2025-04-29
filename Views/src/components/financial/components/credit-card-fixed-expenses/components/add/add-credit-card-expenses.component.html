@@ -19,7 +19,7 @@
             </get-bank-account-select-single> -->
         </div>
 
-        <div (window:resize)="screen()"   *ngIf="formMain.get('cardId').value">
+        <div (window:resize)="screen()"  fxLayoutGap="10" *ngIf="formMain.get('cardId').value">
             <div  >
 
                 <mat-form-field  appearance="outline">
@@ -46,7 +46,7 @@
             </div>
         </div>
 
-        <div (window:resize)="screen()"  >
+        <div (window:resize)="screen()"  fxLayoutGap="10">
             <!-- *ngIf="formMain.get('bankAccountId').value" -->
 
             <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle" [payCycle2]="payCycle2" ="100">
@@ -54,7 +54,7 @@
         </div>
 
 
-        <div (window:resize)="screen()"   *ngIf="formMain.get('expenseDay').value">
+        <div (window:resize)="screen()"  fxLayoutGap="10" *ngIf="formMain.get('expenseDay').value">
 
             <div  >
                 <mat-form-field  appearance="outline" >
@@ -95,7 +95,7 @@
                 </mat-form-field>
             </div>
         </div>
-        <div (window:resize)="screen()"   *ngIf="formMain.get('price').value || formMain.get('totalPriceInterest').value > 0">
+        <div (window:resize)="screen()"  fxLayoutGap="10" *ngIf="formMain.get('price').value || formMain.get('totalPriceInterest').value > 0">
             <div  >
                 <div >
                     <mat-label>{{'Montante:'}}&nbsp;</mat-label>
@@ -122,7 +122,7 @@
             </div>
         </div>
         <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div (window:resize)="screen()"  >
+        <div (window:resize)="screen()"  fxLayoutGap="10">
 
             <!-- *ngIf="formMain.get('bankAccountId').value" -->
             <div  ="80">
@@ -158,7 +158,7 @@
         <!-- <div>{{formMain.value | json}}</div> -->
 
 
-        <div   fxLayoutGap="50px">
+        <div  fxLayoutAlign="center center" fxLayoutGap="50px">
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
             <!-- [enableDisable]="saveBtnEnabledDisabled" -->
         </div>

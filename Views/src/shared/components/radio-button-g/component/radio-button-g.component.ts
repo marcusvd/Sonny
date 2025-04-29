@@ -1,16 +1,16 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { IRadios } from '../interfaces/Iradios';
 import { IRadiosDictionary } from '../interfaces/Iradios-dictionary';
-import { MatLegacyRadioButton as MatRadioButton } from '@angular/material/legacy-radio';
+import { MatRadioButton } from '@angular/material/radio';
 import { FormBuilder } from '@angular/forms';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 
 @Component({
-    selector: 'radio-button',
-    template: `
-   <mat-radio-group   (window:resize)="screen()"   [(ngModel)]="selectedStart"  (change)="onChangeRadioChoice($event.value)">
+  selector: 'radio-button',
+  template: `
+   <mat-radio-group   (window:resize)="screen()" fxLayoutAlign="center center"  [(ngModel)]="selectedStart" fxLayoutGap="30px" (change)="onChangeRadioChoice($event.value)">
    <div  *ngFor="let radio of this.entities | keyvalue">
      <div >
      <mat-radio-button #radioButton value={{radio.value}} >
@@ -21,12 +21,11 @@ import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
   </mat-radio-group>
 
   `,
-    styles: [`
+  styles: [`
 tr:hover  {
   background-color:yellow;
 }
-  `],
-    standalone: false
+  `]
 })
 export class RadioButtonGComponent extends BaseForm implements OnChanges, OnInit {
 

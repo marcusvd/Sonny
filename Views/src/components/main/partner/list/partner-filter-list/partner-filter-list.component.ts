@@ -2,23 +2,23 @@ import { JsonPipe, NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MatLegacyCheckbox as MatCheckbox, MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { NgxMaskModule } from 'ngx-mask';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { ValidatorMessagesCustomer } from 'src/components/main/customer/validators/customer/validators-messages-customer';
 import { FilterSearch } from './interface/filter-search';
 
 @Component({
-    selector: 'partner-filter-list',
-    templateUrl: './partner-filter-list.component.html',
-    styles: [`
+  selector: 'partner-filter-list',
+  templateUrl: './partner-filter-list.component.html',
+  styles: [`
             .btn-settings {
               font-size: 15px;
               color: white;
@@ -69,20 +69,22 @@ import { FilterSearch } from './interface/filter-search';
           #btn-apply{
             margin-top: 35px;
           }`],
-    imports: [
-        NgIf,
-        NgFor,
-        MatButtonModule,
-        MatIconModule,
-        MatDividerModule,
-        MatInputModule,
-        MatCardModule,
-        MatCheckboxModule,
-        ReactiveFormsModule,
-        MatSelectModule,
-        NgxMaskModule,
-        JsonPipe,
-    ]
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    MatButtonModule,
+    
+    MatIconModule,
+    MatDividerModule,
+    MatInputModule,
+    MatCardModule,
+    MatCheckboxModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    NgxMaskModule,
+    JsonPipe,
+  ]
 })
 
 export class PartnerFilterListGComponent implements OnInit {

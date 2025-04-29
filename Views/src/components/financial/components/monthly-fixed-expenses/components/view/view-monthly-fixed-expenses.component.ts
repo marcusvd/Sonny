@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
@@ -23,26 +23,28 @@ import { MonthlyFixedExpenseDto } from '../../dto/monthly-fixed-expense-dto';
 import { ViewMonthlyFixedExpensesService } from './services/view-monthly-fixed-expenses.service';
 
 @Component({
-    selector: 'view-monthly-fixed-expenses',
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        MatCardModule,
-        CurrencyMaskModule,
-        CnpjCpfPipe,
-        PtBrCurrencyPipe,
-        PtBrDatePipe,
-        BankCardNumberPipe,
-        PhoneNumberPipe,
-        CardTypePipe,
-        BtnGComponent,
-        SubTitleComponent,
-        TitleComponent,
-    ],
-    templateUrl: './view-monthly-fixed-expenses.component.html',
-    styleUrls: ['./view-monthly-fixed-expenses.component.css']
+  selector: 'view-monthly-fixed-expenses',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    
+    MatButtonModule,
+    MatFormFieldModule,
+    MatCardModule,
+    CurrencyMaskModule,
+    CnpjCpfPipe,
+    PtBrCurrencyPipe,
+    PtBrDatePipe,
+    BankCardNumberPipe,
+    PhoneNumberPipe,
+    CardTypePipe,
+    BtnGComponent,
+    SubTitleComponent,
+    TitleComponent,
+  ],
+  templateUrl: './view-monthly-fixed-expenses.component.html',
+  styleUrls: ['./view-monthly-fixed-expenses.component.css']
 })
 export class ViewMonthlyFixedExpensesComponent extends View implements OnInit {
 

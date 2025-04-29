@@ -16,9 +16,9 @@ import { BusinessData } from './dto/business-data';
 
 
 @Component({
-    selector: 'name-cpf-cnpj',
-    templateUrl: './name-cpf-cnpj.component.html',
-    styles: [`
+  selector: 'name-cpf-cnpj',
+  templateUrl: './name-cpf-cnpj.component.html',
+  styles: [`
   .middle-space-horizontal-beteween-fields {
     padding-top: 20px;
 }
@@ -36,12 +36,13 @@ import { BusinessData } from './dto/business-data';
 }
 
   `],
-    imports: [
-        CommonModule,
-        MaterialModule,
-        ReactiveFormsModule,
-        NgxMaskModule
-    ]
+  standalone: true,
+  imports: [
+    CommonModule,
+    MaterialModule,
+    ReactiveFormsModule,
+    NgxMaskModule
+  ]
 })
 export class NameCpfCnpjComponent extends BaseForm implements OnInit, OnChanges {
 

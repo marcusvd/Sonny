@@ -12,15 +12,16 @@ import { ProductTypeDto } from '../dtos/product-type-dto';
 import { ProductTypeService } from '../list-product/services/product-type.service';
 import { ListControlProduct } from './helpers/list-control-product';
 import { ImportsListProduct } from './imports/imports-list-product';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
-    selector: 'app-list-product',
-    templateUrl: './list-product.component.html',
-    imports: [ImportsListProduct],
-    providers: [PtBrCurrencyPipe, PtBrDatePipe, TruncatePipe],
-    styleUrls: ['./list-product.component.scss']
+  selector: 'app-list-product',
+  templateUrl: './list-product.component.html',
+  standalone: true,
+  imports: [ImportsListProduct],
+  providers: [PtBrCurrencyPipe, PtBrDatePipe, TruncatePipe],
+  styleUrls: ['./list-product.component.scss']
 })
 export class ListProductComponent extends ListControlProduct implements OnInit, OnDestroy {
 

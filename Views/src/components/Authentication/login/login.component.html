@@ -1,10 +1,10 @@
-<div class="border-around main-height"    >
+<div class="border-around main-height"  fxLayoutAlign="center center" fxLayoutGap="10" >
     <mat-card  >
         <title-description-auth title class="font-title" [icon]="'language'" [title]="'Sonny App'" [styleContainerTitle]="'padding-top:8px;'" [titleStyle]="'font-family: Mynerve; font-size: 24px;'" [height]="'height:60px'"></title-description-auth>
         <div class="space-title-logo"></div>
 
-        <div  >
-            <div   >
+        <div  fxLayoutAlign="center center">
+            <div  fxLayoutAlign="center center" >
                 <h1 class="title">Acesso ao sistema</h1>
             </div>
         </div>
@@ -46,10 +46,10 @@
                 </div>
             </div>
         </div>
-        <div  >
+        <div  fxLayoutAlign="center center">
             <h5 id="msg-login-error">{{loginErrorMessage}}</h5>
         </div>
-        <div  >
+        <div  fxLayoutAlign="center center">
             <button mat-button class="btn-settings" (click)="login()"><span>Acessar</span></button>
         </div>
     </mat-card>

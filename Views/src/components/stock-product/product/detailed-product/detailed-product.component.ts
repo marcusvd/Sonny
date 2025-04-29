@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogModule as MatDialogModule, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { TruncatePipe } from 'src/shared/pipes/truncate.pipe';
@@ -17,22 +17,24 @@ import { SubTitleDescriptionComponent } from 'src/shared/components/sub-title/de
 import { AutoRowsDirective } from 'src/shared/directives/text-area/auto-rows.directive';
 
 @Component({
-    selector: 'detailed-product',
-    imports: [
-        CommonModule,
-        MatInputModule,
-        MatIconModule,
-        MatFormFieldModule,
-        TitleComponent,
-        SubTitleDescriptionComponent,
-        MatCardModule,
-        MatButtonModule,
-        MatDialogModule,
-        AutoRowsDirective
-    ],
-    providers: [TruncatePipe],
-    templateUrl: './detailed-product.component.html',
-    styleUrls: ['./detailed-product.component.scss']
+  selector: 'detailed-product',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatInputModule,
+    MatIconModule,
+    MatFormFieldModule,
+    TitleComponent,
+    SubTitleDescriptionComponent,
+    MatCardModule,
+    MatButtonModule,
+    MatDialogModule,
+    AutoRowsDirective
+
+  ],
+  providers: [TruncatePipe],
+  templateUrl: './detailed-product.component.html',
+  styleUrls: ['./detailed-product.component.scss']
 })
 export class DetailedProductComponent implements OnInit {
 

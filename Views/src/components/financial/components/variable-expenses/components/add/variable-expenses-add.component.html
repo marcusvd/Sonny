@@ -5,7 +5,7 @@
     <mat-card [formGroup]="formMain"  *ngIf="formMain">
         <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
         <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div    (window:resize)="screen()" >
+        <div   fxLayoutGap="10" (window:resize)="screen()" >
             <div  >
                 <mat-form-field  appearance="outline">
                     <mat-label>Despesa</mat-label>
@@ -30,7 +30,7 @@
 
 
         </div>
-        <div (window:resize)="screen()"  >
+        <div (window:resize)="screen()"  fxLayoutGap="10">
             <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle">
             </select-category-subcategory-expenses>
 
@@ -89,7 +89,7 @@
 
         <!-- <div>{{formMain.value | json}}</div> -->
 
-        <div   fxLayoutGap="50px">
+        <div  fxLayoutAlign="center center" fxLayoutGap="50px">
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
         </div>
     </mat-card>

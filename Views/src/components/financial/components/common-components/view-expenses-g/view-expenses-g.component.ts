@@ -8,14 +8,17 @@ import { View } from 'src/shared/components/inheritance/view/view';
 import { ViewExpensesGDto } from './dtos/view-expense-g-dto';
 
 @Component({
-    selector: 'view-expenses-g',
-    imports: [
-        CommonModule,
-        NgFor,
-        NgIf,
-    ],
-    templateUrl: './view-expenses-g.component.html',
-    styleUrls: ['./view-expenses-g.component.css']
+  selector: 'view-expenses-g',
+  standalone: true,
+  imports: [
+    CommonModule,
+    
+    NgFor,
+    NgIf,
+
+  ],
+  templateUrl: './view-expenses-g.component.html',
+  styleUrls: ['./view-expenses-g.component.css']
 })
 export class ViewExpensesGComponent extends View implements OnInit, OnChanges {
 

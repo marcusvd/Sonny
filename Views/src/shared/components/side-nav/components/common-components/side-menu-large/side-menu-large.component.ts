@@ -6,20 +6,21 @@ import { DatabaseSideNavServices } from '../../../services/database-side-nav.ser
 import { Router } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { SideMenuTopLargeComponent } from './top-large/top-large.component';
 
 @Component({
-    selector: 'side-menu-large',
-    templateUrl: './side-menu-large.component.html',
-    styleUrls: ['./side-menu-large.component.scss'],
-    imports: [
-        CommonModule,
-        MatDividerModule,
-        MatIconModule,
-        MatFormFieldModule,
-    ]
+  selector: 'side-menu-large',
+  templateUrl: './side-menu-large.component.html',
+  styleUrls: ['./side-menu-large.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatDividerModule,
+    MatIconModule,
+    MatFormFieldModule,
+  ]
 })
 export class SideMenuLargeComponent implements OnInit {
 

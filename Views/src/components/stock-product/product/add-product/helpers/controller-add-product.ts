@@ -1,5 +1,5 @@
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
-import { MatLegacyCheckboxChange as MatCheckboxChange } from "@angular/material/legacy-checkbox";
+import { MatCheckboxChange } from "@angular/material/checkbox";
 import { NavigationExtras, Router } from "@angular/router";
 import { Observable } from "rxjs";
 

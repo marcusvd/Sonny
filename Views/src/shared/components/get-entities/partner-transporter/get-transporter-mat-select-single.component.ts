@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
@@ -14,14 +14,16 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { PartnerTransporterGetService } from './partner-transporter-get.service';
 
 @Component({
-    selector: 'get-transporter-matselect-single',
-    imports: [
-        MatSelectModule,
-        NgxMatSelectSearchModule,
-        ReactiveFormsModule,
-        CommonModule
-    ],
-    template: `
+  selector: 'get-transporter-matselect-single',
+  standalone: true,
+  imports: [
+    MatSelectModule,
+    NgxMatSelectSearchModule,
+    ReactiveFormsModule,
+    
+    CommonModule
+  ],
+  template: `
  <div [formGroup]="formMain" >
  <mat-form-field  appearance="outline" >
         <mat-label>Transportador</mat-label>
@@ -37,10 +39,10 @@ import { PartnerTransporterGetService } from './partner-transporter-get.service'
     </mat-form-field>
  </div>
   `,
-    styles: [`
+  styles: [`
 
   `],
-    providers: [PartnerTransporterGetService]
+  providers: [PartnerTransporterGetService],
 })
 export class GetTransporterMatSelectSingleComponent extends BaseForm implements OnChanges {
 

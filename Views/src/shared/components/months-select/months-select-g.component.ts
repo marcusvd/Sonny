@@ -2,17 +2,18 @@ import { NgFor } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import { MonthsDto } from './months-dto';
 
 @Component({
-    selector: 'months-select',
-    templateUrl: './months-select-g.component.html',
-    styles: [`
+  selector: 'months-select',
+  templateUrl: './months-select-g.component.html',
+  styles: [`
 
         `],
-    imports: [MatSelectModule, NgFor, MatFormFieldModule, FormsModule]
+  standalone: true,
+  imports: [MatSelectModule,  NgFor, MatFormFieldModule, FormsModule]
 })
 
 export class MonthsSelectComponent implements OnInit {

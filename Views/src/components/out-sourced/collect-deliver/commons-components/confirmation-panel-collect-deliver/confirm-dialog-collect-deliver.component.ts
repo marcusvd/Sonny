@@ -1,28 +1,30 @@
 import { CommonModule } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogModule as MatDialogModule, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { IConfirmDialogCollectDeliver } from './interface/i-confirm-dialog-collect-deliver';
 
 @Component({
-    selector: 'confirm-dialog-collect-deliver',
-    templateUrl: 'confirm-dialog-collect-deliver.component.html',
-    imports: [
-        CommonModule,
-        MatDialogModule,
-        MatButtonModule,
-        MatCardModule,
-        PtBrCurrencyPipe,
-        SubTitleComponent,
-        BtnGComponent
-    ],
-    styles: [
-        `
+  selector: 'confirm-dialog-collect-deliver',
+  templateUrl: 'confirm-dialog-collect-deliver.component.html',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    
+    MatButtonModule,
+    MatCardModule,
+    PtBrCurrencyPipe,
+    SubTitleComponent,
+    BtnGComponent
+  ],
+  styles: [
+    `
     /*need to put it inside the component caller dialog*/
 .confirm-dialog-collect-deliver {
       mat-dialog-container {
@@ -68,7 +70,7 @@ import { IConfirmDialogCollectDeliver } from './interface/i-confirm-dialog-colle
       }
 
     `
-    ]
+  ]
 })
 
 

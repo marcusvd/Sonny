@@ -6,8 +6,8 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 export const MY_FORMATS = {
   parse: {
@@ -22,15 +22,17 @@ export const MY_FORMATS = {
 };
 
 @Component({
-    selector: 'date-just-day',
-    imports: [
-        CommonModule,
-        MatFormFieldModule,
-        MatDatepickerModule,
-        MatInputModule,
-        ReactiveFormsModule,
-    ],
-    template: `
+  selector: 'date-just-day',
+  standalone: true,
+  imports: [
+    CommonModule,
+    
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatInputModule,
+    ReactiveFormsModule,
+  ],
+  template: `
   <div *ngIf="formMain" [fxLayout]="layoutColumnRow">
     <mat-form-field appearance="outline" [formGroup]="formMain"  []="Width">
       <mat-label>{{labelTitle}}</mat-label>
@@ -43,14 +45,15 @@ export const MY_FORMATS = {
     </mat-form-field>
   </div>
         `,
-    providers: [{
-            provide: DateAdapter,
-            useClass: MomentDateAdapter,
-            deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
-        },
-        { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
-    ],
-    styles: [`
+  providers: [{
+    provide: DateAdapter,
+    useClass: MomentDateAdapter,
+    deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+  },
+  { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+
+  ],
+  styles: [`
 
   `]
 })

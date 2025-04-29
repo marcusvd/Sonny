@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatInputModule } from '@angular/material/input';
 
 
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import { MatSelectModule } from '@angular/material/select';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CategoryExpenseDto } from 'src/components/financial/components/common-components/category-subcategory-expenses/dto/category-expense-dto';
@@ -22,19 +22,22 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 
 
 @Component({
-    selector: 'select-category-subcategory-expenses',
-    templateUrl: './category-subcategory-expenses-select.component.html',
-    styleUrls: ['./category-subcategory-expenses-select.component.css'],
-    imports: [
-        CommonModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        MatSelectModule,
-        SpinnerGComponent
-    ],
-    providers: [
-        CategoryExpensesService,
-    ]
+  selector: 'select-category-subcategory-expenses',
+  templateUrl: './category-subcategory-expenses-select.component.html',
+  styleUrls: ['./category-subcategory-expenses-select.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    
+    MatInputModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    SpinnerGComponent
+  ],
+  providers: [
+    CategoryExpensesService,
+  ]
+
 })
 
 export class CategorySubcategoryExpensesSelectComponent extends BaseForm implements OnInit, OnChanges {

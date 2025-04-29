@@ -4,25 +4,26 @@ import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 
 import { CommonModule } from '@angular/common';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatInputModule } from '@angular/material/input';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
 
 @Component({
-    selector: 'array-g',
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatIconModule,
-        MatInputModule,
-        MatButtonModule,
-        MatDividerModule
-    ],
-    templateUrl: './array-g.component.html',
-    styleUrls: ['./array-g.component.css']
+  selector: 'array-g',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatInputModule,
+    MatButtonModule,
+    MatDividerModule
+  ],
+  templateUrl: './array-g.component.html',
+  styleUrls:['./array-g.component.css'],
 })
 
 export class ArrayGComponent extends BaseForm {

@@ -2,7 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-entities/bank-account/bank-account-mat-select-single.component';
@@ -16,20 +16,21 @@ import { CreditCardExpenseInvoiceDto } from '../../dto/credit-card-expense-invoi
 import { PaymentCreditCardsInvoicesService } from './services/payment-credit-cards-invoices.service';
 
 @Component({
-    selector: 'payment-credit-cards-invoices',
-    imports: [
-        CommonModule,
-        MatCardModule,
-        BankAccountMatSelectSingleComponent,
-        ScreenDataInfoComponent,
-        PriceInteresFieldsComponent,
-        SubTitleComponent,
-        TitleComponent,
-        BtnGComponent
-    ],
-    templateUrl: './payment-credit-cards-invoices.component.html',
-    styleUrls: ['./payment-credit-cards-invoices.component.css'],
-    providers: [PaymentCreditCardsInvoicesService]
+  selector: 'payment-credit-cards-invoices',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatCardModule,
+    BankAccountMatSelectSingleComponent,
+    ScreenDataInfoComponent,
+    PriceInteresFieldsComponent,
+    SubTitleComponent,
+    TitleComponent,
+    BtnGComponent
+  ],
+  templateUrl: './payment-credit-cards-invoices.component.html',
+  styleUrls: ['./payment-credit-cards-invoices.component.css'],
+  providers: [PaymentCreditCardsInvoicesService]
 })
 
 

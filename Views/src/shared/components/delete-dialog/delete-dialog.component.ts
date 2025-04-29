@@ -1,22 +1,24 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogModule as MatDialogModule, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { BtnGComponent } from '../btn-g/btn-g.component';
 import { SubTitleComponent } from '../sub-title/default/sub-title.component';
 
 @Component({
-    selector: 'delete-dialog',
-    encapsulation: ViewEncapsulation.None,
-    imports: [
-        MatDialogModule,
-        MatButtonModule,
-        MatCardModule,
-        SubTitleComponent,
-        BtnGComponent
-    ],
-    template: `
+  selector: 'delete-dialog',
+  standalone: true,
+  encapsulation: ViewEncapsulation.None,
+  imports: [
+    MatDialogModule,
+    
+    MatButtonModule,
+    MatCardModule,
+    SubTitleComponent,
+    BtnGComponent
+  ],
+  template: `
     <mat-card>
       <sub-title title class="font-title" [title]="'Confirmação de exclusão'" [styleContainerTitle]="'padding-top:8px;'" [titleStyle]="'font-family: Mynerve; font-size: 24px; '" [titleBarStyle]="test"></sub-title>
 
@@ -24,7 +26,7 @@ import { SubTitleComponent } from '../sub-title/default/sub-title.component';
           <span class="font-body">{{messageBody}}</span><span class="itemToBeDelete">{{itemToBeDelete}}</span><span>?</span>
          </mat-dialog-content>
 
-              <div   class="margin" >
+              <div   class="margin" fxLayoutGap="30px">
                 <div  >
                 </div>
                 <div >
@@ -36,8 +38,8 @@ import { SubTitleComponent } from '../sub-title/default/sub-title.component';
        </div>
     </mat-card>
 `,
-    styles: [
-        ` .delete-dialog-class {
+  styles: [
+    ` .delete-dialog-class {
       mat-dialog-container {
           position: fixed;
           top: 0;
@@ -78,7 +80,7 @@ import { SubTitleComponent } from '../sub-title/default/sub-title.component';
       }
 
    `
-    ]
+  ]
 })
 export class DeleteDialogComponent implements OnInit {
 

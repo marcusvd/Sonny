@@ -4,8 +4,8 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { IControlErrorsDictionary } from './interfaces/icontrols-errors-dictionary';
 
 @Component({
-    selector: 'form-error-panel',
-    template: `
+  selector: 'form-error-panel',
+  template: `
   <nav>
     <ul>
       <li>Motivo:</li>
@@ -22,12 +22,11 @@ import { IControlErrorsDictionary } from './interfaces/icontrols-errors-dictiona
                 <br>
 </nav>
   `,
-    styles: [`
+  styles: [`
 .remove-text-decoration{
   text-decoration: none;
 }
-  `],
-    standalone: false
+  `]
 })
 
 export class FormErrorPanelComponent implements OnInit {

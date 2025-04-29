@@ -3,23 +3,26 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
 import { Add } from 'src/shared/components/inheritance/add/add';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 @Component({
-    selector: 'link-copy-bill',
-    templateUrl: './link-copy-bill.component.html',
-    imports: [
-        CommonModule,
-        MatFormFieldModule,
-        MatInputModule,
-        ReactiveFormsModule,
-    ],
-    styles: [``]
+  selector: 'link-copy-bill',
+  templateUrl: './link-copy-bill.component.html',
+  standalone: true,
+  imports: [
+    CommonModule,
+    
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+  ],
+  styles: [``],
+
 })
 export class LinkCopyBillComponent extends Add implements OnInit {
 

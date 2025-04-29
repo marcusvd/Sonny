@@ -3,11 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
-import { MatLegacyPaginator as MatPaginator, MatLegacyPaginatorModule as MatPaginatorModule, LegacyPageEvent as PageEvent } from '@angular/material/legacy-paginator';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -30,28 +30,31 @@ import { PartnerFilterListGComponent } from './partner-filter-list/partner-filte
 import { PartnerListService } from './services/partner-list.service';
 
 @Component({
-    selector: 'partner-list',
-    templateUrl: './partner-list.component.html',
-    styleUrls: ['./partner-list.component.css'],
-    imports: [
-        CommonModule,
-        MatCardModule,
-        MatPaginatorModule,
-        MatButtonModule,
-        MatMenuModule,
-        RouterModule,
-        GridListCommonComponent,
-        GridListCommonTableComponent,
-        GridListCommonSearchComponent,
-        TitleComponent,
-        SubTitleComponent,
-        BtnFilterGComponent,
-        BtnGComponent,
-        PartnerFilterListGComponent
-    ],
-    providers: [
-        PartnerListService,
-    ]
+  selector: 'partner-list',
+  templateUrl: './partner-list.component.html',
+  styleUrls: ['./partner-list.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    MatMenuModule,
+    RouterModule,
+    
+    GridListCommonComponent,
+    GridListCommonTableComponent,
+    GridListCommonSearchComponent,
+    TitleComponent,
+    SubTitleComponent,
+    BtnFilterGComponent,
+    BtnGComponent,
+    PartnerFilterListGComponent
+  ],
+  providers: [
+    PartnerListService,
+  ]
+
 })
 export class PartnerListComponent implements OnInit {
   constructor(

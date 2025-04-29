@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
-import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatInputModule } from '@angular/material/input';
 import { AddressComponent } from 'src/shared/components/address/component/address.component';
 import { AddressService } from 'src/shared/components/address/services/address.service';
 import { DescriptionFieldComponent } from 'src/shared/components/administrative/info/description-field.component';
@@ -33,31 +33,33 @@ import { PhysicallyMovingCostsService } from '../../inheritances/physically-movi
 import { PaymentDataComponent } from '../commons-components/payment/payment-data.component';
 import { PartnerCreateService } from './services/partner-create.service';
 @Component({
-    selector: 'partner-create',
-    templateUrl: './partner-create.component.html',
-    styleUrls: ['./partner-create.component.css'],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatDividerModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatCardModule,
-        MatCheckboxModule,
-        MatTooltipModule,
-        NameCpfCnpjComponent,
-        TitleComponent,
-        SubTitleComponent,
-        MainEntitiesBaseComponent,
-        DescriptionFieldComponent,
-        FinancialInfoTypeComponent,
-        PhysicallyMovingCostsComponent,
-        ContactComponent,
-        AddressComponent,
-        PaymentDataComponent,
-        NameCpfCnpjComponent,
-        BtnGComponent
-    ]
+  selector: 'partner-create',
+  templateUrl: './partner-create.component.html',
+  styleUrls: ['./partner-create.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    
+    ReactiveFormsModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatTooltipModule,
+    NameCpfCnpjComponent,
+    TitleComponent,
+    SubTitleComponent,
+    MainEntitiesBaseComponent,
+    DescriptionFieldComponent,
+    FinancialInfoTypeComponent,
+    PhysicallyMovingCostsComponent,
+    ContactComponent,
+    AddressComponent,
+    PaymentDataComponent,
+    NameCpfCnpjComponent,
+    BtnGComponent
+  ]
 })
 export class PartnerCreateComponent extends BaseForm implements OnInit {
 

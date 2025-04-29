@@ -3,15 +3,15 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 @Component({
-    selector: 'description-field',
-    template: `
+  selector: 'description-field',
+  template: `
   <div [formGroup]="formMain">
         <div  >
             <mat-form-field appearance="outline">
@@ -25,15 +25,17 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
         </div>
 </div>
   `,
-    styles: [`
-
+  styles: [`
+    
   `],
-    imports: [
-        MatFormFieldModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        CommonModule
-    ]
+  standalone: true,
+  imports: [
+    MatFormFieldModule,
+    
+    MatInputModule,
+    ReactiveFormsModule,
+    CommonModule
+  ]
 })
 export class DescriptionFieldComponent extends BaseForm implements OnInit {
 

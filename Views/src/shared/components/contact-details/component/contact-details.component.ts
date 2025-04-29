@@ -4,10 +4,9 @@ import { SocialMediasDto } from '../../contact/dtos/social-medias-dto';
 import { ContactDetailsService } from '../services/contact-details.service';
 
 @Component({
-    selector: 'contact-details',
-    templateUrl: './contact-details.component.html',
-    styleUrls: ['./contact-details.component.css'],
-    standalone: false
+  selector: 'contact-details',
+  templateUrl: './contact-details.component.html',
+  styleUrls: ['./contact-details.component.css']
 })
 export class ContactDetailsComponent implements OnInit {
 

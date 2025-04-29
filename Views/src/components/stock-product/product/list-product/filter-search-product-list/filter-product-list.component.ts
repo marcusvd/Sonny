@@ -14,10 +14,12 @@ import { ImportsListFilterSearch } from './useful/imports-list-filter-search';
 import { FormControl } from '@angular/forms';
 
 @Component({
-    selector: 'filter-product-list',
-    templateUrl: './filter-product-list.component.html',
-    styleUrls: ['./filter-product-list.component.css'],
-    imports: [ImportsListFilterSearch]
+  selector: 'filter-product-list',
+  templateUrl: './filter-product-list.component.html',
+  styleUrls: ['./filter-product-list.component.css'],
+  standalone: true,
+  imports: [ImportsListFilterSearch],
+
 })
 export class FilterProductListComponent extends BaseList implements OnInit {
 

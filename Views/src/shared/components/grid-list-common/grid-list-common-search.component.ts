@@ -7,19 +7,20 @@ import { MaterialModule } from 'src/shared/modules/material.module';
 
 
 @Component({
-    selector: 'grid-list-common-search',
-    template: `
+  selector: 'grid-list-common-search',
+  template: `
   <mat-form-field appearance="outline" >
             <input matInput type="text" [placeholder]="searchName ?? 'Buscar'" [formControl]="queryField" (input)="searchField(queryField)">
             <mat-icon  id="search-icon" matSuffix>search</mat-icon>
   </mat-form-field>
   `,
-    styles: [`
+  styles: [`
     #search-icon{
 
     }
   `],
-    imports: [MaterialModule, ReactiveFormsModule, NgFor, NgIf]
+  standalone: true,
+  imports: [MaterialModule, ReactiveFormsModule, NgFor, NgIf]
 })
 export class GridListCommonSearchComponent implements OnInit {
 

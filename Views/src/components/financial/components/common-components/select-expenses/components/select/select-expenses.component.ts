@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatInputModule } from '@angular/material/input';
 
 
 
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
-import { MatLegacyTabsModule as MatTabsModule } from '@angular/material/legacy-tabs';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTabsModule } from '@angular/material/tabs';
 import { AddCreditCardExpensesComponent } from 'src/components/financial/components/credit-card-fixed-expenses/components/add/add-credit-card-expenses.component';
 import { ListCreditCardInvoicesComponent } from 'src/components/financial/components/credit-card-fixed-expenses/components/list -invoices/list-credit-card-invoices.component';
 import { ListCreditCardExpensesComponent } from 'src/components/financial/components/credit-card-fixed-expenses/components/list/list-credit-card-expenses.component';
@@ -34,34 +34,37 @@ import { PixesExpensesFieldsComponent } from '../../../pixes-expenses/pixes-expe
 
 
 @Component({
-    selector: 'select-expenses',
-    templateUrl: './select-expenses.component.html',
-    styleUrls: ['./select-expenses.component.css'],
-    imports: [
-        CommonModule,
-        MatInputModule,
-        MatCheckboxModule,
-        MatButtonModule,
-        MatCardModule,
-        MatTabsModule,
-        ReactiveFormsModule,
-        TitleComponent,
-        SubTitleComponent,
-        BtnGComponent,
-        ListYearlyFixedExpensesComponent,
-        VariableExpensesAddComponent,
-        VariableExpensesListComponent,
-        AddFinancingsLoansExpensesComponent,
-        ListCreditCardExpensesComponent,
-        ListCreditCardInvoicesComponent,
-        EditCategorySubcategoryExpensesComponent,
-        ListMonthlyFixedExpensesComponent,
-        ListFinancingsLoansExpensesComponent,
-        AddCreditCardExpensesComponent,
-        PixesExpensesFieldsComponent,
-        PixExpensesAddComponent,
-        PixExpensesListComponent
-    ]
+  selector: 'select-expenses',
+  templateUrl: './select-expenses.component.html',
+  styleUrls: ['./select-expenses.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    
+    MatInputModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatCardModule,
+    MatTabsModule,
+    ReactiveFormsModule,
+    TitleComponent,
+    SubTitleComponent,
+    BtnGComponent,
+    ListYearlyFixedExpensesComponent,
+    VariableExpensesAddComponent,
+    VariableExpensesListComponent,
+    AddFinancingsLoansExpensesComponent,
+    ListCreditCardExpensesComponent,
+    ListCreditCardInvoicesComponent,
+    EditCategorySubcategoryExpensesComponent,
+    ListMonthlyFixedExpensesComponent,
+    ListFinancingsLoansExpensesComponent,
+    AddCreditCardExpensesComponent,
+    PixesExpensesFieldsComponent,
+    PixExpensesAddComponent,
+    PixExpensesListComponent
+  ],
+
 })
 
 export class SelectExpensesComponent extends Add implements OnInit {

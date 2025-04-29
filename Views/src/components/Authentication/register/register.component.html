@@ -7,8 +7,8 @@
         <title-description-auth [icon]="'language'" title class="font-title" [title]="'Cadastro'" [styleContainerTitle]="'padding-top:8px;'" [titleStyle]="'font-family: Mynerve; font-size: 24px;'" [height]="'height:60px'"></title-description-auth>
         <div class="space-title-logo"></div>
         <div>
-            <div  >
-                <div   >
+            <div  fxLayoutAlign="center center">
+                <div  fxLayoutAlign="center center" >
                     <h1 class="title">Cadastrar-se ao sistema</h1>
                 </div>
 
@@ -66,7 +66,7 @@
                     </mat-form-field>
                 </div>
 
-                <div  >
+                <div  fxLayoutAlign="center center">
                     <div >
                         <h3 class="mouse-pointer" [routerLink]="['/login']">Já sou cadastrado!</h3>
                     </div>
@@ -75,16 +75,16 @@
             </div>
 
 
-            <div  >
+            <div  fxLayoutAlign="center center">
                 <captcha #token [hidden]="!formMain.valid"></captcha>
-                <div class="error-message-style"   *ngIf="loginErrorMessage">
+                <div class="error-message-style"  fxLayoutAlign="center center" *ngIf="loginErrorMessage">
                     {{loginErrorMessage}}
                 </div>
 
             </div>
         </div>
 
-        <div   (click)=" register(token.sendForm())">
+        <div  fxLayoutAlign="center center" (click)=" register(token.sendForm())">
             <button mat-button class="btn-settings" [disabled]="token.token == undefined"><span>Cadastrar</span></button>
         </div>
     </mat-card>

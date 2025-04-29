@@ -10,8 +10,10 @@ import { FinancialSubtitleDto } from './financial-subtitle-dto';
 
 @Component({
     selector: 'financial-subtitle',
+    standalone: true,
     imports: [
         CommonModule,
+        
         CommonModule,
         PtBrDatePipe,
         NgFor,
@@ -74,7 +76,7 @@ font-weight: bolder; padding-top: 13px; margin-left: -25px;
 }
 
   `],
-    providers: []
+    providers: [],
 })
 export class FinancialSubtitleComponent extends View implements OnInit {
 

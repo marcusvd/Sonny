@@ -4,15 +4,15 @@ import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
-import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { CategoryExpensesService } from 'src/components/financial/services/category-expenses.service';
@@ -30,31 +30,35 @@ import { YearlyFixedExpensesService } from './services/yearly-fixed-expenses.ser
 import { YearlyFixedExpensesAddValidator } from './validators/yearly-fixed-expenses-add.validator';
 
 @Component({
-    selector: 'yearly-fixed-expenses',
-    templateUrl: './yearly-fixed-expenses-add.component.html',
-    styleUrls: ['./yearly-fixed-expenses-add.component.css'],
-    providers: [
-        YearlyFixedExpensesService,
-        CategoryExpensesService
-    ],
-    imports: [
-        CommonModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatCheckboxModule,
-        MatButtonModule,
-        MatCardModule,
-        ReactiveFormsModule,
-        MatSelectModule,
-        MatDatepickerModule,
-        MatTooltipModule,
-        CurrencyMaskModule,
-        TitleComponent,
-        SubTitleComponent,
-        BtnGComponent,
-        CategorySubcategoryExpensesSelectComponent,
-        LinkCopyBillComponent
-    ]
+  selector: 'yearly-fixed-expenses',
+  templateUrl: './yearly-fixed-expenses-add.component.html',
+  styleUrls: ['./yearly-fixed-expenses-add.component.css'],
+  providers: [
+    YearlyFixedExpensesService,
+    CategoryExpensesService
+  ],
+  standalone: true,
+  imports: [
+    CommonModule,
+    
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatTooltipModule,
+    CurrencyMaskModule,
+    TitleComponent,
+    SubTitleComponent,
+    BtnGComponent,
+    CategorySubcategoryExpensesSelectComponent,
+    LinkCopyBillComponent
+
+  ],
+
 })
 
 export class YearlyFixedExpensesAddComponent extends Add implements OnInit {

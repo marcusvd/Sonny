@@ -4,9 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 import { FormControl } from '@angular/forms';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MatLegacyPaginatorModule as MatPaginatorModule } from '@angular/material/legacy-paginator';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { map } from 'rxjs/operators';
 
@@ -32,29 +32,32 @@ import { PixExpensesListService } from './services/pix-expenses-list.service';
 
 
 @Component({
-    selector: 'pix-expenses-list',
-    templateUrl: './pix-expenses-list.component.html',
-    styleUrls: ['./pix-expenses-list.component.css'],
-    imports: [
-        CommonModule,
-        MatCardModule,
-        MatPaginatorModule,
-        RouterModule,
-        // PtBrDatePipe,
-        GridListCommonComponent,
-        GridListCommonTableComponent,
-        GridListCommonSearchComponent,
-        TitleComponent,
-        SubTitleComponent,
-        BtnGComponent,
-        MonthsSelectComponent,
-        // FilterBtnRadioComponent
-    ],
-    providers: [
-        PtBrDatePipe,
-        PtBrCurrencyPipe,
-        PixExpensesListService
-    ]
+  selector: 'pix-expenses-list',
+  templateUrl: './pix-expenses-list.component.html',
+  styleUrls: ['./pix-expenses-list.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatPaginatorModule,
+    RouterModule,
+    
+    // PtBrDatePipe,
+    GridListCommonComponent,
+    GridListCommonTableComponent,
+    GridListCommonSearchComponent,
+    TitleComponent,
+    SubTitleComponent,
+    BtnGComponent,
+    MonthsSelectComponent,
+    // FilterBtnRadioComponent
+  ],
+  providers: [
+    PtBrDatePipe,
+    PtBrCurrencyPipe,
+    PixExpensesListService
+  ]
+
 })
 export class PixExpensesListComponent extends FrontEndFilterPixExpenseslist implements OnInit {
 

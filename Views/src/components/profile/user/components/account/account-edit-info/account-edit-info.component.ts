@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, Inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MyUser } from 'src/components/authentication/dto/my-user';
 import { ProfileEditService } from 'src/components/profile/services/profile-edit.service';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
@@ -10,10 +10,9 @@ import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custo
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 @Component({
-    selector: 'account-edit-info',
-    templateUrl: './account-edit-info.component.html',
-    styleUrls: ['./account-edit-info.component.css'],
-    standalone: false
+  selector: 'account-edit-info',
+  templateUrl: './account-edit-info.component.html',
+  styleUrls: ['./account-edit-info.component.css']
 })
 export class AccountEditInfoComponent extends BaseForm implements OnInit {
 

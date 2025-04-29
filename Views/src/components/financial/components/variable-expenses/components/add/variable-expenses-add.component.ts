@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
-import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 
 
@@ -32,32 +32,35 @@ import { VariableExpensesService } from './services/variable-expenses.service';
 
 
 @Component({
-    selector: 'variable-expenses',
-    templateUrl: './variable-expenses-add.component.html',
-    styleUrls: ['./variable-expenses-add.component.css'],
-    providers: [
-        VariableExpensesService,
-        CategoryExpensesService
-    ],
-    imports: [
-        CommonModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatCheckboxModule,
-        MatButtonModule,
-        MatCardModule,
-        ReactiveFormsModule,
-        MatSelectModule,
-        MatDatepickerModule,
-        MatTooltipModule,
-        CurrencyMaskModule,
-        TitleComponent,
-        SubTitleComponent,
-        BankAccountMatSelectSingleComponent,
-        CategorySubcategoryExpensesSelectComponent,
-        BtnGComponent,
-        PixesExpensesFieldsComponent
-    ]
+  selector: 'variable-expenses',
+  templateUrl: './variable-expenses-add.component.html',
+  styleUrls: ['./variable-expenses-add.component.css'],
+  providers: [
+    VariableExpensesService,
+    CategoryExpensesService
+  ],
+  standalone: true,
+  imports: [
+    CommonModule,
+    
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatTooltipModule,
+    CurrencyMaskModule,
+    TitleComponent,
+    SubTitleComponent,
+    BankAccountMatSelectSingleComponent,
+    CategorySubcategoryExpensesSelectComponent,
+    BtnGComponent,
+    PixesExpensesFieldsComponent
+  ],
+
 })
 
 export class VariableExpensesAddComponent extends Payment implements OnInit {

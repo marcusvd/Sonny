@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MatLegacyPaginatorModule as MatPaginatorModule } from '@angular/material/legacy-paginator';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
@@ -29,26 +29,29 @@ import { AccountTypePipe } from './pipes/account-type.pipe';
 import { BankAccountCardsListService } from './services/bank-account-cards-list.service';
 
 @Component({
-    selector: 'banks-accounts-cards-list',
-    templateUrl: './banks-accounts-cards-list.component.html',
-    styleUrls: ['./banks-accounts-cards-list.component.css'],
-    imports: [
-        CommonModule,
-        MatCardModule,
-        MatPaginatorModule,
-        RouterModule,
-        GridListCommonComponent,
-        GridListCommonTableComponent,
-        GridListCommonSearchComponent,
-        TitleComponent,
-        SubTitleComponent,
-        BtnGComponent,
-    ],
-    providers: [
-        PtBrCurrencyPipe,
-        AccountTypePipe,
-        BankAccountCardsListService
-    ]
+  selector: 'banks-accounts-cards-list',
+  templateUrl: './banks-accounts-cards-list.component.html',
+  styleUrls: ['./banks-accounts-cards-list.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatPaginatorModule,
+    RouterModule,
+    
+    GridListCommonComponent,
+    GridListCommonTableComponent,
+    GridListCommonSearchComponent,
+    TitleComponent,
+    SubTitleComponent,
+    BtnGComponent,
+  ],
+  providers: [
+    PtBrCurrencyPipe,
+    AccountTypePipe,
+    BankAccountCardsListService
+  ]
+
 })
 export class BanksAccountsCardsListComponent extends FrontEndFilterBanksAccountsCardsList implements OnInit {
   constructor(

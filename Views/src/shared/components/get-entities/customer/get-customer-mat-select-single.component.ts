@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -17,14 +17,16 @@ import { BaseForm } from '../../inheritance/forms/base-form';
 
 
 @Component({
-    selector: 'get-customer-matselect-single',
-    imports: [
-        MatSelectModule,
-        NgxMatSelectSearchModule,
-        ReactiveFormsModule,
-        CommonModule
-    ],
-    template: `
+  selector: 'get-customer-matselect-single',
+  standalone: true,
+  imports: [
+    MatSelectModule,
+    NgxMatSelectSearchModule,
+    ReactiveFormsModule,
+    
+    CommonModule
+  ],
+  template: `
  <div [formGroup]="formMain" >
  <mat-form-field  appearance="outline">
   <mat-label>Cliente</mat-label>
@@ -42,10 +44,10 @@ import { BaseForm } from '../../inheritance/forms/base-form';
 </mat-form-field>
  </div>
   `,
-    styles: [`
+  styles: [`
 
   `],
-    providers: [CustomersGetService]
+  providers: [CustomersGetService],
 })
 export class GetCustomerMatSelectSingleComponent extends BaseForm implements OnChanges {
 
@@ -78,7 +80,7 @@ export class GetCustomerMatSelectSingleComponent extends BaseForm implements OnC
   @Input() set editEntity(edit: boolean) {
     this.editEntityField = edit;
   }
-
+  
   $customers: Observable<CustomerDto[]>;
 
   $customersResult = new Observable<CustomerDto[]>();

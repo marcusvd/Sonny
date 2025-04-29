@@ -3,12 +3,12 @@ import { NgIf } from '@angular/common';
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogModule as MatDialogModule, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatInputModule } from '@angular/material/input';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
@@ -19,29 +19,32 @@ import { AuthenticationService } from '../services/authentication.service';
 
 
 @Component({
-    selector: 'resend-email-confirm-dialog',
-    // encapsulation: ViewEncapsulation.None,
-    imports: [
-        MatDialogModule,
-        MatButtonModule,
-        MatCardModule,
-        MatIconModule,
-        MatInputModule,
-        MatButtonModule,
-        MatFormFieldModule,
-        ReactiveFormsModule,
-        NgIf,
-        SubTitleComponent,
-        BtnGComponent,
-        CaptchaComponent
-    ],
-    template: `
+  selector: 'resend-email-confirm-dialog',
+  standalone: true,
+  // encapsulation: ViewEncapsulation.None,
+  imports: [
+    MatDialogModule,
+    
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatInputModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    NgIf,
+    SubTitleComponent,
+    BtnGComponent,
+    CaptchaComponent
+
+  ],
+  template: `
     <mat-card *ngIf="resend">
       <sub-title title class="font-title" [title]="'Email não confirmado!'" [styleContainerTitle]="'padding-top:8px;'" [titleStyle]="'font-family: Mynerve; font-size: 24px;'" [height]="'height:60px'"></sub-title>
          <mat-dialog-content style="padding-top: 20px" *ngIf="resend">
           <span class="font-body">{{messageBody}}</span><span class="itemToBeDelete">{{itemToBeDelete}}</span><span>?</span>
          </mat-dialog-content>
-       <div   class="margin" >
+       <div   class="margin" fxLayoutGap="30px">
                 <div  >
                 </div>
                 <div >
@@ -81,11 +84,11 @@ import { AuthenticationService } from '../services/authentication.service';
             </div>
 
 
-            <div  >
+            <div  fxLayoutAlign="center center">
                 <captcha #token [hidden]="!formMain.valid"></captcha>
             </div>
         </div>
-        <div   class="margin" >
+        <div   class="margin" fxLayoutGap="30px">
                 <div  >
                 </div>
                 <div >
@@ -106,8 +109,8 @@ import { AuthenticationService } from '../services/authentication.service';
        </div>
 </mat-card>
 `,
-    styles: [
-        ` .delete-dialog-class {
+  styles: [
+    ` .delete-dialog-class {
       mat-dialog-container {
           position: fixed;
           top: 0;
@@ -158,7 +161,7 @@ import { AuthenticationService } from '../services/authentication.service';
                       }
 
    `
-    ]
+  ]
 })
 export class ResendEmailConfirmDialogComponent extends BaseForm implements OnInit {
 

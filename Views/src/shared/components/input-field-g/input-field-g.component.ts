@@ -7,15 +7,17 @@ import { ImportsFiledsInput } from './imports/imports-input-field-g';
 
 
 @Component({
-    selector: 'input-field-g',
-    imports: [ImportsFiledsInput],
-    templateUrl: './input-field-g.component.html',
-    styles: [`
+  selector: 'input-field-g',
+  standalone: true,
+  imports: [ImportsFiledsInput],
+  templateUrl: './input-field-g.component.html',
+  styles: [`
     mat-form-field{
       width:100%;
     }
 
-    `]
+    `],
+
 })
 export class InputFieldGComponent extends BaseForm {
 

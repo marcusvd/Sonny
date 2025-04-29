@@ -7,11 +7,10 @@ import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 
 
 @Component({
-    selector: 'inside-nav',
-    templateUrl: './inside-nav.component.html',
-    styleUrls: ['./inside-nav.component.css'],
-    providers: [],
-    standalone: false
+  selector: 'inside-nav',
+  templateUrl: './inside-nav.component.html',
+  styleUrls: ['./inside-nav.component.css'],
+  providers: []
 })
 export class InsideNavComponent extends BaseForm implements OnInit {
 

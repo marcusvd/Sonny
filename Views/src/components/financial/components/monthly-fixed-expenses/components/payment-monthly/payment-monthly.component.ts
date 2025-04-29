@@ -2,7 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 
 
@@ -19,21 +19,22 @@ import { MonthlyFixedExpenseDto } from '../../dto/monthly-fixed-expense-dto';
 import { PaymentMonthlyService } from './services/payment-monthly.service';
 
 @Component({
-    selector: 'payment-monthly',
-    imports: [
-        CommonModule,
-        MatCardModule,
-        BankAccountMatSelectSingleComponent,
-        ScreenDataInfoComponent,
-        PriceInteresFieldsComponent,
-        SubTitleComponent,
-        TitleComponent,
-        BtnGComponent,
-        PixesExpensesFieldsComponent
-    ],
-    templateUrl: './payment-monthly.component.html',
-    styleUrls: ['./payment-monthly.component.css'],
-    providers: [PaymentMonthlyService]
+  selector: 'payment-monthly',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatCardModule,
+    BankAccountMatSelectSingleComponent,
+    ScreenDataInfoComponent,
+    PriceInteresFieldsComponent,
+    SubTitleComponent,
+    TitleComponent,
+    BtnGComponent,
+    PixesExpensesFieldsComponent
+  ],
+  templateUrl: './payment-monthly.component.html',
+  styleUrls: ['./payment-monthly.component.css'],
+  providers: [PaymentMonthlyService]
 })
 
 export class PaymentMonthlyComponent extends Payment {

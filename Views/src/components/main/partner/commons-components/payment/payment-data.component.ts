@@ -6,10 +6,10 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 
-import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 import { PixComponent } from 'src/shared/components/financial/pix/pix.component';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
@@ -20,23 +20,26 @@ import { PaymentBankAccountComponent } from '../payment-bank-account/payment-ban
 
 
 @Component({
-    selector: 'payment-data',
-    templateUrl: './payment-data.component.html',
-    styles: [`
+  selector: 'payment-data',
+  templateUrl: './payment-data.component.html',
+  styles: [`
 #space-beteween-fields{
   padding:10px;
 }
   `],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatDividerModule,
-        MatCheckboxModule,
-        PaymentBankAccountComponent,
-        PixComponent,
-    ]
+  standalone: true,
+  imports: [
+    CommonModule,
+    
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDividerModule,
+    MatCheckboxModule,
+    PaymentBankAccountComponent,
+    PixComponent,
+
+  ]
 })
 export class PaymentDataComponent extends BaseForm implements OnInit {
 

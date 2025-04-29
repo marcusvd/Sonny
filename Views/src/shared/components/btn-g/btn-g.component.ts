@@ -1,13 +1,13 @@
 import { NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-    selector: 'btn-g',
-    templateUrl: './btn-g.component.html',
-    styles: [`
+  selector: 'btn-g',
+  templateUrl:'./btn-g.component.html',
+  styles: [`
 
           .btn-settings {
 
@@ -24,7 +24,8 @@ import { MatIconModule } from '@angular/material/icon';
             }
 
   `],
-    imports: [MatButtonModule, MatIconModule, NgIf]
+  standalone: true,
+  imports: [MatButtonModule,  MatIconModule, NgIf]
 })
 
 export class BtnGComponent {

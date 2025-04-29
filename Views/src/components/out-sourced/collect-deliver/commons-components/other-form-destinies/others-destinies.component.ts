@@ -2,23 +2,25 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatInputModule } from '@angular/material/input';
 
 
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 
 @Component({
-    selector: 'others-destinies',
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatInputModule
-    ],
-    template: `
+  selector: 'others-destinies',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatInputModule,
+
+  ],
+  template: `
 <div  >
       <div >
-        <mat-form-field appearance="outline" []="">
+        <mat-form-field appearance="outline" >
             <mat-label>Nome / Identificação</mat-label>
           <input matInput type="text"  [formControl]="noRegisterName">
           <mat-error>
@@ -29,7 +31,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
     </div>
     <br>
     <div  >
-        <mat-form-field appearance="outline" []="">
+        <mat-form-field appearance="outline" >
             <mat-label>Endereço / Contatos</mat-label>
           <input matInput type="text"  [formControl]="noRegisterAddress">
           <mat-error>
@@ -41,7 +43,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 </div>
 <br>
   `,
-    styles: [`
+  styles: [`
 
 ::ng-deep .mat-focused .mat-form-field-label {
     /*change color of label*/

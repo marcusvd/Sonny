@@ -10,7 +10,7 @@
                     <div search-filter >
 
                         <div class="small-space-horizontal-beteween-fields"></div>
-                        <div  >
+                        <div  fxLayoutGap="10">
                             <div >
                                 <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
                             </div>
@@ -30,7 +30,7 @@
 
 
                         <br>
-                        <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize"  (page)="onPageChangePixExpenses($event, this.monthFilter.id)"></mat-paginator>
+                        <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChangePixExpenses($event, this.monthFilter.id)"></mat-paginator>
                         <br>
 
                     </div>

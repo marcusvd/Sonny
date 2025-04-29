@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { MatLegacyCheckboxChange as MatCheckboxChange } from '@angular/material/legacy-checkbox';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
 import { ControllerAddProduct } from './helpers/controller-add-product';
 import { ImportsAddProduct } from './imports/imports-add-product';
@@ -9,10 +9,11 @@ import { ex_formLoad } from './helpers/form-main-export-helpers';
 import { AddProductService } from './services/add-product.service';
 
 @Component({
-    selector: 'add-product',
-    imports: [ImportsAddProduct],
-    templateUrl: './add-product.component.html',
-    styleUrls: ['./add-product.component.css']
+  selector: 'add-product',
+  standalone: true,
+  imports: [ImportsAddProduct],
+  templateUrl: './add-product.component.html',
+  styleUrls: ['./add-product.component.css']
 })
 
 export class AddProductComponent extends ControllerAddProduct implements OnInit {

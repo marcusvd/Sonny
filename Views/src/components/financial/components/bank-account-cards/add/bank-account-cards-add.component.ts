@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -20,23 +20,24 @@ import { BankAccountAddService } from './services/bank-account-add.service';
 
 
 @Component({
-    selector: 'bank-account-cards-add',
-    templateUrl: './bank-account-cards-add.component.html',
-    styleUrls: ['./bank-account-cards-add.component.css'],
-    imports: [
-        CommonModule,
-        MatButtonModule,
-        MatCardModule,
-        BankAccountComponent,
-        BankCardsComponent,
-        TitleComponent,
-        SubTitleComponent,
-        BtnGComponent,
-        PixComponent
-    ],
-    providers: [
-        BankAccountAddService
-    ]
+  selector: 'bank-account-cards-add',
+  templateUrl: './bank-account-cards-add.component.html',
+  styleUrls: ['./bank-account-cards-add.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatCardModule,
+    BankAccountComponent,
+    BankCardsComponent,
+    TitleComponent,
+    SubTitleComponent,
+    BtnGComponent,
+    PixComponent
+  ],
+  providers:[
+    BankAccountAddService
+  ]
 })
 export class BankAccountCardsAddComponent extends Add implements OnInit {
 

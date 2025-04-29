@@ -3,36 +3,40 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 @Component({
-    selector: 'pixes-expenses-fields',
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatCardModule,
-        MatButtonModule,
-        MatDatepickerModule,
-        BtnGComponent,
-    ],
-    templateUrl: './pixes-expenses-fields.component.html',
-    styles: [`
+  selector: 'pixes-expenses-fields',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    
+    MatButtonModule,
+    MatDatepickerModule,
+    BtnGComponent,
+  ],
+  templateUrl: './pixes-expenses-fields.component.html',
+  styles: [`
     #label{
               color:rgb(122,142,99);
               font-weight: bolder;
               }
 `],
-    providers: []
+  providers: [
+
+  ]
 })
 
 export class PixesExpensesFieldsComponent extends BaseForm implements OnInit {

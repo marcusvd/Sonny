@@ -6,27 +6,29 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { CommonModule } from '@angular/common';
 
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatInputModule } from '@angular/material/input';
 import { NgxMaskModule } from 'ngx-mask';
 import { BtnGComponent } from '../../btn-g/btn-g.component';
 import { ContactService } from '../services/contact.service';
 @Component({
-    selector: 'contact',
-    templateUrl: './contact.component.html',
-    styleUrls: ['./contact.component.css'],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatIconModule,
-        MatButtonModule,
-        MatInputModule,
-        NgxMaskModule,
-        BtnGComponent
-    ]
+  selector: 'contact',
+  templateUrl: './contact.component.html',
+  styleUrls: ['./contact.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatButtonModule,
+    MatInputModule,
+    NgxMaskModule,
+    BtnGComponent
+  ]
 })
 export class ContactComponent implements OnInit {
 

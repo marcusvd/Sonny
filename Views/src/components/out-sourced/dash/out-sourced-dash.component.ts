@@ -4,13 +4,14 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 
 
 @Component({
-    selector: 'out-sourced-dash',
-    templateUrl: './out-sourced-dash.component.html',
-    styleUrls: ['./out-sourced-dash.component.css'],
-    imports: [
-        RouterModule
-    ],
-    providers: []
+  selector: 'out-sourced-dash',
+  templateUrl: './out-sourced-dash.component.html',
+  styleUrls: ['./out-sourced-dash.component.css'],
+  standalone: true,
+  imports:[
+    RouterModule
+  ],
+  providers: [ ]
 })
 export class OutsourcedDashComponent implements OnInit {
 

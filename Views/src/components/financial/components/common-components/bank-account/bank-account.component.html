@@ -1,7 +1,7 @@
 <mat-card [formGroup]="formMain"  *ngIf="formMain">
     <sub-title title [title]="mainTitle" [icon]="mainIcon"></sub-title>
     <h3>Dados Bancários</h3>
-    <div [fxLayout]=" screenFieldPosition" >
+    <div [fxLayout]=" screenFieldPosition" fxLayoutGap="10">
         <div  >
             <mat-form-field  appearance="outline">
                 <mat-label>Titular</mat-label>
@@ -23,7 +23,7 @@
             </mat-form-field>
         </div>
     </div>
-    <div  >
+    <div  fxLayoutGap="10">
         <div  >
             <mat-form-field  appearance="outline">
                 <mat-label>Agência</mat-label>
@@ -60,7 +60,7 @@
     </ng-content>
 
     <div class="middle-space-horizontal-beteween-fields"> </div>
-    <div  >
+    <div  fxLayoutGap="10">
         <div  >
             <mat-form-field  appearance="outline">
                 <mat-label>Gerente Nome</mat-label>

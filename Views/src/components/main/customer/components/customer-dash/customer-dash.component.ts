@@ -3,11 +3,10 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 
 
 @Component({
-    selector: 'customer-dash',
-    templateUrl: './customer-dash.component.html',
-    styleUrls: ['./customer-dash.component.css'],
-    providers: [],
-    standalone: false
+  selector: 'customer-dash',
+  templateUrl: './customer-dash.component.html',
+  styleUrls: ['./customer-dash.component.css'],
+  providers: []
 })
 export class CustomerDashComponent implements OnInit {
 

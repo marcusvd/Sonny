@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import { MatSelectModule } from '@angular/material/select';
 import { Observable } from 'rxjs';
 
 
@@ -15,14 +15,16 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { PartnerGetService } from './partner-get.service';
 
 @Component({
-    selector: 'get-partner-matselect-single',
-    imports: [
-        MatSelectModule,
-        NgxMatSelectSearchModule,
-        ReactiveFormsModule,
-        CommonModule
-    ],
-    template: `
+  selector: 'get-partner-matselect-single',
+  standalone: true,
+  imports: [
+    MatSelectModule,
+    NgxMatSelectSearchModule,
+    ReactiveFormsModule,
+    
+    CommonModule
+  ],
+  template: `
  <div  [formGroup]="formMain" >
  <mat-form-field  appearance="outline" >
         <mat-label>Parceiros</mat-label>
@@ -40,10 +42,10 @@ import { PartnerGetService } from './partner-get.service';
     </mat-form-field>
  </div>
   `,
-    styles: [`
+  styles: [`
 
   `],
-    providers: [PartnerGetService]
+  providers: [PartnerGetService],
 })
 export class GetPartnerMatSelectSingleComponent extends BaseForm implements OnChanges {
 

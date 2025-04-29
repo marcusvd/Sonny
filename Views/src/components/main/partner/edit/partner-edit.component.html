@@ -51,13 +51,13 @@
             </div>
         </div>
         <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div >
+        <div fxLayoutAlign="center center">
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="update()"></btn-g>
         </div>
     </mat-card>
 
 </div>
 
-<div class="border-around" >
+<div class="border-around" fxLayoutAlign="center center">
     <div>{{formMain?.value|json}}</div>
 </div>

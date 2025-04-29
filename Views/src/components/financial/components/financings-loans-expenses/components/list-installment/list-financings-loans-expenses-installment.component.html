@@ -16,7 +16,7 @@
                         </filter-radio-btns>
                     </div>
                     <div class="small-space-horizontal-beteween-fields"></div>
-                    <div  >
+                    <div  fxLayoutGap="10">
                         <div  *ngIf="screenFieldPosition == 'column'">
                             <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
                         </div>
@@ -43,7 +43,7 @@
                     <div  >
 
                     </div>
-                    <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize"  (page)="onPageChange($event)"></mat-paginator>
+                    <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
                     <br>
                 </div>
                 <!-- <screen-data-info  info *ngIf="true" [fields]="fields"

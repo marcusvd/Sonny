@@ -5,7 +5,7 @@
     <mat-card [formGroup]="formMain"  *ngIf="formMain">
         <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
         <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div (window:resize)="screen()"    >
+        <div (window:resize)="screen()"   fxLayoutGap="10" >
             <div [fxLayout]="'column'" >
                 <mat-form-field appearance="outline" >
                     <mat-label>Despesa</mat-label>
@@ -25,15 +25,15 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div   >
+            <div   fxLayoutAlign="center center">
                 <mat-checkbox formControlName="autoRenew">Renovação Automatica</mat-checkbox>
             </div>
         </div>
-        <div (window:resize)="screen()"   >
+        <div (window:resize)="screen()"  fxLayoutGap="10" >
             <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle" >
             </select-category-subcategory-expenses>
         </div>
-        <div (window:resize)="screen()"  >
+        <div (window:resize)="screen()"  fxLayoutGap="10">
             <div  >
                 <mat-form-field appearance="outline">
                     <mat-label>Início</mat-label>
@@ -72,7 +72,7 @@
             </link-copy-bill>
 
         </div>
-        <div [fxLayout]="'row'"  >
+        <div [fxLayout]="'row'" fxLayoutGap="10" >
             <mat-form-field  appearance="outline" >
                 <mat-label>Despesa descritivo</mat-label>
                 <input matInput type="text" formControlName="description" aria-label="Descrição">
@@ -87,7 +87,7 @@
 
         <!-- <div>{{formMain.value | json}}</div> -->
 
-        <div   fxLayoutGap="50px">
+        <div  fxLayoutAlign="center center" fxLayoutGap="50px">
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
         </div>
     </mat-card>

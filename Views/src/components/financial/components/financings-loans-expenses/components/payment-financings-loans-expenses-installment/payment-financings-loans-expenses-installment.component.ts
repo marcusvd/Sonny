@@ -2,7 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-entities/bank-account/bank-account-mat-select-single.component';
@@ -18,21 +18,22 @@ import { FinancingAndLoanExpenseInstallmentDto } from '../../dto/financing-and-l
 import { PaymentFinancingsLoansInstallmentService } from './services/payment-financings-loans-installment.service';
 
 @Component({
-    selector: 'payment-financings-loans-expenses-installment',
-    imports: [
-        CommonModule,
-        MatCardModule,
-        BankAccountMatSelectSingleComponent,
-        ScreenDataInfoComponent,
-        PriceInteresFieldsComponent,
-        SubTitleComponent,
-        TitleComponent,
-        BtnGComponent,
-        PixesExpensesFieldsComponent,
-    ],
-    templateUrl: './payment-financings-loans-expenses-installment.component.html',
-    styleUrls: ['./payment-financings-loans-expenses-installment.component.css'],
-    providers: [PaymentFinancingsLoansInstallmentService]
+  selector: 'payment-financings-loans-expenses-installment',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatCardModule,
+    BankAccountMatSelectSingleComponent,
+    ScreenDataInfoComponent,
+    PriceInteresFieldsComponent,
+    SubTitleComponent,
+    TitleComponent,
+    BtnGComponent,
+    PixesExpensesFieldsComponent,
+  ],
+  templateUrl: './payment-financings-loans-expenses-installment.component.html',
+  styleUrls: ['./payment-financings-loans-expenses-installment.component.css'],
+  providers: [PaymentFinancingsLoansInstallmentService]
 })
 
 

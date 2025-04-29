@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
-import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 
 
@@ -31,32 +31,35 @@ import { FinancingsLoansExpensesService } from './services/financings-loans-expe
 
 
 @Component({
-    selector: 'financings-loans-expenses',
-    templateUrl: './add-financings-loans-expenses.component.html',
-    styleUrls: ['./add-financings-loans-expenses.component.css'],
-    providers: [
-        FinancingsLoansExpensesService,
-        CategoryExpensesService
-    ],
-    imports: [
-        CommonModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatCheckboxModule,
-        MatButtonModule,
-        MatCardModule,
-        ReactiveFormsModule,
-        MatSelectModule,
-        MatDatepickerModule,
-        MatTooltipModule,
-        CurrencyMaskModule,
-        PtBrCurrencyPipe,
-        TitleComponent,
-        SubTitleComponent,
-        DateJustDayComponent,
-        BtnGComponent,
-        CategorySubcategoryExpensesSelectComponent
-    ]
+  selector: 'financings-loans-expenses',
+  templateUrl: './add-financings-loans-expenses.component.html',
+  styleUrls: ['./add-financings-loans-expenses.component.css'],
+  providers: [
+    FinancingsLoansExpensesService,
+    CategoryExpensesService
+  ],
+  standalone: true,
+  imports: [
+    CommonModule,
+    
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatCardModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatTooltipModule,
+    CurrencyMaskModule,
+    PtBrCurrencyPipe,
+    TitleComponent,
+    SubTitleComponent,
+    DateJustDayComponent,
+    BtnGComponent,
+    CategorySubcategoryExpensesSelectComponent
+  ],
+
 })
 
 export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {

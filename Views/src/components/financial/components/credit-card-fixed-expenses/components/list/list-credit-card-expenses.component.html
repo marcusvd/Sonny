@@ -8,7 +8,7 @@
                     <sub-title title [title]="'Fatura ' +expensesMonth" [icon]="'list'"></sub-title>
                     <div search-filter >
                         <div class="small-space-horizontal-beteween-fields"></div>
-                        <div  >
+                        <div  fxLayoutGap="10">
 
                             <div >
                                 <div >
@@ -26,7 +26,7 @@
                         <div  >
                         </div>
                         <br>
-                        <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize"  (page)="onPageChange($event)"></mat-paginator>
+                        <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
                         <br>
                     </div>
                     <grid-list-common-table  body-table [statusShow]="false" [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)"

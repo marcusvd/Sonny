@@ -5,10 +5,11 @@ import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
-    selector: 'sub-title',
-    templateUrl: './sub-title.component.html',
-    styleUrls: ['./sub-title.component.scss'],
-    imports: [MatIconModule]
+  selector: 'sub-title',
+  templateUrl: './sub-title.component.html',
+  styleUrls: ['./sub-title.component.scss'],
+  standalone: true,
+  imports: [MatIconModule]
 })
 
 export class SubTitleComponent {

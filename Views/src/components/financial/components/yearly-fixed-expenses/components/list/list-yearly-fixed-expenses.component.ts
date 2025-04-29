@@ -4,13 +4,13 @@ import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormControl, FormsModule } from '@angular/forms';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
-import { MatLegacyPaginatorModule as MatPaginatorModule } from '@angular/material/legacy-paginator';
-import { MatLegacyRadioModule as MatRadioModule } from '@angular/material/legacy-radio';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialog } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatRadioModule } from '@angular/material/radio';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -36,32 +36,35 @@ import { ListYearlyFixedExpensesService } from './services/list-yearly-fixed-exp
 import { TriggerPaymentYearly } from './trigger-payment-yearly';
 
 @Component({
-    selector: 'list-yearly-fixed-expenses',
-    templateUrl: './list-yearly-fixed-expenses.component.html',
-    styleUrls: ['./list-yearly-fixed-expenses.component.css'],
-    imports: [
-        CommonModule,
-        FormsModule,
-        MatCardModule,
-        MatPaginatorModule,
-        MatButtonModule,
-        MatMenuModule,
-        RouterModule,
-        MatCheckboxModule,
-        MatRadioModule,
-        GridListCommonComponent,
-        GridListCommonTableComponent,
-        GridListCommonSearchComponent,
-        TitleComponent,
-        BtnGComponent,
-        SubTitleComponent,
-        FilterBtnRadioComponent
-    ],
-    providers: [
-        ListYearlyFixedExpensesService,
-        PtBrDatePipe,
-        PtBrCurrencyPipe,
-    ]
+  selector: 'list-yearly-fixed-expenses',
+  templateUrl: './list-yearly-fixed-expenses.component.html',
+  styleUrls: ['./list-yearly-fixed-expenses.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatCardModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    MatMenuModule,
+    RouterModule,
+    
+    MatCheckboxModule,
+    MatRadioModule,
+    GridListCommonComponent,
+    GridListCommonTableComponent,
+    GridListCommonSearchComponent,
+    TitleComponent,
+    BtnGComponent,
+    SubTitleComponent,
+    FilterBtnRadioComponent
+  ],
+  providers: [
+    ListYearlyFixedExpensesService,
+    PtBrDatePipe,
+    PtBrCurrencyPipe,
+  ]
+
 })
 export class ListYearlyFixedExpensesComponent extends FrontEndListFilterYearlyExpenses implements OnInit, AfterViewInit {
   constructor(

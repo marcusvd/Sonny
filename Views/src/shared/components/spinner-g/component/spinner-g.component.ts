@@ -1,7 +1,7 @@
 import { NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
-import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -9,27 +9,30 @@ import { map } from 'rxjs/operators';
 
 
 @Component({
-    selector: 'spinner-g',
-    template: `
+  selector: 'spinner-g',
+  template: `
   <div *ngIf="spinner" class="middle-space-horizontal-beteween-fields"> </div>
-  <div *ngIf="spinner"  >
+  <div *ngIf="spinner"  fxLayoutAlign="center center">
     <mat-spinner  diameter="30"></mat-spinner>&nbsp;&nbsp;
     <div id="space-top" >{{'Carregando...'}} &nbsp; {{optionalTitle}}</div>
   </div>
   <div *ngIf="spinner" class="middle-space-horizontal-beteween-fields"> </div>
-  <div *ngIf="empty"  >
+  <div *ngIf="empty"  fxLayoutAlign="center center">
   <div  id="space-top" >{{'Nenhum registro encontrado!'}}</div>
   </div>
   `,
-    imports: [
-        MatProgressSpinnerModule,
-        NgIf
-    ],
-    styles: [`
+  standalone: true,
+  imports: [
+    MatProgressSpinnerModule,
+    
+    NgIf
+  ],
+
+  styles: [`
     .mat-spinner::ng-deep circle {
           stroke: #2ba1a8;
     }
-
+    
     #space-top{
     padding-top:5px;
     }

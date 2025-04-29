@@ -4,9 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 import { FormControl } from '@angular/forms';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MatLegacyPaginatorModule as MatPaginatorModule } from '@angular/material/legacy-paginator';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { map } from 'rxjs/operators';
 
@@ -32,29 +32,32 @@ import { VariableExpensesListService } from './services/variable-expenses-list.s
 
 
 @Component({
-    selector: 'variable-expenses-list',
-    templateUrl: './variable-expenses-list.component.html',
-    styleUrls: ['./variable-expenses-list.component.css'],
-    imports: [
-        CommonModule,
-        MatCardModule,
-        MatPaginatorModule,
-        RouterModule,
-        PtBrDatePipe,
-        GridListCommonComponent,
-        GridListCommonTableComponent,
-        GridListCommonSearchComponent,
-        TitleComponent,
-        SubTitleComponent,
-        BtnGComponent,
-        MonthsSelectComponent,
-        FilterBtnRadioComponent
-    ],
-    providers: [
-        PtBrDatePipe,
-        PtBrCurrencyPipe,
-        VariableExpensesListService
-    ]
+  selector: 'variable-expenses-list',
+  templateUrl: './variable-expenses-list.component.html',
+  styleUrls: ['./variable-expenses-list.component.css'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatPaginatorModule,
+    RouterModule,
+    
+    PtBrDatePipe,
+    GridListCommonComponent,
+    GridListCommonTableComponent,
+    GridListCommonSearchComponent,
+    TitleComponent,
+    SubTitleComponent,
+    BtnGComponent,
+    MonthsSelectComponent,
+    FilterBtnRadioComponent
+  ],
+  providers: [
+    PtBrDatePipe,
+    PtBrCurrencyPipe,
+    VariableExpensesListService
+  ]
+
 })
 export class VariableExpensesListComponent extends FrontEndFilterVariableExpenseslist implements OnInit {
 

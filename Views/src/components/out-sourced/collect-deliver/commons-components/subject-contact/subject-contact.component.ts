@@ -3,31 +3,34 @@ import { CommonModule, NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 @Component({
-    selector: 'subject-contact',
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        NgIf,
-        MatSelectModule,
-        MatInputModule,
-        MatCheckboxModule,
-        CurrencyMaskModule,
-        MatDatepickerModule,
-    ],
-    templateUrl: './subject-contact.component.html',
-    styles: [`
+  selector: 'subject-contact',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    NgIf,
+    MatSelectModule,
+    MatInputModule,
+    MatCheckboxModule,
+    
+    CurrencyMaskModule,
+    MatDatepickerModule,
+  ],
+  templateUrl: './subject-contact.component.html',
+  styles: [`
 
-  `]
+  `],
+
 })
 export class SubjectContactComponent extends BaseForm implements OnInit {
 

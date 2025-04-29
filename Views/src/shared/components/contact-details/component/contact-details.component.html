@@ -2,7 +2,7 @@
     <mat-card-title>Contatos</mat-card-title>
     <mat-card>
         <div  [formGroup]="formMain">
-            <div  ="100%" >
+            <div  ="100%" fxLayoutGap="30px">
                 <div ="50%" >
                     <mat-form-field>
                         <mat-label> E-mail:</mat-label>
@@ -31,7 +31,7 @@
 
             </div>
 
-            <div  ="100%">
+            <div fxLayoutGap="30px" ="100%">
 
                 <mat-form-field ="33%">
                     <mat-label> Celular:</mat-label>
@@ -81,7 +81,7 @@
             <div class="pt-3"></div>
             <div ="100%" >
                 <div formArrayName="socialnetworks" *ngFor="let scnw of formSocialNets.controls; let i = index;">
-                    <div  [formGroupName]="i">
+                    <div fxLayoutGap="30px" [formGroupName]="i">
                         <mat-form-field ="40%">
                             <mat-label>Rede Social</mat-label>
                             <input matInput id="socialnetName" formControlName="name">
@@ -91,7 +91,7 @@
                             <input matInput id="socialnetUrl" formControlName="url">
                         </mat-form-field>
 
-                        <button mat-raised-button color="warn"  style="float: right; width: 180px; height: 40px; font-size: 25px;" (click)="_CntValService.removeNets(i)">Remover</button>
+                        <button mat-raised-button color="warn" fxLayoutAlign="center center" style="float: right; width: 180px; height: 40px; font-size: 25px;" (click)="_CntValService.removeNets(i)">Remover</button>
 
 
                     </div>

@@ -9,10 +9,9 @@ import { ConfirmEmail } from '../dto/confirm-email';
 
 
 @Component({
-    selector: 'confirm-email',
-    templateUrl: './confirm-email.component.html',
-    styleUrls: ['./confirm-email.component.css'],
-    standalone: false
+  selector: 'confirm-email',
+  templateUrl: './confirm-email.component.html',
+  styleUrls: ['./confirm-email.component.css']
 })
 export class ConfirmEmailComponent implements OnInit {
 

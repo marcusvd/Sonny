@@ -7,11 +7,11 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
 import { CommonModule } from '@angular/common';
 
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
+import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
@@ -23,21 +23,23 @@ import { FooterLoginComponent } from './footer-login.component';
 
 
 @Component({
-    selector: 'login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css'],
-    imports: [
-        MatCardModule,
-        ReactiveFormsModule,
-        MatIconModule,
-        CommonModule,
-        MatButtonModule,
-        MatInputModule,
-        MatFormFieldModule,
-        RouterModule,
-        TitleDescriptionAuthComponent,
-        FooterLoginComponent
-    ]
+  selector: 'login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
+  standalone: true,
+  imports: [
+    MatCardModule,
+    
+    ReactiveFormsModule,
+    MatIconModule,
+    CommonModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    RouterModule,
+    TitleDescriptionAuthComponent,
+    FooterLoginComponent
+  ]
 })
 export class LoginComponent extends BaseForm implements OnInit {
 

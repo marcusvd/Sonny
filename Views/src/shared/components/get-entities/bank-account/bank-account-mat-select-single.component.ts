@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select';
+import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
-import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
-import { MatLegacyRadioChange as MatRadioChange, MatLegacyRadioModule as MatRadioModule } from '@angular/material/legacy-radio';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { Observable } from 'rxjs/internal/Observable';
 import { BankAccountDto } from 'src/components/financial/components/bank-account-cards/dto/bank-account-dto';
 import { CardDto } from 'src/components/financial/components/bank-account-cards/dto/card-dto';
@@ -25,22 +25,24 @@ import { BankAccountGetService } from './bank-account-get.service';
 import { RadioOptions } from './dto/radio-options';
 
 @Component({
-    selector: 'get-bank-account-select-single',
-    imports: [
-        CommonModule,
-        FormsModule,
-        MatSelectModule,
-        MatFormFieldModule,
-        MatInputModule,
-        NgxMatSelectSearchModule,
-        ReactiveFormsModule,
-        MatRadioModule,
-        BankCard4LastDigitsPipe,
-        BankCardNumberPipe,
-        SpinnerGComponent
-    ],
-    templateUrl: './bank-account-mat-select-single.component.html',
-    styles: [`
+  selector: 'get-bank-account-select-single',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule,
+    NgxMatSelectSearchModule,
+    ReactiveFormsModule,
+    
+    MatRadioModule,
+    BankCard4LastDigitsPipe,
+    BankCardNumberPipe,
+    SpinnerGComponent
+  ],
+  templateUrl: './bank-account-mat-select-single.component.html',
+  styles: [`
             .warning{
                   color:red;
                   margin-top:-10px;
@@ -54,7 +56,7 @@ import { RadioOptions } from './dto/radio-options';
               font-weight: bolder;
               }
   `],
-    providers: [BankAccountGetService]
+  providers: [BankAccountGetService],
 })
 export class BankAccountMatSelectSingleComponent extends BaseForm implements OnInit, OnChanges {
 
@@ -148,7 +150,7 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   onSelectedRadio(value?: MatRadioChange) {
     this.selectedRadio = value.value;
     this.selectedRadioOut.emit(value.value)
-
+    
     if (this.selectedRadio === 0)
       this.AddValidatorsPix();
 
@@ -179,7 +181,7 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   removeAllValidators() {
     this.removeValidators(this.formMain, ['cardId', 'pixId', 'othersPaymentMethods']);
   }
-
+  
   @Output() banckAccountSelected = new EventEmitter<BankAccountDto>();
   onBankAccountSelected(value: number) {
     this?.$banckAccount?.subscribe(x => {

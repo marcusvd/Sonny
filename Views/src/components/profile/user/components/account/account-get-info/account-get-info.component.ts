@@ -9,10 +9,9 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 
 @Component({
-    selector: 'account-get-info',
-    templateUrl: './account-get-info.component.html',
-    styleUrls: ['./account-get-info.component.css'],
-    standalone: false
+  selector: 'account-get-info',
+  templateUrl: './account-get-info.component.html',
+  styleUrls: ['./account-get-info.component.css']
 })
 export class AccountGetInfoComponent extends BaseForm implements OnInit {
 

@@ -2,7 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
+import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
 
@@ -18,21 +18,23 @@ import { CustomerDto } from '../commons-components/dtos/customer-dto';
 import { CustomerListService } from '../list/services/customer-list.service';
 
 @Component({
-    selector: 'customer-view',
-    templateUrl: './customer-view.component.html',
-    styleUrls: ['./customer-view.component.css'],
-    imports: [
-        CommonModule,
-        MatCardModule,
-        CnpjCpfPipe,
-        PtBrCurrencyPipe,
-        TitleComponent,
-        SubTitleItemComponent,
-        BtnGComponent
-    ],
-    providers: [
-        CustomerListService
-    ]
+  selector: 'customer-view',
+  standalone: true,
+  templateUrl: './customer-view.component.html',
+  styleUrls: ['./customer-view.component.css'],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    
+    CnpjCpfPipe,
+    PtBrCurrencyPipe,
+    TitleComponent,
+    SubTitleItemComponent,
+    BtnGComponent
+  ],
+  providers: [
+    CustomerListService
+  ]
 })
 export class CustomerViewComponent extends BaseForm implements OnInit {
   constructor(

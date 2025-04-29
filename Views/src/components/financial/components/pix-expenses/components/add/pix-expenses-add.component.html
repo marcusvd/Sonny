@@ -14,7 +14,7 @@
                 </mat-error>
             </mat-form-field>
         </div>
-        <div (window:resize)="screen()"  >
+        <div (window:resize)="screen()"  fxLayoutGap="10">
 
             <pixes-expenses-fields  [formMain]="formMain" [expenseDayDisabled]="false" [BenefitedKey]="'100'" [ExpenseDay]="'35'">
                
@@ -39,7 +39,7 @@
 
         <!-- <div>{{formMain.value | json}}</div> -->
 
-        <div   fxLayoutGap="50px">
+        <div  fxLayoutAlign="center center" fxLayoutGap="50px">
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
         </div>
     </mat-card>
