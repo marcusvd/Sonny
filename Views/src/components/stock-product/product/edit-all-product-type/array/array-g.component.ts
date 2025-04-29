@@ -4,10 +4,10 @@ import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 
 import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
+import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
 

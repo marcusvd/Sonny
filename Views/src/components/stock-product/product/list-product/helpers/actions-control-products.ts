@@ -1,4 +1,4 @@
-import { MatDialog } from "@angular/material/dialog";
+import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
 import { DetailedProductComponent } from "../../detailed-product/detailed-product.component";
 import { ProductDto } from "../../dtos/product-dto";
 import { NavigationExtras, Router } from "@angular/router";

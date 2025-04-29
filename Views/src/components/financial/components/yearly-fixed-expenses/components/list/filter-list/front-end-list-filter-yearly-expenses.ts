@@ -1,8 +1,8 @@
 import { of } from "rxjs";
 
 import { FormControl } from '@angular/forms';
-import { MatCheckboxChange } from '@angular/material/checkbox';
-import { PageEvent } from "@angular/material/paginator";
+import { MatLegacyCheckboxChange as MatCheckboxChange } from '@angular/material/legacy-checkbox';
+import { LegacyPageEvent as PageEvent } from "@angular/material/legacy-paginator";
 import { List } from 'src/shared/components/inheritance/list/list';
 
 export class FrontEndListFilterYearlyExpenses extends List {

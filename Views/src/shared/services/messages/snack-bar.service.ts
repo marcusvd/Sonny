@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { FormControl, UntypedFormControl } from "@angular/forms";
-import { MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from "@angular/material/snack-bar";
-import { TooltipPosition } from '@angular/material/tooltip';
+import { MatLegacySnackBar as MatSnackBar, MatLegacySnackBarConfig as MatSnackBarConfig, MatLegacySnackBarHorizontalPosition as MatSnackBarHorizontalPosition, MatLegacySnackBarVerticalPosition as MatSnackBarVerticalPosition } from "@angular/material/legacy-snack-bar";
+import { LegacyTooltipPosition as TooltipPosition } from '@angular/material/legacy-tooltip';
 import { SnackActions } from "./snack-actions";
 
 @Injectable({
