@@ -58,7 +58,6 @@
         "protractor": "~7.0.0",
         "schematics-scss-migrate": "^2.3.17",
         "ts-node": "~8.3.0",
-        "tslint": "~6.1.0",
-        "typescript": "^5.8.3"
+        "tslint": "~6.1.0"
     }
 }
