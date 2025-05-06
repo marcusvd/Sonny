@@ -6,7 +6,7 @@
         <div  fxLayoutGap="5">
             <mat-checkbox (change)="assured()" (change)="validatorCustom.checkedBoxValidator(additionalCosts,$event.checked, ['fixedPhysicallyMovingCosts'])" (change)="validatorCustom.checkedBoxValidator(formMain,$event.checked,['payment','expiration'])" formControlName="assured">
             </mat-checkbox>
-            <div ="3"></div>
+            
             <mat-label>Mensal
             </mat-label>
         </div>
@@ -17,7 +17,7 @@
         <div  fxLayoutGap="5">
             <mat-checkbox formControlName="customerType">
             </mat-checkbox>
-            <div ="3"></div>
+            
             <mat-label>Empresa</mat-label>
         </div>
     </div>

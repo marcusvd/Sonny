@@ -1,4 +1,4 @@
-import { LegacyPageEvent as PageEvent } from "@angular/material/paginator";
+import {PageEvent as PageEvent } from "@angular/material/paginator";
 import { IEntityGridAction } from "../../grid-list-common/interface/entity-grid-action";
 import { Observable } from "rxjs";
 

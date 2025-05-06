@@ -6,30 +6,20 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatButtonModule as MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MaterialModule } from 'src/shared/modules/material.module';
+import { BtnGComponent } from '../../btn-g/btn-g.component';
 
 @Component({
   selector: 'title-component',
   templateUrl: './title.component.html',
-  styleUrls: ['./title.component.css'],
+  styleUrl: './title.component.scss',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule]
+  imports: [CommonModule, MatIconModule, MatButtonModule, MatButtonModule, BtnGComponent]
 })
 export class TitleComponent {
 
   @Input() digit: string;
-  @Input() titleString: string;
-  @Input() subTitleString: string;
+  @Input() textTitleComp: string;
   @Input() icon: string;
-  @Input() titleIdCss = 'title';
-  @Input() btnFromOut = false;
-  @Input() styleContainerBelow = 'display: flex; width: 100%; height: 60px;'
-
-
-  constructor(
-
-    private _responsive: BreakpointObserver
-  ) {
-  }
 
   back() {
     window.history.back();

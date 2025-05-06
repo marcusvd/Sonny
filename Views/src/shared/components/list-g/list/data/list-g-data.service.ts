@@ -63,7 +63,7 @@ export class ListGDataService extends BackEndService<any> {
         this?.entitiesFromDb?.next(entities);
       })
   }
- 
+
   // searchQueryHendler(backEndUrl?: string, params?: HttpParams) {
   //   this.loadAllPaged$<any[]>(backEndUrl, params).subscribe(
   //     (x: any) => {

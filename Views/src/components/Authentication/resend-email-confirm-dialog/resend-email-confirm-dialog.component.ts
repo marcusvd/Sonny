@@ -5,7 +5,7 @@ import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule as MatButtonModule } from '@angular/material/button';
 import { MatCardModule as MatCardModule } from '@angular/material/card';
-import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatDialogModule as MatDialogModule, MatDialogRef as MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA as MAT_DIALOG_DATA, MatDialogModule as MatDialogModule, MatDialogRef as MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule as MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule as MatInputModule } from '@angular/material/input';
@@ -45,7 +45,7 @@ import { AuthenticationService } from '../services/authentication.service';
           <span class="font-body">{{messageBody}}</span><span class="itemToBeDelete">{{itemToBeDelete}}</span><span>?</span>
          </mat-dialog-content>
        <div   class="margin" fxLayoutGap="30px">
-                <div  >
+                <div>
                 </div>
                 <div >
                  <btn-g mat-dialog-close [name]="'Cancelar'" [icon]="'cancel'" (btn)="clickedNo('cancel')"></btn-g>
@@ -89,7 +89,7 @@ import { AuthenticationService } from '../services/authentication.service';
             </div>
         </div>
         <div   class="margin" fxLayoutGap="30px">
-                <div  >
+                <div>
                 </div>
                 <div >
                  <btn-g mat-dialog-close [name]="'Cancelar'" [icon]="'cancel'" (btn)="clickedNo('cancel')"></btn-g>

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatPaginator as MatPaginator, LegacyPageEvent as PageEvent } from '@angular/material/paginator';
+import { MatPaginator as MatPaginator,PageEvent as PageEvent } from '@angular/material/paginator';
 import { NavigationExtras, Router } from "@angular/router";
 import * as diacritics from 'diacritics';
 import { Observable } from "rxjs";
@@ -19,8 +19,8 @@ export class BaseList {
 
   companyId = JSON.parse(localStorage.getItem('companyId'))
   userId = JSON.parse(localStorage.getItem('userId'))
-  minValue = new Date('0001-01-01T00:00:00.000Z');
-  // minValue = new Date('0001-01-01T00:00:00');
+ // minValue = new Date('0001-01-01T00:00:00.000Z');
+   minValue = new Date('0001-01-01T00:00:00');
   currentDate = new Date();
   currentDateWithoutHours = this.currentDate.setHours(0, 0, 0, 0)
   screenWidth: number = window.innerWidth;
@@ -63,10 +63,10 @@ export class BaseList {
   searchListEntities(entities: any[], term: string): any[] {
     const entitiesToFilter = entities;
     let result: any[] = [];
-    
+
     result = entitiesToFilter.filter(entity =>
       Object.values(entity).some((value: any) => {
-        
+
         if (value && typeof value === 'object' && 'key' in value) {
           const stringValue = this.removeAccentsSpecialCharacters(value.key);
 

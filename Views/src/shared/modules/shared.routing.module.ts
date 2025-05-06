@@ -24,7 +24,7 @@ const routes: Routes = [
       //   loadChildren: () => import('../../components/services-provision/modules/budget.routing.module').then(x => x.BudgetRoutingModule)
       // },
       {
-        path: 'financial-dash',
+        path: 'financial',
         loadChildren: () => import('../../components/financial/modules/financial.routing.module').then(x => x.FinancialRoutingModule)
       },
       {

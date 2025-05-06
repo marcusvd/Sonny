@@ -1,7 +1,7 @@
 <div (window:resize)="screen()"  >
     <!-- defaultSubtitle -->
     <div [fxLayout]="'column'" *ngIf="singleStatusSubtitle">
-        <div *ngIf="defaultSubtitle" id="space-components" [fxLayout]="bigCurrentSizeScreen" fxLayoutGap="10" >
+        <div *ngIf="defaultSubtitle" id="space-components" [fxLayout]="bigCurrentSizeScreen"  >
             <div >
                 <span class="dimensions-subtitle bg-color-expired"></span><span class="space-subtitle">Vencida</span>
             </div>
@@ -20,7 +20,7 @@
     </div>
     <br>
 
-    <div  >
+    <div>
         {{title}}
     </div>
 

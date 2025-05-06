@@ -1,6 +1,6 @@
 <div (window:resize)="screen()" class="border-around">
     <div class="around"  >
-        <title-component [digit]="'|'" [titleString]="'Despesas Anuais'" [icon]="'attach_money'">
+        <title-component [digit]="'|'" [textTitleComp]="'Despesas Anuais'" [icon]="'attach_money'">
         </title-component>
 
         <mat-card class="mat-card-sub-title" >
@@ -13,13 +13,13 @@
                         </filter-radio-btns>
                     </div>
                     <div class="small-space-horizontal-beteween-fields"></div>
-                    <div  fxLayoutGap="10">
+                    <div>
                         <div  *ngIf="screenFieldPosition == 'column'">
                             <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
                         </div>
                         <div >
                             <btn-g [name]="'Filtros'" [icon]="'clear'"
-                                [styleColors]="'font-size: 15px;color: white;background-color: rgb(156,33,29);'"
+                                
                                 (btn)="filterClear()"></btn-g>
                         </div>
                         <div fxLayout="screenFieldPosition" >
@@ -35,7 +35,7 @@
 
                 </div>
                 <div search-pagination  >
-                    <div  >
+                    <div>
                         <grid-list-common-search [Input]="searchFieldYearlySelect" [searchName]="'Busca'"
                             [clearSearchField]="clearSearchField" (queryFieldOutput)="queryFieldOutput($event)">
                         </grid-list-common-search>
@@ -56,8 +56,8 @@
                     <div class="mat-paginator-above-margin"  >
 
                     </div>
-                    <div  >
-                        <div  >
+                    <div>
+                        <div>
 
                         </div>
 

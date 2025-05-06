@@ -13,7 +13,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
   selector: 'description-field',
   template: `
   <div [formGroup]="formMain">
-        <div  >
+        <div>
             <mat-form-field appearance="outline">
                 <mat-label>{{	label	}}</mat-label>
                 <textarea matInput [formControlName]="frmControlName" [rows]="rows" [placeholder]="label"></textarea>

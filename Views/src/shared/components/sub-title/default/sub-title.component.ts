@@ -20,16 +20,14 @@ export class SubTitleComponent {
   @Input() icon: string;
 
   @Input() titleBarStyle: string = `
-  display: flex;
+  max-width: calc(100vw - 10%);
   background-color: rgb(43, 161, 168);
   border-top-right-radius: 15px;
   border-top-left-radius: 15px;
   height:35px;
   margin-top:-35px;
-  margin-right:-16px;
-  margin-left:-16px;
-  top:18px
   `;
+  // top:18px
   // @Input() plus: boolean = false;
   // // @Input() titleH1: boolean = false;
   // @Input() spaceItem: number = 100;

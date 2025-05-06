@@ -1,11 +1,11 @@
 <div  class="border-around" *ngIf="formMain">
-    <title-component [digit]="'|'" [titleString]="'Cartão de Crédito'" [icon]="'attach_money'">
+    <title-component [digit]="'|'" [textTitleComp]="'Cartão de Crédito'" [icon]="'attach_money'">
         <btn-g btn-1 [styleSize]="'width:150px;'" [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
     </title-component>
     <mat-card [formGroup]="formMain"  *ngIf="formMain">
         <sub-title title [title]="'Cartão de Crédito'" [icon]="'add'"></sub-title>
         <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div  >
+        <div>
             <get-bank-account-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [radioOptionRemove]="[0,2]" [selectedRadio]=1 [validatorsPaymentBtnAction]="true" [optionsRadio]="[{ id: 1, name: 'Cartão Crédito' }]" [alignRadios]="'start start'"
                 [typeCardToDisable]="typeCardToDisable" [bankAccountFormControlName]="'paidFromBankAccountId'" (banckAccountSelected)="onSelectedBanckAccountelected($event)" (cardsFromSelectedBank)="selectedCreditCard($event)">
             </get-bank-account-select-single>
@@ -19,8 +19,8 @@
             </get-bank-account-select-single> -->
         </div>
 
-        <div (window:resize)="screen()"  fxLayoutGap="10" *ngIf="formMain.get('cardId').value">
-            <div  >
+        <div (window:resize)="screen()"   *ngIf="formMain.get('cardId').value">
+            <div>
 
                 <mat-form-field  appearance="outline">
                     <mat-label>Local despesa</mat-label>
@@ -46,7 +46,7 @@
             </div>
         </div>
 
-        <div (window:resize)="screen()"  fxLayoutGap="10">
+        <div (window:resize)="screen()"  >
             <!-- *ngIf="formMain.get('bankAccountId').value" -->
 
             <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle" [payCycle2]="payCycle2" ="100">
@@ -54,9 +54,9 @@
         </div>
 
 
-        <div (window:resize)="screen()"  fxLayoutGap="10" *ngIf="formMain.get('expenseDay').value">
+        <div (window:resize)="screen()"   *ngIf="formMain.get('expenseDay').value">
 
-            <div  >
+            <div>
                 <mat-form-field  appearance="outline" >
                     <mat-label>Valor à vista</mat-label>
                     <input currencyMask matInput type="text" (keyup)="sumPaymentAtSight()" formControlName="paymentAtSight" aria-label="Valor">
@@ -95,8 +95,8 @@
                 </mat-form-field>
             </div>
         </div>
-        <div (window:resize)="screen()"  fxLayoutGap="10" *ngIf="formMain.get('price').value || formMain.get('totalPriceInterest').value > 0">
-            <div  >
+        <div (window:resize)="screen()"   *ngIf="formMain.get('price').value || formMain.get('totalPriceInterest').value > 0">
+            <div>
                 <div >
                     <mat-label>{{'Montante:'}}&nbsp;</mat-label>
                 </div>
@@ -104,7 +104,7 @@
                     <mat-label>{{priceToPaidView | ptBrCurrency}}</mat-label>
                 </div>
             </div>
-            <div  >
+            <div>
                 <div >
                     <mat-label>Juros:&nbsp;</mat-label>
                 </div>
@@ -112,7 +112,7 @@
                     <mat-label>{{totalPriceInterestView | ptBrCurrency}}</mat-label>
                 </div>
             </div>
-            <div  >
+            <div>
                 <div >
                     <mat-label>Porcentagem:&nbsp;</mat-label>
                 </div>
@@ -122,7 +122,7 @@
             </div>
         </div>
         <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div (window:resize)="screen()"  fxLayoutGap="10">
+        <div (window:resize)="screen()"  >
 
             <!-- *ngIf="formMain.get('bankAccountId').value" -->
             <div  ="80">
@@ -137,7 +137,7 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div  ="20">
+            <div>
                 <mat-form-field appearance="outline">
                     <mat-label>Recibo</mat-label>
                     <input matInput type="text" formControlName="document" aria-label="Código documento">

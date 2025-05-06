@@ -1,8 +1,8 @@
 <mat-card [formGroup]="formMain"  *ngIf="formMain">
     <sub-title title [title]="mainTitle" [icon]="mainIcon"></sub-title>
     <h3>Dados Bancários</h3>
-    <div [fxLayout]=" screenFieldPosition" fxLayoutGap="10">
-        <div  >
+    <div [fxLayout]=" screenFieldPosition" >
+        <div>
             <mat-form-field  appearance="outline">
                 <mat-label>Titular</mat-label>
                 <input matInput type="text" formControlName="holder" aria-label="Titular">
@@ -12,7 +12,7 @@
                 </mat-error>
             </mat-form-field>
         </div>
-        <div  >
+        <div>
             <mat-form-field  appearance="outline">
                 <mat-label>Instituição Financeira</mat-label>
                 <input matInput type="text" formControlName="institution" aria-label="Instituição Financeira">
@@ -23,8 +23,8 @@
             </mat-form-field>
         </div>
     </div>
-    <div  fxLayoutGap="10">
-        <div  >
+    <div>
+        <div>
             <mat-form-field  appearance="outline">
                 <mat-label>Agência</mat-label>
                 <input matInput type="text" formControlName="agency" aria-label="Agência">
@@ -34,7 +34,7 @@
                 </mat-error>
             </mat-form-field>
         </div>
-        <div  >
+        <div>
             <mat-form-field  appearance="outline">
                 <mat-label>Conta</mat-label>
                 <input matInput type="text" formControlName="account" aria-label="Conta">
@@ -44,7 +44,7 @@
                 </mat-error>
             </mat-form-field>
         </div>
-        <div  >
+        <div>
             <mat-form-field  appearance="outline">
                 <mat-label>Tipo de Conta</mat-label>
                 <mat-select formControlName="type">
@@ -60,8 +60,8 @@
     </ng-content>
 
     <div class="middle-space-horizontal-beteween-fields"> </div>
-    <div  fxLayoutGap="10">
-        <div  >
+    <div>
+        <div>
             <mat-form-field  appearance="outline">
                 <mat-label>Gerente Nome</mat-label>
                 <input formControlName="managerName" matInput type="text" aria-label="Gerente Nome">
@@ -71,7 +71,7 @@
             </mat-form-field>
         </div>
 
-        <div  >
+        <div>
             <mat-form-field  appearance="outline">
                 <mat-label>Contato Gerente</mat-label>
                 <input matInput type="text" formControlName="managerContact" aria-label="Contato Gerente">

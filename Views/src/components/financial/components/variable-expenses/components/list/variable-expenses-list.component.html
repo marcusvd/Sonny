@@ -1,20 +1,20 @@
 <div class="border-around" (window:resize)="screen()">
-    <title-component [digit]="'|'" [titleString]="'Despesas Variáveis'" [icon]="'attach_money'">
+    <title-component [digit]="'|'" [textTitleComp]="'Despesas Variáveis'" [icon]="'attach_money'">
     </title-component>
     <div>
-        <div  >
+        <div>
             <mat-card class="mat-card-sub-title" >
                 <grid-list-common>
                     <sub-title title [title]="'Contas a pagar'" [icon]="'list'"></sub-title>
                     <div search-filter >
                         <div class="small-space-horizontal-beteween-fields"></div>
-                        <div  fxLayoutGap="10">
+                        <div>
                             <div  *ngIf="screenFieldPosition == 'column'">
                                 <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
                             </div>
                             <div >
                                 <btn-g [name]="'Filtros'" [icon]="'clear'"
-                                    [styleColors]="'font-size: 15px;color: white;background-color: rgb(156,33,29);'"
+                                    
                                     (btn)="filterClear()"></btn-g>
                             </div>
                             <div fxLayout="screenFieldPosition" >
@@ -28,7 +28,7 @@
                       
                     </div>
                     <div search-pagination  >
-                        <div  >
+                        <div>
                             <grid-list-common-search 
                             [searchName]="'Busca'" 
                             [Input]="searchFieldMonthSelect"
@@ -37,7 +37,7 @@
                         
                         </grid-list-common-search>
                         </div>
-                        <div  >
+                        <div>
                             <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true"
                                 [changeSelection]="monthFilter" [Input]="searchFieldMonthSelect"
                                 (sendSelected)="selectedMonth($event)">
@@ -63,8 +63,8 @@
                         <div class="mat-paginator-above-margin"  >
 
                         </div>
-                        <div  >
-                            <div  >
+                        <div>
+                            <div>
 
                             </div>
 

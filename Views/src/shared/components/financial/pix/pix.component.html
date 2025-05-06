@@ -5,8 +5,8 @@
             <!-- <div>{{'Pix ' }}{{i+1}}</div> -->
             <img src="../../../../assets/finances/pix.png" alt="pix" style="width:50px; height: 20px;">
             <div class="middle-space-horizontal-beteween-fields"></div>
-            <div  [formGroupName]="i" fxLayoutGap="10">
-                <div  >
+            <div  [formGroupName]="i" >
+                <div>
                     <mat-form-field  appearance="outline">
                         <mat-label>PIX</mat-label>
                         <mat-select (selectionChange)="pixValidatorSelected(pixFormGroup, pixFormGroup.get('key').value)" (selectionChange)="formCleanField(pixFormGroup)" formControlName="key">
@@ -52,9 +52,9 @@
 
             <div >
                 <div >
-                    <btn-g mat-dialog-close [name]="'Remover'" [icon]="'clear'" [styleColors]="'font-size: 15px;color: white;background-color: rgb(156,33,29);'" (btn)="remove(i)"></btn-g>
+                    <btn-g mat-dialog-close [name]="'Remover'" [icon]="'clear'"  (btn)="remove(i)"></btn-g>
                 </div>
-                <div  >
+                <div>
 
                 </div>
                 <div >
@@ -72,14 +72,14 @@
 
 
 <div >
-    <div  >
+    <div>
 
 
     </div>
     <div >
         <btn-g [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
     </div>
-    <div  >
+    <div>
 
     </div>
 </div>

@@ -15,7 +15,7 @@
                     <div >
                         <h3>Dados do cartão</h3>
                     </div>
-                    <div  >
+                    <div>
                     </div>
                     <div  fxLayoutAlign="center center">
                         <h3>{{type[i]?.card?.niceType}}</h3>
@@ -23,7 +23,7 @@
                         </mat-icon>
                     </div>
                 </div>
-                <div  >
+                <div>
                     <mat-form-field appearance="outline" >
                         <mat-label>Nome</mat-label>
                         <input matInput type="text" formControlName="holder" placeholder="Nome exatamente como está no cartão.">
@@ -34,7 +34,7 @@
                     </mat-form-field>
                 </div>
                 <div  fxLayoutGap="15" >
-                    <div  >
+                    <div>
                         <mat-form-field appearance="outline" >
                             <mat-label>Número</mat-label>
                             <input matInput type="text" formControlName="number" [mask]="maskCardNumber" type="text" (keyup)="cardNumberKeyUp(i)" aria-label="Número">

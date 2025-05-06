@@ -33,47 +33,87 @@ import { PixExpensesListComponent } from "../components/pix-expenses/components/
 
 
 const Routes: Routes = [
-  {
-    path: '', component: FinancialDashComponent, children: [
-      { path: 'create-bank-account-cards', component: BankAccountCardsAddComponent },
-      { path: 'edit-bank-account-cards/:id', component: BankAccountCardsEditComponent },
-      { path: 'list-bank-account-cards', component: BanksAccountsCardsListComponent },
 
-      // { path: 'select-expenses/:id', component: SelectExpensesComponent },
+  { path: 'create-bank-account-cards', component: BankAccountCardsAddComponent },
+  { path: 'edit-bank-account-cards/:id', component: BankAccountCardsEditComponent },
+  { path: 'list-bank-account-cards', component: BanksAccountsCardsListComponent },
 
-      { path: 'category-expenses-add-edit', component: EditCategorySubcategoryExpensesComponent },
+  // { path: 'select-expenses/:id', component: SelectExpensesComponent },
 
-      { path: 'add-credit-card-expenses', component: AddCreditCardExpensesComponent },
-      { path: 'list-credit-card-invoices', component: ListCreditCardInvoicesComponent },
-      { path: 'list-credit-card-expenses/:id', component: ListCreditCardExpensesComponent },
-      { path: 'payment-credit-card-expenses', component: PaymentCreditCardsInvoicesComponent },
+  { path: 'category-expenses-add-edit', component: EditCategorySubcategoryExpensesComponent },
 
-      { path: 'list-pix-expenses', component: PixExpensesListComponent },
-      { path: 'add-pix-expenses', component: PixExpensesAddComponent },
+  { path: 'add-credit-card-expenses', component: AddCreditCardExpensesComponent },
+  { path: 'list-credit-card-invoices', component: ListCreditCardInvoicesComponent },
+  { path: 'list-credit-card-expenses/:id', component: ListCreditCardExpensesComponent },
+  { path: 'payment-credit-card-expenses', component: PaymentCreditCardsInvoicesComponent },
 
-      { path: 'list-monthly-fixed-expenses', component: ListMonthlyFixedExpensesComponent },
-      { path: 'monthly-fixed-expenses-add', component: MonthlyFixedExpensesAddComponent },
-      { path: 'view-monthly-fixed-expenses/:id', component: ViewMonthlyFixedExpensesComponent },
-      { path: 'payment-monthly', component: PaymentMonthlyComponent },
+  { path: 'list-pix-expenses', component: PixExpensesListComponent },
+  { path: 'add-pix-expenses', component: PixExpensesAddComponent },
 
-      { path: 'yearly-fixed-expenses-add', component: YearlyFixedExpensesAddComponent },
-      { path: 'yearly-fixed-expenses-list', component: ListYearlyFixedExpensesComponent },
-      { path: 'payment-yearly', component: PaymentYearlyComponent },
+  { path: 'list-monthly-fixed-expenses', component: ListMonthlyFixedExpensesComponent },
+  { path: 'monthly-fixed-expenses-add', component: MonthlyFixedExpensesAddComponent },
+  { path: 'view-monthly-fixed-expenses/:id', component: ViewMonthlyFixedExpensesComponent },
+  { path: 'payment-monthly', component: PaymentMonthlyComponent },
 
-      { path: 'list-financings-loans-expenses', component: ListFinancingsLoansExpensesComponent },
-      { path: 'add-financings-loans-expenses', component: AddFinancingsLoansExpensesComponent },
-      { path: 'list-financings-loans-expenses-installment/:id', component: ListFinancingsLoansExpensesInstallmentComponent },
-      { path: 'view-financings-loans-expenses', component: ViewExpensesGComponent },
-      { path: 'payment-financings-loans', component: PaymentFinancingsLoansInstallmentComponent },
+  { path: 'yearly-fixed-expenses-add', component: YearlyFixedExpensesAddComponent },
+  { path: 'yearly-fixed-expenses-list', component: ListYearlyFixedExpensesComponent },
+  { path: 'payment-yearly', component: PaymentYearlyComponent },
 
-      { path: 'add-variable-expenses', component: VariableExpensesAddComponent },
-      { path: 'list-variable-expenses', component: VariableExpensesListComponent },
+  { path: 'list-financings-loans-expenses', component: ListFinancingsLoansExpensesComponent },
+  { path: 'add-financings-loans-expenses', component: AddFinancingsLoansExpensesComponent },
+  { path: 'list-financings-loans-expenses-installment/:id', component: ListFinancingsLoansExpensesInstallmentComponent },
+  { path: 'view-financings-loans-expenses', component: ViewExpensesGComponent },
+  { path: 'payment-financings-loans', component: PaymentFinancingsLoansInstallmentComponent },
+
+  { path: 'add-variable-expenses', component: VariableExpensesAddComponent },
+  { path: 'list-variable-expenses', component: VariableExpensesListComponent },
 
 
       // { path: 'payment', component: PaymentComponent },
-    ]
-  },
+
 ]
+// const Routes: Routes = [
+//   {
+//     path: '', component: FinancialDashComponent, children: [
+//       { path: 'create-bank-account-cards', component: BankAccountCardsAddComponent },
+//       { path: 'edit-bank-account-cards/:id', component: BankAccountCardsEditComponent },
+//       { path: 'list-bank-account-cards', component: BanksAccountsCardsListComponent },
+
+//       // { path: 'select-expenses/:id', component: SelectExpensesComponent },
+
+//       { path: 'category-expenses-add-edit', component: EditCategorySubcategoryExpensesComponent },
+
+//       { path: 'add-credit-card-expenses', component: AddCreditCardExpensesComponent },
+//       { path: 'list-credit-card-invoices', component: ListCreditCardInvoicesComponent },
+//       { path: 'list-credit-card-expenses/:id', component: ListCreditCardExpensesComponent },
+//       { path: 'payment-credit-card-expenses', component: PaymentCreditCardsInvoicesComponent },
+
+//       { path: 'list-pix-expenses', component: PixExpensesListComponent },
+//       { path: 'add-pix-expenses', component: PixExpensesAddComponent },
+
+//       { path: 'list-monthly-fixed-expenses', component: ListMonthlyFixedExpensesComponent },
+//       { path: 'monthly-fixed-expenses-add', component: MonthlyFixedExpensesAddComponent },
+//       { path: 'view-monthly-fixed-expenses/:id', component: ViewMonthlyFixedExpensesComponent },
+//       { path: 'payment-monthly', component: PaymentMonthlyComponent },
+
+//       { path: 'yearly-fixed-expenses-add', component: YearlyFixedExpensesAddComponent },
+//       { path: 'yearly-fixed-expenses-list', component: ListYearlyFixedExpensesComponent },
+//       { path: 'payment-yearly', component: PaymentYearlyComponent },
+
+//       { path: 'list-financings-loans-expenses', component: ListFinancingsLoansExpensesComponent },
+//       { path: 'add-financings-loans-expenses', component: AddFinancingsLoansExpensesComponent },
+//       { path: 'list-financings-loans-expenses-installment/:id', component: ListFinancingsLoansExpensesInstallmentComponent },
+//       { path: 'view-financings-loans-expenses', component: ViewExpensesGComponent },
+//       { path: 'payment-financings-loans', component: PaymentFinancingsLoansInstallmentComponent },
+
+//       { path: 'add-variable-expenses', component: VariableExpensesAddComponent },
+//       { path: 'list-variable-expenses', component: VariableExpensesListComponent },
+
+
+//       // { path: 'payment', component: PaymentComponent },
+//     ]
+//   },
+// ]
 
 @NgModule({
   imports: [RouterModule.forChild(Routes)],

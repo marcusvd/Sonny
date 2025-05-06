@@ -2,7 +2,7 @@ import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { MatButtonModule as MatButtonModule } from '@angular/material/button';
 import { MatCardModule as MatCardModule } from '@angular/material/card';
-import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatDialogModule as MatDialogModule, MatDialogRef as MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA as MAT_DIALOG_DATA, MatDialogModule as MatDialogModule, MatDialogRef as MatDialogRef } from '@angular/material/dialog';
 import { BtnGComponent } from '../btn-g/btn-g.component';
 import { SubTitleComponent } from '../sub-title/default/sub-title.component';
 
@@ -12,7 +12,6 @@ import { SubTitleComponent } from '../sub-title/default/sub-title.component';
   encapsulation: ViewEncapsulation.None,
   imports: [
     MatDialogModule,
-    
     MatButtonModule,
     MatCardModule,
     SubTitleComponent,
@@ -27,13 +26,13 @@ import { SubTitleComponent } from '../sub-title/default/sub-title.component';
          </mat-dialog-content>
 
               <div   class="margin" fxLayoutGap="30px">
-                <div  >
+                <div>
                 </div>
                 <div >
-                 <btn-g mat-dialog-close [name]="'Cancelar'" [icon]="'cancel'" [styleColors]="'font-size: 15px;color: white;background-color: rgb(110,110,110);'" (click)="clickedNo('cancel')"></btn-g>
+                 <btn-g mat-dialog-close [name]="'Cancelar'" [icon]="'cancel'" (click)="clickedNo('cancel')"></btn-g>
                 </div>
                 <div >
-                 <btn-g mat-dialog-close [name]="'Apagar'" [icon]="'delete_outline'" [styleColors]="'font-size: 15px;color: white;background-color: rgb(156,33,29);'" (click)="clickedYes(this.id,'yes')"></btn-g>
+                 <btn-g mat-dialog-close [name]="'Apagar'" [icon]="'delete_outline'"  (click)="clickedYes(this.id,'yes')"></btn-g>
               </div>
        </div>
     </mat-card>

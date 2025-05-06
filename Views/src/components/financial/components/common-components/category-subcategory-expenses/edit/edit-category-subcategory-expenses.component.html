@@ -1,5 +1,5 @@
 <div  class="border-around">
-    <!-- <title-component [digit]="'|'"[titleString]="'Cadastro de despesas fixas'"[icon]="'attach_money'">
+    <!-- <title-component [digit]="'|'"[textTitleComp]="'Cadastro de despesas fixas'"[icon]="'attach_money'">
         </title-component> -->
     <section id="container-above" >
         <button id="btn-back" mat-raised-button (click)="back()">{{'Voltar'}}</button>
@@ -13,17 +13,17 @@
         </div>
         <div  *ngIf="delete">
             <btn-g mat-dialog-close [name]="'Apagar'" [icon]="'delete_outline'"
-                [styleColors]="'font-size: 15px;color: white;background-color: rgb(156,33,29);'"
+                
                 (click)="findToDelete()"></btn-g>
         </div>
         <br>
-        <div  >
+        <div>
             <mat-checkbox #edit [disabled]="!formMain.get('name').valid || disableToAdd" (change)="editCheck($event)">
                 {{'Editar'}}
             </mat-checkbox>
         </div>
         <br>
-        <div  fxLayoutGap="10">
+        <div>
             <div   *ngIf="!edit.checked">
                 <mat-form-field  appearance="outline">
                     <mat-label>Categoria</mat-label>
@@ -122,7 +122,7 @@
             *ngFor="let subCat of getSubcategories.controls; let i = index;">
             <div [formGroupName]="i"  *ngIf="subCat.get('deleted').value != true">
                 <btn-g  [name]="'Remover'" [icon]="'clear'"
-                    [styleColors]="'font-size: 15px;color: white;background-color: rgb(156,33,29);'"
+                    
                     (btn)="removeSubcategory(i)" [enableDisable]="editChk"></btn-g>
                 <br>
                 <mat-form-field  appearance="outline" *ngIf="formMain.get('name').value != ''">
@@ -142,7 +142,7 @@
                         <span>{{validatorMessages.minMaxLength(formMain,'name', 'Categoria',null,30)}}</span>
                     </mat-error>
                 </mat-form-field>
-                <div  >
+                <div>
                     <mat-form-field appearance="outline" >
                         <mat-label>Subcategoria</mat-label>
                         <input matInput formControlName="name" aria-label="Subcategoria">

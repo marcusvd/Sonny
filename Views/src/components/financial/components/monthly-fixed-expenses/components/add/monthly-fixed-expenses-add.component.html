@@ -1,12 +1,12 @@
-<div  class="border-around">
-    <title-component [digit]="'|'" [titleString]="'Despesa Mensal'" [icon]="'attach_money'">
-        <btn-g btn-1 [styleSize]="'width:150px;'" [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
+<div class="border-around">
+    <title-component [digit]="'|'" [textTitleComp]="'Despesa Mensal'" [icon]="'attach_money'">
+        <btn-g btn-1 [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
     </title-component>
-    <mat-card [formGroup]="formMain"  *ngIf="formMain">
+    <mat-card [formGroup]="formMain" *ngIf="formMain">
         <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
         <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div (window:resize)="screen()"  fxLayoutGap="10" >
-            <div  >
+        <div (window:resize)="screen()">
+            <div>
                 <mat-form-field appearance="outline">
                     <mat-label>Despesa</mat-label>
                     <input matInput type="text" formControlName="name" aria-label="Descrição">
@@ -16,7 +16,7 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div  >
+            <div>
                 <mat-form-field appearance="outline">
                     <mat-label>Descrição</mat-label>
                     <input matInput type="text" formControlName="description" aria-label="Descrição">
@@ -29,18 +29,18 @@
             </div>
         </div>
         <br>
-        <div (window:resize)="screen()"  fxLayoutGap="10">
+        <div (window:resize)="screen()">
             <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle">
             </select-category-subcategory-expenses>
-            <div  ="20">
-                <date-just-day [formMain]="formMain" [formCtrlName]="'expires'" [placeholder]="'00'" [labelTitle]="'Dia Vencimento'" [Width]="20" [layoutColumnRow]="'column'">
+            <div>
+                <date-just-day [formMain]="formMain" [formCtrlName]="'expires'" [placeholder]="'00'" [labelTitle]="'Dia Vencimento'" [layoutColumnRow]="'column'">
                     <div validation-error>
                         <span>{{validatorMessages.required(this.subForm,'expires', 'Dia Vencimento')}}</span>
                     </div>
                 </date-just-day>
             </div>
-            <div  >
-                <mat-form-field  appearance="outline" >
+            <div>
+                <mat-form-field appearance="outline">
                     <mat-label>Valor</mat-label>
                     <input currencyMask matInput type="text" formControlName="price" aria-label="Valor">
                     <mat-error>
@@ -53,7 +53,7 @@
         <link-copy-bill [formMain]="formMain">
         </link-copy-bill>
         <!-- <div>{{formMain.value | json}}</div> -->
-        <div  fxLayoutAlign="center center" fxLayoutGap="50px">
+        <div fxLayoutAlign="center center" fxLayoutGap="50px">
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
         </div>
     </mat-card>

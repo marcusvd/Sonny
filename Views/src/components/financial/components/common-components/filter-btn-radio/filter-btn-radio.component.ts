@@ -13,7 +13,7 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
   template: `
   <mat-radio-group (change)="filter($event)"  [disabled]="disabledRadioInput">
 
-  <div  ="20">
+  <div>
 
       <mat-radio-button class="align-radio-button" #radioExpired
           [value]="'expired'"></mat-radio-button>
@@ -31,7 +31,7 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
           class="space-subtitle">Pendente</span>
   </div>
   <div class="small-space-horizontal-beteween-fields"></div>
-  <div  ="20">
+  <div>
       <mat-radio-button class="align-radio-button" #radioPaid
           [value]="'paid'"></mat-radio-button>
 

@@ -1,11 +1,11 @@
 <div  class="border-around" *ngIf="formMain" >
-    <title-component [digit]="'|'" [titleString]="'Despesas Anuais'" [icon]="'attach_money'">
+    <title-component [digit]="'|'" [textTitleComp]="'Despesas Anuais'" [icon]="'attach_money'">
         <btn-g btn-1 [styleSize]="'width:150px;'" [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
     </title-component>
     <mat-card [formGroup]="formMain"  *ngIf="formMain">
         <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
         <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div (window:resize)="screen()"   fxLayoutGap="10" >
+        <div (window:resize)="screen()"    >
             <div [fxLayout]="'column'" >
                 <mat-form-field appearance="outline" >
                     <mat-label>Despesa</mat-label>
@@ -16,7 +16,7 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div  >
+            <div>
                 <mat-form-field appearance="outline">
                     <mat-label>Valor</mat-label>
                     <input currencyMask matInput type="text" formControlName="price" aria-label="Valor">
@@ -29,12 +29,12 @@
                 <mat-checkbox formControlName="autoRenew">Renovação Automatica</mat-checkbox>
             </div>
         </div>
-        <div (window:resize)="screen()"  fxLayoutGap="10" >
+        <div (window:resize)="screen()"   >
             <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle" >
             </select-category-subcategory-expenses>
         </div>
-        <div (window:resize)="screen()"  fxLayoutGap="10">
-            <div  >
+        <div (window:resize)="screen()"  >
+            <div>
                 <mat-form-field appearance="outline">
                     <mat-label>Início</mat-label>
                     <input matInput formControlName="start" [matDatepicker]="start" aria-label="início"
@@ -47,7 +47,7 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div  >
+            <div>
                 <mat-form-field appearance="outline">
                     <mat-label>Vencimento</mat-label>
                     <input matInput formControlName="expires" [matDatepicker]="picker" aria-label="Dia do vencimento"
@@ -67,12 +67,12 @@
         <div class="middle-space-horizontal-beteween-fields"> </div>
 
 
-        <div  >
+        <div>
             <link-copy-bill [formMain]="formMain" >
             </link-copy-bill>
 
         </div>
-        <div [fxLayout]="'row'" fxLayoutGap="10" >
+        <div [fxLayout]="'row'"  >
             <mat-form-field  appearance="outline" >
                 <mat-label>Despesa descritivo</mat-label>
                 <input matInput type="text" formControlName="description" aria-label="Descrição">

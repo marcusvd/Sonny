@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { VariableExpensesListGridDto } from '../dto/variable-expenses-list-grid-dto';
 import { List } from 'src/shared/components/inheritance/list/list';
 import { FormControl } from '@angular/forms';
-import { LegacyPageEvent as PageEvent } from '@angular/material/paginator';
+import {PageEvent as PageEvent } from '@angular/material/paginator';
 
 export class FrontEndFilterVariableExpenseslist extends List {
 

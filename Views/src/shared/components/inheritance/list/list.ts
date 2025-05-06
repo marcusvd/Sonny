@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { AfterViewInit, Component, Inject, ViewChild } from '@angular/core';
 import { MatDialog as MatDialog } from '@angular/material/dialog';
-import { MatPaginator as MatPaginator, LegacyPageEvent as PageEvent } from '@angular/material/paginator';
+import { MatPaginator as MatPaginator,PageEvent as PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';

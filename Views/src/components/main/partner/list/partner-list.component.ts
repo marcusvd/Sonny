@@ -7,7 +7,7 @@ import { MatButtonModule as MatButtonModule } from '@angular/material/button';
 import { MatCardModule as MatCardModule } from '@angular/material/card';
 import { MatDialog as MatDialog } from '@angular/material/dialog';
 import { MatMenuModule as MatMenuModule } from '@angular/material/menu';
-import { MatPaginator as MatPaginator, MatPaginatorModule as MatPaginatorModule, LegacyPageEvent as PageEvent } from '@angular/material/paginator';
+import { MatPaginator as MatPaginator, MatPaginatorModule as MatPaginatorModule,PageEvent as PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';

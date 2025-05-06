@@ -1,6 +1,6 @@
 <div [formGroup]="formMain" >
 
-    <div  >
+    <div>
         <div   *ngIf="!formMain.get('entityType').value">
             <mat-form-field appearance="outline">
                 <mat-label>CPF</mat-label>
@@ -30,7 +30,7 @@
             </div>
         </div>
     </div>
-    <div  >
+    <div>
         <div >
             <mat-checkbox formControlName="entityType">
             </mat-checkbox>

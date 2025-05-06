@@ -1,13 +1,13 @@
-<div  class="border-around">
-    <title-component [digit]="'|'" [titleString]="'Despesas Variáveis'" [icon]="'attach_money'">
-        <btn-g btn-1 [styleSize]="'width:150px;'" [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
+<div class="border-around">
+    <title-component [digit]="'|'" [textTitleComp]="'Despesas Variáveis'" [icon]="'attach_money'">
+        <btn-g [name]="'Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
     </title-component>
-    <mat-card [formGroup]="formMain"  *ngIf="formMain">
+    <mat-card [formGroup]="formMain" *ngIf="formMain">
         <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
         <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div   fxLayoutGap="10" (window:resize)="screen()" >
-            <div  >
-                <mat-form-field  appearance="outline">
+        <div (window:resize)="screen()">
+            <div>
+                <mat-form-field appearance="outline">
                     <mat-label>Despesa</mat-label>
                     <input matInput type="text" formControlName="name" aria-label="nome">
                     <mat-error>
@@ -16,11 +16,10 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div  >
-                <mat-form-field  appearance="outline">
+            <div>
+                <mat-form-field appearance="outline">
                     <mat-label>Local</mat-label>
-                    <input matInput type="text" formControlName="place" placeholder="Local da despesa"
-                        aria-label="Local da despesa">
+                    <input matInput type="text" formControlName="place" placeholder="Local da despesa" aria-label="Local da despesa">
                     <mat-error>
                         <span>{{validatorMessages.minMaxLength(formMain,'place', 'Local da despesa',null,150)}}</span>
 
@@ -30,11 +29,11 @@
 
 
         </div>
-        <div (window:resize)="screen()"  fxLayoutGap="10">
+        <div (window:resize)="screen()">
             <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle">
             </select-category-subcategory-expenses>
 
-            <div  ="20">
+            <div>
                 <mat-form-field appearance="outline">
                     <mat-label>Data despesa</mat-label>
                     <input matInput formControlName="wasPaid" [matDatepicker]="expenses" aria-label="Data despesa">
@@ -46,8 +45,8 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div  >
-                <mat-form-field  appearance="outline" >
+            <div>
+                <mat-form-field appearance="outline">
                     <mat-label>Valor</mat-label>
                     <input currencyMask matInput type="text" formControlName="price" aria-label="Valor">
                     <mat-error>
@@ -59,23 +58,17 @@
 
         <div class="middle-space-horizontal-beteween-fields"> </div>
 
-        <div  >
-            <get-bank-account-select-single 
-            [urlBackEndApi]="'GetAllFnBankAccount'" 
-            [formMain]="formMain"
-            [validatorsPaymentBtnAction]="validatorsCreditPixOthers" 
-            [alignRadios]="'start start'"
-            [typeCardToDisable]="cardType"
-            (selectedRadioOut)="selectedRadio($event)"
-            [optionsRadio]="[{ id: 0, name: 'Pix' }, { id: 1, name: 'Cartão Débito' }, { id: 2, name: 'Outros' }]">
+        <div>
+            <get-bank-account-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [validatorsPaymentBtnAction]="validatorsCreditPixOthers" [alignRadios]="'start start'" [typeCardToDisable]="cardType" (selectedRadioOut)="selectedRadio($event)"
+                [optionsRadio]="[{ id: 0, name: 'Pix' }, { id: 1, name: 'Cartão Débito' }, { id: 2, name: 'Outros' }]">
             </get-bank-account-select-single>
         </div>
         <div pixExpense>
-            <pixes-expenses-fields [expenseDayDisabled]="true" pixExpense [formMain]="subForm"  *ngIf="selectedPixRadio == 0">
+            <pixes-expenses-fields [expenseDayDisabled]="true" pixExpense [formMain]="subForm" *ngIf="selectedPixRadio == 0">
             </pixes-expenses-fields>
         </div>
-        <div >
-            <mat-form-field  appearance="outline">
+        <div>
+            <mat-form-field appearance="outline">
                 <mat-label>Despesa descritivo</mat-label>
                 <input matInput type="text" formControlName="description" aria-label="Descrição">
                 <mat-hint>EX: Seguro Casa, Seguro Escritório, Luz residência, Internet loja etc...</mat-hint>
@@ -89,7 +82,7 @@
 
         <!-- <div>{{formMain.value | json}}</div> -->
 
-        <div  fxLayoutAlign="center center" fxLayoutGap="50px">
+        <div fxLayoutAlign="center center" fxLayoutGap="50px">
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
         </div>
     </mat-card>

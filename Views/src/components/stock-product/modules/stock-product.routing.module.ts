@@ -10,8 +10,7 @@ import { ListProductComponent } from "../product/list-product/list-product.compo
 import { AddNewChildProductTypeComponent } from "../product/add-new-child-product-type/add-new-child-product-type.component";
 import { EditSingleProductTypeComponent } from "../product/adit-single-product-type/edit-single-product-type.component";
 import { DetailedProductComponent } from "../product/detailed-product/detailed-product.component";
-
-
+ import {TestsCheksComponent} from 'src/shared/tests-cheks/tests-cheks.component';
 // import { AddProductTypeComponent } from "../product-type/add/add-product-type.component";
 
 
@@ -19,6 +18,7 @@ const route: Routes = [
 
   {
     path: '', component: StockProductRouterComponent, children: [
+      { path: 'tests', component: TestsCheksComponent },
       { path: 'add-product-type', component: AddProductTypeComponent },
       { path: 'edit-product-type', component: EditSingleProductTypeComponent },
       { path: 'add-product', component: AddProductComponent },

@@ -10,6 +10,7 @@ import { AuthenticationRouterComponent } from '../router-outlet/authentication-r
 const routes: Routes = [
   {
     path: '', component: AuthenticationRouterComponent, children: [
+
       { path: 'login', component: LoginComponent },
       { path: 'login/register', component: RegisterComponent },
       { path: 'confirm-email', component: ConfirmEmailComponent },

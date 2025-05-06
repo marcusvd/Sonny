@@ -1,35 +1,31 @@
-<div class="border-around">
-    <title-component [digit]="'|'" [titleString]="'Contas bancárias'" [icon]="'account_balance'">
-        <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
+<div class="p-4">
+    <title-component [digit]="'|'" [textTitleComp]="'Contas bancárias'" [icon]="'account_balance'">
+
     </title-component>
 
+    <mat-card style="border-top-right-radius: 15px; border-top-left-radius: 15px; padding-top: 20px;">
+        <sub-title title [title]="'Contas bancárias cadastradas'" [icon]="'list'"></sub-title>
 
-    <div>
-        <div  >
-
-            <mat-card class="mat-card-sub-title" >
-                <grid-list-common>
-                    <sub-title title [title]="'Contas bancárias cadastradas'" [icon]="'list'"></sub-title>
-                    <grid-list-common-table  body-table 
-                    (getColumnEntityName)="orderBy($event)"
-                    [matIcons]="{delete_outline:'Excluir', edit:'Editar',visibility:'Detalhes' }" 
-                    [fieldsInEnglish]="fieldsInEnglish" 
-                    [entities$]="entities$" 
-                    [headers]="headers" 
-                    (getEntityOut)="getEntity($event, 'fixedExpenses')"
-                    >
-                    
-                    <!-- (getEntityOut)="getIdEntity($event)" -->
-
-                    </grid-list-common-table>
-
-                </grid-list-common>
-            </mat-card>
-
+        <div class="p-4">
+            <btn-g add btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="callRouter(this.addUrlRoute)"></btn-g>
         </div>
-    </div>
+
+        <div class="sm:hidden">
+            <list-mobile [headersLabel]="labelHeadersMiddle()" [headersFields]="fieldsHeadersMiddle()" [entities]="this.entities$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entities$)" (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
+            </list-mobile>
+        </div>
+
+        <div class="hidden sm:block">
+            <list-g [headersLabel]="labelHeadersMiddle()" [headersFields]="fieldsHeadersMiddle()" [entities]="this.entities$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entities$)" (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
+            </list-g>
+        </div>
+
+        <!--
+            <ng-container *ngIf="this.isCard">
+                <div *ngFor="let entity of this.entitiesFiltered$ | async;">
+                    <container-card-model-a [entity]="entity">
+                    </container-card-model-a>
+                </div>
+            </ng-container> -->
+    </mat-card>
 </div>
-<br>
-<br>
-<br>
-<br>

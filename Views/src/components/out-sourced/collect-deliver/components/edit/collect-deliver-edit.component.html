@@ -1,6 +1,6 @@
 <div  class="border-around" *ngIf="formMain" [formGroup]="formMain">
 
-    <title-component [digit]="'|'" [titleString]="'Cadastro de corrida'" [icon]="'compare_arrows'">
+    <title-component [digit]="'|'" [textTitleComp]="'Cadastro de corrida'" [icon]="'compare_arrows'">
 
     </title-component>
     <mat-card class="mat-card-sub-title">
@@ -44,7 +44,7 @@
                     <span>{{validatorMessages.required(formMain, 'other', '')}}</span>
                 </mat-error>
             </div>
-            <div  >
+            <div>
                 <description-field [formMain]="formMain" [frmControlName]="'taskOverView'"
                     [label]="'Descrição da corrida'" [required]="true" [rows]="5">
                 </description-field>

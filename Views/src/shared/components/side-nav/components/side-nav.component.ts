@@ -1,19 +1,17 @@
-import { Component, OnInit, Injectable, ViewChild, AfterViewInit, AfterViewChecked, AfterContentInit, ViewChildren } from '@angular/core';
-import { NavigationExtras, Router, RouterModule } from '@angular/router';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 
-import { DatabaseSideNavServices } from '../services/database-side-nav.service';
-import { BaseForm } from '../../inheritance/forms/base-form';
-import { IScreen } from '../../inheritance/responsive/iscreen';
-import { MatSidenav, MatSidenavContainer, MatSidenavModule } from '@angular/material/sidenav';
-import { CommonModule, NgClass } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { SideMenuSlimComponent } from './common-components/side-menu-slim/side-menu-slim.component';
+import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { BaseForm } from '../../inheritance/forms/base-form';
 import { SideMenuLargeComponent } from './common-components/side-menu-large/side-menu-large.component';
 import { SideMenuTopLargeComponent } from './common-components/side-menu-large/top-large/top-large.component';
+import { SideMenuSlimComponent } from './common-components/side-menu-slim/side-menu-slim.component';
 import { SideMenuTopSlimComponent } from './common-components/side-menu-slim/top-slim/top-slim.component';
-import { MatToolbar, MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'sideNav',
@@ -34,7 +32,7 @@ import { MatToolbar, MatToolbarModule } from '@angular/material/toolbar';
 })
 export class SideNavComponent extends BaseForm implements OnInit {
 
-  @ViewChild('sidenav') sidenav!: MatSidenav;
+  // @ViewChild('sidenav') sidenav!: MatSidenav;
 
   menuLarge: boolean = true;
   menuSlim: boolean = false;
@@ -65,6 +63,7 @@ export class SideNavComponent extends BaseForm implements OnInit {
     else {
       this.menuSlim = false;
       this.menuLarge = true;
+      this.menuSlimManually = false;
     }
 
   }
@@ -92,14 +91,14 @@ export class SideNavComponent extends BaseForm implements OnInit {
   //   // this.sidenavContainer.updateContentMargins();
   // }
 
-  // toggleMenuSlimToolBar() {
-  //   this.menuSlim = !this.menuSlim
+  toggleMenuSlimToolBar() {
+     this.menuSlimManually = !this.menuSlimManually
   //   this.sidenav.toggle().then(() => {
   //   // Trigger manual de redimensionamento
   //   window.dispatchEvent(new Event('resize'));
   // });
-  //   // this.sidenavContainer.updateContentMargins();
-  // }
+    // this.sidenavContainer.updateContentMargins();
+  }
 
 
 

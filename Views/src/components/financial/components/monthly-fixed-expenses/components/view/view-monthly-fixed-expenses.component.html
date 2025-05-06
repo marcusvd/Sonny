@@ -1,5 +1,5 @@
 <div class="border-around" (window:resize)="screen()">
-    <title-component [digit]="'|'" [titleString]="'Pagamento'" [icon]="'payment'">
+    <title-component [digit]="'|'" [textTitleComp]="'Pagamento'" [icon]="'payment'">
         <!-- <btn-add-g btn-1 (add)="add()"></btn-add-g> -->
     </title-component>
 
@@ -72,7 +72,7 @@
 
                     <!-- data bank -->
 
-                    <div [fxLayout]="this.fxLayoutRes" fxLayoutGap="10">
+                    <div [fxLayout]="this.fxLayoutRes" >
                         <div >
                             <div >
                                 <div  class="pipe-column-title">
@@ -156,7 +156,7 @@
 
                     <!-- Card -->
 
-                    <div [fxLayout]="this.fxLayoutRes" fxLayoutGap="10" *ngIf="fixedExpensesTracking?.cardId && wasPaid">
+                    <div [fxLayout]="this.fxLayoutRes"  *ngIf="fixedExpensesTracking?.cardId && wasPaid">
 
                         <div >
                             <div  class="pipe-column-title">

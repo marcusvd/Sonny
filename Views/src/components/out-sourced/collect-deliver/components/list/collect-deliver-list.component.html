@@ -1,11 +1,11 @@
 <div class="border-around">
-    <title-component [digit]="'|'" [titleString]="titleGrid" [icon]="'compare_arrows'">
+    <title-component [digit]="'|'" [textTitleComp]="titleGrid" [icon]="'compare_arrows'">
         <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
     </title-component>
 
 
     <div>
-        <div  >
+        <div>
 
             <mat-card class="mat-card-sub-title" >
                 <grid-list-common>
@@ -20,10 +20,10 @@
 
                     </div>
                     <div search-pagination  >
-                        <div  >
+                        <div>
                             <grid-list-common-search [searchName]="'Busca'" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
                         </div>
-                        <div  >
+                        <div>
                         </div>
 
                         <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
@@ -42,8 +42,8 @@
                         <div class="mat-paginator-above-margin"  >
 
                         </div>
-                        <div  >
-                            <div  >
+                        <div>
+                            <div>
 
                             </div>
 

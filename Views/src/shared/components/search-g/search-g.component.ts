@@ -12,8 +12,8 @@ import { FormControl } from '@angular/forms';
                 <input  [formControl]="queryFieldFormControl" (input)="searching(queryFieldFormControl)" matInput type="text">
         </mat-form-field>
       </div>
-      <div   >
-        <div  >
+      <div>
+        <div>
           <div ></div>
                 <div >
                     {{'Encontrados:'}}

@@ -1,14 +1,14 @@
 <div class="border-around" (window:resize)="screen()" *ngIf="this.entities">
-    <title-component [digit]="'|'" [titleString]="'Cartão de Crédito'" [icon]="'attach_money'"></title-component>
+    <title-component [digit]="'|'" [textTitleComp]="'Cartão de Crédito'" [icon]="'attach_money'"></title-component>
     <div>
-        <div  >
+        <div>
 
             <mat-card class="mat-card-sub-title" >
                 <grid-list-common>
                     <sub-title title [title]="'Fatura ' +expensesMonth" [icon]="'list'"></sub-title>
                     <div search-filter >
                         <div class="small-space-horizontal-beteween-fields"></div>
-                        <div  fxLayoutGap="10">
+                        <div>
 
                             <div >
                                 <div >
@@ -23,7 +23,7 @@
 
                     </div>
                     <div search-pagination  >
-                        <div  >
+                        <div>
                         </div>
                         <br>
                         <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
@@ -35,8 +35,8 @@
                     <div pagination-below >
                         <div class="mat-paginator-above-margin"  >
                         </div>
-                        <div  >
-                            <div  >
+                        <div>
+                            <div>
                             </div>
                             <mat-paginator pagination-below #paginatorBelow [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
                         </div>

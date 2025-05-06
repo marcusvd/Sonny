@@ -1,8 +1,8 @@
 <spinner-g [entities]="entities$" [optionalTitle]="'(Categorias)'" (spinnerStatusOut)="spinnerEvent($event)">
 </spinner-g>
 
-<div *ngIf="spinner" [formGroup]="formMain" fxLayoutGap="10"  (window:resize)="screen()"  >
-    <div  >
+<div *ngIf="spinner" [formGroup]="formMain"   (window:resize)="screen()"  >
+    <div>
         <mat-form-field  appearance="outline">
             <mat-label>Categoria</mat-label>
             <mat-select formControlName="categoryExpenseId"
@@ -19,7 +19,7 @@
 
         </mat-form-field>
     </div>
-    <div  >
+    <div>
         <mat-form-field  appearance="outline">
             <mat-label>Subcategoria</mat-label>
             <mat-select formControlName="subcategoryExpenseId">

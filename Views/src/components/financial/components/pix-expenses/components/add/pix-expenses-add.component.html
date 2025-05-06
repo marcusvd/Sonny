@@ -1,5 +1,5 @@
 <div  class="border-around">
-    <title-component [digit]="'|'" [titleString]="'Despesas Pix'" [icon]="'attach_money'">
+    <title-component [digit]="'|'" [textTitleComp]="'Despesas Pix'" [icon]="'attach_money'">
     </title-component>
     <mat-card [formGroup]="formMain"  *ngIf="formMain">
         <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
@@ -14,13 +14,13 @@
                 </mat-error>
             </mat-form-field>
         </div>
-        <div (window:resize)="screen()"  fxLayoutGap="10">
+        <div (window:resize)="screen()"  >
 
             <pixes-expenses-fields  [formMain]="formMain" [expenseDayDisabled]="false" [BenefitedKey]="'100'" [ExpenseDay]="'35'">
                
             </pixes-expenses-fields>
         </div>
-        <div  >
+        <div>
             <get-bank-account-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [validatorsPaymentBtnAction]="validatorsCreditPixOthers" [alignRadios]="'start start'" [radioOptionRemove]="[1,2]" [optionsRadio]="[{ id: 0, name: 'Pix' }, { id: 1, name: 'Cartão Débito' }, { id: 2, name: 'Outros' }]"
                 (pixesFromSelectedBan)="getPixId($event)">
             </get-bank-account-select-single>

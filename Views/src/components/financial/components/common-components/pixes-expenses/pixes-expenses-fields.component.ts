@@ -22,7 +22,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
-    
+
     MatButtonModule,
     MatDatepickerModule,
     BtnGComponent,
@@ -47,8 +47,8 @@ export class PixesExpensesFieldsComponent extends BaseForm implements OnInit {
   }
 
   @Input() override formMain: FormGroup;
-  @Input() BenefitedKey:string = '100';
-  @Input() ExpenseDay:string = '100';
+  // @Input() BenefitedKey:string = '100';
+  // @Input() ExpenseDay:string = '100';
   @Input('expenseDayDisabled') expenseDayDisabled:boolean = false;
   @Input('priceDisabled') priceDisabled:boolean = true;
 

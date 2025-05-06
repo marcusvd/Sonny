@@ -1,12 +1,12 @@
 <div  class="border-around" *ngIf="formMain">
-    <title-component [digit]="'|'" [titleString]="'Financiamento / Empréstimo'"  [icon]="'attach_money'">
+    <title-component [digit]="'|'" [textTitleComp]="'Financiamento / Empréstimo'"  [icon]="'attach_money'">
         <btn-g btn-1 [styleSize]="'width:150px;'" [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
     </title-component>
     <mat-card [formGroup]="formMain"  *ngIf="formMain">
         <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
         <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div (window:resize)="screen()"  fxLayoutGap="10">
-            <div  >
+        <div (window:resize)="screen()"  >
+            <div>
                 <mat-form-field  appearance="outline">
                     <mat-label>Despesa</mat-label>
                     <input matInput type="text" formControlName="name" aria-label="Despesa">
@@ -33,8 +33,8 @@
         <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle">
         </select-category-subcategory-expenses>
 
-        <div (window:resize)="screen()"  fxLayoutGap="10">
-            <div  >
+        <div (window:resize)="screen()"  >
+            <div>
                 <mat-form-field  appearance="outline" >
                     <mat-label>Valor Financiado</mat-label>
                     <input currencyMask matInput type="text" formControlName="totalPriceFinancingOrLoan" aria-label="Valor">
@@ -43,7 +43,7 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div  >
+            <div>
                 <mat-form-field appearance="outline" >
                     <mat-label>Valor Parcela</mat-label>
                     <input currencyMask matInput type="text" (keyup)="installmentCacl()" formControlName="installmentPrice" aria-label="Valor">
@@ -64,8 +64,8 @@
                 </mat-form-field>
             </div>
         </div>
-        <div (window:resize)="screen()"  fxLayoutGap="10">
-            <div  >
+        <div (window:resize)="screen()"  >
+            <div>
                 <div >
                     <mat-label>Montante:</mat-label>
                 </div>
@@ -73,7 +73,7 @@
                     <mat-label>{{totalPriceToBePaid | ptBrCurrency}}</mat-label>
                 </div>
             </div>
-            <div  >
+            <div>
                 <div >
                     <mat-label>Juros:</mat-label>
                 </div>
@@ -81,7 +81,7 @@
                     <mat-label>{{totalPriceInterest | ptBrCurrency}}</mat-label>
                 </div>
             </div>
-            <div  >
+            <div>
                 <div >
                     <mat-label>Porcentagem:</mat-label>
                 </div>
@@ -90,7 +90,7 @@
                 </div>
             </div>
         </div>
-        <div (window:resize)="screen()"  fxLayoutGap="10">
+        <div (window:resize)="screen()"  >
         </div>
         <div class="middle-space-horizontal-beteween-fields"> </div>
         <div >
@@ -104,7 +104,7 @@
             </mat-form-field>
         </div>
         <div  fxLayoutGap="30">
-            <div  >
+            <div>
                 <mat-form-field  appearance="outline">
                     <mat-label>Usuário</mat-label>
                     <input matInput type="text" formControlName="userLinkCopyBill" aria-label="Usuário">
@@ -113,7 +113,7 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div  >
+            <div>
                 <mat-form-field  appearance="outline">
                     <mat-label>Senha</mat-label>
                     <input matInput type="password" formControlName="passLinkCopyBill" aria-label="Senha">

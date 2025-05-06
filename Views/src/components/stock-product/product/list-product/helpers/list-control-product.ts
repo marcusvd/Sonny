@@ -1,13 +1,16 @@
 import { HttpClient } from "@angular/common/http";
-import { LegacyPageEvent as PageEvent } from "@angular/material/paginator";
+import { PageEvent } from "@angular/material/paginator";
 import { Router } from "@angular/router";
 import { Observable, Subscription, of } from "rxjs";
 
 
+import { MatDialog } from "@angular/material/dialog";
 import { environment } from "src/environments/environment";
 import { BaseList } from "src/shared/components/list-g/extends/base-list";
 import { ListGDataService } from "src/shared/components/list-g/list/data/list-g-data.service";
 import { ItemsInterface } from "src/shared/components/list-g/list/interfaces/items-interface";
+import { OnClickInterface } from "src/shared/components/list-g/list/interfaces/on-click-interface";
+import { ex_callRouteWithObject } from "src/shared/helpers/useful/route";
 import { PtBrCurrencyPipe } from "src/shared/pipes/pt-br-currency.pipe";
 import { PtBrDatePipe } from "src/shared/pipes/pt-br-date.pipe";
 import { TruncatePipe } from "src/shared/pipes/truncate.pipe";
@@ -17,15 +20,11 @@ import { ProductTypeDto } from "../../dtos/product-type-dto";
 import { SegmentDto } from "../../dtos/segment-dto";
 import { ProductList } from "../dto/product-list";
 import { fieldsHeadersLarge, fieldsHeadersMiddle, labelHeadersLarge, labelHeadersMiddle } from "./make-headers-grid-responsive";
-import { ex_makeItemsGridSmall } from "./screen/small-grid-responsive";
-import { ex_makeItemsGridMedium } from "./screen/medium-grid-responsive";
-import { ex_makeItemsGridLager } from "./screen/large-grid-responsive";
-import { ex_supplyItemsGrid } from "./screen/supply-grid-responsive";
 import { makeHeaderToOrder } from "./order-items-by-header";
-import { ex_showDetails } from "./actions-control-products";
-import { MatDialog as MatDialog } from "@angular/material/dialog";
-import { OnClickInterface } from "src/shared/components/list-g/list/interfaces/on-click-interface";
-import { ex_callRouteWithObject } from "src/shared/helpers/useful/route";
+import { ex_makeItemsGridLager } from "./screen/large-grid-responsive";
+import { ex_makeItemsGridMedium } from "./screen/medium-grid-responsive";
+import { ex_makeItemsGridSmall } from "./screen/small-grid-responsive";
+import { ex_supplyItemsGrid } from "./screen/supply-grid-responsive";
 
 
 export class ListControlProduct extends BaseList {

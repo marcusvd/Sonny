@@ -4,7 +4,7 @@
             <div >
                 <h3>Informações de conta</h3>
             </div>
-            <div  >
+            <div>
             </div>
             <div *ngIf="!btnSaveStyle">
                 <div >
@@ -29,7 +29,7 @@
                 </mat-error>
             </mat-form-field>
         </div>
-        <div  >
+        <div>
             <mat-form-field ="99%" appearance="outline">
                 <mat-label>Nome de Usuário</mat-label>
                 <input matInput formControlName="userName" aria-label="Nome de Usuário">
@@ -40,7 +40,7 @@
             </mat-form-field>
 
         </div>
-        <div  >
+        <div>
             <mat-form-field  appearance="outline">
                 <mat-label>E-mail</mat-label>
                 <input matInput formControlName="email" aria-label="E-mail">
@@ -55,7 +55,7 @@
     </div>
 
     <div  (window:resize)="screen()" fxLayoutGap="50px">
-        <div  >
+        <div>
         </div>
         <div >
 
@@ -65,7 +65,7 @@
 
         </div>
 
-        <div  >
+        <div>
             <mat-form-field >
                 <mat-label>
                     <mat-icon>https</mat-icon> <b> Senha</b>
@@ -79,7 +79,7 @@
             </mat-form-field>
         </div>
 
-        <div  >
+        <div>
             <mat-form-field >
                 <mat-error>
                     <span>{{validatorMessages.required(formMain,'confirmPassword', '')}}

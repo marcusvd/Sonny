@@ -1,4 +1,10 @@
 .container {
+    mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        color: rgb(0, 0, 0);
+    }
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -36,35 +42,37 @@
         font-weight: 500;
         color: rgba(0, 0, 0, 0.87);
     }
-    &--menu-box-arrow {
+    &--menu-box-arrow {}
+    &--box-children {
         mat-icon {
             font-size: 18px;
             width: 18px;
             height: 18px;
             color: rgba(0, 0, 0, 0.54);
         }
-    }
-    &--box-children {
-        // margin-left: 15px;
-        padding: 4px 0;
+        justify-content: center;
     }
     .container-children--box-name-opened {
         margin-bottom: 4px;
         border-radius: 4px;
-        // margin-left: 15px;
+        padding-left: 40px;
+        font-size: 14px;
         transition: background-color 0.3s ease;
         &:hover {
-            background-color: rgba(0, 0, 0, 0.04);
+            // background-color: rgba(0, 0, 0, 0.04);
+            background-color: rgb(246, 241, 241);
         }
         >div:first-child {
             display: flex;
             align-items: center;
             padding: 8px 12px;
+            font-size: 14px;
+            width: 100%;
         }
     }
     .container-children--box-name-item-opened {
         flex: 1;
-        font-size: 13px;
+        font-size: 14px;
         color: rgba(0, 0, 0, 0.87);
         menu {
             margin: 0;
@@ -72,6 +80,7 @@
             li {
                 list-style-type: none;
                 padding: 4px 0;
+                width: 100%;
             }
         }
     }
@@ -109,6 +118,12 @@
     }
 }
 
+#test {
+    margin-left: 25px;
+    font-size: 12px;
+    padding-bottom: 20px;
+}
+
 .isOdd {
     // background-color: rgb(219, 219, 219);
     background-color: rgb(249, 249, 249);
@@ -127,4 +142,24 @@
 
 .isEven:hover {
     background-color: rgb(219, 219, 219);
+}
+
+.contact-us-main-box {
+    display: flex;
+    justify-content: center;
+    mat-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 35px;
+        color: white;
+    }
+}
+
+.contact-us-box {
+    width: 90%;
+    height: 90px;
+}
+
+.contact-us-box-border {
+    border-radius: 10px;
 }

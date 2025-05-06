@@ -5,8 +5,8 @@
             <div>{{'Conta ' }}{{i+1}}</div>
             <mat-divider></mat-divider>
             <div class="middle-space-horizontal-beteween-fields"> </div>
-            <div  >
-                <div  >
+            <div>
+                <div>
                     <mat-form-field  appearance="outline">
                         <mat-label>Titular</mat-label>
                         <input matInput type="text" formControlName="holder" aria-label="Titular">
@@ -16,7 +16,7 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <div  >
+                <div>
                     <mat-form-field  appearance="outline">
                         <mat-label>Instituição Financeira</mat-label>
                         <input matInput type="text" formControlName="institution" aria-label="Instituição Financeira">
@@ -28,8 +28,8 @@
                 </div>
             </div>
             <div class="middle-space-horizontal-beteween-fields "> </div>
-            <div  >
-                <div  >
+            <div>
+                <div>
                     <mat-form-field  appearance="outline">
                         <mat-label>Agência</mat-label>
                         <input matInput type="text" formControlName="agency" aria-label="Agência">
@@ -39,7 +39,7 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <div  >
+                <div>
                     <mat-form-field  appearance="outline">
                         <mat-label>Conta</mat-label>
                         <input matInput type="text" formControlName="account" aria-label="Conta">
@@ -50,7 +50,7 @@
                     </mat-form-field>
                 </div>
                 <div *ngIf="screenFieldPosition != 'column'" class="middle-space-horizontal-beteween-fields"> </div>
-                <div  >
+                <div>
                     <mat-form-field  appearance="outline">
                         <mat-label>Tipo de Conta</mat-label>
                         <mat-select formControlName="type">
@@ -65,7 +65,7 @@
                     <btn-remove-g (remove)="remove(0)" id="btn-remove">
                     </btn-remove-g>
                 </div>
-                <div  >
+                <div>
 
                 </div>
                 <div >
@@ -76,14 +76,14 @@
     </div>
 </div>
 <div >
-    <div  >
+    <div>
 
 
     </div>
     <div >
         <btn-g [name]="'Adicionar'" [icon]="'add'" (click)="add()"></btn-g>
     </div>
-    <div  >
+    <div>
 
     </div>
 </div>

@@ -3,12 +3,13 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { MaterialModule } from 'src/shared/modules/material.module';
-import { SharedModule } from 'src/shared/modules/shared.module';
+import { MaterialModule } from '../../../shared/modules/material.module';
+import { SharedModule } from '../../../shared/modules/shared.module';
 import { AuthRoutingModule } from './auth-routing.module';
 import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings } from 'ng-recaptcha';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 import { AuthWarningsComponent } from '../warnings/auth-warnings.component';
+import { TestsCheksComponent } from '../../stock-product/tests-cheks/tests-cheks.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { AuthWarningsComponent } from '../warnings/auth-warnings.component';
     AuthRoutingModule,
     //tools-helpers
     RecaptchaModule,
-    RecaptchaFormsModule
+    RecaptchaFormsModule,
+    TestsCheksComponent
   ],
   exports: [
     AuthWarningsComponent,

@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { MatCardModule as MatCardModule } from '@angular/material/card';
 import { MatDialog as MatDialog } from '@angular/material/dialog';
 import { MatPaginatorModule as MatPaginatorModule } from '@angular/material/paginator';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 
 
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -23,25 +23,32 @@ import { TitleComponent } from 'src/shared/components/title/default-title/title.
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 import { BankAccountDto } from '../dto/bank-account-dto';
-import { BankAccountCardListGridDto } from './dto/bank-account-card-list-grid.dto';
+import { BankAccountCardListDto, BankAccountCardListGridDto } from './dto/bank-account-card-list-grid.dto';
 import { FrontEndFilterBanksAccountsCardsList } from './filter-list/front-end-filter-banks-accounts-cards-list';
 import { AccountTypePipe } from './pipes/account-type.pipe';
 import { BankAccountCardsListService } from './services/bank-account-cards-list.service';
+import { ListGComponent } from 'src/shared/components/list-g/list/list-g.component';
+import { ListMobileComponent } from 'src/shared/components/list-g/list-mobile/list-mobile.component';
+import { BaseList } from 'src/shared/components/list-g/extends/base-list';
+import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
+import { TruncatePipe } from 'src/shared/pipes/truncate.pipe';
+import { ListGDataService } from 'src/shared/components/list-g/list/data/list-g-data.service';
+import { OnClickInterface } from 'src/shared/components/list-g/list/interfaces/on-click-interface';
+import { OrderbyInterface } from 'src/shared/components/list-g/list/interfaces/orderby-interface';
+
 
 @Component({
   selector: 'banks-accounts-cards-list',
   templateUrl: './banks-accounts-cards-list.component.html',
-  styleUrls: ['./banks-accounts-cards-list.component.css'],
+  styleUrls: ['./banks-accounts-cards-list.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
     MatCardModule,
     MatPaginatorModule,
     RouterModule,
-    
-    GridListCommonComponent,
-    GridListCommonTableComponent,
-    GridListCommonSearchComponent,
+    ListGComponent,
+    ListMobileComponent,
     TitleComponent,
     SubTitleComponent,
     BtnGComponent,
@@ -49,45 +56,46 @@ import { BankAccountCardsListService } from './services/bank-account-cards-list.
   providers: [
     PtBrCurrencyPipe,
     AccountTypePipe,
+    PtBrDatePipe,
     BankAccountCardsListService
   ]
 
 })
-export class BanksAccountsCardsListComponent extends FrontEndFilterBanksAccountsCardsList implements OnInit {
-  constructor(
-    private _route: ActivatedRoute,
-    private _http: HttpClient,
-    override _dialog: MatDialog,
-    override _actRoute: ActivatedRoute,
-    override _router: Router,
-    override _breakpointObserver: BreakpointObserver,
-    private _ptBrCurrency: PtBrCurrencyPipe,
-    private _accountTypePipe: AccountTypePipe,
-    private _communicationsAlerts: CommunicationAlerts,
-    private _listService: BankAccountCardsListService,
+export class BanksAccountsCardsListComponent extends BaseList implements OnInit, OnDestroy {
 
-  ) {
-    super(
-      _dialog,
-      _router,
-      _actRoute,
-      new GridListCommonHelper(_http),
-      ['', 'Banco', 'Titular', 'Conta', 'Agencia', 'Tipo', 'Saldo', 'Cartões'],
-      ['institution', 'holder', 'account', 'agency', 'type', 'balance', 'cards'],
-      _breakpointObserver,
-      _listService
-    )
 
+  ngOnDestroy(): void {
+    this.bankAccountsUnsubscribe?.unsubscribe();
   }
-  controllerUrl: string = environment._BANKSACCOUNTS.split('/')[4];
-  override backEndUrl: string = `${this.controllerUrl}/GetAllCreditCardExpensesByCompanyId`;
-  override entities: BankAccountCardListGridDto[] = [];
-  override entities$: Observable<BankAccountCardListGridDto[]>;
-  override viewUrlRoute: string = '/side-nav/financial-dash/view';
-  override addUrlRoute: string = '/side-nav/financial-dash/create-bank-account-cards';
-  override editUrlRoute: string = '/side-nav/financial-dash/edit-bank-account-cards';
 
-  override delete(entity: BankAccountCardListGridDto) {
+
+
+  constructor(
+    override _router: Router,
+    private _listService: BankAccountCardsListService,
+    private _http: HttpClient,
+    private _ptBrDatePipe: PtBrDatePipe,
+    private _ptBrCurrencyPipe: PtBrCurrencyPipe,
+    private _accountTypePipe: AccountTypePipe,
+    // private _truncatePipe: TruncatePipe,
+    private _dialog: MatDialog
+  ) {
+
+    super(
+      new ListGDataService(_http),
+      _router,
+    )
+  }
+
+  controllerUrl: string = environment._BANKSACCOUNTS.split('/')[4];
+  // private backEndUrl: string = `${this.controllerUrl}/GetAllCreditCardExpensesByCompanyId`;
+  private entities: BankAccountCardListGridDto[] = [];
+  public entities$: Observable<BankAccountCardListDto[]>;
+  private viewUrlRoute: string = '/side-nav/financial/view';
+  public addUrlRoute: string = '/side-nav/financial/create-bank-account-cards';
+  private editUrlRoute: string = '/side-nav/financial/edit-bank-account-cards';
+
+  private delete(entity: BankAccountCardListGridDto) {
 
     const dialogRef = this._dialog.open(DeleteDialogComponent, {
       width: 'auto',
@@ -109,48 +117,177 @@ export class BanksAccountsCardsListComponent extends FrontEndFilterBanksAccounts
         this.entities$ = this.entities$.pipe(
           map(x => x.filter(y => y.id != result.id))
         )
-        this._communicationsAlerts.defaultSnackMsg('1', 1, null, 4);
+        // this._communicationsAlerts.defaultSnackMsg('1', 1, null, 4);
       }
 
     })
   }
 
-  getData() {
+  startSupply(): Subscription {
 
-    this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllFnBankAccount`, this.companyId);
-    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: BankAccountDto[]) => {
-      this.entities = [];
-      x.forEach((xy: BankAccountDto) => {
-        this.makeViewDto(xy);
-      })
-      this.entities$ = of(this.entities)
+    let entities: BankAccountCardListDto[] = [];
+
+    return this._listGDataService.entities$.subscribe(
+      {
+        next: (x: BankAccountDto[]) => {
+
+          x.forEach(
+            (y: BankAccountDto) => {
+              this.entities$ = of(this.ex_supplyItemsGrid(entities, y, this._accountTypePipe, this._ptBrCurrencyPipe));
+            })
+        }
+      }
+    )
+
+  }
+
+  ex_supplyItemsGrid = (bankAccountCardList: BankAccountCardListDto[], bankAccount: BankAccountDto, _accountTypePipe?: AccountTypePipe, _ptBrCurrencyPipe?: PtBrCurrencyPipe) => {
+
+    const items: BankAccountCardListDto = new BankAccountCardListDto();
+
+    Object.assign(items, {
+
+      id: {
+        key: bankAccount.id.toString(),
+        display: 'icons',
+        icons: ['list', 'edit', 'home'],
+        styleInsideCell: `color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,
+        styleCell: '',
+        route: ''
+      },
+
+      institution: {
+        key: bankAccount.institution,
+        styleCell: 'width:100%;',
+
+      },
+
+      holder: {
+        key: bankAccount.holder,
+        styleCell: 'width:100%;',
+      },
+
+      account: {
+        key: bankAccount.account,
+        styleCell: 'width:100%;',
+      },
+
+      agency: {
+        key: bankAccount.agency,
+        styleCell: 'width:100%;',
+      },
+
+      type: {
+        key: _accountTypePipe.transform(bankAccount.type),
+        styleCell: 'width:100%;',
+      },
+
+      balance: {
+        key: _ptBrCurrencyPipe.transform(bankAccount.balance),
+        styleCell: 'width:100%;',
+      },
+
+      cards: {
+        key: bankAccount.cards.filter(x => new Date(x.deleted).getFullYear() == this.minValue.getFullYear()).length.toString(),
+        styleCell: 'width:100%;',
+      },
     })
 
+    bankAccountCardList.push(items);
+
+    return bankAccountCardList;
   }
 
-  viewDto: BankAccountCardListGridDto;
-  makeViewDto(xy: BankAccountDto) {
-    this.viewDto = new BankAccountCardListGridDto;
-    this.viewDto.id = xy.id;
-    this.viewDto.holder = xy.holder;
-    this.viewDto.institution = xy.institution;
-    this.viewDto.account = xy.account;
-    this.viewDto.agency = xy.agency;
-    this.viewDto.cards = xy.cards.filter(x => new Date(x.deleted).getFullYear() == this.minValue.getFullYear()).length.toString();
-    this.viewDto.balance = this._ptBrCurrency.transform(xy.balance);
-    this.viewDto.type = this._accountTypePipe.transform(xy.type);
-    this.entities.push(this.viewDto);
-  }
-
-  orderBy(field: string) {
-
-      this.entities$ = this.orderByFrontEnd(this.entities$, field)
-
-  }
-
+  bankAccountsUnsubscribe: Subscription | undefined;
 
   ngOnInit(): void {
-    this.getData();
+    this._listGDataService.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllFnBankAccount`, this.companyId);
+
+    //subscribe entities and make grid list
+    this.bankAccountsUnsubscribe = this.startSupply();
+  }
+
+  labelHeadersMiddle = () => {
+    return [
+      { key: '', style: 'cursor: pointer;' },
+      { key: 'Banco', style: 'cursor: pointer;' },
+      { key: 'Titular', style: 'cursor: pointer;' },
+      { key: 'Conta', style: 'cursor: pointer;' },
+      { key: 'Agencia', style: 'cursor: pointer;' },
+      { key: 'Tipo', style: 'cursor: pointer;' },
+      { key: 'Saldo', style: 'cursor: pointer;' },
+      { key: 'Cartões', style: 'cursor: pointer;' },
+
+    ]
+  }
+
+
+  fieldsHeadersMiddle = () => {
+    return [
+      { key: 'id', style: '' },
+      { key: 'institution', style: '' },
+      { key: 'holder', style: '' },
+      { key: 'account', style: '' },
+      { key: 'agency', style: '' },
+      { key: 'type', style: '' },
+      { key: 'balance', style: '' },
+      { key: 'cards', style: '' },
+    ]
+  }
+
+  onClickOrderByFields(field: string, entities$: Observable<BankAccountCardListDto[]>) {
+    let header: OrderbyInterface = { key: '', value: '' };
+    console.log(field)
+    switch (field) {
+      // case 'id':
+      //   this.entities$ = this.orderByFrontEnd(entities$, makeHeaderToOrder(field));
+      //   break;
+
+      case 'institution':
+
+        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: '' });
+        break;
+
+      case 'holder':
+        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: '' });
+        break;
+
+      case 'account':
+        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: 0 });
+        break;
+
+      case 'agency':
+        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: 0 });
+        break;
+
+      case 'type':
+        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: '' });
+        break;
+
+      case 'balance':
+        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: 0 });
+        break;
+
+      case 'cards':
+        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: 0 });
+        break;
+
+      // case 'isUsed':
+      //   this.entities$ = this.orderByFrontEnd(entities$, makeHeaderToOrder(field));
+      //   break;
+
+    }
+
+  }
+
+  onClickButton(field: string) {
+    console.log(field)
+  }
+  onClickIcons(obj: OnClickInterface) {
+    console.log(obj)
+
+    // ex_callRouteWithObject('/side-nav/stock-product-router/detailed-product', this.products.find(x => x.id == obj.entityId), this._router)
+
   }
 
 }

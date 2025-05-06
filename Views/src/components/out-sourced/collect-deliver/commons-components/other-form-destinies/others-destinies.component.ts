@@ -18,7 +18,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 
   ],
   template: `
-<div  >
+<div>
       <div >
         <mat-form-field appearance="outline" >
             <mat-label>Nome / Identificação</mat-label>
@@ -30,7 +30,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
         </mat-form-field>
     </div>
     <br>
-    <div  >
+    <div>
         <mat-form-field appearance="outline" >
             <mat-label>Endereço / Contatos</mat-label>
           <input matInput type="text"  [formControl]="noRegisterAddress">

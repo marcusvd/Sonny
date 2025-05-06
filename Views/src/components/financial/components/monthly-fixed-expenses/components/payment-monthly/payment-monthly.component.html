@@ -1,8 +1,8 @@
 <div class="border-around" *ngIf="formMain">
-    <title-component [digit]="'|'" [titleString]="'Pagamento'" [icon]="'payment'">
+    <title-component [digit]="'|'" [textTitleComp]="'Pagamento'" [icon]="'payment'">
     </title-component>
     <div>
-        <div  >
+        <div>
             <mat-card class="mat-card-sub-title" >
                 <sub-title title [title]="'Despesa'" [icon]="'payment'"></sub-title>
                 <screen-data-info *ngIf="hideShowScreenDataInfo" [fields]="fields" [reiceverThisComponentToDisplay]="'payment'">

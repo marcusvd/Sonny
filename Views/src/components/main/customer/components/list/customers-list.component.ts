@@ -11,7 +11,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
 
-import { MatPaginator as MatPaginator, MatPaginatorModule as MatPaginatorModule, LegacyPageEvent as PageEvent } from '@angular/material/paginator';
+import { MatPaginator as MatPaginator, MatPaginatorModule as MatPaginatorModule,PageEvent as PageEvent } from '@angular/material/paginator';
 import { map, tap } from 'rxjs/operators';
 
 

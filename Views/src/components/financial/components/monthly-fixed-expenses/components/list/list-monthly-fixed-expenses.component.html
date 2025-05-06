@@ -1,97 +1,75 @@
 <div class="border-around" (window:resize)="screen()">
-    <title-component [digit]="'|'" [titleString]="'Despesa Mensal'" [icon]="'attach_money'">
+    <title-component [digit]="'|'" [textTitleComp]="'Despesa Mensal'" [icon]="'attach_money'">
     </title-component>
-    <div>
-        <div  >
 
-            <mat-card class="mat-card-sub-title" >
-                <grid-list-common>
-                    <sub-title title [title]="'Contas a pagar'" [icon]="'list'"></sub-title>
-                    <div search-filter >
+    <mat-card class="mat-card-sub-title">
+        <grid-list-common>
+            <div search-filter>
+                <sub-title title [title]="'Contas a pagar'" [icon]="'list'"></sub-title>
 
-                        <div >
-                            <filter-radio-btns 
-                            [fxLayoutInput]="screenFieldPosition"
-                            [pedingRadioHide]="pedingRadioHide"
-                            [inputSetClearRadios]="cleanRadios"
-                            (radioChange)="filterView($event)"
-                            >
-                            <!-- [disabledRadioInput]="this?.termSearched?.length > 0" -->
-                            </filter-radio-btns>
-                        </div>
+                <div>
+                    <filter-radio-btns [fxLayoutInput]="screenFieldPosition" [pedingRadioHide]="pedingRadioHide" [inputSetClearRadios]="cleanRadios" (radioChange)="filterView($event)">
+                        <!-- [disabledRadioInput]="this?.termSearched?.length > 0" -->
+                    </filter-radio-btns>
+                </div>
 
 
-                        <div class="small-space-horizontal-beteween-fields"></div>
-                        <div  fxLayoutGap="10">
-                            <div  *ngIf="screenFieldPosition == 'column'">
-                                <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
-                            </div>
-                            <div >
-                                <btn-g [name]="'Filtros'" [icon]="'clear'"
-                                    [styleColors]="'font-size: 15px;color: white;background-color: rgb(156,33,29);'"
-                                    (btn)="filterClear()"></btn-g>
-                            </div>
-                            <div fxLayout="screenFieldPosition" >
-
-                            </div>
-                            <div  *ngIf="screenFieldPosition == 'row'">
-                                <btn-g btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="add()"></btn-g>
-                            </div>
-
-                        </div>
+                <div class="small-space-horizontal-beteween-fields"></div>
+                <div>
+                    <div *ngIf="screenFieldPosition == 'column'">
+                        <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
                     </div>
-                    <div search-filter id="space-components" >
+                    <div>
+                        <btn-g [name]="'Filtros'" [icon]="'clear'" (btn)="filterClear()"></btn-g>
+                    </div>
+                    <div fxLayout="screenFieldPosition">
 
                     </div>
-                    <div search-pagination  >
-                        <div  >
-                            <grid-list-common-search [searchName]="'Busca'" [Input]="searchFieldMonthSelect"
-                                (queryFieldOutput)="queryFieldOutput($event)"
-                                [clearSearchField]="clearSearchField"
-                                ></grid-list-common-search>
-                        </div>
-                        <div  >
-                            <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true"
-                                [changeSelection]="monthFilter" [Input]="searchFieldMonthSelect"
-                                (sendSelected)="selectedMonth($event)" (onChangeSelection)="onMonthSelectedclearFilters()">
-                            </months-select>
-                        </div>
+                    <div *ngIf="screenFieldPosition == 'row'">
+                        <btn-g [name]="'Despesa'" [icon]="'add'" (btn)="add()"></btn-g>
+                    </div>
+
+                </div>
+            </div>
+            <div search-filter id="space-components">
+
+            </div>
+            <div search-pagination>
+                <div>
+                    <grid-list-common-search [searchName]="'Busca'" [Input]="searchFieldMonthSelect" (queryFieldOutput)="queryFieldOutput($event)" [clearSearchField]="clearSearchField"></grid-list-common-search>
+                </div>
+                <div>
+                    <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true" [changeSelection]="monthFilter" [Input]="searchFieldMonthSelect" (sendSelected)="selectedMonth($event)" (onChangeSelection)="onMonthSelectedclearFilters()">
+                    </months-select>
+                </div>
 
 
-                        <br>
-                        <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()"
-                            [pageSize]="pageSize" fxLayoutAlign="center center"
-                            (page)="onPageChangeMonthly($event, this.monthFilter.id)"></mat-paginator>
-                        <br>
+                <br>
+                <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChangeMonthly($event, this.monthFilter.id)"></mat-paginator>
+                <br>
+
+            </div>
+
+            <grid-list-common-table body-table [statusShow]="true" [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)"
+                (getEntityOut)="getEntity($event, 'fixedExpenses')" (toPayOut)="getEntityTopay($event)">
+            </grid-list-common-table>
+            <div pagination-below>
+                <div class="mat-paginator-above-margin">
+
+                </div>
+                <div>
+                    <div>
 
                     </div>
 
-                    <grid-list-common-table  body-table [statusShow]="true"
-                        [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }"
-                        [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers"
-                        (getColumnEntityName)="orderBy($event)" (getEntityOut)="getEntity($event, 'fixedExpenses')"
-                        (toPayOut)="getEntityTopay($event)">
-                    </grid-list-common-table>
-                    <div pagination-below >
-                        <div class="mat-paginator-above-margin"  >
+                    <mat-paginator pagination-below #paginatorBelow [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" (page)="onPageChangeMonthly($event, this.monthFilter.id)"></mat-paginator>
 
-                        </div>
-                        <div  >
-                            <div  >
+                </div>
+                <div class="mat-paginator-below-margin">
 
-                            </div>
+                </div>
+            </div>
+        </grid-list-common>
+    </mat-card>
 
-                            <mat-paginator pagination-below #paginatorBelow
-                                [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize"
-                                (page)="onPageChangeMonthly($event, this.monthFilter.id)"></mat-paginator>
-
-                        </div>
-                        <div class="mat-paginator-below-margin"  >
-
-                        </div>
-                    </div>
-                </grid-list-common>
-            </mat-card>
-        </div>
-    </div>
 </div>

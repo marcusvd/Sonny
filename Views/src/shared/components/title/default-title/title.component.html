@@ -1,7 +1,41 @@
-<ng-container *ngIf="!btnFromOut else fromOut">
-    <section id="container-above">
-        <button id="btn-back" mat-raised-button (click)="back()">{{'Voltar'}}</button>
-    </section>
+<!-- <btn-g [name]="''" [icon]="'arrow_back'" (btn)="back()"></btn-g> -->
+<!-- <btn-g [btnClassList]="'!bg-main-color !text-white !w-[30px] !rounded-[60px]'" [btnIconClassList]="'-ml-[300px]'" [name]="''" [icon]="'arrow_back'" (btn)="back()"></btn-g> -->
+
+
+<div class="grid grid-rows-2 mb-10">
+    <div>
+        <button class="!bg-main-color" mat-mini-fab (click)="back()">
+        <mat-icon>{{'arrow_back'}}</mat-icon>
+      </button>
+    </div>
+
+    <div class="grid grid-cols-[15px_550px] items-center -mt-2">
+
+        <div class="text-[40px] text-color-main">
+            {{digit}}
+        </div>
+
+        <div class="font-bold text-xl text-color-title-comp">
+            {{textTitleComp | uppercase}}
+        </div>
+    </div>
+
+</div>
+
+<!-- <div class="grid grid-cols-1 mb-[50px] sm:grid-cols-3">
+    <mat-icon class="invisible !w-[50px] !h-[50px] text-[50px] text-color-main sm:visible">{{icon}}</mat-icon>
+    <div class="text-[40px] text-color-main gap-3">{{digit}}<span class="font-bold text-xl text-color-title-comp">{{textTitleComp}}</span>
+        <ng-content select="[btn-1]"></ng-content>
+    </div>
+</div> -->
+
+
+
+
+
+
+<!-- <ng-container *ngIf="!btnFromOut else fromOut">
+    <btn-g [name]="'Voltar'" [icon]="'arrow_back'" (btn)="save()"></btn-g>
 </ng-container>
 
 <ng-template #fromOut>
@@ -24,9 +58,6 @@
         <ng-content select="[btn-2]"></ng-content>
     </div>
 </section>
-<!-- <section class="container"  *ngIf="subTitleString">
-    <p  id="sub-title-string">{{subTitleString}}</p>
-</section> -->
 <section [style]="styleContainerBelow">
 
-</section>
+</section> -->

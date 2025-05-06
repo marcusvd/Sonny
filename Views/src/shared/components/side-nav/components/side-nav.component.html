@@ -1,37 +1,36 @@
-<div class="container" (window:resize)="responsive($event)">
-    <mat-toolbar *ngIf="tootlBar">
-        <button mat-icon-button aria-label="Example icon-button with menu icon">
+<mat-toolbar *ngIf="menuSlim">
+    <button mat-icon-button aria-label="Example icon-button with menu icon">
           <mat-icon (click)="toggleMenuSlimToolBar()">menu</mat-icon>
       </button>
-    </mat-toolbar>
-    <mat-sidenav-container>
-        <mat-sidenav opened mode="side" #sidenav role="navigation">
+</mat-toolbar>
+<mat-sidenav-container (window:resize)="responsive($event)">
+    <mat-sidenav [ngClass]="menuSlimManually ? 'mat-sidenav-slim':'' " opened mode="side" #sidenav role="navigation">
 
-            <div class="container--menu-large" *ngIf="true">
-                <!-- <div *ngIf="menuLarge"> -->
-                <top-large top-large></top-large>
-                <!-- <mat-icon (click)="toggleMenu()">keyboard_arrow_left</mat-icon> -->
-                <side-menu-large (route)="navigateRoute($event)">
-                </side-menu-large>
-            </div>
-            <div *ngIf="false">
-                <!-- <div *ngIf="menuSlim"> -->
-                <side-menu-slim (route)="navigateRoute($event)">
-                    <top-slim top-slim></top-slim>
-                    <div *ngIf="menuSlimArrowRightHideShow">
-                        <div>
-                            <mat-icon (click)="toggleMenu()">keyboard_arrow_right</mat-icon>
-                        </div>
+        <div class="container--menu-large" *ngIf="menuLarge">
+            <!-- <div *ngIf="menuLarge"> -->
+            <top-large top-large></top-large>
+            <!--  -->
+            <side-menu-large (route)="navigateRoute($event)">
+                <mat-icon arrow_left (click)="toggleMenu()">keyboard_arrow_left</mat-icon>
+            </side-menu-large>
+        </div>
+        <div *ngIf="menuSlimManually">
+            <side-menu-slim [ngClass]="{'mat-sidenav-slim':menuSlimManually}" (route)="navigateRoute($event)">
+                <top-slim top-slim></top-slim>
+                <div *ngIf="menuSlimArrowRightHideShow">
+                    <div>
+                        <mat-icon arrow_right (click)="toggleMenu()">keyboard_arrow_right</mat-icon>
                     </div>
-                </side-menu-slim>
-            </div>
+                </div>
+            </side-menu-slim>
+        </div>
 
-        </mat-sidenav>
-        <mat-sidenav-content>
-            <main>
-                <router-outlet></router-outlet>
-            </main>
-        </mat-sidenav-content>
-    </mat-sidenav-container>
-</div>
-<!-- [ngClass]="{ 'border-around-menu-large': menuLarge, 'border-around-menu-slim':menuSlim }" fxLayoutAlign="start start" -->
+    </mat-sidenav>
+    <mat-sidenav-content [ngClass]="{'mat-sidenav-container-slim':menuSlimManually}">
+        <main>
+            <router-outlet></router-outlet>
+        </main>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+<!-- [ngClass]=" { 'border-around-menu-large': menuLarge, 'border-around-menu-slim':menuSlim } " fxLayoutAlign="start start " -->
