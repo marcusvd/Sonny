@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/internal/Observable';
 
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { SubTitleItemComponent } from 'src/shared/components/sub-title-item/sub-title-item.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { CnpjCpfPipe } from 'src/shared/pipes/cnpj-cpf.pipe';
@@ -25,7 +25,7 @@ import { CustomerListService } from '../list/services/customer-list.service';
   imports: [
     CommonModule,
     MatCardModule,
-    
+
     CnpjCpfPipe,
     PtBrCurrencyPipe,
     TitleComponent,
@@ -41,8 +41,8 @@ export class CustomerViewComponent extends BaseForm implements OnInit {
     private _customerServices: CustomerListService,
     private _actRouter: ActivatedRoute,
     private _router: Router,
-    override _breakpointObserver: BreakpointObserver,
-  ) { super(_breakpointObserver) }
+
+  ) { super() }
 
   customer: CustomerDto;
   stylePerItem: string = 'width: 500px;';
@@ -60,46 +60,6 @@ export class CustomerViewComponent extends BaseForm implements OnInit {
 
   direction: string = 'row';
   spaceTop: string = '';
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-
-        switch (result.size) {
-          case 'xsmall': {
-
-            this.direction = 'flex-direction: column';
-            this.spaceTop = ' margin-top: 100px;';
-
-            break;
-          }
-          case 'small': {
-
-            this.direction = 'flex-direction: column';
-            this.spaceTop = ' margin-top: 100px;';
-            break;
-          }
-          case 'medium': {
-            this.spaceTop = '';
-            this.direction = 'flex-direction: row';
-
-            break;
-          }
-          case 'large': {
-            this.spaceTop = '';
-            this.direction = 'flex-direction: row';
-
-            break;
-          }
-          case 'xlarge': {
-            this.spaceTop = '';
-            this.direction = 'flex-direction: row';
-
-            break;
-          }
-        }
-      }
-    })
-  }
 
   edit() {
     this._router.navigateByUrl('/side-nav/customer-dash/edit/' + this.customer.id)
@@ -109,7 +69,7 @@ export class CustomerViewComponent extends BaseForm implements OnInit {
     const id = this._actRouter.snapshot.params['id'];
 
     this.getEntityId(id);
-    this.screen();
+    
   }
 
 }

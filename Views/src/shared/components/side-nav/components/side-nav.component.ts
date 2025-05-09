@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
@@ -42,8 +42,8 @@ export class SideNavComponent extends BaseForm implements OnInit {
 
   constructor(
     // private _dataTree: DatabaseSideNavServices,
-    override _breakpointObserver: BreakpointObserver,
-  ) { super(_breakpointObserver) }
+    
+  ) {super()}
 
   event = { target: window } as unknown as Event;
   screenWidth: number = window.innerWidth;
@@ -103,7 +103,7 @@ export class SideNavComponent extends BaseForm implements OnInit {
 
 
   ngOnInit(): void {
-    //this.screen();
+    //
     this.responsive(this.event);
   }
 

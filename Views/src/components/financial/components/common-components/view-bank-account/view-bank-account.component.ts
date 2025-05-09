@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
@@ -7,7 +7,7 @@ import { MatCardModule as MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule as MatFormFieldModule } from '@angular/material/form-field';
 
 
-import { View } from 'src/shared/components/inheritance/view/view';
+
 import { BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
 import { BankAccountDto } from '../../bank-account-cards/dto/bank-account-dto';
 
@@ -19,7 +19,7 @@ import { BankAccountDto } from '../../bank-account-cards/dto/bank-account-dto';
         MatSelectModule,
         MatCardModule,
         MatFormFieldModule,
-        
+
         BankCardNumberPipe,
         CommonModule
     ],
@@ -29,30 +29,30 @@ import { BankAccountDto } from '../../bank-account-cards/dto/bank-account-dto';
         font-size: 30px;
         color: rgb(43, 161, 168);
         }
-    
+
     .pipe-column-title {
         margin-top: -25px;
         }
-    
+
     .weight-title-space-left {
         font-weight: bolder;
         /* padding-right: 10px; */
         }
-    
+
     .space-right {
          padding-right: 10px;
-        }   
+        }
   `],
     providers: [],
 })
-export class ViewBankAccountComponent extends View implements OnInit {
+export class ViewBankAccountComponent  implements OnInit {
 
     @Input() bankAccount: BankAccountDto = null;
 
-    constructor(override _breakpointObserver: BreakpointObserver
-    ) { super(_breakpointObserver) }
+    constructor(
+    ) {}
 
     ngOnInit(): void {
-       this.screen();
+
     }
 }

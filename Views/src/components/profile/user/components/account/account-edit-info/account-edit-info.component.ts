@@ -1,11 +1,11 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { Component, Inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MyUser } from 'src/components/authentication/dto/my-user';
 import { ProfileEditService } from 'src/components/profile/services/profile-edit.service';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
@@ -20,11 +20,11 @@ export class AccountEditInfoComponent extends BaseForm implements OnInit {
 
 
   constructor(
-    override _breakpointObserver: BreakpointObserver,
+
     private _fb: FormBuilder,
     private _profileEditService: ProfileEditService,
     @Inject(MAT_DIALOG_DATA) public data: MyUser
-  ) { super(_breakpointObserver) }
+  ) {super()}
 
   companyUserNameEmailCols: number;
   companyUserNameEmailRowHeight: string = '100px';
@@ -47,54 +47,6 @@ export class AccountEditInfoComponent extends BaseForm implements OnInit {
 
   get validatorCustom() {
     return this._validatorCustom
-  }
-
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.companyUserNameEmailCols = 1;
-            this.btnChangeTitleCols = 1;
-            this.passwordAndConfirmeCols = 1;
-            this.btnSaveStyle = true;
-            break;
-          }
-          case 'small': {
-            this.companyUserNameEmailCols = 1;
-            this.btnChangeTitleCols = 1;
-            this.passwordAndConfirmeCols = 1;
-            this.btnSaveStyle = true;
-            break;
-          }
-          case 'medium': {
-            this.companyUserNameEmailCols = 3;
-            this.btnChangeTitleCols = 2;
-            this.passwordAndConfirmeCols = 3;
-            this.btnSaveStyle = false;
-            break;
-          }
-          case 'large': {
-            this.companyUserNameEmailCols = 3;
-            this.btnChangeTitleCols = 2;
-            this.passwordAndConfirmeCols = 3;
-            this.btnSaveStyle = false;
-            break;
-          }
-          case 'xlarge': {
-            this.companyUserNameEmailCols = 3;
-            this.btnChangeTitleCols = 2;
-            this.passwordAndConfirmeCols = 3;
-            this.btnSaveStyle = false;
-            break;
-          }
-        }
-      }
-    })
-
-
-
-
   }
 
   formLoad() {
@@ -127,7 +79,7 @@ export class AccountEditInfoComponent extends BaseForm implements OnInit {
 
 
   ngOnInit(): void {
-    this.screen();
+
 
     this.formLoad();
   }

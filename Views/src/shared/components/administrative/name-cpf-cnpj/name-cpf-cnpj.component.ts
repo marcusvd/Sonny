@@ -1,11 +1,11 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskModule } from 'ngx-mask';
 import { map } from 'rxjs/operators';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { CpfCnpjValidator } from 'src/shared/helpers/validators/cpf-cnpj.validator';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { MaterialModule } from 'src/shared/modules/material.module';
@@ -47,9 +47,9 @@ import { BusinessData } from './dto/business-data';
 export class NameCpfCnpjComponent extends BaseForm implements OnInit, OnChanges {
 
   constructor(
-    override _breakpointObserver: BreakpointObserver,
+
     private _queryCnpjService: QueryCnpjService
-  ) { super(_breakpointObserver) }
+  ) {super()}
 
   ngOnChanges(changes: SimpleChanges): void {
 
@@ -124,36 +124,6 @@ export class NameCpfCnpjComponent extends BaseForm implements OnInit, OnChanges 
 
 
     return null;
-  }
-
-  screenFieldPosition: string = 'row';
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = "column"
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = "column"
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = "row"
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = "row"
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = "row"
-            break;
-          }
-        }
-      }
-    })
   }
 
   ngOnInit(): void {

@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
@@ -11,15 +11,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 
 import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-entities/bank-account/bank-account-mat-select-single.component';
-import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
-import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
-import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { BtnGComponent } from '../../../../../src/shared/components/btn-g/btn-g.component';
+import { BankAccountMatSelectSingleComponent } from '../../../../../src/shared/components/get-entities/bank-account/bank-account-mat-select-single.component';
+import { BaseForm } from '../../../../../src/shared/components/inheritance/forms/base-form';
 
-import { TypeCardDtoEnum } from 'src/components/financial/components/bank-account-cards/dto/enums/type-card-dto.enum';
+import { SubTitleComponent } from '../../../../../src/shared/components/sub-title/default/sub-title.component';
+import { TitleComponent } from '../../../../../src/shared/components/title/default-title/title.component';
+import { ValidatorMessages } from '../../../../../src/shared/helpers/validators/validators-messages';
+
+import { TypeCardDtoEnum } from '../../../../../src/components/financial/components/bank-account-cards/dto/enums/type-card-dto.enum';
 import { SelectedPaymentDto } from '../../get-entities/bank-account/dto/selected-payment-dto';
 import { FieldsScreenPayment } from './models/fields-screen-payment';
 import { FormBase } from './models/form-base';
@@ -37,7 +37,7 @@ import { PaymentService } from './services/payment.service';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    
+
     MatButtonModule,
     MatCardModule,
     CurrencyMaskModule,
@@ -67,18 +67,20 @@ export class PaymentComponent extends BaseForm implements OnInit {
     private _actRoute: ActivatedRoute,
     private _router: Router,
     private _services: PaymentService,
-    override _breakpointObserver: BreakpointObserver,
+
 
   ) {
-    super(_breakpointObserver);
 
-    if (this._router.getCurrentNavigation().extras.state) {
-      const obj = this._router.getCurrentNavigation().extras.state;
-      this.urlBackend = obj['entity'].urlBackend as string;
-      this.fields = obj['entity'].screenInfoFields as FieldsScreenPayment[];
-      this.formFields = obj['entity'].form as FormBase<string>[];
-      this.formMain = this.toFormGroup(obj['entity'].form as FormBase<string>[]);
+    super()
 
+    if (this._router.getCurrentNavigation()?.extras.state) {
+      const obj = this._router.getCurrentNavigation()?.extras.state;
+      if (obj) {
+        this.urlBackend = obj['entity'].urlBackend as string;
+        this.fields = obj['entity'].screenInfoFields as FieldsScreenPayment[];
+        this.formFields = obj['entity'].form as FormBase<string>[];
+        this.formMain = this.toFormGroup(obj['entity'].form as FormBase<string>[]);
+      }
       // this.defaultItemsHtmlToVisible(obj['entity'].itemsHtmlToVisible as ItemsHtmlToVisible);
 
     }
@@ -108,36 +110,6 @@ export class PaymentComponent extends BaseForm implements OnInit {
     return this.valMessages
   }
 
-  fxLayout: string = 'row';
-
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.fxLayout = 'column';
-            break;
-          }
-          case 'small': {
-            this.fxLayout = 'column';
-            break;
-          }
-          case 'medium': {
-            this.fxLayout = 'row';
-            break;
-          }
-          case 'large': {
-            this.fxLayout = 'row';
-            break;
-          }
-          case 'xlarge': {
-            this.fxLayout = 'row';
-            break;
-          }
-        }
-      }
-    })
-  }
 
   onSelectedBanckAccountelected(bankAccount: any) {
     console.log(bankAccount)
@@ -149,20 +121,20 @@ export class PaymentComponent extends BaseForm implements OnInit {
 
   makeEntityToUpdate(entity: SelectedPaymentDto) {
     console.log(entity)
-    this.formMain.get('bankAccountId').setValue(entity.idBankAccount);
+    this.formMain.get('bankAccountId')?.setValue(entity.idBankAccount);
 
     if (entity.idPix) {
-      this.formMain.get('pixId').setValue(entity.idPix);
+      this.formMain.get('pixId')?.setValue(entity.idPix);
       this.formIsValid('pixId');
     }
 
     if (entity.others) {
-      this.formMain.get('othersPaymentMethods').setValue(entity.others);
+      this.formMain.get('othersPaymentMethods')?.setValue(entity.others);
       this.formIsValid('othersPaymentMethods');
     }
 
-    if (this.formMain.get('pixId').value == '')
-      this.formMain.get('pixId').setValue(null);
+    if (this.formMain.get('pixId')?.value == '')
+      this.formMain.get('pixId')?.setValue(null);
 
     // if (this.formMain.get('cardId').value == '')
     // this.formMain.get('cardId').setValue(null);
@@ -172,13 +144,13 @@ export class PaymentComponent extends BaseForm implements OnInit {
   formIsValid(value: string) {
 
     if (value === 'Pix') {
-      this.addValidators(this.formMain,['pixId']);
-      this.removeValidators(this.formMain,['othersPaymentMethods']);
+      this.addValidators(this.formMain, ['pixId']);
+      this.removeValidators(this.formMain, ['othersPaymentMethods']);
 
     }
     if (value === 'othersPaymentMethods') {
-      this.addValidators(this.formMain,['othersPaymentMethods']);
-      this.removeValidators(this.formMain,['pixId']);
+      this.addValidators(this.formMain, ['othersPaymentMethods']);
+      this.removeValidators(this.formMain, ['pixId']);
     }
 
   }
@@ -198,7 +170,7 @@ export class PaymentComponent extends BaseForm implements OnInit {
   checkIsValid: boolean = false;
   updateBtn() {
 
-   // this.makeEntityToUpdate();
+    // this.makeEntityToUpdate();
     console.log(this.formMain.valid)
     // if (this.formMain.valid) {
     //  // this.checkIsValid = true;
@@ -210,7 +182,7 @@ export class PaymentComponent extends BaseForm implements OnInit {
   }
 
   ngOnInit(): void {
-    this.screen();
+
   }
 
 }

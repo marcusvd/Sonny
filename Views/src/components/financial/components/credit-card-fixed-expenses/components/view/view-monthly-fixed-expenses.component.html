@@ -1,4 +1,4 @@
-<div class="border-around" (window:resize)="screen()">
+<div class="border-around" >
     <title-component [digit]="'|'" [textTitleComp]="'Pagamento'" [icon]="'payment'">
         <!-- <btn-add-g btn-1 (add)="add()"></btn-add-g> -->
     </title-component>
@@ -295,7 +295,7 @@
                         </div>
 
 
-                        <div  fxLayoutAlign="center center">
+                        <div >
                             <btn-g [name]="'Liquidar'" [icon]="'payment'" (click)="toPay()"></btn-g>
                         </div>
                     </div>
@@ -329,7 +329,7 @@
                                 <p>{{fixedExpensesTracking?.price | ptBrCurrency}}</p>
                             </div>
                         </div>
-                        <div  fxLayoutAlign="center center">
+                        <div >
                             <btn-g [name]="'Liquidar'" [icon]="'payment'" (click)="toPay()"></btn-g>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
@@ -71,8 +71,8 @@ export class SelectExpensesComponent extends Add implements OnInit {
 
 
   constructor(
-    override _breakpointObserver: BreakpointObserver,
-  ) { super(_breakpointObserver) }
+    
+  ) {super()}
 
   titleBarStyle: string = `
   background-color: rgb(43, 161, 168);

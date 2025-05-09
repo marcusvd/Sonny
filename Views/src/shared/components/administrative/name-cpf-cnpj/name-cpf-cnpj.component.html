@@ -22,7 +22,7 @@
                 </mat-form-field>
                 <div *ngIf="btnGetData">
                     <div  *ngIf="formMain.get('entityType').value">
-                        <div fxLayoutAlign="center center">
+                        <div>
                             <button class="get-btn" mat-raised-button (click)="getCnpjData(cnpj.value,'cnpj',formMain, 'cnpj')" (blur)="isValid(cnpj.value,'cnpj',formMain, 'cnpj')">Obter dados</button>
                         </div>
                     </div>

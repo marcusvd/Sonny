@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
@@ -20,7 +20,7 @@ import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { DateJustDayComponent } from 'src/shared/components/date-just-day/date-just-day.component';
 import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
@@ -41,7 +41,7 @@ import { FinancingsLoansExpensesService } from './services/financings-loans-expe
   standalone: true,
   imports: [
     CommonModule,
-    
+
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
@@ -71,8 +71,8 @@ export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
     private _fb: FormBuilder,
     private _router: Router,
     private _services: FinancingsLoansExpensesService,
-    override _breakpointObserver: BreakpointObserver,
-  ) { super(_breakpointObserver) }
+
+  ) {super()}
 
   payCycle = PayCycleEnumDto.FinancingLoans;
 
@@ -116,43 +116,6 @@ export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
     this?.formMain?.get('totalPercentageInterest')?.setValue(this.percentageInterest);
   }
 
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = 'column'
-
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = 'column'
-
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = 'row'
-
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = 'row'
-
-
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = 'row'
-
-            break;
-          }
-        }
-      }
-    })
-
-
-  }
-
   formLoad() {
     this.formMain = this._fb.group({
       id: [0, [Validators.required]],
@@ -186,7 +149,7 @@ export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
 
   ngOnInit(): void {
     this.formLoad();
-    this.screen();
+
   }
 
 }

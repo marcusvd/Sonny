@@ -1,15 +1,20 @@
-import { MainEntitiesBase } from 'src/components/main/inheritances/dtos/main-entities-base';
+
+import { MainEntitiesBase } from '../../../../../../components/main/inheritances/dtos/main-entities-base';
 import { AdditionalCosts } from './additional-costs';
 
+export class CustomerDto extends MainEntitiesBase {
+  constructor() {
+    super()
+  }
 
-export class CustomerDto extends MainEntitiesBase{
-   assured:boolean;
-   payment:number;
-   expiration:number;
-   disabled:boolean;
-   discount:number;
-   additionalCosts:AdditionalCosts;
-   
+  assured: boolean;
+  payment: number;
+  expiration: number;
+  disabled: boolean;
+  discount: number;
+  additionalCosts: AdditionalCosts;
+
   //  servicesExecuted:BudgetServiceDto[];
-   // electronicsRepairs:ElectronicRepairDto[];
+  // electronicsRepairs:ElectronicRepairDto[];
 }
+

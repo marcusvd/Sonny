@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
@@ -20,7 +20,7 @@ import { GetCustomerMatSelectSingleComponent } from 'src/shared/components/get-e
 import { GetTransporterMatSelectSingleComponent } from 'src/shared/components/get-entities/partner-transporter/get-transporter-mat-select-single.component';
 import { GetPartnerMatSelectSingleComponent } from 'src/shared/components/get-entities/partner/get-partner-mat-select-single.component';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
@@ -56,7 +56,7 @@ import { CollectDeliverEditService } from './services/collect-deliver-edit.servi
     MatCardModule,
     MatButtonModule,
     MatDialogModule,
-    
+
     CurrencyMaskModule,
     TitleComponent,
     SubTitleComponent,
@@ -76,11 +76,11 @@ export class CollectDeliverEditComponent extends BaseForm implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
-    override _breakpointObserver: BreakpointObserver,
+
     private _editService: CollectDeliverEditService,
     private _actRouter: ActivatedRoute,
     private _dialog: MatDialog,
-  ) { super(_breakpointObserver) }
+  ) {super()}
 
 
   private valMessages = ValidatorMessages;
@@ -97,78 +97,11 @@ export class CollectDeliverEditComponent extends BaseForm implements OnInit {
   entities: string[] = ['Clientes', 'Parceiros', 'Outros'];
   entitiesToPayment: string[] = ['Clientes', 'Parceiros'];
   transportOptions: string[] = ['Combustível', 'Aplicativo', 'MotoBoy', 'Transporte publico'];
-  screenFieldPosition: string = 'column';
-  screenFieldPositionSub: string = 'row';
+
   checkBoxAlign: string = 'center'
   topBottomPaddingEntitiesRadio: boolean = false;
   rightSideBorder: string = "border-right: 0.5px solid silver; padding-right:30px;";
   pricePayment: string = 'margin-top:38px;';
-  fxLayoutAlignTypeTransportPriceDestiny: string = '';
-  sizeScreenIsSmall: boolean = false;
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.sizeScreenIsSmall = true;
-            this.rightSideBorder = null;
-            this.checkBoxAlign = 'start';
-            this.screenFieldPosition = 'column';
-            this.screenFieldPositionSub = 'row';
-            this.topBottomPaddingEntitiesRadio = true;
-            this.pricePayment = 'margin-top:-30px;';
-            this.fxLayoutAlignTypeTransportPriceDestiny = '50';
-            break;
-          }
-          case 'small': {
-            this.sizeScreenIsSmall = true;
-            this.rightSideBorder = null;
-            this.checkBoxAlign = 'start';
-            this.screenFieldPosition = 'column';
-            this.screenFieldPositionSub = 'row';
-            this.topBottomPaddingEntitiesRadio = true;
-            this.pricePayment = 'margin-top:-30px;';
-            this.fxLayoutAlignTypeTransportPriceDestiny = '50';
-            break;
-          }
-          case 'medium': {
-            this.sizeScreenIsSmall = false;
-            this.rightSideBorder = "border-right: 0.5px solid silver; padding-right:30px;"
-            this.checkBoxAlign = 'center';
-            this.screenFieldPosition = 'row';
-            this.screenFieldPositionSub = 'row';
-            this.topBottomPaddingEntitiesRadio = false;
-            this.pricePayment = 'margin-top:38px;';
-            this.fxLayoutAlignTypeTransportPriceDestiny = '';
-            break;
-          }
-          case 'large': {
-            this.sizeScreenIsSmall = false;
-            this.rightSideBorder = "border-right: 0.5px solid silver; padding-right:30px;"
-            this.checkBoxAlign = 'center';
-            this.screenFieldPosition = 'row';
-            this.screenFieldPositionSub = 'row';
-            this.topBottomPaddingEntitiesRadio = false;
-            this.pricePayment = 'margin-top:38px;';
-            this.fxLayoutAlignTypeTransportPriceDestiny = '';
-            break;
-          }
-          case 'xlarge': {
-            this.sizeScreenIsSmall = false;
-            this.rightSideBorder = "border-right: 0.5px solid silver; padding-right:30px;"
-            this.checkBoxAlign = 'center';
-            this.screenFieldPosition = 'row';
-            this.screenFieldPositionSub = 'row';
-            this.topBottomPaddingEntitiesRadio = false;
-            this.pricePayment = 'margin-top:38px;';
-            this.fxLayoutAlignTypeTransportPriceDestiny = '';
-            break;
-          }
-        }
-      }
-    })
-  }
-
 
   // @ViewChild('collect') collect!: MatCheckboxChange;
   // @ViewChild('deliver') deliver!: MatCheckboxChange;
@@ -475,7 +408,7 @@ export class CollectDeliverEditComponent extends BaseForm implements OnInit {
   ngOnInit(): void {
     const id = this._actRouter.snapshot.params['id'];
     this.getEntityId(id);
-    this.screen();
+
     this.validatorLocal.required(this.formMain, ['transporterId']);
   }
 

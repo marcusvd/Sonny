@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule, NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
@@ -15,7 +15,7 @@ import { map } from 'rxjs/operators';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delete-dialog.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
@@ -29,7 +29,7 @@ import { CategorySubcategoryExpensesService } from '../services/category-subcate
   standalone: true,
   imports: [
     CommonModule,
-    
+
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
@@ -50,11 +50,11 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
 
   constructor(
     private _fb: FormBuilder,
-    override _breakpointObserver: BreakpointObserver,
+
     private _service: CategorySubcategoryExpensesService,
     private _dialog: MatDialog,
   ) {
-    super(_breakpointObserver);
+    super();
   }
 
   payCycle = PayCycleArray.payCycle;
@@ -62,44 +62,6 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
   private valMessages = ValidatorMessages;
   get validatorMessages() {
     return this.valMessages
-  }
-
-  screenFieldPosition: string = 'column';
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = 'column'
-
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = 'column'
-
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = 'row'
-
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = 'row'
-
-
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = 'row'
-
-            break;
-          }
-        }
-      }
-    })
-
-
   }
 
   deleteCategory(x: CategoryExpenseDto) {
@@ -414,7 +376,7 @@ export class EditCategorySubcategoryExpensesComponent extends Add implements OnI
   }
 
   ngOnInit(): void {
-    this.screen();
+
     this.loadData();
   }
 }

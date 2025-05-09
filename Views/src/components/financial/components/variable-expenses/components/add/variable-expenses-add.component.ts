@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
@@ -20,7 +20,7 @@ import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-entities/bank-account/bank-account-mat-select-single.component';
 import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
 import { Payment } from 'src/shared/components/inheritance/payment/payment';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
@@ -42,7 +42,7 @@ import { VariableExpensesService } from './services/variable-expenses.service';
   standalone: true,
   imports: [
     CommonModule,
-    
+
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
@@ -69,8 +69,8 @@ export class VariableExpensesAddComponent extends Payment implements OnInit {
     private _fb: FormBuilder,
     private _router: Router,
     private _variableExpensesService: VariableExpensesService,
-    override _breakpointObserver: BreakpointObserver,
-  ) { super(_breakpointObserver) }
+
+  ) {super()}
 
   payCycle = PayCycleEnumDto.Variable;
   cardType = TypeCardDtoEnum.Credit;
@@ -112,45 +112,7 @@ export class VariableExpensesAddComponent extends Payment implements OnInit {
     })
   }
 
-  screenFieldPosition: string = 'row';
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = 'column'
-
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = 'column'
-
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = 'row'
-
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = 'row'
-
-
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = 'row'
-
-            break;
-          }
-        }
-      }
-    })
-
-
-  }
-
-  save() {
+    save() {
     if (this.alertSave(this.formMain)) {
       this._variableExpensesService.save(this.formMain);
       this.paymentBtnEnabledDisabled = true;
@@ -160,7 +122,7 @@ export class VariableExpensesAddComponent extends Payment implements OnInit {
 
   ngOnInit(): void {
     this.formLoad();
-    this.screen();
+
   }
 
 }

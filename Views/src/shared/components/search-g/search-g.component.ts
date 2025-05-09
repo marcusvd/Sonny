@@ -5,7 +5,7 @@ import { FormControl } from '@angular/forms';
   selector: 'search-g',
   template: `
   <mat-toolbar class="inputBackgroundColor" >
-    <div   fxLayoutAlign="center center" style="margin-left:-13px;">
+    <div   style="margin-left:-13px;">
       <div     style="font-size:10px; heigth:20px; padding-top:18px;">
         <mat-form-field appearance="outline">
                 <mat-label>Pesquisar</mat-label>

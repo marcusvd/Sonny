@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
@@ -14,7 +14,7 @@ import { PayCycleEnumDto } from 'src/components/financial/components/common-comp
 import { SubcategoryExpenseDto } from 'src/components/financial/components/common-components/category-subcategory-expenses/dto/subcategory-expense-dto';
 import { CategoryExpensesService } from 'src/components/financial/services/category-expenses.service';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { SpinnerGComponent } from 'src/shared/components/spinner-g/component/spinner-g.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
@@ -28,7 +28,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
   standalone: true,
   imports: [
     CommonModule,
-    
+
     MatInputModule,
     ReactiveFormsModule,
     MatSelectModule,
@@ -43,9 +43,9 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 export class CategorySubcategoryExpensesSelectComponent extends BaseForm implements OnInit, OnChanges {
 
   constructor(
-    override _breakpointObserver: BreakpointObserver,
+
     private _fillersService: CategoryExpensesService,
-  ) { super(_breakpointObserver) }
+  ) {super()}
 
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -82,43 +82,6 @@ export class CategorySubcategoryExpensesSelectComponent extends BaseForm impleme
     this.subcategoriesExpenses = selected;
   }
 
-  screenFieldPosition: string = "row";
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = 'column'
-
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = 'column'
-
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = 'row'
-
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = 'row'
-
-
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = 'row'
-
-            break;
-          }
-        }
-      }
-    })
-
-
-  }
 
   ngOnInit(): void {
     this.entities$ = this._fillersService.getFillers()

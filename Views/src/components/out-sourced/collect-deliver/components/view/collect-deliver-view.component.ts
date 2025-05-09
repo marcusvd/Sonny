@@ -4,12 +4,12 @@ import { Component, OnInit } from '@angular/core';
 import { MatCardModule as MatCardModule } from '@angular/material/card';
 
 
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/internal/Observable';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { SubTitleItemComponent } from 'src/shared/components/sub-title-item/sub-title-item.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { CnpjCpfPipe } from 'src/shared/pipes/cnpj-cpf.pipe';
@@ -27,7 +27,7 @@ import { CollectDeliverViewService } from './services/collect-deliver-view.servi
     MatCardModule,
     CnpjCpfPipe,
     PtBrCurrencyPipe,
-    
+
     TitleComponent,
     SubTitleItemComponent,
     BtnGComponent
@@ -41,8 +41,8 @@ export class CollectDeliverViewComponent extends BaseForm implements OnInit {
     private _collectDeliverServices: CollectDeliverViewService,
     private _actRouter: ActivatedRoute,
     private _router: Router,
-    override _breakpointObserver: BreakpointObserver,
-  ) { super(_breakpointObserver) }
+
+  ) {super()}
 
   collectDeliver: CollectDeliverDto;
   stylePerItem: string = 'width: 500px;';
@@ -56,48 +56,6 @@ export class CollectDeliverViewComponent extends BaseForm implements OnInit {
 
   }
 
-  direction: string = 'row';
-  spaceTop: string = '';
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-
-        switch (result.size) {
-          case 'xsmall': {
-
-            this.direction = 'flex-direction: column';
-            this.spaceTop = ' margin-top: 100px;';
-
-            break;
-          }
-          case 'small': {
-
-            this.direction = 'flex-direction: column';
-            this.spaceTop = ' margin-top: 100px;';
-            break;
-          }
-          case 'medium': {
-            this.spaceTop = '';
-            this.direction = 'flex-direction: row';
-
-            break;
-          }
-          case 'large': {
-            this.spaceTop = '';
-            this.direction = 'flex-direction: row';
-
-            break;
-          }
-          case 'xlarge': {
-            this.spaceTop = '';
-            this.direction = 'flex-direction: row';
-
-            break;
-          }
-        }
-      }
-    })
-  }
 
   edit() {
     this._router.navigateByUrl('/side-nav/partner-dash/edit-collect-deliver/' + this.collectDeliver.id)
@@ -139,7 +97,7 @@ export class CollectDeliverViewComponent extends BaseForm implements OnInit {
     const id = this._actRouter.snapshot.params['id'];
 
     this.getEntityId(id);
-    this.screen();
+
   }
 
 }

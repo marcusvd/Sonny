@@ -1,4 +1,4 @@
-<div class="border-around" (window:resize)="screen()">
+<div class="border-around" >
     <title-component [digit]="'|'" [textTitleComp]="'Despesas Pix'" [icon]="'attach_money'">
     </title-component>
     <div>
@@ -21,16 +21,16 @@
                     </div>
                     <div search-pagination  >
                         <div>
-                            <grid-list-common-search [searchName]="'Busca'" [Input]="searchFieldMonthSelect" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
+                            <grid-list-common-search [searchName]="'Busca'"  (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
                         </div>
                         <div>
-                            <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true" [changeSelection]="monthFilter" [Input]="searchFieldMonthSelect" (sendSelected)="selectedMonth($event)">
+                            <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true" [changeSelection]="monthFilter"  (sendSelected)="selectedMonth($event)">
                             </months-select>
                         </div>
 
 
                         <br>
-                        <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChangePixExpenses($event, this.monthFilter.id)"></mat-paginator>
+                        <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" (page)="onPageChangePixExpenses($event, this.monthFilter.id)"></mat-paginator>
                         <br>
 
                     </div>

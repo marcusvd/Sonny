@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { Component } from '@angular/core';
 
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
@@ -13,14 +13,7 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
 export class Payment extends BaseForm {
 
-
-
-  constructor(
-    override _breakpointObserver: BreakpointObserver,
-  ) {
-    super(_breakpointObserver)
-
-  }
+  constructor() {super()}
 
   selectedPixRadio = 0;
   paymentBtnEnabledDisabled = false;

@@ -24,7 +24,7 @@ import { GridListCommonHelper } from 'src/shared/components/grid-list-common/hel
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { environment } from 'src/environments/environment';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
@@ -70,7 +70,7 @@ export class CollectDeliverListComponent extends FrontEndListFilterCollectDelive
     override _dialog: MatDialog,
     private _ptBrDatePipe: PtBrDatePipe,
     private _ptBrCurrencyPipe: PtBrCurrencyPipe,
-    override _breakpointObserver: BreakpointObserver,
+    
     override _listServices: CollectDeliverListService,
     private elementRef: ElementRef
   ) {
@@ -82,7 +82,7 @@ export class CollectDeliverListComponent extends FrontEndListFilterCollectDelive
       new GridListCommonHelper(_http),
       ['', 'Cobrança', 'Valor'],
       ['billingFrom', 'price'],
-      _breakpointObserver,
+      
       _listServices
     )
   }

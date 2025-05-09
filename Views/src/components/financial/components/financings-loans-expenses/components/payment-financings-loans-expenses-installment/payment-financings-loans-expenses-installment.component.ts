@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -49,10 +49,11 @@ export class PaymentFinancingsLoansInstallmentComponent extends Payment implemen
     private _fb: FormBuilder,
     private _router: Router,
     private _services: PaymentFinancingsLoansInstallmentService,
-    override _breakpointObserver: BreakpointObserver,
-  ) {
-    super(_breakpointObserver)
 
+  ) {
+
+    super()
+    
     if (this._router.getCurrentNavigation().extras.state) {
       const obj = this._router.getCurrentNavigation().extras.state;
       this.formLoad(obj['entity'].entity as FinancingAndLoanExpenseInstallmentDto)
@@ -103,46 +104,46 @@ export class PaymentFinancingsLoansInstallmentComponent extends Payment implemen
 
 
 
-subFormLoad(entity: FinancingAndLoanExpenseInstallmentDto) {
-  return this.subForm = this._fb.group({
-    benefitedKey: ['', []],
-    expenseDay: [entity.expires, []],
-  })
-}
-
-checkExpires() {
-
-
-  const result = FinancialStaticBusinessRule.checkIfExpiredClassCssGrid('expirationView', this.entity)
-
-  if (result === "expired") return true;
-
-  return false;
-}
-
-hideShowWarning = false;
-triggerWarning(value: string) {
-
-
-
-
-}
-
-updateBtn() {
-
-  this.validatorsCreditPixOthers = true;
-
-  if (this.alertSave(this.formMain)) {
-    this._services.update(this.formMain);
-    this.paymentBtnEnabledDisabled = true;
+  subFormLoad(entity: FinancingAndLoanExpenseInstallmentDto) {
+    return this.subForm = this._fb.group({
+      benefitedKey: ['', []],
+      expenseDay: [entity.expires, []],
+    })
   }
 
-}
+  checkExpires() {
 
 
-ngOnInit(): void {
-  this.checkExpires();
-}
+    const result = FinancialStaticBusinessRule.checkIfExpiredClassCssGrid('expirationView', this.entity)
+
+    if (result === "expired") return true;
+
+    return false;
+  }
+
+  hideShowWarning = false;
+  triggerWarning(value: string) {
+
+
+
+
+  }
+
+  updateBtn() {
+
+    this.validatorsCreditPixOthers = true;
+
+    if (this.alertSave(this.formMain)) {
+      this._services.update(this.formMain);
+      this.paymentBtnEnabledDisabled = true;
+    }
+
+  }
+
+
+  ngOnInit(): void {
+    this.checkExpires();
+  }
 
 
 }

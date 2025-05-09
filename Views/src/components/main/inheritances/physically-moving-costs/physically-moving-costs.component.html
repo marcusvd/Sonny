@@ -1,10 +1,10 @@
 <div >
     <h3>Custos Deslocamento</h3>
 </div>
-<div [formGroup]="formMain"  (window:resize)="screen()" fxLayoutGap="5">
+<div [formGroup]="formMain"   fxLayoutGap="5">
 
     <div>
-        <mat-label fxLayoutAlign="center center" class="mat-label">Combustível
+        <mat-label class="mat-label">Combustível
         </mat-label>
         <mat-form-field >
             <input matInput type="text" currencyMask formControlName="fuel" aria-label="Combustível">
@@ -16,7 +16,7 @@
         </mat-form-field>
     </div>
     <div>
-        <mat-label fxLayoutAlign="center center" class="mat-label">Aplicativo
+        <mat-label class="mat-label">Aplicativo
         </mat-label>
         <mat-form-field >
             <input matInput type="text" currencyMask formControlName="apps" aria-label="Aplicativo">
@@ -29,7 +29,7 @@
     </div>
     <div class="small-space-horizontal-beteween-fields"> </div>
     <div>
-        <mat-label fxLayoutAlign="center center" class="mat-label">Transporte publico
+        <mat-label class="mat-label">Transporte publico
         </mat-label>
         <mat-form-field >
             <input matInput type="text" currencyMask formControlName="publicTransport" aria-label="Transporte publico">
@@ -41,7 +41,7 @@
         </mat-form-field>
     </div>
     <div>
-        <mat-label fxLayoutAlign="center center" class="mat-label">Moto Boy
+        <mat-label class="mat-label">Moto Boy
         </mat-label>
         <mat-form-field >
             <input matInput type="text" currencyMask formControlName="motoBoy" aria-label="Moto Boy">

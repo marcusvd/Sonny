@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -46,15 +46,20 @@ export class PaymentYearlyComponent extends Payment {
     private _fb: FormBuilder,
     private _router: Router,
     private _services: PaymentYearlyService,
-    override _breakpointObserver: BreakpointObserver,
-  ) {
-    super(_breakpointObserver)
 
-    if (this._router.getCurrentNavigation().extras.state) {
-      const obj = this._router.getCurrentNavigation().extras.state;
-      this.formLoad(obj['entity'].entity as YearlyFixedExpenseDto)
-      this.hideShowScreenDataInfo = obj['entity'].hideShowScreenDataInfo;
-      this.fields = obj['entity'].screenInfoFields as HtmlDataInfoDto[];
+  ) {
+    
+    super()
+
+    if (this._router.getCurrentNavigation()?.extras.state) {
+
+      const obj = this._router.getCurrentNavigation()?.extras.state;
+
+      if (obj) {
+        this.formLoad(obj['entity'].entity as YearlyFixedExpenseDto)
+        this.hideShowScreenDataInfo = obj['entity'].hideShowScreenDataInfo;
+        this.fields = obj['entity'].screenInfoFields as HtmlDataInfoDto[];
+      }
     }
   }
 

@@ -16,7 +16,7 @@ import { IConfirmDialogCollectDeliver } from './interface/i-confirm-dialog-colle
   imports: [
     CommonModule,
     MatDialogModule,
-    
+
     MatButtonModule,
     MatCardModule,
     PtBrCurrencyPipe,
@@ -88,35 +88,6 @@ export class ConfirmDialogCollectDeliverComponent  {
     // this.btn2 = this.data.btn2;
   }
 
-  // screen() {
-
-  //   this.screenSize().subscribe({
-  //     next: (result: IScreen) => {
-  //       switch (result.size) {
-  //         case 'xsmall': {
-
-  //           break;
-  //         }
-  //         case 'small': {
-
-  //           break;
-  //         }
-  //         case 'medium': {
-
-  //           break;
-  //         }
-  //         case 'large': {
-
-  //           break;
-  //         }
-  //         case 'xlarge': {
-
-  //           break;
-  //         }
-  //       }
-  //     }
-  //   })
-  // }
 
   clickedYes() {
     this._dialogRef.close(true);

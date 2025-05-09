@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
@@ -49,8 +49,8 @@ export class GetTransporterMatSelectSingleComponent extends BaseForm implements 
   constructor(
     private _partnerService: PartnerTransporterGetService,
     private _fb: FormBuilder,
-    override _breakpointObserver: BreakpointObserver,
-  ) { super(_breakpointObserver) }
+    
+  ) {super()}
 
 
   ngOnChanges(changes: SimpleChanges): void {

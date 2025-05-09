@@ -12,8 +12,8 @@ export class ContactDetailsService extends BaseForm{
 
   constructor(
     private _FormBuilder: UntypedFormBuilder,
-     override _breakpointObserver: BreakpointObserver,
-    ) { super(_breakpointObserver) }
+     
+    ) {super()}
 
 
   // public _cntForm: FormGroup;

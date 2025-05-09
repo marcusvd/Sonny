@@ -8,7 +8,7 @@ import { MatInputModule as MatInputModule } from '@angular/material/input';
 
 
 import { Add } from 'src/shared/components/inheritance/add/add';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 @Component({
   selector: 'link-copy-bill',
@@ -16,7 +16,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
   standalone: true,
   imports: [
     CommonModule,
-    
+
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
@@ -31,42 +31,6 @@ export class LinkCopyBillComponent extends Add implements OnInit {
   private valMessages = ValidatorMessages;
   get validatorMessages() {
     return this.valMessages
-  }
-
-  screenFieldPosition: string = 'row';
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = 'column'
-
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = 'column'
-
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = 'row'
-
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = 'row'
-
-
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = 'row'
-
-            break;
-          }
-        }
-      }
-    })
   }
 
   ngOnInit(): void {

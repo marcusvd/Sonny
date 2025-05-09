@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,7 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-import { View } from 'src/shared/components/inheritance/view/view';
+
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
@@ -46,7 +46,7 @@ import { ViewMonthlyFixedExpensesService } from './services/view-monthly-fixed-e
   templateUrl: './view-monthly-fixed-expenses.component.html',
   styleUrls: ['./view-monthly-fixed-expenses.component.css']
 })
-export class ViewMonthlyFixedExpensesComponent extends View implements OnInit {
+export class ViewMonthlyFixedExpensesComponent  implements OnInit {
 
   fixedExpenseTracking = new MonthlyFixedExpenseDto();
 
@@ -54,9 +54,9 @@ export class ViewMonthlyFixedExpensesComponent extends View implements OnInit {
     private _actRoute: ActivatedRoute,
     private _router: Router,
     private _services: ViewMonthlyFixedExpensesService,
-    override _breakpointObserver: BreakpointObserver
+    
   ) {
-    super(_breakpointObserver)
+    
   }
 
   getEntity(id: string) {
@@ -87,7 +87,7 @@ export class ViewMonthlyFixedExpensesComponent extends View implements OnInit {
     // const id: string = this._actRoute.snapshot.params['id'];
     this.entityId = this._actRoute.snapshot.params['id'];
     this.getEntity(this.entityId.toString());
-    this.screen();
+    
   }
 
 }

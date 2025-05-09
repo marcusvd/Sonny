@@ -1,4 +1,4 @@
-<div class="border-around" (window:resize)="screen()">
+<div class="border-around" >
     <title-component [digit]="'|'" [textTitleComp]="'Cartão de Crédito'" [icon]="'attach_money'"></title-component>
     <div>
 
@@ -19,7 +19,7 @@
                                 </div>
                             </div>
                             <div *ngIf="this.showDataBank">
-                                <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="false" [changeSelection]="monthFilter" [Input]="searchFieldMonthSelect" (sendSelected)="selectedMonth($event)">
+                                <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="false" [changeSelection]="monthFilter"  (sendSelected)="selectedMonth($event)">
                                 </months-select>
                             </div>
                             <div *ngIf="showDataBank">
@@ -37,7 +37,7 @@
                             <div fxLayout="screenFieldPosition">
 
                             </div>
-                            <!-- <div  *ngIf="screenFieldPosition == 'row'">
+                            <!-- <div  >
                                 <btn-g btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="add()"></btn-g>
                             </div> -->
 

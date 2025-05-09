@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { Component, Input } from '@angular/core';
 import { FormArray, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
@@ -23,17 +23,15 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
     MatDividerModule
   ],
   templateUrl: './array-g.component.html',
-  styleUrls:['./array-g.component.css'],
+  styleUrls: ['./array-g.component.css'],
 })
 
 export class ArrayGComponent extends BaseForm {
 
   constructor(
-    override _breakpointObserver: BreakpointObserver,
-  ) {
-    super(_breakpointObserver)
-  }
-  
+
+  ) {super()}
+
   @Input() override formMain: FormGroup;
   @Input() arrayName = '';
   @Input() formArray: FormArray = null;

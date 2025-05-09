@@ -1,4 +1,4 @@
-<div class="border-around" (window:resize)="screen()">
+<div class="border-around" >
 
     <div class="around">
         <title-component [digit]="'|'" [textTitleComp]="'Financiamento / Empréstimo'" [icon]="'attach_money'"></title-component>
@@ -8,12 +8,12 @@
                 <sub-title title [title]="'Contas a pagar'" [icon]="'list'"></sub-title>
                 <div search-filter>
                     <div>
-                        <filter-radio-btns [fxLayoutInput]="screenFieldPosition" [disabledRadioInput]="false" [inputSetClearRadios]="cleanRadios" (radioChange)="filterView($event)">
+                        <filter-radio-btns  [disabledRadioInput]="false" [inputSetClearRadios]="cleanRadios" (radioChange)="filterView($event)">
                         </filter-radio-btns>
                     </div>
                     <div class="small-space-horizontal-beteween-fields"></div>
                     <div>
-                        <div *ngIf="screenFieldPosition == 'column'">
+                        <div>
                             <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
                         </div>
                         <div>
@@ -22,7 +22,7 @@
                         <div fxLayout="screenFieldPosition">
 
                         </div>
-                        <div *ngIf="screenFieldPosition == 'row'">
+                        <div >
                             <btn-g btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="add()"></btn-g>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                     <div>
 
                     </div>
-                    <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
+                    <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
                     <br>
                 </div>
                 <!-- <screen-data-info  info *ngIf="true" [fields]="fields"

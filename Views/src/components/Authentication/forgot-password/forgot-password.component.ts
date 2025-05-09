@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
@@ -35,7 +35,7 @@ import { AuthenticationService } from '../services/authentication.service';
     ReactiveFormsModule,
     MatButtonModule,
     RouterModule,
-    
+
     NgIf,
     TitleDescriptionAuthComponent
 
@@ -46,9 +46,9 @@ export class ForgotPasswordComponent extends BaseForm implements OnInit {
 
   constructor(
     private _auth: AuthenticationService,
-    override _breakpointObserver: BreakpointObserver,
+
   ) {
-    super(_breakpointObserver)
+    super()
   }
 
   private _validatorMessages = ValidatorMessages;

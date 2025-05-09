@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
@@ -107,8 +107,8 @@ export class FilterBtnRadioComponent extends BaseForm implements OnInit {
 
 
   constructor(
-    override _breakpointObserver: BreakpointObserver,
-  ) { super(_breakpointObserver) }
+    
+  ) {super()}
 
 
 

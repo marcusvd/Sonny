@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
@@ -23,7 +23,7 @@ import { BaseForm } from '../../inheritance/forms/base-form';
     MatSelectModule,
     NgxMatSelectSearchModule,
     ReactiveFormsModule,
-    
+
     CommonModule
   ],
   template: `
@@ -54,10 +54,7 @@ export class GetCustomerMatSelectSingleComponent extends BaseForm implements OnC
   constructor(
     private _customersService: CustomersGetService,
     private _fb: FormBuilder,
-    override _breakpointObserver: BreakpointObserver,
-  ) {
-    super(_breakpointObserver)
-  }
+  ) {super();}
 
   ngOnChanges(changes: SimpleChanges): void {
     this.$customers = this._customersService.getAll(this.companyId.toString(), `customers/${this.urlBackEndApi}`);
@@ -80,7 +77,7 @@ export class GetCustomerMatSelectSingleComponent extends BaseForm implements OnC
   @Input() set editEntity(edit: boolean) {
     this.editEntityField = edit;
   }
-  
+
   $customers: Observable<CustomerDto[]>;
 
   $customersResult = new Observable<CustomerDto[]>();

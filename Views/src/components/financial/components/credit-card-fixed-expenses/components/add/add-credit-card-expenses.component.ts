@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
@@ -20,7 +20,7 @@ import { CategoryExpensesService } from 'src/components/financial/services/categ
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { DateJustDayComponent } from 'src/shared/components/date-just-day/date-just-day.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
@@ -50,7 +50,7 @@ import { AddCreditCardExpensesService } from './services/add-credit-card-expense
   standalone: true,
   imports: [
     CommonModule,
-    
+
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
@@ -81,9 +81,9 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
     private _dialog: MatDialog,
     private _expensesService: AddCreditCardExpensesService,
     private _fillersService: CategoryExpensesService,
-    private _responsive: BreakpointObserver,
-    override _breakpointObserver: BreakpointObserver,
-  ) { super(_breakpointObserver) }
+
+
+  ) {super()}
 
   payCycle = PayCycleEnumDto.Month;
   payCycle2 = PayCycleEnumDto.Variable;
@@ -97,44 +97,6 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
   private toolTipsMessages = ToolTips;
   get matTooltip() {
     return this.toolTipsMessages
-  }
-
-  screenFieldPosition: string = 'row';
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = 'column'
-
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = 'column'
-
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = 'row'
-
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = 'row'
-
-
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = 'row'
-
-            break;
-          }
-        }
-      }
-    })
-
-
   }
 
   priceToPaidView = 0;
@@ -333,7 +295,7 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
 
   ngOnInit(): void {
     this.formLoad();
-    this.screen();
+
   }
 
 }

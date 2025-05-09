@@ -1,13 +1,12 @@
-<div [formGroup]="formMain" [fxLayout]="'column'" (window:resize)="screen()" *ngIf="formMain">
+<!-- <div [formGroup]="formMain" [fxLayout]="'column'"  *ngIf="formMain">
 
     <div formArrayName="pixes" *ngFor="let pixFormGroup of pixesFormArray.controls; let i = index;">
         <div *ngIf="pixFormGroup.get('deleted').value != true">
-            <!-- <div>{{'Pix ' }}{{i+1}}</div> -->
             <img src="../../../../assets/finances/pix.png" alt="pix" style="width:50px; height: 20px;">
-            <div class="middle-space-horizontal-beteween-fields"></div>
-            <div  [formGroupName]="i" >
+
+            <div [formGroupName]="i">
                 <div>
-                    <mat-form-field  appearance="outline">
+                    <mat-form-field appearance="outline">
                         <mat-label>PIX</mat-label>
                         <mat-select (selectionChange)="pixValidatorSelected(pixFormGroup, pixFormGroup.get('key').value)" (selectionChange)="formCleanField(pixFormGroup)" formControlName="key">
                             <mat-option [value]="p.kindPix" *ngFor="let p of pixArray">{{p.kindPix}}</mat-option>
@@ -15,29 +14,29 @@
                     </mat-form-field>
                 </div>
 
-                <div   *ngIf="pixFormGroup.get('key').value">
+                <div *ngIf="pixFormGroup.get('key').value">
 
-                    <mat-form-field  appearance="outline">
+                    <mat-form-field appearance="outline">
                         <mat-label>{{pixFormGroup.get('key').value}}</mat-label>
                         <input matInput #cpfcnpj (blur)="pixValidator(pixFormGroup, pixFormGroup.get('key').value, cpfcnpj.value)" [mask]="pixInputMask(pixFormGroup.get('key').value)" [placeholder]="pixInputPlaceHolder(pixFormGroup.get('key').value)" formControlName="value"
                             aria-label="pix">
-                        <mat-error  fxLayoutAlign="center center">
+                        <mat-error>
 
-                            <span fxLayoutAlign="center center" *ngIf="pixFormGroup.get('key').value === 'CEL'">{{validatorMessages.required(pixFormGroup,'value', 'Chave pix'+' '+pixFormGroup.get('key').value)}}</span>
-                            <span fxLayoutAlign="center center" *ngIf="pixFormGroup.get('key').value === 'CEL'">{{validatorMessages.minMaxLength(pixFormGroup,'value', '', 11, null)}}</span>
+                            <span *ngIf="pixFormGroup.get('key').value === 'CEL'">{{validatorMessages.required(pixFormGroup,'value', 'Chave pix'+' '+pixFormGroup.get('key').value)}}</span>
+                            <span *ngIf="pixFormGroup.get('key').value === 'CEL'">{{validatorMessages.minMaxLength(pixFormGroup,'value', '', 11, null)}}</span>
 
-                            <span fxLayoutAlign="center center" *ngIf="pixFormGroup.get('key').value === 'CPF'">{{validatorMessages.required(pixFormGroup,'value', 'Chave pix'+' '+pixFormGroup.get('key').value)}}</span>
-                            <span fxLayoutAlign="center center" *ngIf="pixFormGroup.get('key').value === 'CPF'">{{validatorMessages.isValidCpf(pixFormGroup,'value')}}</span>
+                            <span *ngIf="pixFormGroup.get('key').value === 'CPF'">{{validatorMessages.required(pixFormGroup,'value', 'Chave pix'+' '+pixFormGroup.get('key').value)}}</span>
+                            <span *ngIf="pixFormGroup.get('key').value === 'CPF'">{{validatorMessages.isValidCpf(pixFormGroup,'value')}}</span>
 
-                            <span fxLayoutAlign="center center" *ngIf="pixFormGroup.get('key').value === 'CNPJ'">{{validatorMessages.required(pixFormGroup,'value', 'Chave pix'+' '+pixFormGroup.get('key').value)}}</span>
-                            <span fxLayoutAlign="center center" *ngIf="pixFormGroup.get('key').value === 'CNPJ'">{{validatorMessages.isValidCnpj(pixFormGroup,'value','value')}}</span>
+                            <span *ngIf="pixFormGroup.get('key').value === 'CNPJ'">{{validatorMessages.required(pixFormGroup,'value', 'Chave pix'+' '+pixFormGroup.get('key').value)}}</span>
+                            <span *ngIf="pixFormGroup.get('key').value === 'CNPJ'">{{validatorMessages.isValidCnpj(pixFormGroup,'value','value')}}</span>
 
-                            <span fxLayoutAlign="center center" *ngIf="pixFormGroup.get('key').value === 'E-MAIL'">{{validatorMessages.mailField(pixFormGroup,'value')}}</span>
-                            <span fxLayoutAlign="center center" *ngIf="pixFormGroup.get('key').value === 'E-MAIL'">{{validatorMessages.required(pixFormGroup,'value', 'Chave pix'+' '+pixFormGroup.get('key').value)}}</span>
+                            <span *ngIf="pixFormGroup.get('key').value === 'E-MAIL'">{{validatorMessages.mailField(pixFormGroup,'value')}}</span>
+                            <span *ngIf="pixFormGroup.get('key').value === 'E-MAIL'">{{validatorMessages.required(pixFormGroup,'value', 'Chave pix'+' '+pixFormGroup.get('key').value)}}</span>
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <span *ngIf="noBeneficiaryField" >
+                <span *ngIf="noBeneficiaryField">
                 <div   *ngIf="pixFormGroup.get('key').value">
 
                   <mat-form-field  appearance="outline">
@@ -48,22 +47,21 @@
                 </div>
               </span>
             </div>
-            <!-- <mat-divider></mat-divider> -->
 
-            <div >
-                <div >
-                    <btn-g mat-dialog-close [name]="'Remover'" [icon]="'clear'"  (btn)="remove(i)"></btn-g>
+            <div>
+                <div>
+                    <btn-g mat-dialog-close [name]="'Remover'" [icon]="'clear'" (btn)="remove(i)"></btn-g>
                 </div>
                 <div>
 
                 </div>
-                <div >
+                <div>
 
                 </div>
             </div>
             <br>
 
-            <div class="middle-space-horizontal-beteween-fields"></div>
+
         </div>
     </div>
 
@@ -71,15 +69,80 @@
 </div>
 
 
-<div >
+<div>
     <div>
 
 
     </div>
-    <div >
+    <div>
         <btn-g [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
     </div>
     <div>
 
     </div>
+</div> -->
+<!-- class="border p-4 rounded-lg shadow-md" -->
+
+<div [formGroup]="formMain" *ngIf="formMain">
+    <div formArrayName="pixes" *ngFor="let pixFormGroup of pixesFormArray.controls; let i = index;">
+        <div *ngIf="pixFormGroup.get('deleted').value != true">
+            <mat-card class="p-4 mb-2 mt-6">
+                <div>
+                    <img class="w-15 h-8" src="../../../../assets/finances/pix.png" alt="pix">
+                </div>
+                <div [formGroupName]="i" class="gap-4 grid grid-cols-1 sm:grid-cols-{{noBeneficiaryField ? 3: 2}}">
+                    <div class="w-full">
+                        <mat-label>PIX</mat-label>
+                        <mat-form-field appearance="outline" class="w-full">
+                            <mat-select (selectionChange)="pixValidatorSelected(pixFormGroup, pixFormGroup.get('key').value)" (selectionChange)="formCleanField(pixFormGroup)" formControlName="key">
+                                <mat-option [value]="p.kindPix" *ngFor="let p of pixArray">{{p.kindPix}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full">
+                        <div *ngIf="pixFormGroup.get('key').value">
+                            <mat-label>{{pixFormGroup.get('key').value}}</mat-label>
+                            <mat-form-field appearance="outline" class="w-full">
+                                <input matInput #cpfcnpj (blur)="pixValidator(pixFormGroup, pixFormGroup.get('key').value, cpfcnpj.value)" [mask]="pixInputMask(pixFormGroup.get('key').value)" [placeholder]="pixInputPlaceHolder(pixFormGroup.get('key').value)" formControlName="value"
+                                    aria-label="pix">
+                                <mat-error class="flex justify-center items-center">
+
+                                    <span *ngIf="pixFormGroup.get('key').value === 'CEL'">{{validatorMessages.required(pixFormGroup,'value', 'Chave pix'+' '+pixFormGroup.get('key').value)}}</span>
+                                    <span *ngIf="pixFormGroup.get('key').value === 'CEL'">{{validatorMessages.minMaxLength(pixFormGroup,'value', '', 11, null)}}</span>
+
+                                    <span *ngIf="pixFormGroup.get('key').value === 'CPF'">{{validatorMessages.required(pixFormGroup,'value', 'Chave pix'+' '+pixFormGroup.get('key').value)}}</span>
+                                    <span *ngIf="pixFormGroup.get('key').value === 'CPF'">{{validatorMessages.isValidCpf(pixFormGroup,'value')}}</span>
+
+                                    <span *ngIf="pixFormGroup.get('key').value === 'CNPJ'">{{validatorMessages.required(pixFormGroup,'value', 'Chave pix'+' '+pixFormGroup.get('key').value)}}</span>
+                                    <span *ngIf="pixFormGroup.get('key').value === 'CNPJ'">{{validatorMessages.isValidCnpj(pixFormGroup,'value','value')}}</span>
+
+                                    <span *ngIf="pixFormGroup.get('key').value === 'E-MAIL'">{{validatorMessages.mailField(pixFormGroup,'value')}}</span>
+                                    <span *ngIf="pixFormGroup.get('key').value === 'E-MAIL'">{{validatorMessages.required(pixFormGroup,'value', 'Chave pix'+' '+pixFormGroup.get('key').value)}}</span>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="w-full">
+                        <span *ngIf="noBeneficiaryField">
+                        <div *ngIf="pixFormGroup.get('key').value">
+                           <mat-label>Favorecido</mat-label>
+                              <mat-form-field appearance="outline" class="w-full">
+                               <input matInput [placeholder]="'Favorecido'" formControlName="holder" aria-label="Favorecido">
+                              </mat-form-field>
+                         </div>
+                        </span>
+                    </div>
+
+                </div>
+                <div class="flex justify-between">
+                    <btn-g mat-dialog-close [name]="'Remover'" [icon]="'clear'" (btn)="remove(i)"></btn-g>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+
+<div class="flex justify-between mt-4 ml-4">
+    <btn-g [name]="'Pix'" [icon]="'add'" (btn)="add()"></btn-g>
 </div>

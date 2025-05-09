@@ -1,5 +1,5 @@
 
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule, NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
@@ -27,7 +27,6 @@ import { DescriptionFieldComponent } from 'src/shared/components/administrative/
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { DateJustDayComponent } from 'src/shared/components/date-just-day/date-just-day.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
@@ -49,6 +48,7 @@ export const MY_FORMATS = {
 @Component({
   selector: 'bank-cards',
   templateUrl: './bank-cards.component.html',
+  styleUrl: './bank-cards.component.scss',
   providers: [{
     provide: DateAdapter,
     useClass: MomentDateAdapter,
@@ -60,7 +60,6 @@ export const MY_FORMATS = {
   standalone: true,
   imports: [
     CommonModule,
-    
     MatFormFieldModule,
     MatDatepickerModule,
     CurrencyMaskModule,
@@ -80,51 +79,11 @@ export const MY_FORMATS = {
     BtnGComponent,
     DescriptionFieldComponent,
     BankCardNumberPipe
-  ],
-  styles: [`
-  dle-sphorizontal-beteween-fields {
-         padding-top: 20px;
-      }
-      .cvc-field{
-        width:80px;
-      }
-      .validate-field{
-        width:150px;
-      }
-      #btn-remove{
-        padding-top:5px;
-        color:rgb(255, 255, 255);
-      }
-      #card-icon{
-        height: 50px; width: 50px; font-size: 50px;
-        margin-top:-20px;
-      }
-      .space-description{
-        padding-top:25px;
-      }
-
-      .space-closing-expires{
-        padding-top:10px;
-      }
-
-
-  `],
-
+  ]
 })
 export class BankCardsComponent extends Add implements OnInit, OnChanges {
 
   public type: any[] = [];
-
-  public titleBarStyle: string = `
-  background-color: rgb(16, 86, 90);
-  border-top-right-radius: 15px;
-  border-top-left-radius: 15px;
-  height:35px;
-  margin-top:-35px;
-  margin-right:-16px;
-  margin-left:-16px;
-  top:18px`;
-
 
   cardNumberKeyUp(index: number) {
 
@@ -209,8 +168,6 @@ export class BankCardsComponent extends Add implements OnInit, OnChanges {
     this.maskCvc = ("0").repeat(times);
   }
 
-  fxLayoutAlign: string = 'center center'
-  screenFieldPosition: string = 'column';
   @Input() edit: boolean = false;
   @Input() mainIcon: string;
   @Input() mainTitle: string;
@@ -219,10 +176,10 @@ export class BankCardsComponent extends Add implements OnInit, OnChanges {
 
 
   constructor(
-    override _breakpointObserver: BreakpointObserver,
+
     private _fb: FormBuilder,
     private _bankCardNumberPipe: BankCardNumberPipe
-  ) { super(_breakpointObserver) }
+  ) {super()}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.edit) {
@@ -353,71 +310,16 @@ export class BankCardsComponent extends Add implements OnInit, OnChanges {
   }
 
   spaceItem: number = 88;
-  closingDate: string = '73';
-  expiresDate: string = '73';
+  // closingDate: string = '73';
+  // expiresDate: string = '73';
   layoutColumnRowDateJustDay = 'column';
   spaceClosingExpires: boolean = false;
-
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = 'column';
-            this.spaceItem = 90;
-            this.closingDate = '25';
-            this.expiresDate = '25';
-            this.layoutColumnRowDateJustDay = 'row';
-            this.spaceClosingExpires = true;
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = 'column';
-            this.spaceItem = 90;
-            this.closingDate = '25';
-            this.expiresDate = '25';
-            this.layoutColumnRowDateJustDay = 'row';
-            this.spaceClosingExpires = true;
-
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = 'row';
-            this.spaceItem = 93;
-            this.closingDate = '73';
-            this.expiresDate = '73';
-            this.layoutColumnRowDateJustDay = 'column';
-            this.spaceClosingExpires = false;
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = 'row';
-            this.spaceItem = 95;
-            this.closingDate = '73';
-            this.expiresDate = '73';
-            this.layoutColumnRowDateJustDay = 'column';
-            this.spaceClosingExpires = false;
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = 'row';
-            this.spaceItem = 95.5;
-            this.closingDate = '73';
-            this.expiresDate = '73';
-            this.layoutColumnRowDateJustDay = 'column';
-            this.spaceClosingExpires = false;
-            break;
-          }
-        }
-      }
-    })
-  }
 
   ngOnInit(): void {
     if (!this.edit)
       this.addCard();
 
-    this.screen();
+    //
   }
 
 }

@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'footer-login',
   template: `
-   <div  fxLayoutAlign="center center"class="around" [style]="height">
+   <div class="around" [style]="height">
     <div >
       <div >
      <mat-icon class="icon">{{icon}}</mat-icon>

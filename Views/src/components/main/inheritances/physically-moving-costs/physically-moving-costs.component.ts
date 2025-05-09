@@ -3,9 +3,9 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 import { ValidatorMessagesCustomer } from '../../customer/validators/customer/validators-messages-customer';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ValidatorsCustomer } from '../../customer/validators/customer/validators-customer';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 
 import { MatFormFieldModule as MatFormFieldModule } from '@angular/material/form-field';
@@ -19,7 +19,7 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
   standalone: true,
   imports: [
     CommonModule,
-    
+
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -30,8 +30,8 @@ export class PhysicallyMovingCostsComponent extends BaseForm implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
-    override _breakpointObserver: BreakpointObserver,
-  ) { super(_breakpointObserver) }
+
+  ) {super()}
 
   @Input() override formMain: FormGroup;
 
@@ -52,35 +52,6 @@ export class PhysicallyMovingCostsComponent extends BaseForm implements OnInit {
     return this.valLocal
   }
 
-  screenFieldPosition: string = 'row';
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = "column"
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = "column"
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = "row"
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = "row"
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = "row"
-            break;
-          }
-        }
-      }
-    })
-  }
 
   // subFormLoad() {
   //   return this.subForm = this._fb.group({

@@ -2,7 +2,7 @@
     <h3>Contatos</h3>
 
     <div  [formGroup]="formMain">
-        <div  (window:resize)="screen()" fxLayoutGap="15px">
+        <div   fxLayoutGap="15px">
             <div>
 
                 <mat-form-field appearance="outline">
@@ -27,7 +27,7 @@
 
             </div>
         </div>
-        <div  (window:resize)="screen()" fxLayoutGap="15px">
+        <div   fxLayoutGap="15px">
             <div>
 
                 <mat-form-field appearance="outline">
@@ -68,7 +68,7 @@
 
             </div>
         </div>
-        <div  fxLayoutAlign="center center">
+        <div >
 
             <div  fxLayoutAlign="end end">
                 <btn-g [name]="'Adicionar'" [icon]="'add'" (btn)="addSocialNets()"></btn-g>

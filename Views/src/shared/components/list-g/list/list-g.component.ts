@@ -10,6 +10,8 @@ import { MatTooltipModule as MatTooltipModule } from '@angular/material/tooltip'
 import { SpinnerGComponent } from '../../spinner-g/component/spinner-g.component';
 import { FieldsInterface } from './interfaces/fields-interface';
 import { OnClickInterface } from './interfaces/on-click-interface';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatCardModule } from '@angular/material/card';
 
 
 @Component({
@@ -22,6 +24,8 @@ import { OnClickInterface } from './interfaces/on-click-interface';
     MatButtonModule,
     MatMenuModule,
     MatTooltipModule,
+    MatDividerModule,
+    MatCardModule,
     SpinnerGComponent
   ],
   styleUrls: ['./list-g.component.scss']

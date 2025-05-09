@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule, NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
@@ -9,7 +9,7 @@ import { MatInputModule as MatInputModule } from '@angular/material/input';
 import { MatSelectModule as MatSelectModule } from '@angular/material/select';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 @Component({
@@ -22,7 +22,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
     MatSelectModule,
     MatInputModule,
     MatCheckboxModule,
-    
+
     CurrencyMaskModule,
     MatDatepickerModule,
   ],
@@ -36,8 +36,8 @@ export class SubjectContactComponent extends BaseForm implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
-    override _breakpointObserver: BreakpointObserver,
-  ) { super(_breakpointObserver) }
+
+  ) {super()}
 
   @Input() override formMain: FormGroup;
   transportOptions: string[] = ['Combustível', 'Aplicativo', 'MotoBoy', 'Transporte publico'];
@@ -48,42 +48,6 @@ export class SubjectContactComponent extends BaseForm implements OnInit {
   }
 
 
-  screenFieldPosition: string = 'row';
-  stylePadding: string = null;
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = 'column'
-            this.stylePadding = 'margin-right:190px';
-
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = 'column';
-            this.stylePadding = 'margin-right:190px';
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = 'row';
-            this.stylePadding = null;
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = 'row';
-            this.stylePadding = null;
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = 'row';
-            this.stylePadding = null;
-            break;
-          }
-        }
-      }
-    })
-  }
   onPriceSelected(typeTransporte: string) {
     const selected = typeTransporte;
 
@@ -93,7 +57,7 @@ export class SubjectContactComponent extends BaseForm implements OnInit {
 
   }
   ngOnInit(): void {
-    this.screen();
+
   }
 
 

@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
@@ -53,8 +53,8 @@ export class GetSuppliersComponent extends BaseForm implements OnChanges {
   constructor(
     private _supliersService: GetSupliersService,
     private _fb: FormBuilder,
-    override _breakpointObserver: BreakpointObserver,
-  ) { super(_breakpointObserver) }
+    
+  ) {super()}
 
 
   ngOnChanges(changes: SimpleChanges): void {

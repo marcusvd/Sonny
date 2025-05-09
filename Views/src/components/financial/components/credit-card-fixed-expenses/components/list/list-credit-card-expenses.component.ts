@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
@@ -22,7 +22,7 @@ import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-c
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
 import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { MonthsSelectComponent } from 'src/shared/components/months-select/months-select-g.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
@@ -55,7 +55,7 @@ import { ListCreditCardExpensesService } from './services/list-credit-card-expen
     MatButtonModule,
     MatMenuModule,
     RouterModule,
-    
+
     MatCheckboxModule,
     MatRadioModule,
     GridListCommonComponent,
@@ -84,7 +84,7 @@ export class ListCreditCardExpensesComponent extends FrontEndListFilterCreditCar
     override _dialog: MatDialog,
     private _ptBrDatePipe: PtBrDatePipe,
     private _ptBrCurrencyPipe: PtBrCurrencyPipe,
-    override _breakpointObserver: BreakpointObserver,
+
     override _listServices: ListCreditCardExpensesService
 
   ) {
@@ -95,7 +95,7 @@ export class ListCreditCardExpensesComponent extends FrontEndListFilterCreditCar
       new GridListCommonHelper(_http),
       ['', 'Local Despesa', 'Dia da despesa', 'Preço', 'Parcela'],
       ['name', 'expenseDay', 'installmentPrice', 'currentInstallment'],
-      _breakpointObserver,
+
       _listServices
     )
   }
@@ -119,44 +119,7 @@ export class ListCreditCardExpensesComponent extends FrontEndListFilterCreditCar
 
 
 
-  screenFieldPosition: string = 'row';
-  searchFieldMonthSelect: number = 90;
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = 'column';
-            this.searchFieldMonthSelect = 50;
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = 'column';
-            this.searchFieldMonthSelect = 50;
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = 'row';
-            this.searchFieldMonthSelect = 70;
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = 'row';
-            this.searchFieldMonthSelect = 90;
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = 'row';
-            this.searchFieldMonthSelect = 90;
-            break;
-          }
-        }
-      }
-    })
-  }
-
-
-
+ 
   queryFieldOutput($event: FormControl) {
     this.entities$ = this.query($event, new Date(this.entities[0].expires).getMonth());
   }
@@ -279,7 +242,7 @@ export class ListCreditCardExpensesComponent extends FrontEndListFilterCreditCar
   }
 
   ngOnInit(): void {
-    this.screen();
+
     this.getCurrentEntitiesFromBackEnd(this._actRoute.snapshot.params['id'] as number);
   }
 

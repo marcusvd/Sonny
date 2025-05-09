@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ProfileEditService } from 'src/components/profile/services/profile-edit.service';
@@ -15,8 +15,8 @@ export class AddressGetEditComponent extends BaseForm implements OnInit {
   constructor(
     private _profileEditService: ProfileEditService,
     private _fb: FormBuilder,
-    override _breakpointObserver: BreakpointObserver,
-  ) { super(_breakpointObserver) }
+    
+  ) {super()}
 
 
   formLoad() {

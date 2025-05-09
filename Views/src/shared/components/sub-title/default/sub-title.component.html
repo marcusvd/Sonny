@@ -1,8 +1,4 @@
-<div class="container" [style]="titleBarStyle">
-    <div class="container--div-icon">
-        <mat-icon class="container--icon">{{icon}}</mat-icon>
-    </div>
-    <div [style]="styleContainerTitle">
-        <h3 [style]="titleStyle" class="container--title-text">{{title}}</h3>
-    </div>
+<div class="flex items-center max-w-[90vw] bg-[rgb(43,161,168)] rounded-t-[15px] h-[35px] -mt-[35px] px-4">
+    <mat-icon class="text-white text-lg">{{icon}}</mat-icon>
+    <h3 class="text-white text-sm font-mynerve ml-2">{{title}}</h3>
 </div>

@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -47,9 +47,9 @@ export class PaymentMonthlyComponent extends Payment {
     private _fb: FormBuilder,
     private _router: Router,
     private _services: PaymentMonthlyService,
-    override _breakpointObserver: BreakpointObserver,
+
   ) {
-    super(_breakpointObserver)
+    super()
 
     if (this._router.getCurrentNavigation().extras.state) {
       const obj = this._router.getCurrentNavigation().extras.state;

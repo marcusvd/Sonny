@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
@@ -20,7 +20,7 @@ import { ContactService } from '../services/contact.service';
   standalone: true,
   imports: [
     CommonModule,
-    
+
     ReactiveFormsModule,
     MatFormFieldModule,
     MatIconModule,
@@ -50,39 +50,6 @@ export class ContactComponent implements OnInit {
   private valCustom = ValidatorsCustom;
   get validatorCustom() {
     return this.valCustom
-  }
-
-  screen() {
-    this._contactService.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = "column";
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = "column";
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = "row";
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = "row";
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = "row";
-            break;
-          }
-        }
-      }
-    })
-
-
-
-
   }
 
   get subForm() {

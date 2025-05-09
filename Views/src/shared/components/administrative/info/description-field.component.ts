@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
@@ -6,7 +6,7 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule as MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule as MatInputModule } from '@angular/material/input';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 @Component({
@@ -14,8 +14,10 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
   template: `
   <div [formGroup]="formMain">
         <div>
-            <mat-form-field appearance="outline">
-                <mat-label>{{	label	}}</mat-label>
+          <div>
+             <mat-label>{{	label	}}</mat-label>
+          </div>
+            <mat-form-field class="w-full" appearance="outline">
                 <textarea matInput [formControlName]="frmControlName" [rows]="rows" [placeholder]="label"></textarea>
                 <mat-error>
                     <span>{{validatorMessages.minMaxLength(formMain,frmControlName, 'Observações', minLength, maxLength)}}</span>
@@ -26,12 +28,11 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 </div>
   `,
   styles: [`
-    
+
   `],
   standalone: true,
   imports: [
     MatFormFieldModule,
-    
     MatInputModule,
     ReactiveFormsModule,
     CommonModule
@@ -40,8 +41,8 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 export class DescriptionFieldComponent extends BaseForm implements OnInit {
 
   constructor(
-    override _breakpointObserver: BreakpointObserver
-  ) { super(_breakpointObserver) }
+
+  ) { super() }
 
   @Input() override formMain: FormGroup;
   @Input() rows: number;
@@ -55,36 +56,6 @@ export class DescriptionFieldComponent extends BaseForm implements OnInit {
   private valMessages = ValidatorMessages;
   get validatorMessages() {
     return this.valMessages
-  }
-
-  screenFieldPosition: string = 'row';
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = "column"
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = "column"
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = "row"
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = "row"
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = "row"
-            break;
-          }
-        }
-      }
-    })
   }
 
   ngOnInit(): void {

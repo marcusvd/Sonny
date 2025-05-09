@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
@@ -12,7 +12,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { CardDto } from 'src/components/financial/components/bank-account-cards/dto/card-dto';
 import { environment } from 'src/environments/environment';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { SpinnerGComponent } from 'src/shared/components/spinner-g/component/spinner-g.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
@@ -27,7 +27,7 @@ import { CreditCardInvoicesGetService } from './credit-card-invoices-get.service
     MatSelectModule,
     MatCardModule,
     MatFormFieldModule,
-    
+
     BankCardNumberPipe,
     SpinnerGComponent
   ],
@@ -49,8 +49,8 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
   constructor(
     private _creditCardInvoiceGetService: CreditCardInvoicesGetService,
     private _fb: FormBuilder,
-    override _breakpointObserver: BreakpointObserver,
-  ) { super(_breakpointObserver) }
+
+  ) {super()}
 
   controllerUrl: string = environment._CREDIT_CARD_EXPENSES.split('/')[4];
 
@@ -58,7 +58,7 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
   spinnerEvent($event: boolean) {
     this.spinner = !$event
   }
-  
+
   ngOnChanges(changes: SimpleChanges): void {
     this.entities$ = this._creditCardInvoiceGetService.getAll(this.companyId.toString(), `${this.controllerUrl}/${this.urlBackEndApi}`);
     // this.entities$.subscribe(x=> {
@@ -77,47 +77,6 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
   entities$: Observable<CardDto[]>;
   cards: CardDto = null;
 
-  @Input() screenFieldPosition: string = "column";
-  @Input() alignRadios: string = "center center";
- 
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = 'column'
-            this.alignRadios = 'start start'
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = 'column'
-            this.alignRadios = 'start start'
-
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = 'row'
-            this.alignRadios = 'center center';
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = 'row'
-            this.alignRadios = 'center center';
-
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = 'row'
-            this.alignRadios = 'center center';
-            break;
-          }
-        }
-      }
-    })
-
-
-  }
-
   // card$: Observable<CardDto> = null;
   bankAccount: BankAccountDto = null;
   @Output() creditCardIdOutput = new EventEmitter<CardDto>();
@@ -125,9 +84,9 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
     this.bankAccount = creditCard.bankAccount;
     this.creditCardIdOutput.emit(creditCard)
   }
-  
+
   ngOnInit(): void {
-    this.screen();
+
   }
 
 

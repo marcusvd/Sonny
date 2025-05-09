@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
@@ -16,7 +16,7 @@ import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-entities/bank-account/bank-account-mat-select-single.component';
 import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
@@ -36,7 +36,7 @@ import { PixExpensesService } from './services/pix-expenses.service';
   standalone: true,
   imports: [
     CommonModule,
-    
+
     MatFormFieldModule,
     MatInputModule,
     MatCardModule,
@@ -59,8 +59,8 @@ export class PixExpensesAddComponent extends Add implements OnInit {
     private _fb: FormBuilder,
     private _router: Router,
     private _pixExpensesService: PixExpensesService,
-    override _breakpointObserver: BreakpointObserver,
-  ) { super(_breakpointObserver) }
+
+  ) {super()}
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -74,44 +74,6 @@ export class PixExpensesAddComponent extends Add implements OnInit {
 
   getPixId(value: number) {
     this.formMain.get('pixOutId').setValue(value);
-  }
-
-  screenFieldPosition: string = 'row';
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = 'column'
-
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = 'column'
-
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = 'row'
-
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = 'row'
-
-
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = 'row'
-
-            break;
-          }
-        }
-      }
-    })
-
-
   }
 
   save() {
@@ -145,7 +107,7 @@ export class PixExpensesAddComponent extends Add implements OnInit {
 
   ngOnInit(): void {
     this.formLoad();
-    this.screen();
+
   }
 
 }

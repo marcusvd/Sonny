@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
@@ -17,7 +17,7 @@ import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-c
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
 import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { MonthsDto } from 'src/shared/components/months-select/months-dto';
 import { MonthsSelectComponent } from 'src/shared/components/months-select/months-select-g.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
@@ -41,7 +41,7 @@ import { PixExpensesListService } from './services/pix-expenses-list.service';
     MatCardModule,
     MatPaginatorModule,
     RouterModule,
-    
+
     // PtBrDatePipe,
     GridListCommonComponent,
     GridListCommonTableComponent,
@@ -72,7 +72,7 @@ export class PixExpensesListComponent extends FrontEndFilterPixExpenseslist impl
     private _ptBrDatePipe: PtBrDatePipe,
     private _ptBrCurrencyPipe: PtBrCurrencyPipe,
     override _actRoute: ActivatedRoute,
-    override _breakpointObserver: BreakpointObserver,
+
     override _listServices: PixExpensesListService,
 
   ) {
@@ -82,48 +82,13 @@ export class PixExpensesListComponent extends FrontEndFilterPixExpenseslist impl
       _actRoute,
       new GridListCommonHelper(_http),
       ['','Dia','Preço','Pix Saída','Beneficiado',],['expenseDay','price','pixOutId','benefitedName'],
-      _breakpointObserver,
+
       _listServices
     )
   }
 
   override addUrlRoute: string = '/side-nav/financial-dash/add-pix-expenses';
 
-  screenFieldPosition: string = 'row';
-  searchFieldMonthSelect: number = 90;
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = 'column';
-            this.searchFieldMonthSelect = 50;
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = 'column';
-            this.searchFieldMonthSelect = 50;
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = 'row';
-            this.searchFieldMonthSelect = 70;
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = 'row';
-            this.searchFieldMonthSelect = 90;
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = 'row';
-            this.searchFieldMonthSelect = 90;
-            break;
-          }
-        }
-      }
-    })
-  }
 
   clearSearchField = false;
   filterClear() {

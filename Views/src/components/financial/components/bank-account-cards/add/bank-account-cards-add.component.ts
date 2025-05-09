@@ -5,11 +5,11 @@ import { MatButtonModule as MatButtonModule } from '@angular/material/button';
 import { MatCardModule as MatCardModule } from '@angular/material/card';
 
 
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { PixComponent } from 'src/shared/components/financial/pix/pix.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
@@ -47,8 +47,8 @@ export class BankAccountCardsAddComponent extends Add implements OnInit {
   constructor(
     protected _bankAccountService: BankAccountAddService,
     private _fb: FormBuilder,
-    override _breakpointObserver: BreakpointObserver,
-  ) { super(_breakpointObserver) }
+
+  ) {super()}
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -60,34 +60,7 @@ export class BankAccountCardsAddComponent extends Add implements OnInit {
     return this.valCustom
   }
 
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = 'column';
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = 'column';
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = 'row';
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = 'row';
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = 'row';
-            break;
-          }
-        }
-      }
-    })
-  }
+
 
   get getDate(): Date {
     return new Date()
@@ -120,7 +93,7 @@ export class BankAccountCardsAddComponent extends Add implements OnInit {
   }
 
   ngOnInit(): void {
-    this.screen();
+
     this.formLoad();
   }
 

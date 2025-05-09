@@ -8,7 +8,7 @@ import { MatInputModule as MatInputModule } from '@angular/material/input';
 
 
 import { NgxMaskModule } from 'ngx-mask';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { AddressService } from '../services/address.service';
 
@@ -19,7 +19,7 @@ import { AddressService } from '../services/address.service';
   standalone: true,
   imports: [
     CommonModule,
-    
+
     ReactiveFormsModule,
     MatFormFieldModule,
     MatButtonModule,
@@ -49,39 +49,7 @@ export class AddressComponent implements OnInit {
     this?._addressService?.query(cep);
   }
 
-  screen() {
-    this._addressService.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = "column";
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = "column";
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = "row";
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = "row";
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = "row";
-            break;
-          }
-        }
-      }
-    })
-
-
-
-
-  }
-
+ 
   ngOnInit(): void {
 
     this._addressService.formMain = this.formMain;

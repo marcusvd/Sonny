@@ -35,7 +35,7 @@ import { SharedRoutingModule } from "./shared.routing.module";
 // import { FinancialPixComponent } from "../components/financial/pix/financial-pix.component";
 import { FormErrorPanelComponent } from "../components/form-error-panel/form-error-panel.component";
 
-import { RadioButtonGModule } from "../components/radio-button-g/modules/radio-button-g.module";
+
 
 // import { TableGGridModule } from "../components/table-g-grid/modules/table-g-grid.module";
 // import { PtBrCurrencyPipe } from "../pipes/pt-br-currency.pipe";
@@ -110,7 +110,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     // FirstModule,
     // SideNavModule,
 
-    RadioButtonGModule,
+    
     // CheckButtonGModule,
 
 
@@ -146,7 +146,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     // DialogQuizModule,
     // SideNavModule,
 
-    RadioButtonGModule,
+    
     // CheckButtonGModule,
 
 

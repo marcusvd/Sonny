@@ -1,4 +1,4 @@
-<div class="border-around" (window:resize)="screen()" *ngIf="this.entities">
+<div class="border-around"  *ngIf="this.entities">
     <title-component [digit]="'|'" [textTitleComp]="'Cartão de Crédito'" [icon]="'attach_money'"></title-component>
     <div>
         <div>
@@ -26,7 +26,7 @@
                         <div>
                         </div>
                         <br>
-                        <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" fxLayoutAlign="center center" (page)="onPageChange($event)"></mat-paginator>
+                        <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
                         <br>
                     </div>
                     <grid-list-common-table  body-table [statusShow]="false" [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)"

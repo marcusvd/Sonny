@@ -1,5 +1,5 @@
 
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
@@ -13,7 +13,7 @@ import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 
 
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 
@@ -25,7 +25,7 @@ import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
   templateUrl: './payment-bank-account.component.html',
   standalone: true,
   imports: [
-    
+
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
@@ -50,8 +50,8 @@ export class PaymentBankAccountComponent extends BaseForm implements OnInit {
   @Output() removeOutput = new EventEmitter<number>();
 
   constructor(
-    override _breakpointObserver: BreakpointObserver,
-  ) { super(_breakpointObserver) }
+
+  ) {super()}
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -78,43 +78,8 @@ export class PaymentBankAccountComponent extends BaseForm implements OnInit {
   }
 
 
-  screen() {
-
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = 'column';
-            this.fxLayoutGap = '0';
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = 'column';
-            this.fxLayoutGap = '0';
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = 'row';
-            this.fxLayoutGap = '30';
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = 'row';
-            this.fxLayoutGap = '30';
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = 'row';
-            this.fxLayoutGap = '30';
-            break;
-          }
-        }
-      }
-    })
-  }
-
   ngOnInit(): void {
-    this.screen();
+
   }
 
 

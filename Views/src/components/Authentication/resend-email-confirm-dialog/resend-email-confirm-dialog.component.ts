@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { NgIf } from '@angular/common';
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 
@@ -24,7 +24,7 @@ import { AuthenticationService } from '../services/authentication.service';
   // encapsulation: ViewEncapsulation.None,
   imports: [
     MatDialogModule,
-    
+
     MatButtonModule,
     MatCardModule,
     MatIconModule,
@@ -84,7 +84,7 @@ import { AuthenticationService } from '../services/authentication.service';
             </div>
 
 
-            <div  fxLayoutAlign="center center">
+            <div >
                 <captcha #token [hidden]="!formMain.valid"></captcha>
             </div>
         </div>
@@ -173,11 +173,11 @@ export class ResendEmailConfirmDialogComponent extends BaseForm implements OnIni
   resend: boolean = true;
 
   constructor(
+
     private _DialogRef: MatDialogRef<ResendEmailConfirmDialogComponent>, @Inject(MAT_DIALOG_DATA) private data: any,
-    override _breakpointObserver: BreakpointObserver,
     private _auth: AuthenticationService,
   ) {
-    super(_breakpointObserver)
+    super();
     this.messageBody = this.data.messageBody;
     this.email = this.data.email;
     this.btn1 = this.data.btn1;

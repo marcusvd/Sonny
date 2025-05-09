@@ -13,7 +13,7 @@ export class ContactV2Service   {
 
   constructor(
     private _fb: FormBuilder
-  ) {  }
+  ) {}
 
 
 

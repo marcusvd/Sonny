@@ -1,4 +1,4 @@
-<div [formGroup]="formMain"  (window:resize)="screen()">
+<div [formGroup]="formMain"  >
     <div formArrayName="banksAccounts" *ngFor="let bkAcc of bankAccountsArray.controls; let i = index;">
         <div [formGroupName]="i">
             <div class="middle-space-horizontal-beteween-fields"> </div>

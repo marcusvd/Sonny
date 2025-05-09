@@ -26,16 +26,18 @@ export const MY_FORMATS = {
   standalone: true,
   imports: [
     CommonModule,
-    
+
     MatFormFieldModule,
     MatDatepickerModule,
     MatInputModule,
     ReactiveFormsModule,
   ],
   template: `
-  <div *ngIf="formMain" [fxLayout]="layoutColumnRow">
-    <mat-form-field appearance="outline" [formGroup]="formMain"  []="Width">
-      <mat-label>{{labelTitle}}</mat-label>
+  <div *ngIf="formMain">
+   <div>
+   <mat-label>{{labelTitle}}</mat-label>
+</div>
+    <mat-form-field [class]="outClassStyle" appearance="outline" [formGroup]="formMain">
       <input matInput  [matDatepicker]="picker" [placeholder]="placeholder" [formControlName]="formCtrlName">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker  #picker></mat-datepicker>
@@ -58,16 +60,10 @@ export const MY_FORMATS = {
   `]
 })
 
-
-
-
-
 export class DateJustDayComponent {
   @Input() formCtrlName: string;
   @Input() placeholder: string;
   @Input() labelTitle: string;
+  @Input() outClassStyle: string = 'w-full';
   @Input() formMain: FormGroup;
-  @Input() Width: string;
-  @Input() layoutColumnRow: string;
-
 }

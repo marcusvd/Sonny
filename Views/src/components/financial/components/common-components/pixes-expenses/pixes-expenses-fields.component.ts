@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
@@ -10,7 +10,7 @@ import { MatFormFieldModule as MatFormFieldModule } from '@angular/material/form
 import { MatInputModule as MatInputModule } from '@angular/material/input';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 @Component({
@@ -53,45 +53,14 @@ export class PixesExpensesFieldsComponent extends BaseForm implements OnInit {
   @Input('priceDisabled') priceDisabled:boolean = true;
 
   constructor(
-    override _breakpointObserver: BreakpointObserver,
+
     public _fb: FormBuilder,
   ) {
-    super(_breakpointObserver);
+   super()
   }
 
-  fxLayout: string = 'row';
+   ngOnInit(): void {
 
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.fxLayout = 'column';
-            break;
-          }
-          case 'small': {
-            this.fxLayout = 'column';
-            break;
-          }
-          case 'medium': {
-            this.fxLayout = 'row';
-            break;
-          }
-          case 'large': {
-            this.fxLayout = 'row';
-            break;
-          }
-          case 'xlarge': {
-            this.fxLayout = 'row';
-            break;
-          }
-        }
-      }
-    })
-  }
-
-  ngOnInit(): void {
-    this.screen();
 
   }
 

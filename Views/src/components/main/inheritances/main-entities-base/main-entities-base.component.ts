@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
@@ -7,7 +7,7 @@ import { MatFormFieldModule as MatFormFieldModule } from '@angular/material/form
 import { MatInputModule as MatInputModule } from '@angular/material/input';
 import { MatSelectModule as MatSelectModule } from '@angular/material/select';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 @Component({
@@ -17,7 +17,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
   standalone: true,
   imports: [
     CommonModule,
-    
+
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -27,8 +27,8 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 export class MainEntitiesBaseComponent extends BaseForm implements OnInit, OnChanges {
 
   constructor(
-    override _breakpointObserver: BreakpointObserver
-  ) { super(_breakpointObserver) }
+
+  ) {super()}
 
   ngOnChanges(changes: SimpleChanges): void {
     // console.log(this.formMain.value)
@@ -54,39 +54,8 @@ export class MainEntitiesBaseComponent extends BaseForm implements OnInit, OnCha
     return this.valMessages
   }
 
-
-  screenFieldPosition: string = 'row';
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = "column"
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = "column"
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = "row"
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = "row"
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = "row"
-            break;
-          }
-        }
-      }
-    })
-  }
-
   ngOnInit(): void {
-    this.screen();
+
   }
 
 }

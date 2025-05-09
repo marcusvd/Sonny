@@ -12,6 +12,7 @@ module.exports = {
             colors: {
                 'color-title-comp': '#555555',
                 'color-main': '#2ba1a8'
+
             },
             fontFamily: {
                 mynerve: ['Mynerve'], // Adicione sua fonte aqui

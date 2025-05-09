@@ -20,7 +20,7 @@ import { NameCpfCnpjComponent } from "src/shared/components/administrative/name-
 import { ContactComponent } from "src/shared/components/contact/component/contact.component";
 import { ContactService } from "src/shared/components/contact/services/contact.service";
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { TitleComponent } from "src/shared/components/title/default-title/title.component";
 import { PhoneHandlers } from "src/shared/helpers/handlers/phone-handlers";
 import { FinancialInfoTypeComponent } from "../commons-components/financial-info-type/financial-info-type.component";
@@ -41,7 +41,7 @@ import { CustomerDto } from "../commons-components/dtos/customer-dto";
   standalone: true,
   imports: [
     CommonModule,
-    
+
     MatButtonModule,
     MatCardModule,
     ReactiveFormsModule,
@@ -83,8 +83,8 @@ export class CustomerEditComponent extends BaseForm implements OnInit {
     private _fb: FormBuilder,
     private _actRouter: ActivatedRoute,
     private _physicallyMovingCostsService: PhysicallyMovingCostsService,
-    override _breakpointObserver: BreakpointObserver,
-  ) { super(_breakpointObserver) }
+
+  ) {super()}
 
   additionalCosts: FormGroup;
   formLoad(customer?: CustomerDto): FormGroup {
@@ -113,35 +113,6 @@ export class CustomerEditComponent extends BaseForm implements OnInit {
       contact: this.contact = this._contactService.formLoad(customer?.contact)
     })
 
-  }
-
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = "column"
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = "column"
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = "row"
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = "row"
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = "row"
-            break;
-          }
-        }
-      }
-    })
   }
 
   cpfCnpjBusinessData(data: BusinessData) {
@@ -210,7 +181,7 @@ export class CustomerEditComponent extends BaseForm implements OnInit {
   ngOnInit(): void {
     const id = this._actRouter.snapshot.params['id'];
     this.getEntityId(id);
-    this.screen();
+
   }
 
 }

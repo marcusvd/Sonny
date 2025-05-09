@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
@@ -19,7 +19,7 @@ import { CategoryExpensesService } from 'src/components/financial/services/categ
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
@@ -40,7 +40,7 @@ import { YearlyFixedExpensesAddValidator } from './validators/yearly-fixed-expen
   standalone: true,
   imports: [
     CommonModule,
-    
+
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
@@ -68,9 +68,9 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _yearlyFixedExpensesService: YearlyFixedExpensesService,
-    override _breakpointObserver: BreakpointObserver,
+
     private _router: Router,
-  ) { super(_breakpointObserver) }
+  ) {super()}
 
   payCycle = PayCycleEnumDto.Year;
 
@@ -107,43 +107,6 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
     })
   }
 
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = 'column'
-
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = 'column'
-
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = 'row'
-
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = 'row'
-
-
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = 'row'
-
-            break;
-          }
-        }
-      }
-    })
-
-
-  }
-
   add() {
     this._router.navigateByUrl('/side-nav/financial-dash/category-expenses-add-edit')
   }
@@ -161,7 +124,7 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
 
   ngOnInit(): void {
     this.formLoad();
-    this.screen();
+
   }
 
 }

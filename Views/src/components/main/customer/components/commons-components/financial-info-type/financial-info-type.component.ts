@@ -1,11 +1,11 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { Component, Input, OnInit } from '@angular/core';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ValidatorsCustomer } from '../../../validators/customer/validators-customer';
 import { ValidatorMessagesCustomer } from '../../../validators/customer/validators-messages-customer';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
 
 import { CommonModule } from '@angular/common';
@@ -23,7 +23,7 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
   standalone: true,
   imports: [
     CommonModule,
-    
+
     MatCheckboxModule,
     MatFormFieldModule,
     ReactiveFormsModule,
@@ -35,8 +35,8 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 export class FinancialInfoTypeComponent extends BaseForm implements OnInit {
 
   constructor(
-    override _breakpointObserver: BreakpointObserver
-  ) { super(_breakpointObserver) }
+
+  ) {super()}
 
   ngOnInit(): void {
   }
@@ -59,40 +59,6 @@ export class FinancialInfoTypeComponent extends BaseForm implements OnInit {
   private valCustom = ValidatorsCustom;
   get validatorCustom() {
     return this.valCustom
-  }
-
-  screenFieldPosition: string = 'row';
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = "column"
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = "column"
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = "row"
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = "row"
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = "row"
-            break;
-          }
-        }
-      }
-    })
-
-
-
-
   }
 
   @Input() override formMain: FormGroup;

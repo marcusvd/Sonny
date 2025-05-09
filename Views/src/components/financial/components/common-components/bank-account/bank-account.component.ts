@@ -3,7 +3,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { NgFor, NgIf } from '@angular/common';
 
 import { MatCardModule as MatCardModule } from '@angular/material/card';
@@ -13,7 +13,7 @@ import { MatSelectModule as MatSelectModule } from '@angular/material/select';
 import * as _moment from 'moment';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
@@ -36,7 +36,7 @@ export const MY_FORMATS = {
   templateUrl: './bank-account.component.html',
   standalone: true,
   imports: [
-    
+
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
@@ -59,8 +59,8 @@ export class BankAccountComponent extends BaseForm implements OnInit , OnChanges
   @Input()  mainTitle: string;
 
   constructor(
-    override _breakpointObserver: BreakpointObserver,
-  ) { super(_breakpointObserver) }
+
+  ) {super()}
 
   ngOnChanges(changes: SimpleChanges): void {
   }
@@ -81,40 +81,9 @@ export class BankAccountComponent extends BaseForm implements OnInit , OnChanges
   //   return this._bankAccountService.typeAccounts
   // }
 
-  screen() {
-
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = 'column';
-
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = 'column';
-
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = 'row';
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = 'row';
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = 'row';
-            break;
-          }
-        }
-      }
-    })
-  }
 
   ngOnInit(): void {
-    this.screen();
+
   }
 
 

@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
@@ -20,7 +20,7 @@ import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { ContactComponent } from 'src/shared/components/contact/component/contact.component';
 import { ContactService } from 'src/shared/components/contact/services/contact.service';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { PhoneHandlers } from "src/shared/helpers/handlers/phone-handlers";
@@ -39,7 +39,7 @@ import { PartnerCreateService } from './services/partner-create.service';
   standalone: true,
   imports: [
     CommonModule,
-    
+
     ReactiveFormsModule,
     MatDividerModule,
     MatFormFieldModule,
@@ -87,8 +87,8 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
     private _contactService: ContactService,
     private _addressService: AddressService,
     private _physicallyMovingCostsService: PhysicallyMovingCostsService,
-    override _breakpointObserver: BreakpointObserver,
-  ) { super(_breakpointObserver) }
+
+  ) {super()}
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -102,35 +102,6 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
   private valCustom = ValidatorsCustom;
   get validatorCustom() {
     return this.valCustom
-  }
-
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = 'column'
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = 'column'
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = 'row'
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = 'row'
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = 'row'
-            break;
-          }
-        }
-      }
-    })
   }
 
   cpfCnpjBusinessData(data: BusinessData) {
@@ -262,7 +233,7 @@ export class PartnerCreateComponent extends BaseForm implements OnInit {
 
   ngOnInit(): void {
     this.formLoad();
-    this.screen();
+
   }
 
 }

@@ -7,22 +7,21 @@ import { EntityTypeEnumDto } from "./enum/entity-type.enum-dto";
 import { PhysicallyMovingCostsDto } from "./physically-moving-costs";
 
 export class MainEntitiesBase {
-  id: number;
-  companyId: number;
-  company: CompanyDto;
-  name: string;
-  responsible: string;
-  cnpj: string;
-  entityType:EntityTypeEnumDto
-  registered: Date;
-  description: string;
-  businessLine:string;
-  address: AddressDto;
-  contact: ContactDto;
-  physicallyMovingCosts: PhysicallyMovingCostsDto;
+ id: number;
+ companyId: number;
+ company: CompanyDto;
+ name: string;
+ responsible: string;
+ cnpj: string;
+ entityType:EntityTypeEnumDto
+ registered: Date;
+ description: string;
+ businessLine:string;
+ address: AddressDto;
+ contact: ContactDto;
+ physicallyMovingCosts: PhysicallyMovingCostsDto;
   // collectDeliverDestinies: DestinyDto[];
   // billingFromCollectsDelivers: BillingFromDto[];
-  
 }
 
 

@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { Component } from '@angular/core';
 import * as diacritics from 'diacritics';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
@@ -19,12 +19,9 @@ export class Add extends BaseForm implements IAdd {
 
 
   constructor(
-    override _breakpointObserver: BreakpointObserver,
-  ) {
-    super(_breakpointObserver)
 
-  }
-  
+  ) {super();}
+
   override saveBtnEnabledDisabled: boolean = false;
   // removeNonNumericAndConvertToNumber(str: string): number {
   //   return +str.replace(/\D/g, '');

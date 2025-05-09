@@ -12,12 +12,12 @@ import { map } from 'rxjs/operators';
   selector: 'spinner-g',
   template: `
   <div *ngIf="spinner" class="middle-space-horizontal-beteween-fields"> </div>
-  <div *ngIf="spinner"  fxLayoutAlign="center center">
+  <div *ngIf="spinner" >
     <mat-spinner  diameter="30"></mat-spinner>&nbsp;&nbsp;
     <div id="space-top" >{{'Carregando...'}} &nbsp; {{optionalTitle}}</div>
   </div>
   <div *ngIf="spinner" class="middle-space-horizontal-beteween-fields"> </div>
-  <div *ngIf="empty"  fxLayoutAlign="center center">
+  <div *ngIf="empty" >
   <div  id="space-top" >{{'Nenhum registro encontrado!'}}</div>
   </div>
   `,

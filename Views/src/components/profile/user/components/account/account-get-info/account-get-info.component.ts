@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
@@ -6,7 +6,7 @@ import { FormGroup } from '@angular/forms';
 import { MyUser } from 'src/components/authentication/dto/my-user';
 import { ProfileEditService } from 'src/components/profile/services/profile-edit.service';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 
 @Component({
   selector: 'account-get-info',
@@ -29,53 +29,10 @@ export class AccountGetInfoComponent extends BaseForm implements OnInit {
 
 
   constructor(
-    override _breakpointObserver: BreakpointObserver,
+
     private _profileEditService: ProfileEditService,
 
-  ) { super(_breakpointObserver) }
-
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = "column";
-
-            break;
-          }
-          case 'small': {
-
-
-            this.screenFieldPosition = "column";
-            break;
-          }
-          case 'medium': {
-
-
-            this.screenFieldPosition = "row";
-            break;
-          }
-          case 'large': {
-
-            this.screenFieldPosition = "row";
-
-
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = "row";
-
-
-            break;
-          }
-        }
-      }
-    })
-
-
-
-
-  }
+  ) {super()}
 
   edit() {
     // console.log(this.user)
@@ -87,7 +44,7 @@ export class AccountGetInfoComponent extends BaseForm implements OnInit {
 
 
   ngOnInit(): void {
-    this.screen();
+
   }
 
 }

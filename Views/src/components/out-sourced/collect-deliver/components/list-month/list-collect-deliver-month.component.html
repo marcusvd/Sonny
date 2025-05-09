@@ -1,17 +1,17 @@
-<div class="border-around" (window:resize)="screen()">
+<div class="border-around">
     <title-component [digit]="'|'" [textTitleComp]="'Coletas entregas'" [icon]="'compare_arrows'">
 
     </title-component>
     <div>
 
         <div>
-            <mat-card class="mat-card-sub-title" >
+            <mat-card class="mat-card-sub-title">
 
                 <grid-list-common>
                     <sub-title title [title]="titleGrid" [icon]="'list'"></sub-title>
-                    <div search-filter >
+                    <div search-filter>
 
-                        <div >
+                        <div>
                             <div class="small-space-horizontal-beteween-fields"></div>
 
                             <div>
@@ -23,9 +23,7 @@
                                 </div>
                             </div>
                             <div>
-                                <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="false"
-                                    [changeSelection]="monthFilter" [Input]="searchFieldMonthSelect"
-                                    (sendSelected)="selectedMonth($event)">
+                                <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="false" [changeSelection]="monthFilter" (sendSelected)="selectedMonth($event)">
                                 </months-select>
                             </div>
                             <!-- <div  *ngIf="showDataBank">
@@ -36,14 +34,14 @@
 
                         <div class="small-space-horizontal-beteween-fields"></div>
                         <div>
-                            <div >
+                            <div>
                                 <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
                             </div>
 
-                            <div fxLayout="screenFieldPosition" >
+                            <div fxLayout="screenFieldPosition">
 
                             </div>
-                            <!-- <div  *ngIf="screenFieldPosition == 'row'">
+                            <!-- <div  >
                                 <btn-g btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="add()"></btn-g>
                             </div> -->
 
@@ -52,19 +50,14 @@
                     </div>
 
 
-                    <div search-filter id="space-components" >
+                    <div search-filter id="space-components">
 
                     </div>
 
                     <!-- *ngIf="this.showDataBank" -->
                     <!-- [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }" -->
-                    <grid-list-common-table  body-table [statusShow]="false" [fieldsInEnglish]="fieldsInEnglish"
-                        [entities$]="entities$" [headers]="headers"
-                        [matIcons]="{visibility:'Detalhes', deleteEmpty:'empty', editEmpty:'empty',format_list_numbered:'Itens Filhos' }"
-                        [statusShow]="false"
-                        (getEntityOut)="getEntity($event, 'fixedExpenses')" 
-                        (toPayOut)="getEntityTopay($event)"
-                        (getColumnEntityName)="orderBy($event)">
+                    <grid-list-common-table body-table [statusShow]="false" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" [matIcons]="{visibility:'Detalhes', deleteEmpty:'empty', editEmpty:'empty',format_list_numbered:'Itens Filhos' }" [statusShow]="false"
+                        (getEntityOut)="getEntity($event, 'fixedExpenses')" (toPayOut)="getEntityTopay($event)" (getColumnEntityName)="orderBy($event)">
                     </grid-list-common-table>
                 </grid-list-common>
                 <div *ngIf="this.monthFilter.id == -1" [class]="{

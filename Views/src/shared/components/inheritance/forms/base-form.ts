@@ -1,9 +1,8 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { FormGroup, Validators } from '@angular/forms';
 import * as diacritics from 'diacritics';
-import { Responsive } from '../responsive/responsive';
 
-export class BaseForm extends Responsive {
+export class BaseForm  {
 
   companyId = JSON.parse(localStorage.getItem('companyId'))
   userId = JSON.parse(localStorage.getItem('userId'))
@@ -44,9 +43,9 @@ export class BaseForm extends Responsive {
   inUseMsg = 'Já cadastrado!';
 
   constructor(
-    override _breakpointObserver?: BreakpointObserver,
+
   ) {
-    super(_breakpointObserver)
+
 
   }
 

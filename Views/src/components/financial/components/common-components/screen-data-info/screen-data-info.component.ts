@@ -1,9 +1,7 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
-import { View } from 'src/shared/components/inheritance/view/view';
 import { HtmlDataInfoDto } from './dtos/html-data-info-dto';
 
 
@@ -31,55 +29,19 @@ import { HtmlDataInfoDto } from './dtos/html-data-info-dto';
   ]
 })
 
-export class ScreenDataInfoComponent extends View implements OnInit, OnChanges {
+export class ScreenDataInfoComponent  implements OnInit, OnChanges {
 
   @Input() fields: HtmlDataInfoDto[] = [];
   @Input() reiceverThisComponentToDisplay: string;
 
-  
-  constructor(
-    override _breakpointObserver: BreakpointObserver,
 
-  ) {
-    super(_breakpointObserver);
-  }
+  constructor() {}
 
   ngOnChanges(changes: SimpleChanges): void {
     // console.log(this.fields)
   }
 
-  fxLayout: string = 'row';
-  override screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.fxLayout = 'column';
-            break;
-          }
-          case 'small': {
-            this.fxLayout = 'column';
-            break;
-          }
-          case 'medium': {
-            this.fxLayout = 'row';
-            break;
-          }
-          case 'large': {
-            this.fxLayout = 'row';
-            break;
-          }
-          case 'xlarge': {
-            this.fxLayout = 'row';
-            break;
-          }
-        }
-      }
-    })
-  }
-
   ngOnInit(): void {
-
 
   }
 

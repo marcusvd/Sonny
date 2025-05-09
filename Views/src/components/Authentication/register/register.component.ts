@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
@@ -50,9 +50,9 @@ export class RegisterComponent extends BaseForm implements OnInit {
     private _auth: AuthenticationService,
     private _fb: FormBuilder,
     private _dialog: MatDialog,
-    override _breakpointObserver: BreakpointObserver,
+    
     private _communicationsAlerts: CommunicationAlerts,
-  ) { super(_breakpointObserver) }
+  ) {super()}
 
 
   private _validatorsMessagesAuthentication = ValidatorsMessagesAuthentication;

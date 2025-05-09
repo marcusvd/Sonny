@@ -1,6 +1,6 @@
 <mat-card>
     <div class="mat-card-title">
-        <div  (window:resize)="screen()">
+        <div  >
             <div >
                 <h3>Informações de conta</h3>
             </div>
@@ -17,7 +17,7 @@
     </mat-divider>
     <br>
 
-    <div  (window:resize)="screen()" fxLayoutGap="15px" [formGroup]="formMain">
+    <div   fxLayoutGap="15px" [formGroup]="formMain">
 
         <div  [formGroup]="subForm" >
             <mat-form-field  appearance="outline">
@@ -54,12 +54,12 @@
 
     </div>
 
-    <div  (window:resize)="screen()" fxLayoutGap="50px">
+    <div   fxLayoutGap="50px">
         <div>
         </div>
         <div >
 
-            <div   fxLayoutAlign="center center">
+            <div  >
                 <mat-icon class="padloock mat-icon-style" fontSet="material-icons-outlined">https</mat-icon>
             </div>
 
@@ -94,7 +94,7 @@
         </div>
     </div>
 
-    <div *ngIf="btnSaveStyle" fxLayoutAlign="center center">
+    <div *ngIf="btnSaveStyle">
 
         <button class="default-button" mat-raised-button (click)="updateUser()"> Salvar </button>
 

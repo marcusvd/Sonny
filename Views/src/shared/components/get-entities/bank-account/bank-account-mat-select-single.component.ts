@@ -1,11 +1,10 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule as MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
-
 
 import { MatFormFieldModule as MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule as MatInputModule } from '@angular/material/input';
@@ -19,7 +18,6 @@ import { environment } from 'src/environments/environment';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { BankCard4LastDigitsPipe, BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
-import { IScreen } from '../../inheritance/responsive/iscreen';
 import { SpinnerGComponent } from '../../spinner-g/component/spinner-g.component';
 import { BankAccountGetService } from './bank-account-get.service';
 import { RadioOptions } from './dto/radio-options';
@@ -35,7 +33,7 @@ import { RadioOptions } from './dto/radio-options';
     MatInputModule,
     NgxMatSelectSearchModule,
     ReactiveFormsModule,
-    
+
     MatRadioModule,
     BankCard4LastDigitsPipe,
     BankCardNumberPipe,
@@ -63,8 +61,8 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   constructor(
     private _bankAccountGetService: BankAccountGetService,
     private _fb: FormBuilder,
-    override _breakpointObserver: BreakpointObserver,
-  ) { super(_breakpointObserver) }
+
+  ) {super()}
 
   controllerUrl: string = environment._BANKSACCOUNTS.split('/')[4];
 
@@ -94,46 +92,6 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   cards: CardDto[];
   pixes: PixDto[];
 
-  @Input() screenFieldPosition: string = "column";
-  @Input() alignRadios = "center center";
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = 'column'
-            //this.alignRadios = 'start start'
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = 'column'
-            //this.alignRadios = 'start start'
-
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = 'row'
-            //this.alignRadios = 'center center';
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = 'row'
-            //this.alignRadios = 'center center';
-
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = 'row'
-            this.alignRadios = 'center center';
-            break;
-          }
-        }
-      }
-    })
-
-
-  }
-
   @Input() optionsRadio: RadioOptions[] = [{ id: 0, name: 'Pix' }, { id: 1, name: 'Cartão' }, { id: 2, name: 'Outros' }];
   optionsAvailable() {
     if (this.radioOptionRemove)
@@ -150,7 +108,7 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   onSelectedRadio(value?: MatRadioChange) {
     this.selectedRadio = value.value;
     this.selectedRadioOut.emit(value.value)
-    
+
     if (this.selectedRadio === 0)
       this.AddValidatorsPix();
 
@@ -181,7 +139,7 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
   removeAllValidators() {
     this.removeValidators(this.formMain, ['cardId', 'pixId', 'othersPaymentMethods']);
   }
-  
+
   @Output() banckAccountSelected = new EventEmitter<BankAccountDto>();
   onBankAccountSelected(value: number) {
     this?.$banckAccount?.subscribe(x => {
@@ -262,7 +220,7 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
     //   }),
     // ).subscribe();
     this.optionsAvailable();
-    this.screen();
+
 
   }
 

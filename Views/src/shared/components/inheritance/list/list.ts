@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { AfterViewInit, Component, Inject, ViewChild } from '@angular/core';
 import { MatDialog as MatDialog } from '@angular/material/dialog';
 import { MatPaginator as MatPaginator,PageEvent as PageEvent } from '@angular/material/paginator';
@@ -48,12 +48,9 @@ export class List extends BaseForm implements IList, AfterViewInit {
     public gridListCommonHelper: GridListCommonHelper,
     @Inject('headers') public headers: string[] = [],
     @Inject('headers') public fieldsInEnglish: string[] = [],
-    override _breakpointObserver: BreakpointObserver,
-    @Inject('_listServices') protected _listServices: any,
-  ) {
-    super(_breakpointObserver)
 
-  }
+    @Inject('_listServices') protected _listServices: any,
+  ) {super()}
 
   @ViewChild('paginatorAbove') paginatorAbove: MatPaginator
   @ViewChild('paginatorBelow') paginatorBelow: MatPaginator

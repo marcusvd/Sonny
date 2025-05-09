@@ -15,9 +15,11 @@ import { MatIconModule } from '@angular/material/icon';
 export class SubTitleComponent {
 
   @Input() title: string;
-  @Input() titleStyle: string;
-  @Input() styleContainerTitle: string;
   @Input() icon: string;
+
+
+  @Input() titleStyle: string;
+   @Input() styleContainerTitle: string;
 
   @Input() titleBarStyle: string = `
   max-width: calc(100vw - 10%);

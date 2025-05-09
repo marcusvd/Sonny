@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
@@ -22,7 +22,7 @@ import { GridListCommonTableComponent } from 'src/shared/components/grid-list-co
 import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
 import { IEntityGridAction } from 'src/shared/components/grid-list-common/interface/entity-grid-action';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
@@ -50,7 +50,7 @@ import { TriggerPaymentFinancingsLoans } from './trigger-payment-financings-loan
     MatButtonModule,
     MatMenuModule,
     RouterModule,
-    
+
     MatCheckboxModule,
     MatRadioModule,
     GridListCommonComponent,
@@ -77,7 +77,7 @@ export class ListFinancingsLoansExpensesComponent extends FrontEndListFilterFina
     override _dialog: MatDialog,
     private _ptBrDatePipe: PtBrDatePipe,
     private _ptBrCurrencyPipe: PtBrCurrencyPipe,
-    override _breakpointObserver: BreakpointObserver,
+
     override _listServices: ListFinancingsLoansExpensesService
 
   ) {
@@ -93,7 +93,7 @@ export class ListFinancingsLoansExpensesComponent extends FrontEndListFilterFina
       ['name',
         'installmentPrice',
         'installmentsQuantity'],
-      _breakpointObserver,
+
       _listServices
     )
   }
@@ -124,41 +124,6 @@ export class ListFinancingsLoansExpensesComponent extends FrontEndListFilterFina
     this.pay.callRoute(this.pay.entityToPay);
   }
 
-  screenFieldPosition: string = 'row';
-  searchFieldYearlySelect: number = 50;
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = 'column';
-
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = 'column';
-
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = 'row';
-
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = 'row';
-
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = 'row';
-
-            break;
-          }
-        }
-      }
-    })
-  }
 
   override getEntity($event: IEntityGridAction, itemWillDeleted?: string) {
 
@@ -270,7 +235,7 @@ export class ListFinancingsLoansExpensesComponent extends FrontEndListFilterFina
   }
 
   ngOnInit(): void {
-    this.screen();
+
     this.getCurrentEntitiesFromBackEnd();
   }
 

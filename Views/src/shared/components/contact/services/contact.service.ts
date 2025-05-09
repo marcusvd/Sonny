@@ -10,8 +10,8 @@ export class ContactService extends BaseForm {
 
   constructor(
     private _fb: FormBuilder,
-    override _breakpointObserver: BreakpointObserver,
-  ) { super(_breakpointObserver) }
+    
+  ) {super()}
 
 
   formLoad(contact?: ContactDto) {

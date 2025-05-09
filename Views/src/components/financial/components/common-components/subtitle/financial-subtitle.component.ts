@@ -1,10 +1,8 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
 
-
-import { View } from 'src/shared/components/inheritance/view/view';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { FinancialSubtitleDto } from './financial-subtitle-dto';
 
@@ -13,7 +11,7 @@ import { FinancialSubtitleDto } from './financial-subtitle-dto';
     standalone: true,
     imports: [
         CommonModule,
-        
+
         CommonModule,
         PtBrDatePipe,
         NgFor,
@@ -78,7 +76,7 @@ font-weight: bolder; padding-top: 13px; margin-left: -25px;
   `],
     providers: [],
 })
-export class FinancialSubtitleComponent extends View implements OnInit {
+export class FinancialSubtitleComponent  implements OnInit {
 
     @Input() statusCollection: FinancialSubtitleDto[] = [];
 
@@ -89,19 +87,11 @@ export class FinancialSubtitleComponent extends View implements OnInit {
     @Input() expiresDate = new Date();
 
 
-    get smallCurrentSizeScreen() {
-        return this.currentScreenSize == 'small' ? 'row' : 'column';
-    }
 
-    get bigCurrentSizeScreen() {
-        return this.currentScreenSize == 'large' ? 'row' : 'column';
-    }
-
-
-    constructor(override _breakpointObserver: BreakpointObserver
-    ) { super(_breakpointObserver) }
+    constructor(
+    ) {}
 
     ngOnInit(): void {
-        this.screen();
+
     }
 }

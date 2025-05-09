@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
@@ -13,7 +13,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { NgxMaskModule } from 'ngx-mask';
 import { PixDto } from 'src/components/financial/components/bank-account-cards/dto/pix-dto';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { BtnGComponent } from '../../btn-g/btn-g.component';
 import { PixValidator } from './pix.validator';
@@ -31,7 +31,7 @@ import { PixValidator } from './pix.validator';
     MatCardModule,
     MatSelectModule,
     MatDividerModule,
-    
+
     NgxMaskModule,
     NgFor,
     NgIf,
@@ -48,9 +48,9 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
   @Input() edit: boolean = false;
 
   constructor(
-    override _breakpointObserver: BreakpointObserver,
+
     private _fb: FormBuilder
-  ) { super(_breakpointObserver) }
+  ) {super()}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.edit) {
@@ -193,40 +193,8 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
     return this.valMessages
   }
 
-  screen() {
-
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = 'column';
-
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = 'column';
-
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = 'row';
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = 'row';
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = 'row';
-            break;
-          }
-        }
-      }
-    })
-  }
-
   ngOnInit(): void {
-    this.screen();
+
 
     if (!this.edit)
       if (!this.noBeneficiaryField)

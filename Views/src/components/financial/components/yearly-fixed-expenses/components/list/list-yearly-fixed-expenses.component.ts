@@ -1,4 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
+
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
@@ -22,7 +22,7 @@ import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-c
 import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
 import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
-import { IScreen } from 'src/shared/components/inheritance/responsive/iscreen';
+
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
@@ -48,7 +48,7 @@ import { TriggerPaymentYearly } from './trigger-payment-yearly';
     MatButtonModule,
     MatMenuModule,
     RouterModule,
-    
+
     MatCheckboxModule,
     MatRadioModule,
     GridListCommonComponent,
@@ -75,7 +75,7 @@ export class ListYearlyFixedExpensesComponent extends FrontEndListFilterYearlyEx
     override _dialog: MatDialog,
     private _ptBrDatePipe: PtBrDatePipe,
     private _ptBrCurrencyPipe: PtBrCurrencyPipe,
-    override _breakpointObserver: BreakpointObserver,
+
     override _listServices: ListYearlyFixedExpensesService
 
   ) {
@@ -92,7 +92,7 @@ export class ListYearlyFixedExpensesComponent extends FrontEndListFilterYearlyEx
       ['description',
         'expiresView',
         'price'],
-      _breakpointObserver,
+
       _listServices
     )
   }
@@ -119,42 +119,6 @@ export class ListYearlyFixedExpensesComponent extends FrontEndListFilterYearlyEx
     this.pay.entityToPay = yearlyExpense;
 
     this.pay.callRoute(this.pay.entityToPay);
-  }
-
-  screenFieldPosition: string = 'row';
-  searchFieldYearlySelect: number = 50;
-  screen() {
-    this.screenSize().subscribe({
-      next: (result: IScreen) => {
-        switch (result.size) {
-          case 'xsmall': {
-            this.screenFieldPosition = 'column';
-
-            break;
-          }
-          case 'small': {
-            this.screenFieldPosition = 'column';
-
-            break;
-          }
-          case 'medium': {
-            this.screenFieldPosition = 'row';
-
-            break;
-          }
-          case 'large': {
-            this.screenFieldPosition = 'row';
-
-            break;
-          }
-          case 'xlarge': {
-            this.screenFieldPosition = 'row';
-
-            break;
-          }
-        }
-      }
-    })
   }
 
   clearSearchField = false;
@@ -225,7 +189,7 @@ export class ListYearlyFixedExpensesComponent extends FrontEndListFilterYearlyEx
   }
 
   ngOnInit(): void {
-    this.screen();
+
     this.getCurrentEntitiesFromBackEnd();
   }
 
