@@ -1,88 +1,90 @@
-<div class="hidden sm:block">
-    <mat-card class="rounded-t-xl p-5 w-full overflow-visible flex flex-col">
-        <div class="w-full overflow-x-auto">
-            <!-- Cabeçalho -->
-            <div class="flex flex-row font-bold text-xs text-teal-600 bg-gray-100 border-b border-teal-500">
-                <div *ngFor="let header of headersLabel; let i = index;" class="flex-1 p-2 text-left min-w-[100px] h-8 flex items-end cursor-pointer hover:font-bold hover:text-lg hover:text-teal-800 active:text-teal-600 transition-all" [style]="header.style" (click)="onClickHeaderField(headersFields[i].key)">
-                    {{header.key}}
+<div *ngIf="this.entities$">
+    <div class="hidden sm:block">
+        <mat-card class="rounded-t-xl p-5 w-full overflow-visible flex flex-col">
+            <div class="w-full overflow-x-auto">
+                <!-- Cabeçalho -->
+                <div class="flex flex-row font-bold text-xs text-teal-600 bg-gray-100 border-b border-teal-500">
+                    <div *ngFor="let header of headersLabel; let i = index;" class="flex-1 p-2 text-left min-w-[100px] h-8 flex items-end cursor-pointer hover:font-bold hover:text-lg hover:text-teal-800 active:text-teal-600 transition-all" [style]="header.style" (click)="onClickHeaderField(headersFields[i].key)">
+                        {{header.key}}
+                    </div>
                 </div>
-            </div>
 
-            <!-- Linhas de dados -->
-            <div *ngFor="let entity of this.entities$ | async; let isOdd = odd; let isEven = even" class="flex flex-row border-b border-gray-200 hover:bg-gray-200 transition-colors" [class]="{'bg-gray-50': isOdd, 'bg-gray-100': isEven}">
+                <!-- Linhas de dados -->
+                <div *ngFor="let entity of this.entities$ | async; let isOdd = odd; let isEven = even" class="flex flex-row border-b border-gray-200 hover:bg-gray-200 transition-colors" [class]="{'bg-gray-50': isOdd, 'bg-gray-100': isEven}">
 
-                <div *ngFor="let field of headersFields let i = index;" class="flex-1 p-2 text-left min-w-[100px] h-15 flex items-center" [style]="entity[field.key]?.styleCell">
+                    <div *ngFor="let field of headersFields let i = index;" class="flex-1 p-2 text-left min-w-[100px] h-15 flex items-center" [style]="entity[field.key]?.styleCell">
 
-                    <ng-container [ngSwitch]="entity[field.key]?.display">
-                        <!-- Ícones -->
-                        <ng-container *ngSwitchCase="'icons'">
-                            <mat-icon *ngFor="let icon of entity[field.key]?.icons" class="cursor-pointer hover:opacity-75 active:translate-y-0.5 active:text-teal-800 ml-3" [style]="entity[field.key]?.styleInsideCell" (click)="onClickIcon(icon, entity.id.key)">
-                                {{icon}}
-                            </mat-icon>
-                        </ng-container>
+                        <ng-container [ngSwitch]="entity[field.key]?.display">
+                            <!-- Ícones -->
+                            <ng-container *ngSwitchCase="'icons'">
+                                <mat-icon *ngFor="let icon of entity[field.key]?.icons" class="cursor-pointer hover:opacity-75 active:translate-y-0.5 active:text-teal-800 ml-3" [style]="entity[field.key]?.styleInsideCell" (click)="onClickIcon(icon, entity.id.key)">
+                                    {{icon}}
+                                </mat-icon>
+                            </ng-container>
 
-                        <!-- Botão -->
-                        <ng-container *ngSwitchCase="'button'">
-                            <button mat-raised-button class="bg-teal-500 hover:bg-teal-600 text-white font-medium py-1 px-3 rounded" [style]="entity[field.key]?.styleInsideCell" (click)="onClickButton(entity[field.key]?.key)">
+                            <!-- Botão -->
+                            <ng-container *ngSwitchCase="'button'">
+                                <button mat-raised-button class="bg-teal-500 hover:bg-teal-600 text-white font-medium py-1 px-3 rounded" [style]="entity[field.key]?.styleInsideCell" (click)="onClickButton(entity[field.key]?.key)">
                         {{entity[field.key]?.button}}
                     </button>
+                            </ng-container>
+
+                            <!-- Menu -->
+                            <ng-container *ngSwitchCase="'menu'">
+                                <ng-content select="[out-display]"></ng-content>
+                            </ng-container>
+
+                            <!-- Conteúdo padrão -->
+                            <ng-container *ngSwitchDefault>
+                                <div class="truncate" [style]="entity[field.key]?.styleInsideCell" (click)="tooltip.show()">
+                                    {{entity[field.key]?.key}}
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+
+        </mat-card>
+    </div>
+
+    <div class="sm:hidden p-4" *ngFor="let entity of this.entities$ | async">
+        <mat-card class="rounded-t-xl pt-5 w-full overflow-visible flex flex-col">
+            <div class="p-6 space-y-4 border border-color-main rounded-lg shadow-md bg-white">
+                <div *ngFor="let field of headersFields; let i = index" class="group">
+                    <ng-container [ngSwitch]="entity[field.key]?.display">
+
+
+                        <ng-container *ngSwitchCase="'icons'">
+                            <div class="flex justify-start space-x-4 py-3">
+                                <mat-icon class="btn-icon" [style]="entity[field.key]?.styleInsideCell" (click)="onClickIcon(icon, entity.id.key)" *ngFor="let icon of entity[field.key]?.icons">
+                                    {{icon}}
+                                </mat-icon>
+                            </div>
+                            <mat-divider class="border-2 bg-color-main mb-3"></mat-divider>
                         </ng-container>
 
-                        <!-- Menu -->
-                        <ng-container *ngSwitchCase="'menu'">
-                            <ng-content select="[out-display]"></ng-content>
-                        </ng-container>
 
-                        <!-- Conteúdo padrão -->
                         <ng-container *ngSwitchDefault>
-                            <div class="truncate" [style]="entity[field.key]?.styleInsideCell" (click)="tooltip.show()">
-                                {{entity[field.key]?.key}}
+                            <div class="flex flex-col justify-between items-start py-1 border-color-main last:border-0">
+                                <div class="w-full mb-1">
+                                    <span class="text-sm font-bold text-gray-500 uppercase tracking-wide">
+                {{headersLabel[i].key}}
+              </span>
+                                </div>
+                                <div class="w-full">
+                                    <p class="text-base text-black font-bold break-words">
+                                        {{entity[field.key]?.key}}
+                                    </p>
+                                </div>
                             </div>
                         </ng-container>
+
                     </ng-container>
                 </div>
             </div>
-        </div>
-
-    </mat-card>
-</div>
-
-<div class="sm:hidden p-4" *ngFor="let entity of this.entities$ | async">
-    <mat-card class="rounded-t-xl pt-5 w-full overflow-visible flex flex-col">
-        <div class="p-6 space-y-4 border border-color-main rounded-lg shadow-md bg-white">
-            <div *ngFor="let field of headersFields; let i = index" class="group">
-                <ng-container [ngSwitch]="entity[field.key]?.display">
-
-
-                    <ng-container *ngSwitchCase="'icons'">
-                        <div class="flex justify-start space-x-4 py-3">
-                            <mat-icon class="btn-icon" [style]="entity[field.key]?.styleInsideCell" (click)="onClickIcon(icon, entity.id.key)" *ngFor="let icon of entity[field.key]?.icons">
-                                {{icon}}
-                            </mat-icon>
-                        </div>
-                        <mat-divider class="border-2 bg-color-main mb-3"></mat-divider>
-                    </ng-container>
-
-
-                    <ng-container *ngSwitchDefault>
-                        <div class="flex flex-col justify-between items-start py-1 border-color-main last:border-0">
-                            <div class="w-full mb-1">
-                                <span class="text-sm font-bold text-gray-500 uppercase tracking-wide">
-                {{headersLabel[i].key}}
-              </span>
-                            </div>
-                            <div class="w-full">
-                                <p class="text-base text-black font-bold break-words">
-                                    {{entity[field.key]?.key}}
-                                </p>
-                            </div>
-                        </div>
-                    </ng-container>
-
-                </ng-container>
-            </div>
-        </div>
-    </mat-card>
+        </mat-card>
+    </div>
 </div>
 <spinner-g [entities]="entities$" [optionalTitle]="'(Lista)'" [_empty]="spinerNoRegisterClean">
 </spinner-g>

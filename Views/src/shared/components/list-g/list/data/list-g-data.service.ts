@@ -1,7 +1,9 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { FormControl } from "@angular/forms";
 import { BehaviorSubject } from "rxjs";
 import { environment } from "src/environments/environment";
+import { PaginationDto } from "src/shared/entities-dtos/pagination-dto";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 
 @Injectable({providedIn: 'root'})
@@ -28,26 +30,26 @@ export class ListGDataService extends BackEndService<any> {
 
   }
 
-  // paramsTo(pageIndex: number, pgSize: number, predicate?: number, $event?: FormControl, terms?: any, orderBy?: any) {
-  //   let params = new HttpParams();
-  //   params = params.append('pgnumber', pageIndex);
-  //   params = params.append('pgsize', pgSize);
-  //   params = params.append('predicate', predicate ?? JSON.parse(localStorage.getItem('companyId')));
-  //   params = params.append('term', $event?.value ?? '');
-  //   params = params.append('filterterms', JSON.stringify(terms) ?? '');
-  //   params = params.append('orderby', JSON.stringify(orderBy) ?? '');
-  //   return params;
-  // }
+  paramsTo(pageIndex: number, pgSize: number, predicate?: number, $event?: FormControl, terms?: any, orderBy?: any) {
+    let params = new HttpParams();
+    params = params.append('pgnumber', pageIndex);
+    params = params.append('pgsize', pgSize);
+    params = params.append('predicate', predicate ?? JSON.parse(localStorage.getItem('companyId')));
+    params = params.append('term', $event?.value ?? '');
+    params = params.append('filterterms', JSON.stringify(terms) ?? '');
+    params = params.append('orderby', JSON.stringify(orderBy) ?? '');
+    return params;
+  }
 
-  // pagination: PaginationDto = new PaginationDto();
-  // getAllEntitiesPaged(backEndUrl: string, params: HttpParams) {
-  //   this.loadAllPaged$<any[]>(backEndUrl, params)
-  //     .subscribe((entities: any) => {
-  //       this.pagination = JSON.parse(entities.headers.get('Pagination'));
-  //       // this.lengthPaginator.next(this.pagination.totalCount);
-  //       this.entitiesFromDb.next(entities.body);
-  //     })
-  // }
+  pagination: PaginationDto = new PaginationDto();
+  getAllEntitiesPaged(backEndUrl: string, params: HttpParams) {
+    this.loadAllPaged$<any[]>(backEndUrl, params)
+      .subscribe((entities: any) => {
+        this.pagination = JSON.parse(entities.headers.get('Pagination'));
+        // this.lengthPaginator.next(this.pagination.totalCount);
+        this.entitiesFromDb.next(entities.body);
+      })
+  }
 
 
   // getAllEntitiesNoPagedWithParams(backEndUrl: string, params: HttpParams) {

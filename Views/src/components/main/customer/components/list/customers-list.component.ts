@@ -89,8 +89,10 @@ export class CustomersListComponent extends ListControlCustomerList implements O
   }
 
   ngOnInit(): void {
-    this._listGDataService.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllFnBankAccount`, this.companyId);
+    this._listGDataService.getAllEntitiesPaged(this.backEndUrl, this._listGDataService.paramsTo(1, this.pageSize));
+    //this._listGDataService.getAllEntitiesInMemoryPaged(this.backEndUrl, this.companyId);
     this.customerSubscribe = this.startSupply();
+
   }
 
   // pageSize: number = 20;
@@ -99,7 +101,7 @@ export class CustomersListComponent extends ListControlCustomerList implements O
 
   // @Input() fieldsInEnglish: string[] = ['id', 'name', 'assured', 'responsible'];
 
-  // gridListCommonHelper = new GridListCommonHelper(this._http);
+   gridListCommonHelper = new GridListCommonHelper(this._http);
   // gridListCommonHelper = new GridListCommonHelper(this._http, this._route);
 
   showHideFilterMtd($event: boolean) {

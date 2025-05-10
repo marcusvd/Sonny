@@ -32,42 +32,6 @@ export class ListControlCustomerList extends BaseList {
     )
   }
 
-  supplyItemsGrid = (customerList: CustomerListDto[], customer: CustomerDto) => {
-
-    const items: CustomerListDto = new CustomerListDto();
-
-    Object.assign(items, {
-
-      id: {
-        key: customer.id.toString(),
-        display: 'icons',
-        icons: ['list', 'edit', 'home'],
-        styleInsideCell: `color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,
-        styleCell: '',
-        route: ''
-      },
-
-      name: {
-        key: customer.name,
-        styleCell: 'width:100%;',
-
-      },
-
-      assured: {
-        key: customer.assured,
-        styleCell: 'width:100%;',
-      },
-
-      responsible: {
-        key: customer.responsible,
-        styleCell: 'width:100%;',
-      }
-    })
-
-    customerList.push(items);
-
-    return customerList;
-  }
 
   labelHeadersMiddle = () => {
     return [
@@ -131,6 +95,43 @@ export class ListControlCustomerList extends BaseList {
     // ex_callRouteWithObject('/side-nav/stock-product-router/detailed-product', this.products.find(x => x.id == obj.entityId), this._router)
   }
 
+  supplyItemsGrid = (customerList: CustomerListDto[], customer: CustomerDto) => {
+
+    const items: CustomerListDto = new CustomerListDto();
+
+    Object.assign(items, {
+
+      id: {
+        key: customer.id.toString(),
+        display: 'icons',
+        icons: ['list', 'edit', 'home'],
+        styleInsideCell: `color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,
+        styleCell: '',
+        route: ''
+      },
+
+      name: {
+        key: customer.name,
+        styleCell: 'width:100%;',
+
+      },
+
+      assured: {
+        key: customer.assured,
+        styleCell: 'width:100%;',
+      },
+
+      responsible: {
+        key: customer.responsible,
+        styleCell: 'width:100%;',
+      }
+    })
+
+    customerList.push(items);
+
+    return customerList;
+  }
+
   startSupply(): Subscription {
 
     let entities: CustomerListDto[] = [];
@@ -140,12 +141,15 @@ export class ListControlCustomerList extends BaseList {
         next: (x: CustomerDto[]) => {
           x.forEach(
             (y: CustomerDto) => {
-              this.entities$ = of(this.supplyItemsGrid(entities, y));
+              this.entities = this.supplyItemsGrid(entities, y);
+              this.entities$ = of(this.entities);
             })
+
           this.getCurrent();
         }
       }
     )
+
 
   }
 

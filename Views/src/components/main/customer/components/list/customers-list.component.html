@@ -51,7 +51,7 @@
     </div>
 </div> -->
 
-<div class="container-btns-paginator-above">
+<div *ngIf="this.entitiesFiltered$" class="container-btns-paginator-above">
     <div>
         <mat-card>
             <sub-title title [title]="'Clientes cadastrados'" [icon]="'list'"></sub-title>
@@ -59,23 +59,25 @@
 
             <div class="border-around">
                 <title-component [digit]="'|'" [textTitleComp]="'Clientes'" [icon]="'record_voice_over'">
-                    <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="callRouter('/side-nav/customer-dash/create')"></btn-g>
                 </title-component>
 
                 <div class="btns">
-                    <btn-g add btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="this.callRouter('/side-nav/stock-product-router/add-product')"></btn-g>
+                    <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="callRouter('/side-nav/customer-dash/create')"></btn-g>
 
                     <btn-filter-g (arrowOut)="showHideFilterMtd($event)">
+
                     </btn-filter-g>
+
                 </div>
                 <div class="paginator-above">
-                    <mat-paginator #paginatorAbove [length]="1" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
+                    <mat-paginator #paginatorAbove [length]="this.entities.length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
                 </div>
             </div>
-            <list-g [headersLabel]="headers" [headersFields]="fields" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
+
+            <list-g [headersLabel]="labelHeadersMiddle()" [headersFields]="fieldsHeadersMiddle()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
             </list-g>
 
-            <mat-paginator #paginatorBelow [length]="1" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
+            <mat-paginator #paginatorBelow [length]="this.entities.length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
         </mat-card>
 
     </div>

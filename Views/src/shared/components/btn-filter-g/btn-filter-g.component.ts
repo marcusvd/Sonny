@@ -67,7 +67,7 @@ import { ValidatorMessagesCustomer } from 'src/components/main/customer/validato
   imports: [
     NgIf,
     MatButtonModule,
-    
+
     MatIconModule,
   ]
 })
