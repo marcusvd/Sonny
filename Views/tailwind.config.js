@@ -6,8 +6,8 @@ module.exports = {
     theme: {
         extend: {
             backgroundColor: {
-                'main-color': '#2ba1a8'
-                    // mainColor: 'rgb(43, 161, 168)'
+                'main-color': '#2ba1a8',
+                'backgroud-color': 'rgb(237, 237, 237)'
             },
             colors: {
                 'color-title-comp': '#555555',

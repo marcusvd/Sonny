@@ -1,6 +1,10 @@
 <div *ngIf="this.entities$">
-    <div class="hidden sm:block">
-        <mat-card class="rounded-t-xl p-5 w-full overflow-visible flex flex-col">
+    <!-- Large -->
+    <div class="bg-backgroud-color hidden sm:block p-4">
+        <div>
+            <ng-content select="[pg-above]"></ng-content>
+        </div>
+        <mat-card class="rounded-t-xl w-full overflow-visible flex flex-col">
             <div class="w-full overflow-x-auto">
                 <!-- Cabeçalho -->
                 <div class="flex flex-row font-bold text-xs text-teal-600 bg-gray-100 border-b border-teal-500">
@@ -46,44 +50,53 @@
             </div>
 
         </mat-card>
+        <div>
+            <ng-content select="[pg-below]"></ng-content>
+        </div>
     </div>
+    <!-- Mobile -->
+    <div class="sm:hidden p-4 bg-backgroud-color">
+        <div>
+            <ng-content select="[pg-above-mobile]"></ng-content>
+        </div>
+        <div *ngFor="let entity of this.entities$ | async">
+            <mat-card class="!w-full mb-4 !rounded-t-xl">
+                <div class="p-4 rounded-t-xl space-y-4 border border-color-main shadow-md bg-white">
+                    <div *ngFor="let field of headersFields; let i = index" class="group">
+                        <ng-container [ngSwitch]="entity[field.key]?.display">
 
-    <div class="sm:hidden p-4" *ngFor="let entity of this.entities$ | async">
-        <mat-card class="rounded-t-xl pt-5 w-full overflow-visible flex flex-col">
-            <div class="p-6 space-y-4 border border-color-main rounded-lg shadow-md bg-white">
-                <div *ngFor="let field of headersFields; let i = index" class="group">
-                    <ng-container [ngSwitch]="entity[field.key]?.display">
+                            <ng-container *ngSwitchCase="'icons'">
+                                <div class="flex justify-start space-x-4 py-3">
+                                    <mat-icon class="btn-icon" [style]="entity[field.key]?.styleInsideCell" (click)="onClickIcon(icon, entity.id.key)" *ngFor="let icon of entity[field.key]?.icons">
+                                        {{icon}}
+                                    </mat-icon>
+                                </div>
+                                <mat-divider class="border-2 bg-color-main mb-3"></mat-divider>
+                            </ng-container>
 
-
-                        <ng-container *ngSwitchCase="'icons'">
-                            <div class="flex justify-start space-x-4 py-3">
-                                <mat-icon class="btn-icon" [style]="entity[field.key]?.styleInsideCell" (click)="onClickIcon(icon, entity.id.key)" *ngFor="let icon of entity[field.key]?.icons">
-                                    {{icon}}
-                                </mat-icon>
-                            </div>
-                            <mat-divider class="border-2 bg-color-main mb-3"></mat-divider>
-                        </ng-container>
-
-
-                        <ng-container *ngSwitchDefault>
-                            <div class="flex flex-col justify-between items-start py-1 border-color-main last:border-0">
-                                <div class="w-full mb-1">
-                                    <span class="text-sm font-bold text-gray-500 uppercase tracking-wide">
+                            <ng-container *ngSwitchDefault>
+                                <div class="flex flex-col justify-between items-start py-1 border-color-main last:border-0">
+                                    <div class="w-full mb-1">
+                                        <span class="text-sm font-bold text-gray-500 uppercase tracking-wide">
                 {{headersLabel[i].key}}
               </span>
+                                    </div>
+                                    <div class="w-full">
+                                        <p class="text-base text-black font-bold break-words">
+                                            {{entity[field.key]?.key}}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="w-full">
-                                    <p class="text-base text-black font-bold break-words">
-                                        {{entity[field.key]?.key}}
-                                    </p>
-                                </div>
-                            </div>
-                        </ng-container>
+                            </ng-container>
 
-                    </ng-container>
+                        </ng-container>
+                    </div>
                 </div>
-            </div>
-        </mat-card>
+            </mat-card>
+        </div>
+        <div class="mb-24">
+            <ng-content select="[pg-below-mobile]"></ng-content>
+        </div>
     </div>
 </div>
 <spinner-g [entities]="entities$" [optionalTitle]="'(Lista)'" [_empty]="spinerNoRegisterClean">

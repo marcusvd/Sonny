@@ -1,45 +1,33 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { FormControl, FormGroup } from '@angular/forms';
-import { MatButtonModule as MatButtonModule } from '@angular/material/button';
-import { MatCardModule as MatCardModule } from '@angular/material/card';
-import { MatDialog as MatDialog } from '@angular/material/dialog';
-import { MatMenuModule as MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialog } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Observable, of, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 
-import { MatPaginator as MatPaginator, MatPaginatorModule as MatPaginatorModule, PageEvent as PageEvent } from '@angular/material/paginator';
-import { map, tap } from 'rxjs/operators';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
-import { BtnFilterGComponent } from 'src/shared/components/btn-filter-g/btn-filter-g.component';
+import { BtnGDynamicComponent } from 'src/shared/components/btn-g-dynamic/btn-g-dynamic.component';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delete-dialog.component';
-import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
-import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
-import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
-import { IEntityGridAction } from 'src/shared/components/grid-list-common/interface/entity-grid-action';
+import { ListGComponent } from 'src/shared/components/list-g/list/list-g.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
-import { CustomerDto } from '../commons-components/dtos/customer-dto';
-import { FilterTerms } from '../commons-components/query/filter-terms';
-import { OrderBy } from '../commons-components/query/order-by';
-import { CustomerFilterListGComponent } from './customer-filter-list/customer-filter-list.component';
-import { CustomerListDto } from './dto/customer-list.dto';
-import { CustomerListService } from './services/customer-list.service';
-import { ListGComponent } from 'src/shared/components/list-g/list/list-g.component';
-import { environment } from 'src/environments/environment';
 import { ListControlCustomerList } from './helpers/list-control-customer-list';
+import { CustomerFilterListGComponent } from './customer-filter-list/customer-filter-list.component';
+import { CustomerListService } from './services/customer-list.service';
 
 @Component({
   selector: 'customers-list',
   templateUrl: './customers-list.component.html',
-  styleUrls: ['./customers-list.component.css'],
+  styleUrls: ['./customers-list.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
@@ -51,9 +39,9 @@ import { ListControlCustomerList } from './helpers/list-control-customer-list';
     ListGComponent,
     TitleComponent,
     SubTitleComponent,
-    BtnFilterGComponent,
+    BtnGDynamicComponent,
     BtnGComponent,
-    // CustomerFilterListGComponent
+    CustomerFilterListGComponent
   ],
   providers: [
     CustomerListService

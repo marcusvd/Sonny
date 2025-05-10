@@ -1,4 +1,4 @@
-import { JsonPipe, NgFor, NgIf } from '@angular/common';
+import { CommonModule, JsonPipe, NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -10,132 +10,74 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMaskModule } from 'ngx-mask';
-import { ValidatorMessagesCustomer } from 'src/components/main/customer/validators/customer/validators-messages-customer';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { ValidatorMessagesCustomer } from '../../../../../../../src/components/main/customer/validators/customer/validators-messages-customer';
+import { ValidatorMessages } from '../../../../../../../src/shared/helpers/validators/validators-messages';
 import { FilterSearch } from './interface/filter-search';
+import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
+import { ex_formControlSearch, ex_search } from 'src/shared/helpers/search-field/search-field';
 
 @Component({
   selector: 'customer-filter-list',
   templateUrl: './customer-filter-list.component.html',
-  styles: [`
-            .btn-settings {
-              font-size: 15px;
-              color: white;
-              background-color: #2ba1a8;
-            }
-
-            #mat-icon-search-column {
-              margin-top:6px; margin-right:10px; margin-left:-5px;
-            }
-            #vertical-line-divider{
-              border-left: 0.5px solid silver;
-            }
-            #space-items-rigt-vertical-line{
-              margin-right:15px;
-            }
-            #icons-arrow-up-down
-            {
-              margin-top:6px; margin-left:-7px; width: 18px;
-            }
-            #space-items-left-vertical-line{
-              margin-right:10px;
-            }
-            ::ng-deep .mat-form-field-appearance-outline.mat-focused
-            ::ng-deep .mat-form-field-outline-thick {
-              color: #2ba1a8;
-            box-shadow: 0 2px 2px #2ba1a8;
-            border-radius: 10px;
-           }
-
-           #refresh-icon{
-            padding-top:7px; margin-left:-10px;
-           }
-           #space-refresh-icon-text-button{
-             width:10px;
-          }
-          #mat-card{
-            background-color: rgb(249,249,249);
-          }
-          #entityType{
-            margin-top: 30px;
-          }
-          #assured{
-            margin-top: 40px;
-          }
-          #notassured{
-            margin-top: 40px;
-          }
-          #btn-apply{
-            margin-top: 35px;
-          }`],
+  styleUrls: ['./customer-filter-list.component.scss'],
   standalone: true,
   imports: [
-    NgIf,
-    NgFor,
+    CommonModule,
     MatButtonModule,
-
     MatIconModule,
-    MatDividerModule,
     MatInputModule,
     MatCardModule,
-    MatCheckboxModule,
+    // MatCheckboxModule,
     ReactiveFormsModule,
     MatSelectModule,
-    NgxMaskModule,
-    JsonPipe,
+    BtnGComponent
+    // NgxMaskModule,
   ]
 })
 
 export class CustomerFilterListGComponent implements OnInit {
 
   constructor(private _fb: FormBuilder) { }
-
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
-
-  private valMessagesCustomer = ValidatorMessagesCustomer;
-  get validatorMessagesCustomer() {
-    return this.valMessagesCustomer
-  }
-
   formMain: FormGroup = new FormGroup({});
 
-  entities: FilterSearch[] = [{ key: 'PJ', value: '0' }, {key:'PF', value:'1'}, {key:'Selecione', value:'Selecione'}];
-  assureds: FilterSearch[] = [{ key: 'Assegurado', value: 'true' }, {key:'Não Assegurado', value:'false'}, {key:'Selecione', value:'Selecione'}];
+  entities: FilterSearch[] = [{ key: 'PJ', value: '0' }, { key: 'PF', value: '1' }, { key: 'Selecione', value: 'Selecione' }];
+  assureds: FilterSearch[] = [{ key: 'Assegurado', value: 'true' }, { key: 'Não Assegurado', value: 'false' }, { key: 'Selecione', value: 'Selecione' }];
 
+  select = new FormControl();
+  arrow: boolean = false;
+  @Output() filterFormOut = new EventEmitter<FormGroup>();
+  @Input() showHideFilter: boolean;
+  filterMtd() {
+    this.arrow = !this.arrow;
+    this.filterFormOut.emit(this.formMain);
+    this.formMain.reset();
+    this.formLoad();
+  }
 
-select = new FormControl();
-arrow: boolean = false;
-@Output() filterFormOut = new EventEmitter<FormGroup>();
-@Input() showHideFilter: boolean;
-filterMtd() {
-  this.arrow = !this.arrow;
-  this.filterFormOut.emit(this.formMain);
-  this.formMain.reset();
-  this.formLoad();
-}
+  entitySelected: string;
+  entitySelect(value: string) {
+    this.entitySelected = value;
+  }
 
-entitySelected: string;
-entitySelect(value: string) {
-  this.entitySelected = value;
-}
+  assuredSelected: string;
+  assuredSelect(value: string) {
+    this.assuredSelected = value;
 
-assuredSelected: string;
-assuredSelect(value: string) {
-  this.assuredSelected = value;
+  }
 
-}
+  formLoad() {
+    this.formMain = this._fb.group({
+      assured: ['Selecione', []],
+      entity: ['Selecione', []]
+    })
+  }
 
-formLoad() {
-  this.formMain = this._fb.group({
-    assured: ['Selecione', []],
-    entity: ['Selecione', []]
-  })
-}
+  ngOnInit(): void {
+    this.formLoad();
+  }
 
-ngOnInit(): void {
-  this.formLoad();
-}
+    formControlSearch = ex_formControlSearch;
+
+    //METHODS
+    search = ex_search
 }

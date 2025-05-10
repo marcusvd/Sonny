@@ -14,7 +14,7 @@ import { Observable, of } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule as MatPaginatorModule } from '@angular/material/paginator';
 import { map } from 'rxjs/operators';
-import { BtnFilterGComponent } from 'src/shared/components/btn-filter-g/btn-filter-g.component';
+import { BtnGDynamicComponent } from 'src/shared/components/btn-g-dynamic/btn-g-dynamic.component';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delete-dialog.component';
 import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
@@ -47,14 +47,14 @@ import { CollectDeliverListService } from './services/collect-deliver-list.servi
     MatMenuModule,
     MatIconModule,
     RouterModule,
-    
+
     GridListCommonComponent,
     GridListCommonTableComponent,
     GridListCommonSearchComponent,
     TitleComponent,
     SubTitleComponent,
     CollectDeliverListFilterComponent,
-    BtnFilterGComponent,
+    BtnGDynamicComponent,
     BtnGComponent
   ],
   providers: [
@@ -70,7 +70,7 @@ export class CollectDeliverListComponent extends FrontEndListFilterCollectDelive
     override _dialog: MatDialog,
     private _ptBrDatePipe: PtBrDatePipe,
     private _ptBrCurrencyPipe: PtBrCurrencyPipe,
-    
+
     override _listServices: CollectDeliverListService,
     private elementRef: ElementRef
   ) {
@@ -82,7 +82,7 @@ export class CollectDeliverListComponent extends FrontEndListFilterCollectDelive
       new GridListCommonHelper(_http),
       ['', 'Cobrança', 'Valor'],
       ['billingFrom', 'price'],
-      
+
       _listServices
     )
   }

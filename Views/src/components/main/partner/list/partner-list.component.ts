@@ -13,7 +13,7 @@ import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 
-import { BtnFilterGComponent } from 'src/shared/components/btn-filter-g/btn-filter-g.component';
+import { BtnGDynamicComponent } from 'src/shared/components/btn-g-dynamic/btn-g-dynamic.component';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delete-dialog.component';
 import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
@@ -47,7 +47,7 @@ import { PartnerListService } from './services/partner-list.service';
     GridListCommonSearchComponent,
     TitleComponent,
     SubTitleComponent,
-    BtnFilterGComponent,
+    BtnGDynamicComponent,
     BtnGComponent,
     PartnerFilterListGComponent
   ],

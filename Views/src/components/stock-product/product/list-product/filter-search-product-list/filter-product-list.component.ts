@@ -9,7 +9,7 @@ import { SegmentDto } from '../../dtos/segment-dto';
 import { ProductList } from '../dto/product-list';
 import { makeFilterSelectByManufacturer, makeFilterSelectBySegment } from './helpers/make-select-filter';
 import { ex_onSelectedManufacturer, ex_onSelectedProduct, ex_onSelectedSegment } from './helpers/on-select-entity-filter';
-import { ex_formControlSearch, ex_search } from './helpers/search-field';
+import { ex_formControlSearch, ex_search } from '../../../../../shared/helpers/search-field/search-field';
 import { ImportsListFilterSearch } from './useful/imports-list-filter-search';
 import { FormControl } from '@angular/forms';
 
@@ -43,7 +43,7 @@ export class FilterProductListComponent extends BaseList implements OnInit {
   //OBSERVABLES
   segments$: Observable<SegmentDto[]>;
   manufacturers$: Observable<ManufacturerDto[]>
-  
+
   // FORMCONTROLS
   productTypeFormControl = new FormControl(null);
   productTypeSearchFormControl = new FormControl('');
@@ -53,7 +53,7 @@ export class FilterProductListComponent extends BaseList implements OnInit {
 
   manufacturerFormControl = new FormControl(null);
   manufacturerSearchFormControl = new FormControl('');
-  
+
   //SIMPLE-VARIABLES
   // resetControlForm = ex_resetControlForm
   formControlSearch = ex_formControlSearch;
