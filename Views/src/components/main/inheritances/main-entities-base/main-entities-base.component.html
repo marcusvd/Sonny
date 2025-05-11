@@ -1,10 +1,10 @@
-<div [formGroup]="formMain">
+<div class="p-4" [formGroup]="formMain">
     <div class="middle-space-horizontal-beteween-fields"> </div>
-    <div   fxLayoutGap="15">
+    <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-        <div>
-            <mat-form-field  appearance="outline">
-                <mat-label>Responsável</mat-label>
+        <div class="w-full">
+            <mat-label>Responsável</mat-label>
+            <mat-form-field class="w-full" appearance="outline">
                 <input matInput type="text" formControlName="responsible" aria-label="Responsável">
                 <mat-error>
                     <span>{{validatorMessages.required(formMain,'responsible', 'Responsável')}}</span>
@@ -12,10 +12,9 @@
                 </mat-error>
             </mat-form-field>
         </div>
-        <div   *ngIf="businessLine">
-            <mat-form-field  appearance="outline">
-                <mat-label class="mat-label">Área de atuação / Segmento
-                </mat-label>
+        <div *ngIf="businessLine" class="w-full">
+            <mat-label class="mat-label">Área de atuação / Segmento</mat-label>
+            <mat-form-field class="w-full" appearance="outline">
                 <input matInput type="text" formControlName="businessLine" aria-label="Área de atenção / Segmento">
                 <mat-error>
                     <span>{{validatorMessages.required(formMain,'businessLine', 'Valor')}}</span>
@@ -23,9 +22,9 @@
                 </mat-error>
             </mat-form-field>
         </div>
-        <div   *ngIf="specificBusinessLine">
-            <mat-form-field appearance="outline" >
-                <mat-label>Serviço prestado</mat-label>
+        <div class="w-full" *ngIf="specificBusinessLine">
+            <mat-label>Serviço prestado</mat-label>
+            <mat-form-field class="w-full" appearance="outline">
                 <mat-select placeholder="Pesquise pelo nome" #singleSelect formControlName="partnerBusiness">
                     <!-- [value]="this.formMain.get('partnerBusiness').value" -->
                     <mat-option *ngFor="let specific of businesslineArray" [value]="specific.id">
@@ -39,5 +38,5 @@
 </div>
 
 
-<!-- <div   fxLayoutGap="5">
+<!-- <div   >
 </div> -->

@@ -1,53 +1,67 @@
-<div [formGroup]="formMain" >
+<div class="p-4" [formGroup]="formMain">
 
-    <div>
-        <div   *ngIf="!formMain.get('entityType').value">
-            <mat-form-field appearance="outline">
-                <mat-label>CPF</mat-label>
-                <input type="text" #cpf (blur)="isValid(cpf.value,'cpf',formMain, 'cnpj')" matInput [mask]="pixInputMask('CPF')" [placeholder]="pixInputMask('CPF')" formControlName="cnpj" aria-label="CPF">
+    <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+        <div class="w-full">
+            <mat-label>Nome</mat-label>
+            <mat-form-field class="w-full" appearance="outline" *ngIf="name">
+                <input matInput type="text" formControlName="name" aria-label="Nome">
                 <mat-error>
-                    <span>{{validatorMessages.isValidCpf(formMain,'cnpj')}}</span>
+                    <!-- <span>{{validatorMessages.required(formMain,'name', 'Nome')}}</span> -->
+                    <!-- <span>{{validatorMessages.minMaxLength(formMain,'name', 'Nome',null,150)}}</span> -->
                 </mat-error>
             </mat-form-field>
         </div>
 
-        <div   *ngIf="formMain.get('entityType').value">
-            <div  fxLayoutGap="30px">
-                <mat-form-field appearance="outline"  >
-                    <mat-label>CNPJ</mat-label>
-                    <input type="text" #cnpj (blur)="isValid(cnpj.value,'cnpj',formMain, 'cnpj')" matInput [mask]="pixInputMask('CNPJ')" [placeholder]="pixInputMask('CNPJ')" formControlName="cnpj" aria-label="CNPJ">
+        <div class="w-full">
+            <div class="w-full" *ngIf="!formMain.get('entityType').value">
+                <mat-label>CPF</mat-label>
+                <mat-form-field class="w-full" appearance="outline">
+                    <input type="text" #cpf (input)="getCnpjNumbers(cpf.value)" (blur)="isValid(cpf.value,'cpf',formMain, 'cnpj')" matInput [mask]="pixInputMask('CPF')" [placeholder]="pixInputMask('CPF')" formControlName="cnpj" aria-label="CPF">
                     <mat-error>
-                        <span>{{validatorMessages.isValidCnpj(formMain,'cnpj')}}</span>
+                        <!-- <span>{{validatorMessages.isValidCpf(formMain,'cnpj')}}</span> -->
                     </mat-error>
                 </mat-form-field>
-                <div *ngIf="btnGetData">
-                    <div  *ngIf="formMain.get('entityType').value">
-                        <div>
-                            <button class="get-btn" mat-raised-button (click)="getCnpjData(cnpj.value,'cnpj',formMain, 'cnpj')" (blur)="isValid(cnpj.value,'cnpj',formMain, 'cnpj')">Obter dados</button>
-                        </div>
+            </div>
+
+            <div class="w-full" *ngIf="formMain.get('entityType').value">
+                <mat-label>CNPJ</mat-label>
+                <mat-form-field class="w-full" appearance="outline">
+                    <input type="text" #cnpj (input)="getCnpjNumbers(cnpj.value)" (blur)="isValid(this.cnpjNumbers,'cnpj',formMain, 'cnpj')" matInput [mask]="pixInputMask('CNPJ')" [placeholder]="pixInputMask('CNPJ')" formControlName="cnpj" aria-label="CNPJ">
+                    <mat-error>
+                        <!-- <span>{{validatorMessages.isValidCnpj(formMain,'cnpj')}}</span> -->
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <mat-checkbox formControlName="entityType">
+                    <mat-label>Empresa</mat-label>
+                </mat-checkbox>
+                <div *ngIf="formMain.get('entityType').value">
+                    <div>
+                        <button class="get-btn" mat-raised-button (click)="getCnpjData(this.cnpjNumbers,'cnpj',formMain, 'cnpj')" (blur)="isValid(this.cnpjNumbers,'cnpj',formMain, 'cnpj')">Obter dados</button>
                     </div>
                 </div>
+            </div>
+
+        </div>
+
+        <!-- <div *ngIf="btnGetData">
+        <div *ngIf="formMain.get('entityType').value">
+            <div>
+                <button class="get-btn" mat-raised-button (click)="getCnpjData(this.cnpjNumbers,'cnpj',formMain, 'cnpj')" (blur)="isValid(this.cnpjNumbers,'cnpj',formMain, 'cnpj')">Obter dados</button>
             </div>
         </div>
     </div>
     <div>
-        <div >
+        <div>
             <mat-checkbox formControlName="entityType">
             </mat-checkbox>
-            <!-- <mat-checkbox [formControlName]="entityType">
-            </mat-checkbox> -->
-            <div class="check-box-label-space"></div>
             <mat-label>Empresa</mat-label>
+            <div class="check-box-label-space"></div>
         </div>
-    </div>
-    <div class="middle-space-horizontal-beteween-fields"> </div>
+    </div> -->
 
-    <mat-form-field appearance="outline" *ngIf="name">
-        <mat-label>Nome</mat-label>
-        <input matInput type="text" formControlName="name" aria-label="Nome">
-        <mat-error>
-            <span>{{validatorMessages.required(formMain,'name', 'Nome')}}</span>
-            <span>{{validatorMessages.minMaxLength(formMain,'name', 'Nome',null,150)}}</span>
-        </mat-error>
-    </mat-form-field>
+
+    </div>
 </div>

@@ -1,56 +1,46 @@
-<div class="border-around" [formGroup]="formMain">
+<div class="p-4" [formGroup]="formMain">
     <title-component [digit]="'|'" [textTitleComp]="'Cadastro de clientes'" [icon]="'record_voice_over'">
 
     </title-component>
     <mat-card class="mat-card-sub-title">
         <sub-title title [title]="'Cadastro de clientes'" [icon]="'add'"></sub-title>
-        <div >
+        <div>
             <h3>Identificação Cliente</h3>
         </div>
-        <div >
-            <div >
-                <name-cpf-cnpj (cpfCnpjBusinessData)="cpfCnpjBusinessData($event)" [formMain]="formMain" > </name-cpf-cnpj>
+        <div>
+            <div>
+                <name-cpf-cnpj (cpfCnpjBusinessData)="cpfCnpjBusinessData($event)" [formMain]="formMain"> </name-cpf-cnpj>
                 <!-- <name-cpf-cnpj (cpfCnpjBusinessData)="cpfCnpjBusinessData($event)" [formMain]="formMain" [entityType]="'entityType'" > </name-cpf-cnpj> -->
             </div>
-            <div >
-                <main-entities-base [formMain]="formMain" [businessLine]="true" >
+            <div>
+                <main-entities-base [formMain]="formMain" [businessLine]="true">
 
                 </main-entities-base>
             </div>
         </div>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
         <mat-divider></mat-divider>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
         <financial-info-type [formMain]="formMain" [subForm]="subForm" [additionalCosts]="additionalCosts">
         </financial-info-type>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
         <mat-divider></mat-divider>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div >
-            <div >
-                <physically-moving-costs [formMain]="subForm" >
+        <div>
+            <div>
+                <physically-moving-costs [formMain]="subForm">
                 </physically-moving-costs>
             </div>
         </div>
         <description-field [formMain]="formMain" [maxLength]="2000">
         </description-field>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
         <mat-divider></mat-divider>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div >
-            <div >
-                <address [formMain]="this.address" ></address>
+        <div>
+            <div>
+                <address [formMain]="this.address"></address>
             </div>
-            <div class="middle-space-horizontal-beteween-fields"> </div>
             <mat-divider></mat-divider>
-            <div class="middle-space-horizontal-beteween-fields"> </div>
-            <div >
-                <contact  [formMain]="this.contact"></contact>
+            <div>
+                <contact [formMain]="this.contact"></contact>
             </div>
         </div>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
         <mat-divider></mat-divider>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
         <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
     </mat-card>
 </div>

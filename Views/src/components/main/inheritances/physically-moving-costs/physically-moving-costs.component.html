@@ -1,12 +1,11 @@
-<div >
+<div>
     <h3>Custos Deslocamento</h3>
 </div>
-<div [formGroup]="formMain"   fxLayoutGap="5">
+<div class="p-4 w-full grid grid-cols-1 sm:grid-cols-4 gap-4" [formGroup]="formMain">
 
-    <div>
-        <mat-label class="mat-label">Combustível
-        </mat-label>
-        <mat-form-field >
+    <div class="w-full">
+        <mat-label>Combustível</mat-label>
+        <mat-form-field class="w-full">
             <input matInput type="text" currencyMask formControlName="fuel" aria-label="Combustível">
             <mat-error>
 
@@ -15,10 +14,9 @@
             </mat-error>
         </mat-form-field>
     </div>
-    <div>
-        <mat-label class="mat-label">Aplicativo
-        </mat-label>
-        <mat-form-field >
+    <div class="w-full">
+        <mat-label>Aplicativo</mat-label>
+        <mat-form-field class="w-full">
             <input matInput type="text" currencyMask formControlName="apps" aria-label="Aplicativo">
             <mat-error>
 
@@ -27,11 +25,10 @@
             </mat-error>
         </mat-form-field>
     </div>
-    <div class="small-space-horizontal-beteween-fields"> </div>
-    <div>
-        <mat-label class="mat-label">Transporte publico
-        </mat-label>
-        <mat-form-field >
+
+    <div class="w-full">
+        <mat-label>Transporte publico</mat-label>
+        <mat-form-field class="w-full">
             <input matInput type="text" currencyMask formControlName="publicTransport" aria-label="Transporte publico">
             <mat-error>
 
@@ -40,10 +37,9 @@
             </mat-error>
         </mat-form-field>
     </div>
-    <div>
-        <mat-label class="mat-label">Moto Boy
-        </mat-label>
-        <mat-form-field >
+    <div class="w-full">
+        <mat-label>Moto Boy</mat-label>
+        <mat-form-field class="w-full">
             <input matInput type="text" currencyMask formControlName="motoBoy" aria-label="Moto Boy">
             <mat-error>
                 <span>{{validatorMessages.minMaxLength(formMain,'motoBoy', 'Valor',null,150)}}</span>

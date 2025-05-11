@@ -15,7 +15,7 @@
                 <mat-paginator class="!bg-backgroud-color" #paginatorAbove [length]="this.entities.length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
             </div>
         </div>
-        <customer-filter-list class="!bg-backgroud-color" [showHideFilter]="showHideFilter" (filterFormOut)="filter($event)">
+        <customer-filter-list class="!bg-backgroud-color" [showHideFilter]="showHideFilter" (filterFormOut)="filter($event)" (outFieldSearch)="search($event)">
         </customer-filter-list>
         <list-g [headersLabel]="labelHeadersMiddle()" [headersFields]="fieldsHeadersMiddle()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
             <!-- <div class="flex justify-end" pg-above-mobile>

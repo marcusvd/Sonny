@@ -15,6 +15,7 @@ import { ValidatorMessages } from '../../../../../../../src/shared/helpers/valid
 import { FilterSearch } from './interface/filter-search';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { ex_formControlSearch, ex_search } from 'src/shared/helpers/search-field/search-field';
+import { BaseList } from 'src/shared/components/list-g/extends/base-list';
 
 @Component({
   selector: 'customer-filter-list',
@@ -35,20 +36,22 @@ import { ex_formControlSearch, ex_search } from 'src/shared/helpers/search-field
   ]
 })
 
-export class CustomerFilterListGComponent implements OnInit {
+export class CustomerFilterListGComponent extends BaseList implements OnInit {
 
-  constructor(private _fb: FormBuilder) { }
+  constructor(private _fb: FormBuilder) {
+    super()
+  }
   formMain: FormGroup = new FormGroup({});
 
   entities: FilterSearch[] = [{ key: 'PJ', value: '0' }, { key: 'PF', value: '1' }, { key: 'Selecione', value: 'Selecione' }];
   assureds: FilterSearch[] = [{ key: 'Assegurado', value: 'true' }, { key: 'Não Assegurado', value: 'false' }, { key: 'Selecione', value: 'Selecione' }];
 
   select = new FormControl();
-  arrow: boolean = false;
+
+ @Output() outFieldSearch = new EventEmitter<string>();
   @Output() filterFormOut = new EventEmitter<FormGroup>();
   @Input() showHideFilter: boolean;
   filterMtd() {
-    this.arrow = !this.arrow;
     this.filterFormOut.emit(this.formMain);
     this.formMain.reset();
     this.formLoad();
@@ -62,7 +65,6 @@ export class CustomerFilterListGComponent implements OnInit {
   assuredSelected: string;
   assuredSelect(value: string) {
     this.assuredSelected = value;
-
   }
 
   formLoad() {
@@ -70,6 +72,7 @@ export class CustomerFilterListGComponent implements OnInit {
       assured: ['Selecione', []],
       entity: ['Selecione', []]
     })
+
   }
 
   ngOnInit(): void {

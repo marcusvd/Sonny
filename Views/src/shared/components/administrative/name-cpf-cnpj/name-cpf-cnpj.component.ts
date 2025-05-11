@@ -49,7 +49,7 @@ export class NameCpfCnpjComponent extends BaseForm implements OnInit, OnChanges 
   constructor(
 
     private _queryCnpjService: QueryCnpjService
-  ) {super()}
+  ) { super() }
 
   ngOnChanges(changes: SimpleChanges): void {
 
@@ -60,26 +60,20 @@ export class NameCpfCnpjComponent extends BaseForm implements OnInit, OnChanges 
   }
 
   @Input() override  formMain: FormGroup;
-  // @Input() entityType: string;
   @Input() name: boolean = true;
   @Input() btnGetData: boolean = true;
 
   checkPjPf: boolean = false;
+  cnpjNumbers: string = '';
+  cpfNumbers: string = '';
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
+  getCnpjNumbers(numbers: string) {
+    this.cnpjNumbers = numbers;
+  }
+  getCpfNumbers(numbers: string) {
+    this.cpfNumbers = numbers;
   }
 
-  private valMessagesCustomer = ValidatorMessagesCustomer;
-  get validatorMessagesCustomer() {
-    return this.valMessagesCustomer
-  }
-
-  private valLocal = ValidatorsCustomer;
-  get validatorsLocal() {
-    return this.valLocal
-  }
 
   test(evt: boolean) {
     if (evt)

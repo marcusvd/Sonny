@@ -7,7 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 
 
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -23,6 +23,11 @@ import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.serv
 import { ListControlCustomerList } from './helpers/list-control-customer-list';
 import { CustomerFilterListGComponent } from './customer-filter-list/customer-filter-list.component';
 import { CustomerListService } from './services/customer-list.service';
+import { FilterTerms } from '../commons-components/query/filter-terms';
+import {CustomerListDto} from '../list/dto/customer-list.dto';
+
+import { FormControl, FormGroup } from '@angular/forms';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'customers-list',
@@ -89,7 +94,7 @@ export class CustomersListComponent extends ListControlCustomerList implements O
 
   // @Input() fieldsInEnglish: string[] = ['id', 'name', 'assured', 'responsible'];
 
-   gridListCommonHelper = new GridListCommonHelper(this._http);
+  gridListCommonHelper = new GridListCommonHelper(this._http);
   // gridListCommonHelper = new GridListCommonHelper(this._http, this._route);
 
   showHideFilterMtd($event: boolean) {
@@ -182,12 +187,13 @@ export class CustomersListComponent extends ListControlCustomerList implements O
   // }
 
   // filterTerms: FilterTerms;
-  // filter(form: FormGroup) {
-  //   this.backEndUrl = 'customers/GetAllCustomersByTermSearchPagedAsync';
-  //   const filterTerms: FilterTerms = { ...form.value };
-  //   this.filterTerms = filterTerms;
-  //   this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, filterTerms));
-  // }
+  filter(form: FormGroup) {
+    this.backEndUrl = 'customers/GetAllCustomersByTermSearchPagedAsync';
+    const filterTerms: FilterTerms = { ...form.value };
+    // this.filterTerms = filterTerms;
+    console.log(filterTerms)
+    this._listGDataService.searchQueryHendler(this.backEndUrl, this._listGDataService.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, null, filterTerms));
+  }
 
   // isdescending = true;
   // orderBy(field: string) {
@@ -215,13 +221,40 @@ export class CustomersListComponent extends ListControlCustomerList implements O
 
   // }
 
-  // queryFieldOutput($event: FormControl) {
-  //   this.paginatorBelow.pageIndex = 0;
-  //   this.paginatorAbove.pageIndex = 0;
-  //   this.backEndUrl = 'customers/GetAllCustomersPagedAsync';
-  //   this.gridListCommonHelper.searchQueryHendler(this.backEndUrl, this.gridListCommonHelper.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, $event, null));
-  // }
+  queryFieldOutput($event: FormControl) {
+    this.paginatorBelow.pageIndex = 0;
+    this.paginatorAbove.pageIndex = 0;
+    this.backEndUrl = 'customers/GetAllCustomersPagedAsync';
+    this._listGDataService.searchQueryHendler(this.backEndUrl, this._listGDataService.paramsTo(this.paginatorAbove.pageIndex + 1, this.paginatorAbove.pageSize, null, $event, null));
+  }
 
+  search(term: string) {
+    this.term = term;
+
+    const TERM_EMPTY = term === '';
+
+    if (!this.showHideFilter && TERM_EMPTY) {
+      this.entitiesFiltered$ = this.entities$;
+      this.entitiesFiltered = this.entities;
+      this.entities$.subscribe(x => {
+        this.length = x.length
+      })
+    }
+    else {
+      this.entitiesFiltered$ = of(this.searchListEntities(this.entities, term))
+      this.entitiesFiltered$.subscribe(x => {
+        this.length = x.length
+      })
+    }
+    // this.entitiesFiltered$ = of(this.searchListEntities(this.entities, term))
+    // this.entitiesFiltered$.subscribe(x => {
+    //   this.length = x.length
+    // })
+
+    // this.entitiesFiltered$ = this.entities$.pipe(
+    //   map((x: CustomerListDto[]) => x.filter((y: CustomerListDto) => y. toLowerCase().includes(term.toLowerCase()))))
+
+  }
 
 
   // getData() {

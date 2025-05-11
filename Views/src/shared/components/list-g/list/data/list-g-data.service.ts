@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { BehaviorSubject } from "rxjs";
+import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { PaginationDto } from "src/shared/entities-dtos/pagination-dto";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
@@ -41,15 +42,28 @@ export class ListGDataService extends BackEndService<any> {
     return params;
   }
 
+//BackEnd below
   pagination: PaginationDto = new PaginationDto();
   getAllEntitiesPaged(backEndUrl: string, params: HttpParams) {
     this.loadAllPaged$<any[]>(backEndUrl, params)
       .subscribe((entities: any) => {
         this.pagination = JSON.parse(entities.headers.get('Pagination'));
-        // this.lengthPaginator.next(this.pagination.totalCount);
+        this.lengthPaginator.next(this.pagination.totalCount);
         this.entitiesFromDb.next(entities.body);
       })
   }
+
+  searchQueryHendler(backEndUrl?: string, params?: HttpParams) {
+    this.loadAllPaged$<any[]>(backEndUrl, params).subscribe(
+      (x: any) => {
+        console.log(x);
+        // this.pagination = JSON.parse(x.headers.get('Pagination'));
+        // this.entitiesFromDb.next(x.body);
+        // this.lengthPaginator.next(this.pagination.totalCount);
+      }
+    )
+  }
+//BackEnd above
 
 
   // getAllEntitiesNoPagedWithParams(backEndUrl: string, params: HttpParams) {
@@ -65,17 +79,6 @@ export class ListGDataService extends BackEndService<any> {
         this?.entitiesFromDb?.next(entities);
       })
   }
-
-  // searchQueryHendler(backEndUrl?: string, params?: HttpParams) {
-  //   this.loadAllPaged$<any[]>(backEndUrl, params).subscribe(
-  //     (x: any) => {
-  //       this.pagination = JSON.parse(x.headers.get('Pagination'));
-  //       this.entitiesFromDb.next(x.body);
-  //       // this.lengthPaginator.next(this.pagination.totalCount);
-  //     }
-  //   )
-  // }
-
 
   // searchQueryHendler($event: FormControl, backEndUrl: string, params: HttpParams) {
   //   this.queryField = $event;

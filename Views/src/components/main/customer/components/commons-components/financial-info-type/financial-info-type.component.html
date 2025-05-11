@@ -1,33 +1,21 @@
-<div >
+<div>
     <h3>Financeiro</h3>
 </div>
-<div   fxLayoutGap="5" [formGroup]="formMain">
-    <div >
-        <div  fxLayoutGap="5">
-            <mat-checkbox (change)="assured()" (change)="validatorCustom.checkedBoxValidator(additionalCosts,$event.checked, ['fixedPhysicallyMovingCosts'])" (change)="validatorCustom.checkedBoxValidator(formMain,$event.checked,['payment','expiration'])" formControlName="assured">
-            </mat-checkbox>
-            
-            <mat-label>Mensal
-            </mat-label>
-        </div>
-    </div>
-    <!-- <div ="10"></div>
-    <div class="small-space-horizontal-beteween-fields"> </div>
-    <div >
-        <div  fxLayoutGap="5">
-            <mat-checkbox formControlName="customerType">
-            </mat-checkbox>
-            
-            <mat-label>Empresa</mat-label>
-        </div>
-    </div>
-    <br>
-    <div ="5"></div> -->
+<div class="p-4 w-full grid grid-cols-1 sm:grid-cols-5 gap-4" [formGroup]="formMain">
 
-    <div  >
+
+    <div class="w-full">
+        <mat-checkbox (change)="assured()" (change)="validatorCustom.checkedBoxValidator(additionalCosts,$event.checked, ['fixedPhysicallyMovingCosts'])" (change)="validatorCustom.checkedBoxValidator(formMain,$event.checked,['payment','expiration'])" formControlName="assured">
+        </mat-checkbox>
+
+        <mat-label>Mensal
+        </mat-label>
+    </div>
+
+    <div class="w-full">
         <mat-label class="mat-label">Mensalidade
         </mat-label>
-        <mat-form-field>
+        <mat-form-field class="w-full">
             <input (blur)="validatorsLocal.paymentWhenRequired(formMain, 0.99, {ValuBelowAllowed:true}, 'payment')" matInput type="text" currencyMask formControlName="payment" aria-label="Mensalidade">
             <mat-error>
                 <span>{{validatorMessages.required(formMain,'payment', 'Valor')}}</span>
@@ -36,10 +24,11 @@
             </mat-error>
         </mat-form-field>
     </div>
-    <div   formGroupName="additionalCosts">
+
+    <div class="w-full" formGroupName="additionalCosts">
         <mat-label class="mat-label">Custo Fixo in loco
         </mat-label>
-        <mat-form-field >
+        <mat-form-field class="w-full">
             <input matInput type="text" currencyMask formControlName="fixedPhysicallyMovingCosts" aria-label="Custo Fixo in loco">
             <mat-error>
                 <span>{{validatorMessages.required(additionalCosts,'fixedPhysicallyMovingCosts', 'Valor')}}</span>
@@ -48,11 +37,11 @@
             </mat-error>
         </mat-form-field>
     </div>
-    <div class="small-space-horizontal-beteween-fields"> </div>
-    <div  >
+
+    <div class="w-full">
         <mat-label class="mat-label">Dia do vencimento
         </mat-label>
-        <mat-form-field>
+        <mat-form-field class="w-full">
             <input matInput min="1" max="31" type="number" formControlName="expiration" aria-label="Dia do vencimento">
             <mat-error>
                 <span>{{validatorMessages.required(formMain,'expiration', 'Vencimento')}}</span>
@@ -60,11 +49,11 @@
             </mat-error>
         </mat-form-field>
     </div>
-    <div class="small-space-horizontal-beteween-fields"> </div>
-    <div  >
+
+    <div class="w-full">
         <mat-label class="mat-label">Desconto
         </mat-label>
-        <mat-form-field>
+        <mat-form-field class="w-full">
             <input matInput type="text" currencyMask formControlName="discount" aria-label="Desconto">
         </mat-form-field>
     </div>
