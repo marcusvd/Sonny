@@ -12,7 +12,7 @@
         </mat-form-field>
     </div>
 
-    <div class="w-full grid-cols-2 gap-4">
+    <div class="w-full grid grid-cols-1 sm:grid-cols-[84%_15%] gap-4">
         <div class="w-full">
             <mat-label>Logradouro</mat-label>
             <mat-form-field class="w-full" appearance="outline">
@@ -34,12 +34,13 @@
                 </mat-error>
             </mat-form-field>
         </div>
+
     </div>
 
-    <div>
-        <div>
+    <div class="w-full grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div class="w-full">
             <mat-label>Bairro</mat-label>
-            <mat-form-field appearance="outline">
+            <mat-form-field class="w-full" appearance="outline">
                 <input matInput formControlName="district" aria-label="Bairro">
                 <mat-error>
                     <span>{{validatorMessages.required(formMain,'district', 'Bairro')}}</span>
@@ -47,10 +48,9 @@
                 </mat-error>
             </mat-form-field>
         </div>
-
-        <div>
+        <div class="w-full">
             <mat-label>Cidade</mat-label>
-            <mat-form-field appearance="outline">
+            <mat-form-field class="w-full" appearance="outline">
                 <input matInput formControlName="city" aria-label="Cidade">
                 <mat-error>
                     <span>{{validatorMessages.required(formMain,'city', 'Cidade')}}</span>
@@ -59,9 +59,9 @@
             </mat-form-field>
         </div>
 
-        <div>
+        <div class="w-full">
             <mat-label>Estado</mat-label>
-            <mat-form-field appearance="outline">
+            <mat-form-field class="w-full" appearance="outline">
                 <input matInput formControlName="state" aria-label="Estado">
                 <mat-error>
                     <span>{{validatorMessages.required(formMain,'state', 'Estado')}}</span>

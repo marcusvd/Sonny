@@ -34,7 +34,7 @@ import { CustomerCreateService } from "./services/customer-create.service";
 @Component({
   selector: 'customer-create',
   templateUrl: './customer-create.component.html',
-  styleUrls: ['./customer-create.component.css'],
+  styleUrls: ['./customer-create.component.scss'],
   standalone: true,
   imports: [
     CommonModule,

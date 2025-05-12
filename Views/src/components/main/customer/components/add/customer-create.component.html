@@ -18,29 +18,31 @@
                 </main-entities-base>
             </div>
         </div>
-        <mat-divider></mat-divider>
+        <mat-divider class="border border-color-main shadow-md bg-white"></mat-divider>
         <financial-info-type [formMain]="formMain" [subForm]="subForm" [additionalCosts]="additionalCosts">
         </financial-info-type>
-        <mat-divider></mat-divider>
+        <mat-divider class="border border-color-main shadow-md bg-white"></mat-divider>
         <div>
             <div>
                 <physically-moving-costs [formMain]="subForm">
                 </physically-moving-costs>
             </div>
         </div>
-        <description-field [formMain]="formMain" [maxLength]="2000">
-        </description-field>
-        <mat-divider></mat-divider>
+        <div class="p-4">
+            <description-field [formMain]="formMain" [maxLength]="2000">
+            </description-field>
+        </div>
+        <mat-divider class="border border-color-main shadow-md bg-white"></mat-divider>
         <div>
             <div>
                 <address [formMain]="this.address"></address>
             </div>
-            <mat-divider></mat-divider>
+            <mat-divider class="border border-color-main shadow-md bg-white"></mat-divider>
             <div>
                 <contact [formMain]="this.contact"></contact>
             </div>
         </div>
-        <mat-divider></mat-divider>
+        <mat-divider class="border border-color-main shadow-md bg-white"></mat-divider>
         <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
     </mat-card>
 </div>

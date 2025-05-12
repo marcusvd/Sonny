@@ -12,6 +12,6 @@
   </div>
 </button>
 
-<button class="!bg-main-color !text-white" mat-mini-fab type="button" (click)="btnGMtd()" [disabled]="isDisabled" *ngIf="iconOnly">
+<button [class]="btnClassList" mat-mini-fab type="button" (click)="btnGMtd()" [disabled]="isDisabled" *ngIf="iconOnly">
   <mat-icon>{{icon}}</mat-icon>
 </button>
