@@ -9,7 +9,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatPaginatorIntl as MatPaginatorIntl } from '@angular/material/paginator';
 import { AppRoutingModule } from 'src/app/app.routing.module';
 import { FinancialModule } from 'src/components/financial/modules/financial.module';
-import { CustomerModule } from 'src/components/main/customer/modules/customer.module';
 import { TechnicianModule } from 'src/components/main/customer/technician/technician.module';
 import { ProfilesModule } from 'src/components/profile/modules/profiles.module';
 import { CustomMatPaginatorIntl } from 'src/shared/custom-mat-paginator-intl';
@@ -46,11 +45,10 @@ import { provideRouter, ROUTES, withPreloading } from '@angular/router';
     ProfilesModule,
     //Main
     PartnerModule,
-    CustomerModule,
     TechnicianModule,
     FinancialModule,
-    
-    
+
+
     //OUTSOURCED
     OutsourcedRoutingModule,
     //StockProduct

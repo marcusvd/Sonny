@@ -1,0 +1,36 @@
+.main-color-scss {
+    color: #2ba1a8;
+}
+
+.align-h-center {
+    display: flex;
+    justify-content: center;
+}
+
+.title-categories-divide-comp {
+    color: #1b5f63;
+    font-size: 20px;
+    font-weight: 900;
+    font-family: Mynerve;
+}
+
+.border-card-categories-divide-comp {
+    border: 1px solid #2ba1a8 !important;
+    margin: 20px;
+}
+
+.divider-line-categories-comp {
+    display: flex;
+    justify-items: center;
+    border: 1px dashed #1b5f63;
+    width: 96.5%;
+    margin: 0.5rem 0;
+}
+
+.title-comp {
+    color: #555555;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-family: Mynerve;
+    font-weight: 700;
+}

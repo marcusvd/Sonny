@@ -18,8 +18,8 @@ export class DatabaseSideNavServices {
     {
       name: 'Clientes', icon: 'record_voice_over', toolTip: 'Clientes', opened: false,
       children: [
-        { name: 'Cadastro e consulta', route: `/side-nav/customer-dash/list/${this.companyId}` },
-        // { name: 'Cliente add', route: '/side-nav/customer-dash/create' },
+        { name: 'Cadastro e consulta', route: `/side-nav/customer/list/${this.companyId}` },
+        // { name: 'Cliente add', route: '/side-nav/create' },
         { name: 'Geral', route: '/side-nav/customer-dash' }
       ],
     },

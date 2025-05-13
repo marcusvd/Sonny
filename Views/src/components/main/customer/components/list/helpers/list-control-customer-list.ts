@@ -90,7 +90,9 @@ export class ListControlCustomerList extends BaseList {
   }
 
   onClickIcons(obj: OnClickInterface) {
-    console.log(obj.action)
+    if(obj.action == 'edit')
+      this.callRouter(`/side-nav/customer/edit/${obj.entityId}`);
+
     console.log(obj.entityId)
     // ex_callRouteWithObject('/side-nav/stock-product-router/detailed-product', this.products.find(x => x.id == obj.entityId), this._router)
   }

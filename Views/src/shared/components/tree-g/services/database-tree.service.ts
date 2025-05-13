@@ -17,7 +17,7 @@ export class DatabaseTreeService {
     {
       name: 'Clientes', icon: 'record_voice_over', toolTip: 'Clientes',
       children: [
-        { name: 'Cadastros', route: '/side-nav/customer-dash/create' },
+        { name: 'Cadastros', route: '/side-nav/create' },
         { name: 'Geral', route: '/side-nav/customer-dash' }
       ],
     },

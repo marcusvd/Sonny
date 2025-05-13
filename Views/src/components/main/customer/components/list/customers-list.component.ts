@@ -124,15 +124,15 @@ export class CustomersListComponent extends ListControlCustomerList implements O
   // }
 
   // add() {
-  //   this._router.navigateByUrl('/side-nav/customer-dash/create')
+  //   this._router.navigateByUrl('/side-nav/create')
   // }
 
   // view(id: number) {
-  //   this._router.navigateByUrl(`/side-nav/customer-dash/view/${id}`)
+  //   this._router.navigateByUrl(`/side-nav/view/${id}`)
   // }
 
   // edit(id: number) {
-  //   this._router.navigateByUrl(`/side-nav/customer-dash/edit/${id}`)
+  //   this._router.navigateByUrl(`/side-nav/edit/${id}`)
   // }
 
   // delete(entity: CustomerListGridDto) {

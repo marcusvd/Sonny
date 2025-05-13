@@ -1,5 +1,5 @@
-<div>
-    <h3>Contatos</h3>
+<div class="p-4">
+    <h3 class="title-categories-divide-comp">Contatos</h3>
 </div>
 <div class="p-4" [formGroup]="formMain">
     <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -64,27 +64,11 @@
 
         </div>
     </div>
-    <div>
-
-        <div fxLayoutAlign="end end">
-            <btn-g [name]="'Adicionar'" [icon]="'add'" (btn)="addSocialNets()"></btn-g>
-            <!-- <button mat-raised-button class="add-btn" (click)="addSocialNets()">
-          <mat-icon>add</mat-icon>Adicionar
-        </button> -->
-        </div>
-        <br>
-        <div id="labelBtnAdd" fxLayoutAlign="end end">
-            <h1>Rede Social</h1>
-        </div>
-    </div>
 
     <div formArrayName="socialMedias" *ngFor="let scnw of formSocialNets.controls; let i = index;">
         <div [formGroupName]="i">
-            <div>
-                <btn-g [btnClassList]="'!bg-red-600 !text-white !w-[150px]'" [name]="'Remover'" [icon]="'delete'" (btn)="removeNets(i)"></btn-g>
-                <!-- <button type="button" mat-raised-button style="background-color: rgb(240, 74, 32);" (click)="removeNets(i)">
-            <mat-icon>clear</mat-icon>&nbsp;&nbsp;Remover
-          </button> -->
+            <div class="mb-4">
+                <btn-g [btnType]="'red'" [name]="'Remover'" [icon]="'delete'" (btn)="removeNets(i)"></btn-g>
             </div>
             <div>
                 <mat-label>Rede Social</mat-label>
@@ -98,7 +82,6 @@
 
             </div>
             <div>
-
                 <mat-label>Url (Link)</mat-label>
                 <mat-form-field class="w-full" appearance="outline">
                     <input matInput id="socialnetUrl" formControlName="url" aria-label="Url (Link)">
@@ -110,5 +93,9 @@
             </div>
         </div>
 
+    </div>
+
+    <div>
+        <btn-g [name]="'Rede Social'" [icon]="'add'" (btn)="addSocialNets()"></btn-g>
     </div>
 </div>

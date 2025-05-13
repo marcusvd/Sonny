@@ -62,7 +62,7 @@ export class CustomerViewComponent extends BaseForm implements OnInit {
   spaceTop: string = '';
 
   edit() {
-    this._router.navigateByUrl('/side-nav/customer-dash/edit/' + this.customer.id)
+    this._router.navigateByUrl('/side-nav/edit/' + this.customer.id)
   }
 
   ngOnInit(): void {

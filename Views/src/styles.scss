@@ -7,12 +7,11 @@
 
 @import url(https://cdn.flnf.hu/styles/ccs.css);
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
-
-/* @font-face {
-    font-family: Tourney-Medium;
-    src: url('../../Views/src/assets/fonts/tourney-medium.ttf');
-} */
-
+//my imports
+@import "../src/shared/styles/default-component.scss";
+@import "../src/shared/styles/dialogs-screen.scss";
+@import "../src/shared/styles/colors.scss";
+@import "../src/shared/components/card-g/card-g-model-a/styles/card-global-model-a.scss";
 @font-face {
     font-family: 'Mynerve';
     src: url('../src/assets/fonts/montserrat-regular.ttf') format('truetype');
@@ -199,7 +198,3 @@ p {
 //     font-size: 30px;
 //     padding-left: 5px;
 // }
-@import "../src/shared/styles/responsive-screen.scss";
-@import "../src/shared/styles/dialogs-screen.scss";
-@import "../src/shared/styles/colors.scss";
-@import "../src/shared/components/card-g/card-g-model-a/styles/card-global-model-a.scss";

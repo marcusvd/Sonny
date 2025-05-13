@@ -12,7 +12,7 @@ const routes: Routes = [
         loadChildren: () => import('../../components/authentication/modules/auth-routing.module').then(x => x.AuthRoutingModule),
       },
       {
-        path: 'customer-dash',
+        path: 'customer',
         loadChildren: () => import('../../components/main/customer/modules/customer.routing.module').then(x => x.CustomerRoutingModule),
       },
       // {

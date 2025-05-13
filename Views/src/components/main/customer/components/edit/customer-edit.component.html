@@ -1,56 +1,68 @@
-<div class="border-around" *ngIf="formMain" [formGroup]="formMain">
+<div class="p-4" *ngIf="formMain" [formGroup]="formMain">
     <title-component [digit]="'|'" [textTitleComp]="'Edição de cliente'" [icon]="'record_voice_over'">
 
     </title-component>
-    <mat-card class="mat-card-sub-title">
+    <mat-card>
         <sub-title title [title]="'Edição de cliente'" [icon]="'edit'"></sub-title>
-        <div >
-            <h3>Identificação Cliente</h3>
-        </div>
-        <div >
-            <div >
-                <name-cpf-cnpj (cpfCnpjBusinessData)="cpfCnpjBusinessData($event)" [formMain]="formMain" [entityType]="'entityType'" > </name-cpf-cnpj>
+        <mat-card class="border-card-categories-divide-comp">
+
+            <div class="p-4">
+                <h3 class="title-categories-divide-comp">Identificação</h3>
             </div>
-            <div >
-                <main-entities-base [formMain]="formMain" [businessLine]="true" >
+
+
+            <div>
+                <name-cpf-cnpj (cpfCnpjBusinessData)="cpfCnpjBusinessData($event)" [formMain]="formMain" [entityType]="'entityType'"> </name-cpf-cnpj>
+            </div>
+            <div>
+                <main-entities-base [formMain]="formMain" [businessLine]="true">
 
                 </main-entities-base>
             </div>
+            <mat-card class="p-4">
+                <description-field [formMain]="formMain" [rows]="rows" [maxLength]="2000">
+                </description-field>
+            </mat-card>
+        </mat-card>
+
+        <div class="align-h-center">
+            <mat-divider class="divider-line-categories-comp"></mat-divider>
         </div>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
-        <mat-divider></mat-divider>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
-        <financial-info-type [formMain]="formMain" [subForm]="subForm" [additionalCosts]="additionalCosts">
-        </financial-info-type>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
-        <mat-divider></mat-divider>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div >
-            <div >
-                <physically-moving-costs [formMain]="subForm" >
-                </physically-moving-costs>
-            </div>
+        <mat-card class="border-card-categories-divide-comp">
+            <financial-info-type [formMain]="formMain" [subForm]="subForm" [additionalCosts]="additionalCosts">
+            </financial-info-type>
+        </mat-card>
+
+        <div class="align-h-center">
+            <mat-divider class="divider-line-categories-comp"></mat-divider>
         </div>
-        <description-field [formMain]="formMain" [rows]="rows" [maxLength]="2000">
-        </description-field>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
-        <mat-divider></mat-divider>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
-        <div >
-            <div >
-                <address [formMain]="this.address" ></address>
-            </div>
-            <div class="middle-space-horizontal-beteween-fields"> </div>
-            <mat-divider></mat-divider>
-            <div class="middle-space-horizontal-beteween-fields"> </div>
-            <div >
-                <contact  [formMain]="this.contact"></contact>
-            </div>
+
+        <mat-card class="border-card-categories-divide-comp">
+            <physically-moving-costs [formMain]="subForm">
+            </physically-moving-costs>
+        </mat-card>
+
+
+        <div class="align-h-center">
+            <mat-divider class="divider-line-categories-comp"></mat-divider>
         </div>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
-        <mat-divider></mat-divider>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
-        <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
+
+        <mat-card class="border-card-categories-divide-comp">
+            <address [formMain]="this.address"></address>
+        </mat-card>
+
+        <div class="align-h-center">
+            <mat-divider class="divider-line-categories-comp"></mat-divider>
+        </div>
+
+        <mat-card class="border-card-categories-divide-comp">
+            <contact [formMain]="this.contact"></contact>
+        </mat-card>
+
+
+        <div class="mb-14 align-h-center">
+            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
+        </div>
     </mat-card>
 </div>
 <!-- <div class="border-around">

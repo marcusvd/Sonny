@@ -4,14 +4,22 @@
 </button> -->
 
 <!-- mat-raised-button || mat-fab extended -->
-<button mat-raised-button [class]="btnClassList" type="button" (click)="btnGMtd()" [disabled]="isDisabled" *ngIf="!iconOnly">
-  <div class="grid grid-cols-[25px_1px_110px] items-center space-x-1">
+<button class="btnMouseOverGreen !bg-main-color !text-white !w-[150px]" mat-raised-button *ngIf="btnType == 'green'" type="button" (click)="btnGMtd()" [disabled]="isDisabled">
+  <div  class="grid grid-cols-[25px_1px_110px] items-center space-x-1">
     <div class="flex items-center space-x-1"> <mat-icon *ngIf="haveIcon">{{icon}}</mat-icon></div>
-    <div class="pipe-box" *ngIf="haveIcon"></div>
-    <div class="btn-name">{{name}}</div>
+    <div class="btn-pipe-green" *ngIf="haveIcon"></div>
+    <div>{{name}}</div>
   </div>
 </button>
 
-<button [class]="btnClassList" mat-mini-fab type="button" (click)="btnGMtd()" [disabled]="isDisabled" *ngIf="iconOnly">
+<button class="btnMouseOverRed !bg-remove-color !text-white !w-[150px]" mat-raised-button *ngIf="btnType == 'red'" type="button" (click)="btnGMtd()" [disabled]="isDisabled">
+  <div class="grid grid-cols-[25px_1px_110px] items-center space-x-1">
+    <div class="flex items-center space-x-1"> <mat-icon *ngIf="haveIcon">{{icon}}</mat-icon></div>
+    <div class="btn-pipe-red" *ngIf="haveIcon"></div>
+    <div>{{name}}</div>
+  </div>
+</button>
+
+<button class="!bg-main-color !text-white !w-[150px]" *ngIf="btnType == 'onlyIconGreen'" mat-mini-fab type="button" (click)="btnGMtd()" [disabled]="isDisabled">
   <mat-icon>{{icon}}</mat-icon>
 </button>

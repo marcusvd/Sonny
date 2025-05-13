@@ -2,48 +2,70 @@
     <title-component [digit]="'|'" [textTitleComp]="'Cadastro de clientes'" [icon]="'record_voice_over'">
 
     </title-component>
-    <mat-card class="mat-card-sub-title">
+    <mat-card>
         <sub-title title [title]="'Cadastro de clientes'" [icon]="'add'"></sub-title>
-        <div>
-            <h3>Identificação Cliente</h3>
-        </div>
-        <div>
+
+        <mat-card class="border-card-categories-divide-comp">
+
+            <div class="p-4">
+                <h3 class="title-categories-divide-comp">Identificação</h3>
+            </div>
+
             <div>
                 <name-cpf-cnpj (cpfCnpjBusinessData)="cpfCnpjBusinessData($event)" [formMain]="formMain"> </name-cpf-cnpj>
-                <!-- <name-cpf-cnpj (cpfCnpjBusinessData)="cpfCnpjBusinessData($event)" [formMain]="formMain" [entityType]="'entityType'" > </name-cpf-cnpj> -->
             </div>
             <div>
                 <main-entities-base [formMain]="formMain" [businessLine]="true">
 
                 </main-entities-base>
             </div>
+            <mat-card class="p-4">
+                <description-field [formMain]="formMain" [maxLength]="2000">
+                </description-field>
+            </mat-card>
+        </mat-card>
+
+        <div class="align-h-center">
+            <mat-divider class="divider-line-categories-comp"></mat-divider>
         </div>
-        <mat-divider class="border border-color-main shadow-md bg-white"></mat-divider>
-        <financial-info-type [formMain]="formMain" [subForm]="subForm" [additionalCosts]="additionalCosts">
-        </financial-info-type>
-        <mat-divider class="border border-color-main shadow-md bg-white"></mat-divider>
-        <div>
-            <div>
-                <physically-moving-costs [formMain]="subForm">
-                </physically-moving-costs>
-            </div>
+
+        <mat-card class="border-card-categories-divide-comp">
+            <financial-info-type [formMain]="formMain" [subForm]="subForm" [additionalCosts]="additionalCosts">
+            </financial-info-type>
+        </mat-card>
+
+        <div class="align-h-center">
+            <mat-divider class="divider-line-categories-comp"></mat-divider>
         </div>
-        <div class="p-4">
-            <description-field [formMain]="formMain" [maxLength]="2000">
-            </description-field>
+
+        <mat-card class="border-card-categories-divide-comp">
+            <physically-moving-costs [formMain]="subForm">
+            </physically-moving-costs>
+        </mat-card>
+
+        <!--  -->
+
+        <div class="align-h-center">
+            <mat-divider class="divider-line-categories-comp"></mat-divider>
         </div>
-        <mat-divider class="border border-color-main shadow-md bg-white"></mat-divider>
-        <div>
-            <div>
-                <address [formMain]="this.address"></address>
-            </div>
-            <mat-divider class="border border-color-main shadow-md bg-white"></mat-divider>
-            <div>
-                <contact [formMain]="this.contact"></contact>
-            </div>
+
+        <mat-card class="border-card-categories-divide-comp">
+            <address [formMain]="this.address"></address>
+        </mat-card>
+        <div class="align-h-center">
+            <mat-divider class="divider-line-categories-comp"></mat-divider>
         </div>
-        <mat-divider class="border border-color-main shadow-md bg-white"></mat-divider>
-        <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
+        <mat-card class="border-card-categories-divide-comp">
+            <contact [formMain]="this.contact"></contact>
+        </mat-card>
+
+        <!-- <div class="align-h-center">
+            <mat-divider class="divider-line-categories-comp"></mat-divider>
+        </div> -->
+        <div class="mb-14 align-h-center">
+            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
+        </div>
+
     </mat-card>
 </div>
 <!-- <div class="border-around">
