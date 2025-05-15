@@ -1,15 +1,15 @@
 
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 
 
-import { NgFor, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
-import { MatCardModule as MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule as MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule as MatInputModule } from '@angular/material/input';
-import { MatSelectModule as MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import * as _moment from 'moment';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
@@ -36,13 +36,11 @@ export const MY_FORMATS = {
   templateUrl: './bank-account.component.html',
   standalone: true,
   imports: [
-
+    CommonModule,
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
     MatSelectModule,
-    NgFor,
-    NgIf,
     MatCardModule,
     CurrencyMaskModule,
     SubTitleComponent,
@@ -50,19 +48,18 @@ export const MY_FORMATS = {
   styles: [`
   `],
 })
-export class BankAccountComponent extends BaseForm implements OnInit , OnChanges{
+export class BankAccountComponent extends BaseForm implements OnInit, OnChanges {
 
-  fxLayoutAlign: string = 'center center'
-  screenFieldPosition: string = 'column';
   @Input() override formMain: FormGroup;
-  @Input()  mainIcon: string;
-  @Input()  mainTitle: string;
+  @Input() mainIcon: string;
+  @Input() mainTitle: string;
+  @Output() outBankName:EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(
 
-  ) {super()}
+    constructor() { super() }
 
   ngOnChanges(changes: SimpleChanges): void {
+
   }
 
   private valMessages = ValidatorMessages;
@@ -76,11 +73,14 @@ export class BankAccountComponent extends BaseForm implements OnInit , OnChanges
     { id: 1, typeAccount: 'CORRENTE' },
   ];
 
+  onInstitutionInput(name: string) {
 
-  // get typeAccountsArray(): any[] {
-  //   return this._bankAccountService.typeAccounts
-  // }
 
+    this.outBankName.emit(name)
+
+
+
+  }
 
   ngOnInit(): void {
 

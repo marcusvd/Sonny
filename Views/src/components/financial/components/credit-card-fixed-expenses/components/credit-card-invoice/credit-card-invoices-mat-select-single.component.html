@@ -1,11 +1,10 @@
 <spinner-g [entities]="entities$" [optionalTitle]="'(Cartões)'" (spinnerStatusOut)="spinnerEvent($event)">
 </spinner-g>
-<br>
-<div *ngIf="spinner"  [fxLayoutGap]="'10'">
-    <mat-form-field appearance="outline" >
-        <mat-label>Conta bancária</mat-label>
-        <mat-select placeholder="Selecione o Cartão de credito" #singleSelect
-            (selectionChange)="onCardsSelected(singleSelect.value)">
+
+<div class="p-4 grid grid-rows-1" *ngIf="spinner">
+    <mat-label>Conta bancária</mat-label>
+    <mat-form-field appearance="outline">
+        <mat-select placeholder="Selecione o Cartão de credito" #singleSelect (selectionChange)="onCardsSelected(singleSelect.value)">
             <mat-option *ngFor="let card of entities$ | async" [value]="card">
                 <div>
                     {{card.flag}} {{' | '}}{{card.number | bankCardNumber}}

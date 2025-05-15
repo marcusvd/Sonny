@@ -22,6 +22,7 @@ import { BankCardsComponent } from '../../common-components/bank-cards/bank-card
 import { BankAccountDto } from '../dto/bank-account-dto';
 import { CardDto } from '../dto/card-dto';
 import { PixDto } from '../dto/pix-dto';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 @Component({
@@ -33,6 +34,7 @@ import { PixDto } from '../dto/pix-dto';
     CommonModule,
     MatButtonModule,
     MatCardModule,
+    MatDividerModule,
     BankAccountComponent,
     BankCardsComponent,
     TitleComponent,
@@ -44,10 +46,9 @@ import { PixDto } from '../dto/pix-dto';
 })
 export class BankAccountCardsEditComponent extends BaseForm implements OnInit {
 
-  fxLayoutAlign: string = 'center center'
-  screenFieldPosition: string = 'row';
   cards: CardDto[];
   pixes: PixDto[];
+  institution: string;
 
   constructor(
     private _bankAccounteditService: BankAccountCardsEditService,
@@ -65,12 +66,12 @@ export class BankAccountCardsEditComponent extends BaseForm implements OnInit {
   get validatorCustom() {
     return this.valCustom
   }
- 
+
   get getDate(): Date {
     return new Date();
   }
 
-  institution: string;
+
 
   formLoad(entity: BankAccountDto) {
     return this.formMain = this._fb.group({

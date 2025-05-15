@@ -1,145 +1,145 @@
-<div class="p-4" [formGroup]="formMain" *ngIf="formMain">
+<div class="!mt-7" [formGroup]="formMain" *ngIf="formMain">
+    <div class="!mb-12">
 
-    <div class="mb-16" formArrayName="cards" *ngFor="let ctrls of getCards.controls let i = index">
+        <mat-card class="sub-title-mat-card border-card-categories-divide-comp" formArrayName="cards" *ngFor="let ctrls of getCards.controls let i = index">
 
-        <div class="p-4" *ngIf="ctrls.get('deleted').value != true">
+            <div class="sub-title" *ngIf="ctrls.get('deleted').value != true">
+                <mat-icon class="mat-icon-left-subtitle">{{mainIcon}}</mat-icon> <span>{{ctrls.get('flag').value ?? type[i]?.card?.niceType}}</span>
+            </div>
 
-            <!-- <div class="flex justify-end">
-                <mat-icon (click)="removeCard(i)">remove_circle_outline</mat-icon>
-            </div> -->
-            <div [formGroupName]="i">
-                <div class="p-4">
-                    <h3 class="title-categories-divide-comp">Dados do cartão</h3>
-                </div>
+            <div class="p-4" *ngIf="ctrls.get('deleted').value != true">
 
-                <div class="flex justify-end">
-                    <btn-g mat-dialog-close [btnType]="'onlyIconRed'" [icon]="'clear'" (btn)="removeCard(i)"></btn-g>
-                </div>
-
-                <div class="grid grid-cols-1 w-full">
-                    <mat-label>Nome</mat-label>
-                    <mat-form-field appearance="outline">
-                        <input matInput type="text" formControlName="holder" placeholder="Nome exatamente como está no cartão.">
-                        <mat-error>
-                            <span>{{validatorMessages.required(this.subForm,'holder', 'Titular')}}</span>
-                            <span>{{validatorMessages.minMaxLength(this.subForm,'holder', 'Titular',null,100)}}</span>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-                <div>
+                <div [formGroupName]="i">
                     <div class="p-4">
-                        <h3>{{type[i]?.card?.niceType}}</h3>
-                        <div class="w-full gap-4 grid grid-cols-1 sm:grid-cols-2">
-                            <div class="gap-4 grid grid-cols-1 row-span-2">
-                                <div>
-                                    <div class="gap-4 grid grid-cols-1 sm:grid-cols-[83%_50px]">
-                                        <div class="w-full">
-                                            <mat-label>Número</mat-label>
-                                            <mat-form-field class="w-full" appearance="outline">
-                                                <input matInput type="text" formControlName="number" [mask]="maskCardNumber" type="text" (keyup)="cardNumberKeyUp(i)" aria-label="Número">
-                                                <mat-error>
-                                                    <span>{{validatorMessages.required(this?.formMain?.get('cards')?.get(i.toString()),'number', 'Número do cartão')}}</span>
-                                                    <span>{{validatorMessagesFiancial.cardNumber(this?.formMain?.get('cards')?.get(i.toString()),'number')}}</span>
-                                                </mat-error>
-                                                <mat-icon id="card-icon" matSuffix class="card ccs ccs-{{type[i]?.card?.type}}">
-                                                </mat-icon>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="w-1/2">
-                                            <div>
-                                                <mat-label>CVC</mat-label>
+                        <h3 class="title-categories-divide-comp">Dados do cartão</h3>
+                    </div>
+
+
+                    <div class="p-4 grid grid-cols-1 w-full">
+                        <mat-label>Nome</mat-label>
+                        <mat-form-field appearance="outline">
+                            <input matInput type="text" formControlName="holder" placeholder="Nome exatamente como está no cartão.">
+                            <mat-error>
+                                <span>{{validatorMessages.required(this.subForm,'holder', 'Titular')}}</span>
+                                <span>{{validatorMessages.minMaxLength(this.subForm,'holder', 'Titular',null,100)}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <div class="p-4">
+                            <h3>{{type[i]?.card?.niceType}}</h3>
+                            <div class="w-full gap-4 grid grid-cols-1 sm:grid-cols-2">
+                                <div class="gap-4 grid grid-cols-1 row-span-2">
+                                    <div>
+                                        <div class="gap-4 grid grid-cols-1 sm:grid-cols-[83%_50px]">
+                                            <div class="w-full">
+                                                <mat-label>Número</mat-label>
+                                                <mat-form-field class="w-full" appearance="outline">
+                                                    <input matInput type="text" formControlName="number" [mask]="maskCardNumber" type="text" (keyup)="cardNumberKeyUp(i)" aria-label="Número">
+                                                    <mat-error>
+                                                        <span>{{validatorMessages.required(this?.formMain?.get('cards')?.get(i.toString()),'number', 'Número do cartão')}}</span>
+                                                        <span>{{validatorMessagesFiancial.cardNumber(this?.formMain?.get('cards')?.get(i.toString()),'number')}}</span>
+                                                    </mat-error>
+                                                    <mat-icon id="card-icon" matSuffix class="card ccs ccs-{{type[i]?.card?.type}}">
+                                                    </mat-icon>
+                                                </mat-form-field>
                                             </div>
-                                            <mat-form-field class="cvc-field" appearance="outline">
-                                                <input [mask]="maskCvc" matInput type="text" formControlName="cvc" aria-label="CVC">
-                                                <mat-error>
-                                                    <span>{{validatorMessages.required(ctrls,'cvc', 'Código verificador')}}</span>
-                                                </mat-error>
-                                            </mat-form-field>
+                                            <div>
+                                                <div>
+                                                    <mat-label>CVC</mat-label>
+                                                </div>
+                                                <mat-form-field class="w-[80px] cvc-field" appearance="outline">
+                                                    <input [mask]="maskCvc" matInput type="text" formControlName="cvc" aria-label="CVC">
+                                                    <mat-error>
+                                                        <span>{{validatorMessages.required(ctrls,'cvc', 'Código verificador')}}</span>
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div>
-                                    <mat-label>Tipo</mat-label>
-                                    <mat-form-field class="w-full" appearance="outline">
-                                        <mat-select formControlName="type">
-                                            <mat-option *ngFor="let card of typeCards" (blur)="validatorLocal.limitWhenRequired(this.subForm, 0.99, {ValuBelowAllowed:true}, 'creditLimit')" [value]="card.id">
-                                                {{card.typeCard}}
-                                            </mat-option>
-                                        </mat-select>
-                                    </mat-form-field>
+                                    <div>
+                                        <mat-label>Tipo</mat-label>
+                                        <mat-form-field class="w-full" appearance="outline">
+                                            <mat-select formControlName="type">
+                                                <mat-option *ngFor="let card of typeCards" (blur)="validatorLocal.limitWhenRequired(this.subForm, 0.99, {ValuBelowAllowed:true}, 'creditLimit')" [value]="card.id">
+                                                    {{card.typeCard}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="gap-4 grid grid-cols-1 row-span-2">
-                                <div [style]="spaceCvcField">
-                                    <mat-label>Limite Credito</mat-label>
-                                    <mat-form-field class="w-full" appearance="outline">
-                                        <input matInput type="text" currencyMask formControlName="creditLimit" aria-label="Limite Credito">
-                                        <!-- (blur)="makeSpaceFields(ctrls)" -->
-                                        <mat-error>
-                                            <span>{{validatorMessages.required(ctrls,'creditLimit', 'Limite')}}</span>
-                                        </mat-error>
-                                    </mat-form-field>
-                                </div>
-                                <div class="gap-4 grid grid-cols-1 sm:grid-cols-[150px_100px_100px] justify-center">
-
-                                    <div class="w-full">
-                                        <div>
-                                            <mat-label>Validade</mat-label>
-                                        </div>
-                                        <mat-form-field class="w-full validate-field" appearance="outline">
-                                            <input matInput (input)="validateValidation()" [matDatepicker]="picker" placeholder="00/0000" formControlName="validate">
-                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                            <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenYearHandler($event)" (monthSelected)="chosenMonthHandler($event, picker)"></mat-datepicker>
+                                <div class="gap-4 grid grid-cols-1 row-span-2">
+                                    <div [style]="spaceCvcField">
+                                        <mat-label>Limite Credito</mat-label>
+                                        <mat-form-field class="w-full" appearance="outline">
+                                            <input matInput type="text" currencyMask formControlName="creditLimit" aria-label="Limite Credito">
+                                            <!-- (blur)="makeSpaceFields(ctrls)" -->
                                             <mat-error>
-                                                <span>{{validatorMessages.required(this.subForm,'validate', 'Validade')}}</span>
-                                                <span>{{validatorMessagesFiancial.cardValidateDate(this.subForm,'validate')}}</span>
+                                                <span>{{validatorMessages.required(ctrls,'creditLimit', 'Limite')}}</span>
                                             </mat-error>
                                         </mat-form-field>
                                     </div>
+                                    <div class="gap-4 grid grid-cols-1 sm:grid-cols-[150px_100px_100px] justify-center">
 
-                                    <div class="w-full">
-                                        <div [ngClass]="{'space-closing-expires':spaceClosingExpires}">
-                                            <date-just-day [outClassStyle]="'w-[100px]'" [formMain]="ctrls" [formCtrlName]="'closingDate'" [placeholder]="'00'" [labelTitle]="'Fechamento'" [layoutColumnRow]="layoutColumnRowDateJustDay">
-                                                <div validation-error>
-                                                    <span>{{validatorMessages.required(this.subForm,'closingDate', 'Fechamento')}}</span>
-                                                    <!-- <span>{{validatorMessagesFiancial.cardValidateDate(this.subForm,'validate')}}</span> -->
-                                                </div>
-                                            </date-just-day>
+                                        <div class="w-full">
+                                            <div>
+                                                <mat-label>Validade</mat-label>
+                                            </div>
+                                            <mat-form-field class="w-full validate-field" appearance="outline">
+                                                <input matInput (input)="validateValidation()" [matDatepicker]="picker" placeholder="00/0000" formControlName="validate">
+                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenYearHandler($event)" (monthSelected)="chosenMonthHandler($event, picker)"></mat-datepicker>
+                                                <mat-error>
+                                                    <span>{{validatorMessages.required(this.subForm,'validate', 'Validade')}}</span>
+                                                    <span>{{validatorMessagesFiancial.cardValidateDate(this.subForm,'validate')}}</span>
+                                                </mat-error>
+                                            </mat-form-field>
                                         </div>
-                                    </div>
-                                    <div class="w-full">
-                                        <div [ngClass]="{'space-closing-expires':spaceClosingExpires}">
-                                            <date-just-day [outClassStyle]="'w-[100px]'" [formMain]="ctrls" [formCtrlName]="'expiresDate'" [placeholder]="'00'" [labelTitle]="'Vencimento'" [layoutColumnRow]="layoutColumnRowDateJustDay">
-                                                <div validation-error>
-                                                    <span>{{validatorMessages.required(this.subForm,'expiresDate', 'Vencimento')}}</span>
-                                                    <!-- <span>{{validatorMessagesFiancial.cardValidateDate(this.subForm,'validate')}}</span> -->
-                                                </div>
-                                            </date-just-day>
+
+                                        <div class="w-full">
+                                            <div [ngClass]="{'space-closing-expires':spaceClosingExpires}">
+                                                <date-just-day [outClassStyle]="'w-[100px]'" [formMain]="ctrls" [formCtrlName]="'closingDate'" [placeholder]="'00'" [labelTitle]="'Fechamento'" [layoutColumnRow]="layoutColumnRowDateJustDay">
+                                                    <div validation-error>
+                                                        <span>{{validatorMessages.required(this.subForm,'closingDate', 'Fechamento')}}</span>
+                                                        <!-- <span>{{validatorMessagesFiancial.cardValidateDate(this.subForm,'validate')}}</span> -->
+                                                    </div>
+                                                </date-just-day>
+                                            </div>
+                                        </div>
+                                        <div class="w-full">
+                                            <div [ngClass]="{'space-closing-expires':spaceClosingExpires}">
+                                                <date-just-day [outClassStyle]="'w-[100px]'" [formMain]="ctrls" [formCtrlName]="'expiresDate'" [placeholder]="'00'" [labelTitle]="'Vencimento'" [layoutColumnRow]="layoutColumnRowDateJustDay">
+                                                    <div validation-error>
+                                                        <span>{{validatorMessages.required(this.subForm,'expiresDate', 'Vencimento')}}</span>
+                                                        <!-- <span>{{validatorMessagesFiancial.cardValidateDate(this.subForm,'validate')}}</span> -->
+                                                    </div>
+                                                </date-just-day>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+
+
+                    <div class="p-4 space-description">
+                        <description-field [formMain]="ctrls" [maxLength]="2000">
+                        </description-field>
+                    </div>
+
+
+                    <div class="flex justify-end">
+                        <btn-g mat-dialog-close [btnType]="'onlyIconRed'" [icon]="'clear'" (btn)="removeCard(i)"></btn-g>
+                    </div>
                 </div>
 
-
-
-                <div class="space-description">
-                    <description-field [formMain]="ctrls" [maxLength]="2000">
-                    </description-field>
-                </div>
-
-
-                <!-- <div   [ngClass]="{'space-description':makeSpaceFields(ctrls), 'without-space-description':!makeSpaceFields(ctrls)}">
-
-                </div> -->
             </div>
-
-        </div>
+        </mat-card>
     </div>
-    <div class="-mt-14">
-        <btn-g btn-1 (btn)="addCard()" [name]="'Cartão'"></btn-g>
-    </div>
+</div>
+<div class="!pl-4 !-mt-10 mb-5">
+    <btn-g btn-1 (btn)="addCard()" [name]="'Cartão'"></btn-g>
 </div>

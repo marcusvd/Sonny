@@ -8,7 +8,7 @@
 <span *ngIf="spinner">
     <div *ngIf="radioHideShow" [fxLayout]="'row'" [fxLayoutAlign]="alignRadios" [style]="'rightSideBorder'">
         <mat-radio-group *ngIf="this.bankAccount" aria-labelledby="radio-group-label" class="radio-group"
-            (change)="onSelectedRadio($event)" [(ngModel)]="selectedRadio" [fxLayoutGap]="'10'"
+            (change)="onSelectedRadio($event)" [(ngModel)]="selectedRadio" 
             [ngModelOptions]="{standalone: true}">
             <mat-radio-button *ngFor="let option of optionsRadio" [value]="option.id">
                 {{option.name}}
@@ -16,7 +16,7 @@
         </mat-radio-group>
     </div>
     <div class="middle-space-horizontal-beteween-fields" *ngIf="this.bankAccount"></div>
-    <div [formGroup]="formMain"  [fxLayoutGap]="'10'">
+    <div [formGroup]="formMain"  >
         <div>
             <mat-form-field appearance="outline" >
                 <mat-label>Conta bancária</mat-label>

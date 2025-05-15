@@ -19,7 +19,6 @@ import { BankAccountDto } from '../../bank-account-cards/dto/bank-account-dto';
         MatSelectModule,
         MatCardModule,
         MatFormFieldModule,
-
         BankCardNumberPipe,
         CommonModule
     ],
@@ -30,17 +29,10 @@ import { BankAccountDto } from '../../bank-account-cards/dto/bank-account-dto';
         color: rgb(43, 161, 168);
         }
 
-    .pipe-column-title {
-        margin-top: -25px;
-        }
 
     .weight-title-space-left {
         font-weight: bolder;
         /* padding-right: 10px; */
-        }
-
-    .space-right {
-         padding-right: 10px;
         }
   `],
     providers: [],

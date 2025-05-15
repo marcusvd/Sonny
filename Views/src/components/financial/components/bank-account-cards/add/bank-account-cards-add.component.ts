@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -37,20 +37,21 @@ import { BankAccountAddService } from './services/bank-account-add.service';
     BtnGComponent,
     PixComponent
   ],
-  providers:[
+  providers: [
     BankAccountAddService
   ]
 })
 export class BankAccountCardsAddComponent extends Add implements OnInit {
 
-  fxLayoutAlign: string = 'center center'
-  screenFieldPosition: string = 'row';
+  institutionName: string;
 
   constructor(
     protected _bankAccountService: BankAccountAddService,
     private _fb: FormBuilder,
+    private cdRef: ChangeDetectorRef
 
-  ) {super()}
+
+  ) { super() }
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -62,7 +63,9 @@ export class BankAccountCardsAddComponent extends Add implements OnInit {
     return this.valCustom
   }
 
-
+  onInstitution(institutionName: string) {
+    this.institutionName = institutionName;
+  }
 
   get getDate(): Date {
     return new Date()

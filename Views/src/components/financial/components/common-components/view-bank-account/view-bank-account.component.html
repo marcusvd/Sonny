@@ -1,63 +1,112 @@
-<div >
-  <div class="mat-card-sub-title" >
-      <div id="body" >
-          <div   >
-              <div >
-                  <div >
-                      <div  class="pipe-column-title">
-                          <p class="pipe-title"> <span>|</span></p>
-                      </div>
+<!-- <div>
+    <div class="mat-card-sub-title">
+        <div id="body">
+            <div>
+                <div>
+                    <div>
+                        <div>
+                            <p class="pipe-title"> <span>|</span></p>
+                        </div>
 
-                      <div  class="space-right weight-title-space-left">
-                          <p>Banco:</p>
-                      </div>
-                      <div >
-                          <p>{{bankAccount.institution | uppercase}}</p>
-                      </div>
-                  </div>
-              </div>
-              <div >
-                  <div >
-                      <div  class="pipe-column-title">
-                          <p class="pipe-title"> <span>|</span></p>
-                      </div>
+                        <div class="space-right weight-title-space-left">
+                            <p>Banco:</p>
+                        </div>
+                        <div>
+                            <p>{{bankAccount.institution | uppercase}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <div>
+                            <p class="pipe-title"> <span>|</span></p>
+                        </div>
 
-                      <div  class="space-right weight-title-space-left">
-                          <p>Conta:</p>
-                      </div>
-                      <div >
-                          <p>{{bankAccount?.account | uppercase}}</p>
-                      </div>
-                  </div>
-              </div>
-              <div >
-                  <div >
-                      <div  class="pipe-column-title">
-                          <p class="pipe-title"> <span>|</span></p>
-                      </div>
+                        <div class="space-right weight-title-space-left">
+                            <p>Conta:</p>
+                        </div>
+                        <div>
+                            <p>{{bankAccount?.account | uppercase}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <div>
+                            <p class="pipe-title"> <span>|</span></p>
+                        </div>
 
-                      <div  class="space-right weight-title-space-left">
-                          <p>Agência:</p>
-                      </div>
-                      <div >
-                          <p>{{bankAccount?.agency | uppercase}}</p>
-                      </div>
-                  </div>
-              </div>
-              <div >
-                  <div >
-                      <div  class="pipe-column-title">
-                          <p class="pipe-title"> <span>|</span></p>
-                      </div>
-                      <div  class="space-right weight-title-space-left">
-                          <p>Titular:</p>
-                      </div>
-                      <div >
-                          <p>{{bankAccount?.holder | uppercase}}</p>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+                        <div class="space-right weight-title-space-left">
+                            <p>Agência:</p>
+                        </div>
+                        <div>
+                            <p>{{bankAccount?.agency | uppercase}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div>
+                        <div>
+                            <p class="pipe-title"> <span>|</span></p>
+                        </div>
+                        <div class="space-right weight-title-space-left">
+                            <p>Titular:</p>
+                        </div>
+                        <div>
+                            <p>{{bankAccount?.holder | uppercase}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+
+<div class="w-full p-4 grid sm:grid-cols-8 grid-cols-1 grid-row-4 gap-4">
+    <div class="w-full grid grid-cols-[10px_70px_150px] items-center">
+        <div>
+            <p class="pipe-title"> <span>|</span></p>
+        </div>
+        <div>
+            <p>Banco:</p>
+        </div>
+        <div>
+            <p>{{bankAccount.institution | uppercase}}</p>
+        </div>
+    </div>
+    <div class="w-full grid grid-cols-[10px_70px_150px] items-center">
+        <div>
+            <p class="pipe-title"> <span>|</span></p>
+        </div>
+        <div>
+            <p>Conta:</p>
+        </div>
+        <div>
+            <p>{{bankAccount?.account | uppercase}}</p>
+        </div>
+    </div>
+    <div class="w-full grid grid-cols-[10px_70px_150px] items-center">
+        <div>
+            <p class="pipe-title"> <span>|</span></p>
+        </div>
+        <div>
+            <p>Agência:</p>
+        </div>
+        <div>
+            <p>{{bankAccount?.agency | uppercase}}</p>
+        </div>
+    </div>
+    <div class="w-full grid grid-cols-[10px_70px_150px] items-center">
+        <div>
+            <p class="pipe-title"> <span>|</span></p>
+        </div>
+        <div>
+            <p>Titular:</p>
+        </div>
+        <div class="w-full">
+            <p>{{bankAccount?.holder | uppercase}}</p>
+        </div>
+    </div>
 </div>

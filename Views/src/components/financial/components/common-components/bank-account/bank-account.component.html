@@ -1,107 +1,110 @@
-<div class="p-4 mb-6" [formGroup]="formMain" *ngIf="formMain">
-    <sub-title title [title]="mainTitle" [icon]="mainIcon"></sub-title>
-    <div class="p-4">
+<div class="mb-6" [formGroup]="formMain" *ngIf="formMain">
+    <mat-card class="-mt-6 border-card-categories-divide-comp">
+
         <div class="p-4">
-            <h3 class="title-categories-divide-comp">Dados Bancários</h3>
-        </div>
-        <div class="p-4 mb-6">
-            <div class="gap-4 grid grid-cols-1 sm:grid-cols-2">
-                <div>
-                    <mat-label>Titular</mat-label>
-                    <mat-form-field appearance="outline" class="w-full">
-                        <input matInput type="text" formControlName="holder" aria-label="Titular">
-                        <mat-error>
-                            <span>{{validatorMessages.required(formMain,'holder', 'Titular')}}</span>
-                            <span>{{validatorMessages.minMaxLength(formMain,'holder', 'Titular',null,100)}}</span>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-
-                <div>
-                    <mat-label>Instituição Financeira</mat-label>
-                    <mat-form-field appearance="outline" class="w-full">
-                        <input matInput type="text" formControlName="institution" aria-label="Instituição Financeira">
-                        <mat-error>
-                            <span>{{validatorMessages.required(formMain,'institution', 'Instituição financeira')}}</span>
-                            <span>{{validatorMessages.minMaxLength(formMain,'institution', 'Instituição financeira',null,100)}}</span>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-
+            <div class="p-4">
+                <h3 class="title-categories-divide-comp">Dados Bancários</h3>
             </div>
-            <div class="gap-4 grid grid-cols-1 sm:grid-cols-3">
-                <div>
-                    <mat-label>Agência</mat-label>
-                    <mat-form-field appearance="outline" class="w-full">
-                        <input matInput type="text" formControlName="agency" aria-label="Agência">
-                        <mat-error>
-                            <span>{{validatorMessages.required(formMain,'agency', 'Agência')}}</span>
-                            <span>{{validatorMessages.minMaxLength(formMain,'agency', 'Agência',null,10)}}</span>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-                <div>
-                    <mat-label>Conta</mat-label>
-                    <mat-form-field appearance="outline" class="w-full">
-                        <input matInput type="text" formControlName="account" aria-label="Conta">
-                        <mat-error>
-                            <span>{{validatorMessages.required(formMain,'account', 'Conta')}}</span>
-                            <span>{{validatorMessages.minMaxLength(formMain,'account', 'Conta',null,10)}}</span>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-                <div>
-                    <mat-label>Tipo de Conta</mat-label>
-                    <mat-form-field appearance="outline" class="w-full">
-                        <mat-select formControlName="type">
-                            <mat-option [value]="typesAccount.id" *ngFor="let typesAccount of typeAccountsArray">
-                                {{typesAccount.typeAccount}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-        </div>
+            <div class="p-4 mb-6">
+                <div class="gap-4 grid grid-cols-1 sm:grid-cols-2">
+                    <div>
+                        <mat-label>Titular</mat-label>
+                        <mat-form-field appearance="outline" class="w-full">
+                            <input matInput type="text" formControlName="holder" aria-label="Titular">
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain,'holder', 'Titular')}}</span>
+                                <span>{{validatorMessages.minMaxLength(formMain,'holder', 'Titular',null,100)}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
 
-        <ng-content select="[pix]">
+                    <div>
+                        <mat-label>Instituição Financeira</mat-label>
+                        <mat-form-field appearance="outline" class="w-full">
+                            <input #institution (input)="onInstitutionInput(institution.value)" matInput type="text" formControlName="institution" aria-label="Instituição Financeira">
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain,'institution', 'Instituição financeira')}}</span>
+                                <span>{{validatorMessages.minMaxLength(formMain,'institution', 'Instituição financeira',null,100)}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
 
-        </ng-content>
-
-        <div class="p-4 mt-6">
-            <div class="gap-4 grid grid-cols-1 sm:grid-cols-2">
-                <div>
-                    <mat-label>Gerente Nome</mat-label>
-                    <mat-form-field class="w-full" appearance="outline">
-                        <input formControlName="managerName" matInput type="text" aria-label="Gerente Nome">
-                        <mat-error>
-                            <span>{{validatorMessages.minMaxLength(formMain,'managerName', 'Gerente',null,100)}}</span>
-                        </mat-error>
-                    </mat-form-field>
                 </div>
-
-                <div>
-                    <mat-label>Contato Gerente</mat-label>
-                    <mat-form-field class="w-full" appearance="outline">
-                        <input matInput type="text" formControlName="managerContact" aria-label="Contato Gerente">
-                        <mat-error>
-                            <span>{{validatorMessages.minMaxLength(formMain,'managerContact', 'Gerente',null,100)}}</span>
-                        </mat-error>
-                    </mat-form-field>
+                <div class="gap-4 grid grid-cols-1 sm:grid-cols-3">
+                    <div>
+                        <mat-label>Agência</mat-label>
+                        <mat-form-field appearance="outline" class="w-full">
+                            <input matInput type="text" formControlName="agency" aria-label="Agência">
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain,'agency', 'Agência')}}</span>
+                                <span>{{validatorMessages.minMaxLength(formMain,'agency', 'Agência',null,10)}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-label>Conta</mat-label>
+                        <mat-form-field appearance="outline" class="w-full">
+                            <input matInput type="text" formControlName="account" aria-label="Conta">
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain,'account', 'Conta')}}</span>
+                                <span>{{validatorMessages.minMaxLength(formMain,'account', 'Conta',null,10)}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-label>Tipo de Conta</mat-label>
+                        <mat-form-field appearance="outline" class="w-full">
+                            <mat-select formControlName="type">
+                                <mat-option [value]="typesAccount.id" *ngFor="let typesAccount of typeAccountsArray">
+                                    {{typesAccount.typeAccount}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
                 </div>
             </div>
+
+            <ng-content select="[pix]">
+
+            </ng-content>
+
+            <div class="p-4 mt-6">
+                <div class="gap-4 grid grid-cols-1 sm:grid-cols-2">
+                    <div>
+                        <mat-label>Gerente Nome</mat-label>
+                        <mat-form-field class="w-full" appearance="outline">
+                            <input formControlName="managerName" matInput type="text" aria-label="Gerente Nome">
+                            <mat-error>
+                                <span>{{validatorMessages.minMaxLength(formMain,'managerName', 'Gerente',null,100)}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div>
+                        <mat-label>Contato Gerente</mat-label>
+                        <mat-form-field class="w-full" appearance="outline">
+                            <input matInput type="text" formControlName="managerContact" aria-label="Contato Gerente">
+                            <mat-error>
+                                <span>{{validatorMessages.minMaxLength(formMain,'managerContact', 'Gerente',null,100)}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <ng-content select="[description]">
+
+            </ng-content>
+
+            <div class="ml-4">
+                <div>
+                    <mat-label>Saldo</mat-label>
+                </div>
+                <mat-form-field appearance="outline">
+                    <input matInput type="text" currencyMask formControlName="balance" aria-label="Saldo">
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'balance', 'Saldo')}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
         </div>
-        <ng-content select="[description]">
-
-        </ng-content>
-
-
-
-
-        <mat-label>Saldo</mat-label>
-        <mat-form-field appearance="outline">
-            <input matInput type="text" currencyMask formControlName="balance" aria-label="Saldo">
-            <mat-error>
-                <span>{{validatorMessages.required(formMain,'balance', 'Saldo')}}</span>
-            </mat-error>
-        </mat-form-field>
-    </div>
+    </mat-card>
 </div>

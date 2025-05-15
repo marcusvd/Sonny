@@ -2,16 +2,23 @@
     <title-component [digit]="'|'" [textTitleComp]="institution" [icon]="'attach_money'">
     </title-component>
 
-    <bank-account [formMain]="formMain" [mainIcon]="'edit'" [mainTitle]="institution">
-        <pix pix [formMain]="formMain" [noBeneficiaryField]="false" [edit]="true" [pixesEntities]="pixes">
-        </pix>
+    <!-- <div style="margin-bottom: -30px; padding-right:22px;position: absolute;">
+    </div> -->
+    <mat-card class="border-radius-none">
+        <sub-title title [title]="institution" [icon]="'edit'"></sub-title>
+        <bank-account [formMain]="formMain" [mainIcon]="'edit'" [mainTitle]="institution">
+            <pix pix [formMain]="formMain" [noBeneficiaryField]="false" [edit]="true" [pixesEntities]="pixes">
+            </pix>
+        </bank-account>
 
-    </bank-account>
-
-    <bank-cards [formMain]="formMain" [edit]="true" [cards]="cards" [mainIcon]="'payment'">
-    </bank-cards>
-    <!-- {{formMain.value | json}} -->
-    <div class="ml-4 pb-12 sm:w-full sm:flex sm:justify-center">
-        <btn-g [name]="'Atualizar'" [icon]="'save'" (btn)="update()"></btn-g>
-    </div>
+        <div class="align-h-center">
+            <mat-divider class="divider-line-categories-comp"></mat-divider>
+        </div>
+        <bank-cards [formMain]="formMain" [edit]="true" [cards]="cards" [mainIcon]="'payment'">
+        </bank-cards>
+        <!-- {{formMain.value | json}} -->
+        <div class="ml-4 pb-12 sm:w-full sm:flex sm:justify-center">
+            <btn-g [name]="'Atualizar'" [icon]="'save'" (btn)="update()"></btn-g>
+        </div>
+    </mat-card>
 </div>

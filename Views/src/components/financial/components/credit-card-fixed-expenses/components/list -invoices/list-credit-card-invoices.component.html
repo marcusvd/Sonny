@@ -1,9 +1,9 @@
-<div class="border-around" >
+<div class="p-4">
     <title-component [digit]="'|'" [textTitleComp]="'Cartão de Crédito'" [icon]="'attach_money'"></title-component>
     <div>
 
         <div>
-            <mat-card class="mat-card-sub-title">
+            <mat-card class="border-radius-none">
 
                 <grid-list-common>
                     <sub-title title [title]="'Faturas Cartões de credito.'" [icon]="'list'"></sub-title>
@@ -19,7 +19,7 @@
                                 </div>
                             </div>
                             <div *ngIf="this.showDataBank">
-                                <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="false" [changeSelection]="monthFilter"  (sendSelected)="selectedMonth($event)">
+                                <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="false" [changeSelection]="monthFilter" (sendSelected)="selectedMonth($event)">
                                 </months-select>
                             </div>
                             <div *ngIf="showDataBank">

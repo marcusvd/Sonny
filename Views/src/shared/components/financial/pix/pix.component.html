@@ -86,7 +86,7 @@
 <div [formGroup]="formMain" *ngIf="formMain">
     <div formArrayName="pixes" *ngFor="let pixFormGroup of pixesFormArray.controls; let i = index;">
         <div *ngIf="pixFormGroup.get('deleted').value != true">
-            <mat-card class="p-4 mb-2 mt-6">
+            <mat-card class="p-4 mb-2 mt-6 border-card-categories-divide-comp">
                 <div>
                     <img class="w-15 h-8" src="../../../../assets/finances/pix.png" alt="pix">
                 </div>
@@ -143,6 +143,6 @@
 </div>
 
 
-<div class="flex justify-between mt-4 ml-4">
+<div class="flex justify-between mt-4 ml-5">
     <btn-g [name]="'Pix'" [icon]="'add'" (btn)="add()"></btn-g>
 </div>
