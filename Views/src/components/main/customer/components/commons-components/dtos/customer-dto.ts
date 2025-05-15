@@ -7,7 +7,7 @@ export class CustomerDto extends MainEntitiesBase {
     super()
   }
 
-  assured: boolean;
+  assured: string;
   payment: number;
   expiration: number;
   disabled: boolean;

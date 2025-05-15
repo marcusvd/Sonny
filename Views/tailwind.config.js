@@ -12,7 +12,7 @@ module.exports = {
             },
             colors: {
                 'color-main': '#2ba1a8',
-
+                'remove-color': '#c92424',
             },
             fontFamily: {
                 default: ['Mynerve'],

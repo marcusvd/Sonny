@@ -25,9 +25,11 @@ import { CustomerFilterListGComponent } from './customer-filter-list/customer-fi
 import { CustomerListService } from './services/customer-list.service';
 import { FilterTerms } from '../commons-components/query/filter-terms';
 import {CustomerListDto} from '../list/dto/customer-list.dto';
+import { DeleteServices } from '../../../../../shared/components/delete-dialog/services/delete.services';
 
 import { FormControl, FormGroup } from '@angular/forms';
 import { map } from 'rxjs/operators';
+import { AssuredPipe } from 'src/shared/pipes/assured.pipe';
 
 @Component({
   selector: 'customers-list',
@@ -49,7 +51,8 @@ import { map } from 'rxjs/operators';
     CustomerFilterListGComponent
   ],
   providers: [
-    CustomerListService
+    CustomerListService,
+    AssuredPipe
   ]
 
 })
@@ -59,22 +62,25 @@ export class CustomersListComponent extends ListControlCustomerList implements O
     private _route: ActivatedRoute,
     override _router: Router,
     override _http: HttpClient,
-    private _dialog: MatDialog,
-    private _customerServices: CustomerListService,
+    override _dialog: MatDialog,
+    override _customerServices: CustomerListService,
+    override _deleteServices: DeleteServices,
     private _communicationsAlerts: CommunicationAlerts,
+    override _assuredPipe: AssuredPipe,
 
   ) {
     super(
       _router,
-      _http
+      _http,
+      _assuredPipe,
+      _dialog,
+      _customerServices,
+      _deleteServices
     )
   }
 
 
-
-
   customerSubscribe: Subscription;
-
 
 
   ngOnDestroy(): void {
@@ -135,32 +141,7 @@ export class CustomersListComponent extends ListControlCustomerList implements O
   //   this._router.navigateByUrl(`/side-nav/edit/${id}`)
   // }
 
-  // delete(entity: CustomerListGridDto) {
 
-  //   const dialogRef = this._dialog.open(DeleteDialogComponent, {
-  //     width: 'auto',
-  //     height: 'auto',
-  //     data: { id: entity.id, btn1: 'Cancelar', btn2: 'Confirmar', messageBody: `Tem certeza que deseja deletar o item `, itemToBeDelete: `${entity.name}` },
-  //     autoFocus: true,
-  //     hasBackdrop: false,
-  //     disableClose: true,
-  //     panelClass: 'delete-dialog-class',
-
-  //   });
-
-  //   dialogRef.afterClosed().subscribe(result => {
-
-  //     if (result.id != null) {
-  //       const deleteFake = this._customerServices.deleteFakeDisable(result.id);
-  //       this.entities = this.entities.filter(y => y.id != result.id);
-
-  //       this.entities$ = this.entities$.pipe(
-  //         map(x => x.filter(y => y.id != result.id))
-  //       )
-  //     }
-
-  //   })
-  // }
 
 
 
@@ -257,56 +238,5 @@ export class CustomersListComponent extends ListControlCustomerList implements O
   }
 
 
-  // getData() {
-
-  //   this.backEndUrl = 'customers/GetAllCustomersPagedAsync';
-
-
-  //   this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(1, this.pageSize));
-  //   this.gridListCommonHelper.entities$.subscribe((x: CustomerDto[]) => {
-  //     this.entities = [];
-  //     let viewDto: CustomerListGridDto;
-
-  //     x.forEach((xy: CustomerDto) => {
-  //       viewDto = new CustomerListGridDto;
-  //       viewDto.contacts = [{}];
-
-  //       viewDto.id = xy.id.toString();
-  //       viewDto.name = xy.name;
-  //       viewDto.responsible = xy.responsible;
-  //       viewDto.assured = xy.assured == true ? 'Sim' : 'Não';
-
-  //       if (xy.contact?.cel)
-  //         viewDto.contacts[0] = ({ 'cel': xy.contact?.cel });
-  //       else
-  //         viewDto.contacts[0] = ({ 'cel': 'Não cadastrado.' });
-
-  //       if (xy.contact?.zap)
-  //         viewDto.contacts.push({ 'zap': xy.contact?.zap })
-  //       else
-  //         viewDto.contacts.push({ 'zap': 'Não cadastrado.' });
-
-  //       if (xy.contact?.landline)
-  //         viewDto.contacts.push({ 'landline': xy.contact?.landline })
-  //       else
-  //         viewDto.contacts.push({ 'landline': 'Não cadastrado.' });
-
-  //       if (xy.contact?.email)
-  //         viewDto.contacts.push({ 'email': xy.contact?.email })
-  //       else
-  //         viewDto.contacts.push({ 'email': 'Não cadastrado.' });
-
-  //       this.entities.push(viewDto);
-
-  //     })
-
-  //     this.entities$ = of(this.entities)
-  //   })
-
-  // }
-
-  // ngOnInit(): void {
-  //   this.getData();
-  // }
 
 }

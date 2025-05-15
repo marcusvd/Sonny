@@ -9,7 +9,6 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { SharedModule } from "src/shared/modules/shared.module";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MaterialModule } from "src/shared/modules/material.module";
 import { DevicesCrudService } from "./services/devices-crud.service";
 
 
@@ -28,7 +27,7 @@ import { DevicesCrudService } from "./services/devices-crud.service";
     FormsModule,
     //My
     SharedModule,
-    // MaterialModule,
+    //
 
   ],
   exports:[],

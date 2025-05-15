@@ -10,7 +10,7 @@ import { DialogQuizComponent } from "../dialog-quiz.component";
   imports: [
     CommonModule,
 
-    MaterialModule,
+    
   ],
   exports: [
     DialogQuizComponent

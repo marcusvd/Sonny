@@ -23,7 +23,7 @@ import { TestsCheksComponent } from '../../stock-product/tests-cheks/tests-cheks
     FormsModule,
     //my imports
     SharedModule,
-    MaterialModule,
+    
     AuthRoutingModule,
     //tools-helpers
     RecaptchaModule,

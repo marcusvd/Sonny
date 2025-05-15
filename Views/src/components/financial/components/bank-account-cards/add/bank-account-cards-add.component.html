@@ -1,17 +1,27 @@
-<div class="border-around">
+<div class="p-4">
     <title-component [digit]="'|'" [textTitleComp]="'Cadastro de contas e cartões'" [icon]="'attach_money'">
     </title-component>
-
-    <bank-account [formMain]="formMain" [mainIcon]="'add'" [mainTitle]="formMain.get('institution').value">
-        <pix pix [formMain]="formMain" [noBeneficiaryField]="false">
-        </pix>
-    </bank-account>
-
-    <bank-cards [formMain]="formMain" [mainIcon]="'payment'">
-    </bank-cards>
-
+    <mat-card class="border-card-categories-divide-comp">
+        <bank-account [formMain]="formMain" [mainIcon]="'add'" [mainTitle]="formMain.get('institution').value">
+            <pix pix [formMain]="formMain" [noBeneficiaryField]="false">
+            </pix>
+        </bank-account>
+    </mat-card>
+    <div class="align-h-center">
+        <mat-divider class="divider-line-categories-comp"></mat-divider>
+    </div>
+    <mat-card class="border-card-categories-divide-comp">
+        <sub-title title [icon]="'clear'" [title]="'ssss'">
+        </sub-title>
+        <bank-cards [formMain]="formMain" [mainIcon]="'payment'">
+        </bank-cards>
+    </mat-card>
+    <div class="align-h-center">
+        <mat-divider class="divider-line-categories-comp"></mat-divider>
+    </div>
     <!-- {{formMain.value | json}} -->
     <div class="ml-4 pb-12 sm:w-full sm:flex sm:justify-center">
         <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
     </div>
+
 </div>

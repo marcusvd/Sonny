@@ -54,9 +54,9 @@ export class ListGComponent {
     this.outOnClickButton.emit(field);
   }
 
-  onClickIcon(action: string, entityId:number) {
+  onClickIcon(action: string, entityId: number) {
 
-    const onClick:OnClickInterface = {
+    const onClick: OnClickInterface = {
       action: action,
       entityId: entityId
     }

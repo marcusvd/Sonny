@@ -10,7 +10,7 @@ import { MaterialModule } from "src/shared/modules/material.module";
   declarations: [SearchGComponent],
   imports: [
     CommonModule,
-    MaterialModule,
+    
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule

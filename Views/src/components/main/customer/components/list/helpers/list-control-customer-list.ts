@@ -9,6 +9,12 @@ import { CustomerDto } from '../../commons-components/dtos/customer-dto'
 import { OnClickInterface } from 'src/shared/components/list-g/list/interfaces/on-click-interface';
 import { PageEvent } from '@angular/material/paginator';
 import { environment } from 'src/environments/environment';
+import { AssuredPipe } from 'src/shared/pipes/assured.pipe';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delete-dialog.component';
+import { CustomerListService } from '../services/customer-list.service';
+import { DeleteServices } from '../../../../../../shared/components/delete-dialog/services/delete.services';
+import { map } from 'rxjs/operators';
 
 export class ListControlCustomerList extends BaseList {
 
@@ -25,6 +31,10 @@ export class ListControlCustomerList extends BaseList {
   constructor(
     override _router: Router,
     public _http: HttpClient,
+    protected _assuredPipe: AssuredPipe,
+    protected _dialog: MatDialog,
+    protected _customerServices: CustomerListService,
+    protected _deleteServices: DeleteServices,
   ) {
     super(
       new ListGDataService(_http),
@@ -35,7 +45,7 @@ export class ListControlCustomerList extends BaseList {
 
   labelHeadersMiddle = () => {
     return [
-      { key: '', style: 'cursor: pointer;' },
+      { key: '', style: 'cursor: pointer; max-width:100px;' },
       { key: 'Nome', style: 'cursor: pointer;' },
       { key: 'Assegurado', style: 'cursor: pointer;' },
       { key: 'Responsável', style: 'cursor: pointer;' }
@@ -44,7 +54,7 @@ export class ListControlCustomerList extends BaseList {
 
   fieldsHeadersMiddle = () => {
     return [
-      { key: 'id', style: '' },
+      { key: 'id', style: 'max-width:100px;' },
       { key: 'name', style: '' },
       { key: 'assured', style: '' },
       { key: 'responsible', style: '' }
@@ -90,11 +100,34 @@ export class ListControlCustomerList extends BaseList {
   }
 
   onClickIcons(obj: OnClickInterface) {
-    if(obj.action == 'edit')
+    if (obj.action.split('|')[0] == 'edit')
       this.callRouter(`/side-nav/customer/edit/${obj.entityId}`);
 
-    console.log(obj.entityId)
-    // ex_callRouteWithObject('/side-nav/stock-product-router/detailed-product', this.products.find(x => x.id == obj.entityId), this._router)
+    // if (obj.action.split('|')[0] == 'zoom_in') {
+    //   this.callRouter(`/side-nav/customer/view/${obj.entityId}`);
+    // }
+
+    if (obj.action.split('|')[0] == 'delete')
+      this.deleteFake(obj.entityId);
+
+  }
+
+  deleteFake = (id: number) => {
+    const entity = this.entities.find(x => x.id.key == id.toString());
+
+    const result = this._deleteServices.delete(parseInt(entity.id.key), entity.name.key)
+   // const result = this._deleteServices.delete(this.entities.find(x => x.id.key == id.toString()))
+
+    result.subscribe(result => {
+      if (result.id != null) {
+        this._customerServices.deleteFakeDisable(result.id.key);
+
+        this.entitiesFiltered$ = this.entitiesFiltered$.pipe(
+          map(x => x.filter(y => y.id.key != result.id.key.toString()))
+        )
+      }
+
+    })
   }
 
   supplyItemsGrid = (customerList: CustomerListDto[], customer: CustomerDto) => {
@@ -106,9 +139,10 @@ export class ListControlCustomerList extends BaseList {
       id: {
         key: customer.id.toString(),
         display: 'icons',
-        icons: ['list', 'edit', 'home'],
+        icons: ['edit|', 'delete|color:rgb(158, 64, 64);margin-left:10px;'],
+        // icons: ['zoom_in', 'edit', 'home'],
         styleInsideCell: `color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,
-        styleCell: '',
+        styleCell: 'max-width:100px;',
         route: ''
       },
 
@@ -119,7 +153,7 @@ export class ListControlCustomerList extends BaseList {
       },
 
       assured: {
-        key: customer.assured,
+        key: this._assuredPipe.transform(customer.assured),
         styleCell: 'width:100%;',
       },
 

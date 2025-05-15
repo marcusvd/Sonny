@@ -1,17 +1,17 @@
-<div class="border-around" >
+<div class="p-4">
     <title-component [digit]="'|'" [textTitleComp]="institution" [icon]="'attach_money'">
     </title-component>
 
     <bank-account [formMain]="formMain" [mainIcon]="'edit'" [mainTitle]="institution">
         <pix pix [formMain]="formMain" [noBeneficiaryField]="false" [edit]="true" [pixesEntities]="pixes">
         </pix>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
+
     </bank-account>
-    <div class="middle-space-horizontal-beteween-fields"> </div>
+
     <bank-cards [formMain]="formMain" [edit]="true" [cards]="cards" [mainIcon]="'payment'">
     </bank-cards>
     <!-- {{formMain.value | json}} -->
-    <div >
+    <div class="ml-4 pb-12 sm:w-full sm:flex sm:justify-center">
         <btn-g [name]="'Atualizar'" [icon]="'save'" (btn)="update()"></btn-g>
     </div>
 </div>

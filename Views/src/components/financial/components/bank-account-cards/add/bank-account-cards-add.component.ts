@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatButtonModule as MatButtonModule } from '@angular/material/button';
-import { MatCardModule as MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 
 
@@ -10,6 +10,7 @@ import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { PixComponent } from 'src/shared/components/financial/pix/pix.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
 
+import { MatDividerModule } from '@angular/material/divider';
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
@@ -28,6 +29,7 @@ import { BankAccountAddService } from './services/bank-account-add.service';
     CommonModule,
     MatButtonModule,
     MatCardModule,
+    MatDividerModule,
     BankAccountComponent,
     BankCardsComponent,
     TitleComponent,

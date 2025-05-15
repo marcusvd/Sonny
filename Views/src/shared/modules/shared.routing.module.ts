@@ -39,10 +39,10 @@ const routes: Routes = [
         path: 'stock-product-router',
         loadChildren: () => import('../../components/stock-product/modules/stock-product.routing.module').then(x => x.StockProductRoutingModule)
       },
-      {
-        path: 'user-profile',
-        loadChildren: () => import('../../components/profile/modules/profiles-routing.module').then(x => x.ProfilesRoutingModule)
-      }
+      // {
+      //   path: 'user-profile',
+      //   loadChildren: () => import('../../components/profile/modules/profiles-routing.module').then(x => x.ProfilesRoutingModule)
+      // }
       //,
       // {
       //   // path: 'address-2', component: AddressV2Component

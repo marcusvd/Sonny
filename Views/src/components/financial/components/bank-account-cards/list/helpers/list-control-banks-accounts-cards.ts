@@ -1,31 +1,49 @@
 
-import { BankAccountCardListDto } from '../dto/bank-account-card-list.dto';
-import { BankAccountDto } from '../../dto/bank-account-dto';
-import { AccountTypePipe } from '../pipes/account-type.pipe';
-import { ListGDataService } from 'src/shared/components/list-g/list/data/list-g-data.service';
 import { HttpClient } from '@angular/common/http';
-import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
-import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
-import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { BaseList } from 'src/shared/components/list-g/extends/base-list';
 import { Observable, of, Subscription } from 'rxjs';
-
+import { BaseList } from 'src/shared/components/list-g/extends/base-list';
+import { ListGDataService } from 'src/shared/components/list-g/list/data/list-g-data.service';
+import { OnClickInterface } from 'src/shared/components/list-g/list/interfaces/on-click-interface';
+import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
+import { DeleteServices } from '../../../../../../shared/components/delete-dialog/services/delete.services';
+import { BankAccountDto } from '../../dto/bank-account-dto';
+import { BankAccountCardListDto } from '../dto/bank-account-card-list.dto';
+import { AccountTypePipe } from '../pipes/account-type.pipe';
+import { BankAccountCardsListService } from '../services/bank-account-cards-list.service';
+import { map } from 'rxjs/operators';
 
 
 
 export class ListControlBanksAccountsCards extends BaseList {
 
   entities$: Observable<BankAccountCardListDto[]>;
+  entities: BankAccountCardListDto[];
+  editUrlRoute: string = '/side-nav/financial/edit-bank-account-cards';
 
   constructor(
     override _router: Router,
     public _http: HttpClient,
+    protected _deleteServices: DeleteServices,
+    protected _bankAccountCardsListService: BankAccountCardsListService,
   ) {
     super(
       new ListGDataService(_http),
       _router,
     )
+  }
+
+  onClickButton(field: string) {
+    console.log(field)
+  }
+
+  onClickIcons(obj: OnClickInterface) {
+    console.log(obj.action.split('|')[0])
+    if (obj.action.split('|')[0] == 'delete')
+      this.deleteFake(obj.entityId);
+
+    if (obj.action.split('|')[0] == 'edit')
+      this.callRouter(`${this.editUrlRoute}/${obj.entityId}`)
   }
 
   supplyItemsGrid = (bankAccountCardList: BankAccountCardListDto[], bankAccount: BankAccountDto, _accountTypePipe: AccountTypePipe, _ptBrCurrencyPipe?: PtBrCurrencyPipe) => {
@@ -37,7 +55,7 @@ export class ListControlBanksAccountsCards extends BaseList {
       id: {
         key: bankAccount.id.toString(),
         display: 'icons',
-        icons: ['list', 'edit', 'home'],
+        icons: ['edit|', 'delete|color:rgb(158, 64, 64);margin-left:10px;'],
         styleInsideCell: `color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,
         styleCell: '',
         route: ''
@@ -83,6 +101,26 @@ export class ListControlBanksAccountsCards extends BaseList {
     bankAccountCardList.push(items);
 
     return bankAccountCardList;
+  }
+
+  deleteFake = (id: number) => {
+
+    const entity = this.entities.find(x => x.id.key == id.toString());
+
+    const result = this._deleteServices.delete(parseInt(entity.id.key), entity.institution.key)
+
+    result.subscribe(result => {
+
+      if (result.id != null) {
+
+        this._bankAccountCardsListService.deleteFakeDisable(result.id);
+
+        this.entities$ = this.entities$.pipe(
+          map(x => x.filter(y => y.id.key != result.id.toString()))
+        )
+      }
+
+    })
   }
 
   labelHeadersMiddle = () => {
@@ -146,7 +184,8 @@ export class ListControlBanksAccountsCards extends BaseList {
     }
 
   }
-startSupply(_ptBrCurrencyPipe: PtBrCurrencyPipe, _accountTypePipe: AccountTypePipe): Subscription {
+
+  startSupply(_ptBrCurrencyPipe: PtBrCurrencyPipe, _accountTypePipe: AccountTypePipe): Subscription {
 
     let entities: BankAccountCardListDto[] = [];
 
@@ -156,12 +195,14 @@ startSupply(_ptBrCurrencyPipe: PtBrCurrencyPipe, _accountTypePipe: AccountTypePi
 
           x.forEach(
             (y: BankAccountDto) => {
-              this.entities$ = of(this.supplyItemsGrid(entities, y, _accountTypePipe, _ptBrCurrencyPipe));
+              this.entities = this.supplyItemsGrid(entities, y, _accountTypePipe, _ptBrCurrencyPipe);
+              this.entities$ = of(this.entities);
             })
         }
       }
     )
 
   }
+
 }
 

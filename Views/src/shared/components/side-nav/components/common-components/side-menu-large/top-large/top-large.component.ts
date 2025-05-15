@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenu as MatMenu, MatMenuModule as MatMenuModule, MatMenuTrigger as MatMenuTrigger } from '@angular/material/menu';
 import { RouterLink } from '@angular/router';
 import { AuthenticationService } from 'src/components/authentication/services/authentication.service';
-import { MaterialModule } from 'src/shared/modules/material.module';
+
 
 @Component({
   selector: 'top-large',

@@ -68,20 +68,20 @@ export class ListControlProduct extends BaseList {
 
     if (this.screen(event) <= 800) {
       this.fields = null;
-      this.headers = null;
+      // this.headers = null;
       this.isCard = true;
       this.entitiesFiltered$ = of(ex_makeItemsGridSmall(this.entitiesFiltered, this._truncatePipe));
     }
     else if (this.screen(event) >= 800) {
       this.fields = fieldsHeadersMiddle();
-      this.headers = labelHeadersMiddle();
+      // this.headers = labelHeadersMiddle();
       this.isCard = false;
       this.entitiesFiltered$ = of(ex_makeItemsGridMedium(this.entitiesFiltered, this._truncatePipe));
     }
 
     if (this.screen(event) > 1024) {
       this.fields = fieldsHeadersLarge();
-      this.headers = labelHeadersLarge();
+      // this.headers = labelHeadersLarge();
       this.isCard = false;
       this.entitiesFiltered$ = of(ex_makeItemsGridLager(this.entitiesFiltered, this._truncatePipe));
     }

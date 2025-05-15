@@ -6,7 +6,6 @@ import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { ListGDataService } from "../list/data/list-g-data.service";
 import { FieldsInterface } from '../list/interfaces/fields-interface';
-import { FieldsLabelInterface } from '../list/interfaces/fields-label-interface';
 import { OrderbyInterface } from '../list/interfaces/orderby-interface';
 
 @Component({
@@ -24,7 +23,6 @@ export class BaseList {
   currentDate = new Date();
   currentDateWithoutHours = this.currentDate.setHours(0, 0, 0, 0)
   screenWidth: number = window.innerWidth;
-  headers: FieldsLabelInterface[] = []
   fields: FieldsInterface[] = []
   pageSize: number = 20;
   @ViewChild('paginatorAbove') paginatorAbove: MatPaginator

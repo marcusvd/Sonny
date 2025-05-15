@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 
-import { MaterialModule } from "./material.module";
+
 
 // import { DialogQuizComponent } from "src/shared/components/dialog-quiz/dialog-quiz.component";
 // import { MsgOperation } from "../services/messages/snack-bar.service";
@@ -16,15 +16,15 @@ import { IConfig, NgxMaskModule } from "ngx-mask";
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { LOCALE_ID } from '@angular/core';
-import { ContactDetailsComponent } from "../components/contact-details/component/contact-details.component";
+
 import { ContactV2Service } from "../components/contact/services/contact-v2.service";
 // import { DialogQuizModule } from "../components/dialog-quiz/modules/dialog-quiz.module";
 // import { FirstModule } from "../components/first/modules/first.module";
-import { InsideNavComponent } from "../components/inside-nav/inside-nav.component";
+
 // import { SideNavModule } from "../components/side-nav/modules/side-nav.module";
-import { TabGModule } from "../components/tab-g/modules/tab-g.module";
+
 // import { TitleModule } from "../components/title/module/title.module";
-import { TreeGModule } from "../components/tree-g/modules/tree-g.module";
+
 import { UserIsAuthenticatedGuard } from "../guards/user-is-authenticatedGuard";
 // import { BaseForm } from "../helpers/forms/base-form";
 import { SharedRoutingModule } from "./shared.routing.module";
@@ -68,25 +68,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
 
 @NgModule({
   declarations: [
-    // BaseForm,
-    // AddressComponent,
-    //
-    // ContactComponent,
-    ContactDetailsComponent,
-    InsideNavComponent,
-    FormErrorPanelComponent,
-    // PhysicallyMovingCostsComponent,
-    // MainEntitiesBaseComponent,
-    // FinancialPixComponent,
-    // DescriptionFieldComponent,
-
-    //Pipes
-    // PtBrCurrencyPipe,
-    // PtBrDataPipe,
-    //Tests
-
-
-
+    FormErrorPanelComponent
   ],
 
   imports: [
@@ -97,20 +79,20 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     FormsModule,
     ReactiveFormsModule,
     //MY IMPORTS
-    MaterialModule,
+    
     SharedRoutingModule,
     CurrencyMaskModule,
     NgxMaskModule.forRoot(maskConfigFunction),
-    TabGModule,
+
     // TableGGridModule,
-    TreeGModule,
+
 
     // TitleModule,
     // DialogQuizModule,
     // FirstModule,
     // SideNavModule,
 
-    
+
     // CheckButtonGModule,
 
 
@@ -126,7 +108,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     //
     // ContactComponent,
     // ContactV2Component,
-    InsideNavComponent,
+
     FormErrorPanelComponent,
     // PhysicallyMovingCostsComponent,
     // MainEntitiesBaseComponent,
@@ -134,19 +116,19 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     // DescriptionFieldComponent,
 
     //modules
-    MaterialModule,
+    
     SharedRoutingModule,
     CurrencyMaskModule,
     NgxMaskModule,
-    TabGModule,
+
     // TableGGridModule,
-    TreeGModule,
+
 
     // TitleModule,
     // DialogQuizModule,
     // SideNavModule,
 
-    
+
     // CheckButtonGModule,
 
 

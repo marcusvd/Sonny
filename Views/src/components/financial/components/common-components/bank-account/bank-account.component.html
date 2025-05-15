@@ -1,8 +1,10 @@
 <div class="p-4 mb-6" [formGroup]="formMain" *ngIf="formMain">
     <sub-title title [title]="mainTitle" [icon]="mainIcon"></sub-title>
-    <mat-card class="p-4">
-        <h3>Dados Bancários</h3>
-        <mat-card class="p-4 mb-6">
+    <div class="p-4">
+        <div class="p-4">
+            <h3 class="title-categories-divide-comp">Dados Bancários</h3>
+        </div>
+        <div class="p-4 mb-6">
             <div class="gap-4 grid grid-cols-1 sm:grid-cols-2">
                 <div>
                     <mat-label>Titular</mat-label>
@@ -58,13 +60,13 @@
                     </mat-form-field>
                 </div>
             </div>
-        </mat-card>
+        </div>
 
         <ng-content select="[pix]">
 
         </ng-content>
 
-        <mat-card class="p-4 mt-6">
+        <div class="p-4 mt-6">
             <div class="gap-4 grid grid-cols-1 sm:grid-cols-2">
                 <div>
                     <mat-label>Gerente Nome</mat-label>
@@ -86,7 +88,7 @@
                     </mat-form-field>
                 </div>
             </div>
-        </mat-card>
+        </div>
         <ng-content select="[description]">
 
         </ng-content>
@@ -101,5 +103,5 @@
                 <span>{{validatorMessages.required(formMain,'balance', 'Saldo')}}</span>
             </mat-error>
         </mat-form-field>
-    </mat-card>
+    </div>
 </div>

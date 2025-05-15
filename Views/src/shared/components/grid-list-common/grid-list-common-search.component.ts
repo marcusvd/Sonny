@@ -1,9 +1,11 @@
-import { NgFor, NgIf } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 
 
-import { MaterialModule } from 'src/shared/modules/material.module';
+
 
 
 @Component({
@@ -20,7 +22,7 @@ import { MaterialModule } from 'src/shared/modules/material.module';
     }
   `],
   standalone: true,
-  imports: [MaterialModule, ReactiveFormsModule, NgFor, NgIf]
+  imports: [ReactiveFormsModule, CommonModule, MatFormFieldModule, MatIconModule]
 })
 export class GridListCommonSearchComponent implements OnInit {
 

@@ -5,7 +5,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { MatButtonModule as MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MaterialModule } from 'src/shared/modules/material.module';
+
 import { BtnGComponent } from '../../btn-g/btn-g.component';
 
 @Component({
@@ -13,7 +13,7 @@ import { BtnGComponent } from '../../btn-g/btn-g.component';
   templateUrl: './title.component.html',
   styleUrl: './title.component.scss',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule, MatButtonModule, BtnGComponent]
+  imports: [CommonModule, MatIconModule, MatButtonModule, MatButtonModule]
 })
 export class TitleComponent {
 

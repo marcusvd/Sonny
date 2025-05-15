@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 
 
 import { environment } from 'src/environments/environment';
-import { DeleteDialogComponent } from 'src/shared/components/delete-dialog/delete-dialog.component';
+import { DeleteDialogComponent } from '../../../../../../src/shared/components/delete-dialog/delete-dialog.component';
 import { OnClickInterface } from 'src/shared/components/list-g/list/interfaces/on-click-interface';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
@@ -16,6 +16,7 @@ import { BankAccountCardListDto } from './dto/bank-account-card-list.dto';
 import { ImportsListBankAccountCards } from './imports/imports-list-bank-account-cards';
 import { AccountTypePipe } from './pipes/account-type.pipe';
 import { BankAccountCardsListService } from './services/bank-account-cards-list.service';
+import { DeleteServices } from '../../../../../shared/components/delete-dialog/services/delete.services';
 
 @Component({
   selector: 'banks-accounts-cards-list',
@@ -39,7 +40,7 @@ export class BanksAccountsCardsListComponent extends ListControlBanksAccountsCar
 
   public addUrlRoute: string = '/side-nav/financial/create-bank-account-cards';
   private viewUrlRoute: string = '/side-nav/financial/view';
-  private editUrlRoute: string = '/side-nav/financial/edit-bank-account-cards';
+
   private bankAccountsUnsubscribe: Subscription | undefined;
 
   ngOnDestroy(): void {
@@ -54,52 +55,49 @@ export class BanksAccountsCardsListComponent extends ListControlBanksAccountsCar
   constructor(
     override _router: Router,
     override _http: HttpClient,
+    override _deleteServices: DeleteServices,
+    override _bankAccountCardsListService: BankAccountCardsListService,
     private _ptBrCurrencyPipe: PtBrCurrencyPipe,
     private _accountTypePipe: AccountTypePipe,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
   ) {
 
     super(
       _router,
-      _http
+      _http,
+      _deleteServices,
+      _bankAccountCardsListService
     )
   }
 
-  private delete(entity: BankAccountCardListDto) {
+  // private delete(entity: BankAccountCardListDto) {
 
-    const dialogRef = this._dialog.open(DeleteDialogComponent, {
-      width: 'auto',
-      height: 'auto',
-      data: { id: entity.id, btn1: 'Cancelar', btn2: 'Confirmar', messageBody: `Tem certeza que deseja deletar o item `, itemToBeDelete: `${entity.institution}` },
-      autoFocus: true,
-      hasBackdrop: false,
-      disableClose: true,
-      panelClass: 'delete-dialog-class',
+  //   const dialogRef = this._dialog.open(DeleteDialogComponent, {
+  //     width: 'auto',
+  //     height: 'auto',
+  //     data: { id: entity.id, btn1: 'Cancelar', btn2: 'Confirmar', messageBody: `Tem certeza que deseja deletar o item `, itemToBeDelete: `${entity.institution}` },
+  //     autoFocus: true,
+  //     hasBackdrop: false,
+  //     disableClose: true,
+  //     panelClass: 'delete-dialog-class',
 
-    });
+  //   });
 
-    dialogRef.afterClosed().subscribe(result => {
+  //   dialogRef.afterClosed().subscribe(result => {
 
-      // if (result.id != null) {
-      //   const deleteFake = this._listService.deleteFakeDisable(result.id);
-      //   this.entities = this.entities.filter(y => y.id != result.id);
+  //     // if (result.id != null) {
+  //     //   const deleteFake = this._listService.deleteFakeDisable(result.id);
+  //     //   this.entities = this.entities.filter(y => y.id != result.id);
 
-      //   this.entities$ = this.entities$.pipe(
-      //     map(x => x.filter(y => y.id != result.id))
-      //   )
-      //   // this._communicationsAlerts.defaultSnackMsg('1', 1, null, 4);
-      // }
+  //     //   this.entities$ = this.entities$.pipe(
+  //     //     map(x => x.filter(y => y.id != result.id))
+  //     //   )
+  //     //   // this._communicationsAlerts.defaultSnackMsg('1', 1, null, 4);
+  //     // }
 
-    })
-  }
+  //   })
+  // }
 
-  onClickButton(field: string) {
-    console.log(field)
-  }
 
-  onClickIcons(obj: OnClickInterface) {
-    console.log(obj)
-    // ex_callRouteWithObject('/side-nav/stock-product-router/detailed-product', this.products.find(x => x.id == obj.entityId), this._router)
-  }
 
 }

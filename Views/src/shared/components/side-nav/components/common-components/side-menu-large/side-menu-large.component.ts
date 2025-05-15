@@ -1,7 +1,7 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
-import { MaterialModule } from 'src/shared/modules/material.module';
+
 import { DatabaseSideNavServices } from '../../../services/database-side-nav.service';
 import { Router } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';

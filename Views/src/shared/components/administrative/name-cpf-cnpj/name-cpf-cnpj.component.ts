@@ -7,10 +7,11 @@ import { map } from 'rxjs/operators';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
 import { CpfCnpjValidator } from 'src/shared/helpers/validators/cpf-cnpj.validator';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
-import { MaterialModule } from 'src/shared/modules/material.module';
-import { ValidatorsCustomer } from '../../../../components/main/customer/validators/customer/validators-customer';
-import { ValidatorMessagesCustomer } from '../../../../components/main/customer/validators/customer/validators-messages-customer';
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { QueryCnpjService } from '../services/queryCnpj.service';
 import { BusinessData } from './dto/business-data';
 
@@ -18,29 +19,15 @@ import { BusinessData } from './dto/business-data';
 @Component({
   selector: 'name-cpf-cnpj',
   templateUrl: './name-cpf-cnpj.component.html',
-  styles: [`
-  .middle-space-horizontal-beteween-fields {
-    padding-top: 20px;
-}
-
-.check-box-label-space{
-  padding-right:10px;
-}
-.get-btn{
-  margin-right: 15px;
-        width: 150px;
-        height: 33.42px;
-        font-size: 15px;
-        background-color: #2ba1a8;
-        color: white;
-}
-
-  `],
+  styleUrls: ['./name-cpf-cnpj.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
-    MaterialModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
     ReactiveFormsModule,
+    MatCheckboxModule,
     NgxMaskModule
   ]
 })
@@ -55,7 +42,6 @@ export class NameCpfCnpjComponent extends BaseForm implements OnInit, OnChanges 
 
     if (this.formMain.get('entityType').value === 0) {
       this.checkPjPf = false;
-      this.test(false);
     }
   }
 
@@ -70,16 +56,9 @@ export class NameCpfCnpjComponent extends BaseForm implements OnInit, OnChanges 
   getCnpjNumbers(numbers: string) {
     this.cnpjNumbers = numbers;
   }
+
   getCpfNumbers(numbers: string) {
     this.cpfNumbers = numbers;
-  }
-
-
-  test(evt: boolean) {
-    if (evt)
-      this.formMain.get('entityType').setValue(0);
-    else
-      this.formMain.get('entityType').setValue(1);
   }
 
   isValid(numbers: string, cpfOrCnpj: string, form: FormGroup, controlName: string) {
@@ -98,7 +77,7 @@ export class NameCpfCnpjComponent extends BaseForm implements OnInit, OnChanges 
   }
 
 
-  pixInputMask(selected: string) {
+  inputMask(selected: string) {
 
     if (selected === 'CPF')
       return "000.000.000-00";
@@ -108,19 +87,10 @@ export class NameCpfCnpjComponent extends BaseForm implements OnInit, OnChanges 
 
     return null;
   }
-  pixInputPlaceHolder(selected: string) {
 
-    if (selected === 'CPF')
-      return "Ex: 000.000.000-00";
-
-    if (selected === 'CNPJ')
-      return "Ex: 00.000.000/0000-00";
-
-
-    return null;
-  }
 
   ngOnInit(): void {
+
   }
 
 }

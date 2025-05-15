@@ -2,7 +2,7 @@ import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 
 
-import { MaterialModule } from 'src/shared/modules/material.module';
+
 import { DatabaseSideNavServices } from '../../../services/database-side-nav.service';
 import { TreeNode } from '../../../services/tree-node';
 import { Router } from '@angular/router';

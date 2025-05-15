@@ -1,19 +1,21 @@
 <div class="p-4" [formGroup]="formMain" *ngIf="formMain">
 
     <div class="mb-16" formArrayName="cards" *ngFor="let ctrls of getCards.controls let i = index">
-        <sub-title title [icon]="mainIcon" [title]="ctrls.get('flag').value">
-            <mat-icon plus (click)="removeCard(i)">remove_circle_outline</mat-icon>
-        </sub-title>
-        <mat-card class="p-4" *ngIf="ctrls.get('deleted').value != true">
-            <div [formGroupName]="i">
-                <div>
-                    <h3>Dados do cartão</h3>
-                </div>
-                <!-- <div>
-                    <div>
 
-                    </div>
-                </div> -->
+        <div class="p-4" *ngIf="ctrls.get('deleted').value != true">
+
+            <!-- <div class="flex justify-end">
+                <mat-icon (click)="removeCard(i)">remove_circle_outline</mat-icon>
+            </div> -->
+            <div [formGroupName]="i">
+                <div class="p-4">
+                    <h3 class="title-categories-divide-comp">Dados do cartão</h3>
+                </div>
+
+                <div class="flex justify-end">
+                    <btn-g mat-dialog-close [btnType]="'onlyIconRed'" [icon]="'clear'" (btn)="removeCard(i)"></btn-g>
+                </div>
+
                 <div class="grid grid-cols-1 w-full">
                     <mat-label>Nome</mat-label>
                     <mat-form-field appearance="outline">
@@ -25,7 +27,7 @@
                     </mat-form-field>
                 </div>
                 <div>
-                    <mat-card class="p-4">
+                    <div class="p-4">
                         <h3>{{type[i]?.card?.niceType}}</h3>
                         <div class="w-full gap-4 grid grid-cols-1 sm:grid-cols-2">
                             <div class="gap-4 grid grid-cols-1 row-span-2">
@@ -119,7 +121,7 @@
                                 </div>
                             </div>
                         </div>
-                    </mat-card>
+                    </div>
                 </div>
 
 
@@ -135,7 +137,7 @@
                 </div> -->
             </div>
 
-        </mat-card>
+        </div>
     </div>
     <div class="-mt-14">
         <btn-g btn-1 (btn)="addCard()" [name]="'Cartão'"></btn-g>
