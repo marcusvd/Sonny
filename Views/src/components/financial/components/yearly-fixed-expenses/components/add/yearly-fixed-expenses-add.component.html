@@ -72,7 +72,7 @@
             </link-copy-bill>
 
         </div>
-        <div [fxLayout]="'row'"  >
+        <div   >
             <mat-form-field  appearance="outline" >
                 <mat-label>Despesa descritivo</mat-label>
                 <input matInput type="text" formControlName="description" aria-label="Descrição">
@@ -87,7 +87,7 @@
 
         <!-- <div>{{formMain.value | json}}</div> -->
 
-        <div  fxLayoutGap="50px">
+        <div  >
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
         </div>
     </mat-card>

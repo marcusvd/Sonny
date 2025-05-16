@@ -41,15 +41,18 @@ mat-sidenav {
     position: absolute;
 }
 
-.mat-sidenav-container-slim {
-    padding-left: 50px;
+.mat-sidenav-container-slim-manually {
+    padding-left: 50px !important;
 }
 
+.mat-sidenav-container-slim {
+    padding-left: 30px;
+}
 
-/* Para navegadores WebKit (Chrome, Safari) */
-
-// ::ng-deep mat-sidenav::-webkit-scrollbar {
-//     width: 2px;
+// @media (max-width: 200px) {
+//     .mat-sidenav-content {
+//         padding-left: -50px;
+//     }
 // }
 
 /* Para Firefox */
@@ -85,21 +88,3 @@ mat-sidenav {
     background: #616161 !important;
     border-radius: 0 !important;
 }
-
-
-/* Adicione isto ao seu CSS global ou use ::ng-deep no componente pai */
-
-// ::ng-deep .mat-drawer-inner-container {
-//   /* Scrollbar vertical */
-//   scrollbar-width: thin;
-//   /* Para Firefox */
-//   scrollbar-color: #616161 #424242;
-//   /* Para Firefox */
-//   /* Remover scroll horizontal */
-//   overflow-x: hidden !important;
-// }
-// @media (max-width:600px) {
-//
-//
-//
-// }

@@ -131,7 +131,7 @@
             </div>
             <div [fxLayout]="'column'"  *ngIf="selectedCustomerPayment || selectedPartnerPayment">
                 <!-- <div ></div> -->
-                <div [fxLayout]="'row'"  [style]="pricePayment">
+                <div   [style]="pricePayment">
                     <mat-form-field appearance="outline" >
                         <mat-label>Valor pre cadastrado</mat-label>
                         <mat-select #singleSelect (selectionChange)="onPriceSelectedPayment(singleSelect.value)" formControlName="kindTransport">
@@ -142,7 +142,7 @@
                     </mat-form-field>
                 </div>
 
-                <div [fxLayout]="'row'" >
+                <div  >
                     <mat-form-field >
                         <mat-label>Preço</mat-label>
                         <input matInput currencyMask type="text" formControlName="price" aria-label="Preço">

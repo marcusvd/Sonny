@@ -86,7 +86,7 @@ export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
   }
 
   add() {
-    this._router.navigateByUrl('/side-nav/financial-dash/category-expenses-add-edit')
+    this._router.navigateByUrl('/side-nav/financial/category-expenses-add-edit')
   }
 
   totalPriceToBePaid = 0;

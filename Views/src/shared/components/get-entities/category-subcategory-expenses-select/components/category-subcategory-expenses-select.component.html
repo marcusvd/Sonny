@@ -1,7 +1,7 @@
 <spinner-g [entities]="entities$" [optionalTitle]="'(Categorias)'" (spinnerStatusOut)="spinnerEvent($event)">
 </spinner-g>
 
-<div class="p-4" *ngIf="spinner" [formGroup]="formMain">
+<div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4" *ngIf="spinner" [formGroup]="formMain">
     <div class="w-full">
         <mat-label>Categoria</mat-label>
         <mat-form-field class="w-full" appearance="outline">
@@ -34,7 +34,5 @@
             </mat-error>
         </mat-form-field>
     </div>
-    <mat-label>Sem subcategorias cadastradas</mat-label>
-    <!-- <div   *ngIf="!subcategoryNotFound">
-    </div> -->
+    <mat-label *ngIf="!spinner">Sem subcategorias cadastradas</mat-label>
 </div>

@@ -1,15 +1,13 @@
 <div class="container">
 
-    <!-- <ng-content select="[top-large]"></ng-content> -->
-
     <div class="container--menu-box" [class]="{'isOdd':isOdd, 'isEven':isEven }" *ngFor="let menu of dataTree; let i = index;  let isOdd = odd; let isEven = even">
 
         <div (click)="rootMenuArrowOpenClosedOnAction(menu.name)">
             <div class="container--menu-box-icon">
-                <mat-icon>{{menu.icon}}</mat-icon>
+                <mat-icon class="main-color-scss">{{menu.icon}}</mat-icon>
             </div>
             <div class="container--menu-box-name">
-                <div>{{menu.name}}</div>
+                <div class="color">{{menu.name}}</div>
             </div>
 
 
@@ -23,7 +21,7 @@
 
             <div class="container-children--box-name-opened" *ngFor="let levelOne of menu.children; let i = index;">
 
-                <div (click)="levelOneSubMenuArrowOpenClosedOnAction(menu.name, levelOne.name)">
+                <div class="menu-level-one" (click)="levelOneSubMenuArrowOpenClosedOnAction(menu.name, levelOne.name)">
 
                     <div class="container-children--box-name-item-opened">
 
@@ -50,13 +48,12 @@
                     <div *ngIf="!levelOne.children"></div>
 
                 </div>
-
                 <div>
                     <div *ngIf="levelOne.opened">
-                        <div [class]="{'isOdd':isOdd, 'isEven':isEven }" *ngFor="let levelTwo of levelOne.children; let i = index; let isOdd = odd; let isEven = even">
+                        <div *ngFor="let levelTwo of levelOne.children; let i = index; let isOdd = odd; let isEven = even">
                             <div *ngIf="!levelTwo.children" (click)="navigateByUrl(levelTwo.route)">
-                                <menu>
-                                    <li id="test">{{levelTwo.name}}</li>
+                                <menu [class]="{'isOdd':isOdd, 'isEven':isEven }" class="menu-level-two">
+                                    <li class="li-level-two">{{levelTwo.name}}</li>
                                 </menu>
                             </div>
                         </div>
@@ -79,9 +76,7 @@
                 <div>
                     <mat-icon fontSet="material-icons-outlined">mode_comment</mat-icon>
                 </div>
-                <!-- <div>
 
-                </div> -->
                 <div class="text-white">
                     <mat-label>Fale conosco.</mat-label>
                 </div>

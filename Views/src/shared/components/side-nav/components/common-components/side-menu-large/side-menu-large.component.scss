@@ -39,8 +39,7 @@
     &--menu-box-name {
         flex: 1;
         font-size: 14px;
-        font-weight: 500;
-        color: rgba(0, 0, 0, 0.87);
+        font-weight: bolder;
     }
     &--menu-box-arrow {}
     &--box-children {
@@ -55,11 +54,9 @@
     .container-children--box-name-opened {
         margin-bottom: 4px;
         border-radius: 4px;
-        padding-left: 40px;
         font-size: 14px;
         transition: background-color 0.3s ease;
         &:hover {
-            // background-color: rgba(0, 0, 0, 0.04);
             background-color: rgb(246, 241, 241);
         }
         >div:first-child {
@@ -84,7 +81,6 @@
             }
         }
     }
-    // Estilos para a seção inferior (Dúvidas? e Fale conosco)
     >div:last-child {
         margin-top: auto;
         padding: 16px 12px;
@@ -118,21 +114,36 @@
     }
 }
 
-#test {
+li {
+    color: #535d5e;
+    font-weight: 700;
+}
+
+.menu-level-one {
+    margin-left: 10px;
+}
+
+.menu-level-two {
+    background-color: rgb(237, 237, 237);
+}
+
+menu {
+    display: flex;
+    align-items: center;
+}
+
+.li-level-two {
     margin-left: 25px;
-    font-size: 12px;
-    padding-bottom: 20px;
+    font-size: 14px;
+    padding: 10px;
 }
 
 .isOdd {
-    // background-color: rgb(219, 219, 219);
     background-color: rgb(249, 249, 249);
 }
 
 .isEven {
-    // background-color: rgb(219, 219, 219);
     background-color: rgb(249, 249, 249);
-    // background-color: rgb(235, 235, 235);
 }
 
 .isOdd:hover {

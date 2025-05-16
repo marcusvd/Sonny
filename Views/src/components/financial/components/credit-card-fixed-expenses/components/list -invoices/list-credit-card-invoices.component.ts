@@ -41,7 +41,7 @@ import { TriggerCreditCardsInvoices } from './trigger-credit-cards-invoices';
 @Component({
   selector: 'list-credit-card-invoices',
   templateUrl: './list-credit-card-invoices.component.html',
-  styleUrls: ['./list-credit-card-invoices.component.css'],
+  styleUrls: ['./list-credit-card-invoices.component.scss'],
   standalone: true,
   imports: [
     CommonModule,

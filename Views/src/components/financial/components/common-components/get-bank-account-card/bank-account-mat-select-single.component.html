@@ -1,0 +1,42 @@
+<spinner-g [entities]="$banckAccount" [optionalTitle]="'(Bancos e cartões)'" (spinnerStatusOut)="spinnerEvent($event)"></spinner-g>
+
+
+<div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4" [formGroup]="formMain" *ngIf="spinner">
+    <div class="w-full">
+        <div>
+            <mat-label>Conta bancária</mat-label>
+        </div>
+        <mat-form-field class="w-full" appearance="outline">
+            <mat-select placeholder="Pesquise pelo nome" #singleSelect (selectionChange)="onBankAccountSelected(singleSelect.value)" [formControlName]="bankAccountFormControlName">
+                <mat-option *ngFor="let bankAccount of $banckAccount | async" [value]="bankAccount.id">
+                    {{bankAccount.institution}}
+                </mat-option>
+            </mat-select>
+            <mat-error>
+                <!-- <span class="error">{{validatorMessages.required(formMain,'bankAccountId', '* Obrigatório')}}</span> -->
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="w-full" *ngIf="cards?.length > 0">
+        <div>
+            <mat-label>Cartões</mat-label>
+        </div>
+        <mat-form-field class="w-full" appearance="outline">
+            <mat-select placeholder="Pesquise pelo nome" #singleSelect (selectionChange)="onCardsFromSelectedBank(singleSelect.value)" formControlName="cardId">
+                <mat-option *ngFor="let card of cards" [value]="card.id">
+                    <div>
+                        {{card.flag}} {{' | '}}{{card.number | bankCardNumber}}
+                    </div>
+                </mat-option>
+            </mat-select>
+            <mat-error>
+                <!-- <span class="error">{{validatorMessages.required(formMain,'cardId', '* Obrigatório')}}</span> -->
+            </mat-error>
+        </mat-form-field>
+    </div>
+</div>
+
+
+<div *ngIf="cards?.length == 0">
+    <p class="warning">Conta sem cartões cadastrados preencha corretamente o formulário.</p>
+</div>

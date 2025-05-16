@@ -52,7 +52,7 @@ export class DatabaseSideNavServices {
           name: 'Despesas', opened: false, children: [
           // { name: 'Consulta e cadastros', opened: false, route: `/side-nav/financial/select-expenses/${this.companyId}` },
           { name: 'Cardtão de crédito', opened: false, route: `/side-nav/financial/list-credit-card-invoices` },
-          { name: 'Financiamento  Empréstimo', opened: false, route: `/side-nav/financial/list-financings-loans-expenses` },
+          { name: 'Financiamento', opened: false, route: `/side-nav/financial/list-financings-loans-expenses` },
           { name: 'Variável', opened: false, route: `/side-nav/financial/list-variable-expenses` },
           { name: 'Mensal', opened: false, route: '/side-nav/financial/list-monthly-fixed-expenses'},
           { name: 'Anual', opened: false, route: '/side-nav/financial/yearly-fixed-expenses-list' },

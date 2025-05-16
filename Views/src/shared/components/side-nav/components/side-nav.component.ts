@@ -1,5 +1,5 @@
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 
@@ -30,20 +30,21 @@ import { SideMenuTopSlimComponent } from './common-components/side-menu-slim/top
     SideMenuTopSlimComponent
   ],
 })
-export class SideNavComponent extends BaseForm implements OnInit {
+export class SideNavComponent extends BaseForm implements OnInit, AfterViewInit {
 
-  // @ViewChild('sidenav') sidenav!: MatSidenav;
+  @ViewChild('sidenav') sidenav!: MatSidenav;
 
   menuLarge: boolean = true;
   menuSlim: boolean = false;
   menuSlimManually: boolean = false;
   tootlBar: boolean = false;
   menuSlimArrowRightHideShow: boolean = false;
+  matSidenavContainerPaddingL: boolean = false;
 
   constructor(
     // private _dataTree: DatabaseSideNavServices,
-    
-  ) {super()}
+
+  ) { super() }
 
   event = { target: window } as unknown as Event;
   screenWidth: number = window.innerWidth;
@@ -52,6 +53,30 @@ export class SideNavComponent extends BaseForm implements OnInit {
     this.screenWidth = target.innerWidth;
     return this.screenWidth
   }
+
+
+  ngAfterViewInit() {
+    const sidenavElement = document.querySelector('.mat-sidenav');
+
+    if (sidenavElement) {
+      const observer = new ResizeObserver(entries => {
+        for (let entry of entries) {
+          const width = entry.contentRect.width;
+          //console.log('Sidenav width:', width);
+          
+          this.matSidenavContainerPaddingL = width > 238;
+        }
+      });
+
+      observer.observe(sidenavElement);
+    }
+
+
+  }
+
+
+
+
 
   //METHODS
   responsive(event?: Event) {
@@ -73,6 +98,8 @@ export class SideNavComponent extends BaseForm implements OnInit {
     this.menuLarge = !this.menuLarge;
   }
 
+
+
   // toggleMenuLarge() {
   //   this.menuLarge = !this.menuLarge;
   //   this.menuSlim = !this.menuSlim
@@ -92,11 +119,11 @@ export class SideNavComponent extends BaseForm implements OnInit {
   // }
 
   toggleMenuSlimToolBar() {
-     this.menuSlimManually = !this.menuSlimManually
-  //   this.sidenav.toggle().then(() => {
-  //   // Trigger manual de redimensionamento
-  //   window.dispatchEvent(new Event('resize'));
-  // });
+    this.menuSlimManually = !this.menuSlimManually
+    //   this.sidenav.toggle().then(() => {
+    //   // Trigger manual de redimensionamento
+    //   window.dispatchEvent(new Event('resize'));
+    // });
     // this.sidenavContainer.updateContentMargins();
   }
 

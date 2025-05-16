@@ -9,34 +9,38 @@
                     <sub-title title [title]="'Faturas Cartões de credito.'" [icon]="'list'"></sub-title>
                     <div search-filter>
 
-                        <div>
+                        <mat-card class="p-4 m-4 border-card-categories-divide-comp">
 
-                            <div *ngIf="!this.showDataBank" class="child" id="title">{{'Selecione um cartão de crédito'}}</div>
-                            <div>
+                            <div *ngIf="!this.showDataBank" class="title-categories-divide-comp">{{'Selecione um cartão de crédito'}}</div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
+
                                     <credit-card-invoices-mat-select-single [urlBackEndApi]="'GetAllCreditCardsOnlyByCompanyId'" (creditCardIdOutput)="getCreditCardIdOutput($event)">
                                     </credit-card-invoices-mat-select-single>
+
+                                </div>
+                                <div *ngIf="this.showDataBank">
+                                    <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="false" [changeSelection]="monthFilter" (sendSelected)="selectedMonth($event)">
+                                    </months-select>
                                 </div>
                             </div>
-                            <div *ngIf="this.showDataBank">
-                                <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="false" [changeSelection]="monthFilter" (sendSelected)="selectedMonth($event)">
-                                </months-select>
-                            </div>
+
+
+
                             <div *ngIf="showDataBank">
                                 <view-bank-account [bankAccount]="bankAccount">
                                 </view-bank-account>
                             </div>
-                        </div>
+                        </mat-card>
 
 
                         <div>
-                            <div>
+                            <div class="p-4">
                                 <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
                             </div>
 
-                            <div fxLayout="screenFieldPosition">
 
-                            </div>
                             <!-- <div  >
                                 <btn-g btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="add()"></btn-g>
                             </div> -->

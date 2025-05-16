@@ -6,7 +6,7 @@
 <mat-sidenav-container (window:resize)="responsive($event)">
     <mat-sidenav [ngClass]="menuSlimManually ? 'mat-sidenav-slim':'' " opened mode="side" #sidenav role="navigation">
 
-        <div class="container--menu-large" *ngIf="menuLarge">
+        <div style="width: 220px; max-width: 220px;" class="container--menu-large" *ngIf="menuLarge">
             <!-- <div *ngIf="menuLarge"> -->
             <top-large top-large></top-large>
             <!--  -->
@@ -26,7 +26,8 @@
         </div>
 
     </mat-sidenav>
-    <mat-sidenav-content class="!bg-backgroud-color" [ngClass]="{'mat-sidenav-container-slim':menuSlimManually}">
+    <mat-sidenav-content class="!bg-background-color mat-sidenav-container-slim" [ngClass]="{'mat-sidenav-container-slim-manually':menuSlimManually}">
+        <!-- <mat-sidenav-content class="!bg-background-color" [ngClass]="{'mat-sidenav-container-slim':menuSlimManually}"> -->
         <main>
             <router-outlet></router-outlet>
         </main>

@@ -1,8 +1,8 @@
-import { CompanyDto } from "src/shared/entities-dtos/company-dto";
+
 import { CardDto } from "./card-dto";
 import { TypeAccountDtoEnum } from "./enums/type-account-dto.enum";
 import { PixDto } from "./pix-dto";
-import { RootBase } from "src/shared/entities-dtos/root-base";
+import { RootBase } from "../../../../../shared/entities-dtos/root-base";
 
 export class BankAccountDto extends RootBase  {
 

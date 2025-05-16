@@ -1,9 +1,9 @@
 <spinner-g [entities]="entities$" [optionalTitle]="'(Cartões)'" (spinnerStatusOut)="spinnerEvent($event)">
 </spinner-g>
 
-<div class="pl-4 pr-4 pt-4 grid grid-rows-1" *ngIf="spinner">
+<div class="w-full" *ngIf="spinner">
     <mat-label>Conta bancária</mat-label>
-    <mat-form-field appearance="outline">
+    <mat-form-field class="w-full" appearance="outline">
         <mat-select placeholder="Selecione o Cartão de credito" #singleSelect (selectionChange)="onCardsSelected(singleSelect.value)">
             <mat-option *ngFor="let card of entities$ | async" [value]="card">
                 <div>

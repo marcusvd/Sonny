@@ -34,9 +34,11 @@ import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto
 import { CardDto } from '../../../bank-account-cards/dto/card-dto';
 import { TypeCardDtoEnum } from '../../../bank-account-cards/dto/enums/type-card-dto.enum';
 import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
+import {GetBankAccountCardsSelectComponent} from '../../../common-components/get-bank-account-card/bank-account-mat-select-single.component'
 import { CreditCardExpenseDto } from '../../dto/credit-card-expense-dto';
 import { AddCreditCardExpensesService } from './services/add-credit-card-expenses.service';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatDividerModule } from '@angular/material/divider';
 
 
 
@@ -51,7 +53,6 @@ import { MatNativeDateModule } from '@angular/material/core';
   standalone: true,
   imports: [
     CommonModule,
-
     MatFormFieldModule,
     MatInputModule,
     MatCheckboxModule,
@@ -59,6 +60,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatCardModule,
     ReactiveFormsModule,
     MatSelectModule,
+    MatDividerModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatTooltipModule,
@@ -69,7 +71,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     SubTitleComponent,
     DateJustDayComponent,
     CategorySubcategoryExpensesSelectComponent,
-    BankAccountMatSelectSingleComponent,
+    GetBankAccountCardsSelectComponent,
+    // BankAccountMatSelectSingleComponent,
     BtnGComponent
   ],
 
@@ -204,7 +207,7 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
   }
 
   add() {
-    this._router.navigateByUrl('/side-nav/financial-dash/category-expenses-add-edit')
+    this._router.navigateByUrl('/side-nav/financial/category-expenses-add-edit')
   }
 
   selectedCard = new CardDto();

@@ -6,16 +6,16 @@
 </div>
 
 <div class="p-4" *ngIf="spinner">
-    <div *ngIf="radioHideShow" [fxLayout]="'row'" [fxLayoutAlign]="alignRadios" [style]="'rightSideBorder'">
+    <div *ngIf="radioHideShow" [style]="'rightSideBorder'">
         <mat-radio-group *ngIf="this.bankAccount" aria-labelledby="radio-group-label" class="radio-group" (change)="onSelectedRadio($event)" [(ngModel)]="selectedRadio" [ngModelOptions]="{standalone: true}">
             <mat-radio-button *ngFor="let option of optionsRadio" [value]="option.id">
                 {{option.name}}
             </mat-radio-button>
         </mat-radio-group>
     </div>
-    <div *ngIf="this.bankAccount"></div>
+    <!-- <div *ngIf="this.bankAccount"></div> -->
     <div [formGroup]="formMain">
-        <d class="w-full" iv>
+        <div class="w-full">
             <div>
                 <mat-label>Conta bancária</mat-label>
             </div>
@@ -29,7 +29,7 @@
                     <span class="error">{{validatorMessages.required(formMain,'bankAccountId', '* Obrigatório')}}</span>
                 </mat-error>
             </mat-form-field>
-        </d>
+        </div>
         <div class="w-full" *ngIf="cards?.length > 0 && selectedRadio == 1">
             <div>
                 <mat-label>Cartões</mat-label>
@@ -88,13 +88,13 @@
     </div>
 
 
-    <div [fxLayout]="'row'" *ngIf="cards?.length == 0 && onlyCards">
+    <div *ngIf="cards?.length == 0 && onlyCards">
         <p class="warning">Conta sem cartões cadastrados preencha corretamente o formulário.</p>
     </div>
-    <div [fxLayout]="'row'" *ngIf="cards?.length == 0 && selectedRadio == 1">
+    <div *ngIf="cards?.length == 0 && selectedRadio == 1">
         <p class="warning">Conta sem cartões cadastrados preencha corretamente o formulário.</p>
     </div>
 </div>
-<!-- <div [fxLayout]="'row'" *ngIf="pixes?.length > 0 && selectedRadio == 0">
+<!-- <div  *ngIf="pixes?.length > 0 && selectedRadio == 0">
     <ng-content select="[pixExpense]" ></ng-content>
 </div> -->
