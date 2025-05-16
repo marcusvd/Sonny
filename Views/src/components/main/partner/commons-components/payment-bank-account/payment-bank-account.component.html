@@ -1,10 +1,10 @@
 <div [formGroup]="formMain"  >
     <div formArrayName="banksAccounts" *ngFor="let bkAcc of bankAccountsArray.controls; let i = index;">
         <div [formGroupName]="i">
-            <div class="middle-space-horizontal-beteween-fields"> </div>
+            
             <div>{{'Conta ' }}{{i+1}}</div>
             <mat-divider></mat-divider>
-            <div class="middle-space-horizontal-beteween-fields"> </div>
+            
             <div>
                 <div>
                     <mat-form-field  appearance="outline">

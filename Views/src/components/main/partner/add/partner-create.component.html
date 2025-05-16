@@ -19,21 +19,21 @@
             <!-- <div >
             </div> -->
         </div>
-        <!-- <div class="middle-space-horizontal-beteween-fields"> </div> -->
+        <!--  -->
         <mat-divider></mat-divider>
         <payment-data [formMain]="paymentDataForm" (addBankOutput)="addBank()" (removeBankOutput)="removeBank($event)">
         </payment-data>
 
-        <!-- <div class="middle-space-horizontal-beteween-fields"> </div> -->
+        <!--  -->
 
         <!--
 
 
          -->
-        <div class="middle-space-horizontal-beteween-fields"> </div>
+        
         <mat-divider></mat-divider>
 
-        <div class="middle-space-horizontal-beteween-fields"> </div>
+        
         <div >
             <div >
                 <physically-moving-costs [formMain]="subForm" >
@@ -44,21 +44,21 @@
             <description-field [formMain]="formMain" [maxLength]="1000">
             </description-field>
         </div>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
+        
         <mat-divider></mat-divider>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
+        
         <div >
             <div >
                 <address [formMain]="this.address" ></address>
             </div>
-            <div class="middle-space-horizontal-beteween-fields"> </div>
+            
             <mat-divider></mat-divider>
-            <div class="middle-space-horizontal-beteween-fields"> </div>
+            
             <div >
                 <contact  [formMain]="this.contact"></contact>
             </div>
         </div>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
+        
         <div>
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
         </div>

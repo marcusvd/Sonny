@@ -22,10 +22,10 @@
         <payment-data [formMain]="paymentDataForm" (addPixOutput)="addPix()" (removePixOutput)="removePix($event)" (addBankOutput)="addBank()" (removeBankOutput)="removeBank($event)">
         </payment-data>
 
-        <div class="middle-space-horizontal-beteween-fields"> </div>
+        
         <mat-divider></mat-divider>
 
-        <div class="middle-space-horizontal-beteween-fields"> </div>
+        
         <div >
             <div >
                 <physically-moving-costs [formMain]="subForm" >
@@ -36,21 +36,21 @@
             <description-field [formMain]="formMain" [rows]="rows" [maxLength]="2000">
             </description-field>
         </div>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
+        
         <mat-divider></mat-divider>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
+        
         <div >
             <div >
                 <address [formMain]="this.address" ></address>
             </div>
-            <div class="middle-space-horizontal-beteween-fields"> </div>
+            
             <mat-divider></mat-divider>
-            <div class="middle-space-horizontal-beteween-fields"> </div>
+            
             <div >
                 <contact  [formMain]="this.contact"></contact>
             </div>
         </div>
-        <div class="middle-space-horizontal-beteween-fields"> </div>
+        
         <div>
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="update()"></btn-g>
         </div>

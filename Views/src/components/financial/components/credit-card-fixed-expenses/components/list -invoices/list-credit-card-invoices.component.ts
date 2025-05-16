@@ -108,7 +108,7 @@ export class ListCreditCardInvoicesComponent extends FrontEndListFilterCreditCar
   override  entities: ListGridCreditCardInvoiceDto[] = [];
   override entities$: Observable<ListGridCreditCardInvoiceDto[]>;
   override viewUrlRoute: string = '/side-nav/financial-dash/list-credit-card-expenses';
-  override addUrlRoute: string = '/side-nav/financial-dash/add-credit-card-expenses';
+  override addUrlRoute: string = '/side-nav/financial/add-credit-card-expenses';
 
 
   listCreditCardExpenseInvoice: CreditCardExpenseInvoiceDto[] = [];

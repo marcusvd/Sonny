@@ -36,6 +36,7 @@ import { TypeCardDtoEnum } from '../../../bank-account-cards/dto/enums/type-card
 import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
 import { CreditCardExpenseDto } from '../../dto/credit-card-expense-dto';
 import { AddCreditCardExpensesService } from './services/add-credit-card-expenses.service';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 
@@ -59,6 +60,7 @@ import { AddCreditCardExpensesService } from './services/add-credit-card-expense
     ReactiveFormsModule,
     MatSelectModule,
     MatDatepickerModule,
+    MatNativeDateModule,
     MatTooltipModule,
     CurrencyMaskModule,
     PtBrDatePipe,

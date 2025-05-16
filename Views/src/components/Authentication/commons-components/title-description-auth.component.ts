@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'title-description-auth',
   template: `
-   <div  fxLayoutAlign="start start"class="around" [style]="height">
+   <div  class="around" [style]="height">
     <div >
       <div >
      <mat-icon class="logo">{{icon}}</mat-icon>
