@@ -3,7 +3,7 @@ import { CardDto } from "../../bank-account-cards/dto/card-dto";
 import { CreditCardLimitOperationDto } from "../../bank-account-cards/dto/credit-card-limit-operation-dto";
 import { CategoryExpenseDto } from "../../common-components/category-subcategory-expenses/dto/category-expense-dto";
 import { SubcategoryExpenseDto } from "../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto";
-import { CreditCardExpenseInvoiceDto } from "./credit-card-expense-invoice-dto";
+import { CreditCardExpenseInvoiceDto } from "../../credit-card-fixed-expenses/components/list -invoices/dto/credit-card-expense-invoice-dto";
 
 export class CreditCardExpenseDto extends RootBase {
     name: string;

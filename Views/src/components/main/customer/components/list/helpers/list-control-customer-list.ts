@@ -43,7 +43,7 @@ export class ListControlCustomerList extends BaseList {
   }
 
 
-  labelHeadersMiddle = () => {
+  labelHeaders = () => {
     return [
       { key: '', style: 'cursor: pointer; max-width:100px;' },
       { key: 'Nome', style: 'cursor: pointer;' },
@@ -52,7 +52,7 @@ export class ListControlCustomerList extends BaseList {
     ]
   }
 
-  fieldsHeadersMiddle = () => {
+  fieldsHeaders = () => {
     return [
       { key: 'id', style: 'max-width:100px;' },
       { key: 'name', style: '' },

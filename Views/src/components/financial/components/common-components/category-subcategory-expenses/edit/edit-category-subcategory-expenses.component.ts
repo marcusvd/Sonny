@@ -29,7 +29,6 @@ import { CategorySubcategoryExpensesService } from '../services/category-subcate
   standalone: true,
   imports: [
     CommonModule,
-
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
@@ -44,7 +43,7 @@ import { CategorySubcategoryExpensesService } from '../services/category-subcate
 
   ],
   templateUrl: './edit-category-subcategory-expenses.component.html',
-  styleUrls: ['./edit-category-subcategory-expenses.component.css']
+  styleUrls: ['./edit-category-subcategory-expenses.component.scss']
 })
 export class EditCategorySubcategoryExpensesComponent extends Add implements OnInit {
 

@@ -1,53 +1,6 @@
-/* Customizing the MatPaginator appearance */
-
-
-/* .mat-paginator {
-    background-color: rgb(249, 249, 249);
-    border-radius: 5px;
-    padding: 10px;
-    width: 300px;
-    height: 5px;
-}
-
-grid-list-common-table {
-    margin: -15px;
-}
-
-
-
-#btn-1 {
-    background-color: rgb(44, 161, 168);
-    color: white;
-    font-family: Mynerve;
-}
-
-.mat-paginator-above-margin {
-    margin-top: 20px;
-}
-
-.mat-paginator-below-margin {
-    margin-top: 50px;
-}
-
-#space-components {
-    height: 20px;
-} */
-
-// .mat-card-sub-title {
-//     height: 100%;
-//     background-color: rgb(249, 249, 249);
-//     border-top-right-radius: 20px;
-//     border-top-left-radius: 20px;
-//     padding: -330px;
-// }
-.ko {
-    background-color: rgb(158, 64, 64);
-    width: 100vw;
-}
-
-.panelClass {
-    mat-dialog-container {
-        border-top-right-radius: 30px;
-        background-color: rgba(33, 167, 0, 0.5);
+@media (min-width:640px) {
+    .border-card {
+        border: 1px solid #2ba1a8 !important;
+        margin: 20px;
     }
 }

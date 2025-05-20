@@ -1,32 +1,18 @@
-<div  class="border-around">
-    <!-- <title-component [digit]="'|'"[textTitleComp]="'Cadastro de despesas fixas'"[icon]="'attach_money'">
-        </title-component> -->
-    <section id="container-above" >
-        <button id="btn-back" mat-raised-button (click)="back()">{{'Voltar'}}</button>
-    </section>
-    <br>
-    <br>
-    <mat-card [formGroup]="formMain"  *ngIf="formMain">
+<div class="sm:w-[500px] w-[350px] mb-4">
+    <title-component [digit]="'|'" [textTitleComp]="'Cadastro de despesas fixas'" [icon]="'attach_money'">
+    </title-component>
+
+    <mat-card [formGroup]="formMain" *ngIf="formMain">
         <sub-title title [title]="'Categoria / Subcategorias'" [icon]="'add'"></sub-title>
-        <div >
-            <h3>Cadastro</h3>
+
+        <div class="p-4">
+            <h3 class="title-categories-divide-comp">Cadastro</h3>
         </div>
-        <div  *ngIf="delete">
-            <btn-g mat-dialog-close [name]="'Apagar'" [icon]="'delete_outline'"
-                
-                (click)="findToDelete()"></btn-g>
-        </div>
-        <br>
         <div>
-            <mat-checkbox #edit [disabled]="!formMain.get('name').valid || disableToAdd" (change)="editCheck($event)">
-                {{'Editar'}}
-            </mat-checkbox>
-        </div>
-        <br>
-        <div>
-            <div   *ngIf="!edit.checked">
-                <mat-form-field  appearance="outline">
-                    <mat-label>Categoria</mat-label>
+
+            <div class="w-full pr-4 pl-4" *ngIf="!edit.checked">
+                <mat-label>Categoria</mat-label>
+                <mat-form-field class="w-full" appearance="outline">
                     <mat-select formControlName="name" (selectionChange)="selectedCategoryExpensesId($event.value)">
                         <mat-option [value]="expense.id" *ngFor="let expense of fillersExpenses | async">
                             <div *ngIf="expense.deleted != true">
@@ -42,11 +28,72 @@
                         <span>{{validatorMessages.minMaxLength(formMain,'name', 'Categoria',null,30)}}</span>
                     </mat-error>
                 </mat-form-field>
-                <!-- <div  formArrayName="subcategoriesExpenses"
-                    *ngFor="let subCat of getSubcategories.controls; let i = index;">
-                    <div [formGroupName]="i"  *ngIf="subCat.get('deleted').value != true">
-                        <mat-form-field  appearance="outline" *ngIf="formMain.get('name').value != ''">
-                            <mat-label>Ciclo</mat-label>
+
+            </div>
+
+            <div class="w-full pr-4 pl-4" [formGroup]="formLoadEditCat" *ngIf="edit.checked">
+                <mat-label> Categoria</mat-label>
+                <mat-form-field class="w-full" appearance="outline">
+                    <input matInput formControlName="name" aria-label="Categoria">
+                    <mat-error>
+                        <span>{{validatorMessages.required(formLoadEditCat,'name', 'Categoria')}}</span>
+                        <span>{{requiredSubcategory()}}</span>
+                        <span>{{requiredSubcategoryEditCat()}}</span>
+                        <span>{{categoryIsExist()}}</span>
+                        <span>{{validatorMessages.minMaxLength(formLoadEditCat,'name', 'Categoria',null,30)}}</span>
+                    </mat-error>
+                </mat-form-field>
+
+            </div>
+            <div class="w-full pr-4 pl-4" [formGroup]="formLoadEditCat" *ngIf="disableToAdd">
+                <mat-label> Categoria</mat-label>
+                <mat-form-field class="w-full" appearance="outline">
+                    <input matInput #newCatInput (input)="isExists(newCatInput.value)" formControlName="name" aria-label="Categoria">
+                    <mat-error>
+                        <span>{{validatorMessages.required(formLoadEditCat,'name', 'Categoria')}}</span>
+                        <span>{{requiredSubcategory()}}</span>
+                        <span>{{requiredSubcategoryEditCat()}}</span>
+                        <span>{{categoryIsExist()}}</span>
+                        <span>{{validatorMessages.minMaxLength(formLoadEditCat,'name', 'Categoria',null,30)}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="p-4 grid grid-cols-2 items-center gap-4">
+            <div>
+                <mat-checkbox #edit [disabled]="!formMain.get('name').valid || disableToAdd" (change)="editCheck($event)">
+                    {{'Editar'}}
+                </mat-checkbox>
+            </div>
+            <div>
+                <btn-g mat-dialog-close [name]="'Apagar'" [icon]="'delete_outline'" (click)="findToDelete()"></btn-g>
+            </div>
+        </div>
+
+        <div class="p-4">
+            <btn-g btn-1 [name]="'Subcategoria'" [icon]="'add'" [enableDisable]="editChk" (btn)="addSubcategories()"></btn-g>
+        </div>
+
+        <div formArrayName="subcategoriesExpenses" *ngFor="let subCat of getSubcategories.controls; let i = index;">
+            <div [formGroupName]="i" *ngIf="subCat.get('deleted').value != true">
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pl-4 pr-4">
+
+                    <div class="w-full">
+                        <mat-label>Subcategoria</mat-label>
+                        <mat-form-field class="w-full" appearance="outline">
+                            <input matInput formControlName="name" aria-label="Subcategoria">
+                            <mat-error>
+                                <span>{{validatorMessages.required(subCat,'name', 'Subcategoria')}}</span>
+                                <span>{{validatorMessages.minMaxLength(subCat,'name', 'Subcategoria', 3, 30)}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="w-full">
+                        <mat-label>Ciclo</mat-label>
+                        <mat-form-field class="w-full" appearance="outline" *ngIf="formMain.get('name').value != ''">
                             <mat-select formControlName="payCycle" (selectionChange)="selectedCycle($event.value)">
                                 <mat-option [value]="cycle.id" *ngFor="let cycle of payCycle">
                                     <div>
@@ -63,112 +110,25 @@
                             </mat-error>
                         </mat-form-field>
                     </div>
-                </div> -->
-            </div>
 
-            <div   [formGroup]="formLoadEditCat" *ngIf="edit.checked">
-                <mat-form-field appearance="outline" >
-                    <mat-label> Categoria</mat-label>
-                    <input matInput formControlName="name" aria-label="Categoria">
-                    <mat-error>
-                        <span>{{validatorMessages.required(formLoadEditCat,'name', 'Categoria')}}</span>
-                        <span>{{requiredSubcategory()}}</span>
-                        <span>{{requiredSubcategoryEditCat()}}</span>
-                        <span>{{categoryIsExist()}}</span>
-                        <span>{{validatorMessages.minMaxLength(formLoadEditCat,'name', 'Categoria',null,30)}}</span>
-                    </mat-error>
-                </mat-form-field>
-                <!-- <mat-form-field  appearance="outline">
-                    <mat-label>Ciclo</mat-label>
-                    <mat-select formControlName="payCycle" (selectionChange)="selectedCycle($event.value)">
-                        <mat-option [value]="cycle.id" *ngFor="let cycle of payCycle">
-                            <div>
-                                {{cycle.cycle | uppercase}}
-                            </div>
-                        </mat-option>
-                    </mat-select>
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'name', 'Categoria')}}</span>
-                        <span>{{requiredSubcategory()}}</span>
-                        <span>{{requiredSubcategoryEditCat()}}</span>
-                        <span>{{categoryIsExist()}}</span>
-                        <span>{{validatorMessages.minMaxLength(formMain,'name', 'Categoria',null,30)}}</span>
-                    </mat-error>
-                </mat-form-field> -->
-            </div>
-            <div   [formGroup]="formLoadEditCat" *ngIf="disableToAdd">
-                <mat-form-field appearance="outline" >
-                    <mat-label> Categoria</mat-label>
-                    <input matInput #newCatInput (input)="isExists(newCatInput.value)" formControlName="name"
-                        aria-label="Categoria">
-                    <mat-error>
-                        <span>{{validatorMessages.required(formLoadEditCat,'name', 'Categoria')}}</span>
-                        <span>{{requiredSubcategory()}}</span>
-                        <span>{{requiredSubcategoryEditCat()}}</span>
-                        <span>{{categoryIsExist()}}</span>
-                        <span>{{validatorMessages.minMaxLength(formLoadEditCat,'name', 'Categoria',null,30)}}</span>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-
-        </div>
-
-        <div >
-            <btn-g btn-1 [name]="'Subcategoria'" [icon]="'add'" [enableDisable]="editChk"
-                (btn)="addSubcategories()"></btn-g>
-        </div>
-        <br>
-        <div  formArrayName="subcategoriesExpenses"
-            *ngFor="let subCat of getSubcategories.controls; let i = index;">
-            <div [formGroupName]="i"  *ngIf="subCat.get('deleted').value != true">
-                <btn-g  [name]="'Remover'" [icon]="'clear'"
-                    
-                    (btn)="removeSubcategory(i)" [enableDisable]="editChk"></btn-g>
-                <br>
-                <mat-form-field  appearance="outline" *ngIf="formMain.get('name').value != ''">
-                    <mat-label>Ciclo</mat-label>
-                    <mat-select formControlName="payCycle" (selectionChange)="selectedCycle($event.value)">
-                        <mat-option [value]="cycle.id" *ngFor="let cycle of payCycle">
-                            <div>
-                                {{cycle.name | uppercase}}
-                            </div>
-                        </mat-option>
-                    </mat-select>
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'name', 'Categoria')}}</span>
-                        <span>{{requiredSubcategory()}}</span>
-                        <span>{{requiredSubcategoryEditCat()}}</span>
-                        <span>{{categoryIsExist()}}</span>
-                        <span>{{validatorMessages.minMaxLength(formMain,'name', 'Categoria',null,30)}}</span>
-                    </mat-error>
-                </mat-form-field>
-                <div>
-                    <mat-form-field appearance="outline" >
-                        <mat-label>Subcategoria</mat-label>
-                        <input matInput formControlName="name" aria-label="Subcategoria">
-                        <mat-error>
-                            <span>{{validatorMessages.required(subCat,'name', 'Subcategoria')}}</span>
-                            <span>{{validatorMessages.minMaxLength(subCat,'name', 'Subcategoria', 3, 30)}}</span>
-                        </mat-error>
-                    </mat-form-field>
                 </div>
+
             </div>
-
-
-
         </div>
-        <div  >
-            <btn-g [name]="'Salvar'" [enableDisable]="saveBtnEnabledDisabled" [icon]="'save'" (btn)="save()" [enableDisable]="btnSave"></btn-g>
-        </div>
-        <br>
 
-        <div  >
+
+
+        <!--
+        <div>
             <div>{{formMain.value | json}}</div>
-            <br>
+
         </div>
-        <div  >
-            <br>
+        <div>
+
             <div>{{formLoadEditCat.value | json}}</div>
+        </div> -->
+        <div class="align-h-center mb-14">
+            <btn-g [name]="'Salvar'" [enableDisable]="saveBtnEnabledDisabled" [icon]="'save'" (btn)="save()" [enableDisable]="btnSave"></btn-g>
         </div>
     </mat-card>
 </div>

@@ -28,7 +28,7 @@ import { ViewMonthlyFixedExpensesService } from './services/view-monthly-fixed-e
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    
+
     MatButtonModule,
     MatFormFieldModule,
     MatCardModule,
@@ -44,7 +44,7 @@ import { ViewMonthlyFixedExpensesService } from './services/view-monthly-fixed-e
     TitleComponent,
   ],
   templateUrl: './view-monthly-fixed-expenses.component.html',
-  styleUrls: ['./view-monthly-fixed-expenses.component.css']
+  styleUrls: ['./view-monthly-fixed-expenses.component.scss']
 })
 export class ViewMonthlyFixedExpensesComponent  implements OnInit {
 
@@ -54,9 +54,9 @@ export class ViewMonthlyFixedExpensesComponent  implements OnInit {
     private _actRoute: ActivatedRoute,
     private _router: Router,
     private _services: ViewMonthlyFixedExpensesService,
-    
+
   ) {
-    
+
   }
 
   getEntity(id: string) {
@@ -87,7 +87,7 @@ export class ViewMonthlyFixedExpensesComponent  implements OnInit {
     // const id: string = this._actRoute.snapshot.params['id'];
     this.entityId = this._actRoute.snapshot.params['id'];
     this.getEntity(this.entityId.toString());
-    
+
   }
 
 }

@@ -1,4 +1,4 @@
-<spinner-g [entities]="entities$" [optionalTitle]="'(Categorias)'" (spinnerStatusOut)="spinnerEvent($event)">
+<spinner-g [entities$]="entities$" [optionalTitle]="'(Categorias)'" (spinnerStatusOut)="spinnerEvent($event)">
 </spinner-g>
 
 <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4" *ngIf="spinner" [formGroup]="formMain">

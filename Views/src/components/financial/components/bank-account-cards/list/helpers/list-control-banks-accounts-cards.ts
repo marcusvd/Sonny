@@ -123,7 +123,7 @@ export class ListControlBanksAccountsCards extends BaseList {
     })
   }
 
-  labelHeadersMiddle = () => {
+  labelHeaders = () => {
     return [
       { key: '', style: 'cursor: pointer;' },
       { key: 'Banco', style: 'cursor: pointer;' },
@@ -137,7 +137,7 @@ export class ListControlBanksAccountsCards extends BaseList {
     ]
   }
 
-  fieldsHeadersMiddle = () => {
+  fieldsHeaders = () => {
     return [
       { key: 'id', style: '' },
       { key: 'institution', style: '' },

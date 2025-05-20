@@ -34,7 +34,7 @@ import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto
 import { CardDto } from '../../../bank-account-cards/dto/card-dto';
 import { TypeCardDtoEnum } from '../../../bank-account-cards/dto/enums/type-card-dto.enum';
 import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
-import {GetBankAccountCardsSelectComponent} from '../../../common-components/get-bank-account-card/bank-account-mat-select-single.component'
+import { GetBankAccountCardsSelectComponent } from '../../../common-components/get-bank-account-card/bank-account-mat-select-single.component'
 import { CreditCardExpenseDto } from '../../dto/credit-card-expense-dto';
 import { AddCreditCardExpensesService } from './services/add-credit-card-expenses.service';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -88,12 +88,24 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
     private _fillersService: CategoryExpensesService,
 
 
-  ) {super()}
+  ) { super() }
 
   payCycle = PayCycleEnumDto.Month;
   payCycle2 = PayCycleEnumDto.Variable;
-
   typeCardToDisable = TypeCardDtoEnum.Debit;
+
+  get getExpenseDay() {
+    return this.formMain.get('expenseDay').value
+  }
+
+  get fullPaymentUpfront() {
+    return this.formMain.get('installmentsQuantity').value == 1;
+  }
+  get installmentPayment() {
+    return this.formMain.get('installmentsQuantity').value > 1;
+  }
+
+
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -107,6 +119,8 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
   priceToPaidView = 0;
   totalPriceInterestView = 0;
   percentageInterestView = 0;
+
+
 
   sumQuantityInstallment() {
 

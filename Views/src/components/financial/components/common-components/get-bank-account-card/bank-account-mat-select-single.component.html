@@ -1,4 +1,4 @@
-<spinner-g [entities]="$banckAccount" [optionalTitle]="'(Bancos e cartões)'" (spinnerStatusOut)="spinnerEvent($event)"></spinner-g>
+<spinner-g [entities$]="$banckAccount" [optionalTitle]="'(Bancos e cartões)'" (spinnerStatusOut)="spinnerEvent($event)"></spinner-g>
 
 
 <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4" [formGroup]="formMain" *ngIf="spinner">

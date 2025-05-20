@@ -1,8 +1,8 @@
 import { RootBase } from "src/shared/entities-dtos/root-base";
-import { CreditCardExpenseInvoiceDto } from "../../credit-card-fixed-expenses/dto/credit-card-expense-invoice-dto";
 import { BankAccountDto } from "./bank-account-dto";
 import { CreditCardLimitOperationDto } from "./credit-card-limit-operation-dto";
 import { TypeCardDtoEnum } from "./enums/type-card-dto.enum";
+import { CreditCardExpenseInvoiceDto } from "../../credit-card-fixed-expenses/components/list -invoices/dto/credit-card-expense-invoice-dto";
 
 export class CardDto extends RootBase{
   holder: string;

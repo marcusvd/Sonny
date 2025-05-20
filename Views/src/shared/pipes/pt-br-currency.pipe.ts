@@ -15,7 +15,7 @@ export class PtBrCurrencyPipe implements PipeTransform {
       const numbersAndNegativeSymbol = handleNegativeSymbol.replace('R$', '');
       const currencySymbol = 'R$';
       const space =  ' ';
-      
+
       return `${currencySymbol}${space}${numbersAndNegativeSymbol}`
     }
 

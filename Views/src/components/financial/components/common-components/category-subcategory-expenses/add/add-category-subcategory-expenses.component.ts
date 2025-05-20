@@ -7,12 +7,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-import { Add } from 'src/shared/components/inheritance/add/add';
+import { BtnGComponent } from '../../../../../../../src/shared/components/btn-g/btn-g.component';
+import { BaseForm } from '../../../../../../../src/shared/components/inheritance/forms/base-form';
 
-import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
-import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { SubTitleComponent } from '../../../../../../../src/shared/components/sub-title/default/sub-title.component';
+import { TitleComponent } from '../../../../../../../src/shared/components/title/default-title/title.component';
+import { ValidatorMessages } from '../../../../../../../src/shared/helpers/validators/validators-messages';
 import { CategorySubcategoryExpensesService } from '../services/category-subcategory-expenses.service';
 
 @Component({
@@ -34,7 +34,7 @@ import { CategorySubcategoryExpensesService } from '../services/category-subcate
   templateUrl: './add-category-subcategory-expenses.component.html',
   styleUrls: ['./add-category-subcategory-expenses.component.css']
 })
-export class AddCategorySubcategoryExpensesComponent extends Add implements OnInit {
+export class AddCategorySubcategoryExpensesComponent extends BaseForm implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
@@ -58,7 +58,7 @@ export class AddCategorySubcategoryExpensesComponent extends Add implements OnIn
   formLoad() {
     return this.formMain = this._fb.group({
       id: [0, [Validators.required]],
-      name: [null || '', [Validators.required, Validators.maxLength(30)]],
+      name: ['', [Validators.required, Validators.maxLength(30)]],
       companyId: [this.companyId, []],
       subcategoriesExpenses: this._fb.array([]),
       deleted: [false, []],

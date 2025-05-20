@@ -1,7 +1,4 @@
-import * as diacritics from 'diacritics';
-import { Observable, of } from "rxjs";
-import { map } from 'rxjs/operators';
-import { ListGridCreditCardInvoiceDto } from '../dto/list-grid-credit-card-invoice-dto';
+
 import { List } from 'src/shared/components/inheritance/list/list';
 import { BankAccountDto } from 'src/components/financial/components/bank-account-cards/dto/bank-account-dto';
 

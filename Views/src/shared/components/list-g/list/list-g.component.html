@@ -1,10 +1,10 @@
-<div *ngIf="this.entities$">
+<div>
     <!-- Large -->
     <div class="bg-background-color hidden sm:block">
         <div>
-            <ng-content select="[pg-above]"></ng-content>
+            <mat-paginator pg-above class="!bg-background-color !flex !justify-end" #paginatorAbove [length]="this.length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
         </div>
-        <mat-card class="rounded-t-xl w-full overflow-visible flex flex-col">
+        <mat-card class="rounded-t-xl w-full overflow-visible flex flex-col" *ngIf="entities$">
             <div class="w-full overflow-x-auto">
                 <!-- Cabeçalho -->
                 <div class="flex flex-row font-bold text-xs text-teal-600 bg-gray-100 border-b border-teal-500">
@@ -26,9 +26,6 @@
                                         <span>{{icon.split('|')[0]}}</span>
                                     </mat-icon>
                                 </div>
-                                <!-- <mat-icon *ngFor="let icon of entity[field.key]?.icons" class="cursor-pointer hover:opacity-75 active:translate-y-0.5 active:text-teal-800 ml-3" [style]="entity[field.key]?.styleInsideCell" (click)="onClickIcon(icon, entity.id.key)">
-                                    {{icon}}
-                                </mat-icon> -->
                             </ng-container>
 
                             <!-- Botão -->
@@ -55,17 +52,22 @@
             </div>
 
         </mat-card>
+        <div class="flex justify-center pt-4">
+            <spinner-g [entities$]="this.entities$" [optionalTitle]="'(Lista)'" [_empty]="spinerNoRegisterClean">
+            </spinner-g>
+        </div>
         <div>
-            <ng-content select="[pg-below]"></ng-content>
+            <mat-paginator pg-above class="!bg-background-color !flex !justify-end" #paginatorAbove [length]="this.length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
         </div>
     </div>
     <!-- Mobile -->
-    <div class="sm:hidden p-4 bg-background-color">
+    <div class="sm:hidden mb-24 bg-background-color">
         <div>
-            <ng-content select="[pg-above-mobile]"></ng-content>
+            <mat-paginator pg-above class="!bg-background-color !flex !justify-end" #paginatorAbove [length]="this.length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
         </div>
         <div *ngFor="let entity of this.entities$ | async">
-            <mat-card class="!w-full mb-4 !rounded-t-xl">
+
+            <mat-card class="!w-full mb-4 !rounded-t-xl" *ngIf="entities$">
                 <div class="p-4 rounded-t-xl space-y-4 border border-color-main shadow-md bg-white">
                     <div *ngFor="let field of headersFields; let i = index" class="group">
                         <ng-container [ngSwitch]="entity[field.key]?.display">
@@ -101,10 +103,12 @@
                 </div>
             </mat-card>
         </div>
-        <div class="mb-24">
-            <ng-content select="[pg-below-mobile]"></ng-content>
+        <div class="flex justify-center">
+            <spinner-g [entities$]="this.entities$" [optionalTitle]="'(Lista)'" [_empty]="spinerNoRegisterClean">
+            </spinner-g>
+        </div>
+        <div>
+            <mat-paginator pg-above class="!bg-background-color !flex !justify-end" #paginatorAbove [length]="this.length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
         </div>
     </div>
 </div>
-<spinner-g [entities]="entities$" [optionalTitle]="'(Lista)'" [_empty]="spinerNoRegisterClean">
-</spinner-g>

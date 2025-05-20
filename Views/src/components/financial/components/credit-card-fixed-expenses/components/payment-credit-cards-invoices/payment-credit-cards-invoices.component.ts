@@ -12,8 +12,9 @@ import { TitleComponent } from 'src/shared/components/title/default-title/title.
 import { PriceInteresFieldsComponent } from '../../../common-components/price-interest-fields/price-interest-fields.component';
 import { HtmlDataInfoDto } from '../../../common-components/screen-data-info/dtos/html-data-info-dto';
 import { ScreenDataInfoComponent } from '../../../common-components/screen-data-info/screen-data-info.component';
-import { CreditCardExpenseInvoiceDto } from '../../dto/credit-card-expense-invoice-dto';
+
 import { PaymentCreditCardsInvoicesService } from './services/payment-credit-cards-invoices.service';
+import { CreditCardExpenseInvoiceDto } from '../list -invoices/dto/credit-card-expense-invoice-dto';
 
 @Component({
   selector: 'payment-credit-cards-invoices',
@@ -68,7 +69,7 @@ export class PaymentCreditCardsInvoicesComponent extends Add {
       id: [entity.id, []],
       userId: [this.userId, [Validators.required, Validators.min(1)]],
       companyId: [this.companyId, [Validators.required]],
-      paidFromBankAccountId: ['' ?? entity.paidFromBankAccountId, [Validators.required]],
+      paidFromBankAccountId: [entity.paidFromBankAccountId, [Validators.required]],
       cardId: [entity.cardId, [Validators.required]],
       pixId: ['', [Validators.required]],
       othersPaymentMethods: [entity.othersPaymentMethods, [Validators.required]],

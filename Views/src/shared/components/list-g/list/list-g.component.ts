@@ -1,17 +1,11 @@
-import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MatButtonModule as MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule as MatMenuModule } from '@angular/material/menu';
-import { Observable } from 'rxjs';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 
-import { MatTooltipModule as MatTooltipModule } from '@angular/material/tooltip';
-import { SpinnerGComponent } from '../../spinner-g/component/spinner-g.component';
+
+import { Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { importsModules } from './imports.module';
 import { FieldsInterface } from './interfaces/fields-interface';
 import { OnClickInterface } from './interfaces/on-click-interface';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatCardModule } from '@angular/material/card';
 
 
 @Component({
@@ -19,18 +13,11 @@ import { MatCardModule } from '@angular/material/card';
   standalone: true,
   templateUrl: './list-g.component.html',
   imports: [
-    CommonModule,
-    MatIconModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatTooltipModule,
-    MatDividerModule,
-    MatCardModule,
-    SpinnerGComponent
+    importsModules
   ],
   styleUrls: ['./list-g.component.scss']
 })
-export class ListGComponent {
+export class ListGComponent implements OnChanges, OnInit, OnDestroy {
 
   @Input('entities') entities$: Observable<any[]>;
 
@@ -41,10 +28,43 @@ export class ListGComponent {
   @Output() outOnClickHeaderField = new EventEmitter<string>();
 
   spinerNoRegisterClean = true;
+  length: number = 0;
+  pageSize: number = 0;
+  destroy: Subscription;
 
-  constructor(
-    private _http: HttpClient
-  ) { }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.paginatorLength();
+  }
+  ngOnInit(): void {
+    this.paginatorLength();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy.unsubscribe();
+  }
+
+  paginatorLength() {
+    this.destroy = this?.entities$?.pipe(map(x => {
+      this.length = x.length
+      return x.length;
+    })).subscribe();
+  }
+
+
+  // mobile: boolean = true;
+  // screenResize($event: any) {
+  //   if ($event.target.innerWidth >= 640) {
+  //     this.mobile = false
+  //   }
+  //   else {
+  //     this.mobile = true
+  //   }
+  // }
+
+
+  onPageChange($event: any) {
+
+  }
 
   onClickHeaderField(field: string) {
     this.outOnClickHeaderField.emit(field);
@@ -63,6 +83,21 @@ export class ListGComponent {
 
     this.outOnClickIcons.emit(onClick);
 
+  }
+  // onClickIcon(action: string, entityId: number) {
+
+  //   const onClick: OnClickInterface = {
+  //     action: action,
+  //     entityId: entityId
+  //   }
+
+  //   this.outOnClickIcons.emit(onClick);
+
+  // }
+
+  spinner = false
+  spinnerEvent($event: boolean) {
+    this.spinner = !$event
   }
 
 }

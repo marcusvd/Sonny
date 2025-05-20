@@ -73,6 +73,9 @@ export class ListGDataService extends BackEndService<any> {
   //     })
   // }
 
+  getAllEntitiesInMemoryPaged$(backEndUrl: string, id: string) {
+   return this.loadById$<any[]>(backEndUrl, id);
+  }
   getAllEntitiesInMemoryPaged(backEndUrl: string, id: string) {
     this.loadById$<any[]>(backEndUrl, id)
       ?.subscribe((entities: any) => {

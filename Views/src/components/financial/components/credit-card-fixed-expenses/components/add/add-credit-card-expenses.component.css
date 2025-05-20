@@ -1,7 +1,4 @@
-.space-description {
-    padding-top: 30px;
-}
-
-.without-space-description {
-    padding-top: 1px;
+.pipe-title {
+    font-size: 30px;
+    color: rgb(43, 161, 168);
 }

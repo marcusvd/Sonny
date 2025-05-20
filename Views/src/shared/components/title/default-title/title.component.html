@@ -9,14 +9,14 @@
       </button>
     </div>
 
-    <div class="grid grid-cols-[15px_550px] items-center -mt-2">
+    <div class="flex grid-cols-[15px_550px] items-center -mt-2">
 
-        <div class="text-[40px] text-color-main">
+        <div class="text-[40px] peer text-color-main">
             {{digit}}
         </div>
 
         <div class="title-comp">
-            {{textTitleComp | uppercase}}
+            <div class="!flex !flex-wrap !whitespace-break-spaces">{{textTitleComp | uppercase}}</div>
         </div>
     </div>
 

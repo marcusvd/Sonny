@@ -10,42 +10,22 @@ import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'spinner-g',
-  template: `
-  <div *ngIf="spinner" class="middle-space-horizontal-beteween-fields"> </div>
-  <div *ngIf="spinner" >
-    <mat-spinner  diameter="30"></mat-spinner>&nbsp;&nbsp;
-    <div id="space-top" >{{'Carregando...'}} &nbsp; {{optionalTitle}}</div>
-  </div>
-  <div *ngIf="spinner" class="middle-space-horizontal-beteween-fields"> </div>
-  <div *ngIf="empty" >
-  <div  id="space-top" >{{'Nenhum registro encontrado!'}}</div>
-  </div>
-  `,
   standalone: true,
+  templateUrl: './spinner-g.component.html',
+  styleUrls: ['./spinner-g.component.scss'],
   imports: [
     MatProgressSpinnerModule,
-    
     NgIf
   ],
-
-  styles: [`
-    .mat-spinner::ng-deep circle {
-          stroke: #2ba1a8;
-    }
-    
-    #space-top{
-    padding-top:5px;
-    }
-  `]
 })
 export class SpinnerGComponent implements OnChanges {
 
-  @Input() entities = new Observable<any[]>();
+  @Input() entities$ = new Observable<any[]>();
   @Input() optionalTitle = '';
 
   spinner = true;
 
-  @Input() set _empty(value: boolean){
+  @Input() set _empty(value: boolean) {
     this.empty = false;
   }
 
@@ -54,13 +34,14 @@ export class SpinnerGComponent implements OnChanges {
   @Output() spinnerStatusOut = new EventEmitter<boolean>();
   constructor() { }
   ngOnChanges(changes: SimpleChanges): void {
-    const length = this?.entities?.pipe(
-      map(x => {
+    const length = this?.entities$?.pipe(
 
+      map(x => {
+        //console.log(x)
         const timeout = setTimeout(() => {
           if (this.spinner)
             this.empty = true;
-            this.spinner = false;
+          this.spinner = false;
         }, 10000)
 
         if (x.length > 0) {
@@ -69,7 +50,7 @@ export class SpinnerGComponent implements OnChanges {
           clearTimeout(timeout)
         }
 
-        if(x.length == 0)
+        if (x.length == 0)
           this.spinner = true;
       }),
     ).subscribe();

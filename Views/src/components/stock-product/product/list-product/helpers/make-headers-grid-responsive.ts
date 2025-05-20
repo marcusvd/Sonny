@@ -15,7 +15,7 @@ export const fieldsHeadersSmall = () => {
 //   return [{ key: 'productType', style: '' }, { key: 'manufacturer', style: '' }, { key: 'soldPrice', style: '' }]
 // }
 
-export const labelHeadersMiddle = () => {
+export const labelHeaders = () => {
   return [{ key: 'AÇÕES', style: 'cursor: pointer;' },
   { key: 'ITEM', style: 'cursor: pointer;' },
   // { key: 'SEGMENTO', style: 'cursor: pointer;' },
@@ -26,7 +26,7 @@ export const labelHeadersMiddle = () => {
 
 ]
 }
-export const fieldsHeadersMiddle = () => {
+export const fieldsHeaders = () => {
   return [{ key: 'id', style: '' },
   { key: 'productTypeView', style: '' },
   // { key: 'segment', style: '' },

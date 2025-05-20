@@ -35,12 +35,11 @@
             </div>
         </mat-card>
 
-        <div class="align-h-center">
+        <div class="align-h-center" *ngIf="getExpenseDay">
             <mat-divider class="divider-line-categories-comp"></mat-divider>
         </div>
 
-
-        <div *ngIf="formMain.get('expenseDay').value">
+        <div *ngIf="getExpenseDay">
 
             <mat-card class="p-4 m-4 border-card-categories-divide-comp">
                 <div class="p-4">
@@ -55,82 +54,128 @@
             </div>
 
 
-            <div class="p-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div class="w-full">
-                    <mat-label>Valor à vista</mat-label>
-                    <mat-form-field class="w-full" appearance="outline">
-                        <input currencyMask matInput type="text" (keyup)="sumPaymentAtSight()" formControlName="paymentAtSight" aria-label="Valor">
-                        <!-- (keyup)="installmentCacl()"  -->
-                        <mat-error>
-                            <span>{{validatorMessages.required(formMain,'paymentAtSight', 'Valor total')}}</span>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-                <div class="w-full" *ngIf="formMain.get('installmentsQuantity').value  > 1">
-                    <mat-label>Valor Parcela</mat-label>
-                    <mat-form-field class="w-full" appearance="outline">
-                        <input currencyMask matInput type="text" (keyup)="sumQuantityInstallment()" formControlName="installmentPrice" aria-label="Valor">
-                        <!-- (keyup)="installmentCacl()" -->
-                        <mat-error>
-                            <span>{{validatorMessages.required(formMain,'price', '* Obrigatório')}}</span>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-                <div class="w-full" *ngIf="formMain.get('installmentsQuantity').value == 1">
-                    <mat-label>Juros %</mat-label>
-                    <mat-form-field class="w-full" appearance="outline">
-                        <input matInput type="text" (keyup)="sumSingleInstallment()" formControlName="totalPercentageInterest" aria-label="Valor">
-                        <mat-error>
-                            <span>{{validatorMessages.required(formMain,'price', '* Obrigatório')}}</span>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
-                <div class="w-full">
-                    <mat-label>Parcelas</mat-label>
-                    <mat-form-field class="w-full" appearance="outline" (change)="sumQuantityInstallment()">
-                        <input matInput type="number" min="1" max="152" formControlName="installmentsQuantity" aria-label="número de parcelas">
-                        <mat-error>
-                            <span>{{validatorMessages.required(formMain,'installmentsQuantity', '* Obrigatório')}}</span>
-                        </mat-error>
-                    </mat-form-field>
+            <!--  -->
+            <mat-card class="border-card-categories-divide-comp">
+                <div class="p-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="w-full">
+                        <mat-label>Valor à vista</mat-label>
+                        <mat-form-field class="w-full" appearance="outline">
+                            <input currencyMask matInput type="text" (keyup)="sumPaymentAtSight()" formControlName="paymentAtSight" aria-label="Valor">
+                            <!-- (keyup)="installmentCacl()"  -->
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain,'paymentAtSight', 'Valor total')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full" *ngIf="formMain.get('installmentsQuantity').value  > 1">
+                        <mat-label>Valor Parcela</mat-label>
+                        <mat-form-field class="w-full" appearance="outline">
+                            <input currencyMask matInput type="text" (keyup)="sumQuantityInstallment()" formControlName="installmentPrice" aria-label="Valor">
+                            <!-- (keyup)="installmentCacl()" -->
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain,'price', '* Obrigatório')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full" *ngIf="formMain.get('installmentsQuantity').value == 1">
+                        <mat-label>Juros %</mat-label>
+                        <mat-form-field class="w-full" appearance="outline">
+                            <input matInput type="text" (keyup)="sumSingleInstallment()" formControlName="totalPercentageInterest" aria-label="Valor">
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain,'price', '* Obrigatório')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full">
+                        <mat-label>Parcelas</mat-label>
+                        <mat-form-field class="w-full" appearance="outline" (change)="sumQuantityInstallment()">
+                            <input matInput type="number" min="1" max="152" formControlName="installmentsQuantity" aria-label="número de parcelas">
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain,'installmentsQuantity', '* Obrigatório')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
                 </div>
 
+
+                <!--  -->
+
+                <div class="w-full pr-4 pl-4 pb-4 grid sm:grid-cols-3 grid-cols-1 grid-row-3 gap-4" *ngIf="formMain.get('price').value || formMain.get('totalPriceInterest').value > 0">
+                    <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center">
+                        <div>
+                            <p class="pipe-title"> <span>|</span></p>
+                        </div>
+                        <div>
+                            <p>Montante:</p>
+                        </div>
+                        <div>
+                            <p class="text-red-600">{{priceToPaidView | ptBrCurrency}}</p>
+                        </div>
+                    </div>
+                    <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center">
+                        <div>
+                            <p class="pipe-title"> <span>|</span></p>
+                        </div>
+                        <div>
+                            <p>Juros:</p>
+                        </div>
+                        <div>
+                            <p class="text-red-600">{{totalPriceInterestView | ptBrCurrency}}</p>
+                        </div>
+                    </div>
+                    <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center">
+                        <div>
+                            <p class="pipe-title"> <span>|</span></p>
+                        </div>
+                        <div>
+                            <p>Porcentagem:</p>
+                        </div>
+                        <div>
+                            <p class="text-red-600">{{percentageInterestView / 100 | percent}}</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div>
+                    <mat-label *ngIf="formMain.get('installmentsQuantity').value > 1">{{'Vencimento primeira parcela:'}}
+                    </mat-label>
+                    <mat-label *ngIf="formMain.get('installmentsQuantity').value == 1">{{'Vencimento:'}}</mat-label>
+                    <mat-label>{{firstInstallmentExpires | ptBrDate:'Date'}}</mat-label>
+                </div> -->
+                <div class="w-full pr-4 pl-4 pb-4 grid sm:grid-cols-2 grid-cols-1 grid-row-2 gap-4">
+                    <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center" *ngIf="installmentPayment">
+                        <div>
+                            <p class="pipe-title"> <span>|</span></p>
+                        </div>
+                        <div>
+                            <!-- <p>Montante:</p> -->
+                            <mat-label>{{'Vencimento primeira parcela:'}}
+                            </mat-label>
+                        </div>
+                        <div>
+                            <!-- <p class="text-red-600">{{priceToPaidView | ptBrCurrency}}</p> -->
+                            <mat-label>{{firstInstallmentExpires | ptBrDate:'Date'}}</mat-label>
+                        </div>
+                    </div>
+                    <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center" *ngIf="fullPaymentUpfront">
+                        <div>
+                            <p class="pipe-title"> <span>|</span></p>
+                        </div>
+                        <div>
+                            <!-- <p>Juros:</p> -->
+                            <mat-label>{{'Vencimento:'}}</mat-label>
+                        </div>
+                        <div>
+                            <!-- <p class="text-red-600">{{totalPriceInterestView | ptBrCurrency}}</p> -->
+                            <mat-label>{{firstInstallmentExpires | ptBrDate:'Date'}}</mat-label>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
+            <div class="align-h-center mb-4">
+                <mat-divider class="divider-line-categories-comp"></mat-divider>
             </div>
+            <div class="p-4 grid grid-cols-1 sm:grid-cols-[1fr_150px] gap-4">
 
-
-
-
-
-            <div *ngIf="formMain.get('price').value || formMain.get('totalPriceInterest').value > 0">
-                <div>
-                    <mat-label>{{'Montante:'}}&nbsp;</mat-label>
-                    <div>
-                    </div>
-                    <mat-label>{{priceToPaidView | ptBrCurrency}}</mat-label>
-                    <div>
-                    </div>
-                </div>
-                <div>
-                    <mat-label>Juros:&nbsp;</mat-label>
-                    <div>
-                    </div>
-                    <mat-label>{{totalPriceInterestView | ptBrCurrency}}</mat-label>
-                    <div>
-                    </div>
-                </div>
-                <div>
-                    <mat-label>Porcentagem:&nbsp;</mat-label>
-                    <div>
-                    </div>
-                    <mat-label>{{percentageInterestView / 100 | percent}}</mat-label>
-                    <div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="p-4">
-
-                <!-- *ngIf="formMain.get('bankAccountId').value" -->
                 <div class="w-full">
                     <div>
                         <mat-label>Descrição / Itens</mat-label>
@@ -154,23 +199,17 @@
                 </div>
             </div>
 
-            <div>
-                <mat-label *ngIf="formMain.get('installmentsQuantity').value > 1">{{'Vencimanto primeira parcela:'}}
-                </mat-label>
-                <mat-label>{{firstInstallmentExpires | ptBrDate:'Date'}}</mat-label>
-                <mat-label *ngIf="formMain.get('installmentsQuantity').value == 1">{{'Vencimanto:'}}</mat-label>
-            </div>
-
-
 
             <div style="color: red;" *ngIf="showWarning">{{warningCreditLimit}}</div>
             <!-- <div>{{formMain.value | json}}</div> -->
 
-
-            <div>
+            <div class="mb-14 align-h-center">
                 <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
-                <!-- [enableDisable]="saveBtnEnabledDisabled" -->
             </div>
+
+            <!-- <div>
+                <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
+            </div> -->
 
         </div>
 

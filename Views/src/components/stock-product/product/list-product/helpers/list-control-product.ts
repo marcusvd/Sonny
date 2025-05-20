@@ -19,7 +19,7 @@ import { ProductDto } from "../../dtos/product-dto";
 import { ProductTypeDto } from "../../dtos/product-type-dto";
 import { SegmentDto } from "../../dtos/segment-dto";
 import { ProductList } from "../dto/product-list";
-import { fieldsHeadersLarge, fieldsHeadersMiddle, labelHeadersLarge, labelHeadersMiddle } from "./make-headers-grid-responsive";
+import { fieldsHeadersLarge, fieldsHeaders, labelHeadersLarge, labelHeaders } from "./make-headers-grid-responsive";
 import { makeHeaderToOrder } from "./order-items-by-header";
 import { ex_makeItemsGridLager } from "./screen/large-grid-responsive";
 import { ex_makeItemsGridMedium } from "./screen/medium-grid-responsive";
@@ -73,8 +73,8 @@ export class ListControlProduct extends BaseList {
       this.entitiesFiltered$ = of(ex_makeItemsGridSmall(this.entitiesFiltered, this._truncatePipe));
     }
     else if (this.screen(event) >= 800) {
-      this.fields = fieldsHeadersMiddle();
-      // this.headers = labelHeadersMiddle();
+      this.fields = fieldsHeaders();
+      // this.headers = labelHeaders();
       this.isCard = false;
       this.entitiesFiltered$ = of(ex_makeItemsGridMedium(this.entitiesFiltered, this._truncatePipe));
     }
