@@ -129,7 +129,7 @@
                 <get-partner-matselect-single [ngClass]="{'middle-space-horizontal-top-single':!topBottomPaddingEntitiesRadio, 'middle-space-horizontal-bottom-single':topBottomPaddingEntitiesRadio}" *ngIf="selectedEntityToPayment == 'Parceiros'" [formMain]="subForm"
                      (partnerSelected)="onPartnerSelectedPayment($event)" (partnerSelected)="onPriceSelectedPayment('Combustível')" [editEntity]="true" [urlBackEndApi]="'GetPartnersByCompanyIdIncludedPhysicallyMovingCosts'"></get-partner-matselect-single>
             </div>
-            <div [fxLayout]="'column'"  *ngIf="selectedCustomerPayment || selectedPartnerPayment">
+            <div   *ngIf="selectedCustomerPayment || selectedPartnerPayment">
                 <!-- <div ></div> -->
                 <div   [style]="pricePayment">
                     <mat-form-field appearance="outline" >

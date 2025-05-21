@@ -170,6 +170,7 @@ namespace Application.Services.Operations.Finances.Dtos.Mappers
                 Description = entity.Description,
                 Registered = entity.Registered,
                 Deleted = entity.Deleted,
+                CreditCardExpenses = CreditCardExpensesListMake(entity.CreditCardExpenses)
             };
 
             return obj;

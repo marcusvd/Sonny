@@ -12,7 +12,7 @@ import { MatCardModule as MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule as MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTabsModule as MatTabsModule } from '@angular/material/tabs';
 import { AddCreditCardExpensesComponent } from 'src/components/financial/components/credit-card-fixed-expenses/components/add/add-credit-card-expenses.component';
-import { ListCreditCardInvoicesComponent } from 'src/components/financial/components/credit-card-fixed-expenses/components/list -invoices/list-credit-card-invoices.component';
+import { ListCreditCardInvoicesComponent } from 'src/components/financial/components/credit-card-fixed-expenses/components/list-invoices/list-credit-card-invoices.component';
 import { ListCreditCardExpensesComponent } from 'src/components/financial/components/credit-card-fixed-expenses/components/list/list-credit-card-expenses.component';
 import { AddFinancingsLoansExpensesComponent } from 'src/components/financial/components/financings-loans-expenses/components/add/add-financings-loans-expenses.component';
 import { ListFinancingsLoansExpensesComponent } from 'src/components/financial/components/financings-loans-expenses/components/list/list-financings-loans-expenses.component';

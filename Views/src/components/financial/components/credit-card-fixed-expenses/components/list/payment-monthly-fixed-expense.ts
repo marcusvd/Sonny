@@ -5,7 +5,7 @@ import { FormBase } from "src/shared/components/financial/payment/models/form-ba
 import { InputField } from "src/shared/components/financial/payment/models/input-field";
 import { PtBrCurrencyPipe } from "src/shared/pipes/pt-br-currency.pipe";
 import { PtBrDatePipe } from "src/shared/pipes/pt-br-date.pipe";
-import { ListGridCreditCardExpensesDto } from "./dto/list-grid-credit-card-expenses-dto";
+import { ListCreditCardExpensesDto } from "./dto/list-credit-card-expenses-dto";
 import { ListCreditCardExpensesService } from "./services/list-credit-card-expenses.service";
 import { CreditCardExpenseDto } from "../../dto/credit-card-expense-dto";
 
@@ -20,7 +20,7 @@ export class PaymentMonthlyFixedExpense {
   }
 
   controllerUrl: string = environment._MONTHLY_FIXED_EXPENSES.split('/')[4];
-  toPay(entityGrid: ListGridCreditCardExpensesDto) {
+  toPay(entityGrid: ListCreditCardExpensesDto) {
 
     this._listServices.loadById$<CreditCardExpenseDto>('GetFixedExpensesByIdAllIncluded', entityGrid.id.toString())
       .subscribe((x: CreditCardExpenseDto) => {
@@ -56,5 +56,5 @@ export class PaymentMonthlyFixedExpense {
     ]
     return obj
   }
-  
+
 }

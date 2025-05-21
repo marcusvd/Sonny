@@ -1,9 +1,7 @@
 
 using System;
 using System.Collections.Generic;
-using Domain.Entities.Authentication;
 using Domain.Entities.Finances.Bank;
-using Domain.Entities.Main.Companies;
 using Domain.Entities.Shared;
 
 namespace Domain.Entities.Finances.CreditCardExpenses

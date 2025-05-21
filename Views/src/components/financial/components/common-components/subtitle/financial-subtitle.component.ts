@@ -1,6 +1,6 @@
 
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
@@ -37,17 +37,7 @@ import { FinancialSubtitleDto } from './financial-subtitle-dto';
         height: 20px;
     }
 
-.bg-color-expired {
-    background-color: red;
-}
 
-.bg-color-will-expire {
-    background-color: orange;
-}
-
-.bg-color-paid {
-    background-color: green;
-}
 
 #whenSmallSpaceTop{
     padding-top:10px;
@@ -76,7 +66,7 @@ font-weight: bolder; padding-top: 13px; margin-left: -25px;
   `],
     providers: [],
 })
-export class FinancialSubtitleComponent  implements OnInit {
+export class FinancialSubtitleComponent  implements OnInit, OnChanges {
 
     @Input() statusCollection: FinancialSubtitleDto[] = [];
 
@@ -90,6 +80,9 @@ export class FinancialSubtitleComponent  implements OnInit {
 
     constructor(
     ) {}
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(this.statusCollection)
+  }
 
     ngOnInit(): void {
 

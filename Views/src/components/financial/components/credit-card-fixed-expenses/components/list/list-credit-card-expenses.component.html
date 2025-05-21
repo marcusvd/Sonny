@@ -1,17 +1,17 @@
-<div class="border-around"  *ngIf="this.entities">
+<!-- <div class="border-around" *ngIf="this.entities">
     <title-component [digit]="'|'" [textTitleComp]="'Cartão de Crédito'" [icon]="'attach_money'"></title-component>
     <div>
         <div>
 
-            <mat-card class="mat-card-sub-title" >
+            <mat-card class="mat-card-sub-title">
                 <grid-list-common>
                     <sub-title title [title]="'Fatura ' +expensesMonth" [icon]="'list'"></sub-title>
-                    <div search-filter >
+                    <div search-filter>
                         <div class="small-space-horizontal-beteween-fields"></div>
                         <div>
 
-                            <div >
-                                <div >
+                            <div>
+                                <div>
                                     <grid-list-common-search [searchName]="'Busca'" [Input]="100" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
                                     <financial-subtitle *ngIf="this.entities.length != 0" [singleStatusSubtitle]="true" [expiresDate]="this.entities[0].expires" [statusCollection]="statusCollection" [title]="expensesMonth">
                                     </financial-subtitle>
@@ -19,33 +19,64 @@
                             </div>
                         </div>
                     </div>
-                    <div search-filter id="space-components" >
+                    <div search-filter id="space-components">
 
                     </div>
-                    <div search-pagination  >
+                    <div search-pagination>
                         <div>
                         </div>
                         <br>
                         <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
                         <br>
                     </div>
-                    <grid-list-common-table  body-table [statusShow]="false" [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)"
+                    <grid-list-common-table body-table [statusShow]="false" [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)"
                         (getEntityOut)="getEntity($event, 'fixedExpenses')" (toPayOut)="pay.toPay($event)">
                     </grid-list-common-table>
-                    <div pagination-below >
-                        <div class="mat-paginator-above-margin"  >
+                    <div pagination-below>
+                        <div class="mat-paginator-above-margin">
                         </div>
                         <div>
                             <div>
                             </div>
                             <mat-paginator pagination-below #paginatorBelow [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
                         </div>
-                        <div class="mat-paginator-below-margin"  >
+                        <div class="mat-paginator-below-margin">
 
                         </div>
                     </div>
                 </grid-list-common>
             </mat-card>
         </div>
+    </div>
+</div> -->
+<div class="P-4">
+    <title-component [digit]="'|'" [textTitleComp]="'Cartão de Crédito'" [icon]="'attach_money'"></title-component>
+    <div>
+        <!-- <mat-card class="mat-card-sub-title">
+            <sub-title title [title]="'Fatura' +expensesMonth" [icon]="'list'"></sub-title> -->
+        <mat-card class="sub-title-mat-card border-card-categories-divide-comp" formArrayName="cards">
+
+            <div class="sub-title w-full">
+                <div class="w-full grid grid-cols-[40px_1fr_1fr] items-center">
+                    <div class="mt-[3px]">
+                        <mat-icon class="mat-icon-left-subtitle">{{'list'}}</mat-icon>
+                    </div>
+                    <div>
+                        {{expensesMonth}}
+                    </div>
+                    <div class="flex justify-start -ml-24">
+                        {{'FATURA'}}
+                    </div>
+                </div>
+            </div>
+            <financial-subtitle *ngIf="this.entities.length != 0" [singleStatusSubtitle]="true" [expiresDate]="this.entities[0].expires" [statusCollection]="statusCollection" [title]="expensesMonth">
+            </financial-subtitle>
+
+            <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
+
+
+
+            </list-g>
+        </mat-card>
     </div>
 </div>

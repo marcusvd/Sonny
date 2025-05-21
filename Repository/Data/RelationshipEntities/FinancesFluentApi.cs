@@ -230,6 +230,13 @@ namespace Repository.Data.RelationshipEntities
             builder.Property(x => x.FinancingAndLoanExpenseId).IsRequired(false);
         }
     }
+    public class CreditCardExpenseInvoiceFluentApi : IEntityTypeConfiguration<CreditCardExpenseInvoice>
+    {
+        public void Configure(EntityTypeBuilder<CreditCardExpenseInvoice> builder)
+        {
+            builder.HasMany(x => x.CreditCardExpenses).WithOne(x => x.CreditCardExpenseInvoice).HasForeignKey(x => x.CreditCardExpenseInvoiceId);
+        }
+    }
 
 
 

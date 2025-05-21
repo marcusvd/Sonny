@@ -14,7 +14,7 @@ import { HtmlDataInfoDto } from '../../../common-components/screen-data-info/dto
 import { ScreenDataInfoComponent } from '../../../common-components/screen-data-info/screen-data-info.component';
 
 import { PaymentCreditCardsInvoicesService } from './services/payment-credit-cards-invoices.service';
-import { CreditCardExpenseInvoiceDto } from '../list -invoices/dto/credit-card-expense-invoice-dto';
+import { CreditCardExpenseInvoiceDto } from '../list-invoices/dto/credit-card-expense-invoice-dto';
 
 @Component({
   selector: 'payment-credit-cards-invoices',

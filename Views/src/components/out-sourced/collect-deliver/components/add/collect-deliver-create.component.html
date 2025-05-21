@@ -67,7 +67,7 @@
             </mat-radio-group>
 
 
-            <div [fxLayout]="'column'"  style="padding-left:10px;">
+            <div   style="padding-left:10px;">
 
                 <!-- [ngClass]="{'middle-space-horizontal-top-single':!topBottomPaddingEntitiesRadio, 'middle-space-horizontal-bottom-single':topBottomPaddingEntitiesRadio}" -->
                 <get-customer-matselect-single *ngIf="selectedDestiny == 'Clientes'" [formMain]="destiny"
@@ -117,7 +117,7 @@
         <div >
             <!--  -->
             <!-- <div [fxLayout]="screenFieldPositionSub" [style]="rightSideBorder"> -->
-            <div [fxLayout]="'column'">
+            <div >
                 <!-- <div >
                 </div> -->
                 <mat-radio-group *ngIf="!disablePaymentDestiny" aria-labelledby="radio-group-label" class="radio-group"
@@ -148,7 +148,7 @@
                     (partnerSelected)="onPriceSelectedPayment('Combustível')"
                     [urlBackEndApi]="'GetPartnersByCompanyIdIncludedPhysicallyMovingCosts'"></get-partner-matselect-single>
             </div>
-            <div [fxLayout]="'column'"  *ngIf="selectedCustomerPayment || selectedPartnerPayment">
+            <div   *ngIf="selectedCustomerPayment || selectedPartnerPayment">
                 <div   [style]="pricePayment">
                     <mat-form-field appearance="outline" >
                         <mat-label>Valor pre cadastrado</mat-label>

@@ -1,65 +1,41 @@
-<div   >
-    <!-- defaultSubtitle -->
-    <div [fxLayout]="'column'" *ngIf="singleStatusSubtitle">
-        <div *ngIf="defaultSubtitle" id="space-components" [fxLayout]="bigCurrentSizeScreen"  >
-            <div >
-                <span class="dimensions-subtitle bg-color-expired"></span><span class="space-subtitle">Vencida</span>
-            </div>
-            <div class="small-space-horizontal-beteween-fields"></div>
-            <div >
-                <span class="dimensions-subtitle bg-color-will-expire"></span><span class="space-subtitle">Pendente</span>
-            </div>
-            <div class="small-space-horizontal-beteween-fields"></div>
-            <div >
-                <span class="dimensions-subtitle bg-color-paid"></span><span class="space-subtitle">Liquidada</span>
-            </div>
-        </div>
-        <div style="padding-top:70px;" >
+<div class="p-4">
 
+    <div class="w-full grid sm:grid-cols-3 grid-cols-1 items-center justify-center">
+        <div class="w-full grid sm:grid-cols-[20px_1fr] grid-cols-1 items-center justify-center">
+            <div class="bg-expired w-[16px] h-[16px]">
+            </div>
+            <div>Vencida</div>
+        </div>
+        <div class="w-full grid sm:grid-cols-[20px_1fr] grid-cols-1 items-center justify-center">
+            <div class="bg-pendding w-[16px] h-[16px]">
+            </div>
+            <div>Pendente</div>
+        </div>
+        <div class="w-full grid sm:grid-cols-[20px_1fr] grid-cols-1 items-center justify-center">
+            <div class="bg-paid w-[16px] h-[16px]">
+            </div>
+            <div>Liquidada</div>
         </div>
     </div>
-    <br>
 
-    <div>
+    <div class="w-full flex sm:justify-center sm:mt-10 mt-4 text-[30px] text-black font-bold">
         {{title}}
     </div>
 
 
-    <div >
-
-    </div>
-    <div id="whenSmallSpaceTop" >
-
-    </div>
-
-    <!-- singleStatusSubtitle -->
-    <div *ngIf="singleStatusSubtitle">
-        <div [fxLayout]="bigCurrentSizeScreen" *ngFor="let status of statusCollection">
-            <div fxLayout="smallCurrentSizeScreen" [class]="status.squareBgColor" style="height: 50px; width: 50px;" *ngIf="status.visible">
+    <div *ngFor="let status of statusCollection">
+        <div class="grid grid-rows-2" *ngIf="status.visible">
+            <div class="w-[50px] h-[50px] ml-5" [class]="status.squareBgColor" *ngIf="status.visible">
 
             </div>
-            <div ="5" *ngIf="bigCurrentSizeScreen == 'row'">
-
+            <div [class]="status.monthColorName">
+                {{status.name | uppercase}}
             </div>
-            <span *ngIf="bigCurrentSizeScreen == 'row'">
-                <div fxLayout="smallCurrentSizeScreen" class="dimensions-subtitle-single-status" *ngIf="status.visible">
-                    <div [class]="status.monthColorName" class="subtitleRow">
-                        {{status.name | uppercase}}
-                    </div>
-                </div>
-            </span>
-            <span *ngIf="bigCurrentSizeScreen == 'column'">
-                <div fxLayout="smallCurrentSizeScreen" class="dimensions-subtitle-single-status" *ngIf="status.visible">
-                    <div [class]="status.monthColorName" class="subtitleColumn">
-                        {{status.name | uppercase}}
-                    </div>
-                </div>
-            </span>
         </div>
     </div>
-    <br>
-    <div  *ngFor="let status of statusCollection">
-        <div *ngIf="status.visible" [class]="status.monthColorName">
+
+    <div *ngFor="let status of statusCollection">
+        <div class="font-bold" *ngIf="status.visible" [class]="status.monthColorName">
             {{'VENCIMENTO:'}} {{expiresDate | ptBrDate:'Date'}}
         </div>
     </div>

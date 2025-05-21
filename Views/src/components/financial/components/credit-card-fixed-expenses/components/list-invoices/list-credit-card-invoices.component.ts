@@ -27,7 +27,7 @@ import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { CardDto } from '../../../bank-account-cards/dto/card-dto';
 import { ViewBankAccountComponent } from '../../../common-components/view-bank-account/view-bank-account.component';
-import { CreditCardExpenseInvoiceDto } from '../list -invoices/dto/credit-card-expense-invoice-dto';
+import { CreditCardExpenseInvoiceDto } from '../list-invoices/dto/credit-card-expense-invoice-dto';
 import { CreditCardInvoicesMatSelectSingleComponent } from '../credit-card-invoice/credit-card-invoices-mat-select-single.component';
 import { FrontEndListFilterCreditCardInvoices } from './filter-list/front-end-list-filter-credit-card-invoices';
 import { ListCreditCardInvoicesService } from './services/list-credit-card-invoices.service';
@@ -37,8 +37,8 @@ import { TriggerCreditCardsInvoices } from './trigger-credit-cards-invoices';
 import { ListGComponent } from 'src/shared/components/list-g/list/list-g.component';
 import { DeleteServices } from 'src/shared/components/delete-dialog/services/delete.services';
 import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
-import { ListControlCreditCardInvoices } from '../../../credit-card-fixed-expenses/components/list -invoices/helpers/list-control-credit-card-invoices';
-import { map } from 'rxjs/operators';
+import { ListControlCreditCardInvoices } from '../../../credit-card-fixed-expenses/components/list-invoices/helpers/list-control-credit-card-invoices';
+
 
 @Component({
   selector: 'list-credit-card-invoices',
@@ -120,7 +120,7 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
   backEndUrl: string = `${this.controllerUrl}/GetAllCreditCardExpensesByCompanyId`;
   override  entities: ListCreditCardInvoiceDto[] = [];
   override entities$: Observable<ListCreditCardInvoiceDto[]>;
-  // override viewUrlRoute: string = '/side-nav/financial-dash/list-credit-card-expenses';
+   listViewExpensesUrlRoute: string = '/side-nav/financial-dash/list-credit-card-expenses';
   // override addUrlRoute: string = '/side-nav/financial/add-credit-card-expenses';
 
 
@@ -152,33 +152,13 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
     this.monthHideShowPendingRadio = month;
 
     if (this.monthFilter.id != -1)
-      this.entities$ = this.onSelectedMonth(this.entities, this.monthFilter.id, 'expires');
+      this.entitiesFiltered$ = this.onSelectedMonth(this.entities, this.monthFilter.id, 'expires');
 
 
     if (this.monthFilter.id == -1)
-      this.entities$ = this.onSelectedMonth(this.entities, this.monthFilter.id, 'expires');
+      this.entitiesFiltered$ = this.onSelectedMonth(this.entities, this.monthFilter.id, 'expires');
   }
 
-  getCurrentPagedInFrontEnd() {
-    this.entities$ = this.current(this.entities, 0, this.pageSize, 'expires', false);
-  }
-
-  current(entities: any[], currentPage: number, pageSize: number, field: string, withPagination: boolean) {
-    let result: any[] = null;
-
-    if (withPagination) {
-      result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field]).getFullYear()
-        && new Date(x[field]).getMonth() == this.currentDate.getMonth())
-      return of(result);
-    }
-    else {
-      result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field]).getFullYear()
-        && new Date(x[field]).getMonth() == this.currentDate.getMonth()
-
-      ).slice(currentPage, pageSize)
-    }
-    return of(result)
-  }
 
   onPageChange(t: any) {
 

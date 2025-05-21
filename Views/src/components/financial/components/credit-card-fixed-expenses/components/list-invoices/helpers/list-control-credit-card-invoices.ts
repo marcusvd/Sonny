@@ -5,7 +5,7 @@ import { Observable, of, Subscription } from 'rxjs';
 import { BaseList } from '../../../../../../../../src/shared/components/list-g/extends/base-list';
 import { ListGDataService } from '../../../../../../../../src/shared/components/list-g/list/data/list-g-data.service';
 import { ListCreditCardInvoicesService } from '../services/list-credit-card-invoices.service';
-import {ListCreditCardInvoiceDto} from '../../../../credit-card-fixed-expenses/dto/list-credit-card-invoice-dto'
+import { ListCreditCardInvoiceDto } from '../../../../credit-card-fixed-expenses/dto/list-credit-card-invoice-dto'
 import { OnClickInterface } from '../../../../../../../../src/shared/components/list-g/list/interfaces/on-click-interface';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -81,12 +81,12 @@ export class ListControlCreditCardInvoices extends BaseList {
   // }
   onSelectedMonth(entities: any[], selectedMonth: number, field: string) {
     let result;
+    entities.forEach(x => console.log(x));
+
 
     if (selectedMonth != -1) {
 
-      result = entities.filter(x =>
-        this.currentDate.getFullYear() == new Date(x[field]).getFullYear()
-        && new Date(x[field]).getMonth() == selectedMonth)
+      result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field].key).getFullYear() && new Date(x[field].key).getMonth() == selectedMonth)
 
       // this.gridListCommonHelper.lengthPaginator.next(result.length)
 
@@ -98,7 +98,7 @@ export class ListControlCreditCardInvoices extends BaseList {
     if (selectedMonth == -1) {
 
       result = entities.filter(x =>
-        this.currentDate.getFullYear() == new Date(x[field]).getFullYear())
+        this.currentDate.getFullYear() == new Date(x[field].key).getFullYear())
 
       // this.gridListCommonHelper.lengthPaginator.next(result.length)
 
@@ -137,15 +137,21 @@ export class ListControlCreditCardInvoices extends BaseList {
   }
 
   onClickIcons(obj: OnClickInterface) {
-    if (obj.action.split('|')[0] == 'edit')
-      // this.callRouter(`/side-nav/customer/edit/${obj.entityId}`);
 
-      // if (obj.action.split('|')[0] == 'zoom_in') {
-      //   this.callRouter(`/side-nav/customer/view/${obj.entityId}`);
-      // }
+    console.log(obj.action)
 
-      if (obj.action.split('|')[0] == 'delete')
-        this.deleteFake(obj.entityId);
+    if (obj.action.split('|')[0] == 'edit') {
+      this.callRouter(`/side-nav/customer/edit/${obj.entityId}`);
+
+    }
+
+    if (obj.action.split('|')[0] == 'list') {
+      this.callRouter(`/side-nav/financial/list-credit-card-expenses/${obj.entityId}`);
+      console.log(obj.entityId)
+    }
+
+    if (obj.action.split('|')[0] == 'delete')
+      this.deleteFake(obj.entityId);
 
   }
   // ['',
@@ -200,13 +206,15 @@ export class ListControlCreditCardInvoices extends BaseList {
   supplyItemsGrid = (ListCreditCardExpenseInvoice: ListCreditCardInvoiceDto[], creditCardexpenseInvoice: CreditCardExpenseInvoiceDto) => {
 
     const items: ListCreditCardInvoiceDto = new ListCreditCardInvoiceDto();
-    ListCreditCardExpenseInvoice = [];
+    //ListCreditCardExpenseInvoice = [];
     Object.assign(items, {
 
       id: {
         key: creditCardexpenseInvoice.id,
         display: 'icons',
-        icons: ['edit|', 'delete|color:rgb(158, 64, 64);margin-left:10px;'],
+
+        icons: ['list|margin-right:10px;', 'edit|', 'delete|color:rgb(158, 64, 64);margin-left:10px;'],
+
         // icons: ['zoom_in', 'edit', 'home'],
         styleInsideCell: `color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,
         styleCell: 'max-width:100px;',
@@ -228,6 +236,9 @@ export class ListControlCreditCardInvoices extends BaseList {
         key: this._ptBrDatePipe.transform(creditCardexpenseInvoice.expires, 'Date'),
         styleCell: 'width:100%;',
       },
+      expires: {
+        key: creditCardexpenseInvoice.expires
+      },
       price: {
         key: this._ptBrCurrencyPipe.transform(Number(creditCardexpenseInvoice.price)),
         styleCell: 'width:100%;',
@@ -245,8 +256,8 @@ export class ListControlCreditCardInvoices extends BaseList {
     let entities: ListCreditCardInvoiceDto[] = [];
 
     return this._listGDataService?.getAllEntitiesInMemoryPaged$(url, cardId).pipe(
-      map((x:CreditCardExpenseInvoiceDto[]) => {
-
+      map((x: CreditCardExpenseInvoiceDto[]) => {
+        console.log(x)
         if (x.length <= 0) {
           entities = [];
           this.entities = [];
@@ -264,9 +275,10 @@ export class ListControlCreditCardInvoices extends BaseList {
           (y: CreditCardExpenseInvoiceDto) => {
             this.entities = this.supplyItemsGrid(entities, y);
             this.entities$ = of(this.entities);
-            this.entities$.subscribe(console.log)
+            // this.entities$.subscribe(console.log)
             this.entitiesFiltered$ = this.entities$
             this.length = x.length;
+            this.getCurrentPagedInFrontEnd(this.entities, 0, this.pageSize, 'expires', false);
           })
       })).subscribe();
 
@@ -296,6 +308,98 @@ export class ListControlCreditCardInvoices extends BaseList {
 
   }
 
+  // test() {
+  //   {
+  //     card: null;
+  //     cardId: 1;
+  //     closingDate: "2025-06-15T00:00:00";
+  //     company: null;
+  //     companyId: 1;
+  //     creditCardExpense: null;
+  //     creditCardExpenses: [{
+  //       card: null,
+  //       cardId: 1,
+  //       categoryExpense: null,
+  //       categoryExpenseId: 8,
+  //       company: null,
+  //       companyId: 1,
+  //       creditCardExpenseInvoice: null,
+  //       creditCardExpenseInvoiceId: 2,
+  //       creditCardLimitOperation: null,
+  //       currentInstallment: "1/2",
+  //       deleted: "0001-01-01T00:00:00",
+  //       description: "asddfsfdfdssdf",
+  //       document: "4ee34d",
+  //       expenseDay: "2025-05-20T03:00:00",
+  //       expires: "2025-06-25T03:00:00",
+  //       financingAndLoanExpenseId: null,
+  //       id: 2,
+  //       installmentPrice: 1111.11,
+  //       installmentsQuantity: 2,
+  //       monthlyFixedExpenseId: null,
+  //       name: "tesrt",
+  //       othersPaymentMethods: null,
+  //       paidFromBankAccount: null,
+  //       paidFromBankAccountId: null,
+  //       paymentAtSight: 2222.22,
+  //       price: 2222.22,
+  //       registered: "2025-05-20T04:26:14.33832",
+  //       subcategoryExpense: null,
+  //       subcategoryExpenseId: 28,
+  //       totalPercentageInterest: 0,
+  //       totalPriceInterest: 0,
+  //       user: null,
+  //       userId: 1,
+  //       variableExpenseId: null,
+  //       wasPaid: "0001-01-01T00:00:00",
+  //       yearlyFixedExpenseId: null,
+  //     }];
+  //     creditCardLimitOperation: null;
+  //     deleted: "0001-01-01T00:00:00";
+  //     description: "Gastos geral No Stop";
+  //     document: null;
+  //     expires: "2025-06-25T03:00:00";
+  //     id: 2;
+  //     interest: 0;
+  //     othersPaymentMethods: null;
+  //     paidFromBankAccountId: null;
+  //     price: 1111.11;
+  //     registered: "2025-05-20T04:26:14.427991";
+  //     user: null;
+  //     userId: 1;
+  //     wasPaid: "0001-01-01T00:00:00";
+  //   }
+  // }
+
+  getCurrentPagedInFrontEnd(entities: any[], currentPage: number, pageSize: number, field: string, withPagination: boolean) {
+    this.entitiesFiltered$ = this.current(entities,
+      currentPage,
+      pageSize,
+      field,
+      withPagination);
+  }
+
+  current(entities: any[], currentPage: number, pageSize: number, field: string, withPagination: boolean) {
+    let result: any[] = null;
+
+    // entities.filter(x => console.log(new Date(x[field].key).getFullYear()))
+    // console.log(this.currentDate.getFullYear())
+
+    return of(entities.filter(x => this.currentDate.getFullYear() == new Date(x[field].key).getFullYear()
+      && new Date(x[field].key).getMonth() == (this.currentDate.getMonth())));
+
+    // if (withPagination) {
+    //   result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field].key).getFullYear()
+    //     && new Date(x[field].key).getMonth() == (this.currentDate.getMonth() + 1))
+    //   return of(result);
+    // }
+    // else {
+    //   result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field].key).getFullYear()
+    //     && new Date(x[field].key).getMonth() == (this.currentDate.getMonth() + 1))
+    //     .slice(currentPage, pageSize)
+    // }
+    // return of(result)
+  }
 
   getCurrent = () => {
     this.entitiesFiltered$ = of(this.entities.slice(0, this.pageSize));

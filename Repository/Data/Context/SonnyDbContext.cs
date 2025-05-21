@@ -160,7 +160,8 @@ namespace Repository.Data.Context
             builder.ApplyConfiguration(new VariableExpenseFluentApi());
             builder.ApplyConfiguration(new MonthlyFixedExpenseFluentApi());
             builder.ApplyConfiguration(new YearlyFixedExpenseFluentApi());
-            // builder.ApplyConfiguration(new CreditCardExpenseFluentApi());
+            builder.ApplyConfiguration(new CreditCardExpenseFluentApi());
+            builder.ApplyConfiguration(new CreditCardExpenseInvoiceFluentApi());
 
             //Identity
             builder.ApplyConfiguration(new IdentityUserLoginFluentApi());

@@ -12,8 +12,8 @@ using Repository.Data.Context;
 namespace Repository.Migrations
 {
     [DbContext(typeof(SonnyDbContext))]
-    [Migration("20250428094415_Remotecmd")]
-    partial class Remotecmd
+    [Migration("20250518140751_financial")]
+    partial class financial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

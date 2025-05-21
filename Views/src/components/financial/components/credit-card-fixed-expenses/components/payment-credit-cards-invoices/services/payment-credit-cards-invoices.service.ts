@@ -6,7 +6,7 @@ import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 // import { CreditCardExpenseInvoiceDto } from "../../../dto/credit-card-expense-invoice-dto";
-import { CreditCardExpenseInvoiceDto } from "../../list -invoices/dto/credit-card-expense-invoice-dto";
+import { CreditCardExpenseInvoiceDto } from "../../list-invoices/dto/credit-card-expense-invoice-dto";
 
 
 

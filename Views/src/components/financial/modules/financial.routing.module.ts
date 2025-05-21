@@ -21,7 +21,7 @@ import { ListYearlyFixedExpensesComponent } from "../components/yearly-fixed-exp
 import { PaymentYearlyComponent } from "../components/yearly-fixed-expenses/components/payment-yearly/payment-yearly.component";
 // import { PaymentFinancingsLoansComponent } from "../components/financings-loans-expenses/components/payment-financings-loans-expenses/payment-financings-loans-expenses.component";
 import { ViewExpensesGComponent } from "../components/common-components/view-expenses-g/view-expenses-g.component";
-import { ListCreditCardInvoicesComponent } from "../components/credit-card-fixed-expenses/components/list -invoices/list-credit-card-invoices.component";
+import { ListCreditCardInvoicesComponent } from "../components/credit-card-fixed-expenses/components/list-invoices/list-credit-card-invoices.component";
 import { PaymentCreditCardsInvoicesComponent } from "../components/credit-card-fixed-expenses/components/payment-credit-cards-invoices/payment-credit-cards-invoices.component";
 import { ListFinancingsLoansExpensesInstallmentComponent } from "../components/financings-loans-expenses/components/list-installment/list-financings-loans-expenses-installment.component";
 import { ListFinancingsLoansExpensesComponent } from "../components/financings-loans-expenses/components/list/list-financings-loans-expenses.component";

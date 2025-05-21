@@ -108,6 +108,9 @@
                     <mat-paginator class="!bg-background-color" #paginatorBelow [length]="this.entities.length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
                 </div> -->
             </list-g>
+            <div class="p-4 flex justify-center" *ngIf="length <= 0">
+                <div>{{'Nenhum registro encontrado!'}}</div>
+            </div>
         </mat-card>
     </div>
 
