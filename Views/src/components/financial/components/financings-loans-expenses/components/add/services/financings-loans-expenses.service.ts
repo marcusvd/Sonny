@@ -27,7 +27,7 @@ export class FinancingsLoansExpensesService extends BackEndService<FinancingsLoa
     this.add$<FinancingsLoansExpensesDto>(toSave, 'AddFinancingsAndLoanExpenseInstallments').subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
-         this._route.navigateByUrl(`/side-nav/financial-dash/list-financings-loans-expenses`)
+         this._route.navigateByUrl(`/side-nav/financial/list-financings-loans-expenses`)
 
       },
       error: (erroCode) => {

@@ -81,8 +81,6 @@ export class ListControlCreditCardInvoices extends BaseList {
   // }
   onSelectedMonth(entities: any[], selectedMonth: number, field: string) {
     let result;
-    entities.forEach(x => console.log(x));
-
 
     if (selectedMonth != -1) {
 
@@ -138,20 +136,22 @@ export class ListControlCreditCardInvoices extends BaseList {
 
   onClickIcons(obj: OnClickInterface) {
 
-    console.log(obj.action)
+    // alert('Testing...');
+    // console.log('test-1');
+    // console.log(obj.action);
 
-    if (obj.action.split('|')[0] == 'edit') {
-      this.callRouter(`/side-nav/customer/edit/${obj.entityId}`);
+    // if (obj.action.split('|')[0] == 'edit') {
+    //   this.callRouter(`/side-nav/customer/edit/${obj.entityId}`);
 
-    }
+    // }
 
     if (obj.action.split('|')[0] == 'list') {
       this.callRouter(`/side-nav/financial/list-credit-card-expenses/${obj.entityId}`);
-      console.log(obj.entityId)
+
     }
 
-    if (obj.action.split('|')[0] == 'delete')
-      this.deleteFake(obj.entityId);
+    // if (obj.action.split('|')[0] == 'delete')
+    //   this.deleteFake(obj.entityId);
 
   }
   // ['',
@@ -212,10 +212,7 @@ export class ListControlCreditCardInvoices extends BaseList {
       id: {
         key: creditCardexpenseInvoice.id,
         display: 'icons',
-
         icons: ['list|margin-right:10px;', 'edit|', 'delete|color:rgb(158, 64, 64);margin-left:10px;'],
-
-        // icons: ['zoom_in', 'edit', 'home'],
         styleInsideCell: `color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,
         styleCell: 'max-width:100px;',
         route: ''
@@ -223,8 +220,7 @@ export class ListControlCreditCardInvoices extends BaseList {
 
       description: {
         key: creditCardexpenseInvoice.description,
-        styleCell: 'width:100%;',
-
+        styleCell: 'width:100%;'
       },
 
       closingDate: {
@@ -252,12 +248,11 @@ export class ListControlCreditCardInvoices extends BaseList {
 
   startSupply(url: string, cardId: string): Subscription {
 
-
     let entities: ListCreditCardInvoiceDto[] = [];
 
     return this._listGDataService?.getAllEntitiesInMemoryPaged$(url, cardId).pipe(
       map((x: CreditCardExpenseInvoiceDto[]) => {
-        console.log(x)
+
         if (x.length <= 0) {
           entities = [];
           this.entities = [];

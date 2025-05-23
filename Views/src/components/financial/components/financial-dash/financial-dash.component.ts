@@ -17,7 +17,7 @@ import { RouterModule } from '@angular/router';
 export class FinancialDashComponent implements OnInit {
 
   @Input() elements: any[] = [
-    { "route": "/side-nav/financial-dash/create", "icon": " insert_drive_file" },
+    { "route": "/side-nav/financial/create", "icon": " insert_drive_file" },
   ];
 
 

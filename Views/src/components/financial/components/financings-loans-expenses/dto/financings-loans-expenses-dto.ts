@@ -1,4 +1,4 @@
-import { RootBase } from "src/shared/entities-dtos/root-base";
+import { RootBase } from "../../../../../shared/entities-dtos/root-base";
 import { CategoryExpenseDto } from "../../common-components/category-subcategory-expenses/dto/category-expense-dto";
 import { SubcategoryExpenseDto } from "../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto";
 import { FinancingAndLoanExpenseInstallmentDto } from "./financing-and-loan-expense-installment-dto";

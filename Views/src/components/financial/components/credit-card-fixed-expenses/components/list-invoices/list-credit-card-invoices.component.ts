@@ -53,13 +53,9 @@ import { ListControlCreditCardInvoices } from '../../../credit-card-fixed-expens
     MatButtonModule,
     MatMenuModule,
     RouterModule,
-
     MatCheckboxModule,
     MatRadioModule,
     BankCardNumberPipe,
-    // GridListCommonComponent,
-    // GridListCommonTableComponent,
-    // GridListCommonSearchComponent,
     TitleComponent,
     BtnGComponent,
     SubTitleComponent,
@@ -120,7 +116,7 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
   backEndUrl: string = `${this.controllerUrl}/GetAllCreditCardExpensesByCompanyId`;
   override  entities: ListCreditCardInvoiceDto[] = [];
   override entities$: Observable<ListCreditCardInvoiceDto[]>;
-   listViewExpensesUrlRoute: string = '/side-nav/financial-dash/list-credit-card-expenses';
+   listViewExpensesUrlRoute: string = '/side-nav/financial/list-credit-card-expenses';
   // override addUrlRoute: string = '/side-nav/financial/add-credit-card-expenses';
 
 

@@ -80,9 +80,9 @@ export class ListGComponent implements OnChanges, OnInit, OnDestroy {
       action: action,
       entityId: entityId
     }
-
-    // console.log(action)
-    // console.log(entityId)
+    
+    // alert('Testing...');
+    // console.log(onClick);
 
     this.outOnClickIcons.emit(onClick);
 

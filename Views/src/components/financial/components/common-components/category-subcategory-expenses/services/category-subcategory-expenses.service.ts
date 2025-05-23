@@ -42,7 +42,7 @@ export class CategorySubcategoryExpensesService extends BackEndService<CategoryE
     this.add$<CategoryExpenseDto>(toSave, 'AddCategoryExpenses').subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
-        // this._route.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-add`)
+        // this._route.navigateByUrl(`/side-nav/financial/month-fixed-expenses-add`)
         window.history.back();
       },
       error: (erroCode) => {
@@ -60,7 +60,7 @@ export class CategorySubcategoryExpensesService extends BackEndService<CategoryE
     this.update$<CategoryExpenseDto>('UpdateCategoryExpenses', toUpdate).subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('2', 0, null, 4);
-        // this._route.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-add`)
+        // this._route.navigateByUrl(`/side-nav/financial/month-fixed-expenses-add`)
         window.history.back();
       },
       error: (erroCode) => {
@@ -78,7 +78,7 @@ export class CategorySubcategoryExpensesService extends BackEndService<CategoryE
     this.deleteFake$<CategoryExpenseDto>('DeleteFakeCategoryExpenses', toUpdate).subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('1', 1, null, 4);
-        // this._route.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-add`)
+        // this._route.navigateByUrl(`/side-nav/financial/month-fixed-expenses-add`)
         // window.history.back();
       },
       error: (erroCode) => {

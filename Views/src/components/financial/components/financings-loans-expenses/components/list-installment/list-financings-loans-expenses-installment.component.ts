@@ -12,15 +12,11 @@ import { MatMenuModule as MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule as MatPaginatorModule } from '@angular/material/paginator';
 import { MatRadioModule as MatRadioModule } from '@angular/material/radio';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 
 
 import { environment } from 'src/environments/environment';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
-import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
-import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
-import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
 
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
@@ -31,10 +27,13 @@ import { FilterBtnRadioComponent } from '../../../common-components/filter-btn-r
 
 import { ScreenDataInfoComponent } from '../../../common-components/screen-data-info/screen-data-info.component';
 import { FinancingAndLoanExpenseInstallmentDto } from '../../dto/financing-and-loan-expense-installment-dto';
-import { ListGridFinancingsLoansExpensesInstallmentDto } from './dto/list-grid-financings-loans-expenses-installment-dto';
+import { ListFinancingsLoansExpensesInstallmentDto } from './dto/list-financings-loans-expenses-installment-dto';
 import { FrontEndListFilterFinancingsLoansExpensesInstallment } from './filter-list/front-end-list-filter-financings-loans-expenses-installment';
+import { ListControlListFinancingsLoansExpensesInstallment } from '../list-installment/helpers/list-control-list-financings-loans-expenses-installment';
 import { ListFinancingsLoansExpensesInstallmentService } from './services/list-financings-loans-expenses-installment.service';
 import { TriggerPaymentFinancingsLoansInstallment } from './trigger-payment-financings-loans-installment';
+import { ImportsListFinancingsLoansExpensesInstallment, ProvidersListFinancingsLoansExpensesInstallment } from '../list-installment/imports/imports-list-financings-loans-expenses-installment';
+import { DeleteServices } from 'src/shared/components/delete-dialog/services/delete.services';
 
 
 @Component({
@@ -43,137 +42,116 @@ import { TriggerPaymentFinancingsLoansInstallment } from './trigger-payment-fina
   styleUrls: ['./list-financings-loans-expenses-installment.component.css'],
   standalone: true,
   imports: [
-    CommonModule,
-    FormsModule,
-    MatCardModule,
-    MatPaginatorModule,
-    MatButtonModule,
-    MatMenuModule,
-    RouterModule,
-
-    MatCheckboxModule,
-    MatRadioModule,
-    GridListCommonComponent,
-    GridListCommonTableComponent,
-    GridListCommonSearchComponent,
-    TitleComponent,
-    BtnGComponent,
-    SubTitleComponent,
-    FilterBtnRadioComponent,
-    ScreenDataInfoComponent
+    ImportsListFinancingsLoansExpensesInstallment
   ],
   providers: [
-    ListFinancingsLoansExpensesInstallmentService,
-    PtBrDatePipe,
-    PtBrCurrencyPipe,
+    ProvidersListFinancingsLoansExpensesInstallment
   ]
 
 })
-export class ListFinancingsLoansExpensesInstallmentComponent extends FrontEndListFilterFinancingsLoansExpensesInstallment implements OnInit, AfterViewInit {
+export class ListFinancingsLoansExpensesInstallmentComponent extends ListControlListFinancingsLoansExpensesInstallment implements OnInit {
+
   constructor(
-    override _actRoute: ActivatedRoute,
+    private _actRoute: ActivatedRoute,
+    private _listServices: ListFinancingsLoansExpensesInstallmentService,
     override _router: Router,
-    private _http: HttpClient,
+    override _http: HttpClient,
     private _fb: FormBuilder,
     override _dialog: MatDialog,
-    private _ptBrDatePipe: PtBrDatePipe,
-    private _ptBrCurrencyPipe: PtBrCurrencyPipe,
-
-    override _listServices: ListFinancingsLoansExpensesInstallmentService
+    override _ptBrDatePipe: PtBrDatePipe,
+    override _ptBrCurrencyPipe: PtBrCurrencyPipe,
+    override _deleteServices: DeleteServices,
   ) {
     super(
-      _dialog,
       _router,
-      _actRoute,
-      new GridListCommonHelper(_http),
-      ['', 'Vencimento', 'Valor pago', 'Nº Parcelas', 'Status'],
-      ['expiresView', 'priceWasPaidInstallment', 'currentInstallment'],
-
-      _listServices
+      _http,
+      _dialog,
+      _deleteServices,
+      _ptBrDatePipe,
+      _ptBrCurrencyPipe,
     )
   }
 
-  controllerUrl: string = environment._FINANCINGS_LOANS_EXPENSES.split('/')[4];
-  override backEndUrl: string = `${this.controllerUrl}/FinancingsAndLoansGetAllExpensesPagedAsync`;
-  override  entities: ListGridFinancingsLoansExpensesInstallmentDto[] = [];
-  override entities$: Observable<ListGridFinancingsLoansExpensesInstallmentDto[]>;
-  override viewUrlRoute: string = '/side-nav/financial-dash/view-yearly-fixed-expenses-tracking';
-  override addUrlRoute: string = '/side-nav/financial-dash/add-financings-loans-expenses';
-
-  pay = new TriggerPaymentFinancingsLoansInstallment(
-    this._router,
-    this._ptBrDatePipe,
-    this._ptBrCurrencyPipe,
-  );
-
-  financingsLoansExpenses: FinancingAndLoanExpenseInstallmentDto[] = [];
-  getEntityTopay(entity: FinancingAndLoanExpenseInstallmentDto) {
-    const installment = this.financingsLoansExpenses.find(x => x.id == entity.id);
-
-    this.pay.entityToPay = installment;
-
-    this.pay.callRoute(this.pay.entityToPay);
-  }
-
-  cleanRadios = false;
-  filterClear() {
-    this.cleanRadios = !this.cleanRadios
-    this.filterCheckBoxSelected = null;
-    this.getCurrentPagedInFrontEnd();
-  }
-
-  getCurrentPagedInFrontEnd() {
-    this.entities$ = of(this.entities);
-    this.gridListCommonHelper.lengthPaginator.next(this.entities.length)
-  }
-
-  getCurrentEntitiesFromBackEnd(id: number) {
-    this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetInstallmentsByFinancingsAndLoansExpensesId`, id.toString());
-    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: FinancingAndLoanExpenseInstallmentDto[]) => {
-
-      x.forEach((xy: FinancingAndLoanExpenseInstallmentDto) => {
-        this.financingsLoansExpenses.push(xy);
-        this.entities.push(this.makeGridItems(xy));
-      })
-      this.getCurrentPagedInFrontEnd();
-    })
+  financingsLoansExpensesInstallmentSubscribe: Subscription;
+  ngOnDestroy(): void {
+    this.financingsLoansExpensesInstallmentSubscribe?.unsubscribe();
   }
 
 
-  makeGridItems(xy: FinancingAndLoanExpenseInstallmentDto) {
-    let currentStallment: string[] = [];
-
-    if (xy?.currentInstallment)
-      currentStallment = xy.currentInstallment.split('/');
-
-    const viewDto = new ListGridFinancingsLoansExpensesInstallmentDto;
-    viewDto.id = xy.id
-    viewDto.currentInstallment = `${currentStallment[0]} de ${currentStallment[1]}`
-    viewDto.expiresView = this._ptBrDatePipe.transform(xy.expires, 'Date');
-    viewDto.expires = xy.expires;
-    viewDto.priceWasPaidInstallment = this._ptBrCurrencyPipe.transform(xy.priceWasPaidInstallment);
-
-    viewDto.companyId = xy.companyId;
-    viewDto.userId = xy.userId;
-    viewDto.bankAccountId = xy.bankAccountId;
-    viewDto.deleted = xy.deleted;
-    viewDto.cardId = xy.cardId;
-    viewDto.pixId = xy.pixId;
-    viewDto.interest = xy.interest;
-    viewDto.registered = xy.registered;
-    viewDto.othersPaymentMethods = xy.othersPaymentMethods;
-    viewDto.wasPaid = xy.wasPaid;
-    viewDto.document = xy.document;
-    viewDto.financingAndLoanExpense = xy.financingAndLoanExpense
-
-    return viewDto;
-  }
 
   id: number;
   ngOnInit(): void {
     const id = this._actRoute.snapshot.params['id'];
-    this.id = id;
-    this.getCurrentEntitiesFromBackEnd(id);
+
+    this.financingsLoansExpensesInstallmentSubscribe = this.startSupply(`${this.controllerUrl}/GetInstallmentsByFinancingsAndLoansExpensesId`, id);
+    // this.id = id;
+    // this.getCurrentEntitiesFromBackEnd(this._actRoute.snapshot.params['id'] as number);
   }
+
+
+  controllerUrl: string = environment._FINANCINGS_LOANS_EXPENSES.split('/')[4];
+  // override backEndUrl: string = `${this.controllerUrl}/FinancingsAndLoansGetAllExpensesPagedAsync`;
+  // override viewUrlRoute: string = '/side-nav/financial/view-yearly-fixed-expenses-tracking';
+  override addUrlRoute: string = '/side-nav/financial/add-financings-loans-expenses';
+
+
+
+
+
+
+  // filterClear() {
+  //   this.cleanRadios = !this.cleanRadios
+  //   this.filterCheckBoxSelected = null;
+  //   this.getCurrentPagedInFrontEnd();
+  // }
+
+
+  // getCurrentEntitiesFromBackEnd(id: number) {
+  //   this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetInstallmentsByFinancingsAndLoansExpensesId`, id.toString());
+  //   this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: FinancingAndLoanExpenseInstallmentDto[]) => {
+
+  //     x.forEach((xy: FinancingAndLoanExpenseInstallmentDto) => {
+  //       this.financingsLoansExpenses.push(xy);
+  //       this.entities.push(this.makeGridItems(xy));
+  //     })
+  //     this.getCurrentPagedInFrontEnd();
+  //   })
+  // }
+
+
+  // makeGridItems(xy: FinancingAndLoanExpenseInstallmentDto) {
+  //   let currentStallment: string[] = [];
+
+  //   if (xy?.currentInstallment)
+  //     currentStallment = xy.currentInstallment.split('/');
+
+  //   const viewDto = new ListFinancingsLoansExpensesInstallmentDto;
+  //   viewDto.id = xy.id
+  //   viewDto.currentInstallment = `${currentStallment[0]} de ${currentStallment[1]}`
+  //   viewDto.expiresView = this._ptBrDatePipe.transform(xy.expires, 'Date');
+  //   viewDto.expires = xy.expires;
+  //   viewDto.priceWasPaidInstallment = this._ptBrCurrencyPipe.transform(xy.priceWasPaidInstallment);
+
+  //   viewDto.companyId = xy.companyId;
+  //   viewDto.userId = xy.userId;
+  //   viewDto.bankAccountId = xy.bankAccountId;
+  //   viewDto.deleted = xy.deleted;
+  //   viewDto.cardId = xy.cardId;
+  //   viewDto.pixId = xy.pixId;
+  //   viewDto.interest = xy.interest;
+  //   viewDto.registered = xy.registered;
+  //   viewDto.othersPaymentMethods = xy.othersPaymentMethods;
+  //   viewDto.wasPaid = xy.wasPaid;
+  //   viewDto.document = xy.document;
+  //   viewDto.financingAndLoanExpense = xy.financingAndLoanExpense
+
+  //   return viewDto;
+  // }
+
+
+  // ngOnInit(): void {
+
+  //   // this.getCurrentEntitiesFromBackEnd(id);
+  // }
 
 }

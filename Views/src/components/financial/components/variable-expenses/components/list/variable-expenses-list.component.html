@@ -1,66 +1,53 @@
-<div class="border-around" >
+<!-- <div class="border-around">
     <title-component [digit]="'|'" [textTitleComp]="'Despesas Variáveis'" [icon]="'attach_money'">
     </title-component>
     <div>
         <div>
-            <mat-card class="mat-card-sub-title" >
+            <mat-card class="mat-card-sub-title">
                 <grid-list-common>
                     <sub-title title [title]="'Contas a pagar'" [icon]="'list'"></sub-title>
-                    <div search-filter >
+                    <div search-filter>
                         <div class="small-space-horizontal-beteween-fields"></div>
                         <div>
-                            <div >
+                            <div>
                                 <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
                             </div>
-                            <div >
-                                <btn-g [name]="'Filtros'" [icon]="'clear'"
-                                    
-                                    (btn)="filterClear()"></btn-g>
+                            <div>
+                                <btn-g [name]="'Filtros'" [icon]="'clear'" (btn)="filterClear()"></btn-g>
                             </div>
-                            <div fxLayout="screenFieldPosition" >
+                            <div fxLayout="screenFieldPosition">
                             </div>
-                            <div  >
+                            <div>
                                 <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
                             </div>
                         </div>
                     </div>
-                    <div search-filter id="space-components" >
-                      
+                    <div search-filter id="space-components">
+
                     </div>
-                    <div search-pagination  >
+                    <div search-pagination>
                         <div>
-                            <grid-list-common-search 
-                            [searchName]="'Busca'" 
-                            
-                            [clearSearchField]="clearSearchField"
-                            (queryFieldOutput)="queryFieldOutput($event)">
-                        
-                        </grid-list-common-search>
+                            <grid-list-common-search [searchName]="'Busca'" [clearSearchField]="clearSearchField" (queryFieldOutput)="queryFieldOutput($event)">
+
+                            </grid-list-common-search>
                         </div>
                         <div>
-                            <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true"
-                                [changeSelection]="monthFilter" 
-                                (sendSelected)="selectedMonth($event)">
+                            <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true" [changeSelection]="monthFilter" (sendSelected)="selectedMonth($event)">
                             </months-select>
                         </div>
 
 
-                        <br>
-                        <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()"
-                            [pageSize]="pageSize"
-                            (page)="onPageChangeMonthly($event, this.monthFilter.id)"></mat-paginator>
-                        <br>
+
+                        <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" (page)="onPageChangeMonthly($event, this.monthFilter.id)"></mat-paginator>
+
 
                     </div>
-                   
-                    <grid-list-common-table  body-table
-                        [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }"
-                        [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers"
-                        (getColumnEntityName)="orderBy($event)" (getEntityOut)="getEntity($event, 'fixedExpenses')">
+
+                    <grid-list-common-table body-table [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)" (getEntityOut)="getEntity($event, 'fixedExpenses')">
                     </grid-list-common-table>
 
-                    <div pagination-below >
-                        <div class="mat-paginator-above-margin"  >
+                    <div pagination-below>
+                        <div class="mat-paginator-above-margin">
 
                         </div>
                         <div>
@@ -68,17 +55,48 @@
 
                             </div>
 
-                            <mat-paginator pagination-below #paginatorBelow
-                                [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize"
-                                (page)="onPageChangeMonthly($event, this.monthFilter.id)"></mat-paginator>
+                            <mat-paginator pagination-below #paginatorBelow [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" (page)="onPageChangeMonthly($event, this.monthFilter.id)"></mat-paginator>
 
                         </div>
-                        <div class="mat-paginator-below-margin"  >
+                        <div class="mat-paginator-below-margin">
 
                         </div>
                     </div>
                 </grid-list-common>
             </mat-card>
         </div>
+    </div>
+</div> -->
+<div class="space-around">
+    <title-component [digit]="'|'" [textTitleComp]="'Despesas Variáveis'" [icon]="'attach_money'">
+    </title-component>
+    <div>
+        <mat-card class="sub-title-mat-card border-card-categories-divide-comp">
+            <div class="sub-title">
+                <mat-icon class="mat-icon-left-subtitle">list</mat-icon> <span>{{'Despesa variável'}}</span>
+            </div>
+            <div>
+                <div>
+                    <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
+                </div>
+                <div>
+                    <btn-g [name]="'Filtros'" [icon]="'clear'" (btn)="filterClear()"></btn-g>
+                </div>
+                <div>
+                    <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
+                </div>
+            </div>
+
+
+
+            <div>
+                <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true" [changeSelection]="monthFilter" (sendSelected)="selectedMonth($event)">
+                </months-select>
+            </div>
+            <!-- 
+            <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
+            </list-g> -->
+        </mat-card>
+
     </div>
 </div>

@@ -48,7 +48,7 @@ export class YearlyFixedExpensesService extends BackEndService<YearlyFixedExpens
     this.add$<YearlyFixedExpenseDto>(toSave, 'AddYearlyFixedExpenses').subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
-          this._route.navigateByUrl(`/side-nav/financial-dash/yearly-fixed-expenses-list`)
+          this._route.navigateByUrl(`/side-nav/financial/yearly-fixed-expenses-list`)
 
       },
       error: (erroCode) => {

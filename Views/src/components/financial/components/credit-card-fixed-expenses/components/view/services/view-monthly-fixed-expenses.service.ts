@@ -54,7 +54,7 @@ export class ViewMonthlyFixedExpensesService extends BackEndService<MonthlyFixed
   //   this.update$<MonthFixedExpensesTrackingDto>('UpdateFnFixedExpensesTracking', toSave).subscribe({
   //     next: (_cli: MonthFixedExpensesTrackingDto) => {
   //       this._communicationsAlerts.defaultSnackMsg('Pago $', 0, null, 4);
-  //       this._router.navigateByUrl(`/side-nav/financial-dash/month-fixed-expenses-tracking-list`);
+  //       this._router.navigateByUrl(`/side-nav/financial/month-fixed-expenses-tracking-list`);
   //     },
   //     error: (err) => {
   //       console.log(err)

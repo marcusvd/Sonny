@@ -53,9 +53,9 @@ export class PaymentFinancingsLoansInstallmentComponent extends Payment implemen
   ) {
 
     super()
-    
-    if (this._router.getCurrentNavigation().extras.state) {
-      const obj = this._router.getCurrentNavigation().extras.state;
+
+    if (this._router.getCurrentNavigation()?.extras.state) {
+      const obj = this._router.getCurrentNavigation()?.extras.state;
       this.formLoad(obj['entity'].entity as FinancingAndLoanExpenseInstallmentDto)
       this.entity = obj['entity'].entity as FinancingAndLoanExpenseInstallmentDto;
       this.hideShowScreenDataInfo = obj['entity'].hideShowScreenDataInfo;

@@ -87,7 +87,7 @@ export class PixExpensesListComponent extends FrontEndFilterPixExpenseslist impl
     )
   }
 
-  override addUrlRoute: string = '/side-nav/financial-dash/add-pix-expenses';
+  override addUrlRoute: string = '/side-nav/financial/add-pix-expenses';
 
 
   clearSearchField = false;

@@ -1,66 +1,22 @@
-<div class="border-around" >
-
-    <div class="around"  >
-        <title-component [digit]="'|'" [textTitleComp]="'Financiamento / Empréstimo'"  [icon]="'attach_money'">
-           
-        </title-component>
-        <mat-card class="mat-card-sub-title" >
-            <grid-list-common>
-                <sub-title title [title]="'Contas a pagar'" [icon]="'list'"></sub-title>
-                <div search-filter >
-                   
-                    <div class="small-space-horizontal-beteween-fields"></div>
-                    <div>
-                        <div >
-                            <div >
-                                <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div search-filter id="space-components" >
-
-                </div>
-                <div search-pagination  >
-                    <div>
-                        <grid-list-common-search  [searchName]="'Busca'"
-                            (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
-                    </div>
-                  
+<div class="space-around">
 
 
-                    <br>
-                    <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()"
-                        [pageSize]="pageSize"
-                        (page)="onPageChange($event)"></mat-paginator>
-                    <br>
-                </div>
-                <grid-list-common-table  body-table [statusShow]="false"
-                    [matIcons]="{visibility:'Detalhes', deleteEmpty:'empty', editEmpty:'empty',format_list_numbered:'Itens Filhos' }"
-                    [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers"
-                    (getColumnEntityName)="orderBy($event)" (getEntityOut)="getEntity($event, 'fixedExpenses')"
-                    (toPayOut)="getEntityTopay($event)">
-                </grid-list-common-table>
-                <div pagination-below >
-                    <div class="mat-paginator-above-margin"  >
+    <title-component [digit]="'|'" [textTitleComp]="'Financiamento / Empréstimo'" [icon]="'attach_money'">
 
-                    </div>
-                    <div>
-                        <div>
+    </title-component>
+    <mat-card class="sub-title-mat-card !sm:border-card-categories-divide-comp">
 
-                        </div>
+        <div class="sub-title">
+            <mat-icon class="mat-icon-left-subtitle">{{'list'}}</mat-icon> <span>{{'Contas a pagar'}}</span>
+        </div>
+        <div class="p-4">
+            <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="callRouter(addUrlRoute)"></btn-g>
+        </div>
 
-                        <mat-paginator pagination-below #paginatorBelow
-                            [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize"
-                            (page)="onPageChange($event)"></mat-paginator>
+        <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
+        </list-g>
 
-                    </div>
-                    <div class="mat-paginator-below-margin"  >
+    </mat-card>
 
-                    </div>
-                </div>
-            </grid-list-common>
-        </mat-card>
-    </div>
 
 </div>

@@ -1,15 +1,13 @@
 
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule as MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule as MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule as MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 
 @Component({
@@ -20,14 +18,12 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-
     MatButtonModule,
-    BtnGComponent,
     CurrencyMaskModule,
   ],
   template: `
-    <div  [fxLayout]="fxLayout" [formGroup]="formMain" *ngIf="formMain">
-    <div  *ngIf="priceHideShow">
+    <div [formGroup]="formMain" *ngIf="formMain">
+    <div *ngIf="priceHideShow">
         <mat-form-field appearance="outline">
             <mat-label>Valor Despesa</mat-label>
             <input matInput type="text" currencyMask [formControlName]="priceFormControlName" aria-label="Valor despesa">
@@ -37,30 +33,21 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
             </mat-error>
         </mat-form-field>
     </div>
-    <div  ="1">
-
-    </div>
     <div  *ngIf="interestHideShow">
         <mat-form-field appearance="outline">
             <mat-label>Juros</mat-label>
             <input matInput type="text" currencyMask [formControlName]="interestFormControlName" aria-label="Valor juros">
         </mat-form-field>
     </div>
-
-    <div  ="5">
-
-    </div>'
-
-</div>
+ </div>
   `,
   styles: [`
 `],
   providers: [
-
   ]
 })
 
-export class PriceInteresFieldsComponent extends BaseForm implements OnInit {
+export class PriceInteresFieldsComponent extends BaseForm{
 
   private valMessages = ValidatorMessages;
   get validatorMessages() {
@@ -72,16 +59,7 @@ export class PriceInteresFieldsComponent extends BaseForm implements OnInit {
   @Input() priceHideShow: boolean = true;
   @Input() priceFormControlName: string = 'price';
   @Input() interestFormControlName: string = 'interest'
-  constructor(
 
-
-  ) {
-    super();
-  }
-
-  ngOnInit(): void {
-
-
-  }
+  constructor() {super();}
 
 }

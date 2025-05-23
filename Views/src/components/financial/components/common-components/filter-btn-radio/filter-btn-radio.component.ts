@@ -10,88 +10,23 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
 @Component({
   selector: 'filter-radio-btns',
-  template: `
-  <mat-radio-group (change)="filter($event)"  [disabled]="disabledRadioInput">
-
-  <div>
-
-      <mat-radio-button class="align-radio-button" #radioExpired
-          [value]="'expired'"></mat-radio-button>
-      <span class="dimensions-subtitle bg-color-expired"></span><span
-          class="space-subtitle">Vencida</span>
-  </div>
-
-  <div class="small-space-horizontal-beteween-fields"></div>
-
-  <div  ="20" *ngIf="!pedingRadioHide">
-      <mat-radio-button class="align-radio-button" #radioPedding
-          [value]="'pending'"></mat-radio-button>
-
-      <span class="dimensions-subtitle bg-color-will-expire"></span><span
-          class="space-subtitle">Pendente</span>
-  </div>
-  <div class="small-space-horizontal-beteween-fields"></div>
-  <div>
-      <mat-radio-button class="align-radio-button" #radioPaid
-          [value]="'paid'"></mat-radio-button>
-
-      <span class="dimensions-subtitle bg-color-paid"></span><span
-          class="space-subtitle">Liquidada</span>
-  </div>
-</mat-radio-group>
-  `,
-  styles: [`
-  
-.bg-color-expired {
-  background-color: red;
-}
-
-.bg-color-will-expire {
-  background-color: orange;
-}
-
-.bg-color-paid {
-  background-color: green;
-}
-
-mat-radio-button {
-  font-family: Mynerve;
-}
-
-.dimensions-subtitle {
-  width: 10px;
-  height: 10px;
-}
-
-.space-subtitle {
-  margin-top: -4px;
-  padding-left: 3px;
-}
-
-.align-radio-button {
-  /* margin-right: 5px; */
-  margin-top: -6px;
-}
-  `],
+  templateUrl: './filter-btn-radio.component.html',
+  styleUrls: ['./filter-btn-radio.component.scss'],
   standalone: true,
   imports: [
     CommonModule,
-    
     MatRadioModule
   ],
-
 })
 
-export class FilterBtnRadioComponent extends BaseForm implements OnInit {
+export class FilterBtnRadioComponent {
 
-  @Input() fxLayoutInput: string = 'row';
+  @Output() radioChange = new EventEmitter<MatRadioChange>();
   @Input() disabledRadioInput: boolean = false;
   @Input() pedingRadioHide: boolean = false;
   @Input() set inputSetClearRadios(value: boolean) {
     this.clearRadios();
   }
-
-  @Output() radioChange = new EventEmitter<MatRadioChange>();
 
   @ViewChild('radioExpired') radioExpired: MatRadioButton;
   @ViewChild('radioPedding') radioPedding: MatRadioButton;
@@ -105,20 +40,8 @@ export class FilterBtnRadioComponent extends BaseForm implements OnInit {
     }
   }
 
-
-  constructor(
-    
-  ) {super()}
-
-
-
   filter(radio: MatRadioChange) {
     this.radioChange.emit(radio);
-  }
-
-
-  ngOnInit(): void {
-
   }
 
 }

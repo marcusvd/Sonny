@@ -1,32 +1,22 @@
 
-import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 import { FormControl } from '@angular/forms';
-import { MatCardModule as MatCardModule } from '@angular/material/card';
-import { MatDialog as MatDialog } from '@angular/material/dialog';
-import { MatPaginatorModule as MatPaginatorModule } from '@angular/material/paginator';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 
 import { environment } from 'src/environments/environment';
-import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
-import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
-import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
 
 import { MonthsDto } from 'src/shared/components/months-select/months-dto';
-import { MonthsSelectComponent } from 'src/shared/components/months-select/months-select-g.component';
-import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
-import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
-import { FilterBtnRadioComponent } from '../../../common-components/filter-btn-radio/filter-btn-radio.component';
+import { ImportsListVariableExpenses, ProvidersListVariableExpenses } from '../../components/list/imports/imports-list-variable-expenses';
 import { VariableExpenseDto } from '../../dto/variable-expense-dto';
-import { VariableExpensesListGridDto } from './dto/variable-expenses-list-grid-dto';
+import { ListVariableExpensesDto } from './dto/list-variable-expenses-dto';
 import { FrontEndFilterVariableExpenseslist } from './filter-list/front-end-filter-variable-expenses-list';
 import { VariableExpensesListService } from './services/variable-expenses-list.service';
 
@@ -37,25 +27,10 @@ import { VariableExpensesListService } from './services/variable-expenses-list.s
   styleUrls: ['./variable-expenses-list.component.css'],
   standalone: true,
   imports: [
-    CommonModule,
-    MatCardModule,
-    MatPaginatorModule,
-    RouterModule,
-
-    PtBrDatePipe,
-    GridListCommonComponent,
-    GridListCommonTableComponent,
-    GridListCommonSearchComponent,
-    TitleComponent,
-    SubTitleComponent,
-    BtnGComponent,
-    MonthsSelectComponent,
-    FilterBtnRadioComponent
+    ImportsListVariableExpenses
   ],
   providers: [
-    PtBrDatePipe,
-    PtBrCurrencyPipe,
-    VariableExpensesListService
+    ProvidersListVariableExpenses
   ]
 
 })
@@ -96,7 +71,7 @@ export class VariableExpensesListComponent extends FrontEndFilterVariableExpense
     )
   }
 
-  override addUrlRoute: string = '/side-nav/financial-dash/add-variable-expenses';
+  override addUrlRoute: string = '/side-nav/financial/add-variable-expenses';
 
   clearSearchField = false;
   filterClear() {
@@ -135,7 +110,7 @@ export class VariableExpensesListComponent extends FrontEndFilterVariableExpense
   getCurrentPagedInFrontEnd() {
     this.entities$ = this.current(this.entities, 0, this.pageSize, 'paidDay', true);
     this.entities$.pipe(
-      map(x=> {
+      map(x => {
         this.gridListCommonHelper.lengthPaginator.next(x.length);
       })
     ).subscribe()
@@ -143,7 +118,7 @@ export class VariableExpensesListComponent extends FrontEndFilterVariableExpense
 
 
 
-  viewDto: VariableExpensesListGridDto;
+  viewDto: ListVariableExpensesDto;
   getData() {
     this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllVariableExpensesByCompanyId`, this.companyId);
     this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: VariableExpenseDto[]) => {
@@ -157,14 +132,14 @@ export class VariableExpensesListComponent extends FrontEndFilterVariableExpense
   }
 
   makeGridItems(xy: VariableExpenseDto) {
-    this.viewDto = new VariableExpensesListGridDto;
-    this.viewDto.id = xy.id;
-    this.viewDto.name = xy.name;
-    this.viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
-    this.viewDto.paidDay = xy.wasPaid,
-    this.viewDto.paidDayToView = this._ptBrDatePipe.transform(xy.wasPaid, 'Date');
-    this.viewDto.place = xy.place;
-    return this.viewDto;
+    // this.viewDto = new ListVariableExpensesDto;
+    // this.viewDto.id = xy.id;
+    // this.viewDto.name = xy.name;
+    // this.viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
+    // this.viewDto.paidDay = xy.wasPaid,
+    //   this.viewDto.paidDayToView = this._ptBrDatePipe.transform(xy.wasPaid, 'Date');
+    // this.viewDto.place = xy.place;
+    // return this.viewDto;
   }
 
   ngOnInit(): void {

@@ -29,7 +29,7 @@ export class TriggerPaymentFinancingsLoans {
       }
     };
 
-    this._router.navigate(['/side-nav/financial-dash/payment-financings-loans'], objectRoute);
+    this._router.navigate(['/side-nav/financial/payment-financings-loans'], objectRoute);
   }
 
 }

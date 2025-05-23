@@ -2,8 +2,26 @@
     color: #2ba1a8 !important;
 }
 
+.space-around {
+    padding-top: 1rem;
+    padding-right: 30px;
+    padding-bottom: 1rem;
+}
+
 .border-radius-none {
     border-radius: 0% !important;
+}
+
+.border-card-categories-divide-comp {
+    border: 1px solid #2ba1a8 !important;
+    margin: 20px;
+}
+
+@media (min-width:640px) {
+    .border-card {
+        border: 1px solid #2ba1a8 !important;
+        margin: 20px;
+    }
 }
 
 .align-h-center {
@@ -24,11 +42,6 @@
     line-height: 1.75rem;
     font-family: Mynerve;
     font-weight: 700;
-}
-
-.border-card-categories-divide-comp {
-    border: 1px solid #2ba1a8 !important;
-    margin: 20px;
 }
 
 .divider-line-categories-comp {

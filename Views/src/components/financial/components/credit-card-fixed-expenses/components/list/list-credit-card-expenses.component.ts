@@ -106,8 +106,8 @@
 //   override backEndUrl: string = `${this.controllerUrl}/GetAllCreditCardExpensesByCompanyId`;
 //   override  entities: ListGridCreditCardExpensesDto[] = [];
 //   override entities$: Observable<ListGridCreditCardExpensesDto[]>;
-//   override viewUrlRoute: string = '/side-nav/financial-dash/view-monthly-fixed-expenses-tracking';
-//   override addUrlRoute: string = '/side-nav/financial-dash/add-credit-card-expenses';
+//   override viewUrlRoute: string = '/side-nav/financial/view-monthly-fixed-expenses-tracking';
+//   override addUrlRoute: string = '/side-nav/financial/add-credit-card-expenses';
 
 //   // workingFrontEnd = new FrontEndListFilterCreditCardExpenses();
 //   workingBackEnd = new BackEndListFilterCreditCardExpenses();
@@ -313,8 +313,8 @@ export class ListCreditCardExpensesComponent extends ListControlCreditCardExpens
   override entities$: Observable<ListCreditCardExpensesDto[]>;
 
   // override backEndUrl: string = `${this.controllerUrl}/GetAllCreditCardExpensesByCompanyId`;
-  // override viewUrlRoute: string = '/side-nav/financial-dash/view-monthly-fixed-expenses-tracking';
-  // override addUrlRoute: string = '/side-nav/financial-dash/add-credit-card-expenses';
+  // override viewUrlRoute: string = '/side-nav/financial/view-monthly-fixed-expenses-tracking';
+  // override addUrlRoute: string = '/side-nav/financial/add-credit-card-expenses';
 
   // workingFrontEnd = new FrontEndListFilterCreditCardExpenses();
   workingBackEnd = new BackEndListFilterCreditCardExpenses();

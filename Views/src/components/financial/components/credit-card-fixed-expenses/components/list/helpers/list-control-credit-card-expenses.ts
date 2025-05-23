@@ -271,7 +271,7 @@ export class ListControlCreditCardExpenses extends BaseList {
       },
 
       installmentPrice: {
-        key: creditCardexpense.installmentPrice,
+        key: this._ptBrCurrencyPipe.transform(creditCardexpense.installmentPrice),
         styleCell: 'width:100%;',
       },
       currentInstallment: {

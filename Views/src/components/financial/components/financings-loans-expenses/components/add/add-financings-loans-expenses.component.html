@@ -1,145 +1,188 @@
-<div  class="border-around" *ngIf="formMain">
-    <title-component [digit]="'|'" [textTitleComp]="'Financiamento / Empréstimo'"  [icon]="'attach_money'">
+<div class="mt-4 mb-4 mr-4" *ngIf="formMain">
+    <title-component [digit]="'|'" [textTitleComp]="'Financiamento / Empréstimo'" [icon]="'attach_money'">
         <btn-g btn-1 [styleSize]="'width:150px;'" [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
     </title-component>
-    <mat-card [formGroup]="formMain"  *ngIf="formMain">
-        <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
-        
-        <div   >
-            <div>
-                <mat-form-field  appearance="outline">
-                    <mat-label>Despesa</mat-label>
-                    <input matInput type="text" formControlName="name" aria-label="Despesa">
-                    <mat-hint>EX: Financiamento carro xxx / Empréstimo ...</mat-hint>
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'name', 'Despesa')}}</span>
-                        <span>{{validatorMessages.minMaxLength(formMain,'name', 'Despesa
-                            descritivo',null,150)}}</span>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div  ="25">
-                <mat-form-field appearance="outline">
-                    <mat-label>Primeira parcela</mat-label>
-                    <input matInput formControlName="start" [matDatepicker]="startDate" aria-label="início">
-                    <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
-                    <mat-datepicker #startDate></mat-datepicker>
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'start', 'Inicio')}}</span>
-                    </mat-error>
-                </mat-form-field>
-            </div>
+    <mat-card class="sub-title-mat-card border-card-categories-divide-comp" [formGroup]="formMain" *ngIf="formMain">
+        <div class="sub-title">
+            <mat-icon class="mat-icon-left-subtitle">add</mat-icon> <span>{{'Cadastro'}}</span>
         </div>
-        <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle">
-        </select-category-subcategory-expenses>
+        <div class="w-full p-4">
+            <mat-card class="border-card-categories-divide-comp">
+                <div class="p-4">
+                    <h3 class="title-categories-divide-comp">Identificação</h3>
+                </div>
+                <div class="p-4 w-full grid sm:grid-cols-[1fr_20%] grid-cols-1 gap-4">
+                    <div class="w-full">
+                        <mat-label>Despesa</mat-label>
+                        <mat-form-field class="w-full" appearance="outline">
+                            <input matInput type="text" formControlName="name" aria-label="Despesa">
+                            <mat-hint>EX: Financiamento carro xxx / Empréstimo ...</mat-hint>
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain,'name', 'Despesa')}}</span>
+                                <span>{{validatorMessages.minMaxLength(formMain,'name', 'Despesadescritivo',null,150)}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full">
+                        <mat-label>Primeira parcela</mat-label>
+                        <mat-form-field class="w-full" appearance="outline">
+                            <input matInput formControlName="start" [matDatepicker]="startDate" aria-label="início">
+                            <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                            <mat-datepicker #startDate></mat-datepicker>
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain,'start', 'Inicio')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="sm:grid-rows-2 p-4">
+                    <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle">
 
-        <div   >
-            <div>
-                <mat-form-field  appearance="outline" >
-                    <mat-label>Valor Financiado</mat-label>
-                    <input currencyMask matInput type="text" formControlName="totalPriceFinancingOrLoan" aria-label="Valor">
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'totalPriceFinancingOrLoan', 'Valor')}}</span>
-                    </mat-error>
-                </mat-form-field>
+                    </select-category-subcategory-expenses>
+                </div>
+            </mat-card>
+            <div class="align-h-center">
+                <mat-divider class="divider-line-categories-comp"></mat-divider>
             </div>
-            <div>
-                <mat-form-field appearance="outline" >
-                    <mat-label>Valor Parcela</mat-label>
-                    <input currencyMask matInput type="text" (keyup)="installmentCacl()" formControlName="installmentPrice" aria-label="Valor">
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'installmentPrice', '* Obrigatório')}}</span>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div  ="10">
-                <mat-form-field ="10" appearance="outline" (change)="installmentCacl()">
-                    <mat-label>Parcelas</mat-label>
-                    <input matInput type="number" formControlName="installmentsQuantity" aria-label="Parcelas">
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'installmentsQuantity', 'Parcelas')}}</span>
-                        <span>{{validatorMessages.minMaxLength(formMain,'installmentsQuantity',
+            <mat-card class="border-card-categories-divide-comp">
+                <div class="p-4">
+                    <h3 class="title-categories-divide-comp">Valores</h3>
+                </div>
+                <div class="p-4 w-full grid sm:grid-cols-[20%_20%_20%_3px_1fr] grid-cols-1 gap-4">
+                    <div class="w-full">
+                        <mat-label>Valor Financiado</mat-label>
+                        <mat-form-field class="w-full" appearance="outline">
+                            <input currencyMask matInput type="text" formControlName="totalPriceFinancingOrLoan" aria-label="Valor">
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain,'totalPriceFinancingOrLoan', 'Valor')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full">
+                        <mat-label>Valor Parcela</mat-label>
+                        <mat-form-field class="w-full" appearance="outline">
+                            <input currencyMask matInput type="text" (keyup)="installmentCacl()" formControlName="installmentPrice" aria-label="Valor">
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain,'installmentPrice', '* Obrigatório')}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full">
+                        <mat-label>Parcelas</mat-label>
+                        <mat-form-field class="w-full" appearance="outline" (change)="installmentCacl()">
+                            <input matInput type="number" formControlName="installmentsQuantity" aria-label="Parcelas">
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain,'installmentsQuantity', 'Parcelas')}}</span>
+                                <span>{{validatorMessages.minMaxLength(formMain,'installmentsQuantity',
                             'Parcelas',null,150)}}</span>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-        </div>
-        <div   >
-            <div>
-                <div >
-                    <mat-label>Montante:</mat-label>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="border !border-l-color-main">
+
+                    </div>
+                    <div class="w-full grid grid-cols-1 gap-4">
+                        <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center">
+                            <div>
+                                <p class="pipe-title"> <span></span></p>
+                            </div>
+                            <div>
+                                <!-- <p>Montante:</p> -->
+                                <mat-label>{{'Montante'}}
+                                </mat-label>
+                            </div>
+                            <div>
+                                <!-- <p class="text-red-600">{{priceToPaidView | ptBrCurrency}}</p> -->
+                                <mat-label class="text-red-600">{{totalPriceToBePaid | ptBrCurrency}}</mat-label>
+                            </div>
+                        </div>
+                        <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center">
+                            <div>
+                                <p class="pipe-title"> <span></span></p>
+                            </div>
+                            <div>
+                                <!-- <p>Juros:</p> -->
+                                <mat-label>Juros:</mat-label>
+                            </div>
+                            <div>
+                                <!-- <p class="text-red-600">{{totalPriceInterestView | ptBrCurrency}}</p> -->
+                                <mat-label class="text-red-600">{{totalPriceInterest | ptBrCurrency}}</mat-label>
+                            </div>
+                        </div>
+                        <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center">
+                            <div>
+                                <p class="pipe-title"> <span></span></p>
+                            </div>
+                            <div>
+                                <!-- <p>Juros:</p> -->
+                                <mat-label>Porcentagem:</mat-label>
+                            </div>
+                            <div>
+                                <!-- <p class="text-red-600">{{totalPriceInterestView | ptBrCurrency}}</p> -->
+                                <mat-label class="text-red-600">{{percentageInterest /100 | percent}}</mat-label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div >
-                    <mat-label>{{totalPriceToBePaid | ptBrCurrency}}</mat-label>
-                </div>
+            </mat-card>
+            <div class="align-h-center">
+                <mat-divider class="divider-line-categories-comp"></mat-divider>
             </div>
-            <div>
-                <div >
-                    <mat-label>Juros:</mat-label>
+            <mat-card class="border-card-categories-divide-comp">
+                <div class="p-4">
+                    <h3 class="title-categories-divide-comp">Portal Acesso Web</h3>
                 </div>
-                <div >
-                    <mat-label>{{totalPriceInterest | ptBrCurrency}}</mat-label>
+                <div class="w-full p-4 grid grid-cols-1 sm:grid-cols-[1fr_20%_20%] gap-4">
+                    <div class="w-full">
+                        <mat-label>Link Segunda via | Nome App</mat-label>
+                        <mat-form-field class="w-full" appearance="outline">
+                            <input matInput type="text" formControlName="linkCopyBill" placeholder="Link Segunda via" aria-label="Link Segunda via">
+                            <mat-error>
+                                <span>{{validatorMessages.minMaxLength(formMain,'linkCopyBill', 'Link segundavia',null,150)}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full">
+                        <mat-label>Usuário</mat-label>
+                        <mat-form-field class="w-full" appearance="outline">
+                            <input matInput type="text" formControlName="userLinkCopyBill" aria-label="Usuário">
+                            <mat-error>
+                                <span>{{validatorMessages.minMaxLength(formMain,'userLinkCopyBill', 'Usuário',null,50)}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="w-full">
+                        <mat-label>Senha</mat-label>
+                        <mat-form-field class="w-full" appearance="outline">
+                            <input matInput type="password" formControlName="passLinkCopyBill" aria-label="Senha">
+                            <mat-error>
+                                <span>{{validatorMessages.minMaxLength(formMain,'passLinkCopyBill', 'Senha',null,20)}}</span>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
                 </div>
+            </mat-card>
+            <div class="align-h-center">
+                <mat-divider class="divider-line-categories-comp"></mat-divider>
             </div>
-            <div>
-                <div >
-                    <mat-label>Porcentagem:</mat-label>
+            <mat-card class="p-4 border-card-categories-divide-comp">
+                <div class="p-4">
+                    <h3 class="title-categories-divide-comp">Detalhes</h3>
                 </div>
-                <div >
-                    <mat-label>{{percentageInterest /100 | percent}}</mat-label>
-                </div>
-            </div>
-        </div>
-        <div   >
-        </div>
-        
-        <div >
-            <mat-form-field  appearance="outline">
-                <mat-label>Link Segunda via</mat-label>
-                <input matInput type="text" formControlName="linkCopyBill" placeholder="Link Segunda via" aria-label="Link Segunda via">
-                <mat-error>
-                    <span>{{validatorMessages.minMaxLength(formMain,'linkCopyBill', 'Link segunda
-                        via',null,150)}}</span>
-                </mat-error>
-            </mat-form-field>
-        </div>
-        <div  fxLayoutGap="30">
-            <div>
-                <mat-form-field  appearance="outline">
-                    <mat-label>Usuário</mat-label>
-                    <input matInput type="text" formControlName="userLinkCopyBill" aria-label="Usuário">
-                    <mat-error>
-                        <span>{{validatorMessages.minMaxLength(formMain,'userLinkCopyBill', 'Usuário',null,50)}}</span>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div>
-                <mat-form-field  appearance="outline">
-                    <mat-label>Senha</mat-label>
-                    <input matInput type="password" formControlName="passLinkCopyBill" aria-label="Senha">
-                    <mat-error>
-                        <span>{{validatorMessages.minMaxLength(formMain,'passLinkCopyBill', 'Senha',null,20)}}</span>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-        </div>
-        <div >
-            <mat-form-field  appearance="outline">
                 <mat-label>Despesa descritivo</mat-label>
-                <input matInput type="text" formControlName="description" aria-label="Descrição">
-                <mat-hint>EX: Seguro Casa, Seguro Escritório, Luz residência, Internet loja etc...</mat-hint>
-                <mat-error>
-                    <span>{{validatorMessages.required(formMain,'description', 'Despesa descritivo')}}</span>
-                    <span>{{validatorMessages.minMaxLength(formMain,'description', 'Despesa
-                        descritivo',null,150)}}</span>
-                </mat-error>
-            </mat-form-field>
-        </div>
+                <mat-form-field appearance="outline">
+                    <input matInput type="text" formControlName="description" aria-label="Descrição">
+                    <mat-hint>EX: Seguro Casa, Seguro Escritório, Luz residência, Internet loja etc...</mat-hint>
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'description', 'Despesa descritivo')}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'description', 'Despesadescritivo',null,150)}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </mat-card>
 
-        <!-- <div>{{formMain.value | json}}</div> -->
-
-        <div  >
-            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
+            <div class="flex justify-center">
+                <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
+            </div>
         </div>
     </mat-card>
 </div>

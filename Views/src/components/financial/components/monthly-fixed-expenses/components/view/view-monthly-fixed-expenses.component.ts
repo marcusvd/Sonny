@@ -67,7 +67,7 @@ export class ViewMonthlyFixedExpensesComponent  implements OnInit {
   }
 
   toPay() {
-    this._router.navigateByUrl(`/side-nav/financial-dash/monthly-fixed-expenses-to-pay/${this.entityId.toString()}`)
+    this._router.navigateByUrl(`/side-nav/financial/monthly-fixed-expenses-to-pay/${this.entityId.toString()}`)
   }
 
   get wasPaid() {

@@ -6,7 +6,7 @@ import { PixDto } from "../../bank-account-cards/dto/pix-dto";
 import { CategoryExpenseDto } from "../../common-components/category-subcategory-expenses/dto/category-expense-dto";
 import { SubcategoryExpenseDto } from "../../common-components/category-subcategory-expenses/dto/subcategory-expense-dto";
 import { PixExpenseDto } from "../../pix-expenses/dto/pix-expense-dto";
-import { RootBase } from "src/shared/entities-dtos/root-base";
+import { RootBase } from "../../../../../shared/entities-dtos/root-base";
 
 
 export class BaseExpenseDto extends RootBase {

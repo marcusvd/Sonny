@@ -154,7 +154,7 @@
             </div>
         </div>
         <mat-divider></mat-divider>
-        <div  fxLayoutGap="30" [ngClass]="{'smallTransportPrice':this.sizeScreenIsSmall, 'middleTransportPrice':!this.sizeScreenIsSmall}">
+        <div   [ngClass]="{'smallTransportPrice':this.sizeScreenIsSmall, 'middleTransportPrice':!this.sizeScreenIsSmall}">
             <div [fxLayout]="screenFieldPositionSub" >
                 <mat-form-field appearance="outline"  *ngIf="disablePaymentDestiny">
                     <mat-label>Valor pre cadastrado</mat-label>
