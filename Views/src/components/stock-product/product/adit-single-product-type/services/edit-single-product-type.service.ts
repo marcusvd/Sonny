@@ -60,7 +60,7 @@ private callRouterEditProductType(entity: ProductTypeAfterEditHandled) {
   const objectRoute: NavigationExtras = {
     state: entity
   };
-  this._router.navigate(['/side-nav/stock-product-router/add-product'], objectRoute);
+  this._router.navigate(['/stock-product-router/add-product'], objectRoute);
 }
 
 }

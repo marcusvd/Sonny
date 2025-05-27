@@ -8,20 +8,16 @@ import { RouterModule } from "@angular/router";
 // import { DialogQuizComponent } from "src/shared/components/dialog-quiz/dialog-quiz.component";
 // import { MsgOperation } from "../services/messages/snack-bar.service";
 
-import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule } from 'ng2-currency-mask';
+
 import { IConfig, NgxMaskModule } from "ngx-mask";
 
 
 
-import { registerLocaleData } from '@angular/common';
-import localePt from '@angular/common/locales/pt';
-import { LOCALE_ID } from '@angular/core';
 
-import { ContactV2Service } from "../components/contact/services/contact-v2.service";
 // import { DialogQuizModule } from "../components/dialog-quiz/modules/dialog-quiz.module";
 // import { FirstModule } from "../components/first/modules/first.module";
 
-// import { SideNavModule } from "../components/side-nav/modules/side-nav.module";
+// import { SideNavModule } from "../components/modules.module";
 
 // import { TitleModule } from "../components/title/module/title.module";
 
@@ -45,24 +41,12 @@ import { FormErrorPanelComponent } from "../components/form-error-panel/form-err
 
 
 
-registerLocaleData(localePt, 'pt-BR');
-registerLocaleData(localePt, 'pt-BR');
 
-
-export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
-  align: "center",
-  allowNegative: true,
-  decimal: ",",
-  precision: 2,
-  prefix: "R$ ",
-  suffix: "",
-  thousands: "."
-};
-const maskConfigFunction: () => Partial<IConfig> = () => {
-  return {
-    validation: true,
-  };
-};
+// const maskConfigFunction: () => Partial<IConfig> = () => {
+//   return {
+//     validation: true,
+//   };
+// };
 
 
 
@@ -79,10 +63,10 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     FormsModule,
     ReactiveFormsModule,
     //MY IMPORTS
-    
+
     SharedRoutingModule,
-    CurrencyMaskModule,
-    NgxMaskModule.forRoot(maskConfigFunction),
+    // CurrencyMaskModule,
+    // NgxMaskModule.forRoot(maskConfigFunction),
 
     // TableGGridModule,
 
@@ -116,9 +100,9 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     // DescriptionFieldComponent,
 
     //modules
-    
+
     SharedRoutingModule,
-    CurrencyMaskModule,
+    // CurrencyMaskModule,
     NgxMaskModule,
 
     // TableGGridModule,
@@ -144,10 +128,9 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
   providers: [
     // MsgOperation,
 
-    ContactV2Service,
     UserIsAuthenticatedGuard,
-    { provide: LOCALE_ID, useValue: 'pt-BR' },
-    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }
+    // { provide: LOCALE_ID, useValue: 'pt-BR' },
+    // { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }
   ]
 
 })

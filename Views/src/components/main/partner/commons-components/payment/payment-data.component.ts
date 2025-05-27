@@ -14,7 +14,7 @@ import { MatInputModule as MatInputModule } from '@angular/material/input';
 import { PixComponent } from 'src/shared/components/financial/pix/pix.component';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 import { PaymentBankAccountComponent } from '../payment-bank-account/payment-bank-account.component';
 
 
@@ -51,10 +51,7 @@ export class PaymentDataComponent extends BaseForm implements OnInit {
 
   ) {super()}
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
   // @Output() addPixOutput = new EventEmitter();
   // @Output() removePixOutput = new EventEmitter<number>();
   @Output() addBankOutput = new EventEmitter();

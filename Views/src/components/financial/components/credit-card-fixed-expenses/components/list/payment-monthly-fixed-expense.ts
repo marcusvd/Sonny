@@ -43,7 +43,7 @@ export class PaymentMonthlyFixedExpense {
       }
     };
 
-    this._router.navigate(['/side-nav/financial/payment'], objectRoute);
+    this._router.navigate(['/financial/payment'], objectRoute);
   }
 
   makeInfoScreenData(entity: CreditCardExpenseDto): FieldsScreenPayment[] {

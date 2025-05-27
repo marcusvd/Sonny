@@ -1,37 +1,43 @@
 <div>
-    <mat-label id="label">Pix do beneficiado:</mat-label>
+    <div class="p-4">
+        <h3 class="title-categories-divide-comp">Pix do beneficiado</h3>
+    </div>
 </div>
 
-<div  [fxLayout]="fxLayout" [formGroup]="formMain" *ngIf="formMain">
+<div [formGroup]="formMain" *ngIf="formMain">
 
-    <div>
-        <!-- <div> -->
-        <mat-form-field appearance="outline">
+    <div class="w-full grid grid-cols-1 gap-4" [ngClass]="showPrice ? 'sm:grid-cols-3' : 'sm:grid-cols-2'">
+
+        <div class="w-full">
+            <!-- <div> -->
             <mat-label>Chave Pix Beneficiado</mat-label>
-            <input matInput type="text" [formControlName]="'benefitedKey'" aria-label="Valor juros">
-        </mat-form-field>
-    </div>
-    <div>
-        <mat-form-field appearance="outline">
+            <mat-form-field class="w-full" appearance="outline">
+                <input matInput type="text" [formControlName]="'benefitedKey'" aria-label="Valor juros">
+            </mat-form-field>
+        </div>
+        <div class="w-full">
             <mat-label>Dia despesa</mat-label>
-            <input [disabled]="expenseDayDisabled" matInput [matDatepicker]="picker3" formControlName="expenseDay">
-            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-            <mat-datepicker #picker3 startView="year" [startAt]="startDate"></mat-datepicker>
-            <mat-error>
-                <span>{{validatorMessages.required(formMain,'expenseDay', '* Obrigatório')}}</span>
-                <span>{{validatorMessages.invalidDate(formMain,'expenseDay')}}</span>
-            </mat-error>
-        </mat-form-field>
-    </div>
+            <mat-form-field class="w-full" appearance="outline">
+                <input [disabled]="expenseDayDisabled" matInput [matDatepicker]="picker3" formControlName="expenseDay">
+                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                <mat-datepicker #picker3 startView="year" [startAt]="startDate"></mat-datepicker>
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'expenseDay', '* Obrigatório')}}</span>
+                    <span>{{validatorMessages.invalidDate(formMain,'expenseDay')}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
 
-    <div *ngIf="priceDisabled">
-        <mat-form-field appearance="outline"="100">
+        <div class="w-full" *ngIf="showPrice">
             <mat-label>Valor</mat-label>
-            <input currencyMask matInput type="text" formControlName="price" aria-label="Valor">
-            <mat-error>
-                <span>{{validatorMessages.required(formMain,'price', 'Valor')}}</span>
-            </mat-error>
-        </mat-form-field>
+            <mat-form-field class="w-full" appearance="outline">
+                <input currencyMask matInput type="text" formControlName="price" aria-label="Valor">
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'price', 'Valor')}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
     </div>
 
 </div>

@@ -91,9 +91,9 @@ export class CollectDeliverListComponent extends FrontEndListFilterCollectDelive
   override backEndUrl: string = `${this.controllerUrl}/GetAllByCompanyIdByMonthNumberAsync`;
   override entities: CollectDeliverListGridDto[] = [];
   override entities$: Observable<CollectDeliverListGridDto[]>;
-  override viewUrlRoute: string = `/side-nav/outsourced-dash/view-collect-deliver`;
-  override addUrlRoute: string = '/side-nav/outsourced-dash/add-collect-deliver';
-    override editUrlRoute: string = `/side-nav/outsourced-dash/edit-collect-deliver`;
+  override viewUrlRoute: string = `/outsourced-dash/view-collect-deliver`;
+  override addUrlRoute: string = '/outsourced-dash/add-collect-deliver';
+    override editUrlRoute: string = `/outsourced-dash/edit-collect-deliver`;
 
 
   override delete(entity: CollectDeliverListGridDto) {

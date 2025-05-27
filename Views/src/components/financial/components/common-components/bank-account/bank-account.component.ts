@@ -15,7 +15,7 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 
 const moment = _moment;
 //
@@ -62,10 +62,7 @@ export class BankAccountComponent extends BaseForm implements OnInit, OnChanges 
 
   }
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
 
 
   typeAccountsArray: any[] = [

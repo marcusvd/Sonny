@@ -30,7 +30,7 @@ export class PixExpensesService extends BackEndService<PixExpenseDto>
     this.add$<PixExpenseDto>(toSave, 'AddPixesExpenses').subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
-          this._route.navigateByUrl(`/side-nav/financial/list-pix-expenses`)
+          this._route.navigateByUrl(`/financial/list-pix-expenses`)
 
       },
       error: (erroCode) => {

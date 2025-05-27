@@ -2,10 +2,12 @@
 
 
 <div *ngIf="spinner">
-    <mat-label id="label">Conta que será debitado:</mat-label>
+    <div class="p-4">
+        <h3 class="title-categories-divide-comp">Conta que será debitado</h3>
+    </div>
 </div>
 
-<div class="p-4" *ngIf="spinner">
+<div class="w-full" *ngIf="spinner">
     <div *ngIf="radioHideShow" [style]="'rightSideBorder'">
         <mat-radio-group *ngIf="this.bankAccount" aria-labelledby="radio-group-label" class="radio-group" (change)="onSelectedRadio($event)" [(ngModel)]="selectedRadio" [ngModelOptions]="{standalone: true}">
             <mat-radio-button *ngFor="let option of optionsRadio" [value]="option.id">
@@ -13,7 +15,7 @@
             </mat-radio-button>
         </mat-radio-group>
     </div>
-    <!-- <div *ngIf="this.bankAccount"></div> -->
+
     <div [formGroup]="formMain">
         <div class="w-full">
             <div>
@@ -78,8 +80,7 @@
                     <input matInput type="text" (keyup)="sendSelected()" formControlName="othersPaymentMethods" aria-label="Outras formas de pagamento">
                     <mat-hint>EX: App, internet bank, cdigo de barras etc..</mat-hint>
                     <mat-error>
-                        <span class="error">{{validatorMessages.required(formMain,'othersPaymentMethods', '*
-                            Obrigatório')}}</span>
+                        <span class="error">{{validatorMessages.required(formMain,'othersPaymentMethods', '*Obrigatório')}}</span>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -95,6 +96,3 @@
         <p class="warning">Conta sem cartões cadastrados preencha corretamente o formulário.</p>
     </div>
 </div>
-<!-- <div  *ngIf="pixes?.length > 0 && selectedRadio == 0">
-    <ng-content select="[pixExpense]" ></ng-content>
-</div> -->

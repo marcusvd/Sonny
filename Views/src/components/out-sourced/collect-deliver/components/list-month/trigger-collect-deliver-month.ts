@@ -28,7 +28,7 @@ export class TriggerCollectDeliverMonth {
       }
     };
 
-    this._router.navigate(['/side-nav/financial/payment-credit-card-expenses'], objectRoute);
+    this._router.navigate(['/financial/payment-credit-card-expenses'], objectRoute);
   }
   
   monthsString: string[] = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];

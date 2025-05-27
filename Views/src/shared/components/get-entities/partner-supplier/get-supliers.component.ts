@@ -10,7 +10,6 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { Observable } from 'rxjs/internal/Observable';
 import { PartnerDto } from 'src/components/main/partner/commons-components/dtos/partner-dto';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { GetSupliersService } from './get-supliers.service';
 
 @Component({
@@ -53,7 +52,7 @@ export class GetSuppliersComponent extends BaseForm implements OnChanges {
   constructor(
     private _supliersService: GetSupliersService,
     private _fb: FormBuilder,
-    
+
   ) {super()}
 
 
@@ -61,11 +60,6 @@ export class GetSuppliersComponent extends BaseForm implements OnChanges {
     this.suppliers$ = this._supliersService.getAll(this.companyId.toString(), `partners/${this.urlBackEndApi}`);
   }
 
-
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
 
   @Input() override formMain: FormGroup;
   urlBackEndApi: string = 'GetAllHardwareSupplierByCompanyIdAsync';

@@ -19,7 +19,7 @@ import { Add } from 'src/shared/components/inheritance/add/add';
 
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 import { PixesExpensesFieldsComponent } from '../../../common-components/pixes-expenses/pixes-expenses-fields.component';
 import { PixExpenseDto } from '../../dto/pix-expense-dto';
 import { PixExpensesService } from './services/pix-expenses.service';
@@ -62,14 +62,11 @@ export class PixExpensesAddComponent extends Add implements OnInit {
 
   ) {super()}
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
 
 
   add() {
-    this._router.navigateByUrl('/side-nav/financial/category-expenses-add-edit')
+    this._router.navigateByUrl('/financial/category-expenses-add-edit')
   }
 
   getPixId(value: number) {

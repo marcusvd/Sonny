@@ -18,7 +18,7 @@
             <mat-form-field class="w-full" appearance="outline">
                 <input matInput formControlName="site" aria-label="Site">
                 <mat-error>
-                    <span>{{validatorMessages.minMaxLength(formMain,'site', 'Site', null, 100)}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,'site', 'Site', 0, 100)}}</span>
                 </mat-error>
             </mat-form-field>
         </div>
@@ -28,7 +28,7 @@
 
             <mat-label> Celular:</mat-label>
             <mat-form-field class="w-full" appearance="outline">
-                <input (blur)="validatorCustom.atLeastOneValidationBlur(this.formMain, ['cel','zap','landline'])" matInput mask="(00) 0-0000-0000" formControlName="cel" placeholder="(00) 0-0000-0000">
+                <input matInput mask="(00) 0-0000-0000" formControlName="cel" placeholder="(00) 0-0000-0000">
                 <mat-error>
                     <span>{{validatorMessages.minMaxLength(formMain,'cel', 'Celular', 11, 11)}}</span>
                     <span>{{validatorMessages.atLeastOne(formMain,'cel', 'Celular')}}</span>
@@ -41,7 +41,7 @@
 
             <mat-label>WhatsApp</mat-label>
             <mat-form-field class="w-full" appearance="outline">
-                <input (blur)="validatorCustom.atLeastOneValidationBlur(this.formMain, ['cel','zap','landline'])" matInput mask="(00) 0-0000-0000" formControlName="zap" placeholder="(00) 0-0000-0000">
+                <input matInput mask="(00) 0-0000-0000" formControlName="zap" placeholder="(00) 0-0000-0000">
                 <mat-error>
                     <span>{{validatorMessages.minMaxLength(formMain,'zap', 'WhatsApp', 11, 11)}}</span>
                     <span>{{validatorMessages.atLeastOne(formMain,'zap', 'WhatsApp')}}</span>
@@ -54,14 +54,13 @@
 
             <mat-label>Tel. Fixo:</mat-label>
             <mat-form-field class="w-full" appearance="outline">
-                <input (blur)="validatorCustom.atLeastOneValidationBlur(this.formMain, ['cel','zap','landline'])" matInput mask="(00) 0-000-0000" formControlName="landline" placeholder="(00) 0-000-0000">
+                <input matInput mask="(00) 0-000-0000" formControlName="landline" placeholder="(00) 0-000-0000">
                 <mat-error>
                     <span>{{validatorMessages.minMaxLength(formMain,'landline', 'Telefone Fixo', 10, 10)}}</span>
                     <span>{{validatorMessages.required(formMain,'landline', 'Telefone Fixo')}}</span>
                     <span>{{validatorMessages.atLeastOne(formMain,'landline', 'Telefone Fixo')}}</span>
                 </mat-error>
             </mat-form-field>
-
         </div>
     </div>
 
@@ -87,7 +86,7 @@
                     <input matInput id="socialnetUrl" formControlName="url" aria-label="Url (Link)">
                     <mat-error>
                         <span>{{validatorMessages.required(subForm,'url', 'URL')}}</span>
-                        <span>{{validatorMessages.minMaxLength(subForm,'url', 'URL', null, 150)}}</span>
+                        <span>{{validatorMessages.minMaxLength(subForm,'url', 'URL', 0, 150)}}</span>
                     </mat-error>
                 </mat-form-field>
             </div>

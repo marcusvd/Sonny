@@ -1,65 +1,31 @@
 
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatButtonModule as MatButtonModule } from '@angular/material/button';
-import { MatCardModule as MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule as MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule as MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule as MatInputModule } from '@angular/material/input';
-import { MatSelectModule as MatSelectModule } from '@angular/material/select';
-import { MatTooltipModule as MatTooltipModule } from '@angular/material/tooltip';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 
-import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { CategoryExpensesService } from 'src/components/financial/services/category-expenses.service';
-import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-entities/bank-account/bank-account-mat-select-single.component';
-import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
 import { Payment } from 'src/shared/components/inheritance/payment/payment';
 
-import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
-import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 import { TypeCardDtoEnum } from '../../../bank-account-cards/dto/enums/type-card-dto.enum';
 import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
-import { PixesExpensesFieldsComponent } from '../../../common-components/pixes-expenses/pixes-expenses-fields.component';
 import { VariableExpenseDto } from '../../dto/variable-expense-dto';
 import { VariableExpensesService } from './services/variable-expenses.service';
+import { ImportsAddVariableExpenses,  ProvidersAddVariable } from '../imports/imports-variable-expenses';
 
 
 @Component({
   selector: 'variable-expenses',
   templateUrl: './variable-expenses-add.component.html',
   styleUrls: ['./variable-expenses-add.component.css'],
-  providers: [
-    VariableExpensesService,
-    CategoryExpensesService
-  ],
   standalone: true,
   imports: [
-    CommonModule,
-
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatButtonModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatTooltipModule,
-    CurrencyMaskModule,
-    TitleComponent,
-    SubTitleComponent,
-    BankAccountMatSelectSingleComponent,
-    CategorySubcategoryExpensesSelectComponent,
-    BtnGComponent,
-    PixesExpensesFieldsComponent
+    ImportsAddVariableExpenses
   ],
+  providers: [
+    ProvidersAddVariable
+  ]
 
 })
 
@@ -70,18 +36,13 @@ export class VariableExpensesAddComponent extends Payment implements OnInit {
     private _router: Router,
     private _variableExpensesService: VariableExpensesService,
 
-  ) {super()}
+  ) { super() }
 
   payCycle = PayCycleEnumDto.Variable;
   cardType = TypeCardDtoEnum.Credit;
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
-
   add() {
-    this._router.navigateByUrl('/side-nav/financial/category-expenses-add-edit')
+    this._router.navigateByUrl('/financial/category-expenses-add-edit')
   }
 
   formLoad(x?: VariableExpenseDto) {
@@ -109,10 +70,11 @@ export class VariableExpensesAddComponent extends Payment implements OnInit {
     return this.subForm = this._fb.group({
       benefitedKey: ['', []],
       expenseDay: [new Date(), []],
+      price: [0, [Validators.required]],
     })
   }
 
-    save() {
+  save() {
     if (this.alertSave(this.formMain)) {
       this._variableExpensesService.save(this.formMain);
       this.paymentBtnEnabledDisabled = true;

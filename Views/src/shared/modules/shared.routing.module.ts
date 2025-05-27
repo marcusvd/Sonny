@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from '@angular/router';
-import { SideNavComponent } from "../components/side-nav/components/side-nav.component";
+// import { SideNavComponent } from "../components/side-nav.component";
 import { UserIsAuthenticatedGuard } from "../guards/user-is-authenticatedGuard";
 
 const routes: Routes = [

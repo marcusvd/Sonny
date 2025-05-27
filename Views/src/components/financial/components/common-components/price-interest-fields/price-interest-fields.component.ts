@@ -8,7 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 
 @Component({
   selector: 'price-interest-fields',
@@ -49,10 +49,7 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 
 export class PriceInteresFieldsComponent extends BaseForm{
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
 
   @Input() override formMain: FormGroup;
   @Input() interestHideShow: boolean = true;

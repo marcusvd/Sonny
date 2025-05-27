@@ -8,7 +8,7 @@ import { MatInputModule as MatInputModule } from '@angular/material/input';
 import { MatSelectModule as MatSelectModule } from '@angular/material/select';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 
 @Component({
   selector: 'main-entities-base',
@@ -49,10 +49,7 @@ export class MainEntitiesBaseComponent extends BaseForm implements OnInit, OnCha
   ];
 
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
 
   ngOnInit(): void {
 

@@ -29,7 +29,7 @@ export class TriggerPaymentMonthly {
       }
     };
 
-    this._router.navigate(['/side-nav/financial/payment-monthly'], objectRoute);
+    this._router.navigate(['/financial/payment-monthly'], objectRoute);
   }
 
   makeInfoScreenData(entity: MonthlyFixedExpenseDto): FieldsScreenPayment[] {

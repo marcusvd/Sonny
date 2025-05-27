@@ -15,7 +15,7 @@ export class Payment extends BaseForm {
 
   constructor() {super()}
 
-  selectedPixRadio = 0;
+  selectedPixRadio = -1;
   paymentBtnEnabledDisabled = false;
 
   selectedRadio(selected: number) {

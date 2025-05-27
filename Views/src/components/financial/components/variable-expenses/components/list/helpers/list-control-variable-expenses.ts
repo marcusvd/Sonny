@@ -29,8 +29,8 @@ export class ListControlVariableExpenses extends BaseList {
   entitiesFiltered$: Observable<ListVariableExpensesDto[]>;
   entitiesFiltered: ListVariableExpensesDto[] = [];
 
-  viewListUrlRoute: string = '/side-nav/financial/list-financings-loans-expenses-installment';
-  addUrlRoute: string = '/side-nav/financial/add-financings-loans-expenses';
+  viewListUrlRoute: string = '/financial/list-financings-loans-expenses-installment';
+  addUrlRoute: string = '/financial/add-financings-loans-expenses';
 
   length = 0;
   showHideFilter = false;
@@ -57,18 +57,18 @@ export class ListControlVariableExpenses extends BaseList {
   labelHeaders = () => {
     return [
       { key: '', style: 'cursor: pointer; max-width:100px;' },
+      { key: 'Dia', style: 'cursor: pointer;' },
+      { key: 'Preço', style: 'cursor: pointer;' },
       { key: 'Despesa', style: 'cursor: pointer;' },
-      { key: 'Valor parcela', style: 'cursor: pointer;' },
-      { key: 'Nº Parcelas', style: 'cursor: pointer;' },
     ]
   }
 
   fieldsHeaders = () => {
     return [
       { key: 'id', style: 'max-width:100px;' },
+      { key: 'paidDayToView', style: '' },
+      { key: 'price', style: '' },
       { key: 'name', style: '' },
-      { key: 'installmentPrice', style: '' },
-      { key: 'installmentsQuantity', style: '' },
     ]
   }
 
@@ -88,8 +88,6 @@ export class ListControlVariableExpenses extends BaseList {
   // }
   onSelectedMonth(entities: any[], selectedMonth: number, field: string) {
     let result;
-    entities.forEach(x => console.log(x));
-
 
     if (selectedMonth != -1) {
 
@@ -114,7 +112,12 @@ export class ListControlVariableExpenses extends BaseList {
       result = of(ordered.slice(0, this.pageSize));
     }
     return result;
+
+
   }
+
+
+
 
   arrayOrderByDate(entities: any[], field: string): any[] {
     return entities.sort((a, b) => new Date(a[field]).getTime() - new Date(b[field]).getTime());
@@ -146,7 +149,7 @@ export class ListControlVariableExpenses extends BaseList {
   onClickIcons(obj: OnClickInterface) {
 
     if (obj.action.split('|')[0] == 'edit') {
-      this.callRouter(`/side-nav/customer/edit/${obj.entityId}`);
+      this.callRouter(`/customer/edit/${obj.entityId}`);
 
     }
 
@@ -232,72 +235,25 @@ export class ListControlVariableExpenses extends BaseList {
         route: ''
       },
 
-      name: {
-        key: variableExpense.name,
+      paidDayToView: {
+        key: this._ptBrDatePipe.transform(variableExpense.wasPaid, 'Date'),
         styleCell: 'width:100%;',
 
       },
-      // installmentPrice: {
-      //   key: this._ptBrCurrencyPipe.transform(variableExpense.installmentPrice),
-      //   styleCell: 'width:100%;',
-      // },
-      // installmentsQuantity: {
-      //   key: variableExpense.installmentsQuantity
-      // },
-      userId: {
-        key: variableExpense.userId
-      },
-      companyId: {
-        key: variableExpense.companyId
-      },
-      categoryExpenseId: {
-        key: variableExpense.categoryExpenseId
-      },
-      subcategoryExpenseId: {
-        key: variableExpense.subcategoryExpenseId
-      },
-      // start: {
-      //   key: variableExpense.start
-      // },
-      // end: {
-      //   key: variableExpense.end
-      // },
-      // totalPriceToBePaid: {
-      //   key: variableExpense.totalPriceToBePaid
-      // },
-      // totalPriceFinancingOrLoan: {
-      //   key: variableExpense.totalPriceFinancingOrLoan
-      // },
-      // totalPriceInterest: {
-      //   key: variableExpense.totalPriceInterest
-      // },
-      // totalPercentageInterest: {
-      //   key: variableExpense.totalPercentageInterest
-      // },
       wasPaid: {
-        key: variableExpense.wasPaid
+        key: variableExpense.wasPaid,
+        styleCell: 'width:100%;',
+
       },
-      wasPaidView: {
-        key: variableExpense.wasPaid
+
+      price: {
+        key: this._ptBrCurrencyPipe.transform(variableExpense.price),
       },
-      deleted: {
-        key: variableExpense.deleted
+      name: {
+        key: variableExpense.name
       },
-      registered: {
-        key: variableExpense.registered
-      },
-      description: {
-        key: variableExpense.description
-      },
-      linkCopyBill: {
-        key: variableExpense.linkCopyBill
-      },
-      // uSERLinkCopyBill: {
-      //   key: variableExpense.uSERLinkCopyBill
-      // },
-      // pASSLinkCopyBill: {
-      //   key: variableExpense.pASSLinkCopyBill
-      // }
+
+
     })
 
     listVariableExpenses.push(items);
@@ -305,14 +261,13 @@ export class ListControlVariableExpenses extends BaseList {
     return listVariableExpenses;
   }
 
-  startSupply(url: string, cardId: string): Subscription {
+  startSupply(url: string, param: string): Subscription {
 
 
     let entities: ListVariableExpensesDto[] = [];
 
-    return this._listGDataService?.getAllEntitiesInMemoryPaged$(url, cardId).pipe(
+    return this._listGDataService?.getAllEntitiesInMemoryPaged$(url, param).pipe(
       map((x: VariableExpenseDto[]) => {
-
         if (x.length <= 0) {
           entities = [];
           this.entities = [];

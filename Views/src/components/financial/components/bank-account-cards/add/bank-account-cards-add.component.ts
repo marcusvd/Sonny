@@ -14,7 +14,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 import { BankAccountComponent } from '../../common-components/bank-account/bank-account.component';
 import { BankCardsComponent } from '../../common-components/bank-cards/bank-cards.component';
 import { BankAccountAddService } from './services/bank-account-add.service';
@@ -53,10 +53,7 @@ export class BankAccountCardsAddComponent extends Add implements OnInit {
 
   ) { super() }
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
 
   private valCustom = ValidatorsCustom;
   get validatorCustom() {

@@ -100,8 +100,8 @@ export class ListYearlyFixedExpensesComponent extends FrontEndListFilterYearlyEx
   override backEndUrl: string = `${this.controllerUrl}/GetAllFixedExpensesTrackingPagedAsync`;
   override  entities: ListGridYearlyFixedExpenseDto[] = [];
   override entities$: Observable<ListGridYearlyFixedExpenseDto[]>;
-  override viewUrlRoute: string = '/side-nav/financial/view-yearly-fixed-expenses-tracking';
-  override addUrlRoute: string = '/side-nav/financial/yearly-fixed-expenses-add';
+  override viewUrlRoute: string = '/financial/view-yearly-fixed-expenses-tracking';
+  override addUrlRoute: string = '/financial/yearly-fixed-expenses-add';
 
   // workingFrontEnd = new FrontEndListFilterYearlyExpenses();
   workingBackEnd = new BackEndListFilterYearlyExpenses();

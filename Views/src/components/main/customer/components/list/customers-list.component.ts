@@ -130,15 +130,15 @@ export class CustomersListComponent extends ListControlCustomerList implements O
   // }
 
   // add() {
-  //   this._router.navigateByUrl('/side-nav/create')
+  //   this._router.navigateByUrl('/create')
   // }
 
   // view(id: number) {
-  //   this._router.navigateByUrl(`/side-nav/view/${id}`)
+  //   this._router.navigateByUrl(`/view/${id}`)
   // }
 
   // edit(id: number) {
-  //   this._router.navigateByUrl(`/side-nav/edit/${id}`)
+  //   this._router.navigateByUrl(`/edit/${id}`)
   // }
 
 

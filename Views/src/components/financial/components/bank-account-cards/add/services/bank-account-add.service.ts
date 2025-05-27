@@ -84,7 +84,7 @@ export class BankAccountAddService extends BackEndService<BankAccountDto> {
     this.add$<BankAccountDto>(toSave, 'AddABankAccount').subscribe({
       next: (checkingAccountDto: BankAccountDto) => {
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
-         this._route.navigateByUrl(`/side-nav/financial/list-bank-account-cards`)
+         this._route.navigateByUrl(`/financial/list-bank-account-cards`)
       },
       error: (erroCode) => {
         console.log(erroCode)

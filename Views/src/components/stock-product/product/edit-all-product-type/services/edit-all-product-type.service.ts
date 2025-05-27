@@ -44,7 +44,7 @@ export class EditAllProductTypeService extends BackEndService<ProductDto> {
           quantity:1
 
         });
-        //  this._route.navigateByUrl(`/side-nav/stock-product-router/add-item-product`)
+        //  this._route.navigateByUrl(`/stock-product-router/add-item-product`)
       },
       error: (erroCode) => {
         console.log(erroCode)
@@ -85,7 +85,7 @@ export class EditAllProductTypeService extends BackEndService<ProductDto> {
   //     this.add$<StockDto>(toSave, 'AddStock').subscribe({
   //       next: () => {
   //         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
-  //         // this._route.navigateByUrl(`/side-nav/financial/list-credit-card-invoices`)
+  //         // this._route.navigateByUrl(`/financial/list-credit-card-invoices`)
   //       },
   //       error: (erroCode) => {
   //         console.log(erroCode)
@@ -100,7 +100,7 @@ export class EditAllProductTypeService extends BackEndService<ProductDto> {
   //     this.update$<StockDto>('UpdatePartialProduct', toSave).subscribe({
   //       next: () => {
   //         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
-  //         this._route.navigateByUrl(`/side-nav/financial/list-credit-card-invoices`)
+  //         this._route.navigateByUrl(`/financial/list-credit-card-invoices`)
   //       },
   //       error: (erroCode) => {
   //         console.log(erroCode)

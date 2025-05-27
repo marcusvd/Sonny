@@ -1,14 +1,16 @@
 
 import { FormGroup, Validators } from '@angular/forms';
 import * as diacritics from 'diacritics';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+import { DefaultMessages } from 'src/shared/helpers/validators/default-messages';
 
 export class BaseForm  {
 
   companyId = JSON.parse(localStorage.getItem('companyId'))
   userId = JSON.parse(localStorage.getItem('userId'))
 
-  minValue = new Date('0001-01-01T00:00:00.000Z');
-  // minValue = new Date('0001-01-01T00:00:00');
+  //minValue = new Date('0001-01-01T00:00:00.000Z');
+  minValue = new Date('0001-01-01T00:00:00');
 
   currentDate = new Date();
   currentDateWithoutHours = this.currentDate.setHours(0, 0, 0, 0)
@@ -19,35 +21,8 @@ export class BaseForm  {
 
   saveBtnEnabledDisabled: boolean = false;
 
-  //validators msg
-  requiredMsg = 'Obrigatório!';
-  emailMsg = 'E-mail inválido!';
-  requiredTrueMsg = 'Obrigatório!';
-  invalidCpfMsg = 'CPF, inválido!';
-  invalidCnpjMsg = 'CNPJ, inválido!';
-  invalidPhoneMsg = 'Telefone, inválido!';
-  invalidPhoneMaskMsg = 'Telefone, inválido!';
-  invalidCepMsg = 'CEP, inválido!';
-  invalidPasswordMsg = 'Senha, inválida!';
-  invalidPasswordConfirmMsg = 'Confirmação de senha, inválida!';
-  invalidCpfOrCnpjMsg = 'CPF ou CNPJ, inválido!';
-  invalidCpfOrCnpjMaskMsg = 'CPF ou CNPJ, inválido!';
-  invalidDateMsg = 'Data, inválida!';
-  invalidDateMaskMsg = 'Data, inválida!';
-  invalidHourMsg = 'Horário, inválido!';
-  maxLengthMsg = 'Máximo de ';
-  minLengthMsg = 'Mínimo de ';
-  limitMaxMsg = 'Máximo de excedido!';
-  limitMinMsg = 'Abaixo do mínimo necessário!';
-  charactersMsg = ' caracteres!'
-  inUseMsg = 'Já cadastrado!';
-
-  constructor(
-
-  ) {
-
-
-  }
+  defaultMessages = DefaultMessages;
+  validatorMessages = ValidatorMessages;
 
   addValidators(form: FormGroup, fields: string[]) {
     fields.forEach(field => {
@@ -98,8 +73,6 @@ export class BaseForm  {
   formError = (form: FormGroup, field: string, error: string) => {
     return form?.get(field)?.hasError(error)
   }
-
-
 
   alertSave(form: FormGroup) {
     if (!form?.valid) {

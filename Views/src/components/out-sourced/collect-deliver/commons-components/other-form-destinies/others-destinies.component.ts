@@ -3,9 +3,10 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule as MatInputModule } from '@angular/material/input';
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
 
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 
 
 @Component({
@@ -55,16 +56,11 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 
   `]
 })
-export class OthersDestiniesComponent implements OnInit {
+export class OthersDestiniesComponent extends BaseForm implements OnInit {
 
-  constructor(
+  constructor() { super() }
 
-  ) { }
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
 
   @Input() form: FormGroup;
 

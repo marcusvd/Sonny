@@ -12,7 +12,7 @@ import { MatInputModule as MatInputModule } from '@angular/material/input';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 import { CaptchaComponent } from '../captcha/captcha.component';
 import { RetryConfirmPassword } from '../dto/retry-confirm-password';
 import { AuthenticationService } from '../services/authentication.service';
@@ -184,10 +184,7 @@ export class ResendEmailConfirmDialogComponent extends BaseForm implements OnIni
     this.btn2 = this.data.btn2;
     this.id = this.data.id;
   }
-  private _validatorMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this._validatorMessages
-  }
+
   clickedYes() {
     this.resend = false;
   }

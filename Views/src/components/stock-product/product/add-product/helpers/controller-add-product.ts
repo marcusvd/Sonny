@@ -77,13 +77,13 @@ export class ControllerAddProduct extends BaseForm {
 
   callRouter = (call?: string) => {
     if (call === 'add')
-      this._router.navigate(['/side-nav/stock-product-router/add-product-type']);
+      this._router.navigate(['/stock-product-router/add-product-type']);
     else {
       const objectRoute: NavigationExtras = {
         state: ex_productTypeEndSubItemsSelected
       };
 
-      this._router.navigate([`/side-nav/stock-product-router/edit-product-type`], objectRoute);
+      this._router.navigate([`/stock-product-router/edit-product-type`], objectRoute);
     }
   }
 
@@ -93,7 +93,7 @@ export class ControllerAddProduct extends BaseForm {
       state: entity
     };
 
-    this._router.navigate(['/side-nav/stock-product-router/edit-product-type-add-product'], objectRoute);
+    this._router.navigate(['/stock-product-router/edit-product-type-add-product'], objectRoute);
   }
 
   clearEntityToSendRoute = (entity: string) => {

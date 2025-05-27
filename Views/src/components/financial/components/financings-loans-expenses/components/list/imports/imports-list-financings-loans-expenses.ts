@@ -17,6 +17,7 @@ import { ListGComponent } from '../../../../../../../shared/components/list-g/li
 import { PtBrDatePipe } from '../../../../../../../shared/pipes/pt-br-date.pipe';
 import { PtBrCurrencyPipe } from '../../../../../../../shared/pipes/pt-br-currency.pipe';
 import { ListFinancingsLoansExpensesService } from '../services/list-financings-loans-expenses.service';
+import { MatDividerModule } from '@angular/material/divider';
 
 export const ImportsListFinancingsLoansExpenses: any[] = [
   CommonModule,
@@ -29,6 +30,7 @@ export const ImportsListFinancingsLoansExpenses: any[] = [
   MatIconModule,
   MatCheckboxModule,
   MatRadioModule,
+  MatDividerModule,
   TitleComponent,
   BtnGComponent,
   ListGComponent

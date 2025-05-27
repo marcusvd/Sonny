@@ -11,7 +11,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { map } from 'rxjs/operators';
 import { PartnerDto } from 'src/components/main/partner/commons-components/dtos/partner-dto';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 import { PartnerGetService } from './partner-get.service';
 
 @Component({
@@ -21,7 +21,7 @@ import { PartnerGetService } from './partner-get.service';
     MatSelectModule,
     NgxMatSelectSearchModule,
     ReactiveFormsModule,
-    
+
     CommonModule
   ],
   template: `
@@ -52,7 +52,7 @@ export class GetPartnerMatSelectSingleComponent extends BaseForm implements OnCh
   constructor(
     private _partnerService: PartnerGetService,
     private _fb: FormBuilder,
-    
+
   ) {super()}
 
 
@@ -63,10 +63,6 @@ export class GetPartnerMatSelectSingleComponent extends BaseForm implements OnCh
       this.$partnersResult = this.$partners;
   }
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
 
   @Input() override formMain: FormGroup;
   @Input() urlBackEndApi: string = null;

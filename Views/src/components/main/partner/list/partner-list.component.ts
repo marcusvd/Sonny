@@ -96,15 +96,15 @@ export class PartnerListComponent implements OnInit {
   }
 
   add() {
-    this._router.navigateByUrl('/side-nav/partner-dash/create-partner')
+    this._router.navigateByUrl('/partner-dash/create-partner')
   }
 
   view(id: number) {
-    this._router.navigateByUrl(`/side-nav/partner-dash/view/${id}`)
+    this._router.navigateByUrl(`/partner-dash/view/${id}`)
   }
 
   edit(id: number) {
-    this._router.navigateByUrl(`/side-nav/partner-dash/edit-partner/${id}`)
+    this._router.navigateByUrl(`/partner-dash/edit-partner/${id}`)
   }
 
   delete(entity: PartnerListGridDto) {

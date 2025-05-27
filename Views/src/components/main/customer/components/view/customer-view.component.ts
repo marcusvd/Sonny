@@ -71,7 +71,7 @@
 
 
 //   edit() {
-//     this._router.navigateByUrl('/side-nav/edit/' + this.customer.id)
+//     this._router.navigateByUrl('/edit/' + this.customer.id)
 //   }
 
 //   // generalInfo = new CustomerDetailDto();

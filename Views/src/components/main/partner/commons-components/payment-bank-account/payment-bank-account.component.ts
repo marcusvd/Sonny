@@ -14,7 +14,7 @@ import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 
 
@@ -53,10 +53,7 @@ export class PaymentBankAccountComponent extends BaseForm implements OnInit {
 
   ) {super()}
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
 
 
   typeAccountsArray: any[] = [

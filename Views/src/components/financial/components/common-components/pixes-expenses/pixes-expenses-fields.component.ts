@@ -11,7 +11,7 @@ import { MatInputModule as MatInputModule } from '@angular/material/input';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 
 @Component({
   selector: 'pixes-expenses-fields',
@@ -41,16 +41,13 @@ import { ValidatorMessages } from 'src/shared/helpers/validators/validators-mess
 
 export class PixesExpensesFieldsComponent extends BaseForm implements OnInit {
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
 
   @Input() override formMain: FormGroup;
   // @Input() BenefitedKey:string = '100';
   // @Input() ExpenseDay:string = '100';
   @Input('expenseDayDisabled') expenseDayDisabled:boolean = false;
-  @Input('priceDisabled') priceDisabled:boolean = true;
+  @Input() showPrice:boolean = false;
 
   constructor(
 

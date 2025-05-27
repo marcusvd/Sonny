@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 import { ValidatorMessagesCustomer } from '../../customer/validators/customer/validators-messages-customer';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ValidatorsCustomer } from '../../customer/validators/customer/validators-customer';
@@ -37,10 +37,7 @@ export class PhysicallyMovingCostsComponent extends BaseForm implements OnInit {
 
   // @Output()  subFormOut = new EventEmitter<FormGroup>();
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
 
   private valMessagesCustomer = ValidatorMessagesCustomer;
   get validatorMessagesCustomer() {

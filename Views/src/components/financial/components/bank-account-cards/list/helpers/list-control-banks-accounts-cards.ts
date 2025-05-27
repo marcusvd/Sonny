@@ -19,7 +19,7 @@ export class ListControlBanksAccountsCards extends BaseList {
 
   entities$: Observable<BankAccountCardListDto[]>;
   entities: BankAccountCardListDto[];
-  editUrlRoute: string = '/side-nav/financial/edit-bank-account-cards';
+  editUrlRoute: string = '/financial/edit-bank-account-cards';
 
   constructor(
     override _router: Router,

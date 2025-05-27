@@ -9,8 +9,9 @@ import { MatInputModule as MatInputModule } from '@angular/material/input';
 
 import { NgxMaskModule } from 'ngx-mask';
 
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 import { AddressService } from '../services/address.service';
+import { BaseForm } from '../../inheritance/forms/base-form';
 
 @Component({
   selector: 'address',
@@ -30,26 +31,21 @@ import { AddressService } from '../services/address.service';
     AddressService,
   ]
 })
-export class AddressComponent implements OnInit {
+export class AddressComponent extends BaseForm implements OnInit {
 
-  @Input() formMain: FormGroup;
-
-  screenFieldPosition = "row";
+  @Input() override formMain: FormGroup;
 
   constructor(
     private _addressService: AddressService,
-  ) { }
+  ) { super() }
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+
 
   query(cep: string) {
     this?._addressService?.query(cep);
   }
 
- 
+
   ngOnInit(): void {
 
     this._addressService.formMain = this.formMain;

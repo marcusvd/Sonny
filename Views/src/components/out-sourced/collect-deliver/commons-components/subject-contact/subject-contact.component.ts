@@ -10,7 +10,7 @@ import { MatSelectModule as MatSelectModule } from '@angular/material/select';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 
 @Component({
   selector: 'subject-contact',
@@ -42,10 +42,7 @@ export class SubjectContactComponent extends BaseForm implements OnInit {
   @Input() override formMain: FormGroup;
   transportOptions: string[] = ['Combustível', 'Aplicativo', 'MotoBoy', 'Transporte publico'];
   methodTransport:string = 'Combustível';
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
 
 
   onPriceSelected(typeTransporte: string) {

@@ -60,7 +60,7 @@ export class ListFinancingsLoansExpensesComponent extends ListControlFinancingsL
   // override  entities: ListFinancingsLoansExpensesDto[] = [];
   // override entities$: Observable<ListFinancingsLoansExpensesDto[]>;
 
-  // override viewUrlRoute: string = '/side-nav/financial/view-financings-loans-expenses';
+  // override viewUrlRoute: string = '/financial/view-financings-loans-expenses';
 
 
 

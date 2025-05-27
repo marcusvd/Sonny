@@ -27,7 +27,7 @@ import { Add } from 'src/shared/components/inheritance/add/add';
 
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 import { ConfirmDialogCollectDeliverComponent } from '../../commons-components/confirmation-panel-collect-deliver/confirm-dialog-collect-deliver.component';
 import { OthersDestiniesComponent } from '../../commons-components/other-form-destinies/others-destinies.component';
 import { SubjectContactComponent } from '../../commons-components/subject-contact/subject-contact.component';
@@ -79,10 +79,7 @@ export class CollectDeliverCreateComponent extends Add implements OnInit {
   ) {super()}
 
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
 
   private valLocal = CollectDeliverValidators;
   get validatorLocal() {

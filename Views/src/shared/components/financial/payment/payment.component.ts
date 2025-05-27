@@ -105,10 +105,7 @@ export class PaymentComponent extends BaseForm implements OnInit {
 
 
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
 
 
   onSelectedBanckAccountelected(bankAccount: any) {

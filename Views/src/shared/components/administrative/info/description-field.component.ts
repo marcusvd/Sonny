@@ -7,7 +7,7 @@ import { MatFormFieldModule as MatFormFieldModule } from '@angular/material/form
 import { MatInputModule as MatInputModule } from '@angular/material/input';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 
 @Component({
   selector: 'description-field',
@@ -53,10 +53,7 @@ export class DescriptionFieldComponent extends BaseForm implements OnInit {
   @Input() required: boolean = false;
 
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
 
   ngOnInit(): void {
 

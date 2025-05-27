@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ValidatorsCustomer } from '../../../validators/customer/validators-customer';
 import { ValidatorMessagesCustomer } from '../../../validators/customer/validators-messages-customer';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
@@ -41,10 +41,7 @@ export class FinancialInfoTypeComponent extends BaseForm implements OnInit {
   ngOnInit(): void {
   }
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
 
   private valMessagesCustomer = ValidatorMessagesCustomer;
   get validatorMessagesCustomer() {

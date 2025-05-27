@@ -16,8 +16,8 @@ import { UserIsAuthenticatedGuard } from 'src/shared/guards/user-is-authenticate
 
 @Component({
   selector: 'sideNav',
-  templateUrl: './side-nav.component.html',
-  styleUrls: ['./side-nav.component.scss'],
+  templateUrl: 'side-nav.component.html',
+  styleUrls: ['side-nav.component.scss'],
   standalone: true,
   imports: [
     MatSidenavModule,

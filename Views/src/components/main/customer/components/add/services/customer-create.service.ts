@@ -42,7 +42,7 @@ save(form: FormGroup) {
   this.add$<CustomerDto>(toSave, 'AddCustomer').subscribe({
     next: (_cli: CustomerDto) => {
        this._communicationsAlerts.defaultSnackMsg('0', 0);
-      this._route.navigateByUrl(`/side-nav/list/${this.companyId}`)
+      this._route.navigateByUrl(`/list/${this.companyId}`)
     },
     error: (err) => {
       const erroCode: string = err.error.Message

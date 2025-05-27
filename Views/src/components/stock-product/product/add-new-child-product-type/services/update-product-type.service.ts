@@ -64,7 +64,7 @@ export class UpdateProductTypeService extends BackEndService<ProductTypeDto> {
     const objectRoute: NavigationExtras = {
       state: entity
     };
-    this._router.navigate(['/side-nav/stock-product-router/add-product'], objectRoute);
+    this._router.navigate(['/stock-product-router/add-product'], objectRoute);
   }
 
 }

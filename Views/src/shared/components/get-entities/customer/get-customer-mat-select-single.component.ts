@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
 
 import { CustomerDto } from 'src/components/main/customer/components/commons-components/dtos/customer-dto';
 
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 import { CustomersGetService } from './customers-get.service';
 import { BaseForm } from '../../inheritance/forms/base-form';
 
@@ -64,10 +64,7 @@ export class GetCustomerMatSelectSingleComponent extends BaseForm implements OnC
 
   }
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
 
   @Input() override formMain: FormGroup;
   @Input() entityForm: string = 'customerId';

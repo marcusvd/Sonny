@@ -31,7 +31,7 @@ export class CollectDeliverCreateService extends BackEndService<CollectDeliverDt
     this.add$<CollectDeliverDto>(toSave, 'addcollectdeliver').subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
-        this._router.navigateByUrl(`/side-nav/partner-dash/list-collect-deliver/${this.companyId}`)
+        this._router.navigateByUrl(`/partner-dash/list-collect-deliver/${this.companyId}`)
         form.reset();
       },
       error: (errors) => {

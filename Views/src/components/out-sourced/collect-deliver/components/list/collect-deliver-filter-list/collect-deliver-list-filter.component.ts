@@ -11,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule as MatInputModule } from '@angular/material/input';
 import { MatSelectModule as MatSelectModule } from '@angular/material/select';
 import { NgxMaskModule } from 'ngx-mask';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 import { ValidatorMessagesCustomer } from 'src/components/main/customer/validators/customer/validators-messages-customer';
 import { FilterSearch } from './interface/filter-search';
 
@@ -91,10 +91,7 @@ export class CollectDeliverListFilterComponent implements OnInit {
 
   constructor(private _fb: FormBuilder) { }
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
 
   private valMessagesCustomer = ValidatorMessagesCustomer;
   get validatorMessagesCustomer() {

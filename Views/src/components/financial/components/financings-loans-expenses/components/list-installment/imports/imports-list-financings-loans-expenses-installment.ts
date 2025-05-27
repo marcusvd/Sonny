@@ -18,11 +18,13 @@ import { PtBrDatePipe } from '../../../../../../../shared/pipes/pt-br-date.pipe'
 import { PtBrCurrencyPipe } from '../../../../../../../shared/pipes/pt-br-currency.pipe';
 import { FilterBtnRadioComponent } from '../../../../common-components/filter-btn-radio/filter-btn-radio.component';
 import { ListFinancingsLoansExpensesInstallmentService } from '../services/list-financings-loans-expenses-installment.service';
+import { MatDividerModule } from '@angular/material/divider';
 
 export const ImportsListFinancingsLoansExpensesInstallment: any[] = [
   CommonModule,
   FormsModule,
   MatCardModule,
+  MatDividerModule,
   MatIconModule,
   MatPaginatorModule,
   MatButtonModule,

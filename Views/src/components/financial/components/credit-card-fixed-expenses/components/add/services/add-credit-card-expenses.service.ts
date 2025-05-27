@@ -28,7 +28,7 @@ export class AddCreditCardExpensesService extends BackEndService<CreditCardExpen
     this.add$<CreditCardExpenseDto>(toSave, 'AddCreditCardExpense').subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
-        this._route.navigateByUrl(`/side-nav/financial/list-credit-card-invoices`)
+        this._route.navigateByUrl(`/financial/list-credit-card-invoices`)
       },
       error: (erroCode) => {
         console.log(erroCode)

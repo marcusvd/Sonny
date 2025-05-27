@@ -29,7 +29,7 @@ export class TriggerPaymentYearly {
       }
     };
 
-    this._router.navigate(['/side-nav/financial/payment-yearly'], objectRoute);
+    this._router.navigate(['/financial/payment-yearly'], objectRoute);
   }
 
   makeInfoScreenData(entity: YearlyFixedExpenseDto): FieldsScreenPayment[] {

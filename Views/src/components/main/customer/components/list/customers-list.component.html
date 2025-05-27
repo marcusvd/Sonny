@@ -1,11 +1,16 @@
 <div class="p-4bg-background-color" *ngIf="this.entitiesFiltered$">
     <title-component [digit]="'|'" [textTitleComp]="'Clientes'" [icon]="'record_voice_over'">
     </title-component>
-    <mat-card class="!bg-background-color mr-6 border-card">
-        <sub-title title [title]="'Clientes cadastrados'" [icon]="'list'"></sub-title>
-        <div class="pt-2 pr-2 pl-2 !bg-background-color grid grid-cols-1 sm:grid-cols-[150px_auto_auto] gap-4">
+    <!-- <mat-card class="!bg-background-color mr-6 border-card">
+        <sub-title title [title]="'Clientes cadastrados'" [icon]="'list'"></sub-title> -->
+    <mat-card class="sub-title-mat-card !bg-background-color mr-6 border-card">
+
+        <div class="sub-title">
+            <mat-icon class="mat-icon-left-subtitle">{{'list'}}</mat-icon> <span>{{'Clientes cadastrados'}}</span>
+        </div>
+        <div class="p-4 !bg-background-color grid grid-cols-1 sm:grid-cols-[150px_auto_auto] gap-4">
             <div>
-                <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="callRouter('/side-nav/customer/create')"></btn-g>
+                <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="callRouter('/customer/create')"></btn-g>
             </div>
             <div class="!bg-background-color flex justify-start">
                 <btn-g-dynamic [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)">
@@ -15,7 +20,7 @@
         <customer-filter-list class="!bg-background-color" [showHideFilter]="showHideFilter" (filterFormOut)="filter($event)" (outFieldSearch)="search($event)">
         </customer-filter-list>
 
-        <div class="sm:invisible align-h-center">
+        <div class="align-h-center">
             <mat-divider class="divider-line-categories-comp"></mat-divider>
         </div>
 

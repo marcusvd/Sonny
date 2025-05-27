@@ -38,8 +38,8 @@ export class BanksAccountsCardsListComponent extends ListControlBanksAccountsCar
 
   controllerUrl: string = environment._BANKSACCOUNTS.split('/')[4];
 
-  public addUrlRoute: string = '/side-nav/financial/create-bank-account-cards';
-  private viewUrlRoute: string = '/side-nav/financial/view';
+  public addUrlRoute: string = '/financial/create-bank-account-cards';
+  private viewUrlRoute: string = '/financial/view';
 
   private bankAccountsUnsubscribe: Subscription | undefined;
 

@@ -14,7 +14,7 @@ import { environment } from 'src/environments/environment';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
 import { SpinnerGComponent } from 'src/shared/components/spinner-g/component/spinner-g.component';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 import { BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
 import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
 import { CreditCardInvoicesGetService } from './credit-card-invoices-get.service';
@@ -67,10 +67,7 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
   }
 
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
 
   @Input() urlBackEndApi: string = null;
 

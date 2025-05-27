@@ -91,8 +91,8 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends ListControl
 
   controllerUrl: string = environment._FINANCINGS_LOANS_EXPENSES.split('/')[4];
   // override backEndUrl: string = `${this.controllerUrl}/FinancingsAndLoansGetAllExpensesPagedAsync`;
-  // override viewUrlRoute: string = '/side-nav/financial/view-yearly-fixed-expenses-tracking';
-  override addUrlRoute: string = '/side-nav/financial/add-financings-loans-expenses';
+  // override viewUrlRoute: string = '/financial/view-yearly-fixed-expenses-tracking';
+  override addUrlRoute: string = '/financial/add-financings-loans-expenses';
 
 
 

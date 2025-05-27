@@ -99,8 +99,8 @@ export class ListCollectDeliverMonthComponent extends FrontEndListFilterMonthCol
   override backEndUrl: string = `${this.controllerUrl}/GetAllByCompanyIdCollectDeliverAsync`;
   override  entities: ListGridMonthCollectDeliverDto[] = [];
   override entities$: Observable<ListGridMonthCollectDeliverDto[]>;
-  override viewListUrlRoute: string = '/side-nav/outsourced-dash/list-collect-deliver-by-month';
-  override addUrlRoute: string = '/side-nav/outsourced-dash/add-collect-deliver';
+  override viewListUrlRoute: string = '/outsourced-dash/list-collect-deliver-by-month';
+  override addUrlRoute: string = '/outsourced-dash/add-collect-deliver';
   titleGrid = `Coletas entregas: ${this.currentDate.getFullYear()}`;
 
   listCreditCardExpenseInvoice: CollectDeliverDto[] = [];

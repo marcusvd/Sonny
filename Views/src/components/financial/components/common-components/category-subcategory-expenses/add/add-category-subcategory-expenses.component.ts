@@ -44,10 +44,7 @@ export class AddCategorySubcategoryExpensesComponent extends BaseForm implements
    super();
   }
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
 
   screenFieldPosition: string = 'column';
 

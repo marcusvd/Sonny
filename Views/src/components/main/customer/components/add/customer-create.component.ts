@@ -28,7 +28,7 @@ import { PhoneHandlers } from "src/shared/helpers/handlers/phone-handlers";
 import { ValidatorsCustom } from "src/shared/helpers/validators/validators-custom";
 import { FinancialInfoTypeComponent } from "../commons-components/financial-info-type/financial-info-type.component";
 import { CustomerCreateService } from "./services/customer-create.service";
-
+import { CustomerProviders } from "../../imports/customer-imports";
 
 
 @Component({
@@ -38,7 +38,6 @@ import { CustomerCreateService } from "./services/customer-create.service";
   standalone: true,
   imports: [
     CommonModule,
-
     MatButtonModule,
     MatCardModule,
     ReactiveFormsModule,
@@ -54,7 +53,8 @@ import { CustomerCreateService } from "./services/customer-create.service";
     ContactComponent,
     AddressComponent,
     BtnGComponent
-  ]
+  ],
+  providers:[CustomerProviders]
 })
 
 export class CustomerCreateComponent extends BaseForm implements OnInit {

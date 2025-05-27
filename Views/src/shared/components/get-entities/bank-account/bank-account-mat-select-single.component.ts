@@ -16,7 +16,7 @@ import { TypeCardDtoEnum } from 'src/components/financial/components/bank-accoun
 import { PixDto } from 'src/components/financial/components/bank-account-cards/dto/pix-dto';
 import { environment } from 'src/environments/environment';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 import { BankCard4LastDigitsPipe, BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
 import { SpinnerGComponent } from '../../spinner-g/component/spinner-g.component';
 import { BankAccountGetService } from './bank-account-get.service';
@@ -49,10 +49,7 @@ import { RadioOptions } from './dto/radio-options';
             mat-error{
               margin-bottom:100px;
             }
-              #label{
-              color:rgb(122,142,99);
-              font-weight: bolder;
-              }
+
   `],
   providers: [BankAccountGetService],
 })
@@ -74,10 +71,7 @@ export class BankAccountMatSelectSingleComponent extends BaseForm implements OnI
     }
   }
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
 
   @Input() override formMain: FormGroup;
   @Input() urlBackEndApi: string = null;

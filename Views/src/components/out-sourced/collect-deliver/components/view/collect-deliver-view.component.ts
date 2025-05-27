@@ -58,7 +58,7 @@ export class CollectDeliverViewComponent extends BaseForm implements OnInit {
 
 
   edit() {
-    this._router.navigateByUrl('/side-nav/partner-dash/edit-collect-deliver/' + this.collectDeliver.id)
+    this._router.navigateByUrl('/partner-dash/edit-collect-deliver/' + this.collectDeliver.id)
   }
 
   destiny() {

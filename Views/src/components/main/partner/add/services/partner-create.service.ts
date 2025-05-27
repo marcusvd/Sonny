@@ -38,7 +38,7 @@ export class PartnerCreateService extends BackEndService<PartnerDto> {
     this.add$<PartnerDto>(toSave, 'AddPartner').subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 3);
-          this._route.navigateByUrl(`/side-nav/partner-dash/list-partner/${this.companyId}`)
+          this._route.navigateByUrl(`/partner-dash/list-partner/${this.companyId}`)
       },
       error: (err) => {
         console.log(err)

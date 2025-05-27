@@ -26,7 +26,7 @@ export class VariableExpensesService extends BackEndService<VariableExpenseDto> 
     this.add$<VariableExpenseDto>(toSave, 'AddVariableExpenses').subscribe({
       next: () => {
         this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
-          this._route.navigateByUrl(`/side-nav/financial/list-variable-expenses`)
+          this._route.navigateByUrl(`/financial/list-variable-expenses`)
       },
       error: (erroCode) => {
         console.log(erroCode)

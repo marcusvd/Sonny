@@ -36,8 +36,8 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
 
   cleanRadios = false;
 
-  viewListUrlRoute: string = '/side-nav/financial/list-financings-loans-expenses-installment';
-  addUrlRoute: string = '/side-nav/financial/add-financings-loans-expenses';
+  viewListUrlRoute: string = '/financial/list-financings-loans-expenses-installment';
+  addUrlRoute: string = '/financial/add-financings-loans-expenses';
 
   length = 0;
   showHideFilter = false;
@@ -161,7 +161,7 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
     console.log(obj.entityId)
 
     if (obj.action.split('|')[0] == 'edit') {
-      this.callRouter(`/side-nav/customer/edit/${obj.entityId}`);
+      this.callRouter(`/customer/edit/${obj.entityId}`);
     }
 
     if (obj.action.split('|')[0] == 'list') {

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 import { IControlErrorsDictionary } from './interfaces/icontrols-errors-dictionary';
 
 @Component({
@@ -52,10 +52,7 @@ export class FormErrorPanelComponent implements OnInit {
   }
 
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
   ngOnInit(): void {
     console.log(this.form);
   }

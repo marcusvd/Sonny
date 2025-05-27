@@ -20,7 +20,7 @@ import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/component
 import { Add } from 'src/shared/components/inheritance/add/add';
 
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
 import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
@@ -57,17 +57,14 @@ export class AddFinancingsLoansExpensesComponent extends Add implements OnInit {
 
   payCycle = PayCycleEnumDto.FinancingLoans;
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
   private toolTipsMessages = ToolTips;
   get matTooltip() {
     return this.toolTipsMessages
   }
 
   add() {
-    this._router.navigateByUrl('/side-nav/financial/category-expenses-add-edit')
+    this._router.navigateByUrl('/financial/category-expenses-add-edit')
   }
 
   totalPriceToBePaid = 0;

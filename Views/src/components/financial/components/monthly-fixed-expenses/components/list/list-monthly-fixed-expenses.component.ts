@@ -96,8 +96,8 @@ export class ListMonthlyFixedExpensesComponent extends FrontEndListFilterMonthly
   override backEndUrl: string = `${this.controllerUrl}/GetAllFixedExpensesByCompanyIdPagedAsync`;
   override  entities: ListGridMonthlyFixedExpenseDto[] = [];
   override entities$: Observable<ListGridMonthlyFixedExpenseDto[]>;
-  override viewUrlRoute: string = '/side-nav/financial/view-monthly-fixed-expenses-tracking';
-  override addUrlRoute: string = '/side-nav/financial/monthly-fixed-expenses-add';
+  override viewUrlRoute: string = '/financial/view-monthly-fixed-expenses-tracking';
+  override addUrlRoute: string = '/financial/monthly-fixed-expenses-add';
 
   workingBackEnd = new BackEndFilterMonthlyExpensesList();
 

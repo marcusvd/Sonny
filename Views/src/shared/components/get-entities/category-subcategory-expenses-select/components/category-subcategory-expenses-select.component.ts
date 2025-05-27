@@ -16,7 +16,7 @@ import { CategoryExpensesService } from 'src/components/financial/services/categ
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
 import { SpinnerGComponent } from 'src/shared/components/spinner-g/component/spinner-g.component';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 
 
 
@@ -58,10 +58,7 @@ export class CategorySubcategoryExpensesSelectComponent extends BaseForm impleme
   @Input() Input: number = 100;
 
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
 
   spinner = false
   spinnerEvent($event: boolean) {

@@ -91,7 +91,7 @@ export class FormControllerEditProductType extends BaseForm {
   addAddItemArray = (arrayEntity: string) => {
 
     if (arrayEntity == 'type')
-      this._router.navigate(['/side-nav/stock-product-router/add-product-type']);
+      this._router.navigate(['/stock-product-router/add-product-type']);
 
     if (arrayEntity == 'segment')
       this.segments.push(this.formLoadSegment())

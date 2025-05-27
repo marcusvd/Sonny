@@ -14,7 +14,7 @@ import { RouterModule } from '@angular/router';
 
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 import { CaptchaComponent } from '../captcha/captcha.component';
 import { TitleDescriptionAuthComponent } from '../commons-components/title-description-auth.component';
 import { ForgotPassword } from '../dto/forgot-password';
@@ -49,16 +49,6 @@ export class ForgotPasswordComponent extends BaseForm implements OnInit {
 
   ) {
     super()
-  }
-
-  private _validatorMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this._validatorMessages
-  }
-
-  private _validatorCustom = ValidatorsCustom;
-  get validatorCustom() {
-    return this._validatorCustom
   }
 
 

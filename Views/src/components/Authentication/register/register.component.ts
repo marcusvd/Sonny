@@ -15,7 +15,7 @@ import { RouterModule } from '@angular/router';
 
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 import { CommunicationAlerts } from 'src/shared/services/messages/snack-bar.service';
 import { CaptchaComponent } from '../captcha/captcha.component';
 import { TitleDescriptionAuthComponent } from '../commons-components/title-description-auth.component';
@@ -38,7 +38,7 @@ import { ValidatorsMessagesAuthentication } from '../validators/validators-messa
     MatButtonModule,
     MatDividerModule,
     RouterModule,
-    
+
     NgIf,
     CaptchaComponent,
     TitleDescriptionAuthComponent
@@ -50,7 +50,7 @@ export class RegisterComponent extends BaseForm implements OnInit {
     private _auth: AuthenticationService,
     private _fb: FormBuilder,
     private _dialog: MatDialog,
-    
+
     private _communicationsAlerts: CommunicationAlerts,
   ) {super()}
 
@@ -59,12 +59,7 @@ export class RegisterComponent extends BaseForm implements OnInit {
   get validatorsMessagesAuthentication() {
     return this._validatorsMessagesAuthentication
   }
-
-  private _validatorMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this._validatorMessages
-  }
-
+  
   private _validatorCustom = ValidatorsCustom;
   get validatorCustom() {
     return this._validatorCustom

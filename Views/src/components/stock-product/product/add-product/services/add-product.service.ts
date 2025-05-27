@@ -47,7 +47,7 @@ export class AddProductService extends BackEndService<ProductDto> {
           quantity:1
 
         });
-        //  this._route.navigateByUrl(`/side-nav/stock-product-router/add-item-product`)
+        //  this._route.navigateByUrl(`/stock-product-router/add-item-product`)
       },
       error: (erroCode) => {
         console.log(erroCode)

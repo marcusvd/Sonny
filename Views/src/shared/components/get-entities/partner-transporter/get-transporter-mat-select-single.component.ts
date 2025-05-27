@@ -10,7 +10,7 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { Observable } from 'rxjs/internal/Observable';
 import { PartnerDto } from 'src/components/main/partner/commons-components/dtos/partner-dto';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 import { PartnerTransporterGetService } from './partner-transporter-get.service';
 
 @Component({
@@ -20,7 +20,7 @@ import { PartnerTransporterGetService } from './partner-transporter-get.service'
     MatSelectModule,
     NgxMatSelectSearchModule,
     ReactiveFormsModule,
-    
+
     CommonModule
   ],
   template: `
@@ -49,7 +49,7 @@ export class GetTransporterMatSelectSingleComponent extends BaseForm implements 
   constructor(
     private _partnerService: PartnerTransporterGetService,
     private _fb: FormBuilder,
-    
+
   ) {super()}
 
 
@@ -57,11 +57,6 @@ export class GetTransporterMatSelectSingleComponent extends BaseForm implements 
     this.$transporters = this._partnerService.getAll(this.companyId.toString(), `partners/${this.urlBackEndApi}`);
   }
 
-
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
 
   @Input() override formMain: FormGroup;
   urlBackEndApi: string = 'GetAllTransportersByCompanyIdAsync';

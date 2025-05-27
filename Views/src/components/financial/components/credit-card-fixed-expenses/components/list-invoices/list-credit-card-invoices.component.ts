@@ -116,8 +116,8 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
   backEndUrl: string = `${this.controllerUrl}/GetAllCreditCardExpensesByCompanyId`;
   override  entities: ListCreditCardInvoiceDto[] = [];
   override entities$: Observable<ListCreditCardInvoiceDto[]>;
-   listViewExpensesUrlRoute: string = '/side-nav/financial/list-credit-card-expenses';
-  // override addUrlRoute: string = '/side-nav/financial/add-credit-card-expenses';
+   listViewExpensesUrlRoute: string = '/financial/list-credit-card-expenses';
+  // override addUrlRoute: string = '/financial/add-credit-card-expenses';
 
 
   listCreditCardExpenseInvoice: CreditCardExpenseInvoiceDto[] = [];

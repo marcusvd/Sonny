@@ -15,7 +15,7 @@ import { MatInputModule as MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 import { TitleDescriptionAuthComponent } from '../commons-components/title-description-auth.component';
 import { MyUser } from '../dto/my-user';
 import { AuthenticationService } from '../services/authentication.service';
@@ -52,12 +52,7 @@ export class LoginComponent extends BaseForm implements OnInit {
   override formMain: FormGroup;
 
   spaceLogoTitle: string;
-  fxLayoutDirection:string='row';
-  private _validatorMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this._validatorMessages
-  }
-
+  
   private _validatorCustom = ValidatorsCustom;
   get validatorCustom() {
     return this._validatorCustom

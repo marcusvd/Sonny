@@ -101,10 +101,10 @@ export class ListControlCustomerList extends BaseList {
 
   onClickIcons(obj: OnClickInterface) {
     if (obj.action.split('|')[0] == 'edit')
-      this.callRouter(`/side-nav/customer/edit/${obj.entityId}`);
+      this.callRouter(`/customer/edit/${obj.entityId}`);
 
     // if (obj.action.split('|')[0] == 'zoom_in') {
-    //   this.callRouter(`/side-nav/customer/view/${obj.entityId}`);
+    //   this.callRouter(`/customer/view/${obj.entityId}`);
     // }
 
     if (obj.action.split('|')[0] == 'delete')

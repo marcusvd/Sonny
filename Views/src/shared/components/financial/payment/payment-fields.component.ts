@@ -66,10 +66,7 @@ export class PaymentFieldsComponent extends BaseForm implements OnInit {
     super()
     this.formMain = _fb.group({})
   }
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
 
 
   @Input() interestShow: boolean = true;

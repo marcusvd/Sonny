@@ -249,7 +249,7 @@ export class ListControlProduct extends BaseList {
 
   onClickIcons(obj: OnClickInterface) {
 
-    ex_callRouteWithObject('/side-nav/stock-product-router/detailed-product', this.products.find(x => x.id == obj.entityId), this._router)
+    ex_callRouteWithObject('/stock-product-router/detailed-product', this.products.find(x => x.id == obj.entityId), this._router)
 
   }
 

@@ -29,8 +29,8 @@ export class ListControlFinancingsLoansExpenses extends BaseList {
   entitiesFiltered$: Observable<ListFinancingsLoansExpensesDto[]>;
   entitiesFiltered: ListCreditCardInvoiceDto[] = [];
 
-  viewListUrlRoute: string = '/side-nav/financial/list-financings-loans-expenses-installment';
-  addUrlRoute: string = '/side-nav/financial/add-financings-loans-expenses';
+  viewListUrlRoute: string = '/financial/list-financings-loans-expenses-installment';
+  addUrlRoute: string = '/financial/add-financings-loans-expenses';
 
   length = 0;
   showHideFilter = false;
@@ -146,7 +146,7 @@ export class ListControlFinancingsLoansExpenses extends BaseList {
   onClickIcons(obj: OnClickInterface) {
 
     if (obj.action.split('|')[0] == 'edit') {
-      this.callRouter(`/side-nav/customer/edit/${obj.entityId}`);
+      this.callRouter(`/customer/edit/${obj.entityId}`);
 
     }
 

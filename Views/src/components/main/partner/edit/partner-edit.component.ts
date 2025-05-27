@@ -29,7 +29,7 @@ import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-t
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { PhoneHandlers } from "src/shared/helpers/handlers/phone-handlers";
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 import { FinancialInfoTypeComponent } from '../../customer/components/commons-components/financial-info-type/financial-info-type.component';
 import { MainEntitiesBaseComponent } from '../../inheritances/main-entities-base/main-entities-base.component';
 import { PhysicallyMovingCostsComponent } from '../../inheritances/physically-moving-costs/physically-moving-costs.component';
@@ -91,10 +91,7 @@ export class PartnerEditComponent extends BaseForm implements OnInit {
 
   ) {super()}
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
 
   private valCustom = ValidatorsCustom;
   get validatorCustom() {

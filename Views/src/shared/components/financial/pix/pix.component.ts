@@ -14,7 +14,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { PixDto } from 'src/components/financial/components/bank-account-cards/dto/pix-dto';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 import { BtnGComponent } from '../../btn-g/btn-g.component';
 import { PixValidator } from './pix.validator';
 
@@ -188,10 +188,7 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
     form.get('value').setValue(null);
   }
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
 
   ngOnInit(): void {
 

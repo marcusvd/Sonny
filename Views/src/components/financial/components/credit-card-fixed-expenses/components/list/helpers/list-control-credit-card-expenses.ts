@@ -144,12 +144,12 @@ export class ListControlCreditCardExpenses extends BaseList {
     console.log(obj.action)
 
     if (obj.action.split('|')[0] == 'edit') {
-      this.callRouter(`/side-nav/customer/edit/${obj.entityId}`);
+      this.callRouter(`/customer/edit/${obj.entityId}`);
 
     }
 
     if (obj.action.split('|')[0] == 'list') {
-      this.callRouter(`/side-nav/financial/list-credit-card-expenses/${obj.entityId}`);
+      this.callRouter(`/financial/list-credit-card-expenses/${obj.entityId}`);
       console.log(obj.entityId)
     }
 

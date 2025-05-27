@@ -23,7 +23,7 @@ import { Add } from 'src/shared/components/inheritance/add/add';
 
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
+
 import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
 import { LinkCopyBillComponent } from '../../../common-components/link-copy-bill/link-copy-bill.component';
 import { MonthlyFixedExpensesService } from './services/monthly-fixed-expenses.service';
@@ -72,13 +72,10 @@ export class MonthlyFixedExpensesAddComponent extends Add implements OnInit {
 
   payCycle = PayCycleEnumDto.Month;
 
-  private valMessages = ValidatorMessages;
-  get validatorMessages() {
-    return this.valMessages
-  }
+  
 
   add() {
-    this._router.navigateByUrl('/side-nav/financial/category-expenses-add-edit')
+    this._router.navigateByUrl('/financial/category-expenses-add-edit')
   }
 
   formLoad() {
