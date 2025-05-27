@@ -9,7 +9,6 @@ import { RouterModule, Routes } from "@angular/router";
 // import { EletronicRepairComponent } from "src/components/out-sourced/eletronic-repair/component/eletronic-repair.component";
 import { GetTotalEntitiesResolver } from "src/shared/components/grid-list-common/helpers/grid-list-common-helper";
 import { PartnerCreateComponent } from "../add/partner-create.component";
-import { PartnerDashComponent } from "../dash/partner-dash.component";
 import { PartnerEditComponent } from "../edit/partner-edit.component";
 import { PartnerListComponent } from "../list/partner-list.component";
 
@@ -17,8 +16,8 @@ import { PartnerListComponent } from "../list/partner-list.component";
 
 
 const RoutesPartner: Routes = [
-  {
-    path: '', component: PartnerDashComponent, children: [
+  
+
       { path: 'create-partner', component: PartnerCreateComponent },
       { path: 'list-partner/:id', component: PartnerListComponent, resolve:{loaded: GetTotalEntitiesResolver}, data:{url:'partners/GetTotalPartnersByIdCompanyAsync'}},
       { path: 'edit-partner/:id', component: PartnerEditComponent},
@@ -28,8 +27,6 @@ const RoutesPartner: Routes = [
       // { path: 'list-collect-deliver/:id', component: CollectDeliverListComponent },
       // { path: 'edit-collect-deliver/:id', component: CollectDeliverEditComponent },
       // { path: 'view-collect-deliver/:id', component: CollectDeliverViewComponent },
-    ]
-  },
 ]
 
 @NgModule({

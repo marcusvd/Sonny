@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { UserIsAuthenticatedGuard } from 'src/shared/guards/user-is-authenticatedGuard';
 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [RouterOutlet, RouterModule],
 })
 export class AppComponent implements OnInit {
 
@@ -19,7 +22,8 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  //  this._router.navigateByUrl('side-nav/login')
+  //  this._router.navigateByUrl('/')
+  //  this._router.navigateByUrl('/customer')
   }
 
 

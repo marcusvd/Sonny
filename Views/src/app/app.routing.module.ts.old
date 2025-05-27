@@ -1,0 +1,40 @@
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from "src/components/authentication/login/login.component";
+import { authGuard } from "../components/authentication/guards/auth-guard";
+import { SideNavComponent } from "src/shared/components/side-nav/components/side-nav.component";
+import { UnknownRouteComponent } from "src/shared/components/unknown-route/unknown-route.component";
+const routes: Routes = [
+  //{ path: '', redirectTo: 'side-nav/login', pathMatch: 'full' },
+  //  { path: '', redirectTo: 'first', pathMatch: 'full' },
+  // { path: 'side-nav/login', component: LoginComponent },
+
+];
+
+
+// export const routes: Routes = [
+//   { path: 'login', component: LoginComponent },
+//   { path: 'unknown-route', component: UnknownRouteComponent },
+//   {
+//     path: '', component: SideNavComponent,
+//     canActivate: [authGuard],
+//     children: [
+//            {
+//         path: 'customers',
+//         loadChildren: () => import('../components/main/customer/modules/customer.routing.module').then(x => x.CustomerRoutingModule),
+//       }
+//     ]
+//   },
+//   {path: '**', redirectTo: 'unknown-route'}
+// ]
+
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+
+
+

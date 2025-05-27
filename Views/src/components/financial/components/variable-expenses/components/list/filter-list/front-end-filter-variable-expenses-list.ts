@@ -1,7 +1,7 @@
 import * as diacritics from 'diacritics';
 import { Observable, of } from "rxjs";
 import { map } from 'rxjs/operators';
-import { VariableExpensesListGridDto } from '../dto/variable-expenses-list-grid-dto';
+import { ListVariableExpensesDto } from '../dto/list-variable-expenses-dto';
 import { List } from 'src/shared/components/inheritance/list/list';
 import { FormControl } from '@angular/forms';
 import {PageEvent as PageEvent } from '@angular/material/paginator';
@@ -32,36 +32,36 @@ export class FrontEndFilterVariableExpenseslist extends List {
     const endIndex = startIndex + pageSize;
     if (this.termSearched)
       this.applyFilterOnPageChangeMonthlySearchByTerm(month, startIndex, endIndex);
-    else {
-      if (event.previousPageIndex < event.pageIndex)
-        this.applyFilterOnPageChangeMonthly(this.entities, month, startIndex, endIndex)
+    // else {
+    //   if (event.previousPageIndex < event.pageIndex)
+    //     this.applyFilterOnPageChangeMonthly(this.entities, month, startIndex, endIndex)
 
-      else if (event.previousPageIndex > event.pageIndex)
-        this.applyFilterOnPageChangeMonthly(this.entities, month, startIndex, endIndex)
-    }
-  
+    //   else if (event.previousPageIndex > event.pageIndex)
+    //     this.applyFilterOnPageChangeMonthly(this.entities, month, startIndex, endIndex)
+    // }
+
   }
-  private applyFilterOnPageChangeMonthly(entities: VariableExpensesListGridDto[], month: number, startIndex: number, endIndex: number) {
-    if (month != -1) {
-      const result = entities.filter(x =>
-        this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear()
-        && new Date(x.paidDay).getMonth() == month)
+  // private applyFilterOnPageChangeMonthly(entities: ListVariableExpensesDto[], month: number, startIndex: number, endIndex: number) {
+  //   if (month != -1) {
+  //     const result = entities.filter(x =>
+  //       this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear()
+  //       && new Date(x.paidDay).getMonth() == month)
 
-      const ordered = this.arrayOrderByDate(result, 'paidDay')
+  //     const ordered = this.arrayOrderByDate(result, 'paidDay')
 
-      this.entities$ = of(ordered.slice(startIndex, endIndex))
-    }
+  //     this.entities$ = of(ordered.slice(startIndex, endIndex))
+  //   }
 
-    if (month == -1) {
-      const result = entities.filter(x =>
-        this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear()
-        && new Date(x.paidDay).getMonth() <= this.currentDate.getMonth())
+  //   if (month == -1) {
+  //     const result = entities.filter(x =>
+  //       this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear()
+  //       && new Date(x.paidDay).getMonth() <= this.currentDate.getMonth())
 
-      const ordered = this.arrayOrderByDate(result, 'paidDay')
+  //     const ordered = this.arrayOrderByDate(result, 'paidDay')
 
-      this.entities$ = of(ordered.slice(startIndex, endIndex))
-    }
-  }
+  //     this.entities$ = of(ordered.slice(startIndex, endIndex))
+  //   }
+  // }
   private applyFilterOnPageChangeMonthlySearchByTerm(month: number, startIndex: number, endIndex: number) {
     let result = null;
 
@@ -91,36 +91,36 @@ export class FrontEndFilterVariableExpenseslist extends List {
     this.entities$ = result;
   }
 
-  override onSelectedMonth(entities: VariableExpensesListGridDto[], selectedMonth: number) {
-    let result = null;
+  // override onSelectedMonth(entities: ListVariableExpensesDto[], selectedMonth: number) {
+  //   let result = null;
 
-    if (selectedMonth != -1) {
+  //   if (selectedMonth != -1) {
 
-      result = entities.filter(x =>
-        this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear()
-        && new Date(x.paidDay).getMonth() == selectedMonth)
+  //     result = entities.filter(x =>
+  //       this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear()
+  //       && new Date(x.paidDay).getMonth() == selectedMonth)
 
-      this.gridListCommonHelper.lengthPaginator.next(result.length)
+  //     this.gridListCommonHelper.lengthPaginator.next(result.length)
 
-      const ordered = this.arrayOrderByDate(result, 'paidDay')
+  //     const ordered = this.arrayOrderByDate(result, 'paidDay')
 
-      result = of(ordered.slice(0, this.pageSize))
-    }
+  //     result = of(ordered.slice(0, this.pageSize))
+  //   }
 
-    if (selectedMonth == -1) {
+  //   if (selectedMonth == -1) {
 
-      result = entities.filter(x =>
-        this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear()
-        && new Date(x.paidDay).getMonth() <= this.currentDate.getMonth())
+  //     result = entities.filter(x =>
+  //       this.currentDate.getFullYear() == new Date(x.paidDay).getFullYear()
+  //       && new Date(x.paidDay).getMonth() <= this.currentDate.getMonth())
 
-      this.gridListCommonHelper.lengthPaginator.next(result.length)
+  //     this.gridListCommonHelper.lengthPaginator.next(result.length)
 
-      const ordered = this.arrayOrderByDate(result, 'paidDay')
+  //     const ordered = this.arrayOrderByDate(result, 'paidDay')
 
-      result = of(ordered.slice(0, this.pageSize));
-    }
-    return result;
-  }
+  //     result = of(ordered.slice(0, this.pageSize));
+  //   }
+  //   return result;
+  // }
 
   query($event: FormControl, month: number) {
     this.termSearched = $event.value

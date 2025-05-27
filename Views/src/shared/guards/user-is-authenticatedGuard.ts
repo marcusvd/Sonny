@@ -2,10 +2,10 @@ import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from "@angular/router";
 
 
-import { AuthenticationService } from "src/components/authentication/services/authentication.service";
+import { AuthenticationService } from "../../components/authentication/services/authentication.service";
 
 @Injectable()
-export class UserIsAuthenticatedGuard  {
+export class UserIsAuthenticatedGuard {
 
   constructor(
     private _router: Router,
@@ -13,10 +13,9 @@ export class UserIsAuthenticatedGuard  {
   ) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    if (this._auth.currentUser?.authenticated) {
-      return true;
-    }
-    this._router.navigate(['/first']);
-      return false;
+    if (this._auth.currentUser?.authenticated) return this._auth.currentUser?.authenticated;
+    else
+      this._router.navigate(['/login']);
+    return false;
   }
 }

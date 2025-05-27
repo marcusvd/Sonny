@@ -20,16 +20,16 @@ import { TitleDescriptionAuthComponent } from '../commons-components/title-descr
 import { MyUser } from '../dto/my-user';
 import { AuthenticationService } from '../services/authentication.service';
 import { FooterLoginComponent } from './footer-login.component';
+import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 
 
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.scss'],
   standalone: true,
   imports: [
     MatCardModule,
-
     ReactiveFormsModule,
     MatIconModule,
     CommonModule,
@@ -37,6 +37,7 @@ import { FooterLoginComponent } from './footer-login.component';
     MatInputModule,
     MatFormFieldModule,
     RouterModule,
+    BtnGComponent,
     TitleDescriptionAuthComponent,
     FooterLoginComponent
   ]

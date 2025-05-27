@@ -219,7 +219,7 @@ export class AuthenticationService extends BackEndService<MyUser> {
           this.setItemLocalStorage(user.companyId, "companyId");
           // this.getStockIdByCompanyId();
 
-          this._router.navigateByUrl('side-nav');
+          this._router.navigateByUrl('/');
 
           this._communicationsAlerts.defaultSnackMsg('4', 0, null, 4);
 

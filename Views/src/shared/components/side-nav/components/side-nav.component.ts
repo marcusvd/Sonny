@@ -12,6 +12,7 @@ import { SideMenuLargeComponent } from './common-components/side-menu-large/side
 import { SideMenuTopLargeComponent } from './common-components/side-menu-large/top-large/top-large.component';
 import { SideMenuSlimComponent } from './common-components/side-menu-slim/side-menu-slim.component';
 import { SideMenuTopSlimComponent } from './common-components/side-menu-slim/top-slim/top-slim.component';
+import { UserIsAuthenticatedGuard } from 'src/shared/guards/user-is-authenticatedGuard';
 
 @Component({
   selector: 'sideNav',
@@ -29,6 +30,7 @@ import { SideMenuTopSlimComponent } from './common-components/side-menu-slim/top
     SideMenuTopLargeComponent,
     SideMenuTopSlimComponent
   ],
+
 })
 export class SideNavComponent extends BaseForm implements OnInit, AfterViewInit {
 
@@ -63,7 +65,7 @@ export class SideNavComponent extends BaseForm implements OnInit, AfterViewInit 
         for (let entry of entries) {
           const width = entry.contentRect.width;
           //console.log('Sidenav width:', width);
-          
+
           this.matSidenavContainerPaddingL = width > 238;
         }
       });

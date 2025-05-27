@@ -1,56 +1,74 @@
-<div class="border-around main-height"   >
-    <mat-card  >
+<div class="p-4">
+    <!-- <mat-card>
         <title-description-auth title class="font-title" [icon]="'language'" [title]="'Sonny App'" [styleContainerTitle]="'padding-top:8px;'" [titleStyle]="'font-family: Mynerve; font-size: 24px;'" [height]="'height:60px'"></title-description-auth>
-        <div class="space-title-logo"></div>
-
-        <div >
-            <div  >
-                <h1 class="title">Acesso ao sistema</h1>
+         -->
+    <mat-card class="title border-card-categories-divide-comp">
+        <div class="title-conf">
+            <div>
+                <mat-icon class="icon-title">language</mat-icon>
+            </div>
+            <div style="width:100%">
+                <div style="display: flex; justify-content: center; align-content: center; font-size:40px;">
+                    <span>{{'Sonny'}}</span>
+                </div>
             </div>
         </div>
+        <div class="p-4 flex justify-center">
+            <div>
+                <h3 class="mouse-pointer" [routerLink]="['register']"> Cadastrar</h3>
+            </div>
+        </div>
+
         <div class="space-form-title-logo"></div>
-        <div  [formGroup]="formMain">
-            <div >
-                <mat-form-field  appearance="outline">
-                    <mat-label>
-                        <mat-icon>email</mat-icon> <b>Email</b>
-                    </mat-label>
-                    <input matInput type="text" formControlName="userName" aria-label="userName">
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'userName', '')}}</span>
-                    </mat-error>
-                </mat-form-field>
-            </div>
+        <div [formGroup]="formMain">
 
-            <div >
-                <mat-form-field  appearance="outline">
-                    <mat-label>
-                        <mat-icon>https</mat-icon> <b> Senha</b>
-                    </mat-label>
-                    <input matInput type="password" formControlName="password" aria-label="Senha">
-                    <mat-error>
-                        <span>{{validatorMessages.required(formMain,'password', '')}}</span>
-                    </mat-error>
-                </mat-form-field>
-            </div>
 
-            <div >
-                <div >
-                    <h3 class="mouse-pointer" [routerLink]="['register']"> Cadastrar</h3>
-                </div>
-                <div>
+            <mat-card class="m-4 border-card-categories-divide-comp">
+                <div class="w-full grid sm:grid-cols-2 grid-cols-1 gap-4 p-10 ">
+
+                    <div class="w-full">
+                        <mat-label>
+                            <b>Email</b></mat-label>
+                        <mat-form-field class="w-full" appearance="outline">
+                            <input matInput type="text" formControlName="userName" aria-label="userName">
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain,'userName', '')}}</span>
+                            </mat-error>
+                            <mat-icon class="input-icons" matPrefix>email</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="w-full">
+                        <mat-label>
+                            <b> Senha</b></mat-label>
+                        <mat-form-field class="w-full" appearance="outline">
+                            <input matInput type="password" formControlName="password" aria-label="Senha">
+                            <mat-error>
+                                <span>{{validatorMessages.required(formMain,'password', '')}}</span>
+                            </mat-error>
+                            <mat-icon class="input-icons" matPrefix>https</mat-icon>
+                        </mat-form-field>
+                    </div>
 
                 </div>
-                <div >
-                    <h3 class="mouse-pointer" [routerLink]="['forgot']">Esqueceu?</h3>
+                <div class="p-4 w-full">
+                    <div>
+                        <h3 class="mouse-pointer" [routerLink]="['forgot']">Esqueceu?</h3>
+                    </div>
+
                 </div>
-            </div>
+            </mat-card>
+
+
+
+
+
         </div>
-        <div >
+        <div>
             <h5 id="msg-login-error">{{loginErrorMessage}}</h5>
         </div>
-        <div >
-            <button mat-button class="btn-settings" (click)="login()"><span>Acessar</span></button>
+        <div class="p-4 flex justify-center">
+            <btn-g mat-dialog-close [name]="'Acessar'" [icon]="'lock_open'" (btn)="login()"></btn-g>
         </div>
     </mat-card>
 </div>

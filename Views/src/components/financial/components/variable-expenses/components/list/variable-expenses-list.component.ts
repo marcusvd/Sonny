@@ -93,7 +93,7 @@ export class VariableExpensesListComponent extends FrontEndFilterVariableExpense
     this.monthFilter = null;
     this.monthFilter = month;
     this.monthHideShowPendingRadio = month;
-    this.entities$ = this.onSelectedMonth(this.entities, this.monthFilter.id);
+    // this.entities$ = this.onSelectedMonth(this.entities, this.monthFilter.id);
   }
 
   queryFieldOutput($event: FormControl) {
