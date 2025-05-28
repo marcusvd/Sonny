@@ -1,62 +1,28 @@
 
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule as MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule as MatInputModule } from '@angular/material/input';
-import { MatSelectModule as MatSelectModule } from '@angular/material/select';
-import { MatTooltipModule as MatTooltipModule } from '@angular/material/tooltip';
-
-
-import { MatButtonModule as MatButtonModule } from '@angular/material/button';
-import { MatCardModule as MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule as MatCheckboxModule } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
-import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { CategoryExpensesService } from 'src/components/financial/services/category-expenses.service';
-import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-import { DateJustDayComponent } from 'src/shared/components/date-just-day/date-just-day.component';
-import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
-
-import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
-import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
-
 import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
-import { LinkCopyBillComponent } from '../../../common-components/link-copy-bill/link-copy-bill.component';
-import { MonthlyFixedExpensesService } from './services/monthly-fixed-expenses.service';
-
+import { AddMonthlyFixedExpensesService } from '../../components/add/services/add-monthly-fixed-expenses.service';
+import { AddDefaultImports, AddDefaultProviders } from '../../../../../../components/imports/add-default.imports';
+import { AddMonthlyFixedExpensesImports, AddMonthlyFixedExpensesProviders } from './imports/add-monthly-fixed-expenses.imports';
 
 @Component({
   selector: 'monthly-fixed-expenses',
   templateUrl: './monthly-fixed-expenses-add.component.html',
   styleUrls: ['./monthly-fixed-expenses-add.component.css'],
-  providers: [
-    MonthlyFixedExpensesService,
-    CategoryExpensesService
-  ],
   standalone: true,
   imports: [
-    CommonModule,
+    AddDefaultImports,
+    AddMonthlyFixedExpensesImports
 
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatButtonModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatTooltipModule,
-    CurrencyMaskModule,
-    TitleComponent,
-    SubTitleComponent,
-    DateJustDayComponent,
-    CategorySubcategoryExpensesSelectComponent,
-    LinkCopyBillComponent,
-    BtnGComponent
+  ],
+  providers: [
+    AddDefaultProviders,
+    AddMonthlyFixedExpensesProviders
   ],
 
 })
@@ -66,13 +32,13 @@ export class MonthlyFixedExpensesAddComponent extends Add implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _router: Router,
-    private _monthlyFixedExpensesService: MonthlyFixedExpensesService,
+    private _addMonthlyFixedExpensesService: AddMonthlyFixedExpensesService,
 
   ) {super()}
 
   payCycle = PayCycleEnumDto.Month;
 
-  
+
 
   add() {
     this._router.navigateByUrl('/financial/category-expenses-add-edit')
@@ -98,7 +64,7 @@ export class MonthlyFixedExpensesAddComponent extends Add implements OnInit {
   save() {
 
     if (this.alertSave(this.formMain)) {
-      this._monthlyFixedExpensesService.save(this.formMain);
+      this._addMonthlyFixedExpensesService.save(this.formMain);
       this.saveBtnEnabledDisabled = true;
     }
   }

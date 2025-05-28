@@ -1,40 +1,31 @@
 
-import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 
-import { FormControl, FormsModule } from '@angular/forms';
-import { MatButtonModule as MatButtonModule } from '@angular/material/button';
-import { MatCardModule as MatCardModule } from '@angular/material/card';
-import { MatCheckboxChange as MatCheckboxChange, MatCheckboxModule as MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialog as MatDialog } from '@angular/material/dialog';
-import { MatMenuModule as MatMenuModule } from '@angular/material/menu';
-import { MatPaginatorModule as MatPaginatorModule } from '@angular/material/paginator';
-import { MatRadioModule as MatRadioModule } from '@angular/material/radio';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Observable } from 'rxjs';
+import { FormControl } from '@angular/forms';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
 
 
 import { environment } from 'src/environments/environment';
-import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
-import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
-import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
 import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
 
 import { MonthsDto } from 'src/shared/components/months-select/months-dto';
-import { MonthsSelectComponent } from 'src/shared/components/months-select/months-select-g.component';
-import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
-import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
-import { FilterBtnRadioComponent } from '../../../common-components/filter-btn-radio/filter-btn-radio.component';
+import { ListDefaultImports, ListDefaultProviders } from '../../../../../imports/list-default.imports';
+import { ListMonthlyFixedExpensesImports, ListMonthlyFixedExpensesProviders } from '../../components/list/imports/list-monthly-fixed-expenses.imports';
 import { MonthlyFixedExpenseDto } from '../../dto/monthly-fixed-expense-dto';
-import { ListGridMonthlyFixedExpenseDto } from './dto/monthly-fixed-expense-tracking-list-grid-dto';
+import { ListControlMonthlyFixedExpenses } from '../../components/list/helpers/list-control-monthly-fixed-expenses';
 import { BackEndFilterMonthlyExpensesList } from './filter-list/back-end-filter-monthly-expenses-list';
 import { FrontEndListFilterMonthlyExpenses } from './filter-list/front-end-list-filter-monthly-expenses';
-import { ListMonthlyFixedExpensesService } from './services/list-monthly-fixed-expenses.service';
+
 import { TriggerPaymentMonthly } from './trigger-payment-monthly';
+import { ListMonthlyFixedExpensesService } from './services/list-monthly-fixed-expenses.service';
+import { DeleteServices } from 'src/shared/components/delete-dialog/services/delete.services';
+import { ListMonthlyFixedExpenseDto } from './dto/list-monthly-fixed-expense-dto';
 
 
 @Component({
@@ -43,68 +34,66 @@ import { TriggerPaymentMonthly } from './trigger-payment-monthly';
   styleUrls: ['./list-monthly-fixed-expenses.component.css'],
   standalone: true,
   imports: [
-    CommonModule,
-    FormsModule,
-    MatCardModule,
-    MatPaginatorModule,
-    MatButtonModule,
-    MatMenuModule,
-    RouterModule,
-
-    MatCheckboxModule,
-    MatRadioModule,
-    GridListCommonComponent,
-    GridListCommonTableComponent,
-    GridListCommonSearchComponent,
-    TitleComponent,
-    BtnGComponent,
-    SubTitleComponent,
-    MonthsSelectComponent,
-    FilterBtnRadioComponent
+    ListMonthlyFixedExpensesImports,
+    ListDefaultImports
   ],
   providers: [
-    ListMonthlyFixedExpensesService,
-    PtBrDatePipe,
-    PtBrCurrencyPipe,
+    ListMonthlyFixedExpensesProviders,
+    ListDefaultProviders
   ]
 
 })
-export class ListMonthlyFixedExpensesComponent extends FrontEndListFilterMonthlyExpenses implements OnInit, AfterViewInit {
-  constructor(
-    override _actRoute: ActivatedRoute,
-    override _router: Router,
-    private _http: HttpClient,
-    override _dialog: MatDialog,
-    private _ptBrDatePipe: PtBrDatePipe,
-    private _ptBrCurrencyPipe: PtBrCurrencyPipe,
-
-    override _listServices: ListMonthlyFixedExpensesService,
-  ) {
-    super(
-      _dialog,
-      _router,
-      _actRoute,
-      new GridListCommonHelper(_http),
-      ['', 'Vencimento', 'Despesa', 'Preço', 'Status'],
-      ['expiresView', 'name', 'price'],
-
-      _listServices
-    )
-  }
+export class ListMonthlyFixedExpensesComponent extends ListControlMonthlyFixedExpenses implements OnInit {
 
   controllerUrl: string = environment._MONTHLY_FIXED_EXPENSES.split('/')[4];
-  override backEndUrl: string = `${this.controllerUrl}/GetAllFixedExpensesByCompanyIdPagedAsync`;
-  override  entities: ListGridMonthlyFixedExpenseDto[] = [];
-  override entities$: Observable<ListGridMonthlyFixedExpenseDto[]>;
-  override viewUrlRoute: string = '/financial/view-monthly-fixed-expenses-tracking';
+  // override backEndUrl: string = `${this.controllerUrl}/GetAllFixedExpensesByCompanyIdPagedAsync`;
+  override  entities: ListMonthlyFixedExpenseDto[] = [];
+  override entities$: Observable<ListMonthlyFixedExpenseDto[]>;
+  // override viewUrlRoute: string = '/financial/view-monthly-fixed-expenses-tracking';
   override addUrlRoute: string = '/financial/monthly-fixed-expenses-add';
 
   workingBackEnd = new BackEndFilterMonthlyExpensesList();
 
   toPay: MonthlyFixedExpenseDto = null;
   listMonthlyFixedExpense: MonthlyFixedExpenseDto[] = [];
-  getEntityTopay(entity: ListGridMonthlyFixedExpenseDto) {
-    const monthlyExpense = this.listMonthlyFixedExpense.find(x => x.id == entity.id);
+
+  constructor(
+    override _router: Router,
+       override _http: HttpClient,
+       override _dialog: MatDialog,
+       override _deleteServices: DeleteServices,
+       override _ptBrDatePipe: PtBrDatePipe,
+       override _ptBrCurrencyPipe: PtBrCurrencyPipe,
+       private _actRoute: ActivatedRoute,
+       private _listServices: ListMonthlyFixedExpensesService,
+  ) {
+    super(
+      _http,
+      _router,
+      _dialog,
+      _deleteServices,
+      _ptBrDatePipe,
+      _ptBrCurrencyPipe,
+    )
+  }
+
+
+    monthlyFixedExpenseSubscribe: Subscription;
+    ngOnDestroy(): void {
+      this.monthlyFixedExpenseSubscribe?.unsubscribe();
+    }
+
+
+
+    ngOnInit(): void {
+      this.monthlyFixedExpenseSubscribe = this.startSupply(`${this.controllerUrl}/GetAllFixedExpensesByCompanyId`, this.companyId.toString());
+      // this.getCurrentEntitiesFromBackEnd(this._actRoute.snapshot.params['id'] as number);
+    }
+
+
+
+  getEntityTopay(entity: ListMonthlyFixedExpenseDto) {
+    const monthlyExpense = this.listMonthlyFixedExpense.find(x => x.id.toString() == entity.id.key );
 
     this.pay.entityToPay = monthlyExpense;
 
@@ -121,14 +110,14 @@ export class ListMonthlyFixedExpensesComponent extends FrontEndListFilterMonthly
   cleanRadios = false;
   filterClear() {
     this.onMonthSelectedclearFilters();
-    this.getCurrentPagedInFrontEnd();
+    // this.getCurrentPagedInFrontEnd();
     this.assembleMonth();
   }
 
   assembleMonth() {
     this.monthFilter = new MonthsDto();
-    this.monthFilter.id = this.months[this.currentDate.getMonth()].id;
-    this.monthFilter.name = this.months[this.currentDate.getMonth()].name;
+    // this.monthFilter.id = this.months[this.currentDate.getMonth()].id;
+    // this.monthFilter.name = this.months[this.currentDate.getMonth()].name;
     this.monthHideShowPendingRadio = this.monthFilter;
   }
 
@@ -143,22 +132,22 @@ export class ListMonthlyFixedExpensesComponent extends FrontEndListFilterMonthly
     this.monthFilter = null;
     this.monthFilter = month;
     this.monthHideShowPendingRadio = month;
-    this.entities$ = this.onSelectedMonth(this.entities, this.monthFilter.id);
+    // this.entities$ = this.onSelectedMonth(this.entities, this.monthFilter.id);
   }
 
   filterView(checkbox: MatCheckboxChange) {
-    if (checkbox.source.value == 'expired')
-      this.isExpires(this.monthFilter.id, 0, this.pageSize);
+    // if (checkbox.source.value == 'expired')
+    //   this.isExpires(this.monthFilter.id, 0, this.pageSize);
 
-    if (checkbox.source.value == 'pending')
-      this.isPending(this.monthFilter.id, 0, this.pageSize);
+    // if (checkbox.source.value == 'pending')
+    //   this.isPending(this.monthFilter.id, 0, this.pageSize);
 
-    if (checkbox.source.value == 'paid')
-      this.isPaid(this.monthFilter.id, 0, this.pageSize);
+    // if (checkbox.source.value == 'paid')
+    //   this.isPaid(this.monthFilter.id, 0, this.pageSize);
   }
 
   queryFieldOutput($event: FormControl) {
-    this.entities$ = this.query($event, this.monthFilter.id);
+    // this.entities$ = this.query($event, this.monthFilter.id);
   }
 
   get pedingRadioHide() {
@@ -168,40 +157,25 @@ export class ListMonthlyFixedExpensesComponent extends FrontEndListFilterMonthly
     return this.monthHideShowPendingRadio.id < this.currentDate.getMonth();
   }
 
-  getCurrentPagedInFrontEnd() {
-    this.getCurrentByCurrentYearAndEqualAndLessThenSelectedMonth(this.entities, 0, this.pageSize, this.monthFilter.id)
-  }
+  // getCurrentPagedInFrontEnd() {
+  //   this.getCurrentByCurrentYearAndEqualAndLessThenSelectedMonth(this.entities, 0, this.pageSize, this.monthFilter.id)
+  // }
 
-  getCurrentEntitiesFromBackEnd() {
-    const comapanyId: number = this.companyId;
-    this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllFixedExpensesByCompanyId`, comapanyId.toString());
+  // getCurrentEntitiesFromBackEnd() {
+  //   const comapanyId: number = this.companyId;
+  //   this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllFixedExpensesByCompanyId`, comapanyId.toString());
 
-    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: MonthlyFixedExpenseDto[]) => {
+  //   this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: MonthlyFixedExpenseDto[]) => {
 
-      x.forEach((xy: MonthlyFixedExpenseDto) => {
-        this.listMonthlyFixedExpense.push(xy)
-        this.entities.push(this.makeGridItems(xy));
-      })
-      this.getCurrentPagedInFrontEnd();
-    })
-  }
+  //     x.forEach((xy: MonthlyFixedExpenseDto) => {
+  //       this.listMonthlyFixedExpense.push(xy)
+  //       this.entities.push(this.makeGridItems(xy));
+  //     })
+  //     this.getCurrentPagedInFrontEnd();
+  //   })
+  // }
 
-  makeGridItems(xy: MonthlyFixedExpenseDto) {
-    const wasPaid: Date = new Date(xy.wasPaid)
-    const viewDto = new ListGridMonthlyFixedExpenseDto;
-    viewDto.wasPaid = xy.wasPaid;
-    viewDto.id = xy.id;
-    viewDto.name = xy.name;
-    viewDto.expires = xy.expires
-    viewDto.expiresView = this._ptBrDatePipe.transform(xy.expires, 'Date');
-    viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
 
-    return viewDto;
-  }
 
-  ngOnInit(): void {
-
-    this.getCurrentEntitiesFromBackEnd();
-  }
 
 }

@@ -1,30 +1,28 @@
 <div [formGroup]="formMain">
-    <div >
-        <mat-form-field  appearance="outline">
-            <mat-label>Link Segunda via</mat-label>
-            <input matInput type="text" formControlName="linkCopyBill" placeholder="Link Segunda via"
-                aria-label="Link Segunda via">
+    <div>
+        <mat-label>Link Segunda via</mat-label>
+        <mat-form-field class="w-full" appearance="outline">
+            <input matInput type="text" formControlName="linkCopyBill" placeholder="Link Segunda via" aria-label="Link Segunda via">
             <mat-error>
-                <span>{{validatorMessages.minMaxLength(formMain,'linkCopyBill', 'Link segunda
-                    via',null,150)}}</span>
+                <span>{{validatorMessages.minMaxLength(formMain,'linkCopyBill', 'Link segunda via',null,150)}}</span>
             </mat-error>
         </mat-form-field>
     </div>
-    <div    >
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-    
-            <mat-form-field  appearance="outline">
-                <mat-label>Usuário</mat-label>
+
+            <mat-label>Usuário</mat-label>
+            <mat-form-field class="w-full" appearance="outline">
                 <input matInput type="text" formControlName="userLinkCopyBill" aria-label="Usuário">
                 <mat-error>
                     <span>{{validatorMessages.minMaxLength(formMain,'userLinkCopyBill', 'Usuário',null,50)}}</span>
                 </mat-error>
             </mat-form-field>
-    
+
         </div>
         <div>
-            <mat-form-field  appearance="outline">
-                <mat-label>Senha</mat-label>
+            <mat-label>Senha</mat-label>
+            <mat-form-field class="w-full" appearance="outline">
                 <input matInput type="password" formControlName="passLinkCopyBill" aria-label="Senha">
                 <mat-error>
                     <span>{{validatorMessages.minMaxLength(formMain,'passLinkCopyBill', 'Senha',null,20)}}</span>

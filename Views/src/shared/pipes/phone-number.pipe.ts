@@ -8,7 +8,7 @@ import { Pipe, PipeTransform } from "@angular/core";
 export class PhoneNumberPipe implements PipeTransform {
 
 
-  eleven(value: string) {
+  private eleven(value: string) {
 
     const phoneNumber = value
 
@@ -20,7 +20,7 @@ export class PhoneNumberPipe implements PipeTransform {
     return mountedNumber;
   }
 
-  ten(value: string) {
+  private ten(value: string) {
 
     const phoneNumber = value
 

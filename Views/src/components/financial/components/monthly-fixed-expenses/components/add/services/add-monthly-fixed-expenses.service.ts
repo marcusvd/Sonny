@@ -4,13 +4,13 @@ import { FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 
 
-import { environment } from "src/environments/environment";
-import { BackEndService } from "src/shared/services/back-end/backend.service";
-import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
+import { environment } from "../../../../../../../environments/environment";
+import { BackEndService } from "../../../../../../../shared/services/back-end/backend.service";
+import { CommunicationAlerts } from "../../../../../../../shared/services/messages/snack-bar.service";
 import { MonthlyFixedExpenseDto } from "../../../dto/monthly-fixed-expense-dto";
 
 @Injectable()
-export class MonthlyFixedExpensesService extends BackEndService<MonthlyFixedExpenseDto>
+export class AddMonthlyFixedExpensesService extends BackEndService<MonthlyFixedExpenseDto>
 {
   constructor(
     override _http: HttpClient,
@@ -25,7 +25,7 @@ export class MonthlyFixedExpensesService extends BackEndService<MonthlyFixedExpe
 
     this.add$<MonthlyFixedExpenseDto>(toSave, 'AddFixedExpenses').subscribe({
       next: () => {
-        this._communicationsAlerts.defaultSnackMsg('0', 0, null, 4);
+        this._communicationsAlerts.defaultSnackMsg('0', 0, '0', 4);
           this._route.navigateByUrl(`/financial/list-monthly-fixed-expenses`)
       },
       error: (erroCode) => {

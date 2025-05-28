@@ -1,14 +1,15 @@
-<div class="border-around">
+<div class="space-around mb-14">
     <title-component [digit]="'|'" [textTitleComp]="'Despesa Mensal'" [icon]="'attach_money'">
         <btn-g btn-1 [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
     </title-component>
-    <mat-card [formGroup]="formMain" *ngIf="formMain">
-        <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
-        
-        <div >
-            <div>
-                <mat-form-field appearance="outline">
-                    <mat-label>Despesa</mat-label>
+    <mat-card class="sub-title-mat-card border-card-categories-divide-comp" [formGroup]="formMain" *ngIf="formMain">
+        <div class="sub-title">
+            <mat-icon class="mat-icon-left-subtitle">add</mat-icon> <span>{{'Cadastro'}}</span>
+        </div>
+        <div class="p-4 w-full grid sm:grid-cols-2 grid-cols-1 gap-4">
+            <div class="w-full">
+                <mat-label>Despesa</mat-label>
+                <mat-form-field class="w-full" appearance="outline">
                     <input matInput type="text" formControlName="name" aria-label="Descrição">
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'name', 'Nome')}}</span>
@@ -16,9 +17,9 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div>
-                <mat-form-field appearance="outline">
-                    <mat-label>Descrição</mat-label>
+            <div class="w-full">
+                <mat-label>Descrição</mat-label>
+                <mat-form-field class="w-full" appearance="outline">
                     <input matInput type="text" formControlName="description" aria-label="Descrição">
                     <mat-hint>EX: Seguro Casa, Seguro Escritório, Luz residência, Internet loja etc...</mat-hint>
                     <mat-error>
@@ -28,20 +29,22 @@
                 </mat-form-field>
             </div>
         </div>
-        <br>
-        <div >
-            <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle">
-            </select-category-subcategory-expenses>
-            <div>
-                <date-just-day [formMain]="formMain" [formCtrlName]="'expires'" [placeholder]="'00'" [labelTitle]="'Dia Vencimento'" [layoutColumnRow]="'column'">
+
+        <div class="p-4 w-full grid sm:grid-cols-[1fr_150px_150px] grid-cols-1 items-center gap-4">
+            <div class="w-full">
+                <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle">
+                </select-category-subcategory-expenses>
+            </div>
+            <div class="w-full">
+                <date-just-day [formMain]="formMain" [formCtrlName]="'expires'" [placeholder]="'00'" [labelTitle]="'Vencimento'" [layoutColumnRow]="'column'">
                     <div validation-error>
                         <span>{{validatorMessages.required(this.subForm,'expires', 'Dia Vencimento')}}</span>
                     </div>
                 </date-just-day>
             </div>
-            <div>
-                <mat-form-field appearance="outline">
-                    <mat-label>Valor</mat-label>
+            <div class="w-full">
+                <mat-label>Valor</mat-label>
+                <mat-form-field class="w-full" appearance="outline">
                     <input currencyMask matInput type="text" formControlName="price" aria-label="Valor">
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'price', 'Valor')}}</span>
@@ -49,11 +52,13 @@
                 </mat-form-field>
             </div>
         </div>
-        
-        <link-copy-bill [formMain]="formMain">
-        </link-copy-bill>
+        <div class="p-4">
+            <link-copy-bill [formMain]="formMain">
+            </link-copy-bill>
+        </div>
         <!-- <div>{{formMain.value | json}}</div> -->
-        <div >
+
+        <div class="flex justify-center pb-6">
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
         </div>
     </mat-card>
