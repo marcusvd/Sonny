@@ -1,9 +1,9 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
-import { BankAccountCardsAddComponent } from "../components/bank-account-cards/add/bank-account-cards-add.component";
-import { BankAccountCardsEditComponent } from "../components/bank-account-cards/edit/bank-account-cards-edit.component";
-import { BanksAccountsCardsListComponent } from "../components/bank-account-cards/list/banks-accounts-cards-list.component";
+import { AddBankAccountCardsComponent } from "../components/bank-account-cards/add/add-bank-account-cards.component";
+import { EditBankAccountCardsComponent } from "../components/bank-account-cards/edit/edit-bank-account-cards.component";
+import { ListBanksAccountsCardsComponent } from "../components/bank-account-cards/list/list-banks-accounts-cards.component";
 import { EditCategorySubcategoryExpensesComponent } from "../components/common-components/category-subcategory-expenses/edit/edit-category-subcategory-expenses.component";
 import { AddCreditCardExpensesComponent } from "../components/credit-card-fixed-expenses/components/add/add-credit-card-expenses.component";
 import { ListCreditCardExpensesComponent } from "../components/credit-card-fixed-expenses/components/list/list-credit-card-expenses.component";
@@ -12,8 +12,9 @@ import { MonthlyFixedExpensesAddComponent } from "../components/monthly-fixed-ex
 import { ListMonthlyFixedExpensesComponent } from "../components/monthly-fixed-expenses/components/list/list-monthly-fixed-expenses.component";
 import { PaymentMonthlyComponent } from "../components/monthly-fixed-expenses/components/payment-monthly/payment-monthly.component";
 import { ViewMonthlyFixedExpensesComponent } from "../components/monthly-fixed-expenses/components/view/view-monthly-fixed-expenses.component";
-import { VariableExpensesAddComponent } from "../components/variable-expenses/components/add/variable-expenses-add.component";
-import { VariableExpensesListComponent } from "../components/variable-expenses/components/list/variable-expenses-list.component";
+import { AddVariableExpensesAddComponent } from "../components/variable-expenses/components/add/add-variable-expenses.component";
+import { Listvariableexpensescomponent } from "../components/variable-expenses/components/list/list-variable-expenses.component";
+
 import { YearlyFixedExpensesAddComponent } from "../components/yearly-fixed-expenses/components/add/yearly-fixed-expenses-add.component";
 import { ListYearlyFixedExpensesComponent } from "../components/yearly-fixed-expenses/components/list/list-yearly-fixed-expenses.component";
 import { PaymentYearlyComponent } from "../components/yearly-fixed-expenses/components/payment-yearly/payment-yearly.component";
@@ -24,7 +25,7 @@ import { PaymentCreditCardsInvoicesComponent } from "../components/credit-card-f
 import { ListFinancingsLoansExpensesInstallmentComponent } from "../components/financings-loans-expenses/components/list-installment/list-financings-loans-expenses-installment.component";
 import { ListFinancingsLoansExpensesComponent } from "../components/financings-loans-expenses/components/list/list-financings-loans-expenses.component";
 import { PaymentFinancingsLoansInstallmentComponent } from "../components/financings-loans-expenses/components/payment-financings-loans-expenses-installment/payment-financings-loans-expenses-installment.component";
-import { PixExpensesAddComponent } from "../components/pix-expenses/components/add/pix-expenses-add.component";
+import { AddPixExpensesComponent } from "../components/pix-expenses/components/add/add-pix-expenses.component";
 import { PixExpensesListComponent } from "../components/pix-expenses/components/list/pix-expenses-list.component";
 
 
@@ -32,9 +33,9 @@ import { PixExpensesListComponent } from "../components/pix-expenses/components/
 
 const Routes: Routes = [
 
-  { path: 'create-bank-account-cards', component: BankAccountCardsAddComponent },
-  { path: 'edit-bank-account-cards/:id', component: BankAccountCardsEditComponent },
-  { path: 'list-bank-account-cards', component: BanksAccountsCardsListComponent },
+  { path: 'create-bank-account-cards', component: AddBankAccountCardsComponent },
+  { path: 'edit-bank-account-cards/:id', component: EditBankAccountCardsComponent },
+  { path: 'list-bank-account-cards', component: ListBanksAccountsCardsComponent },
 
   // { path: 'select-expenses/:id', component: SelectExpensesComponent },
 
@@ -46,7 +47,7 @@ const Routes: Routes = [
   { path: 'payment-credit-card-expenses', component: PaymentCreditCardsInvoicesComponent },
 
   { path: 'list-pix-expenses', component: PixExpensesListComponent },
-  { path: 'add-pix-expenses', component: PixExpensesAddComponent },
+  { path: 'add-pix-expenses', component: AddPixExpensesComponent },
 
   { path: 'list-monthly-fixed-expenses', component: ListMonthlyFixedExpensesComponent },
   { path: 'monthly-fixed-expenses-add', component: MonthlyFixedExpensesAddComponent },
@@ -63,8 +64,8 @@ const Routes: Routes = [
   { path: 'view-financings-loans-expenses', component: ViewExpensesGComponent },
   { path: 'payment-financings-loans', component: PaymentFinancingsLoansInstallmentComponent },
 
-  { path: 'add-variable-expenses', component: VariableExpensesAddComponent },
-  { path: 'list-variable-expenses', component: VariableExpensesListComponent },
+  { path: 'add-variable-expenses', component: AddVariableExpensesAddComponent },
+  { path: 'list-variable-expenses', component: Listvariableexpensescomponent },
 
 
   // { path: 'payment', component: PaymentComponent },

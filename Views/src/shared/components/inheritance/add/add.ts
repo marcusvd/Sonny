@@ -1,7 +1,7 @@
 
 import { Component } from '@angular/core';
 import * as diacritics from 'diacritics';
-import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
+import { BaseForm } from '../../../../shared/components/inheritance/forms/base-form';
 
 
 import { IAdd } from './iadd';

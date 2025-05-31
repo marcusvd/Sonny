@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 import { BankAccountDto } from "src/components/financial/components/bank-account-cards/dto/bank-account-dto";
 
 
-import { PartnerDto } from "src/components/main/partner/commons-components/dtos/partner-dto";
+import { PartnerDto } from "../../../../../components/main/partner/dtos/partner-dto";
 import { environment } from "src/environments/environment";
 import { BackEndService } from "src/shared/services/back-end/backend.service";
 

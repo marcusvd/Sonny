@@ -1,62 +1,37 @@
 
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule as MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule as MatInputModule } from '@angular/material/input';
-import { MatSelectModule as MatSelectModule } from '@angular/material/select';
-import { MatTooltipModule as MatTooltipModule } from '@angular/material/tooltip';
+import { FormBuilder, Validators } from '@angular/forms';
 
 
-import { MatButtonModule as MatButtonModule } from '@angular/material/button';
-import { MatCardModule as MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule as MatCheckboxModule } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
-import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { CategoryExpensesService } from 'src/components/financial/services/category-expenses.service';
-import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
+
 import { Add } from 'src/shared/components/inheritance/add/add';
 
-import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
-import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 
 import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
+import { AddDefaultImports, AddDefaultProviders, ListDefaultImports } from '../../../../../../components/imports/components-default.imports';
 import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
-import { LinkCopyBillComponent } from '../../../common-components/link-copy-bill/link-copy-bill.component';
-import { YearlyFixedExpensesService } from './services/yearly-fixed-expenses.service';
+import { AddYearlyFixedExpensesService } from './services/add-yearly-fixed-expenses.service';
 import { YearlyFixedExpensesAddValidator } from './validators/yearly-fixed-expenses-add.validator';
 
 @Component({
   selector: 'yearly-fixed-expenses',
   templateUrl: './yearly-fixed-expenses-add.component.html',
   styleUrls: ['./yearly-fixed-expenses-add.component.css'],
-  providers: [
-    YearlyFixedExpensesService,
-    CategoryExpensesService
-  ],
   standalone: true,
   imports: [
-    CommonModule,
 
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatButtonModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatDatepickerModule,
-    MatTooltipModule,
-    CurrencyMaskModule,
-    TitleComponent,
-    SubTitleComponent,
-    BtnGComponent,
-    CategorySubcategoryExpensesSelectComponent,
-    LinkCopyBillComponent
+    // TitleComponent,
+    // SubTitleComponent,
 
+    // CategorySubcategoryExpensesSelectComponent,
+    // LinkCopyBillComponent
+    AddDefaultImports,
+    ListDefaultImports
+  ],
+  providers: [
+    AddDefaultProviders
   ],
 
 })
@@ -67,14 +42,14 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
-    private _yearlyFixedExpensesService: YearlyFixedExpensesService,
+    private _addYearlyFixedExpensesService: AddYearlyFixedExpensesService,
 
     private _router: Router,
-  ) {super()}
+  ) { super() }
 
   payCycle = PayCycleEnumDto.Year;
 
-  
+
 
   private valYearlyAction = YearlyFixedExpensesAddValidator;
   get validatorYearlyAction() {
@@ -116,7 +91,7 @@ export class YearlyFixedExpensesAddComponent extends Add implements OnInit {
 
   save() {
     if (this.alertSave(this.formMain))
-      this._yearlyFixedExpensesService.save(this.formMain);
+      this._addYearlyFixedExpensesService.save(this.formMain);
   }
 
   ngOnInit(): void {

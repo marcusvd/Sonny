@@ -8,18 +8,18 @@ import { RouterModule, Routes } from "@angular/router";
 // import { CollectDeliverViewComponent } from "src/components/out-sourced/collect-deliver/components/view/collect-deliver-view.component";
 // import { EletronicRepairComponent } from "src/components/out-sourced/eletronic-repair/component/eletronic-repair.component";
 import { GetTotalEntitiesResolver } from "src/shared/components/grid-list-common/helpers/grid-list-common-helper";
-import { PartnerCreateComponent } from "../add/partner-create.component";
+import { AddPartnerComponent } from "../add/add-partner.component";
 import { PartnerEditComponent } from "../edit/partner-edit.component";
-import { PartnerListComponent } from "../list/partner-list.component";
+import { ListPartnerComponent } from "../list/list-partner.component";
 
 
 
 
 const RoutesPartner: Routes = [
-  
 
-      { path: 'create-partner', component: PartnerCreateComponent },
-      { path: 'list-partner/:id', component: PartnerListComponent, resolve:{loaded: GetTotalEntitiesResolver}, data:{url:'partners/GetTotalPartnersByIdCompanyAsync'}},
+
+      { path: 'create-partner', component: AddPartnerComponent },
+      { path: 'list-partner/:id', component: ListPartnerComponent, resolve:{loaded: GetTotalEntitiesResolver}, data:{url:'partners/GetTotalPartnersByIdCompanyAsync'}},
       { path: 'edit-partner/:id', component: PartnerEditComponent},
       // { path: 'create-eletronic-repair/:id', component: EletronicRepairComponent },
       // //outsourced

@@ -1,4 +1,4 @@
-import { MyUser } from "src/components/authentication/dto/my-user";
+import { MyUser } from "../../components/authentication/dto/my-user";
 import { CompanyDto } from "./company-dto";
 
 export abstract class RootBase {

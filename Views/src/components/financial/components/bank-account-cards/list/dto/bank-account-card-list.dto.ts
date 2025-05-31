@@ -1,5 +1,5 @@
 import { ItemsInterface } from "../../../../../../../src/shared/components/list-g/list/interfaces/items-interface";
-export class BankAccountCardListDto {
+export class ListBankAccountCardDto {
   id: ItemsInterface;
   holder: ItemsInterface;
   institution: ItemsInterface;

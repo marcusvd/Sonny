@@ -1,30 +1,21 @@
-<div class="border-around">
+<!-- <div class="border-around">
     <div class="around">
-        <title-component [digit]="'|'" [textTitleComp]="'Despesas Anuais'" [icon]="'attach_money'">
-        </title-component>
 
         <mat-card class="mat-card-sub-title">
             <grid-list-common>
                 <sub-title title [title]="'Contas a pagar'" [icon]="'list'"></sub-title>
                 <div search-filter>
-                    <div>
-                        <filter-radio-btns  [inputSetClearRadios]="cleanRadios" (radioChange)="filterView($event)">
-                        </filter-radio-btns>
-                    </div>
+
                     <div class="small-space-horizontal-beteween-fields"></div>
                     <div>
                         <div>
                             <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
                         </div>
-                        <div>
-                            <btn-g [name]="'Filtros'" [icon]="'clear'" (btn)="filterClear()"></btn-g>
-                        </div>
+
                         <div fxLayout="screenFieldPosition">
 
                         </div>
-                        <div >
-                            <btn-g btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="add()"></btn-g>
-                        </div>
+
 
                     </div>
                 </div>
@@ -64,3 +55,41 @@
     </div>
 
 </div>
+ -->
+
+
+<default-component *ngIf="entities$" [digitTitleComp]="'|'" [textTitleComp]="'Despesas Anuais'" [textSubTitleComp]="'Contas a pagar'" [iconSubTitleComp]="'list'">
+    <div btns>
+        <div class="p-4">
+            <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="callRouter(addUrlRoute)"></btn-g>
+        </div>
+
+        <div class="w-full grid sm:grid-cols-2 grid-cols-1 gap-4 pl-4 pr-4 items-center">
+
+            <div>
+                <filter-radio-btns [pedingRadioHide]="pedingRadioHide" [inputSetClearRadios]="cleanRadios" (radioChange)="filterView($event)">
+
+                </filter-radio-btns>
+            </div>
+            <div>
+                <btn-g [name]="'Filtros'" [btnType]="'red'" [icon]="'clear'" (btn)="filterClear()"></btn-g>
+            </div>
+
+        </div>
+
+        <!-- <div>
+            <filter-radio-btns [inputSetClearRadios]="cleanRadios" (radioChange)="filterView($event)">
+            </filter-radio-btns>
+        </div>
+        <div>
+           
+        </div>
+        <div>
+            <btn-g btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="add()"></btn-g>
+        </div> -->
+    </div>
+    <div body>
+        <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
+        </list-g>
+    </div>
+</default-component>

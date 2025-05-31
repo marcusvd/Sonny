@@ -1,34 +1,23 @@
 
-import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-
 import { FormControl } from '@angular/forms';
-import { MatCardModule as MatCardModule } from '@angular/material/card';
-import { MatDialog as MatDialog } from '@angular/material/dialog';
-import { MatPaginatorModule as MatPaginatorModule } from '@angular/material/paginator';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
-import { environment } from 'src/environments/environment';
-import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
-import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
-import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
-import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
-
-import { MonthsDto } from 'src/shared/components/months-select/months-dto';
-import { MonthsSelectComponent } from 'src/shared/components/months-select/months-select-g.component';
-import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
-import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
-import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
-import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
-import { PixExpenseDto } from '../../dto/pix-expense-dto';
-import { PixExpenseListGridDto } from './dto/pix-expense-list-grid-dto';
+import { ListDefaultImports, ListDefaultProviders } from '../../../../../../components/imports/components-default.imports';
+import { environment } from '../../../../../../environments/environment';
+import { MonthsDto } from '../../../../../../shared/components/months-select/months-dto';
+import { PtBrCurrencyPipe } from '../../../../../../shared/pipes/pt-br-currency.pipe';
+import { PtBrDatePipe } from '../../../../../../shared/pipes/pt-br-date.pipe';
+import { ListPixExpensesImports, ListPixExpensesProviders } from '../../../pix-expenses/components/list/imports/list-pix-expenses.imports';
+import { Subscription } from 'rxjs';
+import { DeleteServices } from 'src/shared/components/delete-dialog/services/delete.services';
+import { ListControlPixExpenses } from '../../components/list/helpers/list-control-pix-expenses';
 import { BackEndFilterPixExpensesList } from './filter-list/back-end-filter-pix-expenses-list';
-import { FrontEndFilterPixExpenseslist } from './filter-list/front-end-filter-pix-expenses-list';
-import { PixExpensesListService } from './services/pix-expenses-list.service';
+import { ListPixExpensesService } from './services/list-pix-expenses.service';
+import { ListPixExpenseDto } from './dto/list-pix-expense-dto';
 
 
 @Component({
@@ -37,58 +26,55 @@ import { PixExpensesListService } from './services/pix-expenses-list.service';
   styleUrls: ['./pix-expenses-list.component.css'],
   standalone: true,
   imports: [
-    CommonModule,
-    MatCardModule,
-    MatPaginatorModule,
-    RouterModule,
-
-    // PtBrDatePipe,
-    GridListCommonComponent,
-    GridListCommonTableComponent,
-    GridListCommonSearchComponent,
-    TitleComponent,
-    SubTitleComponent,
-    BtnGComponent,
-    MonthsSelectComponent,
-    // FilterBtnRadioComponent
+    ListDefaultImports,
+    ListPixExpensesImports
   ],
   providers: [
-    PtBrDatePipe,
-    PtBrCurrencyPipe,
-    PixExpensesListService
+    ListDefaultProviders,
+    ListPixExpensesProviders
   ]
 
 })
-export class PixExpensesListComponent extends FrontEndFilterPixExpenseslist implements OnInit {
+export class PixExpensesListComponent extends ListControlPixExpenses implements OnInit {
 
+  pixExpenseSubscribe: Subscription;
   controllerUrl: string = environment._FN_PIXES_EXPENSES.split('/')[4];
   workingBackEnd = new BackEndFilterPixExpensesList();
+  addUrlRoute: string = '/financial/add-pix-expenses';
 
   constructor(
-    private _route: ActivatedRoute,
     override _router: Router,
-    private _http: HttpClient,
+    override _http: HttpClient,
     override _dialog: MatDialog,
-    private _ptBrDatePipe: PtBrDatePipe,
-    private _ptBrCurrencyPipe: PtBrCurrencyPipe,
-    override _actRoute: ActivatedRoute,
-
-    override _listServices: PixExpensesListService,
+    override _deleteServices: DeleteServices,
+    override _ptBrDatePipe: PtBrDatePipe,
+    override _ptBrCurrencyPipe: PtBrCurrencyPipe,
+    private _actRoute: ActivatedRoute,
+    private _listServices: ListPixExpensesService,
 
   ) {
     super(
-      _dialog,
+      _http,
       _router,
-      _actRoute,
-      new GridListCommonHelper(_http),
-      ['','Dia','Preço','Pix Saída','Beneficiado',],['expenseDay','price','pixOutId','benefitedName'],
-
-      _listServices
+      _dialog,
+      _deleteServices,
+      _ptBrDatePipe,
+      _ptBrCurrencyPipe,
     )
   }
 
-  override addUrlRoute: string = '/financial/add-pix-expenses';
 
+
+    ngOnDestroy(): void {
+      this.pixExpenseSubscribe?.unsubscribe();
+    }
+
+
+
+    ngOnInit(): void {
+      this.pixExpenseSubscribe = this.startSupply(`${this.controllerUrl}/GetAllPixesExpensesByCompanyId`, this.companyId.toString());
+      // this.getCurrentEntitiesFromBackEnd(this._actRoute.snapshot.params['id'] as number);
+    }
 
   clearSearchField = false;
   filterClear() {
@@ -98,10 +84,10 @@ export class PixExpensesListComponent extends FrontEndFilterPixExpenseslist impl
   }
 
   assembleMonth() {
-    this.monthFilter = new MonthsDto();
-    this.monthFilter.id = this.months[this.currentDate.getMonth()].id;
-    this.monthFilter.name = this.months[this.currentDate.getMonth()].name;
-    this.monthHideShowPendingRadio = this.monthFilter;
+    // this.monthFilter = new MonthsDto();
+    // this.monthFilter.id = this.months[this.currentDate.getMonth()].id;
+    // this.monthFilter.name = this.months[this.currentDate.getMonth()].name;
+    // this.monthHideShowPendingRadio = this.monthFilter;
   }
 
   monthFilter = new MonthsDto();
@@ -110,23 +96,23 @@ export class PixExpensesListComponent extends FrontEndFilterPixExpenseslist impl
     this.monthFilter = null;
     this.monthFilter = month;
     this.monthHideShowPendingRadio = month;
-    this.entities$ = this.onSelectedMonth(this.entities, this.monthFilter.id,'expenseDayToFilter');
+    this.entities$ = this.onSelectedMonth(this.entities, this.monthFilter.id, 'expenseDayToFilter');
   }
 
   queryFieldOutput($event: FormControl) {
-    this.entities$ = this.query($event, this.monthFilter.id);
+    // this.entities$ = this.query($event, this.monthFilter.id);
   }
 
   getCurrentPagedInFrontEnd() {
 
-    this.entities$ = this.current(this.entities, 0, this.pageSize, 'expenseDayToFilter', true)
-    this.entities$.pipe(
-      map(x => {
-        this.gridListCommonHelper.lengthPaginator.next(x.length)
-      })).subscribe();
+    // this.entities$ = this.current(this.entities, 0, this.pageSize, 'expenseDayToFilter', true)
+    // this.entities$.pipe(
+    //   map(x => {
+    //     this.gridListCommonHelper.lengthPaginator.next(x.length)
+    //   })).subscribe();
   }
 
-  getIdEntity($event: { entity: PixExpenseListGridDto, id: number, action: string }) {
+  getIdEntity($event: { entity: ListPixExpenseDto, id: number, action: string }) {
     // if ($event.action == 'visibility')
     //   this.view($event.id);
 
@@ -137,33 +123,29 @@ export class PixExpensesListComponent extends FrontEndFilterPixExpenseslist impl
     //   this.delete($event.entity);
   }
 
-  viewDto: PixExpenseListGridDto;
-  getData() {
-    this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllPixesExpensesByCompanyId`, this.companyId);
-    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: PixExpenseDto[]) => {
-      this.entities = [];
-      x.forEach((xy: PixExpenseDto) => {
-        this.entities.push(this.makeGridItems(xy));
-      })
-      this.getCurrentPagedInFrontEnd();
-      // this.entities$ = of(this.entities)
-    })
+  viewDto: ListPixExpenseDto;
+  // getData() {
+  //   this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllPixesExpensesByCompanyId`, this.companyId);
+  //   this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: PixExpenseDto[]) => {
+  //     this.entities = [];
+  //     x.forEach((xy: PixExpenseDto) => {
+  //       this.entities.push(this.makeGridItems(xy));
+  //     })
+  //     this.getCurrentPagedInFrontEnd();
+  //     // this.entities$ = of(this.entities)
+  //   })
 
-  }
+  // }
 
-  makeGridItems(xy: PixExpenseDto) {
-    this.viewDto = new PixExpenseListGridDto;
-    this.viewDto.id = xy.id;
-    this.viewDto.expenseDay = this._ptBrDatePipe.transform(xy.expenseDay, 'Date');
-    this.viewDto.expenseDayToFilter = xy.expenseDay;
-    this.viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
-    this.viewDto.pixOutId = xy.pixOut.value;
-    this.viewDto.benefitedName = xy.benefitedName;
-    return this.viewDto;
-  }
-
-  ngOnInit(): void {
-    this.getData();
-  }
+  // makeGridItems(xy: PixExpenseDto) {
+  //   this.viewDto = new ListPixExpenseDto;
+  //   this.viewDto.id = xy.id;
+  //   this.viewDto.expenseDay = this._ptBrDatePipe.transform(xy.expenseDay, 'Date');
+  //   this.viewDto.expenseDayToFilter = xy.expenseDay;
+  //   this.viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
+  //   this.viewDto.pixOutId = xy.pixOut.value;
+  //   this.viewDto.benefitedName = xy.benefitedName;
+  //   return this.viewDto;
+  // }
 
 }

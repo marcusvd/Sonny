@@ -1,9 +1,8 @@
-<div class="p-4" *ngIf="formMain">
-    <title-component [digit]="'|'" [textTitleComp]="'Adicionar despesa Cartão de Crédito'" [icon]="'attach_money'">
-    </title-component>
-    <mat-card [formGroup]="formMain" *ngIf="formMain">
-        <sub-title title [title]="'Adicionar despesa Cartão de Crédito'" [icon]="'add'"></sub-title>
+<default-component [formGroup]="formMain" *ngIf="formMain" [hideDivider]="true" [digitTitleComp]="'|'" [textTitleComp]="'Adicionar despesa Cartão de Crédito'" [textSubTitleComp]="'Adicionar despesa Cartão de Crédito'" [iconSubTitleComp]="'add'">
+    <div btns>
 
+    </div>
+    <div body>
         <mat-card class="p-4 m-4 border-card-categories-divide-comp">
             <get-bank-account-cards-select [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [bankAccountFormControlName]="'paidFromBankAccountId'" [typeCardToDisable]="typeCardToDisable" (banckAccountSelected)="onSelectedBanckAccountelected($event)"
                 (cardsFromSelectedBank)="selectedCreditCard($event)"> </get-bank-account-cards-select>
@@ -136,11 +135,11 @@
                     </div>
                 </div>
                 <!-- <div>
-                    <mat-label *ngIf="formMain.get('installmentsQuantity').value > 1">{{'Vencimento primeira parcela:'}}
-                    </mat-label>
-                    <mat-label *ngIf="formMain.get('installmentsQuantity').value == 1">{{'Vencimento:'}}</mat-label>
-                    <mat-label>{{firstInstallmentExpires | ptBrDate:'Date'}}</mat-label>
-                </div> -->
+                <mat-label *ngIf="formMain.get('installmentsQuantity').value > 1">{{'Vencimento primeira parcela:'}}
+                </mat-label>
+                <mat-label *ngIf="formMain.get('installmentsQuantity').value == 1">{{'Vencimento:'}}</mat-label>
+                <mat-label>{{firstInstallmentExpires | ptBrDate:'Date'}}</mat-label>
+            </div> -->
                 <div class="w-full pr-4 pl-4 pb-4 grid sm:grid-cols-2 grid-cols-1 grid-row-2 gap-4">
                     <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center" *ngIf="installmentPayment">
                         <div>
@@ -208,10 +207,9 @@
             </div>
 
             <!-- <div>
-                <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
-            </div> -->
+            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
+        </div> -->
 
         </div>
-
-    </mat-card>
-</div>
+    </div>
+</default-component>

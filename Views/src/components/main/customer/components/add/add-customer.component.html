@@ -1,0 +1,79 @@
+<!-- <div class="p-4" [formGroup]="formMain">
+    <title-component [digit]="'|'" [textTitleComp]="'Cadastro de clientes'" [icon]="'record_voice_over'">
+
+    </title-component>
+    <mat-card>
+        <sub-title title [title]="'Cadastro de clientes'" [icon]="'add'"></sub-title>
+
+
+    </mat-card>
+</div>
+ -->
+
+
+
+<default-component [formGroup]="formMain" [hideDivider]="true" *ngIf="formMain" [digitTitleComp]="'|'" [textTitleComp]="'Cadastro de clientes'" [textSubTitleComp]="'Cadastro de clientes'" [iconSubTitleComp]="'add'">
+    <div btns>
+
+    </div>
+    <div body>
+
+        <mat-card class="border-card-categories-divide-comp">
+
+            <div class="p-4">
+                <h3 class="title-categories-divide-comp">Identificação</h3>
+            </div>
+
+            <div>
+                <name-cpf-cnpj (cpfCnpjBusinessData)="cpfCnpjBusinessData($event)" [formMain]="formMain"> </name-cpf-cnpj>
+            </div>
+            <div>
+                <main-entities-base [formMain]="formMain" [businessLine]="true">
+
+                </main-entities-base>
+            </div>
+            <mat-card class="p-4">
+                <description-field [formMain]="formMain" [maxLength]="2000">
+                </description-field>
+            </mat-card>
+        </mat-card>
+
+        <div class="align-h-center">
+            <mat-divider class="divider-line-categories-comp"></mat-divider>
+        </div>
+
+        <mat-card class="border-card-categories-divide-comp">
+            <financial-info-type [formMain]="formMain" [subForm]="subForm" [additionalCosts]="additionalCosts">
+            </financial-info-type>
+        </mat-card>
+
+        <div class="align-h-center">
+            <mat-divider class="divider-line-categories-comp"></mat-divider>
+        </div>
+
+        <mat-card class="border-card-categories-divide-comp">
+            <physically-moving-costs [formMain]="subForm">
+            </physically-moving-costs>
+        </mat-card>
+
+        <!--  -->
+
+        <div class="align-h-center">
+            <mat-divider class="divider-line-categories-comp"></mat-divider>
+        </div>
+
+        <mat-card class="border-card-categories-divide-comp">
+            <address [formMain]="this.address"></address>
+        </mat-card>
+        <div class="align-h-center">
+            <mat-divider class="divider-line-categories-comp"></mat-divider>
+        </div>
+        <mat-card class="border-card-categories-divide-comp">
+            <contact [formMain]="this.contact"></contact>
+        </mat-card>
+
+        <div class="mb-14 align-h-center">
+            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
+        </div>
+    </div>
+</default-component>

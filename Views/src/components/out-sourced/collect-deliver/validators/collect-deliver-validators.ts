@@ -4,30 +4,30 @@ import { FormGroup, Validators } from "@angular/forms";
 
 export class CollectDeliverValidators {
 
-  static atLeastOneCheckBox(form: FormGroup, controls: string[]) {
+  // static atLeastOneCheckBox(form: FormGroup, controls: string[]) {
 
-    const formMain = form;
-    const ctrls = controls;
+  //   const formMain = form;
+  //   const ctrls = controls;
 
-    ctrls?.map(x => {
-      formMain?.get(x)?.setValidators(Validators.requiredTrue);
-      formMain?.get(x)?.updateValueAndValidity();
-    })
+  //   ctrls?.map(x => {
+  //     formMain?.get(x)?.setValidators(Validators.requiredTrue);
+  //     formMain?.get(x)?.updateValueAndValidity();
+  //   })
 
-    const resultCheck = ctrls?.map(x => {
-      if (formMain?.get(x).value) return true;
-      return false;
-    })
+  //   const resultCheck = ctrls?.map(x => {
+  //     if (formMain?.get(x).value) return true;
+  //     return false;
+  //   })
 
-    resultCheck?.forEach(x => {
-      if (x) {
-        ctrls?.forEach(xy => {
-          formMain?.get(xy)?.removeValidators(Validators.requiredTrue)
-          formMain?.get(xy)?.updateValueAndValidity();
-        })
-      }
-    })
-  }
+  //   resultCheck?.forEach(x => {
+  //     if (x) {
+  //       ctrls?.forEach(xy => {
+  //         formMain?.get(xy)?.removeValidators(Validators.requiredTrue)
+  //         formMain?.get(xy)?.updateValueAndValidity();
+  //       })
+  //     }
+  //   })
+  // }
 
   // static atLeastOneEntitySelected(form: FormGroup, controls: string[]) {
 
@@ -86,7 +86,6 @@ export class CollectDeliverValidators {
     const formMain = form;
     const ctrl = control;
 
-
     if (formMain?.get('customerId').value != null || formMain?.get('partnerId').value != null || (formMain?.get('noRegisterName').value != null && formMain?.get('noRegisterAddress').value != null)) {
       ctrl.forEach(x => {
         formMain?.get(x).removeValidators(Validators.required);
@@ -102,15 +101,12 @@ export class CollectDeliverValidators {
     const formMain = form;
     const ctrl = control;
 
-
     if (formMain?.get('customerId').value != null || formMain?.get('partnerId').value != null || formMain?.get('base').value == true) {
       ctrl.forEach(x => {
         formMain?.get(x).removeValidators(Validators.required);
         formMain?.get(x).updateValueAndValidity();
       })
-
     }
-
 
   }
 

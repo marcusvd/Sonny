@@ -63,7 +63,7 @@
 
 
 </div> -->
-<div class="space-around">
+<!-- <div class="space-around">
 
     <title-component [digit]="'|'" [textTitleComp]="'Financiamento / Empréstimo'" [icon]="'attach_money'"></title-component>
     <mat-card class="sub-title-mat-card !bg-background-color mr-6 border-card">
@@ -71,6 +71,18 @@
         <div class="sub-title">
             <mat-icon class="mat-icon-left-subtitle">{{'list'}}</mat-icon> <span>{{'Contas a pagar'}}</span>
         </div>
+
+    </mat-card>
+
+
+</div> -->
+
+
+<default-component [digitTitleComp]="'|'" [hideDivider]="true" [textTitleComp]="'Financiamento / Empréstimo'" [textSubTitleComp]="'Contas a pagar'" [iconSubTitleComp]="'list'">
+    <div btns>
+
+    </div>
+    <div body>
         <div class="grid grid-cols-[1fr_200px] items-center">
             <div>
                 <filter-radio-btns [disabledRadioInput]="false" [inputSetClearRadios]="cleanRadios" (radioChange)="filterView($event)">
@@ -81,8 +93,6 @@
             </div>
         </div>
         <div class="p-4 grid sm:grid-cols-2 grid-cols-1 gap-4">
-
-
             <div>
                 <btn-g btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="callRouter(addUrlRoute)"></btn-g>
             </div>
@@ -94,7 +104,5 @@
         <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
         </list-g>
 
-    </mat-card>
-
-
-</div>
+    </div>
+</default-component>

@@ -1,14 +1,13 @@
-<div  class="border-around" *ngIf="formMain" >
-    <title-component [digit]="'|'" [textTitleComp]="'Despesas Anuais'" [icon]="'attach_money'">
-        <btn-g btn-1 [styleSize]="'width:150px;'" [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
-    </title-component>
-    <mat-card [formGroup]="formMain"  *ngIf="formMain">
-        <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
-        
-        <div     >
-            <div  >
-                <mat-form-field appearance="outline" >
-                    <mat-label>Despesa</mat-label>
+<default-component [formGroup]="formMain" *ngIf="formMain" [digitTitleComp]="'|'" [textTitleComp]="'Despesas Anuais'" [textSubTitleComp]="'Cadastro'" [iconSubTitleComp]="'add'" [hideDivider]="true">
+
+    <div btns>
+
+    </div>
+    <div body class="p-4">
+        <div class="grid sm:grid-cols-3 grid-cols-1 gap-4 items-center">
+            <div>
+                <mat-label>Despesa</mat-label>
+                <mat-form-field class="w-full" appearance="outline">
                     <input matInput type="text" formControlName="name" aria-label="Despesa">
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'name', 'Despesa')}}</span>
@@ -17,78 +16,89 @@
                 </mat-form-field>
             </div>
             <div>
-                <mat-form-field appearance="outline">
-                    <mat-label>Valor</mat-label>
+                <mat-label>Valor</mat-label>
+                <mat-form-field class="w-full" appearance="outline">
                     <input currencyMask matInput type="text" formControlName="price" aria-label="Valor">
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'price', 'Valor')}}</span>
                     </mat-error>
                 </mat-form-field>
             </div>
-            <div  >
+            <div>
                 <mat-checkbox formControlName="autoRenew">Renovação Automatica</mat-checkbox>
             </div>
         </div>
-        <div    >
-            <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle" >
-            </select-category-subcategory-expenses>
-        </div>
-        <div   >
+
+
+
+
+
+        <div class="grid sm:grid-cols-[1fr_200px_200px] grid-cols-1 gap-4 items-center">
             <div>
-                <mat-form-field appearance="outline">
-                    <mat-label>Início</mat-label>
-                    <input matInput formControlName="start" [matDatepicker]="start" aria-label="início"
-                    (dateChange)="onStartDateChanged()">
+                <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle">
+                </select-category-subcategory-expenses>
+            </div>
+            <div>
+                <mat-label>Início</mat-label>
+                <mat-form-field class="w-full" appearance="outline">
+                    <input matInput formControlName="start" [matDatepicker]="start" aria-label="início" (dateChange)="onStartDateChanged()">
                     <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
                     <mat-datepicker #start></mat-datepicker>
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'start', 'Vencimento')}}</span>
-                        <span>{{validatorYearlyAction.incorrectDate(formMain,'start', 'Inicio')}}</span>
+                        <!-- <span>{{validatorYearlyAction.incorrectDate(formMain,'start', 'Inicio')}}</span> -->
                     </mat-error>
                 </mat-form-field>
             </div>
             <div>
-                <mat-form-field appearance="outline">
-                    <mat-label>Vencimento</mat-label>
-                    <input matInput formControlName="expires" [matDatepicker]="picker" aria-label="Dia do vencimento"
-                        (dateChange)="validatorYearlyAction.validateDate(formMain, 'start', 'expires')">
+                <mat-label>Vencimento</mat-label>
+                <mat-form-field class="w-full" appearance="outline">
+                    <input matInput formControlName="expires" [matDatepicker]="picker" aria-label="Dia do vencimento" (dateChange)="validatorYearlyAction.validateDate(formMain, 'start', 'expires')">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                     <mat-error>
                         <span>{{validatorMessages.required(formMain,'expires', 'Vencimento')}}</span>
-                        <span>{{validatorYearlyAction.incorrectDate(formMain,'expires', 'Vencimento')}}</span>
+                        <!-- <span>{{validatorYearlyAction.incorrectDate(formMain,'expires', 'Vencimento')}}</span> -->
                     </mat-error>
                 </mat-form-field>
 
 
             </div>
         </div>
-
-        
-
-
         <div>
-            <link-copy-bill [formMain]="formMain" >
+            <link-copy-bill [formMain]="formMain">
             </link-copy-bill>
 
         </div>
-        <div   >
-            <mat-form-field  appearance="outline" >
-                <mat-label>Despesa descritivo</mat-label>
+        <div>
+            <mat-label>Despesa descritivo</mat-label>
+            <mat-form-field class="w-full" appearance="outline">
                 <input matInput type="text" formControlName="description" aria-label="Descrição">
                 <mat-hint>EX: Seguro Casa, Seguro Escritório, Luz residência, Internet loja etc...</mat-hint>
                 <mat-error>
                     <span>{{validatorMessages.required(formMain,'description', 'Despesa descritivo')}}</span>
-                    <span>{{validatorMessages.minMaxLength(formMain,'description', 'Despesa
-                        descritivo',null,150)}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,'description', 'Despesadescritivo',null,150)}}</span>
                 </mat-error>
             </mat-form-field>
         </div>
 
         <!-- <div>{{formMain.value | json}}</div> -->
 
-        <div  >
+        <div>
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
         </div>
+    </div>
+
+
+</default-component>
+
+
+<!-- <div class="border-around" *ngIf="formMain">
+    <title-component [digit]="'|'" [textTitleComp]="'Despesas Anuais'" [icon]="'attach_money'">
+        <btn-g btn-1 [styleSize]="'width:150px;'" [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
+    </title-component>
+    <mat-card [formGroup]="formMain" *ngIf="formMain">
+        <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
+
     </mat-card>
-</div>
+</div> -->

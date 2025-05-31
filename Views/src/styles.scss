@@ -56,6 +56,33 @@ mat-form-field {
     /* Cor do texto da opção selecionada */
 }
 
+.mat-mdc-checkbox {
+    //CHECKBOX
+    /* Configurações específicas do mat-checkbox */
+    --mdc-checkbox-unselected-icon-color: #5f5f5f;
+    /* Cor do checkbox quando não selecionado */
+    --mdc-checkbox-selected-icon-color: #2ba1a8;
+    /* Cor do checkbox quando selecionado */
+    --mdc-checkbox-selected-focus-icon-color: #2ba1a8;
+    /* Cor do checkbox quando selecionado e focado */
+    --mdc-checkbox-selected-hover-icon-color: #2ba1a8;
+    /* Cor do checkbox quando selecionado e com hover */
+    --mdc-checkbox-selected-pressed-icon-color: #2ba1a8;
+    /* Cor do checkbox quando selecionado e pressionado */
+    --mdc-checkbox-unselected-focus-icon-color: #5f5f5f;
+    /* Cor do checkbox não selecionado e focado */
+    --mdc-checkbox-unselected-hover-icon-color: #5f5f5f;
+    /* Cor do checkbox não selecionado e com hover */
+    --mdc-checkbox-disabled-selected-icon-color: rgba(43, 161, 168, 0.38);
+    /* Cor do checkbox desabilitado quando selecionado */
+    --mdc-checkbox-disabled-unselected-icon-color: rgba(95, 95, 95, 0.38);
+    /* Cor do checkbox desabilitado quando não selecionado */
+    --mdc-checkbox-selected-icon-opacity: 1;
+    /* Opacidade do ícone quando selecionado */
+    --mdc-checkbox-unselected-icon-opacity: 1;
+    /* Opacidade do ícone quando não selecionado */
+}
+
 
 /* Cor da seta do select */
 

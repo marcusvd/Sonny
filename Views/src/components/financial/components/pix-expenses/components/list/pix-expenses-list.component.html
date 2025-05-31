@@ -1,18 +1,25 @@
-<div class="border-around" >
-    <title-component [digit]="'|'" [textTitleComp]="'Despesas Pix'" [icon]="'attach_money'">
+<!-- <div class="border-around" >
+    <title-component
+    [digit]="'|'"
+    [textTitleComp]="'Despesas Pix'"
+    [icon]="'attach_money'">
     </title-component>
     <div>
         <div>
 
             <mat-card class="mat-card-sub-title" >
                 <grid-list-common>
-                    <sub-title title [title]="'Despesas Pix'" [icon]="'list'"></sub-title>
+                    <sub-title title
+                    [title]="'Despesas Pix'"
+                    [icon]="'list'"></sub-title>
                     <div search-filter >
 
                         <div class="small-space-horizontal-beteween-fields"></div>
                         <div>
                             <div >
-                                <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
+                                <btn-g btn-1
+                                [name]="'Adicionar'"
+                                [icon]="'add'" (btn)="add()"></btn-g>
                             </div>
                         </div>
                     </div>
@@ -21,21 +28,31 @@
                     </div>
                     <div search-pagination  >
                         <div>
-                            <grid-list-common-search [searchName]="'Busca'"  (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
+                            <grid-list-common-search
+                            [searchName]="'Busca'"  (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
                         </div>
                         <div>
-                            <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true" [changeSelection]="monthFilter"  (sendSelected)="selectedMonth($event)">
+                            <months-select
+                            [startCurrentDate]="true"
+                            [showOnlyUntilCurrentDate]="true"
+                            [changeSelection]="monthFilter"  (sendSelected)="selectedMonth($event)">
                             </months-select>
                         </div>
 
 
                         <br>
-                        <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" (page)="onPageChangePixExpenses($event, this.monthFilter.id)"></mat-paginator>
+                        <mat-paginator #paginatorAbove
+                        [length]="this.gridListCommonHelper.lengthPaginator.getValue()"
+                        [pageSize]="pageSize" (page)="onPageChangePixExpenses($event, this.monthFilter.id)"></mat-paginator>
                         <br>
 
                     </div>
 
-                    <grid-list-common-table  body-table [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)" (getEntityOut)="getEntity($event, 'fixedExpenses')">
+                    <grid-list-common-table  body-table
+                    [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }"
+                    [fieldsInEnglish]="fieldsInEnglish"
+                    [entities$]="entities$"
+                    [headers]="headers" (getColumnEntityName)="orderBy($event)" (getEntityOut)="getEntity($event, 'fixedExpenses')">
                     </grid-list-common-table>
 
                     <div pagination-below >
@@ -47,7 +64,9 @@
 
                             </div>
 
-                            <mat-paginator pagination-below #paginatorBelow [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" (page)="onPageChangePixExpenses($event, this.monthFilter.id)"></mat-paginator>
+                            <mat-paginator pagination-below #paginatorBelow
+                            [length]="this.gridListCommonHelper.lengthPaginator.getValue()"
+                            [pageSize]="pageSize" (page)="onPageChangePixExpenses($event, this.monthFilter.id)"></mat-paginator>
 
                         </div>
                         <div class="mat-paginator-below-margin"  >
@@ -58,4 +77,28 @@
             </mat-card>
         </div>
     </div>
-</div>
+</div> -->
+
+<default-component *ngIf="entities$" [digitTitleComp]="'|'" [textTitleComp]="'Despesas Pix'" [textSubTitleComp]="'Cadastro'" [iconSubTitleComp]="'list'">
+
+    <div btns>
+        <div class="w-full grid sm:grid-cols-2 grid-cols-1 gap-4 pl-4 pr-4 items-center">
+
+            <div>
+                <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="callRouter(addUrlRoute)"></btn-g>
+            </div>
+
+            <div>
+
+                <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true" [changeSelection]="monthFilter" (sendSelected)="selectedMonth($event)">
+                </months-select>
+            </div>
+
+        </div>
+
+    </div>
+    <div body>
+        <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
+        </list-g>
+    </div>
+</default-component>

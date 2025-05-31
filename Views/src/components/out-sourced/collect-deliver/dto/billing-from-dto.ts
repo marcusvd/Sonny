@@ -1,6 +1,6 @@
-import { CustomerDto } from "src/components/main/customer/components/commons-components/dtos/customer-dto";
-import { PartnerDto } from "src/components/main/partner/commons-components/dtos/partner-dto";
-import { RootBase } from "src/shared/entities-dtos/root-base";
+import { CustomerDto } from "../../../../components/main/customer/components/commons-components/dtos/customer-dto";
+import { PartnerDto } from "../../../../components/main/partner/dtos/partner-dto";
+import { RootBase } from "../../../../shared/entities-dtos/root-base";
 
 
 

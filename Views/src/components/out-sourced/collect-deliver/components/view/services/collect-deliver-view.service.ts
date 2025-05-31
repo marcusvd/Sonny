@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 
 
 import { Router } from "@angular/router";
-import { PartnerDto } from "src/components/main/partner/commons-components/dtos/partner-dto";
+import { PartnerDto } from "../../../../../../components/main/partner/dtos/partner-dto";
 import { environment } from "src/environments/environment";
 import { CompanyDto } from "src/shared/entities-dtos/company-dto";
 import { BackEndService } from "src/shared/services/back-end/backend.service";

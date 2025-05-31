@@ -2,18 +2,18 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
 
-import { CustomersListComponent } from "../components/list/customers-list.component";
-import { CustomerCreateComponent } from "../components/add/customer-create.component";
+import { ListCustomersComponent } from "../components/list/list-customers.component";
+import { AddCustomerComponent } from "../components/add/add-customer.component";
 // import { CustomerViewComponent } from "../components/view/customer-view.component";
-import { CustomerEditComponent } from "../components/edit/customer-edit.component";
+import { EditCustomerComponent } from "../components/edit/edit-customer.component";
 
 
 
 const routes: Routes = [
-  { path: 'create', component: CustomerCreateComponent },
+  { path: 'create', component: AddCustomerComponent },
   // { path: 'view/:id', component: CustomerViewComponent },
-  { path: 'edit/:id', component: CustomerEditComponent },
-  { path: 'list/:id', component: CustomersListComponent }
+  { path: 'edit/:id', component: EditCustomerComponent },
+  { path: 'list/:id', component: ListCustomersComponent }
 ]
 
 @NgModule({

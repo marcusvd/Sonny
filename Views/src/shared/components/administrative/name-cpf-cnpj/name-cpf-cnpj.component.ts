@@ -1,17 +1,13 @@
 
-import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { NgxMaskModule } from 'ngx-mask';
+import { FormGroup } from '@angular/forms';
 import { map } from 'rxjs/operators';
+
+
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-
 import { CpfCnpjValidator } from 'src/shared/helpers/validators/cpf-cnpj.validator';
-
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { AddDefaultImports } from '../../../../components/imports/components-default.imports';
+import { NameCpfCnpjImports } from '../name-cpf-cnpj/imports/name-cpf-cnpj.imports';
 import { QueryCnpjService } from '../services/queryCnpj.service';
 import { BusinessData } from './dto/business-data';
 
@@ -22,13 +18,8 @@ import { BusinessData } from './dto/business-data';
   styleUrls: ['./name-cpf-cnpj.component.scss'],
   standalone: true,
   imports: [
-    CommonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    ReactiveFormsModule,
-    MatCheckboxModule,
-    NgxMaskModule
+    AddDefaultImports,
+    NameCpfCnpjImports
   ]
 })
 export class NameCpfCnpjComponent extends BaseForm implements OnInit, OnChanges {

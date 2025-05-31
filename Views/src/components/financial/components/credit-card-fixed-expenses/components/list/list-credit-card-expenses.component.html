@@ -49,34 +49,17 @@
         </div>
     </div>
 </div> -->
-<div class="P-4">
-    <title-component [digit]="'|'" [textTitleComp]="'Cartão de Crédito'" [icon]="'attach_money'"></title-component>
-    <div>
-        <!-- <mat-card class="mat-card-sub-title">
-            <sub-title title [title]="'Fatura' +expensesMonth" [icon]="'list'"></sub-title> -->
-        <mat-card class="sub-title-mat-card border-card-categories-divide-comp" formArrayName="cards">
 
-            <div class="sub-title w-full">
-                <div class="w-full grid grid-cols-[40px_1fr_1fr] items-center">
-                    <div class="mt-[3px]">
-                        <mat-icon class="mat-icon-left-subtitle">{{'list'}}</mat-icon>
-                    </div>
-                    <div>
-                        {{expensesMonth}}
-                    </div>
-                    <div class="flex justify-start -ml-24">
-                        {{'FATURA'}}
-                    </div>
-                </div>
-            </div>
-            <financial-subtitle *ngIf="this.entities.length != 0" [singleStatusSubtitle]="true" [expiresDate]="this.entities[0].expires" [statusCollection]="statusCollection" [title]="expensesMonth">
-            </financial-subtitle>
+<default-component [digitTitleComp]="'|'" [hideDivider]="true" [textTitleComp]="'Cartão de Crédito'" [textSubTitleComp]="'FATURA - ' + expensesMonth" [iconSubTitleComp]="'list'">
+    <div btns>
 
-            <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
-
-
-
-            </list-g>
-        </mat-card>
     </div>
-</div>
+    <div body>
+        <financial-subtitle *ngIf="this.entities.length != 0" [singleStatusSubtitle]="true" [expiresDate]="this.entities[0].expires" [statusCollection]="statusCollection" [title]="expensesMonth">
+        </financial-subtitle>
+
+        <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
+
+        </list-g>
+    </div>
+</default-component>

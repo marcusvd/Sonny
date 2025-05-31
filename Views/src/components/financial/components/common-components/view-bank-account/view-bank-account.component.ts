@@ -8,7 +8,7 @@ import { MatFormFieldModule as MatFormFieldModule } from '@angular/material/form
 
 
 
-import { BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
+import { BankCardNumberPipe } from '../../../../../shared/pipes/bank-card-number.pipe';
 import { BankAccountDto } from '../../bank-account-cards/dto/bank-account-dto';
 
 @Component({
@@ -39,7 +39,7 @@ import { BankAccountDto } from '../../bank-account-cards/dto/bank-account-dto';
 })
 export class ViewBankAccountComponent  implements OnInit {
 
-    @Input() bankAccount: BankAccountDto = null;
+    @Input() bankAccount!: BankAccountDto;
 
     constructor(
     ) {}

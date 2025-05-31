@@ -1,64 +1,28 @@
+import { Component, Input } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
-import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
 
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule as MatButtonModule } from '@angular/material/button';
-import { MatCardModule as MatCardModule } from '@angular/material/card';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule as MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule as MatInputModule } from '@angular/material/input';
-import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
+import { AddDefaultImports } from 'src/components/imports/components-default.imports';
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
-
-
 
 @Component({
   selector: 'pixes-expenses-fields',
   standalone: true,
   imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
-
-    MatButtonModule,
-    MatDatepickerModule,
-    BtnGComponent,
+    AddDefaultImports
   ],
   templateUrl: './pixes-expenses-fields.component.html',
-  styles: [`
-    #label{
-              color:rgb(122,142,99);
-              font-weight: bolder;
-              }
-`],
-  providers: [
-
-  ]
+  styleUrls: ['./pixes-expenses-fields.component.scss']
 })
 
-export class PixesExpensesFieldsComponent extends BaseForm implements OnInit {
+export class PixesExpensesFieldsComponent extends BaseForm {
 
-  
+  constructor() {super();}
 
-  @Input() override formMain: FormGroup;
-  // @Input() BenefitedKey:string = '100';
-  // @Input() ExpenseDay:string = '100';
-  @Input('expenseDayDisabled') expenseDayDisabled:boolean = false;
-  @Input() showPrice:boolean = false;
-
-  constructor(
-
-    public _fb: FormBuilder,
-  ) {
-   super()
-  }
-
-   ngOnInit(): void {
-
-
-  }
+  @Input({required:true}) override formMain: FormGroup;
+  @Input({required:true}) showExpenseDay:boolean = false;
+  @Input({required:true}) showPrice:boolean = false;
+  @Input({required:false}) columnsWidth:string = '3';
+  // [columnsWidth]="'150px_150px_150px'"
 
 }

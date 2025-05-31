@@ -1,12 +1,7 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
-import { outputAst } from '@angular/compiler';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
-import { MatButtonModule as MatButtonModule } from '@angular/material/button';
+import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-
-import { BtnGComponent } from '../../btn-g/btn-g.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'title-component',

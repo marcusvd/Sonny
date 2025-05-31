@@ -39,7 +39,8 @@
                 </mat-checkbox>
                 <div *ngIf="formMain.get('entityType').value">
                     <div>
-                        <button class="get-btn" mat-raised-button (click)="getCnpjData(this.cnpjNumbers,'cnpj',formMain, 'cnpj')" (blur)="isValid(this.cnpjNumbers,'cnpj',formMain, 'cnpj')">Obter dados</button>
+                        <btn-g [name]="'Obter dados'" [icon]="'assignment'" (btn)="getCnpjData(this.cnpjNumbers,'cnpj',formMain, 'cnpj')" (blur)="isValid(this.cnpjNumbers,'cnpj',formMain, 'cnpj')"></btn-g>
+                        <!-- <button class="get-btn" mat-raised-button (click)="getCnpjData(this.cnpjNumbers,'cnpj',formMain, 'cnpj')" (blur)="isValid(this.cnpjNumbers,'cnpj',formMain, 'cnpj')">Obter dados</button> -->
                     </div>
                 </div>
             </div>

@@ -1,7 +1,6 @@
 
 import { Component } from '@angular/core';
-
-import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
+import { BaseForm } from '../../../../shared/components/inheritance/forms/base-form';
 
 @Component({
   selector: 'list',
@@ -13,7 +12,7 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
 export class Payment extends BaseForm {
 
-  constructor() {super()}
+  constructor() { super() }
 
   selectedPixRadio = -1;
   paymentBtnEnabledDisabled = false;

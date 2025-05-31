@@ -1,24 +1,26 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 import { Observable, of, Subscription } from 'rxjs';
-import { BaseList } from 'src/shared/components/list-g/extends/base-list';
-import { ListGDataService } from 'src/shared/components/list-g/list/data/list-g-data.service';
-import { OnClickInterface } from 'src/shared/components/list-g/list/interfaces/on-click-interface';
-import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
+
+
+import { BaseList } from '../../../../../../shared/components/list-g/extends/base-list';
+import { ListGDataService } from '../../../../../../shared/components/list-g/list/data/list-g-data.service';
+import { OnClickInterface } from '../../../../../../shared/components/list-g/list/interfaces/on-click-interface';
+import { PtBrCurrencyPipe } from '../../../../../../shared/pipes/pt-br-currency.pipe';
 import { DeleteServices } from '../../../../../../shared/components/delete-dialog/services/delete.services';
 import { BankAccountDto } from '../../dto/bank-account-dto';
-import { BankAccountCardListDto } from '../dto/bank-account-card-list.dto';
+import { ListBankAccountCardDto } from '../dto/bank-account-card-list.dto';
 import { AccountTypePipe } from '../pipes/account-type.pipe';
 import { BankAccountCardsListService } from '../services/bank-account-cards-list.service';
-import { map } from 'rxjs/operators';
 
 
 
 export class ListControlBanksAccountsCards extends BaseList {
 
-  entities$: Observable<BankAccountCardListDto[]>;
-  entities: BankAccountCardListDto[];
+  entities$: Observable<ListBankAccountCardDto[]>;
+  entities: ListBankAccountCardDto[];
   editUrlRoute: string = '/financial/edit-bank-account-cards';
 
   constructor(
@@ -26,6 +28,8 @@ export class ListControlBanksAccountsCards extends BaseList {
     public _http: HttpClient,
     protected _deleteServices: DeleteServices,
     protected _bankAccountCardsListService: BankAccountCardsListService,
+    protected _ptBrCurrencyPipe: PtBrCurrencyPipe,
+    protected _accountTypePipe: AccountTypePipe,
   ) {
     super(
       new ListGDataService(_http),
@@ -46,9 +50,9 @@ export class ListControlBanksAccountsCards extends BaseList {
       this.callRouter(`${this.editUrlRoute}/${obj.entityId}`)
   }
 
-  supplyItemsGrid = (bankAccountCardList: BankAccountCardListDto[], bankAccount: BankAccountDto, _accountTypePipe: AccountTypePipe, _ptBrCurrencyPipe?: PtBrCurrencyPipe) => {
+  supplyItemsGrid = (bankAccountCardList: ListBankAccountCardDto[], bankAccount: BankAccountDto, _accountTypePipe: AccountTypePipe, _ptBrCurrencyPipe?: PtBrCurrencyPipe) => {
 
-    const items: BankAccountCardListDto = new BankAccountCardListDto();
+    const items: ListBankAccountCardDto = new ListBankAccountCardDto();
 
     Object.assign(items, {
 
@@ -88,7 +92,7 @@ export class ListControlBanksAccountsCards extends BaseList {
       },
 
       balance: {
-        key: _ptBrCurrencyPipe.transform(bankAccount.balance),
+        key: _ptBrCurrencyPipe?.transform(bankAccount.balance),
         styleCell: 'width:100%;',
       },
 
@@ -105,9 +109,9 @@ export class ListControlBanksAccountsCards extends BaseList {
 
   deleteFake = (id: number) => {
 
-    const entity = this.entities.find(x => x.id.key == id.toString());
+    const entity = this.entities.find(x => x.id.key == id.toString()) ?? new ListBankAccountCardDto();
 
-    const result = this._deleteServices.delete(parseInt(entity.id.key), entity.institution.key)
+    const result = this._deleteServices.delete(parseInt(entity?.id?.key), entity.institution.key)
 
     result.subscribe(result => {
 
@@ -150,59 +154,100 @@ export class ListControlBanksAccountsCards extends BaseList {
     ]
   }
 
-  onClickOrderByFields(field: string, entities$: Observable<BankAccountCardListDto[]>) {
+  onClickOrderByFields(field: string, entities$: Observable<ListBankAccountCardDto[]>) {
 
     switch (field) {
       case 'institution':
 
-        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: '' });
+        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: '' }) ?? of([]);
         break;
 
       case 'holder':
-        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: '' });
+        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: '' }) ?? of([]);
         break;
 
       case 'account':
-        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: 0 });
+        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: 0 }) ?? of([]);
         break;
 
       case 'agency':
-        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: 0 });
+        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: 0 }) ?? of([]);
         break;
 
       case 'type':
-        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: '' });
+        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: '' }) ?? of([]);
         break;
 
       case 'balance':
-        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: 0 });
+        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: 0 }) ?? of([]);
         break;
 
       case 'cards':
-        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: 0 });
+        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: 0 }) ?? of([]);
         break;
     }
 
   }
 
-  startSupply(_ptBrCurrencyPipe: PtBrCurrencyPipe, _accountTypePipe: AccountTypePipe): Subscription {
+  // startSupply(_ptBrCurrencyPipe: PtBrCurrencyPipe, _accountTypePipe: AccountTypePipe): Subscription {
 
-    let entities: BankAccountCardListDto[] = [];
+  //   let entities: ListBankAccountCardDto[] = [];
 
-    return this._listGDataService.entities$.subscribe(
-      {
-        next: (x: BankAccountDto[]) => {
+
+  //   this._listGDataService?.getAllEntitiesInMemoryPaged().pipe)
+
+  //   // return this._listGDataService?.entities$.subscribe(
+  //   //   {
+  //   //     next: (x: BankAccountDto[]) => {
+
+
+  //   //     }
+  //   //   }
+  //   // ) ?? new Subscription();
+
+  //   x.forEach(
+  //     (y: BankAccountDto) => {
+  //       this.entities = this.supplyItemsGrid(entities, y, _accountTypePipe, _ptBrCurrencyPipe);
+  //       this.entities$ = of(this.entities);
+  //     })
+
+  // }
+
+  startSupply(url: string, cardId: string): Subscription {
+
+
+    let entities: ListBankAccountCardDto[] = [];
+
+    return this._listGDataService?.getAllEntitiesInMemoryPaged$(url, cardId).pipe(
+      map((x: BankAccountDto[]) => {
+
+        if (x.length <= 0) {
+          entities = [];
+          this.entities = [];
+          this.entities$ = of([]);
+        }
+
+        entities = [];
+        this.entities = [];
+        this.entities$ = of([]);
+        if (x?.length != 0) {
+          // const expires = new Date(x[0].expires).getMonth();
+          // this.expensesMonth = ex_month(expires).name;
 
           x.forEach(
             (y: BankAccountDto) => {
-              this.entities = this.supplyItemsGrid(entities, y, _accountTypePipe, _ptBrCurrencyPipe);
+              this.entities = this.supplyItemsGrid(entities, y, this._accountTypePipe, this._ptBrCurrencyPipe);
               this.entities$ = of(this.entities);
+              // this.entities$.subscribe(console.log)
+
+              // this.getCurrentPagedInFrontEnd(this.entities, 0, this.pageSize, 'expires', false);
             })
         }
-      }
-    )
-
+      })).subscribe();
   }
+
+
+
 
 }
 

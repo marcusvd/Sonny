@@ -1,4 +1,4 @@
-<div class="mt-4 mb-4 mr-4" *ngIf="formMain">
+<!-- <div class="mt-4 mb-4 mr-4" *ngIf="formMain">
     <title-component [digit]="'|'" [textTitleComp]="'Financiamento / Empréstimo'" [icon]="'attach_money'">
         <btn-g btn-1 [styleSize]="'width:150px;'" [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
     </title-component>
@@ -6,6 +6,16 @@
         <div class="sub-title">
             <mat-icon class="mat-icon-left-subtitle">add</mat-icon> <span>{{'Cadastro'}}</span>
         </div>
+
+    </mat-card>
+</div> -->
+
+
+<default-component [formGroup]="formMain" *ngIf="formMain" [hideDivider]="true" [digitTitleComp]="'|'" [textTitleComp]="'Financiamento / Empréstimo'" [textSubTitleComp]="'Cadastro'" [iconSubTitleComp]="'add'">
+    <div btns>
+
+    </div>
+    <div body>
         <div class="w-full p-4">
             <mat-card class="border-card-categories-divide-comp">
                 <div class="p-4">
@@ -74,7 +84,7 @@
                             <mat-error>
                                 <span>{{validatorMessages.required(formMain,'installmentsQuantity', 'Parcelas')}}</span>
                                 <span>{{validatorMessages.minMaxLength(formMain,'installmentsQuantity',
-                            'Parcelas',null,150)}}</span>
+                      'Parcelas',null,150)}}</span>
                             </mat-error>
                         </mat-form-field>
                     </div>
@@ -184,5 +194,5 @@
                 <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
             </div>
         </div>
-    </mat-card>
-</div>
+    </div>
+</default-component>

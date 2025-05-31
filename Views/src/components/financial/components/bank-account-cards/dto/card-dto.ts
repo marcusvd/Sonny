@@ -1,4 +1,4 @@
-import { RootBase } from "src/shared/entities-dtos/root-base";
+import { RootBase } from "../../../../../shared/entities-dtos/root-base";
 import { BankAccountDto } from "./bank-account-dto";
 import { CreditCardLimitOperationDto } from "./credit-card-limit-operation-dto";
 import { TypeCardDtoEnum } from "./enums/type-card-dto.enum";

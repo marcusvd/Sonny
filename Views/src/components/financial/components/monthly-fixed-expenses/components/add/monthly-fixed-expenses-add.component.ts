@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { Add } from 'src/shared/components/inheritance/add/add';
 import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
 import { AddMonthlyFixedExpensesService } from '../../components/add/services/add-monthly-fixed-expenses.service';
-import { AddDefaultImports, AddDefaultProviders } from '../../../../../../components/imports/add-default.imports';
+import { AddDefaultImports, AddDefaultProviders } from '../../../../../../components/imports/components-default.imports';
 import { AddMonthlyFixedExpensesImports, AddMonthlyFixedExpensesProviders } from './imports/add-monthly-fixed-expenses.imports';
 
 @Component({

@@ -1,0 +1,33 @@
+<!-- <div class="p-4">
+    <title-component [digit]="'|'" [textTitleComp]="'Cadastro de contas e cartões'" [icon]="'attach_money'">
+    </title-component>
+    <mat-card class="border-radius-none">
+        <sub-title [title]="institutionName" [icon]="'add'"></sub-title>
+
+    </mat-card>
+</div> -->
+
+
+<default-component [formGroup]="formMain" *ngIf="formMain" [hideDivider]="true" [digitTitleComp]="'|'" [hiddenDivider]="true" [textTitleComp]="'Cadastro de contas e cartões'" [textSubTitleComp]="institutionName" [iconSubTitleComp]="'add'">
+    <div btns>
+
+    </div>
+    <div body>
+        <bank-account (outBankName)="onInstitution($event)" [formMain]="formMain" [mainIcon]="'add'" [mainTitle]="formMain.get('institution').value">
+            <pix pix [formMain]="formMain" [noBeneficiaryField]="false">
+            </pix>
+        </bank-account>
+
+        <div class="align-h-center">
+            <mat-divider class="divider-line-categories-comp"></mat-divider>
+        </div>
+
+        <bank-cards [formMain]="formMain" [mainIcon]="'payment'">
+        </bank-cards>
+
+        <!-- {{formMain.value | json}} -->
+        <div class="ml-4 pb-12 sm:w-full sm:flex sm:justify-center">
+            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
+        </div>
+    </div>
+</default-component>

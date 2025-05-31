@@ -1,0 +1,85 @@
+<default-component [formGroup]="formMain" *ngIf="formMain" [hideDivider]="true" [digitTitleComp]="'|'" [textTitleComp]="'Despesas Variáveis'" [textSubTitleComp]="'Cadastro'" [iconSubTitleComp]="'add'">
+    <div btns>
+
+    </div>
+    <div body>
+        <div class="p-4" [formGroup]="formMain" *ngIf="formMain">
+
+            <div class="p-4">
+                <h3 class="title-categories-divide-comp">Despesa</h3>
+            </div>
+
+            <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="w-full">
+                    <mat-label>Origem despesa</mat-label>
+                    <mat-form-field class="w-full" appearance="outline">
+                        <input matInput type="text" formControlName="name" aria-label="nome">
+                        <mat-error>
+                            <span>{{validatorMessages.minMaxLength(formMain,'name', 'Objeto Despesa',null,150)}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="w-full">
+                    <mat-label>Local</mat-label>
+                    <mat-form-field class="w-full" appearance="outline">
+                        <input matInput type="text" formControlName="place" placeholder="Local da despesa" aria-label="Local da despesa">
+                        <mat-error>
+                            <span>{{validatorMessages.minMaxLength(formMain,'place', 'Local da despesa',null,150)}}</span>
+
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle">
+            </select-category-subcategory-expenses>
+            <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="w-full">
+                    <mat-label>Data despesa</mat-label>
+                    <mat-form-field class="w-full" appearance="outline">
+                        <input matInput formControlName="wasPaid" [matDatepicker]="expenses" aria-label="Data despesa">
+                        <mat-datepicker-toggle matSuffix [for]="expenses"></mat-datepicker-toggle>
+                        <mat-datepicker #expenses></mat-datepicker>
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain,'wasPaid', 'Data despesa')}}</span>
+
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="w-full">
+                    <mat-label>Valor</mat-label>
+                    <mat-form-field class="w-full" appearance="outline">
+                        <input currencyMask matInput type="text" formControlName="price" aria-label="Valor">
+                        <mat-error>
+                            <span>{{validatorMessages.required(formMain,'price', 'Valor')}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="w-full">
+                <get-bank-account-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [validatorsPaymentBtnAction]="validatorsCreditPixOthers" [alignRadios]="'start start'" [typeCardToDisable]="cardType" (selectedRadioOut)="selectedRadio($event)"
+                    [optionsRadio]="[{ id: 0, name: 'Pix' }, { id: 1, name: 'Cartão Débito' }, { id: 2, name: 'Outros' }]">
+                </get-bank-account-select-single>
+            </div>
+            <div>
+                <pixes-expenses-fields [showExpenseDay]="true" [formMain]="subForm" *ngIf="selectedPixRadio == 0">
+                </pixes-expenses-fields>
+            </div>
+            <div class="w-full">
+                <mat-label>Despesa descritivo</mat-label>
+                <mat-form-field class="w-full" appearance="outline">
+                    <input matInput type="text" formControlName="description" aria-label="Descrição">
+                    <mat-hint>EX: Peça para computador/carro/máquila de lavar, remédios, lanches etc...</mat-hint>
+                    <mat-error>
+                        <span>{{validatorMessages.required(formMain,'description', 'Despesa descritivo')}}</span>
+                        <span>{{validatorMessages.minMaxLength(formMain,'description', 'Despesadescritivo',null,150)}}</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <!-- <div>{{formMain.value | json}}</div> -->
+            <div class="mb-6 mt-10 align-h-center">
+                <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
+            </div>
+        </div>
+    </div>
+</default-component>

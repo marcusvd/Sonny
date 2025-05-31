@@ -21,7 +21,7 @@
                     (selectedRadioOut)="selectedRadio($event)"
                     >
                 </get-bank-account-select-single>
-                <pixes-expenses-fields [expenseDayDisabled]="true" [priceDisabled]="false" [formMain]="subForm"  *ngIf="selectedPixRadio == 0 && formMain.get('bankAccountId').value">
+                <pixes-expenses-fields [showExpenseDay]="true" [priceDisabled]="false" [formMain]="subForm"  *ngIf="selectedPixRadio == 0 && formMain.get('bankAccountId').value">
                 </pixes-expenses-fields>
 
                 <price-interest-fields [formMain]="formMain" [priceFormControlName]="'priceWasPaidInstallment'">

@@ -15,7 +15,7 @@ import { GridListCommonHelper } from 'src/shared/components/grid-list-common/hel
 import { MonthsDto } from 'src/shared/components/months-select/months-dto';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
-import { ListDefaultImports, ListDefaultProviders } from '../../../../../imports/list-default.imports';
+import { ListDefaultImports, ListDefaultProviders } from '../../../../../imports/components-default.imports';
 import { ListMonthlyFixedExpensesImports, ListMonthlyFixedExpensesProviders } from '../../components/list/imports/list-monthly-fixed-expenses.imports';
 import { MonthlyFixedExpenseDto } from '../../dto/monthly-fixed-expense-dto';
 import { ListControlMonthlyFixedExpenses } from '../../components/list/helpers/list-control-monthly-fixed-expenses';

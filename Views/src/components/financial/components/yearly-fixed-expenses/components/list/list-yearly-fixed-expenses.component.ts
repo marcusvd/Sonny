@@ -1,37 +1,23 @@
 
-import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { FormBuilder, FormControl, FormsModule } from '@angular/forms';
-import { MatButtonModule as MatButtonModule } from '@angular/material/button';
-import { MatCardModule as MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule as MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialog as MatDialog } from '@angular/material/dialog';
-import { MatMenuModule as MatMenuModule } from '@angular/material/menu';
-import { MatPaginatorModule as MatPaginatorModule } from '@angular/material/paginator';
-import { MatRadioModule as MatRadioModule } from '@angular/material/radio';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 
 import { environment } from 'src/environments/environment';
-import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
-import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
-import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
-import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
 
-import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
-import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
+import { DeleteServices } from 'src/shared/components/delete-dialog/services/delete.services';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
-import { FilterBtnRadioComponent } from '../../../common-components/filter-btn-radio/filter-btn-radio.component';
+import { ListDefaultImports, ListDefaultProviders } from '../../../../../../components/imports/components-default.imports';
 import { YearlyFixedExpenseDto } from '../../dto/yearly-fixed-expense-dto';
-import { ListGridYearlyFixedExpenseDto } from './dto/list-grid-yearly-fixed-expense-dto';
-import { BackEndListFilterYearlyExpenses } from './filter-list/back-end-list-filter-yearly-expenses';
-import { FrontEndListFilterYearlyExpenses } from './filter-list/front-end-list-filter-yearly-expenses';
+import { ListYearlyFixedExpensesImports, ListYearlyFixedExpensesProviders } from '../imports/list-yearly-fixed-expenses.imports';
+import { ListYearlyFixedExpenseDto } from './dto/list-yearly-fixed-expense-dto';
+import { ListControlYearlyFixedExpenses } from './helpers/list-control-yearly-fixed-expenses';
 import { ListYearlyFixedExpensesService } from './services/list-yearly-fixed-expenses.service';
 import { TriggerPaymentYearly } from './trigger-payment-yearly';
 
@@ -41,70 +27,59 @@ import { TriggerPaymentYearly } from './trigger-payment-yearly';
   styleUrls: ['./list-yearly-fixed-expenses.component.css'],
   standalone: true,
   imports: [
-    CommonModule,
-    FormsModule,
-    MatCardModule,
-    MatPaginatorModule,
-    MatButtonModule,
-    MatMenuModule,
-    RouterModule,
-
-    MatCheckboxModule,
-    MatRadioModule,
-    GridListCommonComponent,
-    GridListCommonTableComponent,
-    GridListCommonSearchComponent,
-    TitleComponent,
-    BtnGComponent,
-    SubTitleComponent,
-    FilterBtnRadioComponent
+    ListDefaultImports,
+    ListYearlyFixedExpensesImports
   ],
   providers: [
-    ListYearlyFixedExpensesService,
-    PtBrDatePipe,
-    PtBrCurrencyPipe,
+    ListYearlyFixedExpensesProviders,
+    ListDefaultProviders
   ]
 
 })
-export class ListYearlyFixedExpensesComponent extends FrontEndListFilterYearlyExpenses implements OnInit, AfterViewInit {
-  constructor(
-    override _actRoute: ActivatedRoute,
-    override _router: Router,
-    private _http: HttpClient,
-    private _fb: FormBuilder,
-    override _dialog: MatDialog,
-    private _ptBrDatePipe: PtBrDatePipe,
-    private _ptBrCurrencyPipe: PtBrCurrencyPipe,
+export class ListYearlyFixedExpensesComponent extends ListControlYearlyFixedExpenses implements OnInit {
 
-    override _listServices: ListYearlyFixedExpensesService
+  YearlyFixedExpensesSubscribe: Subscription;
+  controllerUrl: string = environment._YEARLY_FIXED_EXPENSES.split('/')[4];
+  addUrlRoute: string = '/financial/yearly-fixed-expenses-add';
+  backEndUrl: string = `${this.controllerUrl}/GetAllYearlyFixedExpensesByCompanyId`;
+
+  constructor(
+    override _router: Router,
+    override _http: HttpClient,
+    override _dialog: MatDialog,
+    override _deleteServices: DeleteServices,
+    override _ptBrDatePipe: PtBrDatePipe,
+    override _ptBrCurrencyPipe: PtBrCurrencyPipe,
+    private _listServices: ListYearlyFixedExpensesService
 
   ) {
     super(
-      _dialog,
+      _http,
       _router,
-      _actRoute,
-      new GridListCommonHelper(_http),
-      ['',
-        'Descrição',
-        'Vencimento',
-        'Preço',
-        'Status'],
-      ['description',
-        'expiresView',
-        'price'],
-
-      _listServices
+      _dialog,
+      _deleteServices,
+      _ptBrDatePipe,
+      _ptBrCurrencyPipe,
     )
   }
-  controllerUrl: string = environment._YEARLY_FIXED_EXPENSES.split('/')[4];
-  override backEndUrl: string = `${this.controllerUrl}/GetAllFixedExpensesTrackingPagedAsync`;
-  override  entities: ListGridYearlyFixedExpenseDto[] = [];
-  override entities$: Observable<ListGridYearlyFixedExpenseDto[]>;
-  override viewUrlRoute: string = '/financial/view-yearly-fixed-expenses-tracking';
-  override addUrlRoute: string = '/financial/yearly-fixed-expenses-add';
+
+  ngOnDestroy(): void {
+    this.YearlyFixedExpensesSubscribe?.unsubscribe();
+  }
+
+
+
+  ngOnInit(): void {
+    this.YearlyFixedExpensesSubscribe = this.startSupply(this.backEndUrl, this.companyId.toString());
+    // this.getCurrentEntitiesFromBackEnd(this._actRoute.snapshot.params['id'] as number);
+  }
+
+  // override  entities: ListYearlyFixedExpenseDto[] = [];
+  // override entities$: Observable<ListYearlyFixedExpenseDto[]>;
+  // override viewUrlRoute: string = '/financial/view-yearly-fixed-expenses-tracking';
 
   // workingFrontEnd = new FrontEndListFilterYearlyExpenses();
-  workingBackEnd = new BackEndListFilterYearlyExpenses();
+  // workingBackEnd = new BackEndListFilterYearlyExpenses();
 
   pay = new TriggerPaymentYearly(
     this._router,
@@ -113,12 +88,12 @@ export class ListYearlyFixedExpensesComponent extends FrontEndListFilterYearlyEx
   );
 
   listYearlyFixedExpense: YearlyFixedExpenseDto[] = [];
-  getEntityTopay(entity: ListGridYearlyFixedExpenseDto) {
-    const yearlyExpense = this.listYearlyFixedExpense.find(x => x.id == entity.id);
+  getEntityTopay(entity: ListYearlyFixedExpenseDto) {
+    // const yearlyExpense = this.listYearlyFixedExpense.find(x => x.id == entity.id);
 
-    this.pay.entityToPay = yearlyExpense;
+    // this.pay.entityToPay = yearlyExpense;
 
-    this.pay.callRoute(this.pay.entityToPay);
+    // this.pay.callRoute(this.pay.entityToPay);
   }
 
   clearSearchField = false;
@@ -126,71 +101,71 @@ export class ListYearlyFixedExpensesComponent extends FrontEndListFilterYearlyEx
   filterClear() {
     this.clearSearchField = !this.clearSearchField;
     this.cleanRadios = !this.cleanRadios;
-    this.filterCheckBoxSelected = null;
-    this.getCurrentPagedInFrontEnd();
+    // this.filterCheckBoxSelected = null;
+    // this.getCurrentPagedInFrontEnd();
   }
 
   queryFieldOutput($event: FormControl) {
-    this.entities$ = this.query($event);
+    // this.entities$ = this.query($event);
   }
 
-  getCurrentEntitiesFromBackEndPaged() {
-    this.backEndUrl = `${this.controllerUrl}/GetAllYearlyFixedExpensesByCompanyId`;
-    this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(1, this.pageSize));
-    this.gridListCommonHelper.entities$.subscribe((x: YearlyFixedExpenseDto[]) => {
-      x.forEach((xy: YearlyFixedExpenseDto) => {
-        this.listYearlyFixedExpense.push(xy);
-        this.entities.push(this.makeGridItems(xy));
-      })
-      this.entities$ = of(this.entities)
-    })
-  }
+  // getCurrentEntitiesFromBackEndPaged() {
+  //   this.backEndUrl = `${this.controllerUrl}/GetAllYearlyFixedExpensesByCompanyId`;
+  //   this.gridListCommonHelper.getAllEntitiesPaged(this.backEndUrl, this.gridListCommonHelper.paramsTo(1, this.pageSize));
+  //   this.gridListCommonHelper.entities$.subscribe((x: YearlyFixedExpenseDto[]) => {
+  //     x.forEach((xy: YearlyFixedExpenseDto) => {
+  //       this.listYearlyFixedExpense.push(xy);
+  //       this.entities.push(this.makeGridItems(xy));
+  //     })
+  //     this.entities$ = of(this.entities)
+  //   })
+  // }
 
-  getCurrentPagedInFrontEnd() {
+  // getCurrentPagedInFrontEnd() {
 
-    this.entities$ = of(this.entities)
-    this.entities$.pipe(
-      map(x => {
-        this.gridListCommonHelper.lengthPaginator.next(x.length)
-      })).subscribe();
+  //   this.entities$ = of(this.entities)
+  //   this.entities$.pipe(
+  //     map(x => {
+  //       this.gridListCommonHelper.lengthPaginator.next(x.length)
+  //     })).subscribe();
 
-  }
+  // }
 
-  getCurrentEntitiesFromBackEnd() {
-    this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllYearlyFixedExpensesByCompanyId`, this.companyId.toString());
+  // getCurrentEntitiesFromBackEnd() {
+  //   this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllYearlyFixedExpensesByCompanyId`, this.companyId.toString());
 
-    this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: YearlyFixedExpenseDto[]) => {
+  //   this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: YearlyFixedExpenseDto[]) => {
 
-      x.forEach((xy: YearlyFixedExpenseDto) => {
-        this.listYearlyFixedExpense.push(xy);
-        this.entities.push(this.makeGridItems(xy));
-      })
-      this.getCurrentPagedInFrontEnd();
-    })
-  }
+  //     x.forEach((xy: YearlyFixedExpenseDto) => {
+  //       this.listYearlyFixedExpense.push(xy);
+  //       this.entities.push(this.makeGridItems(xy));
+  //     })
+  //     this.getCurrentPagedInFrontEnd();
+  //   })
+  // }
 
-  makeGridItems(xy: YearlyFixedExpenseDto) {
-    const viewDto = new ListGridYearlyFixedExpenseDto;
-    const wasPaid: Date = new Date(xy.wasPaid)
-    viewDto.id = xy.id
-    viewDto.start = this._ptBrDatePipe.transform(xy.start, 'Date');
-    viewDto.expires = xy.expires;
-    viewDto.expiresView = this._ptBrDatePipe.transform(xy.expires, 'Date');
-    viewDto.description = xy.name;
-    viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
-    viewDto.wasPaid = xy.wasPaid;
+  // makeGridItems(xy: YearlyFixedExpenseDto) {
+  //   const viewDto = new ListYearlyFixedExpenseDto;
+  //   const wasPaid: Date = new Date(xy.wasPaid)
+  //   viewDto.id = xy.id
+  //   viewDto.start = this._ptBrDatePipe.transform(xy.start, 'Date');
+  //   viewDto.expires = xy.expires;
+  //   viewDto.expiresView = this._ptBrDatePipe.transform(xy.expires, 'Date');
+  //   viewDto.description = xy.name;
+  //   viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
+  //   viewDto.wasPaid = xy.wasPaid;
 
-    if (wasPaid.getFullYear() == this.minValue.getFullYear())
-      viewDto.wasPaidView = 'Não efetuado'
-    else
-      viewDto.wasPaidView = this._ptBrDatePipe.transform(xy.wasPaid, 'Date');
+  //   if (wasPaid.getFullYear() == this.minValue.getFullYear())
+  //     viewDto.wasPaidView = 'Não efetuado'
+  //   else
+  //     viewDto.wasPaidView = this._ptBrDatePipe.transform(xy.wasPaid, 'Date');
 
-    return viewDto;
-  }
+  //   return viewDto;
+  // }
 
-  ngOnInit(): void {
+  // ngOnInit(): void {
 
-    this.getCurrentEntitiesFromBackEnd();
-  }
+  //   // this.getCurrentEntitiesFromBackEnd();
+  // }
 
 }

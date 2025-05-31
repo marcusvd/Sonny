@@ -1,23 +1,76 @@
-<div  fxLayoutGap="10px" *ngIf="formMain" [formGroup]="formMain">
-    <div>
-        <mat-form-field appearance="outline" >
+<div [formGroup]="formMain" *ngIf="formMain">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div>
+                <mat-checkbox formControlName="collect" name="collect">
+                    Coleta
+                </mat-checkbox>
+                <mat-error>
+                    <span *ngIf="formErrorAndTouched(formMain, 'collect', 'atleastone')">{{defaultMessages.atleastone}}</span>
+                </mat-error>
+            </div>
+
+            <div>
+                <mat-checkbox formControlName="deliver" name="deliver">
+                    Entrega
+                </mat-checkbox>
+                <mat-error>
+                    <span *ngIf="formErrorAndTouched(formMain, 'deliver', 'atleastone')">{{defaultMessages.atleastone}}</span>
+                </mat-error>
+
+            </div>
+            <div>
+                <mat-checkbox formControlName="other" name="other">
+                    Outros</mat-checkbox>
+                <mat-error>
+                    <span *ngIf="formErrorAndTouched(formMain, 'other', 'atleastone')">{{defaultMessages.atleastone}}</span>
+                </mat-error>
+            </div>
+        </div>
+        <div>
             <mat-label>Contato no local</mat-label>
-            <input matInput type="text" formControlName="contactName" aria-label="Contato no local">
-            <mat-error>
-                <span>{{validatorMessages.required(formMain, 'contactName', 'Responsável')}}</span>
-            </mat-error>
-        </mat-form-field>
-    </div>
-    <div  ="25">
-        <mat-form-field appearance="outline">
+            <mat-form-field class="w-full" appearance="outline">
+                <input matInput type="text" formControlName="contactName" aria-label="Contato no local">
+                <mat-error>
+                    <span *ngIf="formErrorAndTouched(formMain, 'contactName', 'required')">{{defaultMessages.requiredMsg}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
             <mat-label>Data</mat-label>
-            <input matInput formControlName="start" [matDatepicker]="startDate" aria-label="início">
-            <mat-hint>dd/mm/aaaa</mat-hint>
-            <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
-            <mat-datepicker #startDate></mat-datepicker>
-            <mat-error>
-                <span>{{validatorMessages.required(formMain,'start', 'Inicio')}}</span>
-            </mat-error>
-        </mat-form-field>
+            <mat-form-field class="w-full" appearance="outline">
+                <input matInput formControlName="start" [matDatepicker]="startDate" aria-label="início">
+                <mat-hint>dd/mm/aaaa</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                <mat-datepicker #startDate></mat-datepicker>
+                <mat-error>
+                    <span *ngIf="formErrorAndTouched(formMain,'start', 'required')">{{defaultMessages.requiredMsg}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
     </div>
+
+
+    <!-- <div>
+        <mat-checkbox (change)="validatorLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])" (change)="onCollectChecked($event)">
+            Coleta
+        </mat-checkbox>
+        <mat-error>
+            <span>{{validatorMessages.required(formMain, 'collect', '')}}</span>
+        </mat-error>
+
+        <mat-checkbox (change)="validatorLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])" (change)="onDeliveryChecked($event)">
+            Entrega
+        </mat-checkbox>
+        <mat-error>
+            <span>{{validatorMessages.required(formMain, 'deliver', '')}}</span>
+        </mat-error>
+
+        <mat-checkbox (change)="validatorLocal.atLeastOneCheckBox(this.formMain, ['collect', 'deliver', 'other'])" (change)="onOtherChecked($event)">
+            Outros</mat-checkbox>
+        <mat-error>
+            <span>{{validatorMessages.required(formMain, 'other', '')}}</span>
+        </mat-error>
+    </div> -->
 </div>

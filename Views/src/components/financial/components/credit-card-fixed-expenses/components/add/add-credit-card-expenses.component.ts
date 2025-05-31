@@ -1,84 +1,38 @@
-
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule as MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule as MatInputModule } from '@angular/material/input';
-import { MatSelectModule as MatSelectModule } from '@angular/material/select';
-import { MatTooltipModule as MatTooltipModule } from '@angular/material/tooltip';
-
-
-import { MatButtonModule as MatButtonModule } from '@angular/material/button';
-import { MatCardModule as MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule as MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialog as MatDialog } from '@angular/material/dialog';
+import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { CategoryExpensesService } from 'src/components/financial/services/category-expenses.service';
-import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-import { DateJustDayComponent } from 'src/shared/components/date-just-day/date-just-day.component';
-import { Add } from 'src/shared/components/inheritance/add/add';
 
-import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
-import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 
-import { ToolTips } from 'src/shared/services/messages/snack-bar.service';
-
-import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-entities/bank-account/bank-account-mat-select-single.component';
-import { CategorySubcategoryExpensesSelectComponent } from 'src/shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
-import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
-import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
+import { CategoryExpensesService } from '../../../../../../components/financial/services/category-expenses.service';
+import { AddDefaultImports, AddDefaultProviders } from '../../../../../../components/imports/components-default.imports';
+import { BaseForm } from '../../../../../../shared/components/inheritance/forms/base-form';
+import { ToolTips } from '../../../../../../shared/services/messages/snack-bar.service';
 import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
 import { CardDto } from '../../../bank-account-cards/dto/card-dto';
 import { TypeCardDtoEnum } from '../../../bank-account-cards/dto/enums/type-card-dto.enum';
 import { PayCycleEnumDto } from '../../../common-components/category-subcategory-expenses/dto/pay-cycle-enum-dto';
-import { GetBankAccountCardsSelectComponent } from '../../../common-components/get-bank-account-card/bank-account-mat-select-single.component'
 import { CreditCardExpenseDto } from '../../dto/credit-card-expense-dto';
+import { AddCreditCardExpensesImports, AddCreditCardExpensesProviders } from '../add/imports/add-credit-card-expenses.imports';
 import { AddCreditCardExpensesService } from './services/add-credit-card-expenses.service';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatDividerModule } from '@angular/material/divider';
-
 
 
 @Component({
   selector: 'add-credit-card-expenses',
   templateUrl: './add-credit-card-expenses.component.html',
   styleUrls: ['./add-credit-card-expenses.component.css'],
-  providers: [
-    AddCreditCardExpensesService,
-    CategoryExpensesService
-  ],
   standalone: true,
   imports: [
-    CommonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatButtonModule,
-    MatCardModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatDividerModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatTooltipModule,
-    CurrencyMaskModule,
-    PtBrDatePipe,
-    PtBrCurrencyPipe,
-    TitleComponent,
-    SubTitleComponent,
-    DateJustDayComponent,
-    CategorySubcategoryExpensesSelectComponent,
-    GetBankAccountCardsSelectComponent,
-    // BankAccountMatSelectSingleComponent,
-    BtnGComponent
+    AddCreditCardExpensesImports,
+    AddDefaultImports
   ],
-
+  providers: [
+    AddCreditCardExpensesProviders,
+    AddDefaultProviders
+  ]
 })
 
-export class AddCreditCardExpensesComponent extends Add implements OnInit {
+export class AddCreditCardExpensesComponent extends BaseForm implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
@@ -106,8 +60,6 @@ export class AddCreditCardExpensesComponent extends Add implements OnInit {
   }
 
 
-
-  
   private toolTipsMessages = ToolTips;
   get matTooltip() {
     return this.toolTipsMessages

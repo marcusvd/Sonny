@@ -29,7 +29,7 @@ import { ConfirmDialogCollectDeliverComponent } from '../../commons-components/c
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CustomerDto } from 'src/components/main/customer/components/commons-components/dtos/customer-dto';
-import { PartnerDto } from 'src/components/main/partner/commons-components/dtos/partner-dto';
+import { PartnerDto } from "../../../../../components/main/partner/dtos/partner-dto";
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { OthersDestiniesComponent } from '../../commons-components/other-form-destinies/others-destinies.component';
 import { SubjectContactComponent } from '../../commons-components/subject-contact/subject-contact.component';
@@ -83,7 +83,7 @@ export class CollectDeliverEditComponent extends BaseForm implements OnInit {
   ) {super()}
 
 
-  
+
 
   private valLocal = CollectDeliverValidators;
   get validatorLocal() {

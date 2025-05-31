@@ -1,6 +1,6 @@
-import { MyUser } from "src/components/authentication/dto/my-user";
-import { PartnerDto } from "src/components/main/partner/commons-components/dtos/partner-dto";
-import { CompanyDto } from "src/shared/entities-dtos/company-dto";
+import { MyUser } from "../../../../components/authentication/dto/my-user";
+import { PartnerDto } from "../../../../components/main/partner/dtos/partner-dto";
+import { CompanyDto } from "../../../../shared/entities-dtos/company-dto";
 import { BillingFromDto } from "./billing-from-dto";
 import { DestinyDto } from "./destiny-dto";
 

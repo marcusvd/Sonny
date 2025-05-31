@@ -4,8 +4,8 @@ import { NavigationExtras, Router } from "@angular/router";
 import { Observable } from "rxjs";
 
 
-import { PartnerDto } from "src/components/main/partner/commons-components/dtos/partner-dto";
-import { BaseForm } from "src/shared/components/inheritance/forms/base-form";
+import { PartnerDto } from "../../../../../components/main/partner/dtos/partner-dto";
+import { BaseForm } from "../../../../../shared/components/inheritance/forms/base-form";
 import { ManufacturerDto } from "../../dtos/manufacturer-dto";
 import { ModelDto } from "../../dtos/model-dto";
 import { ProductTypeEdit } from "../../dtos/produc-type-edit";

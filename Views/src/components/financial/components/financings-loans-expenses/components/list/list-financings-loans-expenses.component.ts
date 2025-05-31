@@ -1,43 +1,22 @@
 
-import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-
-import { FormBuilder, FormControl, FormsModule } from '@angular/forms';
-import { MatButtonModule as MatButtonModule } from '@angular/material/button';
-import { MatCardModule as MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule as MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialog as MatDialog } from '@angular/material/dialog';
-import { MatMenuModule as MatMenuModule } from '@angular/material/menu';
-import { MatPaginatorModule as MatPaginatorModule } from '@angular/material/paginator';
-import { MatRadioModule as MatRadioModule } from '@angular/material/radio';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Observable, of, Subscription } from 'rxjs';
+import { FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Component } from '@angular/core';
 
 
-import { environment } from 'src/environments/environment';
-import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-import { GridListCommonSearchComponent } from 'src/shared/components/grid-list-common/grid-list-common-search.component';
-import { GridListCommonTableComponent } from 'src/shared/components/grid-list-common/grid-list-common-table.component';
-import { GridListCommonComponent } from 'src/shared/components/grid-list-common/grid-list-common.component';
-import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
-import { IEntityGridAction } from 'src/shared/components/grid-list-common/interface/entity-grid-action';
-
-import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
-import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
-import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
-import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
-import { FilterBtnRadioComponent } from '../../../common-components/filter-btn-radio/filter-btn-radio.component';
-import { ViewExpensesGDto } from '../../../common-components/view-expenses-g/dtos/view-expense-g-dto';
+import { environment } from '../../../../../../environments/environment';
+import { ListDefaultImports, ListDefaultProviders } from '../../../../../../components/imports/components-default.imports';
+import { DeleteServices } from '../../../../../../shared/components/delete-dialog/services/delete.services';
+import { PtBrCurrencyPipe } from '../../../../../../shared/pipes/pt-br-currency.pipe';
+import { PtBrDatePipe } from '../../../../../../shared/pipes/pt-br-date.pipe';
 import { FinancingsLoansExpensesDto } from '../../dto/financings-loans-expenses-dto';
-import { ListFinancingsLoansExpensesDto } from './dto/list-financings-loans-expenses-dto';
-import { BackEndListFilterFinancingsLoansExpenses } from './filter-list/back-end-list-filter-financings-loans-expenses';
-import { FrontEndListFilterFinancingsLoansExpenses } from './filter-list/front-end-list-filter-financings-loans-expenses';
+import { ListControlFinancingsLoansExpenses } from '../list/helpers/list-control-financings-loans-expenses';
+import { ListFinancingsLoansExpensesImports, ListFinancingsLoansExpensesProviders } from '../list/imports/list-financings-loans-expenses.imports';
 import { ListFinancingsLoansExpensesService } from './services/list-financings-loans-expenses.service';
 import { TriggerPaymentFinancingsLoans } from './trigger-payment-financings-loans';
-import { ImportsListFinancingsLoansExpenses, ProvidersListFinancingsLoansExpenses } from '../list/imports/imports-list-financings-loans-expenses'
-import { ListControlFinancingsLoansExpenses } from '../list/helpers/list-control-financings-loans-expenses';
-import { DeleteServices } from 'src/shared/components/delete-dialog/services/delete.services';
-import { Component } from '@angular/core';
 
 
 @Component({
@@ -46,10 +25,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./list-financings-loans-expenses.component.css'],
   standalone: true,
   imports: [
-    ImportsListFinancingsLoansExpenses
+    ListFinancingsLoansExpensesImports,
+    ListDefaultImports,
   ],
   providers: [
-    ProvidersListFinancingsLoansExpenses
+    ListDefaultProviders,
+    ListFinancingsLoansExpensesProviders
   ]
 
 })

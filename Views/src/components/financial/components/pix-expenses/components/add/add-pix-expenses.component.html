@@ -1,0 +1,67 @@
+<!-- <div  class="border-around">
+    <title-component [digit]="'|'" [textTitleComp]="'Despesas Pix'" [icon]="'attach_money'">
+    </title-component>
+    <mat-card [formGroup]="formMain"  *ngIf="formMain">
+        <sub-title title [title]="'Cadastro'" [icon]="'add'"></sub-title>
+
+
+    </mat-card>
+</div> -->
+
+<default-component [formGroup]="formMain" *ngIf="formMain" [hideDivider]="true" [digitTitleComp]="'|'" [textTitleComp]="'Despesas Pix'" [textSubTitleComp]="'Cadastro'" [iconSubTitleComp]="'add'">
+    <div class="p-4" btns>
+
+    </div>
+    <div class="p-4" body>
+        <div class="p-4">
+            <h3 class="title-categories-divide-comp">Identificação</h3>
+        </div>
+
+        <div>
+            <mat-label>Beneficiado / Nome</mat-label>
+            <mat-form-field class="w-full" appearance="outline">
+                <input matInput type="text" formControlName="benefitedName" aria-label="Beneficiado">
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'benefitedName', 'Beneficiado')}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,'benefitedName', 'Beneficiado',null,150)}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div>
+            <pixes-expenses-fields [formMain]="formMain" [showExpenseDay]="false" [showPrice]="true">
+
+            </pixes-expenses-fields>
+        </div>
+
+
+
+        <div class="p-4">
+            <h3 class="title-categories-divide-comp">Conta que será debitado</h3>
+        </div>
+
+        <div>
+            <get-bank-account-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [validatorsPaymentBtnAction]="validatorsCreditPixOthers" [radioOptionRemove]="[1,2]" [optionsRadio]="[{ id: 0, name: 'Pix' }, { id: 1, name: 'Cartão Débito' }, { id: 2, name: 'Outros' }]"
+                (pixesFromSelectedBan)="getPixId($event)">
+            </get-bank-account-select-single>
+        </div>
+        <div>
+            <mat-label>Despesa descritivo</mat-label>
+            <mat-form-field class="w-full" appearance="outline">
+                <input matInput type="text" formControlName="description" aria-label="Descrição">
+                <mat-hint>EX: Conta restaurante, Jogo online no site.com etc...</mat-hint>
+                <mat-error>
+                    <span>{{validatorMessages.required(formMain,'description', 'Despesa descritivo')}}</span>
+                    <span>{{validatorMessages.minMaxLength(formMain,'description', 'Despesa descritivo',null,150)}}</span>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <!-- <div>{{formMain.value | json}}</div> -->
+
+        <div class="flex justify-center pb-6">
+            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
+        </div>
+
+    </div>
+</default-component>

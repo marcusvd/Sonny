@@ -9,13 +9,13 @@ import { MatSelectModule as MatSelectModule } from '@angular/material/select';
 import { MatCardModule as MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule as MatFormFieldModule } from '@angular/material/form-field';
 import { Observable } from 'rxjs/internal/Observable';
-import { CardDto } from 'src/components/financial/components/bank-account-cards/dto/card-dto';
-import { environment } from 'src/environments/environment';
-import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
+import { CardDto } from '../../../../../../components/financial/components/bank-account-cards/dto/card-dto';
+import { environment } from '../../../../../../environments/environment';
+import { BaseForm } from '../../../../../../shared/components/inheritance/forms/base-form';
 
-import { SpinnerGComponent } from 'src/shared/components/spinner-g/component/spinner-g.component';
+import { SpinnerGComponent } from '../../../../../../shared/components/spinner-g/component/spinner-g.component';
 
-import { BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
+import { BankCardNumberPipe } from '../../../../../../shared/pipes/bank-card-number.pipe';
 import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
 import { CreditCardInvoicesGetService } from './credit-card-invoices-get.service';
 
@@ -67,15 +67,15 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
   }
 
 
-  
 
-  @Input() urlBackEndApi: string = null;
+
+  @Input() urlBackEndApi: string = '';
 
   entities$: Observable<CardDto[]>;
-  cards: CardDto = null;
+  cards!: CardDto;
 
   // card$: Observable<CardDto> = null;
-  bankAccount: BankAccountDto = null;
+  bankAccount!: BankAccountDto;
   @Output() creditCardIdOutput = new EventEmitter<CardDto>();
   onCardsSelected(creditCard: CardDto) {
     this.bankAccount = creditCard.bankAccount;

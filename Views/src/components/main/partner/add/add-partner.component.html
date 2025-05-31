@@ -1,0 +1,82 @@
+<!-- <div class="border-around" [formGroup]="formMain">
+    <title-component [digit]="'|'" [textTitleComp]="'Cadastro de parceiros'" [icon]="'transfer_within_a_station'">
+
+    </title-component>
+    <mat-card class="mat-card-sub-title">
+        <sub-title title [title]="'Cadastro de Parceiro'" [icon]="'add'"></sub-title>
+
+    </mat-card>
+
+</div>
+
+<div class="border-around">
+    <div>{{formMain.value|json}}</div>
+</div> -->
+
+
+<default-component [formGroup]="formMain" *ngIf="formMain" [digitTitleComp]="'|'" [textTitleComp]="'Despesas Anuais'" [textSubTitleComp]="'Cadastro'" [iconSubTitleComp]="'add'">
+    <div btns>
+
+    </div>
+    <div body>
+        <div>
+            <div class="p-4">
+                <h3 class="title-categories-divide-comp">Identificação</h3>
+            </div>
+        </div>
+        <div>
+            <div>
+                <name-cpf-cnpj (cpfCnpjBusinessData)="cpfCnpjBusinessData($event)" [formMain]="formMain"> </name-cpf-cnpj>
+                <!-- <name-cpf-cnpj (cpfCnpjBusinessData)="cpfCnpjBusinessData($event)" [formMain]="formMain" [entityType]="'entityType'" > </name-cpf-cnpj> -->
+            </div>
+            <div>
+                <main-entities-base [formMain]="formMain" [businessLine]="true" [specificBusinessLine]="true">
+                </main-entities-base>
+            </div>
+            <!-- <div >
+        </div> -->
+        </div>
+        <div class="align-h-center">
+            <mat-divider class="divider-line-categories-comp"></mat-divider>
+        </div>
+        <payment-data [formMain]="paymentDataForm" (addBankOutput)="addBank()" (removeBankOutput)="removeBank($event)">
+        </payment-data>
+
+        <div class="align-h-center">
+            <mat-divider class="divider-line-categories-comp"></mat-divider>
+        </div>
+
+
+        <div>
+            <physically-moving-costs [formMain]="subForm">
+            </physically-moving-costs>
+        </div>
+
+        <div>
+            <description-field [formMain]="formMain" [maxLength]="1000">
+            </description-field>
+        </div>
+
+        <div class="align-h-center">
+            <mat-divider class="divider-line-categories-comp"></mat-divider>
+        </div>
+
+        <div>
+            <div>
+                <address [formMain]="this.address"></address>
+            </div>
+
+            <div class="align-h-center">
+                <mat-divider class="divider-line-categories-comp"></mat-divider>
+            </div>
+
+            <div>
+                <contact [formMain]="this.contact"></contact>
+            </div>
+        </div>
+
+        <div>
+            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
+        </div>
+    </div>
+</default-component>

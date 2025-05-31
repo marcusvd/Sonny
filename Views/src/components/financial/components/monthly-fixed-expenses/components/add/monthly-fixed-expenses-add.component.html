@@ -1,11 +1,22 @@
-<div class="space-around mb-14">
+<!-- <div class="space-around mb-14">
     <title-component [digit]="'|'" [textTitleComp]="'Despesa Mensal'" [icon]="'attach_money'">
         <btn-g btn-1 [name]="'Adicionar Categoria'" [icon]="'add'" (btn)="add()"></btn-g>
     </title-component>
     <mat-card class="sub-title-mat-card border-card-categories-divide-comp" [formGroup]="formMain" *ngIf="formMain">
-        <div class="sub-title">
-            <mat-icon class="mat-icon-left-subtitle">add</mat-icon> <span>{{'Cadastro'}}</span>
-        </div>
+
+<div class="sub-title">
+    <mat-icon class="mat-icon-left-subtitle">add</mat-icon> <span>{{'Cadastro'}}</span>
+</div>
+
+    </mat-card>
+</div> -->
+
+
+<default-component [formGroup]="formMain" *ngIf="formMain" [digitTitleComp]="'|'" [textTitleComp]="'Despesa Mensal'" [textSubTitleComp]="'Cadastro'" [iconSubTitleComp]="'add'">
+    <div btns>
+
+    </div>
+    <div body>
         <div class="p-4 w-full grid sm:grid-cols-2 grid-cols-1 gap-4">
             <div class="w-full">
                 <mat-label>Despesa</mat-label>
@@ -61,5 +72,5 @@
         <div class="flex justify-center pb-6">
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
         </div>
-    </mat-card>
-</div>
+    </div>
+</default-component>

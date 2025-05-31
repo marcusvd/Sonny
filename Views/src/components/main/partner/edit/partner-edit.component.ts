@@ -27,14 +27,13 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
-import { PhoneHandlers } from "src/shared/helpers/handlers/phone-handlers";
 import { ValidatorsCustom } from 'src/shared/helpers/validators/validators-custom';
-
+import { IsMobileNumberPipe } from '../../../../shared/pipes/is-mobile-number.pipe';
 import { FinancialInfoTypeComponent } from '../../customer/components/commons-components/financial-info-type/financial-info-type.component';
 import { MainEntitiesBaseComponent } from '../../inheritances/main-entities-base/main-entities-base.component';
 import { PhysicallyMovingCostsComponent } from '../../inheritances/physically-moving-costs/physically-moving-costs.component';
 import { PhysicallyMovingCostsService } from '../../inheritances/physically-moving-costs/service/physically-moving-costs.service';
-import { PartnerDto } from '../commons-components/dtos/partner-dto';
+import { PartnerDto } from '../dtos/partner-dto';
 import { PartnerPaymentBankAccountDto } from '../commons-components/dtos/partner-payment-bank-account-dto';
 import { PartnerPaymentPixDto } from '../commons-components/dtos/partner-payment-pix-dto';
 import { PaymentDataComponent } from '../commons-components/payment/payment-data.component';
@@ -68,7 +67,11 @@ import { PaymentDataComponent } from '../commons-components/payment/payment-data
     AddressComponent,
     PaymentDataComponent,
     NameCpfCnpjComponent,
-    BtnGComponent
+    BtnGComponent,
+
+  ],
+  providers:[
+    IsMobileNumberPipe
   ]
 })
 export class PartnerEditComponent extends BaseForm implements OnInit {
@@ -87,11 +90,12 @@ export class PartnerEditComponent extends BaseForm implements OnInit {
     private _partnerEditService: PartnerEditService,
     private _contactService: ContactService,
     private _addressService: AddressService,
+    private _isMobileNumberPipe: IsMobileNumberPipe,
     private _physicallyMovingCostsService: PhysicallyMovingCostsService,
 
   ) {super()}
 
-  
+
 
   private valCustom = ValidatorsCustom;
   get validatorCustom() {
@@ -127,14 +131,14 @@ export class PartnerEditComponent extends BaseForm implements OnInit {
     this.contact.get('id').setValue(0);
     this.contact.get('email').setValue(data.email);
 
-    const isMobile = PhoneHandlers.handlerApiPhoneNumberFromReceitaWs(data.telefone)
+  const isMobile = this._isMobileNumberPipe.transform(data.telefone)
 
     if (isMobile.isMobile)
-      this.contact.get('cel').setValue(isMobile.phoneNum);
+      this.contact.get('cel')?.setValue(isMobile.phoneNum);
     else
-      this.contact.get('landline').setValue(isMobile.phoneNum);
+      this.contact.get('landline')?.setValue(isMobile.phoneNum);
 
-    this.validatorCustom.atLeastOneValidationBlur(this.contact, ['cel', 'zap', 'landline']);
+
 
   }
 

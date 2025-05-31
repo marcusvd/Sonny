@@ -258,18 +258,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 
 
-import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
-import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { environment } from 'src/environments/environment';
 import { DeleteServices } from 'src/shared/components/delete-dialog/services/delete.services';
-import { FinancialSubtitleDto } from '../../../common-components/subtitle/financial-subtitle-dto';
+import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
+import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
+import { ListCreditCardExpensesImports, ListCreditCardExpensesProviders } from '../../../../../../components/financial/components/credit-card-fixed-expenses/components/list/imports/list-credit-card-expenses.imports';
+import { ListDefaultImports, ListDefaultProviders } from '../../../../../../components/imports/components-default.imports';
 import { ListControlCreditCardExpenses } from '../list/helpers/list-control-credit-card-expenses';
-import { ImportsListCreditCardExpenses, ProvidersListCreditCardExpenses } from '../list/imports/imports-list-credit-card-expenses';
 import { ListCreditCardExpensesDto } from './dto/list-credit-card-expenses-dto';
 import { BackEndListFilterCreditCardExpenses } from './filter-list/back-end-list-filter-credit-card-expenses';
 import { PaymentMonthlyFixedExpense } from './payment-monthly-fixed-expense';
 import { ListCreditCardExpensesService } from './services/list-credit-card-expenses.service';
-import { CreditCardExpenseDto } from '../../dto/credit-card-expense-dto';
 
 @Component({
   selector: 'list-credit-card-expenses',
@@ -277,10 +276,12 @@ import { CreditCardExpenseDto } from '../../dto/credit-card-expense-dto';
   styleUrls: ['./list-credit-card-expenses.component.css'],
   standalone: true,
   imports: [
-    ImportsListCreditCardExpenses
+    ListCreditCardExpensesImports,
+    ListDefaultImports
   ],
   providers: [
-    ProvidersListCreditCardExpenses
+    ListCreditCardExpensesProviders,
+    ListDefaultProviders
   ]
 
 })

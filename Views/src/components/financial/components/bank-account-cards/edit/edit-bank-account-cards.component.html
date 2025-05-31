@@ -1,0 +1,21 @@
+<default-component [formGroup]="formMain" *ngIf="formMain" [digitTitleComp]="'|'" [textTitleComp]="institution" [textSubTitleComp]="'Cadastro'" [iconSubTitleComp]="'add'">
+    <div btns>
+
+    </div>
+    <div body>
+        <bank-account [formMain]="formMain" [mainIcon]="'edit'" [mainTitle]="institution">
+            <pix pix [formMain]="formMain" [noBeneficiaryField]="false" [edit]="true" [pixesEntities]="pixes">
+            </pix>
+        </bank-account>
+
+        <div class="align-h-center">
+            <mat-divider class="divider-line-categories-comp"></mat-divider>
+        </div>
+        <bank-cards [formMain]="formMain" [edit]="true" [cards]="cards" [mainIcon]="'payment'">
+        </bank-cards>
+        <!-- {{formMain.value | json}} -->
+        <div class="ml-4 pb-12 sm:w-full sm:flex sm:justify-center">
+            <btn-g [name]="'Atualizar'" [icon]="'save'" (btn)="update()"></btn-g>
+        </div>
+    </div>
+</default-component>

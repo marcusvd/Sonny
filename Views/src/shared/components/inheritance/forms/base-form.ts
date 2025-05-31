@@ -4,20 +4,24 @@ import * as diacritics from 'diacritics';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { DefaultMessages } from 'src/shared/helpers/validators/default-messages';
 
-export class BaseForm  {
+export class BaseForm {
 
-  companyId = JSON.parse(localStorage.getItem('companyId'))
-  userId = JSON.parse(localStorage.getItem('userId'))
+  companyId = localStorage.getItem('companyId')
+    ? JSON.parse(localStorage.getItem('companyId')!)
+    : '';
 
-  //minValue = new Date('0001-01-01T00:00:00.000Z');
+  userId = localStorage.getItem('userId')
+    ? JSON.parse(localStorage.getItem('userId')!)
+    : '';
+
   minValue = new Date('0001-01-01T00:00:00');
 
   currentDate = new Date();
   currentDateWithoutHours = this.currentDate.setHours(0, 0, 0, 0)
 
-  formMainDynamic: FormGroup;
-  formMain: FormGroup;
-  subForm: FormGroup;
+  formMainDynamic!: FormGroup;
+  formMain!: FormGroup;
+  subForm!: FormGroup;
 
   saveBtnEnabledDisabled: boolean = false;
 
@@ -26,40 +30,37 @@ export class BaseForm  {
 
   addValidators(form: FormGroup, fields: string[]) {
     fields.forEach(field => {
-      form?.get(field).setValidators(Validators.required);
-      form?.get(field).updateValueAndValidity();
+      form?.get(field)?.setValidators(Validators.required);
+      form?.get(field)?.updateValueAndValidity();
     })
   }
 
   removeValidators(form: FormGroup, fields: string[]) {
     fields.forEach(field => {
-      form?.get(field).setValue(null);
-      form?.get(field).removeValidators(Validators.required);
-      form?.get(field).removeValidators(Validators.requiredTrue);
-      form?.get(field).updateValueAndValidity();
+      form?.get(field)?.setValue(null);
+      form?.get(field)?.removeValidators(Validators.required);
+      form?.get(field)?.removeValidators(Validators.requiredTrue);
+      form?.get(field)?.updateValueAndValidity();
     })
   }
 
   resetFields(form: FormGroup, fields: string[]) {
     fields.forEach(field => {
-      form?.get(field).reset();
+      form?.get(field)?.reset();
     })
   }
 
   setFormFieldEnableDisable(form: FormGroup, field: string, action: boolean) {
     if (action)
-      form?.get(field).enable();
+      form?.get(field)?.enable();
     else
-    form?.get(field).disable();
+      form?.get(field)?.disable();
   }
 
   setFormFieldValue(form: FormGroup, field: string, value: any) {
-    form?.get(field).setValue(value);
+    form?.get(field)?.setValue(value);
   }
 
-  formTouched = (form: FormGroup, field: string) => {
-    return form?.get(field).touched
-  }
 
   removeNonNumericAndConvertToNumber(str: string): number {
     return +str?.replace(/\D/g, '');
@@ -70,9 +71,24 @@ export class BaseForm  {
     return noAccents?.replace(/[^\w\s]/gi, ''); //remove special characters
   }
 
+  //só product esta usando, será atualizado
+  formTouched = (form: FormGroup, field: string) => {
+    return form?.get(field).touched
+  }
   formError = (form: FormGroup, field: string, error: string) => {
     return form?.get(field)?.hasError(error)
   }
+  //
+
+
+
+  formErrorAndTouched = (form: FormGroup, field: string, error: string) => {
+     console.log(form.value, field, error);
+    return form?.get(field)?.hasError(error) && form?.get(field)?.touched;
+  }
+
+
+
 
   alertSave(form: FormGroup) {
     if (!form?.valid) {

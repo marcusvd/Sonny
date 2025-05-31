@@ -1,7 +1,7 @@
-import { MyUser } from "src/components/authentication/dto/my-user";
-import { CustomerDto } from "src/components/main/customer/components/commons-components/dtos/customer-dto";
-import { PartnerDto } from "src/components/main/partner/commons-components/dtos/partner-dto";
-import { RootBase } from "src/shared/entities-dtos/root-base";
+import { MyUser } from "../../../../components/authentication/dto/my-user";
+import { CustomerDto } from "../../../../components/main/customer/components/commons-components/dtos/customer-dto";
+import { PartnerDto } from "../../../../components/main/partner/dtos/partner-dto";
+import { RootBase } from "../../../../shared/entities-dtos/root-base";
 import { ManufacturerDto } from "./manufacturer-dto";
 import { ModelDto } from "./model-dto";
 import { ProductTypeDto } from "./product-type-dto";
@@ -9,7 +9,7 @@ import { SegmentDto } from "./segment-dto";
 import { SpecificitiesDto } from "./specificities-dto";
 
 export class ProductDto extends RootBase {
-    
+
     productTypeId:number;
     productType: ProductTypeDto;
     segmentId:number;

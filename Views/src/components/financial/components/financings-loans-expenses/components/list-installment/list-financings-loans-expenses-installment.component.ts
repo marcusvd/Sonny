@@ -1,39 +1,20 @@
-
-import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
-import { FormBuilder, FormsModule } from '@angular/forms';
-import { MatButtonModule as MatButtonModule } from '@angular/material/button';
-import { MatCardModule as MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule as MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialog as MatDialog } from '@angular/material/dialog';
-import { MatMenuModule as MatMenuModule } from '@angular/material/menu';
-import { MatPaginatorModule as MatPaginatorModule } from '@angular/material/paginator';
-import { MatRadioModule as MatRadioModule } from '@angular/material/radio';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Observable, of, Subscription } from 'rxjs';
+import { environment } from '../../../../../../environments/environment';
+import { PtBrCurrencyPipe } from '../../../../../../shared/pipes/pt-br-currency.pipe';
+import { PtBrDatePipe } from '../../../../../../shared/pipes/pt-br-date.pipe';
 
 
-import { environment } from 'src/environments/environment';
-import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-
-import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
-import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
-import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
-import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
-import { FilterBtnRadioComponent } from '../../../common-components/filter-btn-radio/filter-btn-radio.component';
-
-
-import { ScreenDataInfoComponent } from '../../../common-components/screen-data-info/screen-data-info.component';
-import { FinancingAndLoanExpenseInstallmentDto } from '../../dto/financing-and-loan-expense-installment-dto';
-import { ListFinancingsLoansExpensesInstallmentDto } from './dto/list-financings-loans-expenses-installment-dto';
-import { FrontEndListFilterFinancingsLoansExpensesInstallment } from './filter-list/front-end-list-filter-financings-loans-expenses-installment';
+import { ListDefaultImports, ListDefaultProviders } from '../../../../../../components/imports/components-default.imports';
+import { DeleteServices } from '../../../../../../shared/components/delete-dialog/services/delete.services';
 import { ListControlListFinancingsLoansExpensesInstallment } from '../list-installment/helpers/list-control-list-financings-loans-expenses-installment';
+import { ListFinancingsLoansExpensesInstallmentImports, ListFinancingsLoansExpensesInstallmentProviders } from '../list-installment/imports/list-financings-loans-expenses-installment.imports';
 import { ListFinancingsLoansExpensesInstallmentService } from './services/list-financings-loans-expenses-installment.service';
-import { TriggerPaymentFinancingsLoansInstallment } from './trigger-payment-financings-loans-installment';
-import { ImportsListFinancingsLoansExpensesInstallment, ProvidersListFinancingsLoansExpensesInstallment } from '../list-installment/imports/imports-list-financings-loans-expenses-installment';
-import { DeleteServices } from 'src/shared/components/delete-dialog/services/delete.services';
 
 
 @Component({
@@ -42,10 +23,12 @@ import { DeleteServices } from 'src/shared/components/delete-dialog/services/del
   styleUrls: ['./list-financings-loans-expenses-installment.component.css'],
   standalone: true,
   imports: [
-    ImportsListFinancingsLoansExpensesInstallment
+    ListFinancingsLoansExpensesInstallmentImports,
+    ListDefaultImports,
   ],
   providers: [
-    ProvidersListFinancingsLoansExpensesInstallment
+    ListFinancingsLoansExpensesInstallmentProviders,
+    ListDefaultProviders,
   ]
 
 })

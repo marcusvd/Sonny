@@ -74,8 +74,8 @@
                 <mat-form-field class="w-full" appearance="outline">
                     <input matInput id="socialnetName" formControlName="name" aria-label="Rede Social">
                     <mat-error>
-                        <span>{{validatorMessages.required(subForm,'name', 'Nome')}}</span>
-                        <span>{{validatorMessages.minMaxLength(subForm,'name', 'name', 3, 150)}}</span>
+                        <span>{{validatorMessages.required(getSubForm,'name', 'Nome')}}</span>
+                        <span>{{validatorMessages.minMaxLength(getSubForm,'name', 'name', 3, 150)}}</span>
                     </mat-error>
                 </mat-form-field>
 
@@ -85,8 +85,8 @@
                 <mat-form-field class="w-full" appearance="outline">
                     <input matInput id="socialnetUrl" formControlName="url" aria-label="Url (Link)">
                     <mat-error>
-                        <span>{{validatorMessages.required(subForm,'url', 'URL')}}</span>
-                        <span>{{validatorMessages.minMaxLength(subForm,'url', 'URL', 0, 150)}}</span>
+                        <span>{{validatorMessages.required(getSubForm,'url', 'URL')}}</span>
+                        <span>{{validatorMessages.minMaxLength(getSubForm,'url', 'URL', 0, 150)}}</span>
                     </mat-error>
                 </mat-form-field>
             </div>

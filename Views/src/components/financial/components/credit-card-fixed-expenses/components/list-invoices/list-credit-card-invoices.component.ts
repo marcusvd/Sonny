@@ -1,43 +1,26 @@
 
-import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-
-import { FormBuilder, FormsModule } from '@angular/forms';
-import { MatButtonModule as MatButtonModule } from '@angular/material/button';
-import { MatCardModule as MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule as MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialog as MatDialog } from '@angular/material/dialog';
-import { MatMenuModule as MatMenuModule } from '@angular/material/menu';
-import { MatPaginatorModule as MatPaginatorModule } from '@angular/material/paginator';
-import { MatRadioModule as MatRadioModule } from '@angular/material/radio';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Observable, of, Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
 
 
-import { environment } from 'src/environments/environment';
-import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-
-import { MonthsDto } from 'src/shared/components/months-select/months-dto';
-import { MonthsSelectComponent } from 'src/shared/components/months-select/months-select-g.component';
-import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
-import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
-import { BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
-import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
-import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
+import { environment } from '../../../../../../environments/environment';
+import { MonthsDto } from '../../../../../../shared/components/months-select/months-dto';
+import { PtBrCurrencyPipe } from '../../../../../../shared/pipes/pt-br-currency.pipe';
+import { PtBrDatePipe } from '../../../../../../shared/pipes/pt-br-date.pipe';
 import { CardDto } from '../../../bank-account-cards/dto/card-dto';
-import { ViewBankAccountComponent } from '../../../common-components/view-bank-account/view-bank-account.component';
 import { CreditCardExpenseInvoiceDto } from '../list-invoices/dto/credit-card-expense-invoice-dto';
-import { CreditCardInvoicesMatSelectSingleComponent } from '../credit-card-invoice/credit-card-invoices-mat-select-single.component';
-import { FrontEndListFilterCreditCardInvoices } from './filter-list/front-end-list-filter-credit-card-invoices';
-import { ListCreditCardInvoicesService } from './services/list-credit-card-invoices.service';
 import { ListCreditCardInvoiceDto } from '../../../credit-card-fixed-expenses/dto/list-credit-card-invoice-dto';
-
-import { TriggerCreditCardsInvoices } from './trigger-credit-cards-invoices';
-import { ListGComponent } from 'src/shared/components/list-g/list/list-g.component';
-import { DeleteServices } from 'src/shared/components/delete-dialog/services/delete.services';
+import { ListCreditCardInvoicesService } from './services/list-credit-card-invoices.service';
+import { ListDefaultImports, ListDefaultProviders } from '../../../../../../components/imports/components-default.imports';
+import { DeleteServices } from '../../../../../../shared/components/delete-dialog/services/delete.services';
 import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
 import { ListControlCreditCardInvoices } from '../../../credit-card-fixed-expenses/components/list-invoices/helpers/list-control-credit-card-invoices';
+import { TriggerCreditCardsInvoices } from './trigger-credit-cards-invoices';
+import { ListCreditCardExpensesImports, ListCreditCardExpensesProviders } from '../list/imports/list-credit-card-expenses.imports';
 
 
 @Component({
@@ -46,28 +29,12 @@ import { ListControlCreditCardInvoices } from '../../../credit-card-fixed-expens
   styleUrls: ['./list-credit-card-invoices.component.scss'],
   standalone: true,
   imports: [
-    CommonModule,
-    FormsModule,
-    MatCardModule,
-    MatPaginatorModule,
-    MatButtonModule,
-    MatMenuModule,
-    RouterModule,
-    MatCheckboxModule,
-    MatRadioModule,
-    BankCardNumberPipe,
-    TitleComponent,
-    BtnGComponent,
-    SubTitleComponent,
-    MonthsSelectComponent,
-    CreditCardInvoicesMatSelectSingleComponent,
-    ViewBankAccountComponent,
-    ListGComponent
+    ListDefaultImports,
+    ListCreditCardExpensesImports
   ],
   providers: [
-    ListCreditCardInvoicesService,
-    PtBrDatePipe,
-    PtBrCurrencyPipe,
+    ListCreditCardExpensesProviders,
+    ListDefaultProviders
   ]
 
 })
@@ -116,7 +83,7 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
   backEndUrl: string = `${this.controllerUrl}/GetAllCreditCardExpensesByCompanyId`;
   override  entities: ListCreditCardInvoiceDto[] = [];
   override entities$: Observable<ListCreditCardInvoiceDto[]>;
-   listViewExpensesUrlRoute: string = '/financial/list-credit-card-expenses';
+  listViewExpensesUrlRoute: string = '/financial/list-credit-card-expenses';
   // override addUrlRoute: string = '/financial/add-credit-card-expenses';
 
 

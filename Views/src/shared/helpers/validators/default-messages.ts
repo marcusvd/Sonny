@@ -23,6 +23,7 @@ export class DefaultMessages {
   static limitMinMsg = 'Abaixo do mínimo necessário!';
   static charactersMsg = ' caracteres!'
   static inUseMsg = 'Já cadastrado!';
+  static atleastone = 'Obrigatório selecionar pelo menos!';
 }
 
 

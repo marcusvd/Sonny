@@ -7,7 +7,7 @@ import { BackEndService } from "src/shared/services/back-end/backend.service";
 import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
 
 import { EntityTypeEnumDto } from "src/components/main/inheritances/dtos/enum/entity-type.enum-dto";
-import { PartnerDto } from "../../commons-components/dtos/partner-dto";
+import { PartnerDto } from "../../dtos/partner-dto";
 
 
 @Injectable({ providedIn: 'root' })
