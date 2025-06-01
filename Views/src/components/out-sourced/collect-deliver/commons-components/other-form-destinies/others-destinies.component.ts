@@ -20,9 +20,9 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
   ],
   template: `
 <div>
-      <div >
-        <mat-form-field appearance="outline" >
-            <mat-label>Nome / Identificação</mat-label>
+      <div>
+        <mat-label>Nome / Identificação</mat-label>
+        <mat-form-field class="w-full" appearance="outline" >
           <input matInput type="text"  [formControl]="noRegisterName">
           <mat-error>
               <span>{{validatorMessages.required(form, 'noRegisterName', 'Nome / Identificação')}}</span>
@@ -30,10 +30,10 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
           </mat-error>
         </mat-form-field>
     </div>
-    <br>
+
     <div>
-        <mat-form-field appearance="outline" >
-            <mat-label>Endereço / Contatos</mat-label>
+      <mat-label>Endereço / Contatos</mat-label>
+        <mat-form-field class="w-full" appearance="outline" >
           <input matInput type="text"  [formControl]="noRegisterAddress">
           <mat-error>
               <span>{{validatorMessages.required(form, 'noRegisterAddress', 'Endereço / Contatos')}}</span>
@@ -44,17 +44,7 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 </div>
 <br>
   `,
-  styles: [`
-
-::ng-deep .mat-focused .mat-form-field-label {
-    /*change color of label*/
-    color: green !important;
-}
-::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-  color: green !important;
-}
-
-  `]
+  styles: []
 })
 export class OthersDestiniesComponent extends BaseForm implements OnInit {
 

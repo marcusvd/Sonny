@@ -23,8 +23,8 @@ import { GetSupliersService } from './get-supliers.service';
   ],
   template: `
 
- <mat-form-field  appearance="outline" [formGroup]="formMain" >
-        <mat-label>Fornecedor</mat-label>
+<mat-label>Fornecedor</mat-label>
+ <mat-form-field class="w-full"  appearance="outline" [formGroup]="formMain" >
         <mat-select  #singleSelect (blur)="onBlur()" (selectionChange)="onPartnerSelected(singleSelect.value)" formControlName="supplierId">
             <mat-option *ngFor="let supplier of suppliers$ | async" [value]="supplier.id">
                 {{supplier.name}}

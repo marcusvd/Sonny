@@ -28,9 +28,9 @@ import { BaseForm } from '../../inheritance/forms/base-form';
   ],
   template: `
  <div [formGroup]="formMain" >
- <mat-form-field  appearance="outline">
-  <mat-label>Cliente</mat-label>
-  <mat-select   placeholder="Pesquise pelo nome" #singleSelect name="customerId" (blur)="onBlur()"  (blur)="onCustomerSelected(singleSelect?.value)" formControlName="customerId">
+   <mat-label>Cliente</mat-label>
+ <mat-form-field class="w-full" appearance="outline">
+  <mat-select placeholder="Pesquise pelo nome" #singleSelect name="customerId" (blur)="onBlur()"  (blur)="onCustomerSelected(singleSelect?.value)" formControlName="customerId">
       <mat-option>
           <ngx-mat-select-search [formControl]="selectFilterCustomer" (input)="searchCustomer()" placeholderLabel="Pesquise pelo nome" name="searchCustomer" ></ngx-mat-select-search>
       </mat-option>
@@ -64,7 +64,7 @@ export class GetCustomerMatSelectSingleComponent extends BaseForm implements OnC
 
   }
 
-  
+
 
   @Input() override formMain: FormGroup;
   @Input() entityForm: string = 'customerId';

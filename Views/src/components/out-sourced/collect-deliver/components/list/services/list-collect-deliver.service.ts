@@ -1,17 +1,17 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
-// import { TableDataSource } from "src/shared/components/table-g/helpers/table-datasource";
-import { environment } from "src/environments/environment";
-import { BackEndService } from "src/shared/services/back-end/backend.service";
-import { CommunicationAlerts } from "src/shared/services/messages/snack-bar.service";
+// import { TableDataSource } from "../../../../../../shared/components/table-g/helpers/table-datasource";
+import { environment } from "../../../../../../environments/environment";
+import { BackEndService } from "../../../../../../shared/services/back-end/backend.service";
+import { CommunicationAlerts } from "../../../../../../shared/services/messages/snack-bar.service";
 import { CollectDeliverDto } from "../../../dto/collect-deliver-dto";
 
 
 
 
 @Injectable()
-export class CollectDeliverListService extends BackEndService<CollectDeliverDto> {
+export class ListCollectDeliverService extends BackEndService<CollectDeliverDto> {
 
   constructor(
     override _http: HttpClient,

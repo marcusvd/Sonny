@@ -20,13 +20,12 @@ import { PartnerTransporterGetService } from './partner-transporter-get.service'
     MatSelectModule,
     NgxMatSelectSearchModule,
     ReactiveFormsModule,
-
     CommonModule
   ],
   template: `
  <div [formGroup]="formMain" >
- <mat-form-field  appearance="outline" >
-        <mat-label>Transportador</mat-label>
+   <mat-label>Transportador</mat-label>
+ <mat-form-field class="w-full" appearance="outline" >
         <mat-select placeholder="Pesquise pelo nome" #singleSelect (blur)="onBlur()" (selectionChange)="onPartnerSelected(singleSelect.value)" formControlName="transporterId">
             <mat-option *ngFor="let transporter of $transporters | async" [value]="transporter.id">
                 {{transporter.name}}

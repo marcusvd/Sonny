@@ -21,13 +21,12 @@ import { PartnerGetService } from './partner-get.service';
     MatSelectModule,
     NgxMatSelectSearchModule,
     ReactiveFormsModule,
-
     CommonModule
   ],
   template: `
- <div  [formGroup]="formMain" >
- <mat-form-field  appearance="outline" >
-        <mat-label>Parceiros</mat-label>
+ <div  [formGroup]="formMain">
+   <mat-label>Parceiros</mat-label>
+ <mat-form-field class="w-full"  appearance="outline" >
       <mat-select placeholder="Pesquise pelo nome" #singleSelect name="partnerId" (blur)="onBlur()" (selectionChange)="onPartnerSelected(singleSelect.value)" formControlName="partnerId">
             <mat-option>
                 <ngx-mat-select-search [formControl]="selectFilterPartner" (input)="searchPartner()" placeholderLabel="Pesquise pelo nome" name="searchPartner"></ngx-mat-select-search>

@@ -12,7 +12,7 @@ import { MatInputModule as MatInputModule } from '@angular/material/input';
 import { MatSelectModule as MatSelectModule } from '@angular/material/select';
 import { NgxMaskModule } from 'ngx-mask';
 
-import { ValidatorMessagesCustomer } from 'src/components/main/customer/validators/customer/validators-messages-customer';
+import { ValidatorMessagesCustomer } from '../../../../../../components/main/customer/validators/customer/validators-messages-customer';
 import { FilterSearch } from './interface/filter-search';
 
 @Component({
@@ -74,7 +74,7 @@ import { FilterSearch } from './interface/filter-search';
     NgIf,
     NgFor,
     MatButtonModule,
-    
+
     MatIconModule,
     MatDividerModule,
     MatInputModule,
@@ -91,7 +91,7 @@ export class CollectDeliverListFilterComponent implements OnInit {
 
   constructor(private _fb: FormBuilder) { }
 
-  
+
 
   private valMessagesCustomer = ValidatorMessagesCustomer;
   get validatorMessagesCustomer() {
