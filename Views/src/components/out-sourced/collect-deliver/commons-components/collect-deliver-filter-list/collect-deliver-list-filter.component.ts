@@ -12,8 +12,9 @@ import { MatInputModule as MatInputModule } from '@angular/material/input';
 import { MatSelectModule as MatSelectModule } from '@angular/material/select';
 import { NgxMaskModule } from 'ngx-mask';
 
-import { ValidatorMessagesCustomer } from '../../../../../../components/main/customer/validators/customer/validators-messages-customer';
+
 import { FilterSearch } from './interface/filter-search';
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
 @Component({
   selector: 'collect-deliver-list-filter',
@@ -87,53 +88,46 @@ import { FilterSearch } from './interface/filter-search';
   ]
 })
 
-export class CollectDeliverListFilterComponent implements OnInit {
+export class CollectDeliverListFilterComponent extends BaseForm implements OnInit {
 
-  constructor(private _fb: FormBuilder) { }
+  constructor(private _fb: FormBuilder) { super() }
+
+  override formMain: FormGroup = new FormGroup({});
+
+  entities: FilterSearch[] = [{ key: 'PJ', value: '0' }, { key: 'PF', value: '1' }, { key: 'Selecione', value: 'Selecione' }];
+  assureds: FilterSearch[] = [{ key: 'Assegurado', value: 'true' }, { key: 'Não Assegurado', value: 'false' }, { key: 'Selecione', value: 'Selecione' }];
 
 
-
-  private valMessagesCustomer = ValidatorMessagesCustomer;
-  get validatorMessagesCustomer() {
-    return this.valMessagesCustomer
+  select = new FormControl();
+  arrow: boolean = false;
+  @Output() filterFormOut = new EventEmitter<FormGroup>();
+  @Input() showHideFilter: boolean;
+  filterMtd() {
+    this.arrow = !this.arrow;
+    this.filterFormOut.emit(this.formMain);
+    this.formMain.reset();
+    this.formLoad();
   }
 
-  formMain: FormGroup = new FormGroup({});
+  entitySelected: string;
+  entitySelect(value: string) {
+    this.entitySelected = value;
+  }
 
-  entities: FilterSearch[] = [{ key: 'PJ', value: '0' }, {key:'PF', value:'1'}, {key:'Selecione', value:'Selecione'}];
-  assureds: FilterSearch[] = [{ key: 'Assegurado', value: 'true' }, {key:'Não Assegurado', value:'false'}, {key:'Selecione', value:'Selecione'}];
+  assuredSelected: string;
+  assuredSelect(value: string) {
+    this.assuredSelected = value;
 
+  }
 
-select = new FormControl();
-arrow: boolean = false;
-@Output() filterFormOut = new EventEmitter<FormGroup>();
-@Input() showHideFilter: boolean;
-filterMtd() {
-  this.arrow = !this.arrow;
-  this.filterFormOut.emit(this.formMain);
-  this.formMain.reset();
-  this.formLoad();
-}
+  formLoad() {
+    this.formMain = this._fb.group({
+      assured: ['Selecione', []],
+      entity: ['Selecione', []]
+    })
+  }
 
-entitySelected: string;
-entitySelect(value: string) {
-  this.entitySelected = value;
-}
-
-assuredSelected: string;
-assuredSelect(value: string) {
-  this.assuredSelected = value;
-
-}
-
-formLoad() {
-  this.formMain = this._fb.group({
-    assured: ['Selecione', []],
-    entity: ['Selecione', []]
-  })
-}
-
-ngOnInit(): void {
-  this.formLoad();
-}
+  ngOnInit(): void {
+    this.formLoad();
+  }
 }

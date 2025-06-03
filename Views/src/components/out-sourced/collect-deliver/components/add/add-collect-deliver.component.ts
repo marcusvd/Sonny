@@ -150,8 +150,8 @@ export class AddCollectDeliverComponent extends BaseForm implements OnInit {
   openDialogConfirmationPanel(): void {
 
     const dialogRef = this._dialog.open(ConfirmDialogCollectDeliverComponent, {
-      width: '100%',
-      height: '100%',
+      width: '750px',
+      height: '750px',
       data: {
         title: 'Tudo Certo?',
         subject: this?.formMain?.get('subjectReason')?.value,

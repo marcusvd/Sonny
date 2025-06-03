@@ -138,15 +138,15 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
     // switch (field) {
     //   case 'name':
 
-    //     this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: '' }) as Observable<CustomerListDto[]>;
+    //     this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: '' }) as Observable<ListCustomerDto[]>;
     //     break;
 
     //   case 'assured':
-    //     this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: '' }) as Observable<CustomerListDto[]>;
+    //     this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: '' }) as Observable<ListCustomerDto[]>;
     //     break;
 
     //   case 'responsible':
-    //     this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: 0 }) as Observable<CustomerListDto[]>;
+    //     this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: 0 }) as Observable<ListCustomerDto[]>;
     //     break;
     // }
 

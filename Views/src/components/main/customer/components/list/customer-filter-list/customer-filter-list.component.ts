@@ -41,7 +41,7 @@ export class CustomerFilterListGComponent extends BaseList implements OnInit {
   constructor(private _fb: FormBuilder) {
     super()
   }
-  formMain: FormGroup = new FormGroup({});
+ override formMain: FormGroup = new FormGroup({});
 
   entities: FilterSearch[] = [{ key: 'PJ', value: '0' }, { key: 'PF', value: '1' }, { key: 'Selecione', value: 'Selecione' }];
   assureds: FilterSearch[] = [{ key: 'Assegurado', value: 'true' }, { key: 'Não Assegurado', value: 'false' }, { key: 'Selecione', value: 'Selecione' }];

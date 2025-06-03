@@ -212,7 +212,7 @@ export class ListCustomersComponent extends ListControlCustomerList implements O
     // })
 
     // this.entitiesFiltered$ = this.entities$.pipe(
-    //   map((x: CustomerListDto[]) => x.filter((y: CustomerListDto) => y. toLowerCase().includes(term.toLowerCase()))))
+    //   map((x: ListCustomerDto[]) => x.filter((y: ListCustomerDto) => y. toLowerCase().includes(term.toLowerCase()))))
 
   }
 

@@ -12,7 +12,7 @@ import { PtBrDatePipe } from '../../../../../shared/pipes/pt-br-date.pipe';
 import { ListDefaultImports, ListDefaultProviders } from '../../../../imports/components-default.imports';
 import { ListControlCollectDeliver } from './helpers/list-control-collect-deliver';
 import { ListCollectDeliverService } from './services/list-collect-deliver.service';
-import { CollectDeliverListFilterComponent } from '../../../collect-deliver/components/list/collect-deliver-filter-list/collect-deliver-list-filter.component';
+import { CollectDeliverListFilterComponent } from '../../../collect-deliver/commons-components/collect-deliver-filter-list/collect-deliver-list-filter.component';
 
 @Component({
   selector: 'list-collect-deliver',

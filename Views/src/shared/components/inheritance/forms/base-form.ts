@@ -3,6 +3,7 @@ import { FormGroup, Validators } from '@angular/forms';
 import * as diacritics from 'diacritics';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { DefaultMessages } from 'src/shared/helpers/validators/default-messages';
+import { MonthsDto } from '../../months-select/months-dto';
 
 export class BaseForm {
 
@@ -88,7 +89,10 @@ export class BaseForm {
   }
 
 
-
+  months: MonthsDto[] = [{ id: 0, name: 'JANEIRO' }, { id: 1, name: 'FEVEREIRO' }, { id: 2, name: 'MARÇO' },
+  { id: 3, name: 'ABRIL' }, { id: 4, name: 'MAIO' }, { id: 5, name: 'JUNHO' }, { id: 6, name: 'JULHO' },
+  { id: 7, name: 'AGOSTO' }, { id: 8, name: 'SETEMBRO' }, { id: 9, name: 'OUTUBRO' },
+  { id: 10, name: 'NOVEMBRO' }, { id: 11, name: 'DEZEMBRO' }, { id: -1, name: 'TODOS' }]
 
   alertSave(form: FormGroup) {
     if (!form?.valid) {

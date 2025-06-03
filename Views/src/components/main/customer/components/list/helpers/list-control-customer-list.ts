@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, of, Subscription } from 'rxjs';
 import { BaseList } from '../../../../../../../src/shared/components/list-g/extends/base-list';
 import { ListGDataService } from '../../../../../../../src/shared/components/list-g/list/data/list-g-data.service';
-import { CustomerListDto } from '../dto/customer-list.dto'
+import { ListCustomerDto } from '../dto/list-customer.dto'
 import { CustomerDto } from '../../commons-components/dtos/customer-dto'
 import { OnClickInterface } from 'src/shared/components/list-g/list/interfaces/on-click-interface';
 import { PageEvent } from '@angular/material/paginator';
@@ -18,10 +18,10 @@ import { map } from 'rxjs/operators';
 
 export class ListControlCustomerList extends BaseList {
 
-  entities$: Observable<CustomerListDto[]>;
-  entities: CustomerListDto[] = [];
-  entitiesFiltered$: Observable<CustomerListDto[]>;
-  entitiesFiltered: CustomerListDto[] = [];
+  entities$: Observable<ListCustomerDto[]>;
+  entities: ListCustomerDto[] = [];
+  entitiesFiltered$: Observable<ListCustomerDto[]>;
+  entitiesFiltered: ListCustomerDto[] = [];
   length = 0;
   showHideFilter = false;
   term: string;
@@ -76,20 +76,20 @@ export class ListControlCustomerList extends BaseList {
 
   }
 
-  onClickOrderByFields(field: string, entities$: Observable<CustomerListDto[]>) {
+  onClickOrderByFields(field: string, entities$: Observable<ListCustomerDto[]>) {
 
     switch (field) {
       case 'name':
 
-        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: '' }) as Observable<CustomerListDto[]>;
+        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: '' }) as Observable<ListCustomerDto[]>;
         break;
 
       case 'assured':
-        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: '' }) as Observable<CustomerListDto[]>;
+        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: '' }) as Observable<ListCustomerDto[]>;
         break;
 
       case 'responsible':
-        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: 0 }) as Observable<CustomerListDto[]>;
+        this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: 0 }) as Observable<ListCustomerDto[]>;
         break;
     }
 
@@ -130,9 +130,9 @@ export class ListControlCustomerList extends BaseList {
     })
   }
 
-  supplyItemsGrid = (customerList: CustomerListDto[], customer: CustomerDto) => {
+  supplyItemsGrid = (customerList: ListCustomerDto[], customer: CustomerDto) => {
 
-    const items: CustomerListDto = new CustomerListDto();
+    const items: ListCustomerDto = new ListCustomerDto();
 
     Object.assign(items, {
 
@@ -170,7 +170,7 @@ export class ListControlCustomerList extends BaseList {
 
   startSupply(): Subscription {
 
-    let entities: CustomerListDto[] = [];
+    let entities: ListCustomerDto[] = [];
 
     return this._listGDataService?.entities$.subscribe(
       {

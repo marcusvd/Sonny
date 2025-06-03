@@ -7,6 +7,7 @@ import { map } from "rxjs/operators";
 import { ListGDataService } from "../list/data/list-g-data.service";
 import { FieldsInterface } from '../list/interfaces/fields-interface';
 import { OrderbyInterface } from '../list/interfaces/orderby-interface';
+import { BaseForm } from '../../inheritance/forms/base-form';
 
 @Component({
   selector: 'list-g',
@@ -14,14 +15,14 @@ import { OrderbyInterface } from '../list/interfaces/orderby-interface';
   `
 })
 
-export class BaseList {
+export class BaseList extends BaseForm {
 
-  companyId = JSON.parse(localStorage.getItem('companyId'))
-  userId = JSON.parse(localStorage.getItem('userId'))
-  //minValue = new Date('0001-01-01T00:00:00.000Z');
-  minValue = new Date('0001-01-01T00:00:00');
-  currentDate = new Date();
-  currentDateWithoutHours = this.currentDate.setHours(0, 0, 0, 0)
+  // companyId = JSON.parse(localStorage.getItem('companyId'))
+  // userId = JSON.parse(localStorage.getItem('userId'))
+  // //minValue = new Date('0001-01-01T00:00:00.000Z');
+  // minValue = new Date('0001-01-01T00:00:00');
+  // currentDate = new Date();
+  // currentDateWithoutHours = this.currentDate.setHours(0, 0, 0, 0)
   screenWidth: number = window.innerWidth;
   fields: FieldsInterface[] = []
   pageSize: number = 20;
@@ -32,7 +33,7 @@ export class BaseList {
   constructor(
     protected _listGDataService?: ListGDataService,
     protected _router?: Router,
-  ) { }
+  ) { super() }
 
   pageChange(entities: any[], $event: PageEvent) {
 
@@ -121,14 +122,14 @@ export class BaseList {
     return null;
   }
 
-  removeNonNumericAndConvertToNumber(str: string): number {
-    return +str.replace(/\D/g, '');
-  }
+  // removeNonNumericAndConvertToNumber(str: string): number {
+  //   return +str.replace(/\D/g, '');
+  // }
 
-  removeAccentsSpecialCharacters(value: string): string {
-    const noAccents = diacritics.remove(value);//remove accents
-    return noAccents.replace(/[^\w\s]/gi, ''); //remove special characters
-  }
+  // removeAccentsSpecialCharacters(value: string): string {
+  //   const noAccents = diacritics.remove(value);//remove accents
+  //   return noAccents.replace(/[^\w\s]/gi, ''); //remove special characters
+  // }
 
   callRouter(url: string, entity?: any) {
 

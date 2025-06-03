@@ -13,17 +13,19 @@ import { map } from 'rxjs/operators';
 import { PtBrCurrencyPipe } from '../../../../../../shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from '../../../../../../shared/pipes/pt-br-date.pipe';
 import { DeleteServices } from '../../../../../../shared/components/delete-dialog/services/delete.services';
-import { ListCollectDeliverDto } from '../dto/list-collect-deliver.dto';
+import { ListCollectDeliverDto } from '../dto/list-collect-deliver-dto';
 import { CollectDeliverDto } from '../../../dto/collect-deliver-dto';
 
 
 
 export class ListControlCollectDeliver extends BaseList {
 
+
   entities$: Observable<ListCollectDeliverDto[]>;
   entities: ListCollectDeliverDto[] = [];
   entitiesFiltered$: Observable<ListCollectDeliverDto[]>;
   entitiesFiltered: ListCollectDeliverDto[] = [];
+
 
   viewListUrlRoute: string = '/financial/list-financings-loans-expenses-installment';
   addUrlRoute: string = '/financial/add-financings-loans-expenses';
@@ -120,15 +122,15 @@ export class ListControlCollectDeliver extends BaseList {
     // switch (field) {
     //   case 'name':
 
-    //     this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: '' }) as Observable<CustomerListDto[]>;
+    //     this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: '' }) as Observable<ListCustomerDto[]>;
     //     break;
 
     //   case 'assured':
-    //     this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: '' }) as Observable<CustomerListDto[]>;
+    //     this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: '' }) as Observable<ListCustomerDto[]>;
     //     break;
 
     //   case 'responsible':
-    //     this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: 0 }) as Observable<CustomerListDto[]>;
+    //     this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: 0 }) as Observable<ListCustomerDto[]>;
     //     break;
     // }
 

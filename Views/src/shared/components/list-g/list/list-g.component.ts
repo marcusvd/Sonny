@@ -22,6 +22,7 @@ export class ListGComponent implements OnChanges, OnInit, OnDestroy {
   @Input('entities') entities$: Observable<any[]>;
 
   @Input() headersLabel: string[] = [];
+  @Input() hidePaginator: boolean = false;
   @Input() headersFields: FieldsInterface[] = [];
   @Output() outOnClickIcons = new EventEmitter<{}>();
   @Output() outOnClickButton = new EventEmitter<string>();
@@ -80,7 +81,7 @@ export class ListGComponent implements OnChanges, OnInit, OnDestroy {
       action: action,
       entityId: entityId
     }
-    
+
     // alert('Testing...');
     // console.log(onClick);
 

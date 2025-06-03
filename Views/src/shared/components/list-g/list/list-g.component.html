@@ -2,7 +2,7 @@
     <!-- Large -->
     <div class="bg-background-color hidden sm:block">
         <div>
-            <mat-paginator pg-above class="!bg-background-color !flex !justify-end" #paginatorAbove [length]="this.length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
+            <mat-paginator *ngIf="!hidePaginator" pg-above class="!bg-background-color !flex !justify-end" #paginatorAbove [length]="this.length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
         </div>
         <mat-card class="rounded-t-xl w-full overflow-visible flex flex-col" *ngIf="entities$">
             <div class="w-full overflow-x-auto">
@@ -57,13 +57,13 @@
             </spinner-g>
         </div>
         <div>
-            <mat-paginator pg-above class="!bg-background-color !flex !justify-end" #paginatorAbove [length]="this.length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
+            <mat-paginator *ngIf="!hidePaginator" pg-above class="!bg-background-color !flex !justify-end" #paginatorAbove [length]="this.length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
         </div>
     </div>
     <!-- Mobile -->
     <div class="sm:hidden mb-24 bg-background-color">
         <div>
-            <mat-paginator pg-above class="!bg-background-color !flex !justify-end" #paginatorAbove [length]="this.length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
+            <mat-paginator *ngIf="!hidePaginator" pg-above class="!bg-background-color !flex !justify-end" #paginatorAbove [length]="this.length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
         </div>
         <div *ngFor="let entity of this.entities$ | async">
 
@@ -108,7 +108,7 @@
             </spinner-g>
         </div>
         <div>
-            <mat-paginator pg-above class="!bg-background-color !flex !justify-end" #paginatorAbove [length]="this.length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
+            <mat-paginator *ngIf="!hidePaginator" pg-above class="!bg-background-color !flex !justify-end" #paginatorAbove [length]="this.length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
         </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-<div class="border-around">
+<!-- <div class="border-around">
     <title-component [digit]="'|'" [textTitleComp]="'Coletas entregas'" [icon]="'compare_arrows'">
 
     </title-component>
@@ -12,38 +12,30 @@
                     <div search-filter>
 
                         <div>
-                            <div class="small-space-horizontal-beteween-fields"></div>
+
 
                             <div>
                                 <div>
-                                    <!-- <credit-card-invoices-mat-select-single
-                                    [urlBackEndApi]="'GetAllCreditCardsOnlyByCompanyId'"
-                                    (creditCardIdOutput)="getCreditCardIdOutput($event)">
-                                </credit-card-invoices-mat-select-single> -->
+
                                 </div>
                             </div>
                             <div>
                                 <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="false" [changeSelection]="monthFilter" (sendSelected)="selectedMonth($event)">
                                 </months-select>
                             </div>
-                            <!-- <div  *ngIf="showDataBank">
-                                <view-bank-account [bankAccount]="bankAccount">
-                                </view-bank-account>
-                            </div> -->
+                    
                         </div>
 
-                        <div class="small-space-horizontal-beteween-fields"></div>
+
                         <div>
                             <div>
                                 <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
                             </div>
 
-                            <div fxLayout="screenFieldPosition">
+                            <div>
 
                             </div>
-                            <!-- <div  >
-                                <btn-g btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="add()"></btn-g>
-                            </div> -->
+               
 
                         </div>
                         <br>
@@ -54,8 +46,6 @@
 
                     </div>
 
-                    <!-- *ngIf="this.showDataBank" -->
-                    <!-- [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }" -->
                     <grid-list-common-table body-table [statusShow]="false" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" [matIcons]="{visibility:'Detalhes', deleteEmpty:'empty', editEmpty:'empty',format_list_numbered:'Itens Filhos' }" [statusShow]="false"
                         (getEntityOut)="getEntity($event, 'fixedExpenses')" (toPayOut)="getEntityTopay($event)" (getColumnEntityName)="orderBy($event)">
                     </grid-list-common-table>
@@ -64,10 +54,33 @@
                     'amount-large': this.screenFieldPosition=='row',
                     'amount-small': this.screenFieldPosition=='column'
                 }">
-                    <span class="title-amount">TOTAL:&nbsp;</span> <span class="amount-sum">{{amountYear |
-                        ptBrCurrency}}</span>
+                    <span class="title-amount">TOTAL:&nbsp;</span> <span class="amount-sum">{{amountYear | ptBrCurrency}}</span>
                 </div>
             </mat-card>
         </div>
     </div>
-</div>
+</div> -->
+
+
+<default-component [digitTitleComp]="'|'" [textTitleComp]="'Coletas, entregas e serviços'" [textSubTitleComp]="'Cadastro'" [iconSubTitleComp]="'list'">
+    <div btns>
+        <div class="w-full grid sm:grid-cols-2 grid-cols-1 gap-4 pl-4 pr-4 pt-4 items-center">
+
+            <div>
+                <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="callRouter(addUrlRoute)"></btn-g>
+            </div>
+
+            <div>
+                <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true" [changeSelection]="monthFilter" (sendSelected)="selectedMonth($event)">
+                </months-select>
+            </div>
+
+        </div>
+    </div>
+    <div body>
+        <list-g [hidePaginator]="true" [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)"
+            (outOnClickIcons)="onClickIcons($event)">
+        </list-g>
+        <!-- <span class="title-amount">TOTAL:&nbsp;</span> <span class="amount-sum">{{amountYear | ptBrCurrency}}</span> -->
+    </div>
+</default-component>

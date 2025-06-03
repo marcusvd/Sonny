@@ -11,7 +11,7 @@ import { ItemsInterface } from "../../../../../../../src/shared/components/list-
 //   }]
 // }
 
-export class CustomerListDto {
+export class ListCustomerDto {
   id: ItemsInterface;
   name: ItemsInterface;
   assured: ItemsInterface;
