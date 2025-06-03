@@ -1,8 +1,8 @@
 
 import { FormGroup, Validators } from '@angular/forms';
 import * as diacritics from 'diacritics';
-import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { DefaultMessages } from 'src/shared/helpers/validators/default-messages';
+import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { MonthsDto } from '../../months-select/months-dto';
 
 export class BaseForm {
@@ -84,7 +84,6 @@ export class BaseForm {
 
 
   formErrorAndTouched = (form: FormGroup, field: string, error: string) => {
-     console.log(form.value, field, error);
     return form?.get(field)?.hasError(error) && form?.get(field)?.touched;
   }
 

@@ -1,0 +1,15 @@
+<div class="flex items-center" *ngFor="let item of itemsToView">
+    <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center">
+        <div>
+            <p class="pipe-title"> <span>|</span></p>
+        </div>
+        <div class="w-full">
+            <p>{{item['key'] | uppercase}}</p>
+        </div>
+        <div class="w-full">
+            <p>{{item['value']}}</p>
+        </div>
+        <br>
+        <mat-divider></mat-divider>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<div [formGroup]="formMain">
+    <mat-label>Cliente</mat-label>
+    <mat-form-field class="w-full" appearance="outline">
+        <mat-select placeholder="Pesquise pelo nome" #singleSelect name="customerId" (blur)="onBlur()" (blur)="onCustomerSelected(singleSelect?.value)" formControlName="customerId">
+            <mat-option>
+                <ngx-mat-select-search [formControl]="selectFilterCustomer" (input)="searchCustomer()" placeholderLabel="Pesquise pelo nome" name="searchCustomer" noEntriesFoundLabel="Nenhum item encontrado"></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let customer of $customersResult | async" [value]="customer.id">
+                {{customer.name}}
+            </mat-option>
+        </mat-select>
+        <mat-error>
+            <span>{{validatorMessages.required(formMain, 'customerId', 'Cliente')}}</span>
+        </mat-error>
+    </mat-form-field>
+</div>

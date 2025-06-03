@@ -41,8 +41,7 @@ export class ViewBankAccountComponent  implements OnInit {
 
     @Input() bankAccount!: BankAccountDto;
 
-    constructor(
-    ) {}
+    constructor() {}
 
     ngOnInit(): void {
 

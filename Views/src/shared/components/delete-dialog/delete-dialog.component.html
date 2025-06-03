@@ -6,10 +6,9 @@
         <h3 mat-dialog-title><span class="font-bold text-white">{{'Confirmação de exclusão'}}</span></h3>
     </div>
 </div>
+<!-- <mat-dialog-content> -->
 <mat-dialog-content>
-    <mat-dialog-content>
-        <span class="text-black">{{messageBody}}</span><span class="font-bold text-red-600">{{itemToBeDelete}}</span><span class="font-bold text-red-600">?</span>
-    </mat-dialog-content>
+    <span class="text-black">{{messageBody}}</span><span class="font-bold text-red-600">{{itemToBeDelete}}</span><span class="font-bold text-red-600">?</span>
     <mat-dialog-actions>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
@@ -20,3 +19,5 @@
             </div>
         </div>
     </mat-dialog-actions>
+
+</mat-dialog-content>

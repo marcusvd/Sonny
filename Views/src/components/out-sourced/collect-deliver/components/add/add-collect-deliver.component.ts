@@ -1,7 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { MatRadioButton, MatRadioChange } from '@angular/material/radio';
 
@@ -49,7 +48,18 @@ export class AddCollectDeliverComponent extends BaseForm implements OnInit {
   entities: string[] = ['Clientes', 'Parceiros', 'Outros'];
   entitiesToPayment: string[] = ['Clientes', 'Parceiros'];
   transportOptions: string[] = ['Combustível', 'Aplicativo', 'MotoBoy', 'Transporte publico'];
-
+  destiny: FormGroup;
+  selectedEntityToPayment: string = 'Clientes';
+  selectedNameEntityToPay: string;
+  selectedEntityTypeToPay: string;
+  selectedDestiny: string = 'Clientes';
+  selectedTransporter: PartnerDto;
+  selectedCustomerDestiny: CustomerDto;
+  selectedPartnerDestiny: PartnerDto;
+  selectedCustomerPayment: CustomerDto;
+  selectedPartnerPayment: PartnerDto;
+  disablePaymentDestiny: boolean = false;
+  cleanEntity: boolean = false;
 
   // onCollectChecked = (selected: MatCheckboxChange) =>
   //   selected.checked == true ? this.formMain.get('collect')?.setValue(new Date()) : this.formMain.get('collect')?.setValue(this.minValue);
@@ -71,7 +81,7 @@ export class AddCollectDeliverComponent extends BaseForm implements OnInit {
 
 
 
-  selectedDestiny: string = 'Clientes';
+
   onSelectedRadioDestiny(selected: MatRadioChange) {
     const selectedEntity = selected;
     this.selectedDestiny = selectedEntity.value;
@@ -94,64 +104,69 @@ export class AddCollectDeliverComponent extends BaseForm implements OnInit {
 
   }
 
-  selectedTransporter: PartnerDto;
+  atLeastOneSelected = () => this.destiny.get('partnerId')?.value ?? this.destiny.get('noRegisterName')?.value ?? this.destiny.get('noRegisterAddress')?.value ?? this.destiny.get('customerId')?.value;
+
   onTransporterSelected(value: PartnerDto) {
     this.selectedTransporter = value;
     this.formMain.get('transporterId')?.setValue(this.selectedTransporter.id)
   }
 
-  selectedCustomerDestiny: CustomerDto;
+
   onCustomerSelectedDestiny(value: CustomerDto) {
     this.selectedCustomerDestiny = value;
   }
 
-  selectedPartnerDestiny: PartnerDto;
+
   onPartnerSelectedDestiny(value: PartnerDto) {
     this.selectedPartnerDestiny = value;
   }
 
-  selectedCustomerPayment: CustomerDto;
+
   onCustomerSelectedPayment(value: CustomerDto) {
     this.selectedCustomerPayment = value;
   }
 
-  selectedPartnerPayment: PartnerDto;
+
   onPartnerSelectedPayment(value: PartnerDto) {
     this.selectedPartnerPayment = value;
   }
 
   onPriceSelectedPayment(typeTransporte: string) {
+
     const selected = typeTransporte;
+
     if (selected === 'Combustível') {
-      this.formMain.get('price')?.setValue(this?.selectedCustomerPayment?.physicallyMovingCosts?.fuel || this?.selectedPartnerPayment?.physicallyMovingCosts?.fuel);
+      this.formMain.get('price')?.setValue(this?.selectedCustomerPayment?.physicallyMovingCosts?.fuel ?? this?.selectedPartnerPayment?.physicallyMovingCosts?.fuel ?? 0);
       this.formMain.get('kindTransport')?.setValue('Combustível');
     }
+
     if (selected === 'Aplicativo') {
-      this.formMain.get('price')?.setValue(this?.selectedCustomerPayment?.physicallyMovingCosts?.apps || this?.selectedPartnerPayment?.physicallyMovingCosts?.apps);
+      this.formMain.get('price')?.setValue(this?.selectedCustomerPayment?.physicallyMovingCosts?.apps ?? this?.selectedPartnerPayment?.physicallyMovingCosts?.apps ?? 0);
       this.formMain.get('kindTransport')?.setValue('Aplicativo');
     }
+
     if (selected === 'MotoBoy') {
-      this.formMain.get('price')?.setValue(this?.selectedCustomerPayment?.physicallyMovingCosts?.motoBoy || this?.selectedPartnerPayment?.physicallyMovingCosts?.motoBoy);
+      this.formMain.get('price')?.setValue(this?.selectedCustomerPayment?.physicallyMovingCosts?.motoBoy ?? this?.selectedPartnerPayment?.physicallyMovingCosts?.motoBoy ?? 0);
       this.formMain.get('kindTransport')?.setValue('MotoBoy');
     }
+
     if (selected === 'Transporte publico') {
-      this.formMain.get('price')?.setValue(this?.selectedCustomerPayment?.physicallyMovingCosts?.publicTransport || this?.selectedPartnerPayment?.physicallyMovingCosts?.publicTransport);
+      this.formMain.get('price')?.setValue(this?.selectedCustomerPayment?.physicallyMovingCosts?.publicTransport ?? this?.selectedPartnerPayment?.physicallyMovingCosts?.publicTransport ?? 0);
       this.formMain.get('kindTransport')?.setValue('Transporte publico');
     }
   }
 
-  onPriceSelectedDestiny(typeTransporte: string) {
-    const selected = typeTransporte;
+  // onPriceSelectedDestiny(typeTransporte: string) {
+  //   const selected = typeTransporte;
 
-    if (selected === 'Combustível')
-      this.formMain.get('price')?.setValue(this?.selectedCustomerDestiny?.physicallyMovingCosts?.fuel || this?.selectedPartnerDestiny?.physicallyMovingCosts?.fuel);
-  }
+  //   if (selected === 'Combustível')
+  //     this.formMain.get('price')?.setValue(this?.selectedCustomerDestiny?.physicallyMovingCosts?.fuel || this?.selectedPartnerDestiny?.physicallyMovingCosts?.fuel);
+  // }
 
   openDialogConfirmationPanel(): void {
-
     const dialogRef = this._dialog.open(ConfirmDialogCollectDeliverComponent, {
-      width: '750px',
-      height: '750px',
+      // width: '750px',
+      // height: '750px',
       data: {
         title: 'Tudo Certo?',
         subject: this?.formMain?.get('subjectReason')?.value,
@@ -161,9 +176,9 @@ export class AddCollectDeliverComponent extends BaseForm implements OnInit {
         deliver: this?.formMain?.get('deliver')?.value === true ? 'Sim' : 'Não',
         other: this?.formMain?.get('other')?.value === true ? 'Sim' : 'Não',
         itemsOrService: this?.formMain?.get('taskOverView')?.value,
-        destiny: this?.selectedCustomerDestiny?.name || this?.selectedPartnerDestiny?.name || this?.destiny?.get('noRegisterName')?.value && this?.destiny?.get('noRegisterAddress')?.value,
+        destiny: this?.selectedCustomerDestiny?.name ?? this?.selectedPartnerDestiny?.name ?? (this?.destiny?.get('noRegisterName')?.value && this?.destiny?.get('noRegisterAddress')?.value),
         transporter: this?.selectedTransporter?.name,
-        payer: this?.selectedCustomerPayment?.name || this?.selectedPartnerPayment?.name
+        payer: this?.selectedCustomerPayment?.name ?? this?.selectedPartnerPayment?.name
       },
       autoFocus: true,
       hasBackdrop: false,
@@ -177,16 +192,16 @@ export class AddCollectDeliverComponent extends BaseForm implements OnInit {
     })
   }
 
-  disablePaymentDestiny: boolean = false;
-  cleanEntity: boolean = false;
   localCostToPayment($event: MatRadioButton) {
 
     if ($event.checked) {
       this.subForm.get('customerId')?.setValue(null);
       this.subForm.get('partnerId')?.setValue(null);
       this.subForm.get('base')?.setValue(true);
-
       this.formMain.get('kindTransport')?.setValue('Combustível');
+      this.formMain.get('price')?.setValue(0);
+      this.selectedCustomerPayment = null;
+      this.selectedPartnerPayment = null;
     }
     else {
       this?.destiny?.get('customerId')?.setValue(null);
@@ -201,27 +216,22 @@ export class AddCollectDeliverComponent extends BaseForm implements OnInit {
     this.disablePaymentDestiny = !this.disablePaymentDestiny;
   }
 
-  selectedEntityToPayment: string = 'Clientes';
-  selectedNameEntityToPay: string;
-  selectedEntityTypeToPay: string;
   onSelectedRadioPayment(selected: MatRadioButton) {
 
     const selectedEntity = selected;
     if (selectedEntity.value === 'Clientes') {
       this.subForm.get('partnerId')?.setValue(null);
-      this.selectedPartnerPayment = new PartnerDto();
+      this.selectedPartnerPayment;
       this.formMain.get('price')?.setValue(0);
     }
 
     if (selectedEntity.value === 'Parceiros') {
       this.subForm.get('customerId')?.setValue(null);
-      this.selectedCustomerPayment = new CustomerDto();
+      this.selectedCustomerPayment;
       this.formMain.get('price')?.setValue(0);
     }
 
   }
-
-  destiny: FormGroup;
 
   formLoad(entity?: CollectDeliverDto) {
     return this.formMain = this._fb.group({
@@ -284,10 +294,10 @@ export class AddCollectDeliverComponent extends BaseForm implements OnInit {
   // }
 
   save() {
+
     this.validatorLocal.removeValidatorsDestiny(this.destiny, ['customerId', 'partnerId', 'noRegisterName', 'noRegisterAddress']);
     this.validatorLocal.removeValidatorsPayment(this.subForm, ['customerId', 'partnerId', 'base']);
 
-    console.log(this.formMain.controls)
     if (this.alertSave(this.formMain))
       this.openDialogConfirmationPanel();
 

@@ -1,17 +1,15 @@
 
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule as MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 
 import { CustomerDto } from 'src/components/main/customer/components/commons-components/dtos/customer-dto';
-
-
 import { CustomersGetService } from './customers-get.service';
 import { BaseForm } from '../../inheritance/forms/base-form';
 
@@ -19,34 +17,14 @@ import { BaseForm } from '../../inheritance/forms/base-form';
 @Component({
   selector: 'get-customer-matselect-single',
   standalone: true,
+  templateUrl: './get-customer-mat-select-single.component.html',
+  styleUrls: ['./get-customer-mat-select-single.component.scss'],
   imports: [
     MatSelectModule,
     NgxMatSelectSearchModule,
     ReactiveFormsModule,
-
     CommonModule
   ],
-  template: `
- <div [formGroup]="formMain" >
-   <mat-label>Cliente</mat-label>
- <mat-form-field class="w-full" appearance="outline">
-  <mat-select placeholder="Pesquise pelo nome" #singleSelect name="customerId" (blur)="onBlur()"  (blur)="onCustomerSelected(singleSelect?.value)" formControlName="customerId">
-      <mat-option>
-          <ngx-mat-select-search [formControl]="selectFilterCustomer" (input)="searchCustomer()" placeholderLabel="Pesquise pelo nome" name="searchCustomer" ></ngx-mat-select-search>
-      </mat-option>
-      <mat-option *ngFor="let customer of $customersResult | async" [value]="customer.id">
-          {{customer.name}}
-      </mat-option>
-  </mat-select>
-                 <mat-error>
-                    <span>{{validatorMessages.required(formMain, 'customerId', 'Cliente')}}</span>
-                </mat-error>
-</mat-form-field>
- </div>
-  `,
-  styles: [`
-
-  `],
   providers: [CustomersGetService],
 })
 export class GetCustomerMatSelectSingleComponent extends BaseForm implements OnChanges {
@@ -54,17 +32,14 @@ export class GetCustomerMatSelectSingleComponent extends BaseForm implements OnC
   constructor(
     private _customersService: CustomersGetService,
     private _fb: FormBuilder,
-  ) {super();}
+  ) { super(); }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.$customers = this._customersService.getAll(this.companyId.toString(), `customers/${this.urlBackEndApi}`);
 
     if (this.editEntityField)
       this.$customersResult = this.$customers;
-
   }
-
-
 
   @Input() override formMain: FormGroup;
   @Input() entityForm: string = 'customerId';

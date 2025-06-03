@@ -1,0 +1,13 @@
+<div [formGroup]="formMain">
+    <mat-label>Transportador</mat-label>
+    <mat-form-field class="w-full" appearance="outline">
+        <mat-select #singleSelect (blur)="onBlur()" (selectionChange)="onPartnerSelected(singleSelect.value)" formControlName="transporterId">
+            <mat-option *ngFor="let transporter of $transporters | async" [value]="transporter.id">
+                {{transporter.name}}
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="this.formMain.get('transporterId').hasError('required') && this.formMain.get('transporterId').touched">
+            <span>{{validatorMessages.required(formMain, 'transporterId', 'Transportador')}}</span>
+        </mat-error>
+    </mat-form-field>
+</div>

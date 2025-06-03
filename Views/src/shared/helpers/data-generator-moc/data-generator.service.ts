@@ -1,5 +1,5 @@
 // import { Injectable } from '@angular/core';
-// import { EmployeeDto } from "../../../components/employees/components/commons-components/dtos/employees-dto";
+// import { CollectDeliverDto } from "../../../components/out-sourced/collect-deliver/dto/collect-deliver-dto";
 // import { AddressDto } from "../../../shared/components/address/dtos/address-dto";
 // import { ContactDto } from "../../../shared/components/contact/dtos/contact-dto";
 // import { SocialMediasDto } from "../../../shared/components/contact/dtos/social-medias-dto";

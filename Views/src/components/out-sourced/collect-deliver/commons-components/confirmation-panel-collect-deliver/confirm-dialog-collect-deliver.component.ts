@@ -1,91 +1,48 @@
-import { CommonModule } from '@angular/common';
 import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
-import { MatButtonModule as MatButtonModule } from '@angular/material/button';
-import { MatCardModule as MatCardModule } from '@angular/material/card';
-import { MAT_DIALOG_DATA as MAT_DIALOG_DATA, MatDialogModule as MatDialogModule, MatDialogRef as MatDialogRef } from '@angular/material/dialog';
-import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
-import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
+
+import { AddDefaultImports, AddDefaultProviders } from '../../../../../components/imports/components-default.imports';
+import { ItemsViewInterface } from '../../../../../shared/components/view-default/interfaces/items-view.interface';
 import { IConfirmDialogCollectDeliver } from './interface/i-confirm-dialog-collect-deliver';
+import { ViewDefaultComponent } from '../../../../../shared/components/view-default/view-default.component';
+import { MatIconModule } from '@angular/material/icon';
+import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 
 @Component({
   selector: 'confirm-dialog-collect-deliver',
   templateUrl: 'confirm-dialog-collect-deliver.component.html',
+  styleUrls: ['./confirm-dialog-collect-deliver.component.scss'],
   standalone: true,
   imports: [
-    CommonModule,
+    AddDefaultImports,
     MatDialogModule,
-
-    MatButtonModule,
-    MatCardModule,
-    PtBrCurrencyPipe,
-    SubTitleComponent,
-    BtnGComponent
+    MatIconModule,
+    ViewDefaultComponent
   ],
-  styles: [
-    `
-    /*need to put it inside the component caller dialog*/
-.confirm-dialog-collect-deliver {
-      mat-dialog-container {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-color: rgba(0, 0, 0, 0.5);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          border-top-right-radius: 20px;
-          border-top-left-radius: 20px;
-          padding: -330px;
-          overflow: hidden;
-          width: 100%;
-          height: 100%;
-      }
-  }
-
-      mat-card{
-       margin-top: -5px;
-       margin-left: -25px;
-       margin-right: -25px;
-       margin-bottom: -25px;
-      }
-      .label-field{
-        font-weight: bold;
-      }
-
-      .font-body{
-        font-family: Mynerve;
-      }
-      .margin{
-        margin-top:30px;
-      }
-      .itemToBeDelete{
-        font-family: Mynerve;
-        font-weight: bold;
-        color: rgb(156,33,29);
-
-      }
-
-    `
-  ]
+  providers: [
+    AddDefaultProviders
+  ],
 })
 
 
-export class ConfirmDialogCollectDeliverComponent  {
-
-
+export class ConfirmDialogCollectDeliverComponent {
+  itemsToView: ItemsViewInterface[] = [];
 
   constructor(
-    private _dialogRef: MatDialogRef<ConfirmDialogCollectDeliverComponent>, @Inject(MAT_DIALOG_DATA) public data: IConfirmDialogCollectDeliver,
+    private _dialogRef: MatDialogRef<ConfirmDialogCollectDeliverComponent>, @Inject(MAT_DIALOG_DATA) private data: IConfirmDialogCollectDeliver,
+    private _ptBrCurrencyPipe: PtBrCurrencyPipe
   ) {
-
-    // this.title = this.data.title;
-    // this.messageBody = this.data.messageBody;
-    // this.btn1 = this.data.btn1;
-    // this.btn2 = this.data.btn2;
+    this.itemsToView.push({ key: 'Motivo', value: data.subject });
+    this.itemsToView.push({ key: 'Preço', value: this._ptBrCurrencyPipe.transform(Number(data.price)) });
+    this.itemsToView.push({ key: 'local', value: data.contact });
+    this.itemsToView.push({ key: 'Coleta?', value: data.collect });
+    this.itemsToView.push({ key: 'Entrega?', value: data.deliver });
+    this.itemsToView.push({ key: 'cadastrado', value: data.other });
+    this.itemsToView.push({ key: 'Serviço', value: data.itemsOrService });
+    this.itemsToView.push({ key: 'Destino', value: data.destiny });
+    this.itemsToView.push({ key: 'Transportador', value: data.transporter });
+    this.itemsToView.push({ key: 'Cobrança', value: data.payer });
   }
 
 

@@ -23,27 +23,8 @@ import { PartnerGetService } from './partner-get.service';
     ReactiveFormsModule,
     CommonModule
   ],
-  template: `
- <div  [formGroup]="formMain">
-   <mat-label>Parceiros</mat-label>
- <mat-form-field class="w-full"  appearance="outline" >
-      <mat-select placeholder="Pesquise pelo nome" #singleSelect name="partnerId" (blur)="onBlur()" (selectionChange)="onPartnerSelected(singleSelect.value)" formControlName="partnerId">
-            <mat-option>
-                <ngx-mat-select-search [formControl]="selectFilterPartner" (input)="searchPartner()" placeholderLabel="Pesquise pelo nome" name="searchPartner"></ngx-mat-select-search>
-            </mat-option>
-            <mat-option *ngFor="let partner of $partnersResult | async" [value]="partner.id">
-                {{partner.name}}
-            </mat-option>
-        </mat-select>
-        <mat-error>
-                    <span>{{validatorMessages.required(formMain, 'partnerId', 'Parceiro')}}</span>
-                </mat-error>
-    </mat-form-field>
- </div>
-  `,
-  styles: [`
-
-  `],
+  templateUrl:'./get-partner-mat-select-single.component.html',
+  styleUrls: ['./get-partner-mat-select-single.component.scss'],
   providers: [PartnerGetService],
 })
 export class GetPartnerMatSelectSingleComponent extends BaseForm implements OnChanges {
