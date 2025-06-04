@@ -16,52 +16,15 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
     CommonModule,
     ReactiveFormsModule,
     MatInputModule,
-
   ],
-  template: `
-<div>
-      <div>
-        <mat-label>Nome / Identificação</mat-label>
-        <mat-form-field class="w-full" appearance="outline" >
-          <input matInput type="text"  [formControl]="noRegisterName">
-          <mat-error>
-              <span>{{validatorMessages.required(form, 'noRegisterName', 'Nome / Identificação')}}</span>
-              <span>{{validatorMessages.minMaxLength(form,'noRegisterName', 'Nome / Identificação',null,250)}}</span>
-          </mat-error>
-        </mat-form-field>
-    </div>
-
-    <div>
-      <mat-label>Endereço / Contatos</mat-label>
-        <mat-form-field class="w-full" appearance="outline" >
-          <input matInput type="text"  [formControl]="noRegisterAddress">
-          <mat-error>
-              <span>{{validatorMessages.required(form, 'noRegisterAddress', 'Endereço / Contatos')}}</span>
-              <span>{{validatorMessages.minMaxLength(form,'noRegisterAddress', 'Endereço / Contatos',null,250)}}</span>
-          </mat-error>
-        </mat-form-field>
-    </div>
-</div>
-<br>
-  `,
-  styles: []
+  templateUrl: './others-destinies.component.html',
+  styleUrls: ['./others-destinies.component.scss']
 })
-export class OthersDestiniesComponent extends BaseForm implements OnInit {
+
+export class OthersDestiniesComponent extends BaseForm  {
 
   constructor() { super() }
 
-
-
-  @Input() form: FormGroup;
-
-  @Input() noRegisterName = new FormControl();
-
-  @Input() noRegisterAddress = new FormControl();
-
-  ngOnInit(): void {
-
-  }
-
-
+  @Input() override formMain: FormGroup;
 
 }

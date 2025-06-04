@@ -12,7 +12,7 @@ import { BaseForm } from '../../../../../shared/components/inheritance/forms/bas
 import { AddDefaultImports, AddDefaultProviders } from '../../../../imports/components-default.imports';
 import { ConfirmDialogCollectDeliverComponent } from '../../commons-components/confirmation-panel-collect-deliver/confirm-dialog-collect-deliver.component';
 import { CollectDeliverValidators } from '../../validators/collect-deliver-validators';
-import { AddPartnerImports, AddPartnerProviders } from './imports/add-collect-deliver.imports';
+import { AddCollectDeliverImports, AddCollectDeliverProviders } from './imports/add-collect-deliver.imports';
 import { AddCollectDeliverService } from './services/add-collect-deliver.service';
 import { AtLeastOneCollectDeliverOtherValidator } from '../../validators/at-least-one-collect-deliver-other.validator';
 
@@ -24,11 +24,11 @@ import { AtLeastOneCollectDeliverOtherValidator } from '../../validators/at-leas
   styleUrls: ['./add-collect-deliver.component.css'],
   imports: [
     AddDefaultImports,
-    AddPartnerImports,
+    AddCollectDeliverImports,
   ],
   providers: [
     AddDefaultProviders,
-    AddPartnerProviders
+    AddCollectDeliverProviders
   ],
 })
 export class AddCollectDeliverComponent extends BaseForm implements OnInit {
@@ -105,10 +105,11 @@ export class AddCollectDeliverComponent extends BaseForm implements OnInit {
   }
 
   atLeastOneSelected = () => this.destiny.get('partnerId')?.value ?? this.destiny.get('noRegisterName')?.value ?? this.destiny.get('noRegisterAddress')?.value ?? this.destiny.get('customerId')?.value;
+  atLeastOnePayerSelected = () => this.selectedCustomerPayment ?? this.selectedPartnerPayment ?? this.subForm.get('base').value;
 
-  onTransporterSelected(value: PartnerDto) {
-    this.selectedTransporter = value;
-    this.formMain.get('transporterId')?.setValue(this.selectedTransporter.id)
+  onTransporterSelected(partner: PartnerDto) {
+     this.selectedTransporter = partner;
+    // this.formMain.get('transporterId')?.setValue(this.selectedTransporter.id)
   }
 
 
@@ -156,12 +157,6 @@ export class AddCollectDeliverComponent extends BaseForm implements OnInit {
     }
   }
 
-  // onPriceSelectedDestiny(typeTransporte: string) {
-  //   const selected = typeTransporte;
-
-  //   if (selected === 'Combustível')
-  //     this.formMain.get('price')?.setValue(this?.selectedCustomerDestiny?.physicallyMovingCosts?.fuel || this?.selectedPartnerDestiny?.physicallyMovingCosts?.fuel);
-  // }
 
   openDialogConfirmationPanel(): void {
     const dialogRef = this._dialog.open(ConfirmDialogCollectDeliverComponent, {

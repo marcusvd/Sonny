@@ -1,0 +1,23 @@
+<div [formGroup]="formMain">
+    <div>
+        <mat-label>Nome / Identificação</mat-label>
+        <mat-form-field class="w-full" appearance="outline">
+            <input matInput type="text" formControlName="noRegisterName">
+            <mat-error>
+                <span>{{validatorMessages.required(formMain, 'noRegisterName', 'Nome / Identificação')}}</span>
+                <span>{{validatorMessages.minMaxLength(formMain,'noRegisterName', 'Nome / Identificação',null,250)}}</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+
+    <div>
+        <mat-label>Endereço / Contatos</mat-label>
+        <mat-form-field class="w-full" appearance="outline">
+            <input matInput type="text" formControlName="noRegisterAddress">
+            <mat-error>
+                <span>{{validatorMessages.required(formMain, 'noRegisterAddress', 'Endereço / Contatos')}}</span>
+                <span>{{validatorMessages.minMaxLength(formMain,'noRegisterAddress', 'Endereço / Contatos',null,250)}}</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+</div>

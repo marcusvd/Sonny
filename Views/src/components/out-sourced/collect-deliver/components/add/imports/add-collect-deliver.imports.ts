@@ -6,7 +6,7 @@ import { OthersDestiniesComponent } from '../../../commons-components/other-form
 import { SubjectContactComponent } from '../../../commons-components/subject-contact/subject-contact.component';
 import { AddCollectDeliverService } from '../services/add-collect-deliver.service';
 
-export const AddPartnerImports: any[] = [
+export const AddCollectDeliverImports: any[] = [
   SubjectContactComponent,
   GetCustomerMatSelectSingleComponent,
   GetPartnerMatSelectSingleComponent,
@@ -15,6 +15,6 @@ export const AddPartnerImports: any[] = [
   DescriptionFieldComponent,
 ]
 
-export const AddPartnerProviders: any[] = [
+export const AddCollectDeliverProviders: any[] = [
   AddCollectDeliverService
 ]

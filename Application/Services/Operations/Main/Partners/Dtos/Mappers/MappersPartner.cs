@@ -51,7 +51,6 @@ namespace Application.Services.Operations.Main.Partners.Dtos.Mappers
                 CompanyId = entity.CompanyId,
                 Deleted = entity.Deleted,
                 Registered = entity.Registered,
-
                 Name = entity.Name,
                 Responsible = entity.Responsible,
                 CNPJ = entity.CNPJ,
@@ -59,7 +58,7 @@ namespace Application.Services.Operations.Main.Partners.Dtos.Mappers
                 PartnerBusiness = (PartnerBusinessEnumDto)entity.PartnerBusiness,
                 Description = entity.Description,
                 BusinessLine = entity.BusinessLine,
-
+                PhysicallyMovingCosts = PhysicallyMovingCostsMapper(entity.PhysicallyMovingCosts),
                 PaymentsData = PaymentDataMapper(entity.PaymentsData),
             };
 
@@ -76,12 +75,12 @@ namespace Application.Services.Operations.Main.Partners.Dtos.Mappers
                 CompanyId = entity.CompanyId,
                 Deleted = entity.Deleted,
                 Registered = entity.Registered,
-
                 Name = entity.Name,
                 Responsible = entity.Responsible,
                 CNPJ = entity.CNPJ,
                 EntityType = (EntityTypeEnum)entity.EntityType,
                 PartnerBusiness = (PartnerBusinessEnum)entity.PartnerBusiness,
+                PhysicallyMovingCosts = PhysicallyMovingCostsMapper(entity.PhysicallyMovingCosts),
                 Description = entity.Description,
                 BusinessLine = entity.BusinessLine,
 
