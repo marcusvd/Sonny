@@ -10,7 +10,8 @@
             </mat-option>
         </mat-select>
         <mat-error>
-            <span>{{validatorMessages.required(formMain, 'partnerId', 'Parceiro')}}</span>
+            <span *ngIf="formErrorAndTouched(formMain, 'partnerId', 'required')">{{defaultMessages.requiredMsg}}</span>
+            <span *ngIf="formErrorAndTouched(formMain, 'partnerId', 'atleastone')">{{defaultMessages.atleastone}}</span>
         </mat-error>
     </mat-form-field>
 </div>

@@ -1,5 +1,5 @@
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, of, Subscription } from 'rxjs';
 import { BaseList } from '../../../../../../shared/components/list-g/extends/base-list';
@@ -15,6 +15,7 @@ import { PtBrDatePipe } from '../../../../../../shared/pipes/pt-br-date.pipe';
 import { DeleteServices } from '../../../../../../shared/components/delete-dialog/services/delete.services';
 import { ListCollectDeliverDto } from '../dto/list-collect-deliver-dto';
 import { CollectDeliverDto } from '../../../dto/collect-deliver-dto';
+import { BillingFromDto } from '../../../dto/billing-from-dto';
 
 
 
@@ -56,16 +57,18 @@ export class ListControlCollectDeliver extends BaseList {
   labelHeaders = () => {
     return [
       { key: '', style: 'cursor: pointer; max-width:100px;' },
-      { key: 'Cobrança', style: 'cursor: pointer;' },
-      { key: 'Valor', style: 'cursor: pointer;' }
+      { key: 'Valor', style: 'cursor: pointer;max-width:150px;' },
+      { key: 'Cobrança', style: 'cursor: pointer; max-width:1fr;' },
+      { key: 'Motivo', style: 'cursor: pointer;flex:3' },
     ]
   }
 
   fieldsHeaders = () => {
     return [
       { key: 'id', style: 'max-width:100px;' },
-      { key: 'billingFrom', style: '' },
-      { key: 'price', style: '' }
+      { key: 'price', style: 'max-width:150px;' },
+      { key: 'billingFrom', style: 'max-width:1fr;' },
+      { key: 'subject', style: 'flex:3' },
     ]
   }
 
@@ -83,35 +86,6 @@ export class ListControlCollectDeliver extends BaseList {
   //   }
 
   // }
-  onSelectedMonth(entities: any[], selectedMonth: number, field: string) {
-    let result;
-    entities.forEach(x => console.log(x));
-
-
-    if (selectedMonth != -1) {
-
-      result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field].key).getFullYear() && new Date(x[field].key).getMonth() == selectedMonth)
-
-      // this.gridListCommonHelper.lengthPaginator.next(result.length)
-
-      const ordered = this.arrayOrderByDate(result, field)
-
-      result = of(ordered.slice(0, this.pageSize))
-    }
-
-    if (selectedMonth == -1) {
-
-      result = entities.filter(x =>
-        this.currentDate.getFullYear() == new Date(x[field].key).getFullYear())
-
-      // this.gridListCommonHelper.lengthPaginator.next(result.length)
-
-      const ordered = this.arrayOrderByDate(result, field)
-
-      result = of(ordered.slice(0, this.pageSize));
-    }
-    return result;
-  }
 
   arrayOrderByDate(entities: any[], field: string): any[] {
     return entities.sort((a, b) => new Date(a[field]).getTime() - new Date(b[field]).getTime());
@@ -215,6 +189,8 @@ export class ListControlCollectDeliver extends BaseList {
 
     const items: ListCollectDeliverDto = new ListCollectDeliverDto();
     //ListCreditCardExpense = [];
+
+    // console.log(collectDeliverDto)
     Object.assign(items, {
 
       id: {
@@ -230,13 +206,18 @@ export class ListControlCollectDeliver extends BaseList {
       },
 
       billingFrom: {
-        key: collectDeliverDto.billingFrom,
-        styleCell: 'width:100%;',
+        key:  this.billingFromMakeField(collectDeliverDto.billingFrom),
+        styleCell: 'max-width:1fr;',
 
+      },
+      subject: {
+        key: collectDeliverDto.taskOverView,
+        styleCell: 'width:100%; flex:3',
       },
       price: {
         key: this._ptBrCurrencyPipe.transform(collectDeliverDto.price),
-        styleCell: 'width:100%;',
+        styleCell: 'max-width:150px;',
+        style:'width:150px; flex:1'
       },
 
     })
@@ -246,12 +227,15 @@ export class ListControlCollectDeliver extends BaseList {
     return listCollectDeliverDto;
   }
 
-  startSupply(url: string, cardId: string): Subscription {
+
+  billingFromMakeField = (entity: BillingFromDto) => entity?.partner?.name ?? entity?.customer?.name ?? (entity?.base ? 'Custo local' : '');
+
+  startSupply(url: string, params: HttpParams): Subscription {
 
 
     let entities: ListCollectDeliverDto[] = [];
 
-    return this._listGDataService?.getAllEntitiesInMemoryPaged$(url, cardId).pipe(
+    return this._listGDataService?.getAllEntitiesInMemoryPagedObjParam$<CollectDeliverDto>(url, params).pipe(
       map((x: CollectDeliverDto[]) => {
 
         if (x.length <= 0) {

@@ -16,6 +16,7 @@ export class BaseForm {
     : '';
 
   minValue = new Date('0001-01-01T00:00:00');
+  today = new Date();
 
   currentDate = new Date();
   currentDateWithoutHours = this.currentDate.setHours(0, 0, 0, 0)

@@ -76,12 +76,17 @@ export class ListGDataService extends BackEndService<any> {
   getAllEntitiesInMemoryPaged$(backEndUrl: string, id: string) {
    return this.loadById$<any[]>(backEndUrl, id);
   }
-  getAllEntitiesInMemoryPaged(backEndUrl: string, id: string) {
-    this.loadById$<any[]>(backEndUrl, id)
-      ?.subscribe((entities: any) => {
-        this?.entitiesFromDb?.next(entities);
-      })
+
+  getAllEntitiesInMemoryPagedObjParam$<T>(backEndUrl: string, params: HttpParams) {
+   return this.loadAllWithParams$<T>(backEndUrl, params)
   }
+
+  // getAllEntitiesInMemoryPaged(backEndUrl: string, id: string) {
+  //   this.loadById$<any[]>(backEndUrl, id)
+  //     ?.subscribe((entities: any) => {
+  //       this?.entitiesFromDb?.next(entities);
+  //     })
+  // }
 
   // searchQueryHendler($event: FormControl, backEndUrl: string, params: HttpParams) {
   //   this.queryField = $event;

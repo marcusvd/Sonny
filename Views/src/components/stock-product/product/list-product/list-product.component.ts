@@ -5,6 +5,7 @@ import { Subscription, of } from 'rxjs';
 
 
 
+import { MatDialog } from '@angular/material/dialog';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { TruncatePipe } from 'src/shared/pipes/truncate.pipe';
@@ -12,7 +13,6 @@ import { ProductTypeDto } from '../dtos/product-type-dto';
 import { ProductTypeService } from '../list-product/services/product-type.service';
 import { ListControlProduct } from './helpers/list-control-product';
 import { ImportsListProduct } from './imports/imports-list-product';
-import { MatDialog as MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -54,7 +54,7 @@ export class ListProductComponent extends ListControlProduct implements OnInit, 
     //get and make entities to filter
     this.productTypes();
     //get entities to show grid
-    this._listGDataService.getAllEntitiesInMemoryPaged(this.backEndUrl, this.companyId);
+    // this._listGDataService.getAllEntitiesInMemoryPaged<any>(this.backEndUrl, this.companyId);
 
     //subscribe entities and make grid list
     this.productsUnsubscribe = this.startSupply();

@@ -4,7 +4,9 @@
         <mat-form-field class="w-full" appearance="outline">
             <input matInput type="text" formControlName="noRegisterName">
             <mat-error>
-                <span>{{validatorMessages.required(formMain, 'noRegisterName', 'Nome / Identificação')}}</span>
+                <span *ngIf="formErrorAndTouched(formMain, 'noRegisterName', 'required')">{{defaultMessages.requiredMsg}}</span>
+                <span *ngIf="formErrorAndTouched(formMain, 'noRegisterName', 'atleastone')">{{defaultMessages.requiredMsg}}</span>
+                <!-- <span *ngIf="formErrorAndTouched(formMain, 'noRegisterName', 'atleastone')">{{defaultMessages.atleastone}}</span> -->
                 <span>{{validatorMessages.minMaxLength(formMain,'noRegisterName', 'Nome / Identificação',null,250)}}</span>
             </mat-error>
         </mat-form-field>
@@ -15,8 +17,10 @@
         <mat-form-field class="w-full" appearance="outline">
             <input matInput type="text" formControlName="noRegisterAddress">
             <mat-error>
-                <span>{{validatorMessages.required(formMain, 'noRegisterAddress', 'Endereço / Contatos')}}</span>
-                <span>{{validatorMessages.minMaxLength(formMain,'noRegisterAddress', 'Endereço / Contatos',null,250)}}</span>
+                <span *ngIf="formErrorAndTouched(formMain, 'noRegisterAddress', 'required')">{{defaultMessages.requiredMsg}}</span>
+                <span *ngIf="formErrorAndTouched(formMain, 'noRegisterAddress', 'atleastone')">{{defaultMessages.requiredMsg}}</span>
+                <span *ngIf="formErrorAndTouched(formMain, 'noRegisterAddress', 'maxlength')">{{defaultMessages.maxLengthMsg + '250' + defaultMessages.charactersMsg}}</span>
+                <!-- <span>{{validatorMessages.minMaxLength(formMain,'noRegisterAddress', 'Endereço / Contatos',null,250)}}</span> -->
             </mat-error>
         </mat-form-field>
     </div>

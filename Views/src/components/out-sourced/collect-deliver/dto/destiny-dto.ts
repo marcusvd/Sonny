@@ -4,12 +4,12 @@ import { RootBase } from "src/shared/entities-dtos/root-base";
 
 export class DestinyDto extends RootBase {
 
-  customerId: number;
+  customerId: number | null;
   customer: CustomerDto;
-  partnerId: number;
+  partnerId: number | null;
   partner: PartnerDto;
-  noRegisterName: string;
-  noRegisterAddress: string;
+  noRegisterName: string | null;
+  noRegisterAddress: string | null;
   description: string;
   collectDeliverId: number;
   //collectDeliver: CollectDeliverDto;

@@ -1,26 +1,18 @@
-import { MyUser } from "../../../../components/authentication/dto/my-user";
+import { RootBase } from "src/shared/entities-dtos/root-base";
 import { PartnerDto } from "../../../../components/main/partner/dtos/partner-dto";
-import { CompanyDto } from "../../../../shared/entities-dtos/company-dto";
 import { BillingFromDto } from "./billing-from-dto";
 import { DestinyDto } from "./destiny-dto";
 
-
-export class CollectDeliverDto {
-  id: number;
-  companyId: number;
-  company: CompanyDto;
-  userId: number;
-  user: MyUser;
+export class CollectDeliverDto extends RootBase {
   transporterId: number;
   transporter: PartnerDto;
-  // subjectReason: string;
   contactName: string;
-  start: Date;
+  start: Date | string;
   price: number;
-  collect: Date;
-  deliver: Date;
-  other: Date;
-  wasPaid: Date;
+  collect: boolean | Date;
+  deliver: boolean | Date;
+  other: boolean | Date;
+  wasPaid: Date | string;
   kindTransport: string;
   billingFromId: number;
   billingFrom: BillingFromDto;

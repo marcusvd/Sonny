@@ -10,12 +10,12 @@ import { OnClickInterface } from '../../../../../../shared/components/list-g/lis
 
 import { MatDialog } from '@angular/material/dialog';
 import { map } from 'rxjs/operators';
+import { DeleteServices } from '../../../../../../shared/components/delete-dialog/services/delete.services';
+import { MonthsDto } from '../../../../../../shared/components/months-select/months-dto';
 import { PtBrCurrencyPipe } from '../../../../../../shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from '../../../../../../shared/pipes/pt-br-date.pipe';
-import { DeleteServices } from '../../../../../../shared/components/delete-dialog/services/delete.services';
 import { CollectDeliverDto } from '../../../dto/collect-deliver-dto';
 import { ListMonthCollectDeliverDto } from '../dto/list-month-collect-deliver-dto';
-import { MonthsDto } from '../../../../../../shared/components/months-select/months-dto';
 
 
 export class ListMonthControlCollectDeliver extends BaseList {
@@ -25,7 +25,7 @@ export class ListMonthControlCollectDeliver extends BaseList {
   entitiesFiltered$: Observable<ListMonthCollectDeliverDto[]>;
   entitiesFiltered: ListMonthCollectDeliverDto[] = [];
 
-  viewListUrlRoute: string = '/financial/list-financings-loans-expenses-installment';
+  viewListUrlRoute: string = '/outsourced/list-collect-deliver-by-month';
   addUrlRoute: string = '/financial/add-financings-loans-expenses';
 
   length = 0;
@@ -143,14 +143,16 @@ export class ListMonthControlCollectDeliver extends BaseList {
 
   onClickIcons(obj: OnClickInterface) {
 
+    console.log(obj)
+
     if (obj.action.split('|')[0] == 'edit') {
       this.callRouter(`/customer/edit/${obj.entityId}`);
 
     }
 
-    if (obj.action.split('|')[0] == 'list') {
+    if (obj.action.split('|')[0] == 'visibility') {
+      console.log(`${this.viewListUrlRoute}/${obj.entityId}`)
       this.callRouter(`${this.viewListUrlRoute}/${obj.entityId}`);
-      console.log(obj.entityId)
     }
 
     if (obj.action.split('|')[0] == 'delete')
@@ -337,6 +339,9 @@ export class ListMonthControlCollectDeliver extends BaseList {
           price: {
             key: this._ptBrCurrencyPipe.transform(0)
           },
+          amountPrice: {
+            keyN: 0
+          },
           start: {
             key: new Date(this.currentDate.getFullYear(), m.id, 1).toDateString()
           },
@@ -358,51 +363,80 @@ export class ListMonthControlCollectDeliver extends BaseList {
 
     });
 
-    console.log(monthsView)
+    // console.log(monthsView)
     return monthsView;
   }
 
-  amountYear = 0;
+  amountYear: string = '';
   makeGridItems(entities: CollectDeliverDto[], grid: ListMonthCollectDeliverDto[]) {
     const itemsGrid = grid;
 
     const entitiesFromDb = entities;
 
-    console.log(itemsGrid)
+    // console.log(itemsGrid)
 
     const currentYear = entitiesFromDb.filter(fromDb => new Date(fromDb.start).getFullYear() == this.currentDate.getFullYear());
 
     const comparedMonths = currentYear.filter(fromDb => itemsGrid.filter(gd => new Date(gd.idMonth.key).getMonth() == new Date(fromDb.start).getMonth()))
 
-    const amountYear = currentYear.reduce((x, y) => x + y.price, 0);
+    this.amountYear = this._ptBrCurrencyPipe.transform(currentYear.reduce((x, y) => x + y.price, 0));
 
-    this.amountYear = amountYear;
+
+    let numberOfRunsMonthly = 0;
+    let numberOfRunsMonthlyWasPaid = 0;
 
     comparedMonths.forEach((fromDb: CollectDeliverDto) => {
+      numberOfRunsMonthly++;
+
 
       const indexGridMonth = new Date(fromDb.start).getMonth();
 
       const wasPaid = new Date(fromDb.wasPaid).getFullYear();
 
+      
       if (indexGridMonth.toString() == itemsGrid[indexGridMonth].idMonth.key) {
-        let result = parseInt(itemsGrid[indexGridMonth].amountPrice.key, 10);
-        result += fromDb.price;
-        // const result = parseInt(itemsGrid[indexGridMonth].amountPrice.key, 10) += fromDb.price
-        itemsGrid[indexGridMonth].price.key = this._ptBrCurrencyPipe.transform(result);
-        itemsGrid[indexGridMonth].start.key = fromDb.start.toDateString();
 
-        if (wasPaid == this.minValue.getFullYear()) {
-          itemsGrid[indexGridMonth].expiresView.key = 'Aberta';
-          itemsGrid[indexGridMonth].wasPaid.key = fromDb.wasPaid.toDateString();
-          itemsGrid[indexGridMonth].expires.key = fromDb.wasPaid.toDateString();
+        const resultPrice = itemsGrid[indexGridMonth].amountPrice.keyN += fromDb.price;
+
+        // amountPrice += fromDb.price
+
+        // let result = Number(itemsGrid[indexGridMonth]?.amountPrice?.key);
+        // result += fromDb.price;
+
+        //   // const result = parseInt(itemsGrid[indexGridMonth].amountPrice.key, 10) += fromDb.price
+        itemsGrid[indexGridMonth].price.key = this._ptBrCurrencyPipe.transform(resultPrice);
+        itemsGrid[indexGridMonth].start.key = fromDb?.start as string as string;
+
+        if (wasPaid != this.minValue.getFullYear()) {
+          numberOfRunsMonthlyWasPaid++;
+        }
+
+        if (numberOfRunsMonthly == numberOfRunsMonthlyWasPaid) {
+          itemsGrid[indexGridMonth].expiresView.key = 'Fechada';
+          itemsGrid[indexGridMonth].wasPaid.key = fromDb.wasPaid as string;
         }
         else {
-          itemsGrid[indexGridMonth].expiresView.key = 'Fechada';
-          itemsGrid[indexGridMonth].wasPaid.key = fromDb.wasPaid.toDateString();
+          itemsGrid[indexGridMonth].expiresView.key = 'Aberta';
+          itemsGrid[indexGridMonth].wasPaid.key = fromDb.wasPaid as string;
+          itemsGrid[indexGridMonth].expires.key = fromDb.wasPaid as string;
         }
+        // if (wasPaid == this.minValue.getFullYear()) {
+
+        // }
+
+        // else {
+
+        //   itemsGrid[indexGridMonth].expiresView.key = 'Fechada';
+        //   itemsGrid[indexGridMonth].wasPaid.key = fromDb.wasPaid as string;
+        // }
+
+
+
 
       }
 
+      numberOfRunsMonthly = 0;
+      numberOfRunsMonthlyWasPaid = 0;
 
     })
 

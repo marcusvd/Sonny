@@ -2,7 +2,7 @@
 //validators msg
 
 export class DefaultMessages {
-
+  //forms
   static requiredMsg = 'Obrigatório!';
   static emailMsg = 'E-mail inválido!';
   static requiredTrueMsg = 'Obrigatório!';
@@ -16,6 +16,7 @@ export class DefaultMessages {
   static invalidCpfOrCnpjMsg = 'CPF ou CNPJ, inválido!';
   static invalidCpfOrCnpjMaskMsg = 'CPF ou CNPJ, inválido!';
   static invalidDateMsg = 'Data, inválida!';
+  static invalidDate_NotInPastMsg = 'A data não pode esta no passado.';
   static invalidHourMsg = 'Horário, inválido!';
   static maxLengthMsg = 'Máximo de ';
   static minLengthMsg = 'Mínimo de ';
@@ -24,6 +25,18 @@ export class DefaultMessages {
   static charactersMsg = ' caracteres!'
   static inUseMsg = 'Já cadastrado!';
   static atleastone = 'Obrigatório selecionar pelo menos!';
+
+  //warnings actions
+  static added = 'ADICIONADO!';
+  static deleted = 'EXCLUÍDO!';
+  static updated = 'ATUALIZOU!';
+  static edited = 'EDITADO!';
+  static welcome = 'SEJA BEM VINDO!';
+  static back_soon = 'VOLTE SEMPRE.';
+  static success = 'SUCESSO!';
+  static registered = 'CADASTRADO!';
+  static sent = 'ENVIADO';
+  static error = 'Erro inesperado. Por favor, contate o suporte técnico.';
 }
 
 

@@ -20,10 +20,6 @@
 
             </div>
         </mat-card>
-
-
-
-
         <div class="align-h-center">
             <mat-divider class="divider-line-categories-comp"></mat-divider>
         </div>
@@ -34,9 +30,6 @@
                     <h3 class="title-categories-divide-comp">Destino</h3>
                 </div>
                 <div>
-
-
-
                     <div class="w-full grid sm:grid-cols-[200px_1fr] grid-cols-1 gap-4">
                         <div>
                             <mat-radio-group aria-labelledby="radio-group-label" class="radio-group" [(ngModel)]="selectedDestiny" [ngModelOptions]="{standalone: true}" (change)="onSelectedRadioDestiny($event)">
@@ -92,7 +85,7 @@
                     </div>
                     <div>
                         <div *ngIf="!disablePaymentDestiny">
-                            <get-customer-matselect-single *ngIf="selectedEntityToPayment == 'Clientes'" [formMain]="subForm" (customerSelected)="onCustomerSelectedPayment($event)" (customerSelected)="onPriceSelectedPayment('Combustível')" [urlBackEndApi]="'GetCustomersByCompanyIdIncludedPhysicallyMovingCosts'"></get-customer-matselect-single>
+                            <get-customer-matselect-single *ngIf="selectedEntityToPayment == 'Clientes'" [formMain]="subForm" (customerSelected)="onCustomerSelectedPayment($event, 'Combustível')" (customerSelected)="onPriceSelectedPayment('Combustível')" [urlBackEndApi]="'GetCustomersByCompanyIdIncludedPhysicallyMovingCosts'"></get-customer-matselect-single>
 
                             <get-partner-matselect-single *ngIf="selectedEntityToPayment == 'Parceiros'" [formMain]="subForm" (partnerSelected)="onPartnerSelectedPayment($event)" (partnerSelected)="onPriceSelectedPayment('Combustível')" [urlBackEndApi]="'GetPartnersByCompanyIdIncludedPhysicallyMovingCosts'"></get-partner-matselect-single>
                         </div>

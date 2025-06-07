@@ -13,10 +13,10 @@
 <mat-dialog-actions class="!flex !justify-center">
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
-            <btn-g mat-dialog-close [name]="'Apagar'" [icon]="'delete_outline'" [btnType]="'red'" (click)="clickedNo()"></btn-g>
+            <btn-g mat-dialog-close [name]="'cancelar'" [icon]="'cancel'" [btnType]="'red'" (click)="clickedNo()"></btn-g>
         </div>
         <div>
-            <btn-g mat-dialog-close [name]="'Confirmar'" [icon]="'cancel'" (click)="clickedYes()"></btn-g>
+            <btn-g mat-dialog-close [name]="'Confirmar'" [icon]="'check'" (click)="clickedYes()"></btn-g>
         </div>
     </div>
 </mat-dialog-actions>

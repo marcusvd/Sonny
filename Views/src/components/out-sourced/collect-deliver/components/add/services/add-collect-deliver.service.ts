@@ -6,7 +6,6 @@ import { FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 import { environment } from "../../../../../../environments/environment";
 import { BackEndService } from "../../../../../../shared/services/back-end/backend.service";
-import { CommunicationAlerts } from "../../../../../../shared/services/messages/snack-bar.service";
 import { CollectDeliverDto } from "../../../dto/collect-deliver-dto";
 
 
@@ -15,28 +14,55 @@ import { CollectDeliverDto } from "../../../dto/collect-deliver-dto";
 
 export class AddCollectDeliverService extends BackEndService<CollectDeliverDto> {
 
-  // public cli: CustomerDto[] = [];
-  // public transporters: PartnerDto[] = [];
-  // public com: CompanyDto[] = [];
-
   constructor(
     override _http: HttpClient,
-    private _communicationsAlerts: CommunicationAlerts,
     private _router: Router,
   ) { super(_http, environment._COLLECT_DELIVER) }
 
+
+  handleBeforeSave(entity: CollectDeliverDto) {
+    const handled = entity;
+
+    if (handled.collect)
+      handled.collect = new Date();
+    else
+      handled.collect = this.minValue;
+    if (handled.deliver)
+      handled.deliver = new Date();
+    else
+      handled.deliver = this.minValue;
+    if (handled.other)
+      handled.other = new Date();
+    else
+      handled.other = this.minValue;
+
+    if (handled.destiny.customerId || handled.destiny.partnerId) {
+      handled.destiny.noRegisterAddress = null;
+      handled.destiny.noRegisterName = null;
+    }
+
+
+    return handled;
+  }
+
+
   save(form: FormGroup) {
 
-    const toSave: CollectDeliverDto = { ...form.value }
+    const toSave: CollectDeliverDto = this.handleBeforeSave({ ...form.value })
+
+    console.log(toSave)
+
+
+
     this.add$<CollectDeliverDto>(toSave, 'addcollectdeliver').subscribe({
       next: () => {
-        this._communicationsAlerts.defaultSnackMsg('0', 0, '', 4);
+        this.openSnackBar(this.defaultMessages.added, 'success')
         this._router.navigateByUrl(`/partner-dash/list-collect-deliver/${this.companyId}`)
         form.reset();
       },
       error: (errors) => {
         console.log(errors)
-        this._communicationsAlerts.defaultSnackMsg('4',1);
+        this.openSnackBar(this.defaultMessages.error, 'error')
       }
     })
 

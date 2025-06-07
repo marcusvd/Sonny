@@ -81,6 +81,9 @@
         <list-g [hidePaginator]="true" [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)"
             (outOnClickIcons)="onClickIcons($event)">
         </list-g>
-        <!-- <span class="title-amount">TOTAL:&nbsp;</span> <span class="amount-sum">{{amountYear | ptBrCurrency}}</span> -->
+        <div>
+
+        </div>
+        <span class="title-amount">TOTAL:&nbsp;</span> <span class="amount-sum">{{amountYear}}</span>
     </div>
 </default-component>

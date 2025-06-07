@@ -13,6 +13,7 @@ import { ListDefaultImports, ListDefaultProviders } from '../../../../imports/co
 import { ListControlCollectDeliver } from './helpers/list-control-collect-deliver';
 import { ListCollectDeliverService } from './services/list-collect-deliver.service';
 import { CollectDeliverListFilterComponent } from '../../../collect-deliver/commons-components/collect-deliver-filter-list/collect-deliver-list-filter.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'list-collect-deliver',
@@ -31,6 +32,11 @@ import { CollectDeliverListFilterComponent } from '../../../collect-deliver/comm
 
 })
 export class ListCollectDeliverComponent extends ListControlCollectDeliver implements OnInit {
+
+  listCollectDeliverByMonthId: Subscription;
+  // controllerUrl: string = environment._COLLECT_DELIVER.split('/')[4];
+  backEndUrl: string = `${environment._COLLECT_DELIVER.split('/')[4]}/GetAllByCompanyIdByMonthNumberAsync`;
+
   constructor(
     override _router: Router,
     override _http: HttpClient,
@@ -54,8 +60,29 @@ export class ListCollectDeliverComponent extends ListControlCollectDeliver imple
     )
   }
 
-  controllerUrl: string = environment._COLLECT_DELIVER.split('/')[4];
-  backEndUrl: string = `${this.controllerUrl}/GetAllByCompanyIdByMonthNumberAsync`;
+
+
+
+
+  ngOnInit(): void {
+    const monthNumber = +this._actRoute.snapshot.params['id'];
+    this.listCollectDeliverByMonthId = this.startSupply(this.backEndUrl, this.paramsTo(this.companyId, monthNumber + 1));
+    // this.listCollectDeliverByMonthId = this.startSupply(`${this.controllerUrl}/GetAllByCompanyIdByMonthNumberAsync`, this.companyId.toString());
+
+  }
+
+  ngOnDestroy(): void {
+    this.listCollectDeliverByMonthId?.unsubscribe();
+  }
+
+
+  paramsTo(companyId: number, monthNumber: number) {
+    let params = new HttpParams();
+    params = params.append('companyid', companyId);
+    params = params.append('monthnumber', monthNumber);
+    return params;
+  }
+
   // override entities: CollectDeliverListGridDto[] = [];
   // override entities$: Observable<CollectDeliverListGridDto[]>;
   // override viewUrlRoute: string = `/outsourced-dash/view-collect-deliver`;
@@ -96,12 +123,7 @@ export class ListCollectDeliverComponent extends ListControlCollectDeliver imple
 
 
 
-  paramsTo(companyId: number, monthNumber: number) {
-    let params = new HttpParams();
-    params = params.append('companyid', companyId);
-    params = params.append('monthnumber', monthNumber);
-    return params;
-  }
+
   getDataPagedFront(month: number) {
     // this.gridListCommonHelper.getAllEntitiesNoPagedWithParams(this.backEndUrl, this.paramsTo(this.companyId, month));
     // this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: CollectDeliverDto[]) => {
@@ -162,12 +184,12 @@ export class ListCollectDeliverComponent extends ListControlCollectDeliver imple
 
   // }
   // monthNumber: number = 0;
-  titleGrid = '';
-  ngOnInit(): void {
-    // const montNhumber = parseInt(this._actRoute.snapshot.params['id']) as number;
-    // // this.monthNumber = montNhumber + 1;
-    // this.titleGrid = `Coletas entregas ${this.months[montNhumber].name.toLowerCase()}`
-    // this.getDataPagedFront(montNhumber + 1);
-  }
+
+  // ngOnInit(): void {
+  // const montNhumber = parseInt(this._actRoute.snapshot.params['id']) as number;
+  // // this.monthNumber = montNhumber + 1;
+  // this.titleGrid = `Coletas entregas ${this.months[montNhumber].name.toLowerCase()}`
+  // this.getDataPagedFront(montNhumber + 1);
+  // }
 
 }

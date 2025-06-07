@@ -4,21 +4,22 @@ import { Observable } from "rxjs";
 import { take } from "rxjs/operators";
 
 import { IBackEndService } from "./contracts/ibackend.service";
+import { BackEndExtends } from "./backend.extends";
 
 Injectable({
   providedIn: 'root'
 })
 
 
-export abstract class BackEndService<T> implements IBackEndService<T>{
+export abstract class BackEndService<T> extends BackEndExtends implements IBackEndService<T> {
 
-  companyId: number = JSON.parse(localStorage.getItem('companyId'));
-  userId: number = JSON.parse(localStorage.getItem('userId'));
+  // companyId: number = JSON.parse(localStorage.getItem('companyId'));
+  // userId: number = JSON.parse(localStorage.getItem('userId'));
 
   constructor(
     protected _http: HttpClient,
     protected _BackEnd?: string,
-  ) { }
+  ) { super() }
 
 
   add$<T>(record: T, url: string): Observable<T> {
@@ -35,19 +36,19 @@ export abstract class BackEndService<T> implements IBackEndService<T>{
 
 
   delete$<T>(url?: string, id?: number): Observable<T> {
-    if(url){
+    if (url) {
       return this._http.delete<T>(`${this._BackEnd}/${url}/${id}`).pipe(take(1));
     }
-    else{
+    else {
       return this._http.delete<T>(`${this._BackEnd}/${id}`).pipe(take(1));
     }
   }
 
-  loadAllPaged$<T>(url:string, params:HttpParams): Observable<HttpResponse<T>> {
+  loadAllPaged$<T>(url: string, params: HttpParams): Observable<HttpResponse<T>> {
     return this._http.get<T>(`${this._BackEnd}/${url}`, { observe: 'response', params }).pipe(take(1));
   }
 
-  loadAllWithParams$<T>(url:string, params:HttpParams): Observable<T[]> {
+  loadAllWithParams$<T>(url: string, params: HttpParams): Observable<T[]> {
     return this._http.get<T[]>(`${this._BackEnd}/${url}`, { observe: 'body', params }).pipe(take(1));
   }
 
@@ -64,12 +65,12 @@ export abstract class BackEndService<T> implements IBackEndService<T>{
   }
 
 
-  update$<T>(url?: string, record?: any, companyId?:number): Observable<T> {
-    return this._http.put<T>(`${this._BackEnd}/${url}/${record.id}` , record).pipe(take(1));
+  update$<T>(url?: string, record?: any, companyId?: number): Observable<T> {
+    return this._http.put<T>(`${this._BackEnd}/${url}/${record.id}`, record).pipe(take(1));
   }
 
   deleteFake$<T>(url?: string, record?: any): Observable<T> {
-    return this._http.put<T>(`${this._BackEnd}/${url}/${record.id}` , record).pipe(take(1));
+    return this._http.put<T>(`${this._BackEnd}/${url}/${record.id}`, record).pipe(take(1));
   }
 
 

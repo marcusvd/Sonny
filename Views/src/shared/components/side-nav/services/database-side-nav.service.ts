@@ -73,7 +73,7 @@ export class DatabaseSideNavServices {
     },
     {
       name: 'Terceirização', icon: 'compare_arrows', toolTip: 'Vendas', opened: false, children: [{ name: 'Reparo Eletônico', route: `/partner-dash/create-eletronic-repair/${this.companyId}` },
-      { name: 'Coleta Entrega', opened: false, route: `/outsourced-dash/list-collect-deliver-all-months` },
+      { name: 'Coleta Entrega', opened: false, route: `/outsourced/list-collect-deliver-all-months` },
       ]
     },
     {
