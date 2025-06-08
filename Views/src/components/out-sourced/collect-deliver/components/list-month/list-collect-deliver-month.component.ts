@@ -26,7 +26,7 @@ import {ListMonthControlCollectDeliver } from '../list-month/helpers/list-month-
 @Component({
   selector: 'list-collect-deliver-month',
   templateUrl: './list-collect-deliver-month.component.html',
-  styleUrls: ['./list-collect-deliver-month.component.css'],
+  styleUrls: ['./list-collect-deliver-month.component.scss'],
   standalone: true,
   imports: [
     ListDefaultImports,
@@ -72,10 +72,9 @@ export class ListCollectDeliverMonthComponent extends ListMonthControlCollectDel
     }
 
 
-
     ngOnInit(): void {
-      this.listCollectDeliverMonth = this.startSupply(`${this.controllerUrl}/GetAllByCompanyIdCollectDeliverAsync`, this.companyId.toString());
-      this.selectedMonth(this.monthFilter);
+      this.listCollectDeliverMonth = this.startSupply(`${this.controllerUrl}/GetAllByCompanyIdCurrentYearAsync`, this.companyId.toString());
+      // this.selectedMonth(this.monthFilter);
       // this.getCurrentEntitiesFromBackEnd(this._actRoute.snapshot.params['id'] as number);
     }
 
@@ -110,19 +109,19 @@ export class ListCollectDeliverMonthComponent extends ListMonthControlCollectDel
 
   // }
 
-  monthFilter = new MonthsDto();
-  monthHideShowPendingRadio: MonthsDto = new MonthsDto();
-  selectedMonth(month: MonthsDto) {
-    this.monthFilter = null;
-    this.monthFilter = month;
-    this.monthHideShowPendingRadio = month;
+  // monthFilter = new MonthsDto();
+  // monthHideShowPendingRadio: MonthsDto = new MonthsDto();
+  // selectedMonth(month: MonthsDto) {
+  //   this.monthFilter = null;
+  //   this.monthFilter = month;
+  //   this.monthHideShowPendingRadio = month;
 
-    if (this.monthFilter.id != -1)
-      this.entities$ = this.onSelectedMonth(this.entities, this.monthFilter.id, 'start');
+  //   if (this.monthFilter.id != -1)
+  //     this.entities$ = this.onSelectedMonth(this.entities, this.monthFilter.id, 'start');
 
-    if (this.monthFilter.id == -1)
-      this.entities$ = this.onSelectedMonth(this.entities, this.monthFilter.id, 'start');
-  }
+  //   if (this.monthFilter.id == -1)
+  //     this.entities$ = this.onSelectedMonth(this.entities, this.monthFilter.id, 'start');
+  // }
 
   getCurrentPagedInFrontEnd() {
     this.entities$ = this.current(this.entities, 0, this.pageSize, 'start', false);

@@ -10,9 +10,9 @@ namespace Application.Services.Operations.Outsourced
     {
         Task<HttpStatusCode> AddAsync(CollectDeliverDto entityDto);
         Task<PagedList<CollectDeliverDto>> GetAllPagedAsync(Params parameters);
-        Task<List<CollectDeliverDto>> GetAllByCompanyIdAsync(int id);
+        Task<List<CollectDeliverDto>> GetAllByCompanyIdCurrentYearAsync(int id);
         Task<CollectDeliverDto> GetByIdAllIncluded(int collectDeliverId);
-        Task<List<CollectDeliverDto>> GetAllByCompanyIdByMonthNumberAsync(LocalParams parameters);
+        Task<List<CollectDeliverDto>> GetAllByCompanyIdByMonthNumberCurrentYearAsync(LocalParams parameters);
         Task<HttpStatusCode> UpdateAsync(int collectDeliverId, CollectDeliverUpdateDto entity);
         Task<HttpStatusCode> DeleteFakeAsync(int collectDeliverId);
     }

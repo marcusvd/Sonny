@@ -54,12 +54,23 @@
 
 <default-component [digitTitleComp]="'|'" [textTitleComp]="'Coletas, entregas e serviços'" [textSubTitleComp]="'Cadastro'" [iconSubTitleComp]="'list'">
     <div btns>
-        <!-- <btn-g-dynamic [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)"> -->
-        <btn-g-dynamic [name]="'Filtrar'">
-            <!-- <collect-deliver-list-filter class="menu-size-width-large" (filterFormOut)="filter($event)" options-filter [showHideFilter]="showHideFilter"> -->
-            <collect-deliver-list-filter class="menu-size-width-large" options-filter [showHideFilter]="showHideFilter">
-            </collect-deliver-list-filter>
-        </btn-g-dynamic>
+        <div class="p-4 grid sm:grid-cols-[1fr_1fr_1fr] grid-cols-1 gap-4 items-center">
+            <div>
+                <!-- <input-field-g class="specificity" [formMain]="this.formMain" [type]="'text'" [inputLabel]="'Pesquisar'" [fieldControlName]="'description'">
+
+                    <span msg-error *ngIf="this.formError(formMain,'specificities', 'maxlength') && this.formTouched(formMain, 'specificities')">{{maxLengthMsg
+                    + '30' + charactersMsg}}</span>
+                </input-field-g> -->
+            </div>
+            <div>
+                <span class="title-amount">TOTAL:&nbsp;</span> <span class="amount-sum">{{amountYear}}</span>
+            </div>
+            <div>
+                <span class="title-amount">DESPESA:&nbsp;</span> <span class="amount-sum">{{localAmountCosts}}</span>
+                <!-- <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true" [changeSelection]="monthFilter" (sendSelected)="selectedMonth($event)">
+              </months-select> -->
+            </div>
+        </div>
     </div>
     <div body>
         <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">

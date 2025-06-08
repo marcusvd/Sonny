@@ -16,6 +16,7 @@ import { DeleteServices } from '../../../../../../shared/components/delete-dialo
 import { ListCollectDeliverDto } from '../dto/list-collect-deliver-dto';
 import { CollectDeliverDto } from '../../../dto/collect-deliver-dto';
 import { BillingFromDto } from '../../../dto/billing-from-dto';
+import { ListMonthCollectDeliverDto } from '../../list-month/dto/list-month-collect-deliver-dto';
 
 
 
@@ -58,7 +59,7 @@ export class ListControlCollectDeliver extends BaseList {
     return [
       { key: '', style: 'cursor: pointer; max-width:100px;' },
       { key: 'Valor', style: 'cursor: pointer;max-width:150px;' },
-      { key: 'Cobrança', style: 'cursor: pointer; max-width:1fr;' },
+      { key: 'Cobrança', style: 'cursor: pointer; max-width:100%;flex:2;' },
       { key: 'Motivo', style: 'cursor: pointer;flex:3' },
     ]
   }
@@ -67,11 +68,129 @@ export class ListControlCollectDeliver extends BaseList {
     return [
       { key: 'id', style: 'max-width:100px;' },
       { key: 'price', style: 'max-width:150px;' },
-      { key: 'billingFrom', style: 'max-width:1fr;' },
+      { key: 'billingFrom', style: 'max-width:100%;flex:2;' },
       { key: 'subject', style: 'flex:3' },
     ]
   }
 
+ getEntitiesCurrentYear(entities: CollectDeliverDto[]) {
+    return entities.filter(fromDb => new Date(fromDb.start).getFullYear() == this.currentDate.getFullYear());
+  }
+
+  comparedMonthsCurrentYear(entities: CollectDeliverDto[], itemsGrid: ListMonthCollectDeliverDto[]) {
+    return entities.filter(fromDb => itemsGrid.filter(gd => new Date(gd.idMonth.key).getMonth() == new Date(fromDb.start).getMonth()))
+  }
+
+
+  supplyItemsGrid = (listCollectDeliverDto: ListCollectDeliverDto[], collectDeliverDto: CollectDeliverDto) => {
+
+    const items: ListCollectDeliverDto = new ListCollectDeliverDto();
+    //ListCreditCardExpense = [];
+
+    // console.log(collectDeliverDto)
+    Object.assign(items, {
+
+      id: {
+        key: collectDeliverDto.id,
+        display: 'icons',
+
+        icons: ['visibility|margin-right:10px;', 'edit|', 'delete_outline|color:rgb(158, 64, 64);margin-left:10px;'],
+
+        // icons: ['zoom_in', 'edit', 'home'],
+        styleInsideCell: `color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,
+        styleCell: 'max-width:100px;',
+        route: ''
+      },
+
+      billingFrom: {
+        key:  this.billingFromMakeField(collectDeliverDto.billingFrom),
+        styleCell: 'width:100%; flex:2',
+
+      },
+      subject: {
+        key: collectDeliverDto.taskOverView,
+        styleCell: 'width:100%; flex:3',
+      },
+      price: {
+        key: this._ptBrCurrencyPipe.transform(collectDeliverDto.price),
+        styleCell: 'max-width:150px;',
+        style:'width:150px; flex:1'
+      },
+
+    })
+
+    listCollectDeliverDto.push(items);
+
+
+    return listCollectDeliverDto;
+  }
+
+
+  billingFromMakeField = (entity: BillingFromDto) => entity?.partner?.name ?? entity?.customer?.name ?? (entity?.base ? 'Custo local' : '');
+  amountYear: string = '';
+  localAmountCosts: string = '';
+  startSupply(url: string, params: HttpParams): Subscription {
+
+    let entities: ListCollectDeliverDto[] = [];
+
+    return this._listGDataService?.getAllEntitiesInMemoryPagedObjParam$<CollectDeliverDto>(url, params).pipe(
+      map((x: CollectDeliverDto[]) => {
+
+        if (x.length <= 0) {
+          entities = [];
+          this.entities = [];
+          this.entities$ = of([]);
+          this.entitiesFiltered$ = of([]);
+          this.length = 0;
+        }
+
+        entities = [];
+        this.entities = [];
+        this.entities$ = of([]);
+        if (x?.length != 0) {
+
+          // x.filter(fromDb => new Date(fromDb.start).getFullYear() == this.currentDate.getFullYear());
+          this.amountYear = this._ptBrCurrencyPipe.transform(x.reduce((x, y) => x + y.price, 0));
+          this.localAmountCosts = this._ptBrCurrencyPipe.transform(x.filter(x => x.billingFrom.base).reduce((x, y) => x + y.price, 0));
+
+          x.forEach(
+            (y: CollectDeliverDto) => {
+              this.entities = this.supplyItemsGrid(entities, y);
+              this.entities$ = of(this.entities);
+              // this.entities$.subscribe(console.log)
+              this.entitiesFiltered$ = this.entities$
+              this.length = x.length;
+
+              // this.getCurrentPagedInFrontEnd(this.entities, 0, this.pageSize, 'expires', false);
+            })
+        }
+      })).subscribe();
+
+
+    // return this._listGDataService?.entities$.subscribe(
+    //   {
+    //     next: (x: CreditCardExpenseInvoiceDto[]) => {
+
+    //       if (x.length > 0)
+    //         console.log('Maior')
+
+
+
+    //       x.forEach(
+    //         (y: CreditCardExpenseInvoiceDto) => {
+    //           // console.log(y)
+    //           this.entities = this.supplyItemsGrid(entities, y);
+    //           this.entities$ = of(this.entities);
+    //           this.entitiesFiltered$ = this.entities$
+    //         })
+
+    //       // this.getCurrent();
+    //     }
+    //   }
+    // )
+
+
+  }
   // onPageChange($event: PageEvent) {
 
   //   if ($event.previousPageIndex < $event.pageIndex)
@@ -185,112 +304,7 @@ export class ListControlCollectDeliver extends BaseList {
   // ]
 
 
-  supplyItemsGrid = (listCollectDeliverDto: ListCollectDeliverDto[], collectDeliverDto: CollectDeliverDto) => {
 
-    const items: ListCollectDeliverDto = new ListCollectDeliverDto();
-    //ListCreditCardExpense = [];
-
-    // console.log(collectDeliverDto)
-    Object.assign(items, {
-
-      id: {
-        key: collectDeliverDto.id,
-        display: 'icons',
-
-        icons: ['visibility|margin-right:10px;', 'edit|', 'delete_outline|color:rgb(158, 64, 64);margin-left:10px;'],
-
-        // icons: ['zoom_in', 'edit', 'home'],
-        styleInsideCell: `color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,
-        styleCell: 'max-width:100px;',
-        route: ''
-      },
-
-      billingFrom: {
-        key:  this.billingFromMakeField(collectDeliverDto.billingFrom),
-        styleCell: 'max-width:1fr;',
-
-      },
-      subject: {
-        key: collectDeliverDto.taskOverView,
-        styleCell: 'width:100%; flex:3',
-      },
-      price: {
-        key: this._ptBrCurrencyPipe.transform(collectDeliverDto.price),
-        styleCell: 'max-width:150px;',
-        style:'width:150px; flex:1'
-      },
-
-    })
-
-    listCollectDeliverDto.push(items);
-
-    return listCollectDeliverDto;
-  }
-
-
-  billingFromMakeField = (entity: BillingFromDto) => entity?.partner?.name ?? entity?.customer?.name ?? (entity?.base ? 'Custo local' : '');
-
-  startSupply(url: string, params: HttpParams): Subscription {
-
-
-    let entities: ListCollectDeliverDto[] = [];
-
-    return this._listGDataService?.getAllEntitiesInMemoryPagedObjParam$<CollectDeliverDto>(url, params).pipe(
-      map((x: CollectDeliverDto[]) => {
-
-        if (x.length <= 0) {
-          entities = [];
-          this.entities = [];
-          this.entities$ = of([]);
-          this.entitiesFiltered$ = of([]);
-          this.length = 0;
-        }
-
-        entities = [];
-        this.entities = [];
-        this.entities$ = of([]);
-        if (x?.length != 0) {
-          // const expires = new Date(x[0].expires).getMonth();
-          // this.expensesMonth = ex_month(expires).name;
-
-          x.forEach(
-            (y: CollectDeliverDto) => {
-              this.entities = this.supplyItemsGrid(entities, y);
-              this.entities$ = of(this.entities);
-              // this.entities$.subscribe(console.log)
-              this.entitiesFiltered$ = this.entities$
-              this.length = x.length;
-
-              // this.getCurrentPagedInFrontEnd(this.entities, 0, this.pageSize, 'expires', false);
-            })
-        }
-      })).subscribe();
-
-
-    // return this._listGDataService?.entities$.subscribe(
-    //   {
-    //     next: (x: CreditCardExpenseInvoiceDto[]) => {
-
-    //       if (x.length > 0)
-    //         console.log('Maior')
-
-
-
-    //       x.forEach(
-    //         (y: CreditCardExpenseInvoiceDto) => {
-    //           // console.log(y)
-    //           this.entities = this.supplyItemsGrid(entities, y);
-    //           this.entities$ = of(this.entities);
-    //           this.entitiesFiltered$ = this.entities$
-    //         })
-
-    //       // this.getCurrent();
-    //     }
-    //   }
-    // )
-
-
-  }
 
   // getCurrentPagedInFrontEnd(entities: any[], currentPage: number, pageSize: number, field: string, withPagination: boolean) {
   //   this.entitiesFiltered$ = this.current(entities,

@@ -53,16 +53,16 @@ export class ListMonthControlCollectDeliver extends BaseList {
 
   labelHeaders = () => {
     return [
-      { key: '', style: 'cursor: pointer; max-width:150px;' },
-      { key: 'Mês', style: 'cursor: pointer;' },
-      { key: 'R$ Total', style: 'cursor: pointer;' },
-      { key: 'Fechada', style: 'cursor: pointer;' }
+      { key: '', style: 'max-width:10px;' },
+      { key: 'Mês', style: '' },
+      { key: 'R$ Total', style: '' },
+      { key: 'Fechada', style: '' }
     ]
   }
 
   fieldsHeaders = () => {
     return [
-      { key: 'id', style: 'max-width:150px;' },
+      { key: 'id', style: 'max-width:10px;' },
       { key: 'month', style: '' },
       { key: 'price', style: '' },
       { key: 'expiresView', style: '' }
@@ -84,35 +84,7 @@ export class ListMonthControlCollectDeliver extends BaseList {
   //   }
 
   // }
-  onSelectedMonth(entities: any[], selectedMonth: number, field: string) {
-    let result;
-    entities.forEach(x => console.log(x));
 
-
-    if (selectedMonth != -1) {
-
-      result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field].key).getFullYear() && new Date(x[field].key).getMonth() == selectedMonth)
-
-      // this.gridListCommonHelper.lengthPaginator.next(result.length)
-
-      const ordered = this.arrayOrderByDate(result, field)
-
-      result = of(ordered.slice(0, this.pageSize))
-    }
-
-    if (selectedMonth == -1) {
-
-      result = entities.filter(x =>
-        this.currentDate.getFullYear() == new Date(x[field].key).getFullYear())
-
-      // this.gridListCommonHelper.lengthPaginator.next(result.length)
-
-      const ordered = this.arrayOrderByDate(result, field)
-
-      result = of(ordered.slice(0, this.pageSize));
-    }
-    return result;
-  }
 
   arrayOrderByDate(entities: any[], field: string): any[] {
     return entities.sort((a, b) => new Date(a[field]).getTime() - new Date(b[field]).getTime());
@@ -214,46 +186,46 @@ export class ListMonthControlCollectDeliver extends BaseList {
   // ]
 
 
-  supplyItemsGrid = (listMonthCollectDeliver: ListMonthCollectDeliverDto[], collectDeliver: CollectDeliverDto) => {
+  // supplyItemsGrid = (listMonthCollectDeliver: ListMonthCollectDeliverDto[], collectDeliver: CollectDeliverDto) => {
 
-    const items: ListMonthCollectDeliverDto = new ListMonthCollectDeliverDto();
-    //ListCreditCardExpense = [];
-    Object.assign(items, {
+  //   const items: ListMonthCollectDeliverDto = new ListMonthCollectDeliverDto();
+  //   //ListCreditCardExpense = [];
+  //   Object.assign(items, {
 
-      id: {
-        key: collectDeliver.id,
-        display: 'icons',
+  //     id: {
+  //       key: collectDeliver.id,
+  //       display: 'icons',
 
-        icons: ['visibility|margin-right:10px;', 'edit|', 'delete_outline|color:rgb(158, 64, 64);margin-left:10px;'],
-        // icons: ['zoom_in', 'edit', 'home'],
-        styleInsideCell: `color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,
-        styleCell: 'max-width:100px;',
-        route: ''
-      },
+  //       icons: ['visibility|margin-right:10px;', 'edit|', 'delete_outline|color:rgb(158, 64, 64);margin-left:10px;'],
+  //       // icons: ['zoom_in', 'edit', 'home'],
+  //       styleInsideCell: `color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,
+  //       styleCell: 'max-width:100px;',
+  //       route: ''
+  //     },
 
-      month: {
-        key: collectDeliver.billingFrom,
-        styleCell: 'width:100%;',
-      },
-      price: {
-        key: this._ptBrCurrencyPipe.transform(collectDeliver.price),
-        styleCell: 'width:100%;',
-      },
-      expiresView: {
-        key: this._ptBrDatePipe.transform(collectDeliver.wasPaid),
-        styleCell: 'width:100%;',
-      },
-      expires: {
-        key: this._ptBrDatePipe.transform(collectDeliver.price),
-        styleCell: 'width:100%;',
-      },
+  //     month: {
+  //       key: collectDeliver.billingFrom,
+  //       styleCell: 'width:100%;',
+  //     },
+  //     price: {
+  //       key: this._ptBrCurrencyPipe.transform(collectDeliver.price),
+  //       styleCell: 'width:100%;',
+  //     },
+  //     expiresView: {
+  //       key: this._ptBrDatePipe.transform(collectDeliver.wasPaid),
+  //       styleCell: 'width:100%;',
+  //     },
+  //     expires: {
+  //       key: this._ptBrDatePipe.transform(collectDeliver.price),
+  //       styleCell: 'width:100%;',
+  //     },
 
-    })
+  //   })
 
-    listMonthCollectDeliver.push(items);
+  //   listMonthCollectDeliver.push(items);
 
-    return listMonthCollectDeliver;
-  }
+  //   return listMonthCollectDeliver;
+  // }
 
   startSupply(url: string, param: string): Subscription {
 
@@ -272,7 +244,7 @@ export class ListMonthControlCollectDeliver extends BaseList {
 
 
 
-          this.entities = this.makeGridItems(x, this.makeMonths())
+          this.entities = this.supplyItemsGrid(x, this.makeMonths())
           this.entities$ = of(this.entities);
           // this.entities$.subscribe(console.log)
           this.entitiesFiltered$ = this.entities$
@@ -287,7 +259,7 @@ export class ListMonthControlCollectDeliver extends BaseList {
           // const expires = new Date(x[0].expires).getMonth();
           // this.expensesMonth = ex_month(expires).name;
 
-          this.entities = this.makeGridItems(x, this.makeMonths())
+          this.entities = this.supplyItemsGrid(x, this.makeMonths())
           this.entities$ = of(this.entities);
           // this.entities$.subscribe(console.log)
           this.entitiesFiltered$ = this.entities$
@@ -295,7 +267,7 @@ export class ListMonthControlCollectDeliver extends BaseList {
           // x.forEach(
           //   (y: CollectDeliverDto) => {
           //     // this.entities = this.supplyItemsGrid(entities, y);
-          //     makeGridItems()
+          //     supplyItemsGrid()
           //     this.entities$ = of(this.entities);
           //     // this.entities$.subscribe(console.log)
           //     this.entitiesFiltered$ = this.entities$
@@ -326,8 +298,9 @@ export class ListMonthControlCollectDeliver extends BaseList {
           id: {
             key: m.id.toString(),
             display: 'icons',
-            icons: ['visibility|margin-right:10px;', 'edit|', 'delete|color:rgb(158, 64, 64);margin-left:10px;'],
-            styleCell: 'max-width:100px;',
+            icons: ['visibility| cursor: pointer;'],
+            styleCell: 'max-width:10px; display:flex; justify-content: center;',
+            styleInsideCell:'max-width:10px;'
           },
           month: {
             key: m.name,
@@ -368,48 +341,40 @@ export class ListMonthControlCollectDeliver extends BaseList {
   }
 
   amountYear: string = '';
-  makeGridItems(entities: CollectDeliverDto[], grid: ListMonthCollectDeliverDto[]) {
-    const itemsGrid = grid;
+  localAmountCosts: string = '';
 
-    const entitiesFromDb = entities;
+  // getEntitiesCurrentYear(entities: CollectDeliverDto[]) {
+  //   return entities.filter(fromDb => new Date(fromDb.start).getFullYear() == this.currentDate.getFullYear());
+  // }
 
-    // console.log(itemsGrid)
+  comparedMonthsCurrentYear(entities: CollectDeliverDto[], itemsGrid: ListMonthCollectDeliverDto[]) {
+    return entities.filter(fromDb => itemsGrid.filter(gd => new Date(gd.idMonth.key).getMonth() == new Date(fromDb.start).getMonth()))
+  }
 
-    const currentYear = entitiesFromDb.filter(fromDb => new Date(fromDb.start).getFullYear() == this.currentDate.getFullYear());
+  supplyItemsGrid(entities: CollectDeliverDto[], itemsGrid: ListMonthCollectDeliverDto[]) {
 
-    const comparedMonths = currentYear.filter(fromDb => itemsGrid.filter(gd => new Date(gd.idMonth.key).getMonth() == new Date(fromDb.start).getMonth()))
-
-    this.amountYear = this._ptBrCurrencyPipe.transform(currentYear.reduce((x, y) => x + y.price, 0));
-
+    this.amountYear = this._ptBrCurrencyPipe.transform(entities.reduce((x, y) => x + y.price, 0));
+    this.localAmountCosts = this._ptBrCurrencyPipe.transform(entities.filter(x => x.billingFrom.base).reduce((x, y) => x + y.price, 0));
 
     let numberOfRunsMonthly = 0;
     let numberOfRunsMonthlyWasPaid = 0;
 
-    comparedMonths.forEach((fromDb: CollectDeliverDto) => {
+    this.comparedMonthsCurrentYear(entities, itemsGrid).forEach((fromDb: CollectDeliverDto) => {
       numberOfRunsMonthly++;
-
 
       const indexGridMonth = new Date(fromDb.start).getMonth();
 
       const wasPaid = new Date(fromDb.wasPaid).getFullYear();
 
-      
+
       if (indexGridMonth.toString() == itemsGrid[indexGridMonth].idMonth.key) {
 
         const resultPrice = itemsGrid[indexGridMonth].amountPrice.keyN += fromDb.price;
-
-        // amountPrice += fromDb.price
-
-        // let result = Number(itemsGrid[indexGridMonth]?.amountPrice?.key);
-        // result += fromDb.price;
-
-        //   // const result = parseInt(itemsGrid[indexGridMonth].amountPrice.key, 10) += fromDb.price
         itemsGrid[indexGridMonth].price.key = this._ptBrCurrencyPipe.transform(resultPrice);
         itemsGrid[indexGridMonth].start.key = fromDb?.start as string as string;
 
-        if (wasPaid != this.minValue.getFullYear()) {
+        if (wasPaid != this.minValue.getFullYear())
           numberOfRunsMonthlyWasPaid++;
-        }
 
         if (numberOfRunsMonthly == numberOfRunsMonthlyWasPaid) {
           itemsGrid[indexGridMonth].expiresView.key = 'Fechada';
@@ -420,18 +385,6 @@ export class ListMonthControlCollectDeliver extends BaseList {
           itemsGrid[indexGridMonth].wasPaid.key = fromDb.wasPaid as string;
           itemsGrid[indexGridMonth].expires.key = fromDb.wasPaid as string;
         }
-        // if (wasPaid == this.minValue.getFullYear()) {
-
-        // }
-
-        // else {
-
-        //   itemsGrid[indexGridMonth].expiresView.key = 'Fechada';
-        //   itemsGrid[indexGridMonth].wasPaid.key = fromDb.wasPaid as string;
-        // }
-
-
-
 
       }
 
@@ -442,9 +395,6 @@ export class ListMonthControlCollectDeliver extends BaseList {
 
 
     return itemsGrid;
-    // this.entities = itemsGrid;
-
-    // this.entities$ = of(this.entities);
   }
 
 

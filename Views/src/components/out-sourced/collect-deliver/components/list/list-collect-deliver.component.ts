@@ -14,16 +14,18 @@ import { ListControlCollectDeliver } from './helpers/list-control-collect-delive
 import { ListCollectDeliverService } from './services/list-collect-deliver.service';
 import { CollectDeliverListFilterComponent } from '../../../collect-deliver/commons-components/collect-deliver-filter-list/collect-deliver-list-filter.component';
 import { Subscription } from 'rxjs';
+import { SelectInputSearchGComponent } from 'src/shared/components/select-input-search-g/select-input-search-g.component';
+import { InputFieldGComponent } from 'src/shared/components/input-field-g/input-field-g.component';
 
 @Component({
   selector: 'list-collect-deliver',
   templateUrl: './list-collect-deliver.component.html',
-  styleUrls: ['./list-collect-deliver.component.css'],
+  styleUrls: ['./list-collect-deliver.component.scss'],
   standalone: true,
   imports: [
     ListDefaultImports,
-    CollectDeliverListFilterComponent
-
+    CollectDeliverListFilterComponent,
+    InputFieldGComponent
   ],
   providers: [
     ListDefaultProviders,
@@ -35,7 +37,7 @@ export class ListCollectDeliverComponent extends ListControlCollectDeliver imple
 
   listCollectDeliverByMonthId: Subscription;
   // controllerUrl: string = environment._COLLECT_DELIVER.split('/')[4];
-  backEndUrl: string = `${environment._COLLECT_DELIVER.split('/')[4]}/GetAllByCompanyIdByMonthNumberAsync`;
+  backEndUrl: string = `${environment._COLLECT_DELIVER.split('/')[4]}/GetAllByCompanyIdByMonthNumberCurrentYearAsync`;
 
   constructor(
     override _router: Router,

@@ -44,18 +44,18 @@ namespace Api.Controllers
         }
 
 
-        [HttpGet("GetAllByCompanyIdCollectDeliverAsync/{id:min(1)}")]
-        public async Task<IActionResult> GetAllByCompanyIdCollectDeliverAsync(int id)
+        [HttpGet("GetAllByCompanyIdCurrentYearAsync/{id:min(1)}")]
+        public async Task<IActionResult> GetAllByCompanyIdCurrentYearAsync(int id)
         {
-            List<CollectDeliverDto> EntityFromDb = await _COLLECTDELLIVER_SERVICES.GetAllByCompanyIdAsync(id);
+            List<CollectDeliverDto> EntityFromDb = await _COLLECTDELLIVER_SERVICES.GetAllByCompanyIdCurrentYearAsync(id);
             return Ok(EntityFromDb);
         }
 
 
-        [HttpGet("GetAllByCompanyIdByMonthNumberAsync")]
-        public async Task<IActionResult> GetAllByCompanyIdByMonthNumberAsync([FromQuery] LocalParams parameters)
+        [HttpGet("GetAllByCompanyIdByMonthNumberCurrentYearAsync")]
+        public async Task<IActionResult> GetAllByCompanyIdByMonthNumberCurrentYearAsync([FromQuery] LocalParams parameters)
         {
-            var returnFromDb = await _COLLECTDELLIVER_SERVICES.GetAllByCompanyIdByMonthNumberAsync(parameters);
+            var returnFromDb = await _COLLECTDELLIVER_SERVICES.GetAllByCompanyIdByMonthNumberCurrentYearAsync(parameters);
 
             if (returnFromDb == null) return null;
 

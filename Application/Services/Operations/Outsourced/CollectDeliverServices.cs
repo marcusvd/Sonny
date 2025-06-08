@@ -172,11 +172,11 @@ namespace Application.Services.Operations.Outsourced
 
         }
 
-        public async Task<List<CollectDeliverDto>> GetAllByCompanyIdAsync(int id)
+        public async Task<List<CollectDeliverDto>> GetAllByCompanyIdCurrentYearAsync(int id)
         {
 
             var fromDb = await _GENERIC_REPO.CollectDeliver.Get(
-                x => x.CompanyId == id && x.Deleted == DateTime.MinValue,
+                x => x.CompanyId == id && x.Deleted == DateTime.MinValue && x.Start.Year == DateTime.Now.Year,
                 toInclude => toInclude.Include(x => x.Destiny)
                 .ThenInclude(x => x.Customer)
                 .Include(x => x.Destiny)
@@ -194,12 +194,13 @@ namespace Application.Services.Operations.Outsourced
             return toReturn;
         }
 
-        public async Task<List<CollectDeliverDto>> GetAllByCompanyIdByMonthNumberAsync(LocalParams parameters)
+        public async Task<List<CollectDeliverDto>> GetAllByCompanyIdByMonthNumberCurrentYearAsync(LocalParams parameters)
         {
 
             var fromDb = await _GENERIC_REPO.CollectDeliver.Get(
                 x => x.CompanyId == parameters.companyId && x.Deleted == DateTime.MinValue
-                && x.Start.Month == parameters.monthNumber,
+                  && x.Start.Month == parameters.monthNumber
+                  && x.Start.Year == DateTime.Now.Year,
                 toInclude => toInclude.Include(x => x.Destiny)
                 .ThenInclude(x => x.Customer)
                 .Include(x => x.Destiny)
