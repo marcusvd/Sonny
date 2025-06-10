@@ -142,7 +142,7 @@ export class ListControlCustomerList extends BaseList {
         icons: ['edit|', 'delete|color:rgb(158, 64, 64);margin-left:10px;'],
         // icons: ['zoom_in', 'edit', 'home'],
         styleInsideCell: `color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,
-        styleCell: 'max-width:100px;',
+        styleCell: 'max-width:100px; display:flex; justify-content: center;',
         route: ''
       },
 

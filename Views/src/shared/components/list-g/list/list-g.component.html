@@ -2,19 +2,20 @@
     <!-- Large -->
     <div class="bg-background-color hidden sm:block">
         <div>
-            <mat-paginator *ngIf="!hidePaginator" pg-above class="!bg-background-color !flex !justify-end" #paginatorAbove [length]="this.length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
+            <mat-paginator *ngIf="!hidePaginator" [hidePageSize]="true" pg-above class="!bg-background-color !flex !justify-end" #paginatorAbove [length]="this.length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
         </div>
         <mat-card class="rounded-t-xl w-full overflow-visible flex flex-col" *ngIf="entities$">
             <div class="w-full overflow-x-auto">
                 <!-- Cabeçalho -->
-                <div class="flex flex-row font-bold text-xs text-teal-600 bg-gray-100 border-b border-teal-500">
-                    <div *ngFor="let header of headersLabel; let i = index;" class="flex-1 p-2 text-left min-w-[100px] h-8 flex items-end cursor-pointer hover:font-bold hover:text-lg hover:text-teal-800 active:text-teal-600 transition-all" [style]="header.style" (click)="onClickHeaderField(headersFields[i].key)">
+                <div class="flex flex-row font-bold text-xs text-default-line bg-gray-200 border-b border-default-line">
+                    <div *ngFor="let header of headersLabel; let i = index;" class="flex-1 p-2 text-left text-color-main min-w-[100px] h-8 flex items-end cursor-pointer hover:font-bold hover:text-lg hover:text-default-line active:text-default-line transition-all" [style]="header.style"
+                        (click)="onClickHeaderField(headersFields[i].key)">
                         {{header.key}}
                     </div>
                 </div>
 
                 <!-- Linhas de dados -->
-                <div *ngFor="let entity of this.entities$ | async; let isOdd = odd; let isEven = even" class="flex flex-row border-b border-gray-200 hover:bg-gray-200 transition-colors" [class]="{'bg-gray-50': isOdd, 'bg-gray-100': isEven}">
+                <div *ngFor="let entity of paginatedEntities$ | async; let isOdd = odd; let isEven = even" class="flex flex-row border-b border-gray-200 hover:bg-gray-200 transition-colors" [class]="{'bg-gray-50': isOdd, 'bg-gray-100': isEven}">
 
                     <div *ngFor="let field of headersFields let i = index;" class="flex-1 p-2 text-left min-w-[100px] h-15 flex items-center" [style]="entity[field.key]?.styleCell">
 
@@ -42,7 +43,7 @@
 
                             <!-- Conteúdo padrão -->
                             <ng-container *ngSwitchDefault>
-                                <div class="truncate" [style]="entity[field.key]?.styleInsideCell" (click)="tooltip.show()">
+                                <div class="truncate" [style]="entity[field.key]?.styleInsideCell" (click)="'tooltip.show()'">
                                     {{entity[field.key]?.key}}
                                 </div>
                             </ng-container>
@@ -53,11 +54,11 @@
 
         </mat-card>
         <div class="flex justify-center pt-4">
-            <spinner-g [entities$]="this.entities$" [optionalTitle]="'(Lista)'" [_empty]="spinerNoRegisterClean">
+            <spinner-g [entities$]="paginatedEntities$" [optionalTitle]="'(Lista)'" [_empty]="spinerNoRegisterClean">
             </spinner-g>
         </div>
         <div>
-            <mat-paginator *ngIf="!hidePaginator" pg-above class="!bg-background-color !flex !justify-end" #paginatorAbove [length]="this.length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
+            <mat-paginator *ngIf="!hidePaginator" pg-above class="!bg-background-color !flex !justify-end" #paginatorBelow [length]="this.length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
         </div>
     </div>
     <!-- Mobile -->
@@ -65,10 +66,10 @@
         <div>
             <mat-paginator *ngIf="!hidePaginator" pg-above class="!bg-background-color !flex !justify-end" #paginatorAbove [length]="this.length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
         </div>
-        <div *ngFor="let entity of this.entities$ | async">
+        <div *ngFor="let entity of paginatedEntities$ | async">
 
             <mat-card class="!w-full mb-4 !rounded-t-xl" *ngIf="entities$">
-                <div class="p-4 rounded-t-xl space-y-4 border border-color-main shadow-md bg-white">
+                <div class="p-4 rounded-t-xl space-y-4 border border-default-line shadow-md bg-white">
                     <div *ngFor="let field of headersFields; let i = index" class="group">
                         <ng-container [ngSwitch]="entity[field.key]?.display">
 
@@ -104,7 +105,7 @@
             </mat-card>
         </div>
         <div class="flex justify-center">
-            <spinner-g [entities$]="this.entities$" [optionalTitle]="'(Lista)'" [_empty]="spinerNoRegisterClean">
+            <spinner-g [entities$]="paginatedEntities$" [optionalTitle]="'(Lista)'" [_empty]="spinerNoRegisterClean">
             </spinner-g>
         </div>
         <div>

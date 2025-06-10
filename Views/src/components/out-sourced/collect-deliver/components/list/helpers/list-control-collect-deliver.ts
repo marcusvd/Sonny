@@ -17,6 +17,7 @@ import { ListCollectDeliverDto } from '../dto/list-collect-deliver-dto';
 import { CollectDeliverDto } from '../../../dto/collect-deliver-dto';
 import { BillingFromDto } from '../../../dto/billing-from-dto';
 import { ListMonthCollectDeliverDto } from '../../list-month/dto/list-month-collect-deliver-dto';
+import { PageEvent } from '@angular/material/paginator';
 
 
 
@@ -94,11 +95,11 @@ export class ListControlCollectDeliver extends BaseList {
         key: collectDeliverDto.id,
         display: 'icons',
 
-        icons: ['visibility|margin-right:10px;', 'edit|', 'delete_outline|color:rgb(158, 64, 64);margin-left:10px;'],
+        icons: ['edit|', 'delete_outline|color:rgb(158, 64, 64);margin-left:10px;'],
 
         // icons: ['zoom_in', 'edit', 'home'],
         styleInsideCell: `color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,
-        styleCell: 'max-width:100px;',
+        styleCell: 'max-width:100px; display:flex; justify-content: center;',
         route: ''
       },
 
@@ -205,6 +206,21 @@ export class ListControlCollectDeliver extends BaseList {
   //   }
 
   // }
+
+    onPageChange($event: PageEvent) {
+
+    if ($event.previousPageIndex ?? 0 < $event.pageIndex)
+      this.entitiesFiltered$ = of(this.pageChange(this.entitiesFiltered, $event)?.filter(x => x != null))
+
+    else if ($event.previousPageIndex ?? 0 > $event.pageIndex)
+      this.entitiesFiltered$ = of(this.pageChange(this.entitiesFiltered, $event)?.filter(x => x != null))
+
+    if (this.term) {
+      this.entitiesFiltered$ = of(this.pageChange(this.searchListEntities(this.entitiesFiltered, this.term), $event)?.filter(x => x != null))
+      this.length = this.searchListEntities(this.entitiesFiltered, this.term).length
+    }
+
+  }
 
   arrayOrderByDate(entities: any[], field: string): any[] {
     return entities.sort((a, b) => new Date(a[field]).getTime() - new Date(b[field]).getTime());

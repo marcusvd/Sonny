@@ -298,13 +298,13 @@ export class ListMonthControlCollectDeliver extends BaseList {
           id: {
             key: m.id.toString(),
             display: 'icons',
-            icons: ['visibility| cursor: pointer;'],
+            icons: ['visibility|cursor: pointer; color:rgb(43, 161, 168);'],
             styleCell: 'max-width:10px; display:flex; justify-content: center;',
-            styleInsideCell:'max-width:10px;'
+            styleInsideCell: 'max-width:10px;'
           },
           month: {
             key: m.name,
-            styleCell: 'margin-left:50px;'
+            styleCell: ''
           },
           idMonth: {
             key: m.id.toString()
@@ -369,6 +369,8 @@ export class ListMonthControlCollectDeliver extends BaseList {
 
       if (indexGridMonth.toString() == itemsGrid[indexGridMonth].idMonth.key) {
 
+        console.log(fromDb != null)
+
         const resultPrice = itemsGrid[indexGridMonth].amountPrice.keyN += fromDb.price;
         itemsGrid[indexGridMonth].price.key = this._ptBrCurrencyPipe.transform(resultPrice);
         itemsGrid[indexGridMonth].start.key = fromDb?.start as string as string;
@@ -390,10 +392,7 @@ export class ListMonthControlCollectDeliver extends BaseList {
 
       numberOfRunsMonthly = 0;
       numberOfRunsMonthlyWasPaid = 0;
-
     })
-
-
     return itemsGrid;
   }
 
