@@ -32,6 +32,7 @@ export class ListControlCollectDeliver extends BaseList {
 
   viewListUrlRoute: string = '/financial/list-financings-loans-expenses-installment';
   addUrlRoute: string = '/financial/add-financings-loans-expenses';
+  editUrlRoute: string = '/outsourced/edit-collect-deliver';
 
   length = 0;
   showHideFilter = false;
@@ -252,8 +253,7 @@ export class ListControlCollectDeliver extends BaseList {
   onClickIcons(obj: OnClickInterface) {
 
     if (obj.action.split('|')[0] == 'edit') {
-      this.callRouter(`/customer/edit/${obj.entityId}`);
-
+      this.callRouter(`${this.editUrlRoute}/${obj.entityId}`);
     }
 
     if (obj.action.split('|')[0] == 'list') {

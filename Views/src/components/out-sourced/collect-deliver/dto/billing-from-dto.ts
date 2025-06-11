@@ -5,11 +5,11 @@ import { RootBase } from "../../../../shared/entities-dtos/root-base";
 
 
 export class BillingFromDto extends RootBase {
-  partnerId: number;
-  partner: PartnerDto;
+  partnerId: number | null;
+  partner: PartnerDto | null;
 
-  customerId: number;
-  customer: CustomerDto;
+  customerId: number | null;
+  customer: CustomerDto | null;
 
   base: boolean;
 }

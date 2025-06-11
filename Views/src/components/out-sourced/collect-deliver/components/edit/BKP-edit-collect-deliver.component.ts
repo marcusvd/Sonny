@@ -72,7 +72,7 @@ import { CollectDeliverEditService } from './services/collect-deliver-edit.servi
   styleUrls: ['./collect-deliver-edit.component.css'],
   providers: [CollectDeliverEditService],
 })
-export class CollectDeliverEditComponent extends BaseForm implements OnInit {
+export class EditCollectDeliverComponent extends BaseForm implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
@@ -347,7 +347,6 @@ export class CollectDeliverEditComponent extends BaseForm implements OnInit {
       this.loadTypeSelectedEntityDestiny(x.destiny);
       this.loadTypeSelectedEntityPayment(x.billingFrom);
     });
-
 
   }
 
