@@ -1,7 +1,7 @@
 import { inject, Inject, Injectable } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
-import { BaseForm } from "src/shared/components/inheritance/forms/base-form";
+import { BaseForm } from "../../../shared/components/inheritance/forms/base-form";
 
 Injectable({
   providedIn: 'root'

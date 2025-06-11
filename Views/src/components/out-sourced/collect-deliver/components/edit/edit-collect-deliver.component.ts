@@ -18,7 +18,7 @@ import { AtLeastOneDestinySelectedValidator } from '../../validators/at-least-on
 import { AtLeastOneBillingFromSelectedValidator } from '../../validators/at-least-one-billing-from-selected.validator';
 import { DestinyDto } from '../../dto/destiny-dto';
 import { BillingFromDto } from '../../dto/billing-from-dto';
-import { CollectDeliverEditService } from './services/collect-deliver-edit.service';
+import { CollectDeliverEditService } from '../../services/collect-deliver-edit.service';
 import { PhysicallyMovingCostsDto } from '../../../../main/inheritances/dtos/physically-moving-costs';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -114,8 +114,7 @@ export class EditCollectDeliverComponent extends BaseForm implements OnInit {
 
   }
 
-  atLeastOneSelected = (): boolean => this.destiny.get('partnerId')?.value ?? this.destiny.get('customerId')?.value ?? (this.destiny.get('noRegisterName')?.value && this.destiny.get('noRegisterAddress')?.value);
-
+  atLeastOneSelected = (): boolean => this.destiny.get('partnerId')?.value != null || this.destiny.get('customerId')?.value != null || (this.destiny.get('noRegisterName')?.value && this.destiny.get('noRegisterAddress')?.value);
   atLeastOnePayerSelected = (): boolean => this.selectedCustomerPayment ?? this.selectedPartnerPayment ?? this.subForm.get('base')?.value;
 
   onTransporterSelected(partner: PartnerDto) {
@@ -240,10 +239,12 @@ export class EditCollectDeliverComponent extends BaseForm implements OnInit {
   destinyFormLoad(entity: DestinyDto | undefined) {
     return this.destiny = this._fb.group({
       companyId: this._fb.control<number>(entity?.companyId ?? this.companyId, [Validators.required]),
-      customerId: this._fb.control<number>(entity?.customerId ?? 0, []),
-      partnerId: this._fb.control<number>(entity?.partnerId ?? 0, []),
-      noRegisterName: this._fb.control<string>(entity?.noRegisterName ?? '', []),
-      noRegisterAddress: this._fb.control<string>(entity?.noRegisterAddress ?? '', [])
+      
+      customerId: this._fb.control<number | null>(entity?.customerId, []),
+      partnerId: this._fb.control<number | null>(entity?.partnerId, []),
+
+      noRegisterName: this._fb.control<string | null>(entity?.noRegisterName, []),
+      noRegisterAddress: this._fb.control<string | null>(entity?.noRegisterAddress, [])
     }, { validators: AtLeastOneDestinySelectedValidator() })
   }
 
@@ -270,7 +271,7 @@ export class EditCollectDeliverComponent extends BaseForm implements OnInit {
       // deliver: [entity?.deliver ?? false, []],
       // other: [entity?.other ?? false, []],
 
-       collect: [new Date(entity?.collect as string).getFullYear() != this.minValue.getFullYear() ? true : false, []],
+      collect: [new Date(entity?.collect as string).getFullYear() != this.minValue.getFullYear() ? true : false, []],
       deliver: [new Date(entity?.deliver as string).getFullYear() != this.minValue.getFullYear() ? true : false, []],
       other: [new Date(entity?.other as string).getFullYear() != this.minValue.getFullYear() ? true : false, []],
 
@@ -313,48 +314,48 @@ export class EditCollectDeliverComponent extends BaseForm implements OnInit {
   // }
 
 
-    getEntityId(id: number) {
+  getEntityId(id: number) {
 
-      const collectDeliver: Observable<CollectDeliverDto> = this._editService.loadById$('GetByIdAllIncluded', id.toString());
-      collectDeliver.subscribe(x => {
-        this.formLoad(x);
-        this.loadTypeSelectedEntityDestiny(x.destiny);
-        this.loadTypeSelectedEntityPayment(x.billingFrom);
-      });
+    const collectDeliver: Observable<CollectDeliverDto> = this._editService.loadById$('GetByIdAllIncluded', id.toString());
+    collectDeliver.subscribe(x => {
+      this.formLoad(x);
+      this.loadTypeSelectedEntityDestiny(x.destiny);
+      this.loadTypeSelectedEntityPayment(x.billingFrom);
+    });
+
+  }
+
+  loadTypeSelectedEntityDestiny(entity: DestinyDto) {
+    if (entity.customerId) {
+      this.selectedDestiny = 'Clientes';
+      this.selectedCustomerDestiny = entity.customer ?? undefined;
+    }
+
+    if (entity.partnerId) {
+      this.selectedDestiny = 'Parceiros';
+      this.selectedPartnerDestiny = entity.partner;
+    }
+
+    if (entity.noRegisterAddress && entity.noRegisterName)
+      this.selectedDestiny = 'Outros';
+  }
+
+  loadTypeSelectedEntityPayment(entity: BillingFromDto) {
+
+    if (entity.customerId) {
+      this.selectedEntityToPayment = 'Clientes';
+      this.selectedCustomerPayment = entity.customer
 
     }
 
-    loadTypeSelectedEntityDestiny(entity: DestinyDto) {
-      if (entity.customerId) {
-        this.selectedDestiny = 'Clientes';
-        this.selectedCustomerDestiny = entity.customer ?? undefined;
-      }
-
-      if (entity.partnerId) {
-        this.selectedDestiny = 'Parceiros';
-        this.selectedPartnerDestiny = entity.partner;
-      }
-
-      if (entity.noRegisterAddress && entity.noRegisterName)
-        this.selectedDestiny = 'Outros';
+    if (entity.partnerId) {
+      this.selectedEntityToPayment = 'Parceiros';
+      this.selectedPartnerPayment = entity.partner
     }
 
-    loadTypeSelectedEntityPayment(entity: BillingFromDto) {
+    this.disablePaymentDestiny = entity.base
 
-      if (entity.customerId) {
-        this.selectedEntityToPayment = 'Clientes';
-        this.selectedCustomerPayment = entity.customer
-
-      }
-
-      if (entity.partnerId) {
-        this.selectedEntityToPayment = 'Parceiros';
-        this.selectedPartnerPayment = entity.partner
-      }
-
-      this.disablePaymentDestiny = entity.base
-
-    }
+  }
 
   save() {
 

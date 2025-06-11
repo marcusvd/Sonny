@@ -4,7 +4,7 @@ import { GetTransporterMatSelectSingleComponent } from '../../../../../../shared
 import { GetPartnerMatSelectSingleComponent } from '../../../../../../shared/components/get-entities/partner/get-partner-mat-select-single.component';
 import { OthersDestiniesComponent } from '../../../commons-components/other-form-destinies/others-destinies.component';
 import { SubjectContactComponent } from '../../../commons-components/subject-contact/subject-contact.component';
-import { AddCollectDeliverService } from '../services/add-collect-deliver.service';
+import { AddCollectDeliverService } from '../../../services/add-collect-deliver.service';
 
 export const AddCollectDeliverImports: any[] = [
   SubjectContactComponent,

@@ -13,7 +13,7 @@ import { AddDefaultImports, AddDefaultProviders } from '../../../../imports/comp
 import { ConfirmDialogCollectDeliverComponent } from '../../commons-components/confirmation-panel-collect-deliver/confirm-dialog-collect-deliver.component';
 import { CollectDeliverValidators } from '../../validators/collect-deliver-validators';
 import { AddCollectDeliverImports, AddCollectDeliverProviders } from './imports/add-collect-deliver.imports';
-import { AddCollectDeliverService } from './services/add-collect-deliver.service';
+import { AddCollectDeliverService } from '../../services/add-collect-deliver.service';
 import { AtLeastOneCollectDeliverOtherValidator } from '../../validators/at-least-one-collect-deliver-other.validator';
 import { AtLeastOneDestinySelectedValidator } from '../../validators/at-least-one-destiny-selected.validator';
 import { AtLeastOneBillingFromSelectedValidator } from '../../validators/at-least-one-billing-from-selected.validator';
@@ -110,7 +110,7 @@ export class AddCollectDeliverComponent extends BaseForm implements OnInit {
 
   }
 
-  atLeastOneSelected = (): boolean => this.destiny.get('partnerId')?.value ?? this.destiny.get('customerId')?.value ?? (this.destiny.get('noRegisterName')?.value && this.destiny.get('noRegisterAddress')?.value);
+atLeastOneSelected = (): boolean => this.destiny.get('partnerId')?.value != null || this.destiny.get('customerId')?.value != null || (this.destiny.get('noRegisterName')?.value && this.destiny.get('noRegisterAddress')?.value);
   atLeastOnePayerSelected = (): boolean => this.selectedCustomerPayment ?? this.selectedPartnerPayment ?? this.subForm.get('base').value;
 
   onTransporterSelected(partner: PartnerDto) {
@@ -235,44 +235,7 @@ export class AddCollectDeliverComponent extends BaseForm implements OnInit {
 
   }
 
-  destinyFormLoad(entity: DestinyDto) {
-    return this.destiny = this._fb.group({
-      companyId: this._fb.control<number>(entity?.companyId ?? this.companyId, [Validators.required]),
-      customerId: this._fb.control<number>(entity?.customerId ?? null, []),
-      partnerId: this._fb.control<number>(entity?.partnerId ?? null, []),
-      noRegisterName: this._fb.control<string>(entity?.noRegisterName ?? '', []),
-      noRegisterAddress: this._fb.control<string>(entity?.noRegisterAddress ?? '', [])
-    }, { validators: AtLeastOneDestinySelectedValidator() })
-  }
-
-  billingFromFormLoad(entity?: BillingFromDto) {
-    return this.subForm = this._fb.group({
-      companyId: this._fb.control<number>(entity?.companyId ?? this.companyId, [Validators.required]),
-      customerId: this._fb.control<number>(entity?.customerId ?? null, [Validators.required]),
-      partnerId: this._fb.control<number>(entity?.partnerId ?? null, [Validators.required]),
-      base: this._fb.control<boolean>(entity?.base ?? false, [Validators.required]),
-    }, { validators: AtLeastOneBillingFromSelectedValidator() })
-  }
-
-  formLoad(entity?: CollectDeliverDto) {
-    return this.formMain = this._fb.group({
-      id: [entity?.id ?? 0, []],
-      companyId: [entity?.companyId ?? this.companyId, [Validators.required]],
-      userId: [entity?.userId ?? this.userId, [Validators.required]],
-      transporterId: [entity?.transporterId ?? '', [Validators.required]],
-      start: [entity?.start ?? '', [Validators.required]],
-      contactName: [entity?.contactName ?? '', [Validators.required, Validators.maxLength(50)]],
-      price: [entity?.price ?? 0, [Validators.required]],
-      collect: [entity?.collect ?? false, []],
-      deliver: [entity?.deliver ?? false, []],
-      other: [entity?.other ?? false, []],
-      kindTransport: ['', [Validators.required]],
-      taskOverView: [entity?.taskOverView ?? '', [Validators.required, Validators.maxLength(1000)]],
-      billingFrom: this.billingFromFormLoad(entity?.billingFrom),
-      destiny: this.destinyFormLoad(entity?.destiny),
-    }, { validators: AtLeastOneCollectDeliverOtherValidator() })
-  }
-
+ 
 
 
 

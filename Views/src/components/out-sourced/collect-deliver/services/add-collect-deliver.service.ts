@@ -4,9 +4,9 @@ import { FormGroup } from "@angular/forms";
 
 
 import { Router } from "@angular/router";
-import { environment } from "../../../../../../environments/environment";
-import { BackEndService } from "../../../../../../shared/services/back-end/backend.service";
-import { CollectDeliverDto } from "../../../dto/collect-deliver-dto";
+import { environment } from "../../../../environments/environment";
+import { BackEndService } from "../../../../shared/services/back-end/backend.service";
+import { CollectDeliverDto } from "../dto/collect-deliver-dto";
 
 
 
