@@ -41,10 +41,11 @@
                         <div>
                             <get-customer-matselect-single *ngIf="selectedDestiny == 'Clientes'" [formMain]="destiny" [editEntity]="true" [selectedEntity]="cleanEntity" [urlBackEndApi]="'GetCustomersByCompanyIdIncludedPhysicallyMovingCosts'" (customerSelected)="onCustomerSelectedDestiny($event)">
                             </get-customer-matselect-single>
-                            <!-- <get-customer-matselect-single [formMain]="destiny" *ngIf="selectedDestiny == 'Clientes'" [selectedEntity]="cleanEntity" [urlBackEndApi]="'GetCustomersByCompanyIdIncludedPhysicallyMovingCosts'" (customerSelected)="onCustomerSelectedDestiny($event)">
-                            </get-customer-matselect-single> -->
-                            <!-- [ngClass]="{'middle-space-horizontal-top-single':!topBottomPaddingEntitiesRadio, 'middle-space-horizontal-bottom-single':topBottomPaddingEntitiesRadio}" -->
-                            <get-partner-matselect-single *ngIf="selectedDestiny == 'Parceiros'" [formMain]="destiny" [urlBackEndApi]="'GetPartnersByCompanyIdIncludedPhysicallyMovingCosts'" [editEntity]="true" (partnerSelected)="onPartnerSelectedDestiny($event)">
+
+                            <!-- <get-partner-matselect-single *ngIf="selectedDestiny == 'Parceiros'" [formMain]="destiny" [urlBackEndApi]="'GetPartnersByCompanyIdIncludedPhysicallyMovingCosts'" [editEntity]="true" (partnerSelected)="onPartnerSelectedDestiny($event)">
+                            </get-partner-matselect-single> -->
+
+                            <get-partner-matselect-single [formMain]="destiny" [editEntity]="true" *ngIf="selectedDestiny == 'Parceiros'" [urlBackEndApi]="'GetPartnersByCompanyIdIncludedPhysicallyMovingCosts'" (partnerSelected)="onPartnerSelectedDestiny($event)">
                             </get-partner-matselect-single>
 
                             <!-- [ngClass]="{'middle-space-horizontal-top':!topBottomPaddingEntitiesRadio, 'middle-space-horizontal-bottom':topBottomPaddingEntitiesRadio}" -->
@@ -56,8 +57,6 @@
                             </get-transporter-matselect-single>
                             <!--
 
-                            <get-partner-matselect-single [formMain]="destiny" *ngIf="selectedDestiny == 'Parceiros'" [urlBackEndApi]="'GetPartnersByCompanyIdIncludedPhysicallyMovingCosts'" (partnerSelected)="onPartnerSelectedDestiny($event)">
-                            </get-partner-matselect-single>
 
 
                             <get-transporter-matselect-single [formMain]="formMain" (transporterSelected)="onTransporterSelected($event)">
@@ -83,9 +82,9 @@
                 </div>
 
                 <div class="w-full grid sm:grid-cols-[200px_1fr] grid-cols-1 gap-4 items-center">
-                    <div>
+                    <div [formGroup]="subForm">
                         <mat-label>{{'Despesa?'}}</mat-label>
-                        <mat-checkbox #matCheckbox (change)="localCostToPayment($event)" fomControlName="payer">
+                        <mat-checkbox #matCheckbox (change)="localCostToPayment($event)" formControlName="base">
                         </mat-checkbox>
                         <div>
                             <mat-radio-group *ngIf="!disablePaymentDestiny" aria-labelledby="radio-group-label" class="radio-group" [(ngModel)]="selectedEntityToPayment" [ngModelOptions]="{standalone: true}" (change)="onSelectedRadioPayment($event)">
@@ -97,22 +96,36 @@
                     </div>
                     <div>
                         <div *ngIf="!disablePaymentDestiny">
-                            <get-customer-matselect-single *ngIf="selectedEntityToPayment == 'Clientes'" [formMain]="subForm" (customerSelected)="onCustomerSelectedPayment($event, 'Combustível')" (customerSelected)="onPriceSelectedPayment('Combustível')" [urlBackEndApi]="'GetCustomersByCompanyIdIncludedPhysicallyMovingCosts'"></get-customer-matselect-single>
 
-                            <get-partner-matselect-single *ngIf="selectedEntityToPayment == 'Parceiros'" [formMain]="subForm" (partnerSelected)="onPartnerSelectedPayment($event)" (partnerSelected)="onPriceSelectedPayment('Combustível')" [urlBackEndApi]="'GetPartnersByCompanyIdIncludedPhysicallyMovingCosts'"></get-partner-matselect-single>
+                            <get-customer-matselect-single *ngIf="selectedEntityToPayment == 'Clientes'" [formMain]="subForm" (customerSelected)="onCustomerSelectedPayment($event)" (customerSelected)="onPriceSelectedPayment('Combustível')" [editEntity]="true" [urlBackEndApi]="'GetCustomersByCompanyIdIncludedPhysicallyMovingCosts'"></get-customer-matselect-single>
+
+                            <!-- [ngClass]="{'middle-space-horizontal-top-single':!topBottomPaddingEntitiesRadio, 'middle-space-horizontal-bottom-single':topBottomPaddingEntitiesRadio}" -->
+                            <get-partner-matselect-single *ngIf="selectedEntityToPayment == 'Parceiros'" [formMain]="subForm" (partnerSelected)="onPartnerSelectedPayment($event)" (partnerSelected)="onPriceSelectedPayment('Combustível')" [editEntity]="true" [urlBackEndApi]="'GetPartnersByCompanyIdIncludedPhysicallyMovingCosts'"></get-partner-matselect-single>
+
+                            <!-- <get-customer-matselect-single *ngIf="selectedEntityToPayment == 'Clientes'" [formMain]="subForm" (customerSelected)="onCustomerSelectedPayment($event, 'Combustível')" (customerSelected)="onPriceSelectedPayment('Combustível')" [urlBackEndApi]="'GetCustomersByCompanyIdIncludedPhysicallyMovingCosts'"></get-customer-matselect-single>
+
+                            <get-partner-matselect-single *ngIf="selectedEntityToPayment == 'Parceiros'" [formMain]="subForm" (partnerSelected)="onPartnerSelectedPayment($event)" (partnerSelected)="onPriceSelectedPayment('Combustível')" [urlBackEndApi]="'GetPartnersByCompanyIdIncludedPhysicallyMovingCosts'"></get-partner-matselect-single> -->
                         </div>
                         <!-- <div *ngIf="selectedCustomerPayment || selectedPartnerPayment"> -->
 
                         <div *ngIf="atLeastOnePayerSelected()">
                             <div>
                                 <mat-label>Valor pre cadastrado</mat-label>
-                                <mat-form-field class="w-full" appearance="outline">
-                                    <mat-select #singleSelect (selectionChange)="onPriceSelectedPayment(singleSelect.value)" formControlName="kindTransport">
+                                <mat-form-field appearance="outline" *ngIf="disablePaymentDestiny">
+                                    <mat-label>Valor pre cadastrado</mat-label>
+                                    <mat-select #singleSelect (selectionChange)="onPriceSelectedDestiny(singleSelect.value)" formControlName="kindTransport">
                                         <mat-option *ngFor="let pay of transportOptions" [value]="pay">
                                             {{pay}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
+                                <!-- <mat-form-field class="w-full" appearance="outline">
+                                    <mat-select #singleSelect (selectionChange)="onPriceSelectedPayment(singleSelect.value)" formControlName="kindTransport">
+                                        <mat-option *ngFor="let pay of transportOptions" [value]="pay">
+                                            {{pay}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field> -->
                             </div>
 
                             <div>

@@ -14,7 +14,7 @@ import { CollectDeliverUpdateDto } from "../dto/collect-deliver-update-dto";
 
 @Injectable()
 
-export class CollectDeliverEditService extends BackEndService<CollectDeliverDto> {
+export class EditCollectDeliverService extends BackEndService<CollectDeliverDto> {
 
 
   constructor(

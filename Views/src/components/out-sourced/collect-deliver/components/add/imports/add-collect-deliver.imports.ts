@@ -5,6 +5,8 @@ import { GetPartnerMatSelectSingleComponent } from '../../../../../../shared/com
 import { OthersDestiniesComponent } from '../../../commons-components/other-form-destinies/others-destinies.component';
 import { SubjectContactComponent } from '../../../commons-components/subject-contact/subject-contact.component';
 import { AddCollectDeliverService } from '../../../services/add-collect-deliver.service';
+import { EditCollectDeliverService } from '../../../services/edit-collect-deliver.service';
+import { FormCollectDeliverService } from '../../../services/form-collect-deliver.service';
 
 export const AddCollectDeliverImports: any[] = [
   SubjectContactComponent,
@@ -16,5 +18,7 @@ export const AddCollectDeliverImports: any[] = [
 ]
 
 export const AddCollectDeliverProviders: any[] = [
-  AddCollectDeliverService
+  AddCollectDeliverService,
+  EditCollectDeliverService,
+  FormCollectDeliverService
 ]

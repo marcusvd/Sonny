@@ -14,6 +14,7 @@ import { ConfirmDialogCollectDeliverComponent } from '../../commons-components/c
 import { CollectDeliverValidators } from '../../validators/collect-deliver-validators';
 import { AddCollectDeliverImports, AddCollectDeliverProviders } from './imports/add-collect-deliver.imports';
 import { AddCollectDeliverService } from '../../services/add-collect-deliver.service';
+import { FormCollectDeliverService } from '../../services/form-collect-deliver.service';
 import { AtLeastOneCollectDeliverOtherValidator } from '../../validators/at-least-one-collect-deliver-other.validator';
 import { AtLeastOneDestinySelectedValidator } from '../../validators/at-least-one-destiny-selected.validator';
 import { AtLeastOneBillingFromSelectedValidator } from '../../validators/at-least-one-billing-from-selected.validator';
@@ -42,6 +43,7 @@ export class AddCollectDeliverComponent extends BaseForm implements OnInit {
   constructor(
     private _fb: FormBuilder,
     private _createService: AddCollectDeliverService,
+    private _formService: FormCollectDeliverService,
     private _dialog: MatDialog,
   ) { super() }
 
@@ -110,7 +112,7 @@ export class AddCollectDeliverComponent extends BaseForm implements OnInit {
 
   }
 
-atLeastOneSelected = (): boolean => this.destiny.get('partnerId')?.value != null || this.destiny.get('customerId')?.value != null || (this.destiny.get('noRegisterName')?.value && this.destiny.get('noRegisterAddress')?.value);
+  atLeastOneSelected = (): boolean => this.destiny.get('partnerId')?.value != null || this.destiny.get('customerId')?.value != null || (this.destiny.get('noRegisterName')?.value && this.destiny.get('noRegisterAddress')?.value);
   atLeastOnePayerSelected = (): boolean => this.selectedCustomerPayment ?? this.selectedPartnerPayment ?? this.subForm.get('base').value;
 
   onTransporterSelected(partner: PartnerDto) {
@@ -235,7 +237,7 @@ atLeastOneSelected = (): boolean => this.destiny.get('partnerId')?.value != null
 
   }
 
- 
+
 
 
 
@@ -278,7 +280,9 @@ atLeastOneSelected = (): boolean => this.destiny.get('partnerId')?.value != null
   }
 
   ngOnInit(): void {
-    this.formLoad();
+    this.formMain = this._formService.formLoad(false);
+    this.destiny = this.formMain.get('destiny') as FormGroup;
+    this.subForm = this.formMain.get('billingFrom') as FormGroup;
   }
 
 }

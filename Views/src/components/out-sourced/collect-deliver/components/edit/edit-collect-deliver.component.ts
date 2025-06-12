@@ -18,10 +18,11 @@ import { AtLeastOneDestinySelectedValidator } from '../../validators/at-least-on
 import { AtLeastOneBillingFromSelectedValidator } from '../../validators/at-least-one-billing-from-selected.validator';
 import { DestinyDto } from '../../dto/destiny-dto';
 import { BillingFromDto } from '../../dto/billing-from-dto';
-import { CollectDeliverEditService } from '../../services/collect-deliver-edit.service';
+import { EditCollectDeliverService } from '../../services/edit-collect-deliver.service';
 import { PhysicallyMovingCostsDto } from '../../../../main/inheritances/dtos/physically-moving-costs';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { FormCollectDeliverService } from '../../services/form-collect-deliver.service';
 
 
 
@@ -36,7 +37,6 @@ import { ActivatedRoute } from '@angular/router';
   ],
   providers: [
     AddDefaultProviders,
-    CollectDeliverEditService,
     AddCollectDeliverProviders
   ],
 })
@@ -44,9 +44,10 @@ export class EditCollectDeliverComponent extends BaseForm implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
-    private _editService: CollectDeliverEditService,
+    private _editService: EditCollectDeliverService,
     private _actRouter: ActivatedRoute,
     private _dialog: MatDialog,
+    private _formService: FormCollectDeliverService,
   ) { super() }
 
 
@@ -205,8 +206,10 @@ export class EditCollectDeliverComponent extends BaseForm implements OnInit {
       this.formMain.get('price')?.setValue(0);
       this.selectedCustomerPayment = null;
       this.selectedPartnerPayment = null;
+      this.disablePaymentDestiny = false;
     }
     else {
+      this.disablePaymentDestiny = true;
       // this?.destiny?.get('customerId')?.setValue(null);
       // this?.destiny?.get('PartnerId')?.setValue(null);
       this?.subForm?.get('base')?.setValue(false);
@@ -216,7 +219,7 @@ export class EditCollectDeliverComponent extends BaseForm implements OnInit {
       this.cleanEntity = !this?.cleanEntity;
     }
 
-    this.disablePaymentDestiny = !this.disablePaymentDestiny;
+    // this.disablePaymentDestiny = !this.disablePaymentDestiny;
   }
 
   onSelectedRadioPayment(selected: MatRadioButton) {
@@ -236,51 +239,51 @@ export class EditCollectDeliverComponent extends BaseForm implements OnInit {
 
   }
 
-  destinyFormLoad(entity: DestinyDto | undefined) {
-    return this.destiny = this._fb.group({
-      companyId: this._fb.control<number>(entity?.companyId ?? this.companyId, [Validators.required]),
-      
-      customerId: this._fb.control<number | null>(entity?.customerId, []),
-      partnerId: this._fb.control<number | null>(entity?.partnerId, []),
+  // destinyFormLoad(entity: DestinyDto | undefined) {
+  //   return this.destiny = this._fb.group({
+  //     companyId: this._fb.control<number>(entity?.companyId ?? this.companyId, [Validators.required]),
 
-      noRegisterName: this._fb.control<string | null>(entity?.noRegisterName, []),
-      noRegisterAddress: this._fb.control<string | null>(entity?.noRegisterAddress, [])
-    }, { validators: AtLeastOneDestinySelectedValidator() })
-  }
+  //     customerId: this._fb.control<number | null>(entity?.customerId, []),
+  //     partnerId: this._fb.control<number | null>(entity?.partnerId, []),
 
-  billingFromFormLoad(entity?: BillingFromDto) {
-    return this.subForm = this._fb.group({
-      companyId: this._fb.control<number | null>(entity?.companyId ?? null, [Validators.required]),
-      customerId: this._fb.control<number | null>(entity?.customerId ?? null, [Validators.required]),
-      partnerId: this._fb.control<number | null>(entity?.partnerId ?? null, [Validators.required]),
-      base: this._fb.control<boolean>(entity?.base ?? false, [Validators.required]),
-    }, { validators: AtLeastOneBillingFromSelectedValidator() })
-  }
+  //     noRegisterName: this._fb.control<string | null>(entity?.noRegisterName, []),
+  //     noRegisterAddress: this._fb.control<string | null>(entity?.noRegisterAddress, [])
+  //   }, { validators: AtLeastOneDestinySelectedValidator() })
+  // }
 
-  formLoad(entity?: CollectDeliverDto) {
+  // billingFromFormLoad(entity?: BillingFromDto) {
+  //   return this.subForm = this._fb.group({
+  //     companyId: this._fb.control<number | null>(entity?.companyId ?? null, [Validators.required]),
+  //     customerId: this._fb.control<number | null>(entity?.customerId ?? null, [Validators.required]),
+  //     partnerId: this._fb.control<number | null>(entity?.partnerId ?? null, [Validators.required]),
+  //     base: this._fb.control<boolean>(entity?.base ?? false, [Validators.required]),
+  //   }, { validators: AtLeastOneBillingFromSelectedValidator() })
+  // }
 
-    return this.formMain = this._fb.group({
-      id: [entity?.id ?? 0, []],
-      companyId: [entity?.companyId ?? this.companyId, [Validators.required]],
-      userId: [entity?.userId ?? this.userId, [Validators.required]],
-      transporterId: [entity?.transporterId ?? '', [Validators.required]],
-      start: [entity?.start ?? '', [Validators.required]],
-      contactName: [entity?.contactName ?? '', [Validators.required, Validators.maxLength(50)]],
-      price: [entity?.price ?? 0, [Validators.required]],
-      // collect: [entity?.collect ?? false, []],
-      // deliver: [entity?.deliver ?? false, []],
-      // other: [entity?.other ?? false, []],
+  // formLoad(entity?: CollectDeliverDto) {
 
-      collect: [new Date(entity?.collect as string).getFullYear() != this.minValue.getFullYear() ? true : false, []],
-      deliver: [new Date(entity?.deliver as string).getFullYear() != this.minValue.getFullYear() ? true : false, []],
-      other: [new Date(entity?.other as string).getFullYear() != this.minValue.getFullYear() ? true : false, []],
+  //   return this.formMain = this._fb.group({
+  //     id: [entity?.id ?? 0, []],
+  //     companyId: [entity?.companyId ?? this.companyId, [Validators.required]],
+  //     userId: [entity?.userId ?? this.userId, [Validators.required]],
+  //     transporterId: [entity?.transporterId ?? '', [Validators.required]],
+  //     start: [entity?.start ?? '', [Validators.required]],
+  //     contactName: [entity?.contactName ?? '', [Validators.required, Validators.maxLength(50)]],
+  //     price: [entity?.price ?? 0, [Validators.required]],
+  //     // collect: [entity?.collect ?? false, []],
+  //     // deliver: [entity?.deliver ?? false, []],
+  //     // other: [entity?.other ?? false, []],
 
-      kindTransport: ['', [Validators.required]],
-      taskOverView: [entity?.taskOverView ?? '', [Validators.required, Validators.maxLength(1000)]],
-      billingFrom: this.billingFromFormLoad(entity?.billingFrom),
-      destiny: this.destinyFormLoad(entity?.destiny),
-    }, { validators: AtLeastOneCollectDeliverOtherValidator() })
-  }
+  //     collect: [new Date(entity?.collect as string).getFullYear() != this.minValue.getFullYear() ? true : false, []],
+  //     deliver: [new Date(entity?.deliver as string).getFullYear() != this.minValue.getFullYear() ? true : false, []],
+  //     other: [new Date(entity?.other as string).getFullYear() != this.minValue.getFullYear() ? true : false, []],
+
+  //     kindTransport: ['', [Validators.required]],
+  //     taskOverView: [entity?.taskOverView ?? '', [Validators.required, Validators.maxLength(1000)]],
+  //     billingFrom: this.billingFromFormLoad(entity?.billingFrom),
+  //     destiny: this.destinyFormLoad(entity?.destiny),
+  //   }, { validators: AtLeastOneCollectDeliverOtherValidator() })
+  // }
 
 
 
@@ -318,7 +321,10 @@ export class EditCollectDeliverComponent extends BaseForm implements OnInit {
 
     const collectDeliver: Observable<CollectDeliverDto> = this._editService.loadById$('GetByIdAllIncluded', id.toString());
     collectDeliver.subscribe(x => {
-      this.formLoad(x);
+      // this.formLoad(x);
+      this.formMain = this._formService.formLoad(true, x);
+      this.destiny = this.formMain.get('destiny') as FormGroup;
+      this.subForm = this.formMain.get('billingFrom') as FormGroup;
       this.loadTypeSelectedEntityDestiny(x.destiny);
       this.loadTypeSelectedEntityPayment(x.billingFrom);
     });
