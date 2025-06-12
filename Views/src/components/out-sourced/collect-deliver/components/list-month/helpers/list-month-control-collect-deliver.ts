@@ -387,8 +387,8 @@ export class ListMonthControlCollectDeliver extends BaseList {
         }
         else {
           // itemsGrid[indexGridMonth].expiresView.key = 'Aberta';
-         itemsGrid[indexGridMonth].expiresView.icons = ['check| color:green;'];
-          
+         itemsGrid[indexGridMonth].expiresView.icons = ['check| color:red;'];
+
           itemsGrid[indexGridMonth].wasPaid.key = fromDb.wasPaid as string;
           itemsGrid[indexGridMonth].expires.key = fromDb.wasPaid as string;
         }
