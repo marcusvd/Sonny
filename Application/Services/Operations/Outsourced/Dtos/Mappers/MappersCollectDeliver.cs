@@ -48,7 +48,6 @@ namespace Application.Services.Operations.Outsourced.Dtos.Mappers
                 CompanyId = entity.CompanyId,
                 Deleted = entity.Deleted,
                 Registered = entity.Registered,
-
                 ContactName = entity.ContactName,
                 Start = entity.Start,
                 Price = entity.Price,
@@ -58,6 +57,7 @@ namespace Application.Services.Operations.Outsourced.Dtos.Mappers
                 Other = entity.Other,
                 KindTransport = entity.KindTransport,
                 TransporterId = entity.TransporterId,
+                Transporter = _IPartnerObjectMapperServices.PartnerMapper(entity.Transporter),
                 TaskOverView = entity.TaskOverView,
                 BillingFrom = BillingFromMapper(entity.BillingFrom),
                 Destiny = DestinyMapper(entity.Destiny)

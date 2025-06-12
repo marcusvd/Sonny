@@ -1,0 +1,53 @@
+<div class="p-4">
+
+    <div class="w-full grid sm:grid-cols-3 grid-cols-1 items-center justify-center">
+        <div class="w-full grid sm:grid-cols-[25px_1fr] grid-cols-1 items-center justify-center">
+            <!-- <div class="bg-expired w-[16px] h-[16px]">
+            </div> -->
+            <div>
+                <mat-icon class="text-expired">check</mat-icon>
+            </div>
+            <div>Vencida</div>
+        </div>
+        <div class="w-full grid sm:grid-cols-[25px_1fr] grid-cols-1 items-center justify-center">
+            <!-- <div class="bg-pendding w-[16px] h-[16px]">
+            </div> -->
+            <div>
+                <mat-icon class="text-pendding">check</mat-icon>
+            </div>
+            <div>Pendente</div>
+        </div>
+        <div class="w-full grid sm:grid-cols-[25px_1fr] grid-cols-1 items-center justify-center">
+            <!-- <div class="bg-paid w-[16px] h-[16px]">
+            </div> -->
+             <div>
+                <mat-icon class="text-paid">check</mat-icon>
+            </div>
+            <div>Liquidada</div>
+        </div>
+    </div>
+
+    <div class="w-full flex sm:justify-center sm:mt-10 mt-4 text-[30px] text-black font-bold">
+        {{title}}
+    </div>
+
+
+    <div *ngFor="let status of statusCollection">
+        <div class="grid grid-rows-2" *ngIf="status.visible">
+            <div class="w-[50px] h-[50px] ml-5" [class]="status.squareBgColor" *ngIf="status.visible">
+
+            </div>
+            <div [class]="status.monthColorName">
+                {{status.name | uppercase}}
+            </div>
+        </div>
+    </div>
+
+    <div *ngFor="let status of statusCollection">
+        <div class="font-bold" *ngIf="status.visible" [class]="status.monthColorName">
+            {{'VENCIMENTO:'}} {{expiresDate | ptBrDate:'Date'}}
+        </div>
+    </div>
+
+
+</div>

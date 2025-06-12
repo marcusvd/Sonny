@@ -63,6 +63,7 @@ export class ListControlCollectDeliver extends BaseList {
       { key: 'Valor', style: 'cursor: pointer;max-width:150px;' },
       { key: 'Cobrança', style: 'cursor: pointer; max-width:100%;flex:2;' },
       { key: 'Motivo', style: 'cursor: pointer;flex:3' },
+      { key: 'Situação', style: 'cursor: pointer;flex:3' },
     ]
   }
 
@@ -71,6 +72,7 @@ export class ListControlCollectDeliver extends BaseList {
       { key: 'id', style: 'max-width:100px;' },
       { key: 'price', style: 'max-width:150px;' },
       { key: 'billingFrom', style: 'max-width:100%;flex:2;' },
+      { key: 'subject', style: 'flex:3' },
       { key: 'subject', style: 'flex:3' },
     ]
   }

@@ -34,7 +34,6 @@ export class FormCollectDeliverService extends BaseForm {
   }
 
   billingFromFormLoad(entity?: BillingFromDto) {
-    console.log(entity?.base)
     return this._fb.group({
       companyId: this._fb.control<number>(entity?.companyId ?? this.companyId, [Validators.required]),
 
@@ -62,7 +61,7 @@ export class FormCollectDeliverService extends BaseForm {
       deliver: edit ? [new Date(entity?.deliver as string).getFullYear() != this.minValue.getFullYear() ? true : false, []] : [entity?.deliver ?? false, []],
       other: edit ? [new Date(entity?.other as string).getFullYear() != this.minValue.getFullYear() ? true : false, []] : [entity?.other ?? false, []],
 
-      kindTransport: ['', [Validators.required]],
+      kindTransport: [entity?.kindTransport, [Validators.required]],
       taskOverView: [entity?.taskOverView ?? '', [Validators.required, Validators.maxLength(1000)]],
       billingFrom: this.billingFromFormLoad(entity?.billingFrom),
       destiny: this.destinyFormLoad(entity?.destiny),

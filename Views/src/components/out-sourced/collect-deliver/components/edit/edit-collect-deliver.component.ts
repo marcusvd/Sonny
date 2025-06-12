@@ -113,6 +113,7 @@ export class EditCollectDeliverComponent extends BaseForm implements OnInit {
       this.destiny.get('partnerId')?.setValue(null);
     }
 
+
   }
 
   atLeastOneSelected = (): boolean => this.destiny.get('partnerId')?.value != null || this.destiny.get('customerId')?.value != null || (this.destiny.get('noRegisterName')?.value && this.destiny.get('noRegisterAddress')?.value);
@@ -194,6 +195,7 @@ export class EditCollectDeliverComponent extends BaseForm implements OnInit {
       if (result)
         this._editService.update(this.formMain);
     })
+
   }
 
   localCostToPayment($event: MatRadioButton) {
@@ -206,10 +208,10 @@ export class EditCollectDeliverComponent extends BaseForm implements OnInit {
       this.formMain.get('price')?.setValue(0);
       this.selectedCustomerPayment = null;
       this.selectedPartnerPayment = null;
-      this.disablePaymentDestiny = false;
+      // this.disablePaymentDestiny = false;
     }
     else {
-      this.disablePaymentDestiny = true;
+      // this.disablePaymentDestiny = true;
       // this?.destiny?.get('customerId')?.setValue(null);
       // this?.destiny?.get('PartnerId')?.setValue(null);
       this?.subForm?.get('base')?.setValue(false);
@@ -219,7 +221,7 @@ export class EditCollectDeliverComponent extends BaseForm implements OnInit {
       this.cleanEntity = !this?.cleanEntity;
     }
 
-    // this.disablePaymentDestiny = !this.disablePaymentDestiny;
+    this.disablePaymentDestiny = !this.disablePaymentDestiny;
   }
 
   onSelectedRadioPayment(selected: MatRadioButton) {
@@ -320,11 +322,12 @@ export class EditCollectDeliverComponent extends BaseForm implements OnInit {
   getEntityId(id: number) {
 
     const collectDeliver: Observable<CollectDeliverDto> = this._editService.loadById$('GetByIdAllIncluded', id.toString());
+
     collectDeliver.subscribe(x => {
-      // this.formLoad(x);
       this.formMain = this._formService.formLoad(true, x);
       this.destiny = this.formMain.get('destiny') as FormGroup;
       this.subForm = this.formMain.get('billingFrom') as FormGroup;
+      this.selectedTransporter = x.transporter;
       this.loadTypeSelectedEntityDestiny(x.destiny);
       this.loadTypeSelectedEntityPayment(x.billingFrom);
     });
@@ -363,14 +366,10 @@ export class EditCollectDeliverComponent extends BaseForm implements OnInit {
 
   }
 
-  save() {
-
-    // this.validatorLocal.removeValidatorsDestiny(this.destiny, ['customerId', 'partnerId', 'noRegisterName', 'noRegisterAddress']);
-    // this.validatorLocal.removeValidatorsPayment(this.subForm, ['customerId', 'partnerId', 'base']);
-
+  update() {
+    console.log(this.formMain)
     if (this.alertSave(this.formMain))
       this.openDialogConfirmationPanel();
-
   }
 
 

@@ -108,24 +108,19 @@
                         </div>
                         <!-- <div *ngIf="selectedCustomerPayment || selectedPartnerPayment"> -->
 
-                        <div *ngIf="atLeastOnePayerSelected()">
-                            <div>
+                        <!-- <div *ngIf="atLeastOnePayerSelected()">
+                           
+                        </div> -->
+
+                         <div>
                                 <mat-label>Valor pre cadastrado</mat-label>
-                                <mat-form-field appearance="outline" *ngIf="disablePaymentDestiny">
-                                    <mat-label>Valor pre cadastrado</mat-label>
+                                <mat-form-field class="w-full" appearance="outline">
                                     <mat-select #singleSelect (selectionChange)="onPriceSelectedDestiny(singleSelect.value)" formControlName="kindTransport">
                                         <mat-option *ngFor="let pay of transportOptions" [value]="pay">
                                             {{pay}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
-                                <!-- <mat-form-field class="w-full" appearance="outline">
-                                    <mat-select #singleSelect (selectionChange)="onPriceSelectedPayment(singleSelect.value)" formControlName="kindTransport">
-                                        <mat-option *ngFor="let pay of transportOptions" [value]="pay">
-                                            {{pay}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field> -->
                             </div>
 
                             <div>
@@ -137,41 +132,16 @@
                                     </mat-error>
                                 </mat-form-field>
                             </div>
-                        </div>
 
                     </div>
                 </div>
-                <!--
-                <div class="w-full grid sm:grid-cols-2 grid-cols-1 gap-4 items-center" *ngIf="disablePaymentDestiny">
-                    <div class="w-full">
-                        <mat-label>Valor pre cadastrado</mat-label>
-                        <mat-form-field class="w-full" appearance="outline">
-                            <mat-select #singleSelect (selectionChange)="onPriceSelectedDestiny(singleSelect.value)" formControlName="kindTransport">
-                                <mat-option *ngFor="let pay of transportOptions" [value]="pay">
-                                    {{pay}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-                    <div class="w-full">
-                        <mat-label>Preço</mat-label>
-                        <mat-form-field class="w-full">
-                            <input matInput currencyMask type="text" formControlName="price" aria-label="Preço">
-                            <mat-error>
-                                <span>{{validatorMessages.required(formMain,'price', 'Preço')}}</span>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                </div> -->
+         
             </div>
         </mat-card>
-
         <div class="mb-14 align-h-center">
-            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
+            <btn-g [name]="'Atualizar'" [icon]="'save'" (btn)="update()"></btn-g>
         </div>
     </div>
-
-
 
 
 </default-component>

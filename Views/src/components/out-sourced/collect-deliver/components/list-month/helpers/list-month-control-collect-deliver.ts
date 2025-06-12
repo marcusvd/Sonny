@@ -325,7 +325,9 @@ export class ListMonthControlCollectDeliver extends BaseList {
             key: '1'
           },
           expiresView: {
-            key: 'Aberta'
+            key: '',
+             display: 'icons',
+            icons: ['check|'],
           },
           expires: {
             key: this.minValue.toDateString()
@@ -379,11 +381,14 @@ export class ListMonthControlCollectDeliver extends BaseList {
           numberOfRunsMonthlyWasPaid++;
 
         if (numberOfRunsMonthly == numberOfRunsMonthlyWasPaid) {
-          itemsGrid[indexGridMonth].expiresView.key = 'Fechada';
+          // itemsGrid[indexGridMonth].expiresView.key = 'Fechada';
+          itemsGrid[indexGridMonth].expiresView.icons = ['check| color:red;'];
           itemsGrid[indexGridMonth].wasPaid.key = fromDb.wasPaid as string;
         }
         else {
-          itemsGrid[indexGridMonth].expiresView.key = 'Aberta';
+          // itemsGrid[indexGridMonth].expiresView.key = 'Aberta';
+         itemsGrid[indexGridMonth].expiresView.icons = ['check| color:green;'];
+          
           itemsGrid[indexGridMonth].wasPaid.key = fromDb.wasPaid as string;
           itemsGrid[indexGridMonth].expires.key = fromDb.wasPaid as string;
         }

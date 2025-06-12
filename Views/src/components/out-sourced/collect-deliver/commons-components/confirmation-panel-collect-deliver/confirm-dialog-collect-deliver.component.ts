@@ -33,11 +33,10 @@ export class ConfirmDialogCollectDeliverComponent {
     private _dialogRef: MatDialogRef<ConfirmDialogCollectDeliverComponent>, @Inject(MAT_DIALOG_DATA) private data: IConfirmDialogCollectDeliver,
     private _ptBrCurrencyPipe: PtBrCurrencyPipe
   ) {
-    // this.itemsToView.push({ key: 'Motivo', value: data.subject });
     this.itemsToView.push({ key: 'Preço', value: this._ptBrCurrencyPipe.transform(Number(data.price)) });
-    this.itemsToView.push({ key: 'local', value: data.contact });
-    this.itemsToView.push({ key: 'Coleta?', value: data.collect });
-    this.itemsToView.push({ key: 'Entrega?', value: data.deliver });
+    this.itemsToView.push({ key: 'Responsável', value: data.contact });
+    this.itemsToView.push({ key: 'Coleta', value: data.collect });
+    this.itemsToView.push({ key: 'Entrega', value: data.deliver });
     this.itemsToView.push({ key: 'Outros Serviços', value: data.other });
     this.itemsToView.push({ key: 'Detalhes', value: data.itemsOrService });
     this.itemsToView.push({ key: 'Destino', value: data.destiny });

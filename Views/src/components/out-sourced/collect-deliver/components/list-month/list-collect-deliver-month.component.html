@@ -62,8 +62,11 @@
 </div> -->
 
 
-<default-component [digitTitleComp]="'|'" [textTitleComp]="'Coletas, entregas e serviços'" [textSubTitleComp]="'Cadastro'" [iconSubTitleComp]="'list'" [hideDivider]="true">
+<default-component [digitTitleComp]="'|'" [textTitleComp]="'Coletas, entregas e serviços'"
+    [textSubTitleComp]="'Cadastro'" [iconSubTitleComp]="'list'" [hideDivider]="true">
     <div btns>
+        <subtitle-collect-deliver>
+        </subtitle-collect-deliver>
         <div class="w-full grid sm:grid-cols-[1fr_1fr_1fr] grid-cols-1 gap-4 p-4 items-center">
 
             <div>
@@ -84,8 +87,10 @@
         </div>
     </div>
     <div body>
-        <list-g [hidePaginator]="true" [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)"
-            (outOnClickIcons)="onClickIcons($event)">
+        <list-g [hidePaginator]="true" [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()"
+            [entities]="this.entitiesFiltered$"
+            (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)"
+            (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
         </list-g>
     </div>
 </default-component>
