@@ -62,8 +62,8 @@ export class ListControlCollectDeliver extends BaseList {
       { key: '', style: 'cursor: pointer; max-width:100px;' },
       { key: 'Valor', style: 'cursor: pointer;max-width:150px;' },
       { key: 'Cobrança', style: 'cursor: pointer; max-width:100%;flex:2;' },
-      { key: 'Motivo', style: 'cursor: pointer;flex:3' },
-      { key: 'Situação', style: 'cursor: pointer;flex:3' },
+      { key: 'Motivo', style: 'cursor: pointer;flex:6' },
+      { key: 'Situação', style: 'cursor: pointer;' },
     ]
   }
 
@@ -72,8 +72,8 @@ export class ListControlCollectDeliver extends BaseList {
       { key: 'id', style: 'max-width:100px;' },
       { key: 'price', style: 'max-width:150px;' },
       { key: 'billingFrom', style: 'max-width:100%;flex:2;' },
-      { key: 'subject', style: 'flex:3' },
-      { key: 'subject', style: 'flex:3' },
+      { key: 'subject', style: 'flex' },
+       { key: 'expiresView', style: '' }
     ]
   }
 
@@ -113,13 +113,23 @@ export class ListControlCollectDeliver extends BaseList {
       },
       subject: {
         key: collectDeliverDto.taskOverView,
-        styleCell: 'width:100%; flex:3',
+        styleCell: 'width:100%; flex:6',
       },
       price: {
         key: this._ptBrCurrencyPipe.transform(collectDeliverDto.price),
         styleCell: 'max-width:150px;',
         style:'width:150px; flex:1'
       },
+          expiresView: {
+            key: '',
+             display: 'icons',
+             icons: ['check| font-size:35px; width:35px; height:35px;'],
+            iconClasses: new Date(collectDeliverDto.wasPaid).getFullYear() == this.minValue.getFullYear() ?  'text-expired':'text-paid',
+          },
+      // expiresView: {
+      //   key: this._ptBrCurrencyPipe.transform(collectDeliverDto.price),
+      // styleCell: 'width:100%; flex:3',
+      // },
 
     })
 

@@ -63,11 +63,10 @@
 
 
 <default-component [digitTitleComp]="'|'" [textTitleComp]="'Coletas, entregas e serviços'"
-    [textSubTitleComp]="'Cadastro'" [iconSubTitleComp]="'list'" [hideDivider]="true">
+    [textSubTitleComp]="'Cadastro'" [iconSubTitleComp]="'list'">
     <div btns>
-        <subtitle-collect-deliver>
-        </subtitle-collect-deliver>
-        <div class="w-full grid sm:grid-cols-[1fr_1fr_1fr] grid-cols-1 gap-4 p-4 items-center">
+
+        <div class="w-full grid sm:grid-cols-[1fr_1fr_1fr_1fr] grid-cols-1 gap-4 p-4 items-center">
 
             <div>
                 <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="callRouter(addUrlRoute)"></btn-g>
@@ -82,6 +81,10 @@
                 <span class="title-amount">DESPESA:&nbsp;</span> <span class="amount-sum">{{localAmountCosts}}</span>
                 <!-- <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true" [changeSelection]="monthFilter" (sendSelected)="selectedMonth($event)">
                 </months-select> -->
+            </div>
+            <div>
+                <subtitle-collect-deliver>
+                </subtitle-collect-deliver>
             </div>
 
         </div>

@@ -5,22 +5,21 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { of, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 
 import { environment } from 'src/environments/environment';
 
 import { DeleteServices } from 'src/shared/components/delete-dialog/services/delete.services';
-import { MonthsDto } from 'src/shared/components/months-select/months-dto';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 import { ListDefaultImports, ListDefaultProviders } from '../../../../../components/imports/components-default.imports';
 import { ListCollectDeliverMonthImports, ListCollectDeliverMonthProviders } from '../../components/list-month/imports/list-collect-deliver-month.imports';
 import { CollectDeliverDto } from '../../dto/collect-deliver-dto';
+import { ListMonthControlCollectDeliver } from '../list-month/helpers/list-month-control-collect-deliver';
 import { ListMonthCollectDeliverDto } from './dto/list-month-collect-deliver-dto';
 import { ListCollectDeliverMonthService } from './services/list-collect-deliver-month.service';
 import { TriggerCollectDeliverMonth } from './trigger-collect-deliver-month';
-import {ListMonthControlCollectDeliver } from '../list-month/helpers/list-month-control-collect-deliver';
 
 
 @Component({

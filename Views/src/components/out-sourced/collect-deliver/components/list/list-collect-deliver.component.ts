@@ -5,17 +5,15 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { DeleteServices } from '../../../../../shared/components/delete-dialog/services/delete.services';
 import { PtBrCurrencyPipe } from '../../../../../shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from '../../../../../shared/pipes/pt-br-date.pipe';
 import { ListDefaultImports, ListDefaultProviders } from '../../../../imports/components-default.imports';
+import { ListCollectDeliverImports, ListCollectDeliverProviders } from '../list/imports/list-collect-deliver.imports';
 import { ListControlCollectDeliver } from './helpers/list-control-collect-deliver';
 import { ListCollectDeliverService } from './services/list-collect-deliver.service';
-import { CollectDeliverListFilterComponent } from '../../../collect-deliver/commons-components/collect-deliver-filter-list/collect-deliver-list-filter.component';
-import { Subscription } from 'rxjs';
-import { SelectInputSearchGComponent } from 'src/shared/components/select-input-search-g/select-input-search-g.component';
-import { InputFieldGComponent } from 'src/shared/components/input-field-g/input-field-g.component';
 
 @Component({
   selector: 'list-collect-deliver',
@@ -24,12 +22,11 @@ import { InputFieldGComponent } from 'src/shared/components/input-field-g/input-
   standalone: true,
   imports: [
     ListDefaultImports,
-    CollectDeliverListFilterComponent,
-    InputFieldGComponent
+    ListCollectDeliverImports
   ],
   providers: [
     ListDefaultProviders,
-    ListCollectDeliverService
+    ListCollectDeliverProviders
   ]
 
 })
@@ -83,6 +80,9 @@ export class ListCollectDeliverComponent extends ListControlCollectDeliver imple
     params = params.append('companyid', companyId);
     params = params.append('monthnumber', monthNumber);
     return params;
+  }
+  showHideFilterMtd($event: boolean) {
+    this.showHideFilter = $event
   }
 
   // override entities: CollectDeliverListGridDto[] = [];

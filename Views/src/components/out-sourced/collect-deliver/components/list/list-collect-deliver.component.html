@@ -52,28 +52,35 @@
 
 
 
-<default-component [digitTitleComp]="'|'" [textTitleComp]="'Coletas, entregas e serviços'" [textSubTitleComp]="'Cadastro'" [iconSubTitleComp]="'list'">
-    <div btns>
-        <div class="p-4 grid sm:grid-cols-[1fr_1fr_1fr] grid-cols-1 gap-4 items-center">
-            <div>
-                <!-- <input-field-g class="specificity" [formMain]="this.formMain" [type]="'text'" [inputLabel]="'Pesquisar'" [fieldControlName]="'description'">
+<default-component [digitTitleComp]="'|'" [textTitleComp]="'Coletas, entregas e serviços'"
+    [textSubTitleComp]="'Cadastro'" [iconSubTitleComp]="'list'">
+    <div btns class="!bg-background-color">
+        <div class="pr-4 pl-4  grid sm:grid-rows-2 grid-cols-1 gap-4 items-center">
 
-                    <span msg-error *ngIf="this.formError(formMain,'specificities', 'maxlength') && this.formTouched(formMain, 'specificities')">{{maxLengthMsg
-                    + '30' + charactersMsg}}</span>
-                </input-field-g> -->
+            <div
+                class="!bg-background-color flex justify-start pr-4 pl-4 grid sm:grid-cols-[1fr_1fr_1fr] grid-cols-1 gap-4 items-center">
+                <btn-g-dynamic [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)">
+                </btn-g-dynamic>
+
+                <div>
+                    <span class="title-amount">TOTAL:&nbsp;</span> <span class="amount-sum">{{amountYear}}</span>
+                </div>
+                <div>
+                    <span class="title-amount">DESPESA:&nbsp;</span> <span
+                        class="amount-sum">{{localAmountCosts}}</span>
+                </div>
             </div>
-            <div>
-                <span class="title-amount">TOTAL:&nbsp;</span> <span class="amount-sum">{{amountYear}}</span>
+            <div class="bg-background-color" *ngIf="showHideFilter">
+                <filter-list-collect-deliver>
+                </filter-list-collect-deliver>
             </div>
-            <div>
-                <span class="title-amount">DESPESA:&nbsp;</span> <span class="amount-sum">{{localAmountCosts}}</span>
-                <!-- <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true" [changeSelection]="monthFilter" (sendSelected)="selectedMonth($event)">
-              </months-select> -->
-            </div>
+
         </div>
     </div>
     <div body>
-        <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
+        <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$"
+            (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)"
+            (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
         </list-g>
     </div>
 </default-component>

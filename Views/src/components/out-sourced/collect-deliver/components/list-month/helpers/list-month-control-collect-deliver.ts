@@ -56,7 +56,7 @@ export class ListMonthControlCollectDeliver extends BaseList {
       { key: '', style: 'max-width:10px;' },
       { key: 'Mês', style: '' },
       { key: 'R$ Total', style: '' },
-      { key: 'Fechada', style: '' }
+      { key: 'Situação', style: '' }
     ]
   }
 
@@ -327,7 +327,8 @@ export class ListMonthControlCollectDeliver extends BaseList {
           expiresView: {
             key: '',
              display: 'icons',
-            icons: ['crop_din|background-color:red;width: color:red; border-color: red !important;'],
+             icons: ['check| font-size:35px; width:35px; height:35px;'],
+            iconClasses:'text-paid'
           },
           expires: {
             key: this.minValue.toDateString()
@@ -381,16 +382,15 @@ export class ListMonthControlCollectDeliver extends BaseList {
           numberOfRunsMonthlyWasPaid++;
 
         if (numberOfRunsMonthly == numberOfRunsMonthlyWasPaid) {
-          // itemsGrid[indexGridMonth].expiresView.key = 'Fechada';
-          itemsGrid[indexGridMonth].expiresView.icons = ['check| color:red;'];
-          // itemsGrid[indexGridMonth].expiresView.styleInsideCell = 'background-color: red;width: 16px; height: 16px;';
+          
+          //  itemsGrid[indexGridMonth].expiresView.icons = ['|background-color:red;width: color:red; border-color: red !important;'],
+         
           itemsGrid[indexGridMonth].wasPaid.key = fromDb.wasPaid as string;
         }
         else {
-          // itemsGrid[indexGridMonth].expiresView.key = 'Aberta';
-         itemsGrid[indexGridMonth].expiresView.icons = ['check| background-color:red;width: color:red; border-color: red;'];
-        //  itemsGrid[indexGridMonth].expiresView.styleInsideCell = 'background-color: red;width: 16px; height: 16px;';
-          itemsGrid[indexGridMonth].wasPaid.key = fromDb.wasPaid as string;
+          
+         itemsGrid[indexGridMonth].expiresView.iconClasses= 'text-expired';
+                  itemsGrid[indexGridMonth].wasPaid.key = fromDb.wasPaid as string;
           itemsGrid[indexGridMonth].expires.key = fromDb.wasPaid as string;
         }
 

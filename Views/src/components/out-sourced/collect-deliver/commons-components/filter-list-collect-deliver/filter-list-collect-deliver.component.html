@@ -1,0 +1,32 @@
+<mat-card class="p-4 !border !border-color-main !shadow-md">
+    <div>
+        <mat-card class="p-4">
+            
+         <mat-radio-group (change)="filter($event)" [disabled]="disabledRadioInput">
+                <div class="w-full grid grid-cols-[150px_150px] gap-4 items-center justify-start">
+                 
+                    <div class="w-full grid grid-cols-[15px_1fr] items-center justify-center">
+                        <div class="w-[20px] h-[20px] bg-expired"> </div>
+                        <div><mat-radio-button #radioExpired [value]="'expired'">A Pagar</mat-radio-button> </div>
+                    </div>
+
+                    <div class="w-full grid grid-cols-[15px_1fr] items-center justify-center">
+                        <div class="w-[20px] h-[20px] bg-paid"></div>
+                        <div><mat-radio-button #radioPaid [value]="'paid'">Pago</mat-radio-button></div>
+                    </div>
+                </div>
+
+            </mat-radio-group>
+        </mat-card>
+    </div>
+    <div class="w-full">
+
+        <div class="w-full">
+            <mat-form-field class="w-full" appearance="outline">
+                <input matInput #field (input)="search(field.value,outFieldSearch,this.removeAccentsSpecialCharacters)"
+                    type="text" matInput placeholder="Digite sua pesquisa." [attr.for]="'Pesquisar'"
+                    [formControl]="formControlSearch">
+            </mat-form-field>
+        </div>
+    </div>
+</mat-card>
