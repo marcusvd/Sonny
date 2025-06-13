@@ -61,7 +61,7 @@ export class ListControlCollectDeliver extends BaseList {
     return [
       { key: '', style: 'cursor: pointer; max-width:100px;' },
       { key: 'Valor', style: 'cursor: pointer;max-width:150px;' },
-      { key: 'Cobrança', style: 'cursor: pointer; max-width:100%;flex:2;' },
+      { key: 'Pagador', style: 'cursor: pointer; max-width:100%;flex:2;' },
       { key: 'Motivo', style: 'cursor: pointer;flex:6' },
       { key: 'Situação', style: 'cursor: pointer;' },
     ]

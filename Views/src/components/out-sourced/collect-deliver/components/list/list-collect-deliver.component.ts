@@ -5,7 +5,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
 import { DeleteServices } from '../../../../../shared/components/delete-dialog/services/delete.services';
 import { PtBrCurrencyPipe } from '../../../../../shared/pipes/pt-br-currency.pipe';
@@ -81,6 +81,7 @@ export class ListCollectDeliverComponent extends ListControlCollectDeliver imple
     params = params.append('monthnumber', monthNumber);
     return params;
   }
+
   showHideFilterMtd($event: boolean) {
     this.showHideFilter = $event
   }
@@ -118,8 +119,9 @@ export class ListCollectDeliverComponent extends ListControlCollectDeliver imple
   // }
 
 
-  queryFieldOutput($event: FormControl) {
-    // this.entities$ = this.query($event);
+  queryFieldOutput(field: string) {
+    this.entitiesFiltered$ = of(this.searchListEntities(this.entities,field))
+    console.log(field)
   }
 
 
