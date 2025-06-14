@@ -72,7 +72,7 @@
             </spinner-g>
         </div>
         <div>
-            <mat-paginator *ngIf="!hidePaginator" pg-above class="!bg-background-color !flex !justify-end"
+            <mat-paginator *ngIf="!hidePaginator" [hidePageSize]="true" pg-above class="!bg-background-color !flex !justify-end"
                 #paginatorBelow [length]="this.length" [pageSize]="pageSize"
                 (page)="onPageChange($event)"></mat-paginator>
         </div>
@@ -80,7 +80,7 @@
     <!-- Mobile -->
     <div class="sm:hidden mb-24 bg-background-color">
         <div>
-            <mat-paginator *ngIf="!hidePaginator" pg-above class="!bg-background-color !flex !justify-end"
+            <mat-paginator *ngIf="!hidePaginator" [hidePageSize]="true" pg-above class="!bg-background-color !flex !justify-end"
                 #paginatorAbove [length]="this.length" [pageSize]="pageSize"
                 (page)="onPageChange($event)"></mat-paginator>
         </div>
@@ -130,7 +130,7 @@
             </spinner-g>
         </div>
         <div>
-            <mat-paginator *ngIf="!hidePaginator" pg-above class="!bg-background-color !flex !justify-end"
+            <mat-paginator *ngIf="!hidePaginator" [hidePageSize]="true" pg-above class="!bg-background-color !flex !justify-end"
                 #paginatorAbove [length]="this.length" [pageSize]="pageSize"
                 (page)="onPageChange($event)"></mat-paginator>
         </div>

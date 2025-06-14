@@ -8,7 +8,7 @@ import { Observable, Subscription } from 'rxjs';
 
 
 import { environment } from '../../../../../../environments/environment';
-import { MonthsDto } from '../../../../../../shared/components/months-select/months-dto';
+import { ex_month, MonthsDto } from '../../../../../../shared/components/months-select/months-dto';
 import { PtBrCurrencyPipe } from '../../../../../../shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from '../../../../../../shared/pipes/pt-br-date.pipe';
 import { CardDto } from '../../../bank-account-cards/dto/card-dto';
@@ -131,6 +131,11 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
 
     this.showDataBank = true;
     this.bankAccount = creditCard.bankAccount;
+
+    const monthFilter = ex_month(new Date().getMonth());
+    
+    this.selectedMonth(monthFilter);
+
     // console.log(creditCard)
     // this._listGDataService.getAllEntitiesInMemoryPaged$(`${this.controllerUrl}/GetAllByCardIdAsync`, creditCard.id.toString());
 

@@ -114,15 +114,9 @@
 
         <list-g *ngIf="length > 0" [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)"
             (outOnClickIcons)="onClickIcons($event)">
-            <!-- <div class="flex justify-end" pg-below-mobile>
-    <mat-paginator class="w-[270px] mb-4 !bg-background-color" #paginatorBelow [length]="this.entities.length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
-</div>
-<div pg-below>
-    <mat-paginator class="!bg-background-color" #paginatorBelow [length]="this.entities.length" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
-</div> -->
         </list-g>
-        <div class="p-4 flex justify-center" *ngIf="length <= 0">
+        <!-- <div class="p-4 flex justify-center" *ngIf="length <= 0">
             <div>{{'Nenhum registro encontrado!'}}</div>
-        </div>
+        </div> -->
     </div>
 </default-component>

@@ -37,7 +37,7 @@ export class ListCollectDeliverComponent extends ListControlCollectDeliver imple
   listCollectDeliverByMonthId: Subscription;
   // controllerUrl: string = environment._COLLECT_DELIVER.split('/')[4];
   backEndUrl: string = `${environment._COLLECT_DELIVER.split('/')[4]}/GetAllByCompanyIdByMonthNumberCurrentYearAsync`;
-
+  cleanRadios:boolean;
   constructor(
     override _router: Router,
     override _http: HttpClient,
@@ -86,6 +86,12 @@ export class ListCollectDeliverComponent extends ListControlCollectDeliver imple
 
   showHideFilterMtd($event: boolean) {
     this.showHideFilter = $event
+  }
+
+  
+  filterClear() {
+    this.cleanRadios = !this.cleanRadios
+    this.entitiesFiltered$ = this.entities$;
   }
 
   // override entities: CollectDeliverListGridDto[] = [];
