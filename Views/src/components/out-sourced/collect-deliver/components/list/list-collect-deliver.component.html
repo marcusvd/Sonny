@@ -70,7 +70,7 @@
 
 
         <div class="bg-background-color" *ngIf="showHideFilter">
-            <filter-list-collect-deliver (outFieldSearch)="queryFieldOutput($event)">
+            <filter-list-collect-deliver (outFieldSearch)="queryFieldOutput($event)" (radioChange)="statusFilter($event)">
             </filter-list-collect-deliver>
         </div>
         <!--

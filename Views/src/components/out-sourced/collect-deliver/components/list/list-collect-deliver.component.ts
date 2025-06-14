@@ -14,6 +14,8 @@ import { ListDefaultImports, ListDefaultProviders } from '../../../../imports/co
 import { ListCollectDeliverImports, ListCollectDeliverProviders } from '../list/imports/list-collect-deliver.imports';
 import { ListControlCollectDeliver } from './helpers/list-control-collect-deliver';
 import { ListCollectDeliverService } from './services/list-collect-deliver.service';
+import { MatRadioChange } from '@angular/material/radio';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'list-collect-deliver',
@@ -120,11 +122,29 @@ export class ListCollectDeliverComponent extends ListControlCollectDeliver imple
 
 
   queryFieldOutput(field: string) {
-    this.entitiesFiltered$ = of(this.searchListEntities(this.entities,field))
+    this.entitiesFiltered$ = of(this.searchListEntities(this.entities, field))
     console.log(field)
   }
 
 
+  statusFilter(selected: MatRadioChange) {
+
+    if (selected.value == 'expired') {
+      this.entitiesFiltered$ = this.entities$.pipe(
+        map(x => x.filter(y => new Date(y.wasPaid.key).getFullYear() == this.minValue.getFullYear()))
+      )
+    }
+    if (selected.value == 'paid') {
+      this.entitiesFiltered$ = this.entities$.pipe(
+        map(x => x.filter(y => new Date(y.wasPaid.key).getFullYear() != this.minValue.getFullYear()))
+      )
+    }
+
+    console.log(selected.value)
+
+
+    // new Date(collectDeliverDto.wasPaid).getFullYear() == this.minValue.getFullYear() ?  'text-expired':'text-paid'
+  }
 
 
 

@@ -69,9 +69,16 @@ export class BaseForm {
   }
 
   removeAccentsSpecialCharacters(value: string): string {
-    const noAccents = diacritics.remove(value);//remove accents
-    return noAccents?.replace(/[^\w\s]/gi, ''); //remove special characters
+    if (typeof value === 'string') {
+      const noAccents = diacritics.remove(value);
+      return noAccents?.replace(/[^\w\s]/gi, '');
+    } 
+    return value;
+
   }
+  //   const noAccents = diacritics.remove(value);
+  //   return noAccents?.replace(/[^\w\s]/gi, '');
+  // }
 
   //só product esta usando, será atualizado
   formTouched = (form: FormGroup, field: string) => {
