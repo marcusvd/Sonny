@@ -140,7 +140,7 @@ export class ListCollectDeliverComponent extends ListControlCollectDeliver imple
       )
     }
 
-    console.log(selected.value)
+    // console.log(selected.value)
 
 
     // new Date(collectDeliverDto.wasPaid).getFullYear() == this.minValue.getFullYear() ?  'text-expired':'text-paid'

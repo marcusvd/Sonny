@@ -73,11 +73,11 @@ export class ListControlCollectDeliver extends BaseList {
       { key: 'price', style: 'max-width:150px;' },
       { key: 'billingFrom', style: 'max-width:100%;flex:2;' },
       { key: 'subject', style: 'flex' },
-       { key: 'expiresView', style: '' }
+      { key: 'expiresView', style: '' }
     ]
   }
 
- getEntitiesCurrentYear(entities: CollectDeliverDto[]) {
+  getEntitiesCurrentYear(entities: CollectDeliverDto[]) {
     return entities.filter(fromDb => new Date(fromDb.start).getFullYear() == this.currentDate.getFullYear());
   }
 
@@ -107,7 +107,7 @@ export class ListControlCollectDeliver extends BaseList {
       },
 
       billingFrom: {
-        key:  this.billingFromMakeField(collectDeliverDto.billingFrom),
+        key: this.billingFromMakeField(collectDeliverDto.billingFrom),
         styleCell: 'width:100%; flex:2',
 
       },
@@ -118,14 +118,17 @@ export class ListControlCollectDeliver extends BaseList {
       price: {
         key: this._ptBrCurrencyPipe.transform(collectDeliverDto.price),
         styleCell: 'max-width:150px;',
-        style:'width:150px; flex:1'
+        style: 'width:150px; flex:1'
       },
-          expiresView: {
-            key: '',
-             display: 'icons',
-             icons: ['check| font-size:35px; width:35px; height:35px;'],
-            iconClasses: new Date(collectDeliverDto.wasPaid).getFullYear() == this.minValue.getFullYear() ?  'text-expired':'text-paid',
-          },
+      expiresView: {
+        key: '',
+        display: 'icons',
+        icons: ['check| font-size:35px; width:35px; height:35px;'],
+        iconClasses: new Date(collectDeliverDto.wasPaid).getFullYear() == this.minValue.getFullYear() ? 'text-expired' : 'text-paid',
+      },
+      wasPaid: {
+        key: collectDeliverDto.wasPaid,
+      },
       // expiresView: {
       //   key: this._ptBrCurrencyPipe.transform(collectDeliverDto.price),
       // styleCell: 'width:100%; flex:3',
@@ -220,7 +223,7 @@ export class ListControlCollectDeliver extends BaseList {
 
   // }
 
-    onPageChange($event: PageEvent) {
+  onPageChange($event: PageEvent) {
 
     if ($event.previousPageIndex ?? 0 < $event.pageIndex)
       this.entitiesFiltered$ = of(this.pageChange(this.entitiesFiltered, $event)?.filter(x => x != null))
