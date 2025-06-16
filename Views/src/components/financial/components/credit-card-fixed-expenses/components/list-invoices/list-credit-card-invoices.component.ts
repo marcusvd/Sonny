@@ -72,6 +72,7 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
   //   'expiresView',
   //   'price']
   creditCardExpenseInvoiceSubscribe: Subscription;
+  cardNick:string = '';
 
 
   ngOnDestroy(): void {
@@ -87,24 +88,8 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
   // override addUrlRoute: string = '/financial/add-credit-card-expenses';
 
 
-  listCreditCardExpenseInvoice: CreditCardExpenseInvoiceDto[] = [];
-  // getEntityTopay(entity: ListCreditCardInvoiceDto) {
-
-  //   if (this.currentDate > entity.closingDateBusinessRule) {
-  //     const invoice = this.listCreditCardExpenseInvoice.find(x => x.id == entity.id);
-  //     this.pay.callRoute(this.pay.entityToPay = invoice)
-  //   }
-  //   else
-  //     alert('Fatura ainda não fechada!')
 
 
-  // }
-
-  pay = new TriggerCreditCardsInvoices(
-    this._router,
-    this._ptBrDatePipe,
-    this._ptBrCurrencyPipe,
-  );
 
 
   monthFilter = new MonthsDto();
@@ -133,8 +118,11 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
     this.bankAccount = creditCard.bankAccount;
 
     const monthFilter = ex_month(new Date().getMonth());
-    
+
     this.selectedMonth(monthFilter);
+
+
+    this.cardNick = creditCard.description;
 
     // console.log(creditCard)
     // this._listGDataService.getAllEntitiesInMemoryPaged$(`${this.controllerUrl}/GetAllByCardIdAsync`, creditCard.id.toString());

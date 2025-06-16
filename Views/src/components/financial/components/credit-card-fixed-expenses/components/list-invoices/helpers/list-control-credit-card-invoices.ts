@@ -14,6 +14,7 @@ import { PtBrCurrencyPipe } from '../../../../../../../shared/pipes/pt-br-curren
 import { PtBrDatePipe } from '../../../../../../../shared/pipes/pt-br-date.pipe';
 import { DeleteServices } from '../../../../../../../shared/components/delete-dialog/services/delete.services';
 import { CreditCardExpenseInvoiceDto } from '../dto/credit-card-expense-invoice-dto';
+import { TriggerCreditCardsInvoices } from '../trigger-credit-cards-invoices';
 
 
 
@@ -48,20 +49,20 @@ export class ListControlCreditCardInvoices extends BaseList {
   labelHeaders = () => {
     return [
       { key: '', style: 'cursor: pointer; max-width:100px;' },
-      { key: 'Descrição', style: 'cursor: pointer;' },
       { key: 'Compras até:', style: 'cursor: pointer;' },
       { key: 'Vencimento', style: 'cursor: pointer;' },
-      { key: 'Preço', style: 'cursor: pointer;' }
+      { key: 'Preço', style: 'cursor: pointer;' },
+      { key: 'Situação', style: 'cursor: pointer;' },
     ]
   }
 
   fieldsHeaders = () => {
     return [
       { key: 'id', style: 'max-width:100px;' },
-      { key: 'description', style: '' },
       { key: 'closingDate', style: '' },
       { key: 'expiresView', style: '' },
-      { key: 'price', style: '' }
+      { key: 'price', style: '' },
+      { key: 'status', style: '' },
     ]
   }
 
@@ -136,14 +137,11 @@ export class ListControlCreditCardInvoices extends BaseList {
 
   onClickIcons(obj: OnClickInterface) {
 
-    // alert('Testing...');
-    // console.log('test-1');
-    // console.log(obj.action);
 
-    // if (obj.action.split('|')[0] == 'edit') {
-    //   this.callRouter(`/customer/edit/${obj.entityId}`);
 
-    // }
+    if (obj.action.split('|')[0] == 'check')
+      this.getEntityTopay(obj.entityId);
+
 
     if (obj.action.split('|')[0] == 'list') {
       this.callRouter(`/financial/list-credit-card-expenses/${obj.entityId}`);
@@ -154,6 +152,28 @@ export class ListControlCreditCardInvoices extends BaseList {
     //   this.deleteFake(obj.entityId);
 
   }
+
+  listCreditCardExpenseInvoice: CreditCardExpenseInvoiceDto[] = [];
+  getEntityTopay(entityId: number) {
+
+    // console.log(this.listCreditCardExpenseInvoice)
+
+
+    const invoice = this.listCreditCardExpenseInvoice.find(x => x.id == entityId);
+
+    if (this.currentDate > new Date(invoice.closingDate))
+      this.pay.callRoute(this.pay.entityToPay = invoice)
+
+    else
+      alert('Fatura não fechada!')
+  }
+
+  pay = new TriggerCreditCardsInvoices(
+    this._router,
+    this._ptBrDatePipe,
+    this._ptBrCurrencyPipe,
+  );
+
   // ['',
   //   'Descrição',
   //   'Compras até:',
@@ -212,7 +232,7 @@ export class ListControlCreditCardInvoices extends BaseList {
       id: {
         key: creditCardexpenseInvoice.id,
         display: 'icons',
-        icons: ['list|margin-right:10px;', 'edit|', 'delete|color:rgb(158, 64, 64);margin-left:10px;'],
+        icons: ['list|margin-right:10px;', 'edit|'],
         styleInsideCell: `color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,
         styleCell: 'max-width:100px;',
         route: ''
@@ -238,7 +258,13 @@ export class ListControlCreditCardInvoices extends BaseList {
       price: {
         key: this._ptBrCurrencyPipe.transform(Number(creditCardexpenseInvoice.price)),
         styleCell: 'width:100%;',
-      }
+      },
+      status: {
+        key: '',
+        display: 'icons',
+        icons: ['check| font-size:35px; width:35px; height:35px;'],
+        iconClasses: new Date(creditCardexpenseInvoice.wasPaid).getFullYear() == this.minValue.getFullYear() ? 'text-expired' : 'text-paid',
+      },
     })
 
     ListCreditCardExpenseInvoice.push(items);
@@ -252,6 +278,8 @@ export class ListControlCreditCardInvoices extends BaseList {
 
     return this._listGDataService?.getAllEntitiesInMemoryPaged$(url, cardId).pipe(
       map((x: CreditCardExpenseInvoiceDto[]) => {
+
+        this.listCreditCardExpenseInvoice = x;
 
         if (x.length <= 0) {
           entities = [];

@@ -1,0 +1,15 @@
+.pipe-title {
+    font-size: 30px;
+    color: rgb(43, 161, 168);
+}
+
+.weight-title-space-left {
+    font-weight: bolder;
+    /* padding-right: 10px; */
+}
+
+@media(min-width:640px) {
+    .hide-display {
+        display: none;
+    }
+}

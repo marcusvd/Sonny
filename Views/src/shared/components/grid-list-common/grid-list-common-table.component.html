@@ -1,4 +1,3 @@
-
 <table>
 
     <thead>
@@ -9,7 +8,7 @@
         </tr>
     </thead>
     <tbody>
-      
+
         <tr class="default_tr_td" *ngFor="let entity of entities$ | async; let ind = index;">
             <td class="td-actions-icons">
                 <mat-icon mat-icon-button [matTooltip]="icon?.value" class="mat-icons mouse-pointer" fontSet="material-icons-outlined" *ngFor="let icon of matIcons | keyvalue" (click)="getEntity(entity, icon)">
@@ -58,6 +57,7 @@
             <td *ngIf="customerList">
                 <button mat-button><mat-icon>settings</mat-icon></button>
             </td>
+
             <td *ngIf="statusShow" [class]="compareDateWasPaidButton(entity.wasPaid)">
                 <button [disabled]="checkIsPaid(entity.wasPaid)" (click)="toPay(entity)" [ngClass]="{'statusFalse':status, 'statusTrue':!status}" mat-button><mat-icon>done_all</mat-icon></button>
             </td>
