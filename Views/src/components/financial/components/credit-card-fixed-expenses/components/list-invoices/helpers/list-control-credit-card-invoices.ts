@@ -15,6 +15,7 @@ import { PtBrDatePipe } from '../../../../../../../shared/pipes/pt-br-date.pipe'
 import { DeleteServices } from '../../../../../../../shared/components/delete-dialog/services/delete.services';
 import { CreditCardExpenseInvoiceDto } from '../dto/credit-card-expense-invoice-dto';
 import { TriggerCreditCardsInvoices } from '../trigger-credit-cards-invoices';
+import { CardDto } from 'src/components/financial/components/bank-account-cards/dto/card-dto';
 
 
 
@@ -24,6 +25,7 @@ export class ListControlCreditCardInvoices extends BaseList {
   entities: ListCreditCardInvoiceDto[] = [];
   entitiesFiltered$: Observable<ListCreditCardInvoiceDto[]>;
   entitiesFiltered: ListCreditCardInvoiceDto[] = [];
+   creditCard!: CardDto;
   length = 0;
   showHideFilter = false;
   term: string;
@@ -141,7 +143,7 @@ export class ListControlCreditCardInvoices extends BaseList {
 
 
     if (obj.action.split('|')[0] == 'check')
-      this.getEntityTopay(obj.entityId);
+      this.getEntityTopay(obj.entityId, this.creditCard);
 
 
     if (obj.action.split('|')[0] == 'list') {
@@ -155,9 +157,10 @@ export class ListControlCreditCardInvoices extends BaseList {
   }
 
   listCreditCardExpenseInvoice: CreditCardExpenseInvoiceDto[] = [];
-  getEntityTopay(entityId: number) {
-    
+  getEntityTopay(entityId: number, creditCard: CardDto) {
+
     const invoice = this.listCreditCardExpenseInvoice.find(x => x.id == entityId);
+    invoice.card = creditCard;
 
     if (this.currentDate > new Date(invoice.closingDate))
       this.pay.callRoute(this.pay.entityToPay = invoice)

@@ -72,6 +72,7 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
   //   'price']
   creditCardExpenseInvoiceSubscribe: Subscription;
   cardNick: string = '';
+ 
 
   ngOnInit(): void {
     // this.creditCardExpenseInvoiceSubscribe = this.startSupply(`${this.controllerUrl}/GetAllByCardIdAsync`, '1');
@@ -121,6 +122,7 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
 
     // this.creditCardExpenseInvoiceSubscribe = this.startSupply(`${this.controllerUrl}/GetAllByCardIdAsync`, creditCard.id.toString());
 
+    this.creditCard = creditCard;
 
     this.listCreditCardExpenseInvoice = creditCard.creditCardExpensesInvoices.filter(x => x.cardId == creditCard.id);
 
