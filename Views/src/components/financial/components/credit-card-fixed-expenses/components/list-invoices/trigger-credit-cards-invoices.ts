@@ -23,7 +23,7 @@ export class TriggerCreditCardsInvoices {
     const objectRoute: NavigationExtras = {
       state: {
         entity: {
-          // 'screenInfoFields': this.makeInfoScreenData(entity),
+          'screenInfoFields': this.makeInfoScreenData(entity),
           'entity': entity,
           hideShowScreenDataInfo: true,
         }
@@ -34,16 +34,19 @@ export class TriggerCreditCardsInvoices {
   }
 
   monthsString: string[] = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-  // makeInfoScreenData(entity: CreditCardExpenseInvoiceDto): FieldsScreenPayment[] {
-  //   const obj = [
-  //     { label: 'Fatura mês', value: this.monthsString[new Date(entity.expires).getMonth()], order: 1 },
-  //     { label: 'Número Cartão', value: entity.card.number., order: 2 },
-  //     { label: 'Bandeira', value: entity.card.flag, order: 3 },
-  //     { label: 'Banco', value: entity.card.bankAccount.institution, order: 4 },
-  //     { label: 'Vencimento', value: this._ptBrDatePipe.transform(entity.expires, 'Date'), order: 5 },
-  //     { label: 'Valor fatura', value: this._ptBrCurrencyPipe.transform(entity.price), order: 6 }
-  //   ]
-  //   return obj
-  // }
+  makeInfoScreenData(entity: CreditCardExpenseInvoiceDto): FieldsScreenPayment[] {
+    console.log(entity)
+
+
+    const obj = [
+      { label: 'Fatura mês', value: this.monthsString[new Date(entity.expires).getMonth()], order: 1 },
+      { label: 'Número Cartão', value: entity.card?.number, order: 2 },
+      // { label: 'Bandeira', value: entity.card.flag, order: 3 },
+      // { label: 'Banco', value: entity.card.bankAccount.institution, order: 4 },
+      // { label: 'Vencimento', value: this._ptBrDatePipe.transform(entity.expires, 'Date'), order: 5 },
+      // { label: 'Valor fatura', value: this._ptBrCurrencyPipe.transform(entity.price), order: 6 }
+    ]
+    return obj
+  }
 
 }

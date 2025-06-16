@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 
 
 import { Observable, Subscription } from 'rxjs';
@@ -42,7 +42,7 @@ export class ListGComponent implements OnChanges, OnInit, OnDestroy {
   pageEvent!: PageEvent;
 
   ngOnChanges(changes: SimpleChanges): void {
-     this.paginatorLength();
+    this.paginatorLength();
 
     this.paginatedEntities$ = this.entities$?.pipe(
       map(entities => {
@@ -133,12 +133,14 @@ export class ListGComponent implements OnChanges, OnInit, OnDestroy {
       entityId: entityId
     }
 
-    // alert('Testing...');
-    // console.log(onClick);
-
     this.outOnClickIcons.emit(onClick);
 
   }
+  trackByFn(index: number, icon: string): any {
+    return icon;
+  }
+
+
   // onClickIcon(action: string, entityId: number) {
 
   //   const onClick: OnClickInterface = {

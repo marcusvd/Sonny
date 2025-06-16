@@ -78,6 +78,7 @@ namespace Application.Services.Operations.Finances.Dtos.Mappers
                 YearlyFixedExpenseId = entity.YearlyFixedExpenseId,
                 VariableExpenseId = entity.VariableExpenseId,
                 FinancingAndLoanExpenseId = entity.FinancingAndLoanExpenseId,
+                // CreditCardExpenseInvoice = CreditCardExpenseInvoiceMapper(entity.CreditCardExpenseInvoice),
                 CreditCardExpenseInvoiceId = entity.CreditCardExpenseInvoiceId,
             };
 
@@ -115,6 +116,7 @@ namespace Application.Services.Operations.Finances.Dtos.Mappers
                 YearlyFixedExpenseId = entity.YearlyFixedExpenseId,
                 VariableExpenseId = entity.VariableExpenseId,
                 FinancingAndLoanExpenseId = entity.FinancingAndLoanExpenseId,
+                // CreditCardExpenseInvoice = CreditCardExpenseInvoiceMapper(entity.CreditCardExpenseInvoice),
                 CreditCardExpenseInvoiceId = entity.CreditCardExpenseInvoiceId ?? 0,
             };
 

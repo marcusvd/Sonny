@@ -15,11 +15,13 @@ import { ScreenDataInfoComponent } from '../../../common-components/screen-data-
 
 import { PaymentCreditCardsInvoicesService } from './services/payment-credit-cards-invoices.service';
 import { CreditCardExpenseInvoiceDto } from '../list-invoices/dto/credit-card-expense-invoice-dto';
+import { DefaultComponent } from 'src/shared/components/default-component/default-component';
 
 @Component({
   selector: 'payment-credit-cards-invoices',
   standalone: true,
   imports: [
+    DefaultComponent,
     CommonModule,
     MatCardModule,
     BankAccountMatSelectSingleComponent,
@@ -52,7 +54,7 @@ export class PaymentCreditCardsInvoicesComponent extends Add {
 
     super()
 
-    if (this._router.getCurrentNavigation().extras.state) {
+    if (this._router?.getCurrentNavigation()?.extras?.state) {
       const obj = this._router.getCurrentNavigation().extras.state;
       this.entity = obj['entity'].entity as CreditCardExpenseInvoiceDto;
       this.formLoad(this.entity)

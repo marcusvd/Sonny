@@ -21,30 +21,9 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
     MatButtonModule,
     CurrencyMaskModule,
   ],
-  template: `
-    <div [formGroup]="formMain" *ngIf="formMain">
-    <div *ngIf="priceHideShow">
-        <mat-form-field appearance="outline">
-            <mat-label>Valor Despesa</mat-label>
-            <input matInput type="text" currencyMask [formControlName]="priceFormControlName" aria-label="Valor despesa">
-            <mat-error>
-                <span>{{validatorMessages.required(formMain,priceFormControlName, 'Despesa')}}</span>
-                <span>{{validatorMessages.minMax(formMain,priceFormControlName, 'Despesa', 'R$1,00', null)}}</span>
-            </mat-error>
-        </mat-form-field>
-    </div>
-    <div  *ngIf="interestHideShow">
-        <mat-form-field appearance="outline">
-            <mat-label>Juros</mat-label>
-            <input matInput type="text" currencyMask [formControlName]="interestFormControlName" aria-label="Valor juros">
-        </mat-form-field>
-    </div>
- </div>
-  `,
+  templateUrl:'./price-interest-fields.component.html',
   styles: [`
-`],
-  providers: [
-  ]
+`]
 })
 
 export class PriceInteresFieldsComponent extends BaseForm{

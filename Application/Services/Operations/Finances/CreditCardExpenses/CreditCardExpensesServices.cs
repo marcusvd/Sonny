@@ -189,7 +189,8 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
                 predicate => predicate.CompanyId == companyId
                 && predicate.Deleted == DateTime.MinValue
                 && predicate.Type != Domain.Entities.Finances.Enums.TypeCardEnum.Debit,
-                toInclude => toInclude.Include(x => x.BankAccount),
+                toInclude => toInclude.Include(x => x.BankAccount)
+                .Include(x => x.CreditCardExpensesInvoices),
                 selector => selector
                 ).ToListAsync();
 

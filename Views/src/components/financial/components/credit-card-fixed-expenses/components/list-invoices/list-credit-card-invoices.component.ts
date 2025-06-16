@@ -1,10 +1,10 @@
 
 import { HttpClient } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 
 
 import { environment } from '../../../../../../environments/environment';
@@ -49,7 +49,6 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
     override _deleteServices: DeleteServices,
     override _ptBrDatePipe: PtBrDatePipe,
     override _ptBrCurrencyPipe: PtBrCurrencyPipe,
-
   ) {
     super(
       _router,
@@ -72,8 +71,12 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
   //   'expiresView',
   //   'price']
   creditCardExpenseInvoiceSubscribe: Subscription;
-  cardNick:string = '';
+  cardNick: string = '';
 
+  ngOnInit(): void {
+    // this.creditCardExpenseInvoiceSubscribe = this.startSupply(`${this.controllerUrl}/GetAllByCardIdAsync`, '1');
+    this.selectedMonth(this.monthFilter);
+  }
 
   ngOnDestroy(): void {
     this.creditCardExpenseInvoiceSubscribe?.unsubscribe();
@@ -113,6 +116,35 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
   }
 
   getCreditCardIdOutput(creditCard: CardDto) {
+    //O erro de ter que clicar duas vezes para conseguir acessar qualquer outra rota pelos icones seja o de pagar ou o de detalhes etc... esta ligado a o codigo dessa função
+    //era a linha de baixo,porem substituida por codigos mais abaixo dessa linha abaixo o error persiste.
+
+    // this.creditCardExpenseInvoiceSubscribe = this.startSupply(`${this.controllerUrl}/GetAllByCardIdAsync`, creditCard.id.toString());
+
+
+    this.listCreditCardExpenseInvoice = creditCard.creditCardExpensesInvoices.filter(x => x.cardId == creditCard.id);
+
+
+    //     this.listCreditCardExpenseInvoice.forEach(
+    //       x => {
+    // supplyItemsGrid
+    //       }
+    //     )
+    const entities: ListCreditCardInvoiceDto[] = [];
+
+
+
+    this.listCreditCardExpenseInvoice.forEach(
+
+      (y: CreditCardExpenseInvoiceDto) => {
+        this.entities = this.supplyItemsGrid(entities, y);
+        this.entities$ = of(this.entities);
+        this.entitiesFiltered$ = this.entities$
+        this.length = this.listCreditCardExpenseInvoice.length;
+        this.getCurrentPagedInFrontEnd(this.entities, 0, this.pageSize, 'expires', false);
+      })
+
+
 
     this.showDataBank = true;
     this.bankAccount = creditCard.bankAccount;
@@ -124,28 +156,6 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
 
     this.cardNick = creditCard.description;
 
-    // console.log(creditCard)
-    // this._listGDataService.getAllEntitiesInMemoryPaged$(`${this.controllerUrl}/GetAllByCardIdAsync`, creditCard.id.toString());
-
-    // this._listGDataService?.entities$?.pipe(map(x => {
-    //   if (x.length > 0)
-    //     console.log('Maior')
-    // }))
-
-    this.creditCardExpenseInvoiceSubscribe = this.startSupply(`${this.controllerUrl}/GetAllByCardIdAsync`, creditCard.id.toString());
-    // this.gridListCommonHelper.getAllEntitiesInMemoryPaged(`${this.controllerUrl}/GetAllByCardIdAsync`, creditCard.id.toString());
-
-    // this.gridListCommonHelper.entitiesFromDbToMemory$.subscribe((x: CreditCardExpenseInvoiceDto[]) => {
-    //   this.cleanGridWhenChangeCard();
-
-    //   x.forEach((xy: CreditCardExpenseInvoiceDto) => {
-    //     xy.card = creditCard;
-    //     this.listCreditCardExpenseInvoice.push(xy);
-    //     this.entities.push(this.makeGridItems(xy));
-    //   })
-
-    //   this.getCurrentPagedInFrontEnd();
-    // })
   }
 
   cleanGridWhenChangeCard() {
@@ -178,9 +188,6 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
   //   }
 
 
-  ngOnInit(): void {
 
-    this.selectedMonth(this.monthFilter);
-  }
 
 }

@@ -34,10 +34,10 @@
                         <ng-container [ngSwitch]="entity[field.key]?.display">
                             <!-- Ícones -->
                             <ng-container *ngSwitchCase="'icons'">
-                                <div class="btn-icon" [style]="entity[field.key]?.styleInsideCell" (click)="onClickIcon(icon, entity.id.key)" *ngFor="let icon of entity[field.key]?.icons;">
+                                <div class="btn-icon" [style]="entity[field.key]?.styleInsideCell" (click)="onClickIcon(icon, entity.id.key)" *ngFor="let icon of entity[field.key]?.icons; trackBy: trackByFn">
                                     <!-- {{entity[field.key]?.iconClasses}} -->
                                     <mat-icon [class]="entity[field.key]?.iconClasses" [style]="icon.split('|')[1]">
-                                        <span>{{icon.split('|')[0]}}</span>
+                                   {{icon.split('|')[0]}}
                                     </mat-icon>
                                 </div>
                             </ng-container>

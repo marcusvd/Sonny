@@ -44,13 +44,15 @@ import { CreditCardInvoicesGetService } from './credit-card-invoices-get.service
   `],
   providers: [CreditCardInvoicesGetService],
 })
-export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm implements OnInit, OnChanges {
+export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm implements OnChanges {
+
+  @Input() urlBackEndApi: string = '';
 
   constructor(
     private _creditCardInvoiceGetService: CreditCardInvoicesGetService,
     private _fb: FormBuilder,
 
-  ) {super()}
+  ) { super() }
 
   controllerUrl: string = environment._CREDIT_CARD_EXPENSES.split('/')[4];
 
@@ -69,7 +71,7 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
 
 
 
-  @Input() urlBackEndApi: string = '';
+
 
   entities$: Observable<CardDto[]>;
   cards!: CardDto;
@@ -78,13 +80,10 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
   bankAccount!: BankAccountDto;
   @Output() creditCardIdOutput = new EventEmitter<CardDto>();
   onCardsSelected(creditCard: CardDto) {
-    this.bankAccount = creditCard.bankAccount;
     this.creditCardIdOutput.emit(creditCard)
+    this.bankAccount = creditCard.bankAccount;
   }
 
-  ngOnInit(): void {
-
-  }
 
 
 }

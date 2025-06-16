@@ -48,11 +48,11 @@ export class ListControlCreditCardInvoices extends BaseList {
 
   labelHeaders = () => {
     return [
-      { key: '', style: 'cursor: pointer; max-width:100px;' },
-      { key: 'Compras até:', style: 'cursor: pointer;' },
-      { key: 'Vencimento', style: 'cursor: pointer;' },
-      { key: 'Preço', style: 'cursor: pointer;' },
-      { key: 'Situação', style: 'cursor: pointer;' },
+      { key: '', style: 'max-width:70px' },
+      { key: 'Compras até:', style: '' },
+      { key: 'Vencimento', style: '' },
+      { key: 'Preço', style: '' },
+      { key: 'Situação', style: '' },
     ]
   }
 
@@ -80,6 +80,7 @@ export class ListControlCreditCardInvoices extends BaseList {
   //   }
 
   // }
+
   onSelectedMonth(entities: any[], selectedMonth: number, field: string) {
     let result;
 
@@ -155,10 +156,7 @@ export class ListControlCreditCardInvoices extends BaseList {
 
   listCreditCardExpenseInvoice: CreditCardExpenseInvoiceDto[] = [];
   getEntityTopay(entityId: number) {
-
-    // console.log(this.listCreditCardExpenseInvoice)
-
-
+    
     const invoice = this.listCreditCardExpenseInvoice.find(x => x.id == entityId);
 
     if (this.currentDate > new Date(invoice.closingDate))
@@ -223,7 +221,7 @@ export class ListControlCreditCardInvoices extends BaseList {
     //   })
   }
 
-  supplyItemsGrid = (ListCreditCardExpenseInvoice: ListCreditCardInvoiceDto[], creditCardexpenseInvoice: CreditCardExpenseInvoiceDto) => {
+  supplyItemsGrid = (listCreditCardExpenseInvoice: ListCreditCardInvoiceDto[], creditCardexpenseInvoice: CreditCardExpenseInvoiceDto) => {
 
     const items: ListCreditCardInvoiceDto = new ListCreditCardInvoiceDto();
     //ListCreditCardExpenseInvoice = [];
@@ -263,136 +261,76 @@ export class ListControlCreditCardInvoices extends BaseList {
         key: '',
         display: 'icons',
         icons: ['check| font-size:35px; width:35px; height:35px;'],
+        styleCell: 'cursor: pointer;',
         iconClasses: new Date(creditCardexpenseInvoice.wasPaid).getFullYear() == this.minValue.getFullYear() ? 'text-expired' : 'text-paid',
       },
     })
 
-    ListCreditCardExpenseInvoice.push(items);
+    listCreditCardExpenseInvoice.push(items);
 
-    return ListCreditCardExpenseInvoice;
+    return listCreditCardExpenseInvoice;
   }
 
-  startSupply(url: string, cardId: string): Subscription {
+  // startSupply(url: string, cardId: string): Subscription {
 
-    let entities: ListCreditCardInvoiceDto[] = [];
+  //   let entities: ListCreditCardInvoiceDto[] = [];
 
-    return this._listGDataService?.getAllEntitiesInMemoryPaged$(url, cardId).pipe(
-      map((x: CreditCardExpenseInvoiceDto[]) => {
+  //   return this._listGDataService?.getAllEntitiesInMemoryPaged$(url, cardId).pipe(
+  //     map((x: CreditCardExpenseInvoiceDto[]) => {
 
-        this.listCreditCardExpenseInvoice = x;
+  //       this.listCreditCardExpenseInvoice = x;
 
-        if (x.length <= 0) {
-          entities = [];
-          this.entities = [];
-          this.entities$ = of([]);
-          this.entitiesFiltered$ = of([]);
-          this.length = 0;
-        }
+  //       if (x.length <= 0) {
+  //         entities = [];
+  //         this.entities = [];
+  //         this.entities$ = of([]);
+  //         this.entitiesFiltered$ = of([]);
+  //         this.length = 0;
+  //       }
 
-        entities = [];
-        this.entities = [];
-        this.entities$ = of([]);
+  //       entities = [];
+  //       this.entities = [];
+  //       this.entities$ = of([]);
 
-        x.forEach(
+  //       x.forEach(
 
-          (y: CreditCardExpenseInvoiceDto) => {
-            this.entities = this.supplyItemsGrid(entities, y);
-            this.entities$ = of(this.entities);
-            // this.entities$.subscribe(console.log)
-            this.entitiesFiltered$ = this.entities$
-            this.length = x.length;
-            this.getCurrentPagedInFrontEnd(this.entities, 0, this.pageSize, 'expires', false);
-          })
-      })).subscribe();
-
-
-    // return this._listGDataService?.entities$.subscribe(
-    //   {
-    //     next: (x: CreditCardExpenseInvoiceDto[]) => {
-
-    //       if (x.length > 0)
-    //         console.log('Maior')
+  //         (y: CreditCardExpenseInvoiceDto) => {
+  //           this.entities = this.supplyItemsGrid(entities, y);
+  //           this.entities$ = of(this.entities);
+  //           // this.entities$.subscribe(console.log)
+  //           this.entitiesFiltered$ = this.entities$
+  //           this.length = x.length;
+  //           this.getCurrentPagedInFrontEnd(this.entities, 0, this.pageSize, 'expires', false);
+  //         })
+  //     })).subscribe();
 
 
+  //   // return this._listGDataService?.entities$.subscribe(
+  //   //   {
+  //   //     next: (x: CreditCardExpenseInvoiceDto[]) => {
 
-    //       x.forEach(
-    //         (y: CreditCardExpenseInvoiceDto) => {
-    //           // console.log(y)
-    //           this.entities = this.supplyItemsGrid(entities, y);
-    //           this.entities$ = of(this.entities);
-    //           this.entitiesFiltered$ = this.entities$
-    //         })
-
-    //       // this.getCurrent();
-    //     }
-    //   }
-    // )
+  //   //       if (x.length > 0)
+  //   //         console.log('Maior')
 
 
-  }
 
-  // test() {
-  //   {
-  //     card: null;
-  //     cardId: 1;
-  //     closingDate: "2025-06-15T00:00:00";
-  //     company: null;
-  //     companyId: 1;
-  //     creditCardExpense: null;
-  //     creditCardExpenses: [{
-  //       card: null,
-  //       cardId: 1,
-  //       categoryExpense: null,
-  //       categoryExpenseId: 8,
-  //       company: null,
-  //       companyId: 1,
-  //       creditCardExpenseInvoice: null,
-  //       creditCardExpenseInvoiceId: 2,
-  //       creditCardLimitOperation: null,
-  //       currentInstallment: "1/2",
-  //       deleted: "0001-01-01T00:00:00",
-  //       description: "asddfsfdfdssdf",
-  //       document: "4ee34d",
-  //       expenseDay: "2025-05-20T03:00:00",
-  //       expires: "2025-06-25T03:00:00",
-  //       financingAndLoanExpenseId: null,
-  //       id: 2,
-  //       installmentPrice: 1111.11,
-  //       installmentsQuantity: 2,
-  //       monthlyFixedExpenseId: null,
-  //       name: "tesrt",
-  //       othersPaymentMethods: null,
-  //       paidFromBankAccount: null,
-  //       paidFromBankAccountId: null,
-  //       paymentAtSight: 2222.22,
-  //       price: 2222.22,
-  //       registered: "2025-05-20T04:26:14.33832",
-  //       subcategoryExpense: null,
-  //       subcategoryExpenseId: 28,
-  //       totalPercentageInterest: 0,
-  //       totalPriceInterest: 0,
-  //       user: null,
-  //       userId: 1,
-  //       variableExpenseId: null,
-  //       wasPaid: "0001-01-01T00:00:00",
-  //       yearlyFixedExpenseId: null,
-  //     }];
-  //     creditCardLimitOperation: null;
-  //     deleted: "0001-01-01T00:00:00";
-  //     description: "Gastos geral No Stop";
-  //     document: null;
-  //     expires: "2025-06-25T03:00:00";
-  //     id: 2;
-  //     interest: 0;
-  //     othersPaymentMethods: null;
-  //     paidFromBankAccountId: null;
-  //     price: 1111.11;
-  //     registered: "2025-05-20T04:26:14.427991";
-  //     user: null;
-  //     userId: 1;
-  //     wasPaid: "0001-01-01T00:00:00";
-  //   }
+  //   //       x.forEach(
+  //   //         (y: CreditCardExpenseInvoiceDto) => {
+  //   //           // console.log(y)
+  //   //           this.entities = this.supplyItemsGrid(entities, y);
+  //   //           this.entities$ = of(this.entities);
+  //   //           this.entitiesFiltered$ = this.entities$
+  //   //         })
+
+  //   //       // this.getCurrent();
+  //   //     }
+  //   //   }
+  //   // )
+
+
   // }
+
+
 
   getCurrentPagedInFrontEnd(entities: any[], currentPage: number, pageSize: number, field: string, withPagination: boolean) {
     this.entitiesFiltered$ = this.current(entities,
