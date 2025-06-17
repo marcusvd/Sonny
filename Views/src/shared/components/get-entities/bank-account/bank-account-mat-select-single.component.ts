@@ -33,7 +33,6 @@ import { RadioOptions } from './dto/radio-options';
     MatInputModule,
     NgxMatSelectSearchModule,
     ReactiveFormsModule,
-
     MatRadioModule,
     BankCard4LastDigitsPipe,
     BankCardNumberPipe,
