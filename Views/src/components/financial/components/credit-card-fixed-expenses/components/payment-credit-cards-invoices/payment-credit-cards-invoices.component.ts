@@ -51,7 +51,7 @@ export class PaymentCreditCardsInvoicesComponent extends Add {
     private _services: PaymentCreditCardsInvoicesService,
     private _ptBrDatePipe: PtBrDatePipe,
     private _ptBrCurrencyPipe: PtBrCurrencyPipe,
-    private _bankCardNumberPipe:BankCardNumberPipe
+    private _bankCardNumberPipe: BankCardNumberPipe
 
   ) {
 
@@ -63,12 +63,12 @@ export class PaymentCreditCardsInvoicesComponent extends Add {
       this.formLoad(this.entity)
     }
 
-    this.itemsToView.push({ key: 'Fatura mês:', value: this.monthsString[new Date(this.entity?.card.expiresDate).getMonth()], classValue:'font-bold' });
-    this.itemsToView.push({ key: 'Número Cartão:', value: this._bankCardNumberPipe.transform(this.entity.card.number), classValue:'font-bold'});
-    this.itemsToView.push({ key: 'Bandeira:', value: this.entity.card.flag, classValue:'font-bold' });
-    this.itemsToView.push({ key: 'Banco:', value: this.entity.card.bankAccount.institution, classValue:'font-bold' });
-    this.itemsToView.push({ key: 'Vencimento:', value: this._ptBrDatePipe.transform(this.entity.card.expiresDate, 'Date'), classValue:'font-bold' });
-    this.itemsToView.push({ key: 'Valor fatura:', value: _ptBrCurrencyPipe.transform(this.entity.price), classValue:'text-red-700 font-bold' });
+    this.itemsToView.push({ key: 'Fatura mês:', value: this.monthsString[new Date(this.entity?.card.expiresDate).getMonth()], classValue: 'font-bold' });
+    this.itemsToView.push({ key: 'Número Cartão:', value: this._bankCardNumberPipe.transform(this.entity.card.number), classValue: 'font-bold' });
+    this.itemsToView.push({ key: 'Bandeira:', value: this.entity.card.flag, classValue: 'font-bold' });
+    this.itemsToView.push({ key: 'Banco:', value: this.entity.card.bankAccount.institution, classValue: 'font-bold' });
+    this.itemsToView.push({ key: 'Vencimento:', value: this._ptBrDatePipe.transform(this.entity.card.expiresDate, 'Date'), classValue: 'font-bold' });
+    this.itemsToView.push({ key: 'Valor fatura:', value: _ptBrCurrencyPipe.transform(this.entity.price), classValue: 'text-red-700 font-bold' });
 
   }
 
@@ -95,14 +95,14 @@ export class PaymentCreditCardsInvoicesComponent extends Add {
   }
 
   updateBtn() {
-
+    console.log(this.formMain.value)
     this.validatorsCreditPixOthers = true;
 
-    if (this.alertSave(this.formMain)) {
-      // this.formMain.get('cardId').setValue(this.entity.cardId);
-      this._services.update(this.formMain);
-      this.saveBtnEnabledDisabled = true;
-    }
+    // if (this.alertSave(this.formMain)) {
+    //  this.formMain.get('cardId').setValue(this.entity.cardId);
+    //   this._services.update(this.formMain);
+    //   this.saveBtnEnabledDisabled = true;
+    // }
 
   }
 
