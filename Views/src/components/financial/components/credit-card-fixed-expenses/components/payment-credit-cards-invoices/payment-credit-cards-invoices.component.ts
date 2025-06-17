@@ -74,7 +74,7 @@ export class PaymentCreditCardsInvoicesComponent extends Add {
 
 
   formLoad(entity: CreditCardExpenseInvoiceDto) {
-
+    console.log(entity.cardId + 5)
     this.formMain = this._fb.group({
       id: [entity.id, []],
       userId: [entity.userId, [Validators.required, Validators.min(1)]],
@@ -91,6 +91,7 @@ export class PaymentCreditCardsInvoicesComponent extends Add {
       price: [entity.price, [Validators.required, Validators.min(1)]],
       interest: [entity.interest, [Validators.required]],
     })
+
 
   }
 
