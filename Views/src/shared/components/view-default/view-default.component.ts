@@ -11,5 +11,6 @@ import { MatDividerModule } from '@angular/material/divider';
   styleUrl: './view-default.component.scss'
 })
 export class ViewDefaultComponent {
+  @Input() hideDivider: false;
   @Input() itemsToView: ItemsViewInterface[] = [];
 }

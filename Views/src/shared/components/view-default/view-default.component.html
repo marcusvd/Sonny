@@ -3,13 +3,18 @@
         <div>
             <p class="pipe-title"> <span>|</span></p>
         </div>
-        <div class="w-full">
+
+        <div [styleKey]="item.styleKey" [class]="item.classKey" class="w-full">
             <p>{{item['key'] | uppercase}}</p>
         </div>
-        <div class="w-full">
+
+        <div [styleKey]="item.styleValue" [class]="item.classValue" class="w-full">
             <p>{{item['value']}}</p>
         </div>
+
+        @if(!hideDivider) {
         <br>
         <mat-divider></mat-divider>
+        }
     </div>
 </div>

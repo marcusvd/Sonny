@@ -11,8 +11,8 @@ import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-t
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { PixesExpensesFieldsComponent } from '../../../common-components/pixes-expenses/pixes-expenses-fields.component';
 import { PriceInteresFieldsComponent } from '../../../common-components/price-interest-fields/price-interest-fields.component';
-import { HtmlDataInfoDto } from '../../../common-components/screen-data-info/dtos/html-data-info-dto';
-import { ScreenDataInfoComponent } from '../../../common-components/screen-data-info/screen-data-info.component';
+
+
 import { FinancialStaticBusinessRule } from '../../../common-components/static-business-rule/static-business-rule';
 import { FinancingAndLoanExpenseInstallmentDto } from '../../dto/financing-and-loan-expense-installment-dto';
 import { PaymentFinancingsLoansInstallmentService } from './services/payment-financings-loans-installment.service';
@@ -24,7 +24,7 @@ import { PaymentFinancingsLoansInstallmentService } from './services/payment-fin
     CommonModule,
     MatCardModule,
     BankAccountMatSelectSingleComponent,
-    ScreenDataInfoComponent,
+
     PriceInteresFieldsComponent,
     SubTitleComponent,
     TitleComponent,
@@ -39,7 +39,7 @@ import { PaymentFinancingsLoansInstallmentService } from './services/payment-fin
 
 export class PaymentFinancingsLoansInstallmentComponent extends Payment implements OnInit {
 
-  fields: HtmlDataInfoDto[] = [];
+  
   hideShowScreenDataInfo = true;
   validatorsCreditPixOthers: boolean = false;
 
@@ -59,7 +59,7 @@ export class PaymentFinancingsLoansInstallmentComponent extends Payment implemen
       this.formLoad(obj['entity'].entity as FinancingAndLoanExpenseInstallmentDto)
       this.entity = obj['entity'].entity as FinancingAndLoanExpenseInstallmentDto;
       this.hideShowScreenDataInfo = obj['entity'].hideShowScreenDataInfo;
-      this.fields = obj['entity'].screenInfoFields as HtmlDataInfoDto[];
+      
     }
   }
 

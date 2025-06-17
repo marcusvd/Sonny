@@ -11,8 +11,8 @@ import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-t
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
 import { PixesExpensesFieldsComponent } from '../../../common-components/pixes-expenses/pixes-expenses-fields.component';
 import { PriceInteresFieldsComponent } from '../../../common-components/price-interest-fields/price-interest-fields.component';
-import { HtmlDataInfoDto } from '../../../common-components/screen-data-info/dtos/html-data-info-dto';
-import { ScreenDataInfoComponent } from '../../../common-components/screen-data-info/screen-data-info.component';
+
+
 import { YearlyFixedExpenseDto } from '../../dto/yearly-fixed-expense-dto';
 import { PaymentYearlyService } from './services/payment-yearly.service';
 
@@ -23,7 +23,7 @@ import { PaymentYearlyService } from './services/payment-yearly.service';
     CommonModule,
     MatCardModule,
     BankAccountMatSelectSingleComponent,
-    ScreenDataInfoComponent,
+
     PriceInteresFieldsComponent,
     SubTitleComponent,
     TitleComponent,
@@ -38,7 +38,7 @@ import { PaymentYearlyService } from './services/payment-yearly.service';
 
 export class PaymentYearlyComponent extends Payment {
 
-  fields: HtmlDataInfoDto[] = [];
+
   hideShowScreenDataInfo = true;
   validatorsCreditPixOthers: boolean = false;
 
@@ -48,7 +48,7 @@ export class PaymentYearlyComponent extends Payment {
     private _services: PaymentYearlyService,
 
   ) {
-    
+
     super()
 
     if (this._router.getCurrentNavigation()?.extras.state) {
@@ -58,7 +58,7 @@ export class PaymentYearlyComponent extends Payment {
       if (obj) {
         this.formLoad(obj['entity'].entity as YearlyFixedExpenseDto)
         this.hideShowScreenDataInfo = obj['entity'].hideShowScreenDataInfo;
-        this.fields = obj['entity'].screenInfoFields as HtmlDataInfoDto[];
+
       }
     }
   }
@@ -94,8 +94,6 @@ export class PaymentYearlyComponent extends Payment {
       expenseDay: [entity.expires, []],
     })
   }
-
-
 
 
   updateBtn() {

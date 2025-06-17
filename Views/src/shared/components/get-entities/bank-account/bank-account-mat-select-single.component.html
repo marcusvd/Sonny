@@ -15,7 +15,7 @@
                 <mat-label>Conta bancária</mat-label>
             </div>
             <mat-form-field class="w-full" appearance="outline">
-                <mat-select placeholder="Pesquise pelo nome" #singleSelect (selectionChange)="onBankAccountSelected(singleSelect.value)" [formControlName]="bankAccountFormControlName">
+                <mat-select placeholder="Selecione uma conta:" #singleSelect (selectionChange)="onBankAccountSelected(singleSelect.value)" [formControlName]="bankAccountFormControlName">
                     <mat-option *ngFor="let bankAccount of $banckAccount | async" [value]="bankAccount.id">
                         {{bankAccount.institution}}
                     </mat-option>
@@ -30,7 +30,7 @@
                 <mat-label>Cartões</mat-label>
             </div>
             <mat-form-field class="w-full" appearance="outline">
-                <mat-select placeholder="Pesquise pelo nome" #singleSelect (selectionChange)="onCardsFromSelectedBank(singleSelect.value)" formControlName="cardId">
+                <mat-select placeholder="Selecione uma conta:" #singleSelect (selectionChange)="onCardsFromSelectedBank(singleSelect.value)" formControlName="cardId">
                     <mat-option *ngFor="let card of cards" [value]="card.id">
                         <div>
                             {{card.flag}} {{' | '}}{{card.number | bankCardNumber}}
@@ -48,7 +48,7 @@
                     <mat-label>Pixes Saída (Pagador)</mat-label>
                 </div>
                 <mat-form-field class="w-full" appearance="outline">
-                    <mat-select placeholder="Pesquise pelo nome" #singleSelect (selectionChange)="onPixesFromSelectedBank(singleSelect.value)" formControlName="pixId">
+                    <mat-select placeholder="Selecione uma conta:" #singleSelect (selectionChange)="onPixesFromSelectedBank(singleSelect.value)" formControlName="pixId">
                         <mat-option *ngFor="let pix of pixes" [value]="pix.id">
                             {{pix.key}} {{' | '}}{{pix.value}}
                         </mat-option>
