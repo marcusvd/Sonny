@@ -1,14 +1,14 @@
-<spinner-g [entities$]="entities$" [optionalTitle]="'(Cartões)'" (spinnerStatusOut)="spinnerEvent($event)">
-</spinner-g>
+<!-- <spinner-g [entities$]="entities$" [optionalTitle]="'(Cartões)'" (spinnerStatusOut)="spinnerEvent($event)">
+</spinner-g> -->
 
-<div class="w-full" *ngIf="spinner">
+<!-- <div class="w-full" *ngIf="spinner">
+</div> -->
+<div [formGroup]="formMain" *ngIf="formMain">
     <mat-label>Cartões de crédito</mat-label>
     <mat-form-field class="w-full" appearance="outline">
-        <mat-select placeholder="Selecione o Cartão de credito" #singleSelect (selectionChange)="onCardsSelected(singleSelect.value)">
-            <mat-option *ngFor="let card of entities$ | async" [value]="card">
-                <div>
-                    {{card.flag}} {{' | '}}{{card.number | bankCardNumber}}
-                </div>
+        <mat-select placeholder="Selecione o Cartão de credito" #singleSelect (selectionChange)="onCardsSelected($event)" formControlName="id">
+            <mat-option *ngFor="let card of entities$ | async" [value]="card.id">
+                {{card.flag}} {{' | '}}{{card.number | bankCardNumber}}
             </mat-option>
         </mat-select>
         <mat-error>

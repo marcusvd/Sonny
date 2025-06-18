@@ -32,8 +32,8 @@
         </div>
 
         <mat-card class="p-4 border-card">
-            <get-bank-account-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [radioHideShow]="false" [validatorsPaymentBtnAction]="validatorsCreditPixOthers" [alignRadios]="'start start'" [bankAccountFormControlName]="'paidFromBankAccountId'">
-            </get-bank-account-select-single>
+            <!-- <get-bank-account-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [radioHideShow]="false" [validatorsPaymentBtnAction]="validatorsCreditPixOthers" [alignRadios]="'start start'" [bankAccountFormControlName]="'paidFromBankAccountId'">
+            </get-bank-account-select-single> -->
 
             <price-interest-fields [formMain]="formMain">
             </price-interest-fields>
@@ -45,7 +45,7 @@
         </mat-card>
 
         <div class="flex p-4 justify-end">
-            <btn-g [name]="'Pagar'" [icon]="'payment'" (click)="updateBtn()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
+            <btn-g [name]="'Pagar'" [icon]="'payment'" (click)="updateBtn()"></btn-g>
         </div>
 
 

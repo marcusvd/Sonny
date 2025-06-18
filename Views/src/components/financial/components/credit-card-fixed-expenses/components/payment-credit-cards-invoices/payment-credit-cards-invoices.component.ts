@@ -74,14 +74,13 @@ export class PaymentCreditCardsInvoicesComponent extends Add {
 
 
   formLoad(entity: CreditCardExpenseInvoiceDto) {
-    console.log(this.entity.paidFromBankAccountId)
-    return this.formMain = this._fb.group({
+
+    this.formMain = this._fb.group({
       id: [entity.id, [Validators.required]], // Agora inicializado corretamente como um número
       userId: [this.userId ?? entity.userId, [Validators.required, Validators.min(1)]],
       companyId: [entity.companyId, [Validators.required]],
       paidFromBankAccountId: [entity.paidFromBankAccountId, [Validators.required]],
       cardId: [entity.cardId, [Validators.required]],
-      othersPaymentMethods: [entity.othersPaymentMethods, [Validators.required]],
       description: [entity.description, [Validators.maxLength(150)]],
       document: [entity.document, [Validators.maxLength(150)]],
       expires: [entity.expires, [Validators.required]],
@@ -90,31 +89,35 @@ export class PaymentCreditCardsInvoicesComponent extends Add {
       price: [entity.price, [Validators.required, Validators.min(1)]],
       interest: [entity.interest, [Validators.required]],
     });
+
+
+    console.log(this.formMain.value)
+
   }
 
   updateBtn() {
 
-    console.log(this.entity.paidFromBankAccountId)
-    this.formMain.setValue({
-      id: this.entity.id,
-      userId: this.entity.userId,
-      companyId: this.entity.companyId,
-      paidFromBankAccountId: this.entity.paidFromBankAccountId,
-      cardId: this.entity.cardId,
-      othersPaymentMethods: this.entity.othersPaymentMethods,
-      description: this.entity.description,
-      document: this.entity.document,
-      expires: this.entity.expires,
-      closingDate: this.entity.closingDate,
-      registered: this.entity.registered,
-      price: this.entity.price,
-      interest: this.entity.interest,
-    })
+    // console.log(this.entity.paidFromBankAccountId)
+    // this.formMain.setValue({
+    //   id: this.entity.id,
+    //   userId: this.entity.userId,
+    //   companyId: this.entity.companyId,
+    //   paidFromBankAccountId: this.entity.paidFromBankAccountId,
+    //   cardId: this.entity.cardId,
+    //   othersPaymentMethods: this.entity.othersPaymentMethods,
+    //   description: this.entity.description,
+    //   document: this.entity.document,
+    //   expires: this.entity.expires,
+    //   closingDate: this.entity.closingDate,
+    //   registered: this.entity.registered,
+    //   price: this.entity.price,
+    //   interest: this.entity.interest,
+    // })
 
 
 
     console.log(this.formMain.value)
-    //     console.log(this.formLoad(this.entity).value)
+      //  console.log(this.formLoad(this.entity).value)
     // this.validatorsCreditPixOthers = true;
 
     // if (this.alertSave(this.formMain)) {

@@ -95,6 +95,7 @@
                     <credit-card-invoices-mat-select-single [urlBackEndApi]="'GetAllCreditCardsOnlyByCompanyId'" (creditCardIdOutput)="getCreditCardIdOutput($event)">
                     </credit-card-invoices-mat-select-single>
                 </div>
+
                 <div *ngIf="this.showDataBank">
                     <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="false" [changeSelection]="monthFilter" (sendSelected)="selectedMonth($event)">
                     </months-select>
