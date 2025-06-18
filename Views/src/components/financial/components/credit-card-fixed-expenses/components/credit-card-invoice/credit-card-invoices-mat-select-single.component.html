@@ -1,8 +1,7 @@
-<!-- <spinner-g [entities$]="entities$" [optionalTitle]="'(Cartões)'" (spinnerStatusOut)="spinnerEvent($event)">
-</spinner-g> -->
+<spinner-g [entities$]="entities$" [optionalTitle]="'(Cartões)'" (spinnerStatusOut)="spinnerEvent($event)">
+</spinner-g>
 
-<!-- <div class="w-full" *ngIf="spinner">
-</div> -->
+<div class="w-full" *ngIf="spinner">
 <div [formGroup]="formMain" *ngIf="formMain">
     <mat-label>Cartões de crédito</mat-label>
     <mat-form-field class="w-full" appearance="outline">
@@ -15,4 +14,5 @@
             <span class="error">{{validatorMessages.required(formMain,'idBankAccount', '* Obrigatório')}}</span>
         </mat-error>
     </mat-form-field>
+</div>
 </div>

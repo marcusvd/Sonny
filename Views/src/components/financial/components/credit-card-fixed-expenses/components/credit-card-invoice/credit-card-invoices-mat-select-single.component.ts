@@ -15,6 +15,7 @@ import { BankCardNumberPipe } from '../../../../../../shared/pipes/bank-card-num
 import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
 import { CreditCardInvoicesGetService } from './credit-card-invoices-get.service';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'credit-card-invoices-mat-select-single',
@@ -33,14 +34,13 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['./credit-card-invoices-mat-select-single.component.scss'],
   providers: [CreditCardInvoicesGetService],
 })
-export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm implements OnChanges, OnInit {
+export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm implements OnInit {
 
   @Input() urlBackEndApi: string = '';
   @Output() creditCardIdOutput = new EventEmitter<CardDto>();
   controllerUrl: string = environment._CREDIT_CARD_EXPENSES.split('/')[4];
   entities$: Observable<CardDto[]>;
-  cards!: CardDto;
-  cardd!: CardDto;
+  selectedCard!: CardDto;
   bankAccount!: BankAccountDto;
   spinner = false
 
@@ -50,31 +50,43 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
   ) { super() }
 
   ngOnInit(): void {
-
-
-
+    this.startLoad();
     // let selectedCardId = new MatSelectChange(new MatSelect(), 2);
 
-    this.entities$ = this._creditCardInvoiceGetService.getAll(this.companyId.toString(), `${this.controllerUrl}/${this.urlBackEndApi}`);
+    // this.entities$ = this._creditCardInvoiceGetService.getAll(this.companyId.toString(), `${this.controllerUrl}/${this.urlBackEndApi}`);
 
-    this.entities$.subscribe(x => {
+    // this.entities$.subscribe(x => {
 
-      this.cardd = x[0]
-      this.onCardsSelected({value:x[0].id});
-      this.formMain = this._fb.group({
-        id: x[0].id
-      })
-    })
+
+    //   // this.selectedCard = x[0]
+    //   this.formMain = this._fb.group({
+    //     id: x[0].id
+    //   })
+    // })
 
   }
 
-  spinnerEvent($event: boolean) {
-    this.spinner = !$event
+  startLoad() {
+    this._creditCardInvoiceGetService.getAll(this.companyId.toString(), `${this.controllerUrl}/${this.urlBackEndApi}`).subscribe(
+      {
+        next: (cards: CardDto[]) => {
+          this.entities$ = of(cards)
+          if (cards.length > 0) {
+            this.onCardsSelected({ value: cards[0].id } as MatSelectChange);
+          }
+        },
+        error: (err) => {
+          console.error('Error loading cards:', err);
+          this.entities$ = of([]);
+        }
+      }
+    )
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.entities$ = this._creditCardInvoiceGetService.getAll(this.companyId.toString(), `${this.controllerUrl}/${this.urlBackEndApi}`);
-  }
+
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   this.entities$ = this._creditCardInvoiceGetService.getAll(this.companyId.toString(), `${this.controllerUrl}/${this.urlBackEndApi}`);
+  // }
 
   onCardsSelected(cardId: any) {
 
@@ -85,6 +97,11 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
       })
     })
 
+  }
+
+
+  spinnerEvent($event: boolean) {
+    this.spinner = !$event
   }
 
 }

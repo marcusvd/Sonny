@@ -1,26 +1,25 @@
 
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable, of, Subscription } from 'rxjs';
 
 
+import { ListDefaultImports, ListDefaultProviders } from '../../../../../../components/imports/components-default.imports';
 import { environment } from '../../../../../../environments/environment';
+import { DeleteServices } from '../../../../../../shared/components/delete-dialog/services/delete.services';
 import { ex_month, MonthsDto } from '../../../../../../shared/components/months-select/months-dto';
 import { PtBrCurrencyPipe } from '../../../../../../shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from '../../../../../../shared/pipes/pt-br-date.pipe';
-import { CardDto } from '../../../bank-account-cards/dto/card-dto';
-import { CreditCardExpenseInvoiceDto } from '../list-invoices/dto/credit-card-expense-invoice-dto';
-import { ListCreditCardInvoiceDto } from '../../../credit-card-fixed-expenses/dto/list-credit-card-invoice-dto';
-import { ListCreditCardInvoicesService } from './services/list-credit-card-invoices.service';
-import { ListDefaultImports, ListDefaultProviders } from '../../../../../../components/imports/components-default.imports';
-import { DeleteServices } from '../../../../../../shared/components/delete-dialog/services/delete.services';
 import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
+import { CardDto } from '../../../bank-account-cards/dto/card-dto';
 import { ListControlCreditCardInvoices } from '../../../credit-card-fixed-expenses/components/list-invoices/helpers/list-control-credit-card-invoices';
-import { TriggerCreditCardsInvoices } from './trigger-credit-cards-invoices';
+import { ListCreditCardInvoiceDto } from '../../../credit-card-fixed-expenses/dto/list-credit-card-invoice-dto';
+import { CreditCardExpenseInvoiceDto } from '../list-invoices/dto/credit-card-expense-invoice-dto';
 import { ListCreditCardExpensesImports, ListCreditCardExpensesProviders } from '../list/imports/list-credit-card-expenses.imports';
+import { ListCreditCardInvoicesService } from './services/list-credit-card-invoices.service';
 
 
 @Component({
@@ -48,7 +47,8 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
     override _listCreditCardInvoicesService: ListCreditCardInvoicesService,
     override _deleteServices: DeleteServices,
     override _ptBrDatePipe: PtBrDatePipe,
-    override _ptBrCurrencyPipe: PtBrCurrencyPipe,
+    override _ptBrCurrencyPipe: PtBrCurrencyPipe
+
   ) {
     super(
       _router,
@@ -72,7 +72,7 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
   //   'price']
   creditCardExpenseInvoiceSubscribe: Subscription;
   cardNick: string = '';
- 
+
 
   ngOnInit(): void {
     // this.creditCardExpenseInvoiceSubscribe = this.startSupply(`${this.controllerUrl}/GetAllByCardIdAsync`, '1');
@@ -109,6 +109,8 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
 
     if (this.monthFilter.id == -1)
       this.entitiesFiltered$ = this.onSelectedMonth(this.entities, this.monthFilter.id, 'expires');
+
+
   }
 
 

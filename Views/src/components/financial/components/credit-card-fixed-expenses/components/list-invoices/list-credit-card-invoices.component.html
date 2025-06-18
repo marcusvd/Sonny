@@ -115,7 +115,7 @@
         </div>
 
 
-        <list-g *ngIf="length > 0" [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)"
+        <list-g *ngIf="(entitiesFiltered$ | async)?.length > 0" [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)"
             (outOnClickIcons)="onClickIcons($event)">
         </list-g>
         <!-- <div class="p-4 flex justify-center" *ngIf="length <= 0">
