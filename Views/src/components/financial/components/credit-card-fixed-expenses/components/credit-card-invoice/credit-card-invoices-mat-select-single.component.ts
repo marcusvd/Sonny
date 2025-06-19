@@ -1,6 +1,6 @@
 
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MatSelect, MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -49,21 +49,9 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
     private _fb: FormBuilder
   ) { super() }
 
+
   ngOnInit(): void {
     this.startLoad();
-    // let selectedCardId = new MatSelectChange(new MatSelect(), 2);
-
-    // this.entities$ = this._creditCardInvoiceGetService.getAll(this.companyId.toString(), `${this.controllerUrl}/${this.urlBackEndApi}`);
-
-    // this.entities$.subscribe(x => {
-
-
-    //   // this.selectedCard = x[0]
-    //   this.formMain = this._fb.group({
-    //     id: x[0].id
-    //   })
-    // })
-
   }
 
   startLoad() {
@@ -72,6 +60,7 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
         next: (cards: CardDto[]) => {
           this.entities$ = of(cards)
           if (cards.length > 0) {
+            this.formLoad(cards[0].id);
             this.onCardsSelected({ value: cards[0].id } as MatSelectChange);
           }
         },
@@ -83,10 +72,11 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
     )
   }
 
-
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   this.entities$ = this._creditCardInvoiceGetService.getAll(this.companyId.toString(), `${this.controllerUrl}/${this.urlBackEndApi}`);
-  // }
+  formLoad(id: number) {
+    this.formMain = this._fb.group({
+      id: id
+    })
+  }
 
   onCardsSelected(cardId: any) {
 
@@ -96,9 +86,7 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
         this.creditCardIdOutput.emit(selected)
       })
     })
-
   }
-
 
   spinnerEvent($event: boolean) {
     this.spinner = !$event

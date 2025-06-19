@@ -2,17 +2,17 @@
 </spinner-g>
 
 <div class="w-full" *ngIf="spinner">
-<div [formGroup]="formMain" *ngIf="formMain">
-    <mat-label>Cartões de crédito</mat-label>
-    <mat-form-field class="w-full" appearance="outline">
-        <mat-select placeholder="Selecione o Cartão de credito" #singleSelect (selectionChange)="onCardsSelected($event)" formControlName="id">
-            <mat-option *ngFor="let card of entities$ | async" [value]="card.id">
-                {{card.flag}} {{' | '}}{{card.number | bankCardNumber}}
-            </mat-option>
-        </mat-select>
-        <mat-error>
-            <span class="error">{{validatorMessages.required(formMain,'idBankAccount', '* Obrigatório')}}</span>
-        </mat-error>
-    </mat-form-field>
-</div>
+    <div [formGroup]="formMain" *ngIf="formMain">
+        <mat-label>Cartões de crédito</mat-label>
+        <mat-form-field class="w-full" appearance="outline">
+            <mat-select placeholder="Selecione o Cartão de credito" #singleSelect (selectionChange)="onCardsSelected($event)" formControlName="id">
+                <mat-option *ngFor="let card of entities$ | async" [value]="card.id">
+                    {{card.flag}} {{' | '}}{{card.number | bankCardNumber}}
+                </mat-option>
+            </mat-select>
+            <mat-error>
+                <span class="error">{{validatorMessages.required(formMain,'idBankAccount', '* Obrigatório')}}</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
 </div>

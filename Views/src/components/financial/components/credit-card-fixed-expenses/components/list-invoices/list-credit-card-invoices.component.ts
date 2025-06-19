@@ -1,6 +1,6 @@
 
 import { HttpClient } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -47,7 +47,8 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
     override _listCreditCardInvoicesService: ListCreditCardInvoicesService,
     override _deleteServices: DeleteServices,
     override _ptBrDatePipe: PtBrDatePipe,
-    override _ptBrCurrencyPipe: PtBrCurrencyPipe
+    override _ptBrCurrencyPipe: PtBrCurrencyPipe,
+
 
   ) {
     super(
@@ -109,8 +110,6 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
 
     if (this.monthFilter.id == -1)
       this.entitiesFiltered$ = this.onSelectedMonth(this.entities, this.monthFilter.id, 'expires');
-
-
   }
 
 

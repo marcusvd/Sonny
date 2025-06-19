@@ -98,21 +98,21 @@ export class PaymentCreditCardsInvoicesComponent extends Add {
   updateBtn() {
 
     // console.log(this.entity.paidFromBankAccountId)
-    // this.formMain.setValue({
-    //   id: this.entity.id,
-    //   userId: this.entity.userId,
-    //   companyId: this.entity.companyId,
-    //   paidFromBankAccountId: this.entity.paidFromBankAccountId,
-    //   cardId: this.entity.cardId,
-    //   othersPaymentMethods: this.entity.othersPaymentMethods,
-    //   description: this.entity.description,
-    //   document: this.entity.document,
-    //   expires: this.entity.expires,
-    //   closingDate: this.entity.closingDate,
-    //   registered: this.entity.registered,
-    //   price: this.entity.price,
-    //   interest: this.entity.interest,
-    // })
+    this.formMain.setValue({
+      id: this.entity.id,
+      userId: this.entity.userId,
+      companyId: this.entity.companyId,
+      paidFromBankAccountId: this.entity.paidFromBankAccountId,
+      cardId: this.entity.cardId,
+      othersPaymentMethods: this.entity.othersPaymentMethods,
+      description: this.entity.description,
+      document: this.entity.document,
+      expires: this.entity.expires,
+      closingDate: this.entity.closingDate,
+      registered: this.entity.registered,
+      price: this.entity.price,
+      interest: this.entity.interest,
+    })
 
 
 
