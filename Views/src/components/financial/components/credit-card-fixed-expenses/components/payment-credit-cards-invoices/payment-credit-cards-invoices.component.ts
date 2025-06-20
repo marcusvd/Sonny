@@ -68,7 +68,7 @@ export class PaymentCreditCardsInvoicesComponent extends Add {
     this.itemsToView.push({ key: 'Número Cartão:', value: this._bankCardNumberPipe.transform(this.entity.card.number), classValue: 'font-bold' });
     this.itemsToView.push({ key: 'Bandeira:', value: this.entity.card.flag, classValue: 'font-bold' });
     this.itemsToView.push({ key: 'Banco:', value: this.entity.card.bankAccount.institution, classValue: 'font-bold' });
-    this.itemsToView.push({ key: 'Vencimento:', value: this._ptBrDatePipe.transform(this.entity.card.expiresDate, 'Date'), classValue: 'font-bold' });
+    this.itemsToView.push({ key: 'Validade:', value: this._ptBrDatePipe.transform(this.entity.card.expiresDate, 'monthYear'), classValue: 'font-bold' });
     this.itemsToView.push({ key: 'Valor fatura:', value: _ptBrCurrencyPipe.transform(this.entity.price), classValue: 'text-red-700 font-bold' });
 
   }
@@ -95,9 +95,10 @@ export class PaymentCreditCardsInvoicesComponent extends Add {
   }
 
   updateBtn() {
-    console.log(this.formLoad(this.entity).value)
-    // if (this.alertSave(this.formMain))
-    //   this._services.update(this.formMain);
+    // console.log(this.formMain.value)
+    // console.log(this.formLoad(this.entity).value)
+    if (this.alertSave(this.formMain))
+      this._services.update(this.formMain);
   }
 
 }

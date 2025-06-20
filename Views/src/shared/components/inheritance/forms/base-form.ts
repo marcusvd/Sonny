@@ -89,8 +89,6 @@ export class BaseForm {
   }
   //
 
-
-
   formErrorAndTouched = (form: FormGroup, field: string, error: string) => {
     return form?.get(field)?.hasError(error) && form?.get(field)?.touched;
   }

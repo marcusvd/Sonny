@@ -7,13 +7,13 @@
                 <mat-label>Conta bancária</mat-label>
             </div>
             <mat-form-field class="w-full" appearance="outline">
-                <mat-select placeholder="Selecione uma conta:" #singleSelect [formControlName]="bankAccountFormControlName">
+                <mat-select placeholder="Selecione uma conta:" [formControlName]="bankAccountFormControlName">
                     <mat-option *ngFor="let bankAccount of $banckAccount | async" [value]="bankAccount.id">
                         {{bankAccount.institution}}
                     </mat-option>
                 </mat-select>
                 <mat-error>
-                    <span class="error">{{validatorMessages.required(formMain,'bankAccountId', '* Obrigatório')}}</span>
+                    <span *ngIf="formErrorAndTouched(formMain,'paidFromBankAccountId', 'required')">{{defaultMessages.requiredMsg}}</span>
                 </mat-error>
             </mat-form-field>
         </div>
