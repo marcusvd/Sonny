@@ -134,23 +134,12 @@ export class ListGComponent implements OnChanges, OnInit, OnDestroy {
     }
 
     this.outOnClickIcons.emit(onClick);
-
+    
   }
+
   trackByFn(index: number, icon: string): any {
     return icon;
   }
-
-
-  // onClickIcon(action: string, entityId: number) {
-
-  //   const onClick: OnClickInterface = {
-  //     action: action,
-  //     entityId: entityId
-  //   }
-
-  //   this.outOnClickIcons.emit(onClick);
-
-  // }
 
   spinner = false
   spinnerEvent($event: boolean) {

@@ -32,6 +32,7 @@
         </div>
 
         <mat-card class="p-4 border-card">
+            <get-bank-accounts [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [bankAccountFormControlName]="'paidFromBankAccountId'"></get-bank-accounts>
             <!-- <get-bank-account-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [radioHideShow]="false" [validatorsPaymentBtnAction]="validatorsCreditPixOthers" [alignRadios]="'start start'" [bankAccountFormControlName]="'paidFromBankAccountId'">
             </get-bank-account-select-single> -->
 
@@ -50,9 +51,9 @@
 
 
 
-        <!-- <div>
-                    <div>{{formMain.value | json}}</div>
-                </div> -->
+        <div>
+            <div>{{formMain.value | json}}</div>
+        </div>
     </div>
 
 </default-component>

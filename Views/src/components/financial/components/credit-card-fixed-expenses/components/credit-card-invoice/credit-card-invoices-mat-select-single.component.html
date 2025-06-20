@@ -5,7 +5,7 @@
     <div [formGroup]="formMain" *ngIf="formMain">
         <mat-label>Cartões de crédito</mat-label>
         <mat-form-field class="w-full" appearance="outline">
-            <mat-select placeholder="Selecione o Cartão de credito" #singleSelect (selectionChange)="onCardsSelected($event)" formControlName="id">
+            <mat-select placeholder="Selecione o cartão de credito" #singleSelect (selectionChange)="onCardsSelected($event)" formControlName="id">
                 <mat-option *ngFor="let card of entities$ | async" [value]="card.id">
                     {{card.flag}} {{' | '}}{{card.number | bankCardNumber}}
                 </mat-option>

@@ -53,13 +53,15 @@ export class PaymentCreditCardsInvoicesService extends BackEndService<CreditCard
 
     this.update$<CreditCardExpenseInvoiceDto>('UpdateCreditCardExpensesInvoice', toSave).subscribe({
       next: (_cli: any) => {
-        this._communicationsAlerts.defaultSnackMsg('Pago $', 0, null, 4);
+        this.openSnackBar('Pago $!','success');
+        // this._communicationsAlerts.defaultSnackMsg('Pago $', 0, null, 4);
         history.back();
       },
       error: (err) => {
         console.log(err)
         const erroCode: string = err.error.Message
-        this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
+        this.openSnackBar(erroCode?? 'Erro desconhecido.','error');
+        // this._communicationsAlerts.defaultSnackMsg(erroCode, 1);
       }
     })
   }

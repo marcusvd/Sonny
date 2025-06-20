@@ -4,14 +4,13 @@ import { Observable } from "rxjs";
 import { BankAccountDto } from "../../../../components/financial/components/bank-account-cards/dto/bank-account-dto";
 
 
-import { PartnerDto } from "../../../../components/main/partner/dtos/partner-dto";
 import { environment } from "../../../../environments/environment";
 import { BackEndService } from "../../../../shared/services/back-end/backend.service";
 
 
 
 @Injectable()
-export class BankAccountGetService extends BackEndService<PartnerDto> {
+export class BankAccountGetService extends BackEndService<BankAccountDto> {
 
   constructor(
     protected _Http: HttpClient
@@ -22,8 +21,8 @@ export class BankAccountGetService extends BackEndService<PartnerDto> {
 
   }
 
-  getAll(id: string, urlBackEndApi:string): Observable<BankAccountDto[]> {
-    return this.loadById$<BankAccountDto[]>(urlBackEndApi,id);
+  getAll(id: string, urlBackEndApi: string): Observable<BankAccountDto[]> {
+    return this.loadById$<BankAccountDto[]>(urlBackEndApi, id);
   }
 
 

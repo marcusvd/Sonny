@@ -148,7 +148,6 @@ export class ListControlCreditCardInvoices extends BaseList {
 
     if (obj.action.split('|')[0] == 'list') {
       this.callRouter(`/financial/list-credit-card-expenses/${obj.entityId}`);
-
     }
 
     // if (obj.action.split('|')[0] == 'delete')
@@ -163,10 +162,10 @@ export class ListControlCreditCardInvoices extends BaseList {
     invoice.card = creditCard;
 
     if (this.currentDate > new Date(invoice.closingDate))
-      this.pay.callRoute(this.pay.entityToPay = invoice)
-
+       this.pay.callRoute(this.pay.entityToPay = invoice)
     else
       alert('Fatura não fechada!')
+
   }
 
   pay = new TriggerCreditCardsInvoices(

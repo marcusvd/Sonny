@@ -128,11 +128,6 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
     this.listCreditCardExpenseInvoice = creditCard.creditCardExpensesInvoices.filter(x => x.cardId == creditCard.id);
 
 
-    //     this.listCreditCardExpenseInvoice.forEach(
-    //       x => {
-    // supplyItemsGrid
-    //       }
-    //     )
     const entities: ListCreditCardInvoiceDto[] = [];
 
 
@@ -147,9 +142,8 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
         this.getCurrentPagedInFrontEnd(this.entities, 0, this.pageSize, 'expires', false);
       })
 
-
-
     this.showDataBank = true;
+
     this.bankAccount = creditCard.bankAccount;
 
     const monthFilter = ex_month(new Date().getMonth());

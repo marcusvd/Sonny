@@ -38,8 +38,6 @@ import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
     MatFormFieldModule,
     RouterModule,
     BtnGComponent,
-    TitleDescriptionAuthComponent,
-    FooterLoginComponent
   ]
 })
 export class LoginComponent extends BaseForm implements OnInit {
@@ -52,7 +50,7 @@ export class LoginComponent extends BaseForm implements OnInit {
   override formMain: FormGroup;
 
   spaceLogoTitle: string;
-  
+
   private _validatorCustom = ValidatorsCustom;
   get validatorCustom() {
     return this._validatorCustom

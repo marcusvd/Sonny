@@ -47,6 +47,7 @@ export class CommunicationAlerts {
       this._snackActions.snackActionsTrigger(btnAction)
 
   }
+
 }
 export class ToolTips {
 

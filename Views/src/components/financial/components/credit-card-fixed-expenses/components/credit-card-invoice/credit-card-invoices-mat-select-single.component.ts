@@ -86,6 +86,7 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
         this.creditCardIdOutput.emit(selected)
       })
     })
+
   }
 
   spinnerEvent($event: boolean) {
