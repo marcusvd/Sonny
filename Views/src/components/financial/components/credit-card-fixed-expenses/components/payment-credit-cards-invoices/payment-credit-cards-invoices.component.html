@@ -23,30 +23,38 @@
 
 
         <mat-card class="p-4 border-card">
-            <view-default [itemsToView]="itemsToView" [hideDivider]="true">
+
+            <div class="grid grid-cols-[50%_50%] items-center">
+                <div>
+                    <h1 class="font-bold text-color-main text-2xl">CARTÃO DE CREDITO</h1>
+                </div>
+                <div style="font-size: 110px;" class="card ccs ccs-{{this.type?.card?.type}} ">
+                    @if(this.type?.card?.niceType.toLowerCase() == 'elo'){<img style="position:absolute; width:50px; height:50px;" src="../../../../../../assets/finances/elo.png"> }
+                </div>
+            </div>
+
+            <view-default [itemsToView]="itemsToView " [hideDivider]="true ">
             </view-default>
         </mat-card>
 
-        <div class="pt-4">
+        <div class="pt-4 ">
 
         </div>
 
-        <mat-card class="p-4 border-card">
-            <get-bank-accounts [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [bankAccountFormControlName]="'paidFromBankAccountId'"></get-bank-accounts>
-            <!-- <get-bank-account-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [radioHideShow]="false" [validatorsPaymentBtnAction]="validatorsCreditPixOthers" [alignRadios]="'start start'" [bankAccountFormControlName]="'paidFromBankAccountId'">
-            </get-bank-account-select-single> -->
+        <mat-card class="p-4 border-card ">
+            <get-bank-accounts [urlBackEndApi]=" 'GetAllFnBankAccount' " [formMain]="formMain " [bankAccountFormControlName]=" 'paidFromBankAccountId' "></get-bank-accounts>
 
-            <price-interest-fields [formMain]="formMain">
+            <price-interest-fields [formMain]="formMain ">
             </price-interest-fields>
 
 
-            <div class="align-h-center" *ngIf="!hideDivider">
-                <mat-divider class="divider-line-categories-comp"></mat-divider>
+            <div class="align-h-center " *ngIf="!hideDivider ">
+                <mat-divider class="divider-line-categories-comp "></mat-divider>
             </div>
         </mat-card>
 
-        <div class="flex p-4 justify-end">
-            <btn-g [name]="'Pagar'" [icon]="'payment'" (click)="updateBtn()"></btn-g>
+        <div class="flex p-4 justify-end ">
+            <btn-g [name]=" 'Pagar' " [icon]=" 'payment' " (click)="updateBtn() "></btn-g>
         </div>
 
 

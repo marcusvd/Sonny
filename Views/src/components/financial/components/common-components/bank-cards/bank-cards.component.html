@@ -40,8 +40,11 @@
                                                         <span>{{validatorMessages.required(this?.formMain?.get('cards')?.get(i.toString()),'number', 'Número do cartão')}}</span>
                                                         <span>{{validatorMessagesFiancial.cardNumber(this?.formMain?.get('cards')?.get(i.toString()),'number')}}</span>
                                                     </mat-error>
-                                                    <mat-icon id="card-icon" matSuffix class="card ccs ccs-{{type[i]?.card?.type}}">
+                                                    <mat-icon matSuffix class="card-icon card ccs ccs-{{type[i]?.card?.type}}">
+                                                        @if(type[i]?.card?.niceType.toLowerCase() == 'elo'){<img matSuffix style="position:absolute; width:50px; height:50px;" src="../../../../../../assets/finances/elo.png"> }
                                                     </mat-icon>
+
+
                                                 </mat-form-field>
                                             </div>
                                             <div>

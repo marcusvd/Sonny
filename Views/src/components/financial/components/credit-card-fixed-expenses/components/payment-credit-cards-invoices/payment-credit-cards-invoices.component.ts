@@ -6,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 
 
-
+import * as cardValidator from 'card-validator';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { GetBankAccountComponent } from '../../../common-components/get-bank-account/get-bank-accounts.component';
 import { Add } from 'src/shared/components/inheritance/add/add';
@@ -45,6 +45,12 @@ export class PaymentCreditCardsInvoicesComponent extends Add {
 
   entity: CreditCardExpenseInvoiceDto = null;
   itemsToView: ItemsViewInterface[] = [];
+  public type: any;
+
+
+
+
+
 
   constructor(
     private _fb: FormBuilder,
@@ -65,18 +71,23 @@ export class PaymentCreditCardsInvoicesComponent extends Add {
     }
 
     this.itemsToView.push({ key: 'Fatura mês:', value: this.monthsString[new Date(this.entity?.card.expiresDate).getMonth()], classValue: 'font-bold' });
-    this.itemsToView.push({ key: 'Número Cartão:', value: this._bankCardNumberPipe.transform(this.entity.card.number), classValue: 'font-bold' });
+    this.itemsToView.push({ key: 'Número:', value: this._bankCardNumberPipe.transform(this.entity.card.number), classValue: 'font-bold' });
     this.itemsToView.push({ key: 'Bandeira:', value: this.entity.card.flag, classValue: 'font-bold' });
     this.itemsToView.push({ key: 'Banco:', value: this.entity.card.bankAccount.institution, classValue: 'font-bold' });
     this.itemsToView.push({ key: 'Validade:', value: this._ptBrDatePipe.transform(this.entity.card.expiresDate, 'monthYear'), classValue: 'font-bold' });
     this.itemsToView.push({ key: 'Valor fatura:', value: _ptBrCurrencyPipe.transform(this.entity.price), classValue: 'text-red-700 font-bold' });
 
+    // this.subForm.get('flag').setValue(this?.type[this.entity.card.number]?.card?.niceType);
+
+    this.type = cardValidator.number(this.entity.card.number);
+
+    console.log(this.type.card)
   }
 
 
   formLoad(entity: CreditCardExpenseInvoiceDto) {
 
-   return this.formMain = this._fb.group({
+    return this.formMain = this._fb.group({
       id: [entity.id, [Validators.required]], // Agora inicializado corretamente como um número
       userId: [this.userId ?? entity.userId, [Validators.required, Validators.min(1)]],
       companyId: [entity.companyId, [Validators.required]],

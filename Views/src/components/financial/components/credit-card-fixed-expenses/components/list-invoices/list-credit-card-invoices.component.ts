@@ -20,6 +20,7 @@ import { ListCreditCardInvoiceDto } from '../../../credit-card-fixed-expenses/dt
 import { CreditCardExpenseInvoiceDto } from '../list-invoices/dto/credit-card-expense-invoice-dto';
 import { ListCreditCardExpensesImports, ListCreditCardExpensesProviders } from '../list/imports/list-credit-card-expenses.imports';
 import { ListCreditCardInvoicesService } from './services/list-credit-card-invoices.service';
+import { FinancialSubtitleComponent } from '../../../common-components/subtitle/financial-subtitle.component';
 
 
 @Component({
@@ -29,7 +30,8 @@ import { ListCreditCardInvoicesService } from './services/list-credit-card-invoi
   standalone: true,
   imports: [
     ListDefaultImports,
-    ListCreditCardExpensesImports
+    ListCreditCardExpensesImports,
+    FinancialSubtitleComponent
   ],
   providers: [
     ListCreditCardExpensesProviders,

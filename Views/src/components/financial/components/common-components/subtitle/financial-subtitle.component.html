@@ -1,5 +1,26 @@
-<div class="p-4">
+<div>
 
+    <div class="w-full grid sm:grid-cols-3 grid-cols-1 items-center justify-center">
+        <div class="w-full grid sm:grid-cols-[20px_1fr] grid-cols-1 items-center justify-center gap-4">
+            <div>
+                <mat-icon class="text-expired">check</mat-icon>
+            </div>
+            <div>Vencida</div>
+        </div>
+        <div class="w-full grid sm:grid-cols-[20px_1fr] grid-cols-1 items-center justify-center gap-4">
+            <div>
+                <mat-icon class="text-pendding">check</mat-icon>
+            </div>
+            <div>Pendente</div>
+        </div>
+        <div class="w-full grid sm:grid-cols-[20px_1fr] grid-cols-1 items-center justify-center gap-4">
+            <div>
+                <mat-icon class="text-paid">check</mat-icon>
+            </div>
+            <div>Liquidada</div>
+        </div>
+    </div>
+    <!--
     <div class="w-full grid sm:grid-cols-3 grid-cols-1 items-center justify-center">
         <div class="w-full grid sm:grid-cols-[20px_1fr] grid-cols-1 items-center justify-center">
             <div class="bg-expired w-[16px] h-[16px]">
@@ -16,9 +37,9 @@
             </div>
             <div>Liquidada</div>
         </div>
-    </div>
+    </div> -->
 
-    <div class="w-full flex sm:justify-center sm:mt-10 mt-4 text-[30px] text-black font-bold">
+    <div class="w-full flex sm:justify-center sm:mt-10 text-[30px] text-black font-bold">
         {{title}}
     </div>
 
