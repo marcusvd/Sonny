@@ -1,21 +1,20 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, of, Subscription } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { BaseList } from '../../../../../../../../src/shared/components/list-g/extends/base-list';
 import { ListGDataService } from '../../../../../../../../src/shared/components/list-g/list/data/list-g-data.service';
-import { ListCreditCardInvoicesService } from '../services/list-credit-card-invoices.service';
-import { ListCreditCardInvoiceDto } from '../../../../credit-card-fixed-expenses/dto/list-credit-card-invoice-dto'
 import { OnClickInterface } from '../../../../../../../../src/shared/components/list-g/list/interfaces/on-click-interface';
+import { ListCreditCardInvoiceDto } from '../../../../credit-card-fixed-expenses/dto/list-credit-card-invoice-dto';
+import { ListCreditCardInvoicesService } from '../services/list-credit-card-invoices.service';
 
 import { MatDialog } from '@angular/material/dialog';
-import { map } from 'rxjs/operators';
+import { CardDto } from 'src/components/financial/components/bank-account-cards/dto/card-dto';
+import { DeleteServices } from '../../../../../../../shared/components/delete-dialog/services/delete.services';
 import { PtBrCurrencyPipe } from '../../../../../../../shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from '../../../../../../../shared/pipes/pt-br-date.pipe';
-import { DeleteServices } from '../../../../../../../shared/components/delete-dialog/services/delete.services';
 import { CreditCardExpenseInvoiceDto } from '../dto/credit-card-expense-invoice-dto';
 import { TriggerCreditCardsInvoices } from '../trigger-credit-cards-invoices';
-import { CardDto } from 'src/components/financial/components/bank-account-cards/dto/card-dto';
 
 
 
@@ -25,7 +24,7 @@ export class ListControlCreditCardInvoices extends BaseList {
   entities: ListCreditCardInvoiceDto[] = [];
   entitiesFiltered$: Observable<ListCreditCardInvoiceDto[]>;
   entitiesFiltered: ListCreditCardInvoiceDto[] = [];
-   creditCard!: CardDto;
+  creditCard!: CardDto;
   length = 0;
   showHideFilter = false;
   term: string;
@@ -61,10 +60,10 @@ export class ListControlCreditCardInvoices extends BaseList {
   fieldsHeaders = () => {
     return [
       { key: 'id', style: 'max-width:100px;' },
-      { key: 'closingDate', style: '' },
+      { key: 'closingDateView', style: '' },
       { key: 'expiresView', style: '' },
-      { key: 'price', style: '' },
-      { key: 'status', style: '' },
+      { key: 'priceView', style: '' },
+      { key: 'statusView', style: '' },
     ]
   }
 
@@ -117,21 +116,24 @@ export class ListControlCreditCardInvoices extends BaseList {
 
   onClickOrderByFields(field: string, entities$: Observable<ListCreditCardInvoiceDto[]>) {
 
-    // switch (field) {
-    //   case 'name':
+    switch (field) {
+      case 'closingDateView':
+        this.entitiesFiltered$ = this.orderByFrontEnd(entities$, { key: 'closingDate', value: new Date() }) as Observable<ListCreditCardInvoiceDto[]>;
+        break;
 
-    //     this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: '' }) as Observable<ListCustomerDto[]>;
-    //     break;
+      case 'expiresView':
+        this.entitiesFiltered$ = this.orderByFrontEnd(entities$, { key: 'expires', value: new Date() }) as Observable<ListCreditCardInvoiceDto[]>;
+        break;
 
-    //   case 'assured':
-    //     this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: '' }) as Observable<ListCustomerDto[]>;
-    //     break;
+      case 'priceView':
+        this.entitiesFiltered$ = this.orderByFrontEnd(entities$, { key: 'price', value: 0 }) as Observable<ListCreditCardInvoiceDto[]>;
+        break;
 
-    //   case 'responsible':
-    //     this.entities$ = this.orderByFrontEnd(entities$, { key: field, value: 0 }) as Observable<ListCustomerDto[]>;
-    //     break;
-    // }
-
+      case 'statusView':
+        this.entitiesFiltered$ = this.orderByFrontEnd(entities$, { key: 'status', value: new Date() }) as Observable<ListCreditCardInvoiceDto[]>;
+        break;
+    }
+    // 'expires': new Date()
   }
 
   onClickButton(field: string) {
@@ -142,7 +144,7 @@ export class ListControlCreditCardInvoices extends BaseList {
 
 
 
-    if (obj.action.split('|')[0] == 'check')
+    if (obj.action.split('|')[0] == 'close')
       this.getEntityTopay(obj.entityId, this.creditCard);
 
 
@@ -162,7 +164,7 @@ export class ListControlCreditCardInvoices extends BaseList {
     invoice.card = creditCard;
 
     if (this.currentDate > new Date(invoice.closingDate))
-       this.pay.callRoute(this.pay.entityToPay = invoice)
+      this.pay.callRoute(this.pay.entityToPay = invoice)
     else
       alert('Fatura não fechada!')
 
@@ -244,6 +246,9 @@ export class ListControlCreditCardInvoices extends BaseList {
       },
 
       closingDate: {
+        key: creditCardexpenseInvoice.closingDate,
+      },
+      closingDateView: {
         key: this._ptBrDatePipe.transform(creditCardexpenseInvoice.closingDate, 'Date'),
         styleCell: 'width:100%;',
       },
@@ -255,16 +260,22 @@ export class ListControlCreditCardInvoices extends BaseList {
       expires: {
         key: creditCardexpenseInvoice.expires
       },
-      price: {
+      priceView: {
         key: this._ptBrCurrencyPipe.transform(Number(creditCardexpenseInvoice.price)),
         styleCell: 'width:100%;',
       },
-      status: {
+      statusView: {
         key: '',
         display: 'icons',
-        icons: ['check| font-size:35px; width:35px; height:35px;'],
+        icons: new Date(creditCardexpenseInvoice.wasPaid).getFullYear() == this.minValue.getFullYear() ? ['close| font-size:35px; width:35px; height:35px;'] : ['check| font-size:35px; width:35px; height:35px;'],
         styleCell: 'cursor: pointer;',
         iconClasses: new Date(creditCardexpenseInvoice.wasPaid).getFullYear() == this.minValue.getFullYear() ? 'text-expired' : 'text-paid',
+      },
+      price: {
+        keyN: Number(creditCardexpenseInvoice.price)
+      },
+      status: {
+        key: creditCardexpenseInvoice.wasPaid,
       },
     })
 

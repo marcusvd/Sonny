@@ -206,10 +206,15 @@ export class ListControlCreditCardExpenses extends BaseList {
     //   })
   }
   statusCollection: FinancialSubtitleDto[] = [
-    { id: 1, name: 'A pagar', classesStyleIcon:"!text-[100px] !text-expired !w-[100px] !h-[100px]", monthColorNameStyleClasses: "!text-expired", visible: false },
+    { id: 1, name: 'A pagar',icon:'close', classesStyleIcon:"!text-[100px] !text-expired !w-[100px] !h-[100px]", monthColorNameStyleClasses: "!text-expired", visible: false },
     // { id: 2, name: 'Pendente', classStyle: "bg-pendding", monthColorNameStyleClasses: "text-pendding", visible: false },
-    { id: 3, name: 'Pago', classesStyleIcon: "!text-[100px] !text-paid !w-[100px] !h-[100px]", monthColorNameStyleClasses: "!text-paid", visible: false }
+    { id: 3, name: 'Pago',icon:'check', classesStyleIcon: "!text-[100px] !text-paid !w-[100px] !h-[100px]", monthColorNameStyleClasses: "!text-paid", visible: false }
   ]
+  // statusCollection: FinancialSubtitleDto[] = [
+  //   { id: 1, name: 'A pagar', classesStyleIcon:"!text-[100px] !text-expired !w-[100px] !h-[100px]", monthColorNameStyleClasses: "!text-expired", visible: false },
+  //   // { id: 2, name: 'Pendente', classStyle: "bg-pendding", monthColorNameStyleClasses: "text-pendding", visible: false },
+  //   { id: 3, name: 'Pago', classesStyleIcon: "!text-[100px] !text-paid !w-[100px] !h-[100px]", monthColorNameStyleClasses: "!text-paid", visible: false }
+  // ]
 
 
   paymentStatus(creditCardExpense: CreditCardExpenseDto, listCreditCardExpenses:ListCreditCardExpensesDto[]) {
@@ -232,13 +237,13 @@ export class ListControlCreditCardExpenses extends BaseList {
       }
     )
     //WILL EXPIRES
-    this.isPending(listCreditCardExpenses, expire, 0, this.pageSize).subscribe(
-      x => {
-        if (x.length) {
-          this.statusCollection.find(x => x.id == 2).visible = true;
-        }
-      }
-    )
+    // this.isPending(listCreditCardExpenses, expire, 0, this.pageSize).subscribe(
+    //   x => {
+    //     if (x.length) {
+    //       this.statusCollection.find(x => x.id == 2).visible = true;
+    //     }
+    //   }
+    // )
 
   }
   supplyItemsGrid = (ListCreditCardExpense: ListCreditCardExpensesDto[], creditCardexpense: CreditCardExpenseDto) => {
@@ -423,55 +428,12 @@ export class ListControlCreditCardExpenses extends BaseList {
       const result = checkPeriod.filter(x =>
         //checkWasPaid
         (this.minValue.getFullYear() == new Date(x.wasPaid.key).getFullYear())
-        &&
-        //checkIsExpires
-        (new Date(this.currentDateWithoutHours) > new Date(new Date(x.expires.key).setHours(0, 0, 0, 0)))
       )
 
       return of(result.slice(currentPage, pageSize))
     }
   }
 
-  isPending(entities: ListCreditCardExpensesDto[], selectedMonth: number, currentPage: number, pageSize: number) {
-
-    if (selectedMonth == -1) {
-      const result = entities.filter(x =>
-        //check Year
-        (this.currentDate.getFullYear() == new Date(x.expires.key).getFullYear())
-        &&
-        //check month
-        (new Date(x.expires.key).getMonth() <= this.currentDate.getMonth())
-      );
-      return of(result.filter(x =>
-        //checkWasPaid
-        (this.minValue.getFullYear() == new Date(x.wasPaid.key).getFullYear())
-        &&
-        //checkIsPendig
-        (new Date(this.currentDateWithoutHours) <= new Date(new Date(x.expires.key).setHours(0, 0, 0, 0)))).slice(currentPage, pageSize))
-    }
-    else {
-
-      const checkPeriod = entities.filter(x =>
-        //check Year
-        (this.currentDate.getFullYear() == new Date(x.expires.key).getFullYear())
-        &&
-        //check month
-        (new Date(x.expires.key).getMonth() == selectedMonth)
-      );
-
-      const result = checkPeriod.filter(x =>
-        //checkWasPaid
-        (this.minValue.getFullYear() == new Date(x.wasPaid.key).getFullYear())
-        &&
-        //checkIsPendig
-        (new Date(this.currentDateWithoutHours) <= new Date(new Date(x.expires.key).setHours(0, 0, 0, 0)))
-
-      )
-
-      return of(result.slice(currentPage, pageSize))
-    }
-
-  }
 
   isPaid(entities: ListCreditCardExpensesDto[], selectedMonth: number, currentPage: number, pageSize: number) {
     if (selectedMonth == -1) {
@@ -484,10 +446,10 @@ export class ListControlCreditCardExpenses extends BaseList {
       );
       return of(result.filter(x =>
         //checkWasPaid
-        (this.minValue.getFullYear() == new Date(x.wasPaid.key).getFullYear())
-        &&
-        //checkIsPendig
-        (new Date(this.currentDateWithoutHours) <= new Date(new Date(x.expires.key).setHours(0, 0, 0, 0)))).slice(currentPage, pageSize))
+        (this.minValue.getFullYear() == new Date(x.wasPaid.key).getFullYear())).slice(currentPage, pageSize))
+        // &&
+        // //checkIsPendig
+        // (new Date(this.currentDateWithoutHours) <= new Date(new Date(x.expires.key).setHours(0, 0, 0, 0)))).slice(currentPage, pageSize))
     }
     else {
       const checkPeriod = entities.filter(x =>
@@ -500,6 +462,108 @@ export class ListControlCreditCardExpenses extends BaseList {
       return of(checkPeriod.filter(x => this.minValue.getFullYear() != new Date(x.wasPaid.key).getFullYear()).slice(currentPage, pageSize))
     }
   }
+  // isExpires(entities: ListCreditCardExpensesDto[], selectedMonth: number, currentPage: number, pageSize: number) {
+  //   if (selectedMonth == -1) {
+  //     const result = entities.filter(x =>
+  //       //check Year
+  //       (this.currentDate.getFullYear() == new Date(x.expires.key).getFullYear())
+  //     );
+  //     return of(result.filter(x =>
+  //       //checkWasPaid
+  //       (this.minValue.getFullYear() == new Date(x.wasPaid.key).getFullYear())
+  //       &&
+  //       //checkIsExpires
+  //       (new Date(this.currentDateWithoutHours) > new Date(new Date(x.expires.key).setHours(0, 0, 0, 0)))).slice(currentPage, pageSize))
+  //   }
+  //   else {
+  //     const checkPeriod = entities.filter(x =>
+  //       //check Year
+  //       (this.currentDate.getFullYear() == new Date(x.expires.key).getFullYear())
+  //       &&
+  //       //check month
+  //       (new Date(x.expires.key).getMonth() == selectedMonth)
+  //     );
+
+  //     const result = checkPeriod.filter(x =>
+  //       //checkWasPaid
+  //       (this.minValue.getFullYear() == new Date(x.wasPaid.key).getFullYear())
+  //       &&
+  //       //checkIsExpires
+  //       (new Date(this.currentDateWithoutHours) > new Date(new Date(x.expires.key).setHours(0, 0, 0, 0)))
+  //     )
+
+  //     return of(result.slice(currentPage, pageSize))
+  //   }
+  // }
+
+  // isPending(entities: ListCreditCardExpensesDto[], selectedMonth: number, currentPage: number, pageSize: number) {
+
+  //   if (selectedMonth == -1) {
+  //     const result = entities.filter(x =>
+  //       //check Year
+  //       (this.currentDate.getFullYear() == new Date(x.expires.key).getFullYear())
+  //       &&
+  //       //check month
+  //       (new Date(x.expires.key).getMonth() <= this.currentDate.getMonth())
+  //     );
+  //     return of(result.filter(x =>
+  //       //checkWasPaid
+  //       (this.minValue.getFullYear() == new Date(x.wasPaid.key).getFullYear())
+  //       &&
+  //       //checkIsPendig
+  //       (new Date(this.currentDateWithoutHours) <= new Date(new Date(x.expires.key).setHours(0, 0, 0, 0)))).slice(currentPage, pageSize))
+  //   }
+  //   else {
+
+  //     const checkPeriod = entities.filter(x =>
+  //       //check Year
+  //       (this.currentDate.getFullYear() == new Date(x.expires.key).getFullYear())
+  //       &&
+  //       //check month
+  //       (new Date(x.expires.key).getMonth() == selectedMonth)
+  //     );
+
+  //     const result = checkPeriod.filter(x =>
+  //       //checkWasPaid
+  //       (this.minValue.getFullYear() == new Date(x.wasPaid.key).getFullYear())
+  //       &&
+  //       //checkIsPendig
+  //       (new Date(this.currentDateWithoutHours) <= new Date(new Date(x.expires.key).setHours(0, 0, 0, 0)))
+
+  //     )
+
+  //     return of(result.slice(currentPage, pageSize))
+  //   }
+
+  // }
+
+  // isPaid(entities: ListCreditCardExpensesDto[], selectedMonth: number, currentPage: number, pageSize: number) {
+  //   if (selectedMonth == -1) {
+  //     const result = entities.filter(x =>
+  //       //check Year
+  //       (this.currentDate.getFullYear() == new Date(x.expires.key).getFullYear())
+  //       &&
+  //       //check month
+  //       (new Date(x.expires.key).getMonth() <= this.currentDate.getMonth())
+  //     );
+  //     return of(result.filter(x =>
+  //       //checkWasPaid
+  //       (this.minValue.getFullYear() == new Date(x.wasPaid.key).getFullYear())).slice(currentPage, pageSize))
+  //       // &&
+  //       // //checkIsPendig
+  //       // (new Date(this.currentDateWithoutHours) <= new Date(new Date(x.expires.key).setHours(0, 0, 0, 0)))).slice(currentPage, pageSize))
+  //   }
+  //   else {
+  //     const checkPeriod = entities.filter(x =>
+  //       //check Year
+  //       (this.currentDate.getFullYear() == new Date(x.expires.key).getFullYear())
+  //       &&
+  //       //check month
+  //       (new Date(x.expires.key).getMonth() == selectedMonth)
+  //     );
+  //     return of(checkPeriod.filter(x => this.minValue.getFullYear() != new Date(x.wasPaid.key).getFullYear()).slice(currentPage, pageSize))
+  //   }
+  // }
 
 }
 

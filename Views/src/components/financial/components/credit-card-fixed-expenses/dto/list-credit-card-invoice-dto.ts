@@ -6,7 +6,6 @@ export class ListCreditCardInvoiceDto {
   companyId: ItemsInterface;
   card: ItemsInterface;
   cardId: ItemsInterface;
-  // bankAccount:ItemsInterface;
   paidFromBankAccountId: ItemsInterface;
   paidFromBankAccount: ItemsInterface;
   price: ItemsInterface;

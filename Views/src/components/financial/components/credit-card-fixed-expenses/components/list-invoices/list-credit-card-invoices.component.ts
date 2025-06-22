@@ -128,8 +128,6 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
 
     const entities: ListCreditCardInvoiceDto[] = [];
 
-
-
     this.listCreditCardExpenseInvoice.forEach(
 
       (y: CreditCardExpenseInvoiceDto) => {

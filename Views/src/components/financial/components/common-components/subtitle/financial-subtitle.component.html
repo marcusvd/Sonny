@@ -1,9 +1,8 @@
 <div>
-
     <div class="w-full grid sm:grid-cols-3 grid-cols-1 items-center justify-center" *ngIf="!hideSubtitle">
         <div class="w-full grid sm:grid-cols-[20px_1fr] grid-cols-1 items-center justify-center gap-4">
             <div>
-                <mat-icon class="text-expired">check</mat-icon>
+                <mat-icon class="text-expired">close</mat-icon>
             </div>
             <div>A pagar</div>
         </div>
@@ -46,10 +45,10 @@
                 <div [class]="status.monthColorNameStyleClasses">
                     {{status.name | uppercase}}
                 </div>
-
                 <mat-icon style="border:1px green solid" [class]="status.classesStyleIcon" *ngIf="status.visible">
-                    check
+                    {{status.icon}}
                 </mat-icon>
+
                 <div *ngFor="let status of statusCollection">
                     <div class="font-bold" *ngIf="status.visible">
                         {{'VENCIMENTO:'}} {{expiresDate | ptBrDate:'Date'}}

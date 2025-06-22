@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatPaginator as MatPaginator,PageEvent as PageEvent } from '@angular/material/paginator';
+import { MatPaginator as MatPaginator, PageEvent as PageEvent } from '@angular/material/paginator';
 import { NavigationExtras, Router } from "@angular/router";
 import * as diacritics from 'diacritics';
 import { Observable } from "rxjs";
@@ -87,7 +87,7 @@ export class BaseList extends BaseForm {
     const entityFieldProperty = field.key;
     const valueType = typeof field.value;
 
-    console.log(field.value)
+    // console.log(valueType)
 
     if (valueType === 'string') {
       if (this.isdescending)
