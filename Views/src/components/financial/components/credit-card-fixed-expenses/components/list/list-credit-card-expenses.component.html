@@ -55,8 +55,11 @@
 
     </div>
     <div body>
-        <financial-subtitle *ngIf="this.entities.length != 0" [singleStatusSubtitle]="true" [expiresDate]="this.entities[0].expires" [statusCollection]="statusCollection" [title]="expensesMonth">
-        </financial-subtitle>
+        <div class="p-2">
+            <financial-subtitle *ngIf="this.entities.length != 0" [hideSubtitle]="true" [expiresDate]="this.entities[0].expires" [statusCollection]="statusCollection" [title]="expensesMonth">
+            </financial-subtitle>
+        </div>
+
 
         <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
 

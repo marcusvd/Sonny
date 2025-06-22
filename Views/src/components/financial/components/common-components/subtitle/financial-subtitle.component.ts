@@ -27,7 +27,7 @@ export class FinancialSubtitleComponent {
   @Input() statusCollection: FinancialSubtitleDto[] = [];
   @Input() title: string = '';
   @Input() defaultSubtitle: boolean = true;
-  @Input() singleStatusSubtitle: boolean = false;
+  @Input({required:true}) hideSubtitle: boolean = true;
   @Input() expiresDate = new Date();
 
 }

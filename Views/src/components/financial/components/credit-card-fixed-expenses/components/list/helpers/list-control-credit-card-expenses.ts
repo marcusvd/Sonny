@@ -206,9 +206,9 @@ export class ListControlCreditCardExpenses extends BaseList {
     //   })
   }
   statusCollection: FinancialSubtitleDto[] = [
-    { id: 1, name: 'Vencida', squareBgColor: "bg-expired", monthColorName: "text-expired", visible: false },
-    { id: 2, name: 'Pendente', squareBgColor: "bg-pendding", monthColorName: "text-pendding", visible: false },
-    { id: 3, name: 'Liquidada', squareBgColor: "bg-paid", monthColorName: "text-paid", visible: false }
+    { id: 1, name: 'A pagar', classesStyleIcon:"!text-[100px] !text-expired !w-[100px] !h-[100px]", monthColorNameStyleClasses: "!text-expired", visible: false },
+    // { id: 2, name: 'Pendente', classStyle: "bg-pendding", monthColorNameStyleClasses: "text-pendding", visible: false },
+    { id: 3, name: 'Pago', classesStyleIcon: "!text-[100px] !text-paid !w-[100px] !h-[100px]", monthColorNameStyleClasses: "!text-paid", visible: false }
   ]
 
 

@@ -95,10 +95,6 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
   // override addUrlRoute: string = '/financial/add-credit-card-expenses';
 
 
-
-
-
-
   monthFilter = new MonthsDto();
   monthHideShowPendingRadio: MonthsDto = new MonthsDto();
   selectedMonth(month: MonthsDto) {
