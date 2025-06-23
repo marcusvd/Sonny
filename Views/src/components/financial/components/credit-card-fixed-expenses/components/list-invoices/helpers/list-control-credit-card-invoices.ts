@@ -119,18 +119,22 @@ export class ListControlCreditCardInvoices extends BaseList {
     switch (field) {
       case 'closingDateView':
         this.entitiesFiltered$ = this.orderByFrontEnd(entities$, { key: 'closingDate', value: new Date() }) as Observable<ListCreditCardInvoiceDto[]>;
+        this.entitiesFiltered$.subscribe(X => console.log(X))
         break;
 
       case 'expiresView':
         this.entitiesFiltered$ = this.orderByFrontEnd(entities$, { key: 'expires', value: new Date() }) as Observable<ListCreditCardInvoiceDto[]>;
+        this.entitiesFiltered$.subscribe(X => console.log(X))
         break;
 
       case 'priceView':
         this.entitiesFiltered$ = this.orderByFrontEnd(entities$, { key: 'price', value: 0 }) as Observable<ListCreditCardInvoiceDto[]>;
+        this.entitiesFiltered$.subscribe(X => console.log(X))
         break;
 
       case 'statusView':
         this.entitiesFiltered$ = this.orderByFrontEnd(entities$, { key: 'status', value: new Date() }) as Observable<ListCreditCardInvoiceDto[]>;
+        this.entitiesFiltered$.subscribe(X => console.log(X))
         break;
     }
     // 'expires': new Date()
@@ -272,7 +276,7 @@ export class ListControlCreditCardInvoices extends BaseList {
         iconClasses: new Date(creditCardexpenseInvoice.wasPaid).getFullYear() == this.minValue.getFullYear() ? 'text-expired' : 'text-paid',
       },
       price: {
-        keyN: Number(creditCardexpenseInvoice.price)
+        keyN: creditCardexpenseInvoice.price,
       },
       status: {
         key: creditCardexpenseInvoice.wasPaid,

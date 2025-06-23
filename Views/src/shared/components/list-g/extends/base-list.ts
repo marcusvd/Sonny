@@ -80,14 +80,13 @@ export class BaseList extends BaseForm {
     return result;
   }
 
-  isdescending = true;
+  isdescending = false;
   orderByFrontEnd(entities$: Observable<any[]>, field: OrderbyInterface) {
     this.isdescending = !this.isdescending;
 
     const entityFieldProperty = field.key;
     const valueType = typeof field.value;
 
-    // console.log(valueType)
 
     if (valueType === 'string') {
       if (this.isdescending)
@@ -99,13 +98,23 @@ export class BaseList extends BaseForm {
     if (valueType === 'number') {
       return entities$.pipe(map(h => h.sort((x, y) => {
         if (this.isdescending) {
-          const numberX: number = this.removeNonNumericAndConvertToNumber(x[entityFieldProperty].key);
-          const numberY: number = this.removeNonNumericAndConvertToNumber(y[entityFieldProperty].key);
+
+          console.log(x);
+
+          const numberX: number = x[entityFieldProperty].keyN;
+          const numberY: number = y[entityFieldProperty].keyN;
+
+          // const numberX: number = this.removeNonNumericAndConvertToNumber(x[entityFieldProperty].key);
+          // const numberY: number = this.removeNonNumericAndConvertToNumber(y[entityFieldProperty].key);
+
           return numberX - numberY;
         }
         else {
-          const numberX: number = this.removeNonNumericAndConvertToNumber(x[entityFieldProperty].key);
-          const numberY: number = this.removeNonNumericAndConvertToNumber(y[entityFieldProperty].key);
+          const numberX: number = x[entityFieldProperty].keyN;
+          const numberY: number = y[entityFieldProperty].keyN;
+          // const numberX: number = this.removeNonNumericAndConvertToNumber(x[entityFieldProperty].key);
+          // const numberY: number = this.removeNonNumericAndConvertToNumber(y[entityFieldProperty].key);
+
           return numberY - numberX;
         }
       })))
