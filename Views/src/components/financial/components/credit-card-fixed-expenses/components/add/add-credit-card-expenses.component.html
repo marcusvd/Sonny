@@ -59,7 +59,7 @@
                     <div class="w-full">
                         <mat-label>Valor à vista</mat-label>
                         <mat-form-field class="w-full" appearance="outline">
-                            <input currencyMask matInput type="text" (keyup)="sumPaymentAtSight()" formControlName="paymentAtSight" aria-label="Valor">
+                            <input currencyMask matInput type="text" (keyup)="this.checkLimitCreditCard()" (keyup)="sumPaymentAtSight()" formControlName="paymentAtSight" aria-label="Valor">
                             <!-- (keyup)="installmentCacl()"  -->
                             <mat-error>
                                 <span>{{validatorMessages.required(formMain,'paymentAtSight', 'Valor total')}}</span>
@@ -69,7 +69,7 @@
                     <div class="w-full" *ngIf="formMain.get('installmentsQuantity').value  > 1">
                         <mat-label>Valor Parcela</mat-label>
                         <mat-form-field class="w-full" appearance="outline">
-                            <input currencyMask matInput type="text" (keyup)="sumQuantityInstallment()" formControlName="installmentPrice" aria-label="Valor">
+                            <input currencyMask matInput type="text" (keyup)="this.checkLimitCreditCard()" (keyup)="sumQuantityInstallment()" formControlName="installmentPrice" aria-label="Valor">
                             <!-- (keyup)="installmentCacl()" -->
                             <mat-error>
                                 <span>{{validatorMessages.required(formMain,'price', '* Obrigatório')}}</span>
@@ -79,7 +79,7 @@
                     <div class="w-full" *ngIf="formMain.get('installmentsQuantity').value == 1">
                         <mat-label>Juros %</mat-label>
                         <mat-form-field class="w-full" appearance="outline">
-                            <input matInput type="text" (keyup)="sumSingleInstallment()" formControlName="totalPercentageInterest" aria-label="Valor">
+                            <input matInput type="text" (keyup)="this.checkLimitCreditCard()" (keyup)="sumSingleInstallment()" formControlName="totalPercentageInterest" aria-label="Valor">
                             <mat-error>
                                 <span>{{validatorMessages.required(formMain,'price', '* Obrigatório')}}</span>
                             </mat-error>
@@ -199,7 +199,7 @@
             </div>
 
 
-            <div style="color: red;" *ngIf="showWarning">{{warningCreditLimit}}</div>
+            <div class="p-4 text-expired font-bold" *ngIf="showWarning">{{warningCreditLimit}}</div>
             <!-- <div>{{formMain.value | json}}</div> -->
 
             <div class="mb-14 align-h-center">

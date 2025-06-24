@@ -15,6 +15,7 @@ import { PayCycleEnumDto } from '../../../common-components/category-subcategory
 import { CreditCardExpenseDto } from '../../dto/credit-card-expense-dto';
 import { AddCreditCardExpensesImports, AddCreditCardExpensesProviders } from '../add/imports/add-credit-card-expenses.imports';
 import { AddCreditCardExpensesService } from './services/add-credit-card-expenses.service';
+import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 
 
 @Component({
@@ -24,7 +25,7 @@ import { AddCreditCardExpensesService } from './services/add-credit-card-expense
   standalone: true,
   imports: [
     AddCreditCardExpensesImports,
-    AddDefaultImports
+    AddDefaultImports,
   ],
   providers: [
     AddCreditCardExpensesProviders,
@@ -186,8 +187,10 @@ export class AddCreditCardExpensesComponent extends BaseForm implements OnInit {
     const expiresDateToDate = new Date(this.selectedCard.expiresDate);
     const expiresDate = new Date(expenseDay.getFullYear(), expenseDay.getMonth(), expiresDateToDate.getDate())
 
-    if (expenseDay <= closingDate)
+    if (expenseDay <= closingDate) {
+      console.log(expiresDate)
       this.firstInstallmentExpires = expiresDate;
+    }
     else
       this.firstInstallmentExpires = new Date(expenseDay.getFullYear(), expenseDay.getMonth() + 1, expiresDateToDate.getDate())
   }

@@ -62,7 +62,9 @@ export const AddDefaultImports: any[] = [
   BtnGComponent,
   MatMenuModule,
   MatRadioModule,
-  RouterModule
+  RouterModule,
+  PtBrDatePipe,
+  PtBrCurrencyPipe
 ]
 export const AddDefaultProviders: any[] = [
   PtBrDatePipe,

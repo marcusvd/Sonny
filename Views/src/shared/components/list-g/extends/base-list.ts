@@ -99,7 +99,7 @@ export class BaseList extends BaseForm {
       return entities$.pipe(map(h => h.sort((x, y) => {
         if (this.isdescending) {
 
-          console.log(x);
+          console.log(x[entityFieldProperty].keyN);
 
           const numberX: number = x[entityFieldProperty].keyN;
           const numberY: number = y[entityFieldProperty].keyN;

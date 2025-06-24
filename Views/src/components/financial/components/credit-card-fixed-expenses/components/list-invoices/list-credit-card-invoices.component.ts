@@ -31,7 +31,8 @@ import { FinancialSubtitleComponent } from '../../../common-components/subtitle/
   imports: [
     ListDefaultImports,
     ListCreditCardExpensesImports,
-    FinancialSubtitleComponent
+    FinancialSubtitleComponent,
+    
   ],
   providers: [
     ListCreditCardExpensesProviders,
