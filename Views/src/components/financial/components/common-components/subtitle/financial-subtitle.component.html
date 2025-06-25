@@ -45,7 +45,8 @@
                 <div [class]="status.monthColorNameStyleClasses">
                     {{status.name | uppercase}}
                 </div>
-                <mat-icon style="border:1px green solid" [class]="status.classesStyleIcon" *ngIf="status.visible">
+
+                <mat-icon [class]="status.classesStyleIcon" *ngIf="status.visible">
                     {{status.icon}}
                 </mat-icon>
 

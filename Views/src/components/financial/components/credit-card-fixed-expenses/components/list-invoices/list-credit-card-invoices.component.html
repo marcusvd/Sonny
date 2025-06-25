@@ -14,8 +14,8 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                    <credit-card-invoices-mat-select-single [urlBackEndApi]="'GetAllCreditCardsOnlyByCompanyId'" (creditCardIdOutput)="getCreditCardIdOutput($event)">
-                    </credit-card-invoices-mat-select-single>
+                    <credit-card-select [urlBackEndApi]="'GetAllCreditCardsOnlyByCompanyId'" (creditCardIdOutput)="getCreditCardIdOutput($event)">
+                    </credit-card-select>
                 </div>
 
                 <div *ngIf="this.showDataBank">

@@ -1,13 +1,16 @@
 import { MonthsSelectComponent } from '../../../../../../../shared/components/months-select/months-select-g.component';
 import { BankCardNumberPipe } from '../../../../../../../shared/pipes/bank-card-number.pipe';
 import { ViewBankAccountComponent } from '../../../../common-components/view-bank-account/view-bank-account.component';
-import { CreditCardInvoicesMatSelectSingleComponent } from '../../credit-card-invoice/credit-card-invoices-mat-select-single.component';
+import { CreditCardSelectComponent } from '../credit-card-select/credit-card-mat-select.component';
+import { FinancialSubtitleComponent } from '../../../../common-components/subtitle/financial-subtitle.component';
 
-export const ListCreditCardExpensesImports: any[] = [
+
+export const ListCreditCardInvoicesImports: any[] = [
   MonthsSelectComponent,
-  CreditCardInvoicesMatSelectSingleComponent,
+  CreditCardSelectComponent,
   ViewBankAccountComponent,
+  FinancialSubtitleComponent
 ]
-export const ListCreditCardExpensesProviders: any[] = [
+export const ListCreditCardInvoicesProviders: any[] = [
   BankCardNumberPipe,
 ]

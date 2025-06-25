@@ -1,26 +1,7 @@
-<!-- <div class="p-4" *ngIf="formMain">
-    <title-component [digit]="'|'" [textTitleComp]="'Pagamento'" [icon]="'payment'">
-
-    </title-component>
-    <div>
-        <div>
-            <mat-card class="mat-card-sub-title">
-                <sub-title title [title]="'Despesa'" [icon]="'payment'"></sub-title>
-
-            </mat-card>
-        </div>
-    </div>
-
-</div> -->
 
 <default-component [formGroup]="formMain" *ngIf="formMain && itemsToView" [digitTitleComp]="'|'" [textTitleComp]="'Fatura cartão de credito'" [textSubTitleComp]="'Pagamento'" [iconSubTitleComp]="'payment'" [hideDivider]="true">
-    <!-- <div class="p-4" btns>
-
-    </div> -->
 
     <div class="p-4" body>
-
-
 
         <mat-card class="p-4 border-card">
 
@@ -44,9 +25,7 @@
         <mat-card class="p-4 border-card ">
             <get-bank-accounts [urlBackEndApi]=" 'GetAllFnBankAccount' " [formMain]="formMain " [bankAccountFormControlName]=" 'paidFromBankAccountId' "></get-bank-accounts>
 
-            <price-interest-fields [formMain]="formMain ">
-            </price-interest-fields>
-
+            <price-interest-fields [formMain]="formMain "> </price-interest-fields>
 
             <div class="align-h-center " *ngIf="!hideDivider ">
                 <mat-divider class="divider-line-categories-comp "></mat-divider>
@@ -56,8 +35,6 @@
         <div class="flex p-4 justify-end ">
             <btn-g [name]=" 'Pagar' " [icon]=" 'payment' " (click)="updateBtn() "></btn-g>
         </div>
-
-
 
         <div>
             <div>{{formMain.value | json}}</div>

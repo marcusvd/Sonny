@@ -1,24 +1,24 @@
 
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { MatSelect, MatSelectChange, MatSelectModule } from '@angular/material/select';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { Observable } from 'rxjs/internal/Observable';
-
-
-import { CardDto } from '../../../../../../components/financial/components/bank-account-cards/dto/card-dto';
-import { environment } from '../../../../../../environments/environment';
-import { BaseForm } from '../../../../../../shared/components/inheritance/forms/base-form';
-import { SpinnerGComponent } from '../../../../../../shared/components/spinner-g/component/spinner-g.component';
-import { BankCardNumberPipe } from '../../../../../../shared/pipes/bank-card-number.pipe';
-import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
-import { CreditCardInvoicesGetService } from './credit-card-invoices-get.service';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
 import { of } from 'rxjs';
+import { CardDto } from '../../../../../../../components/financial/components/bank-account-cards/dto/card-dto';
+import { environment } from '../../../../../../../environments/environment';
+import { BaseForm } from '../../../../../../../shared/components/inheritance/forms/base-form';
+import { SpinnerGComponent } from '../../../../../../../shared/components/spinner-g/component/spinner-g.component';
+import { BankCardNumberPipe } from '../../../../../../../shared/pipes/bank-card-number.pipe';
+import { BankAccountDto } from '../../../../bank-account-cards/dto/bank-account-dto';
+import { GetCreditCardService } from './get-credit-card.service';
 
 @Component({
-  selector: 'credit-card-invoices-mat-select-single',
+  selector: 'credit-card-select',
   standalone: true,
   imports: [
     CommonModule,
@@ -30,11 +30,11 @@ import { of } from 'rxjs';
     BankCardNumberPipe,
     SpinnerGComponent
   ],
-  templateUrl: './credit-card-invoices-mat-select-single.component.html',
-  styleUrls: ['./credit-card-invoices-mat-select-single.component.scss'],
-  providers: [CreditCardInvoicesGetService],
+  templateUrl: './credit-card-select.component.html',
+  styleUrls: ['./credit-card-select.component.scss'],
+  providers: [GetCreditCardService],
 })
-export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm implements OnInit {
+export class CreditCardSelectComponent extends BaseForm implements OnInit {
 
   @Input() urlBackEndApi: string = '';
   @Output() creditCardIdOutput = new EventEmitter<CardDto>();
@@ -45,7 +45,7 @@ export class CreditCardInvoicesMatSelectSingleComponent extends BaseForm impleme
   spinner = false
 
   constructor(
-    private _creditCardInvoiceGetService: CreditCardInvoicesGetService,
+    private _creditCardInvoiceGetService: GetCreditCardService,
     private _fb: FormBuilder
   ) { super() }
 

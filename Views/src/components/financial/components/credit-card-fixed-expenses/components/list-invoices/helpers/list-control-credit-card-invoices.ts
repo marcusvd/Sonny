@@ -199,27 +199,7 @@ export class ListControlCreditCardInvoices extends BaseList {
     this._ptBrDatePipe,
     this._ptBrCurrencyPipe,
   );
-
-
-
-  deleteFake = (id: number) => {
-    //   const entity = this.entities.find(x => x.id.key == id.toString());
-
-    //   const result = this._deleteServices.delete(parseInt(entity.id.key), entity.name.key)
-    //  // const result = this._deleteServices.delete(this.entities.find(x => x.id.key == id.toString()))
-
-    //   result.subscribe(result => {
-    //     if (result.id != null) {
-    //       this._listCreditCardInvoicesService.deleteFakeDisable(result.id.key);
-
-    //       this.entitiesFiltered$ = this.entitiesFiltered$.pipe(
-    //         map(x => x.filter(y => y.id.key != result.id.key.toString()))
-    //       )
-    //     }
-
-    //   })
-  }
-
+  
   supplyItemsGrid = (listCreditCardExpenseInvoice: ListCreditCardInvoiceDto[], creditCardexpenseInvoice: CreditCardExpenseInvoiceDto) => {
 
     const items: ListCreditCardInvoiceDto = new ListCreditCardInvoiceDto();
@@ -230,9 +210,8 @@ export class ListControlCreditCardInvoices extends BaseList {
         key: creditCardexpenseInvoice.id,
         display: 'icons',
         icons: ['list|margin-right:10px;', 'edit|'],
-        styleInsideCell: `color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,
-        styleCell: 'max-width:100px;',
-        route: ''
+       styleInsideCell: `max-width:30px; color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,
+         styleCell: 'max-width:30px; display:flex; justify-content: center;',
       },
 
       description: {
@@ -280,4 +259,3 @@ export class ListControlCreditCardInvoices extends BaseList {
   }
 
 }
-

@@ -12,7 +12,7 @@ import { DeleteServices } from '../../../../../../shared/components/delete-dialo
 import { PtBrCurrencyPipe } from '../../../../../../shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from '../../../../../../shared/pipes/pt-br-date.pipe';
 import { ListControlCreditCardInvoices } from '../../../credit-card-fixed-expenses/components/list-invoices/helpers/list-control-credit-card-invoices';
-import { ListCreditCardExpensesImports, ListCreditCardExpensesProviders } from '../list/imports/list-credit-card-expenses.imports';
+import { ListCreditCardInvoicesImports, ListCreditCardInvoicesProviders } from '../list-invoices/imports/list-credit-card-invoices.imports';
 import { ListCreditCardInvoicesService } from './services/list-credit-card-invoices.service';
 
 
@@ -23,10 +23,10 @@ import { ListCreditCardInvoicesService } from './services/list-credit-card-invoi
   standalone: true,
   imports: [
     ListDefaultImports,
-    ListCreditCardExpensesImports,
+    ListCreditCardInvoicesImports,
   ],
   providers: [
-    ListCreditCardExpensesProviders,
+    ListCreditCardInvoicesProviders,
     ListDefaultProviders
   ]
 

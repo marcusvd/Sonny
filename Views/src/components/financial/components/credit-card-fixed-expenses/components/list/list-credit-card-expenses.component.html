@@ -1,68 +1,17 @@
-<!-- <div class="border-around" *ngIf="this.entities">
-    <title-component [digit]="'|'" [textTitleComp]="'Cartão de Crédito'" [icon]="'attach_money'"></title-component>
-    <div>
-        <div>
-
-            <mat-card class="mat-card-sub-title">
-                <grid-list-common>
-                    <sub-title title [title]="'Fatura ' +expensesMonth" [icon]="'list'"></sub-title>
-                    <div search-filter>
-
-                        <div>
-
-                            <div>
-                                <div>
-                                    <grid-list-common-search [searchName]="'Busca'" [Input]="100" (queryFieldOutput)="queryFieldOutput($event)"></grid-list-common-search>
-                                    <financial-subtitle *ngIf="this.entities.length != 0" [singleStatusSubtitle]="true" [expiresDate]="this.entities[0].expires" [statusCollection]="statusCollection" [title]="expensesMonth">
-                                    </financial-subtitle>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div search-filter id="space-components">
-
-                    </div>
-                    <div search-pagination>
-                        <div>
-                        </div>
-                        <br>
-                        <mat-paginator #paginatorAbove [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
-                        <br>
-                    </div>
-                    <grid-list-common-table body-table [statusShow]="false" [matIcons]="{deleteEmpty:'empty', editEmpty:'empty',visibility:'Detalhes' }" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" (getColumnEntityName)="orderBy($event)"
-                        (getEntityOut)="getEntity($event, 'fixedExpenses')" (toPayOut)="pay.toPay($event)">
-                    </grid-list-common-table>
-                    <div pagination-below>
-                        <div class="mat-paginator-above-margin">
-                        </div>
-                        <div>
-                            <div>
-                            </div>
-                            <mat-paginator pagination-below #paginatorBelow [length]="this.gridListCommonHelper.lengthPaginator.getValue()" [pageSize]="pageSize" (page)="onPageChange($event)"></mat-paginator>
-                        </div>
-                        <div class="mat-paginator-below-margin">
-
-                        </div>
-                    </div>
-                </grid-list-common>
-            </mat-card>
-        </div>
-    </div>
-</div> -->
-
-<default-component [digitTitleComp]="'|'" [hideDivider]="true" [textTitleComp]="'Cartão de Crédito'" [textSubTitleComp]="'FATURA - ' + expensesMonth" [iconSubTitleComp]="'list'">
+<default-component [digitTitleComp]="'|'" [hideDivider]="true" [textTitleComp]="'Cartão de Crédito'"
+    [textSubTitleComp]="'FATURA - ' + expensesMonth" [iconSubTitleComp]="'list'">
     <div btns>
 
     </div>
     <div body>
         <div class="p-2">
-            <financial-subtitle [hideSubtitle]="true" [expiresDate]="this.entities[0]?.expires?.key" [statusCollection]="statusCollection" [title]="expensesMonth">
+            <financial-subtitle [hideSubtitle]="true" [expiresDate]="this.entities[0]?.expires?.key"
+                [statusCollection]="statusCollection" [title]="expensesMonth">
             </financial-subtitle>
         </div>
-
-
-        <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
-
+        <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$"
+            (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)"
+            (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
         </list-g>
     </div>
 </default-component>
