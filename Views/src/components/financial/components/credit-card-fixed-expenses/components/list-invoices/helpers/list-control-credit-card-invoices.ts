@@ -2,34 +2,43 @@
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+
+
 import { BaseList } from '../../../../../../../../src/shared/components/list-g/extends/base-list';
 import { ListGDataService } from '../../../../../../../../src/shared/components/list-g/list/data/list-g-data.service';
 import { OnClickInterface } from '../../../../../../../../src/shared/components/list-g/list/interfaces/on-click-interface';
 import { ListCreditCardInvoiceDto } from '../../../../credit-card-fixed-expenses/dto/list-credit-card-invoice-dto';
 import { ListCreditCardInvoicesService } from '../services/list-credit-card-invoices.service';
-
-import { MatDialog } from '@angular/material/dialog';
 import { CardDto } from 'src/components/financial/components/bank-account-cards/dto/card-dto';
 import { DeleteServices } from '../../../../../../../shared/components/delete-dialog/services/delete.services';
 import { PtBrCurrencyPipe } from '../../../../../../../shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from '../../../../../../../shared/pipes/pt-br-date.pipe';
 import { CreditCardExpenseInvoiceDto } from '../dto/credit-card-expense-invoice-dto';
 import { TriggerCreditCardsInvoices } from '../trigger-credit-cards-invoices';
-
-
+import { ex_month, MonthsDto } from 'src/shared/components/months-select/months-dto';
+import { BankAccountDto } from 'src/components/financial/components/bank-account-cards/dto/bank-account-dto';
 
 export class ListControlCreditCardInvoices extends BaseList {
 
   entities$: Observable<ListCreditCardInvoiceDto[]>;
-  entities: ListCreditCardInvoiceDto[] = [];
   entitiesFiltered$: Observable<ListCreditCardInvoiceDto[]>;
+
+  entities: ListCreditCardInvoiceDto[] = [];
   entitiesFiltered: ListCreditCardInvoiceDto[] = [];
+
+  bankAccount: BankAccountDto = null;
+  showDataBank: boolean = false;
+
+  listCreditCardExpenseInvoice: CreditCardExpenseInvoiceDto[] = [];
   creditCard!: CardDto;
+
+  monthFilter = new MonthsDto();
+  monthHideShowPendingRadio: MonthsDto = new MonthsDto();
+
   length = 0;
   showHideFilter = false;
-  term: string;
-  // controllerUrl: string = environment._CUSTOMERS.split('/')[4];
-  // backEndUrl: string = `${this.controllerUrl}/GetAllCustomersPagedAsync`;
+  cardNick: string = '';
 
   constructor(
     override _router: Router,
@@ -45,7 +54,6 @@ export class ListControlCreditCardInvoices extends BaseList {
       _router,
     )
   }
-
 
   labelHeaders = () => {
     return [
@@ -67,29 +75,25 @@ export class ListControlCreditCardInvoices extends BaseList {
     ]
   }
 
-  // onPageChange($event: PageEvent) {
+  selectedMonth(month: MonthsDto) {
+    this.monthFilter = null;
+    this.monthFilter = month;
+    this.monthHideShowPendingRadio = month;
 
-  //   if ($event.previousPageIndex < $event.pageIndex)
-  //     this.entitiesFiltered$ = of(this.pageChange(this.entitiesFiltered, $event))
+    if (this.monthFilter.id != -1)
+      this.entitiesFiltered$ = this.onSelectedMonth(this.entities, this.monthFilter.id, 'expires');
 
-  //   else if ($event.previousPageIndex > $event.pageIndex)
-  //     this.entitiesFiltered$ = of(this.pageChange(this.entitiesFiltered, $event))
 
-  //   if (this.term) {
-  //     this.entitiesFiltered$ = of(this.pageChange(this.searchListEntities(this.entitiesFiltered, this.term), $event))
-  //     this.length = this.searchListEntities(this.entitiesFiltered, this.term).length
-  //   }
-
-  // }
+    if (this.monthFilter.id == -1)
+      this.entitiesFiltered$ = this.onSelectedMonth(this.entities, this.monthFilter.id, 'expires');
+  }
 
   onSelectedMonth(entities: any[], selectedMonth: number, field: string) {
     let result;
 
     if (selectedMonth != -1) {
 
-      result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field].key).getFullYear() && new Date(x[field].key).getMonth() == selectedMonth)
-
-      // this.gridListCommonHelper.lengthPaginator.next(result.length)
+      result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field].key).getFullYear() && new Date(x[field].key).getMonth() == selectedMonth);
 
       const ordered = this.arrayOrderByDate(result, field)
 
@@ -98,10 +102,7 @@ export class ListControlCreditCardInvoices extends BaseList {
 
     if (selectedMonth == -1) {
 
-      result = entities.filter(x =>
-        this.currentDate.getFullYear() == new Date(x[field].key).getFullYear())
-
-      // this.gridListCommonHelper.lengthPaginator.next(result.length)
+      result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field].key).getFullYear());
 
       const ordered = this.arrayOrderByDate(result, field)
 
@@ -137,31 +138,50 @@ export class ListControlCreditCardInvoices extends BaseList {
         this.entitiesFiltered$.subscribe(X => console.log(X))
         break;
     }
-    // 'expires': new Date()
-  }
-
-  onClickButton(field: string) {
-    console.log(field)
   }
 
   onClickIcons(obj: OnClickInterface) {
 
-
-
     if (obj.action.split('|')[0] == 'close')
       this.getEntityTopay(obj.entityId, this.creditCard);
-
 
     if (obj.action.split('|')[0] == 'list') {
       this.callRouter(`/financial/list-credit-card-expenses/${obj.entityId}`);
     }
 
-    // if (obj.action.split('|')[0] == 'delete')
-    //   this.deleteFake(obj.entityId);
+  }
+
+  getCreditCardIdOutput(creditCard: CardDto) {
+    //O erro de ter que clicar duas vezes para conseguir acessar qualquer outra rota pelos icones seja o de pagar ou o de detalhes etc... esta ligado a o codigo dessa função
+    //era a linha de baixo,porem substituida por codigos mais abaixo dessa linha abaixo o error persiste.
+
+    this.creditCard = creditCard;
+
+    this.listCreditCardExpenseInvoice = creditCard.creditCardExpensesInvoices.filter(x => x.cardId == creditCard.id);
+
+    const entities: ListCreditCardInvoiceDto[] = [];
+
+    this.listCreditCardExpenseInvoice.forEach(
+
+      (y: CreditCardExpenseInvoiceDto) => {
+        this.entities = this.supplyItemsGrid(entities, y);
+        this.entities$ = of(this.entities);
+        this.entitiesFiltered$ = this.entities$
+        this.length = this.listCreditCardExpenseInvoice.length;
+      })
+
+    this.showDataBank = true;
+
+    this.bankAccount = creditCard.bankAccount;
+
+    const monthFilter = ex_month(new Date().getMonth());
+
+    this.selectedMonth(monthFilter);
+
+    this.cardNick = creditCard.description;
 
   }
 
-  listCreditCardExpenseInvoice: CreditCardExpenseInvoiceDto[] = [];
   getEntityTopay(entityId: number, creditCard: CardDto) {
 
     const invoice = this.listCreditCardExpenseInvoice.find(x => x.id == entityId);
@@ -180,36 +200,7 @@ export class ListControlCreditCardInvoices extends BaseList {
     this._ptBrCurrencyPipe,
   );
 
-  // ['',
-  //   'Descrição',
-  //   'Compras até:',
-  //   'Vencimento',
-  //   'Preço',],
-  // ['description',
-  //   'closingDate',
-  //   'expiresView',
-  //   'price']
 
-  // makeGridItems(xy: CreditCardExpenseInvoiceDto) {
-  //   console.log(xy)
-  //   const viewDto = new ListCreditCardInvoiceDto;
-  //   viewDto.id = xy.id;
-  //   const wasPaid: Date = new Date(xy.wasPaid);
-  //   const expires: Date = new Date(xy.expires);
-  //   viewDto.wasPaid = xy.wasPaid;
-  //   viewDto.userId = xy.userId.toString();
-
-  //   const monthName = this.months[expires.getMonth()].name;
-  //   viewDto.description = monthName.toUpperCase();
-  //   viewDto.closingDate = this._ptBrDatePipe.transform(xy.closingDate, 'Date');
-  //   viewDto.closingDateBusinessRule = new Date(xy.closingDate);
-  //   viewDto.expires = xy.expires;
-  //   viewDto.expiresView = this._ptBrDatePipe.transform(xy.expires, 'Date');
-  //   viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
-  //   viewDto.interest = xy.interest.toString();
-
-  //   return viewDto;
-  // }
 
   deleteFake = (id: number) => {
     //   const entity = this.entities.find(x => x.id.key == id.toString());
@@ -232,7 +223,7 @@ export class ListControlCreditCardInvoices extends BaseList {
   supplyItemsGrid = (listCreditCardExpenseInvoice: ListCreditCardInvoiceDto[], creditCardexpenseInvoice: CreditCardExpenseInvoiceDto) => {
 
     const items: ListCreditCardInvoiceDto = new ListCreditCardInvoiceDto();
-    //ListCreditCardExpenseInvoice = [];
+
     Object.assign(items, {
 
       id: {
@@ -288,99 +279,5 @@ export class ListControlCreditCardInvoices extends BaseList {
     return listCreditCardExpenseInvoice;
   }
 
-  // startSupply(url: string, cardId: string): Subscription {
-
-  //   let entities: ListCreditCardInvoiceDto[] = [];
-
-  //   return this._listGDataService?.getAllEntitiesInMemoryPaged$(url, cardId).pipe(
-  //     map((x: CreditCardExpenseInvoiceDto[]) => {
-
-  //       this.listCreditCardExpenseInvoice = x;
-
-  //       if (x.length <= 0) {
-  //         entities = [];
-  //         this.entities = [];
-  //         this.entities$ = of([]);
-  //         this.entitiesFiltered$ = of([]);
-  //         this.length = 0;
-  //       }
-
-  //       entities = [];
-  //       this.entities = [];
-  //       this.entities$ = of([]);
-
-  //       x.forEach(
-
-  //         (y: CreditCardExpenseInvoiceDto) => {
-  //           this.entities = this.supplyItemsGrid(entities, y);
-  //           this.entities$ = of(this.entities);
-  //           // this.entities$.subscribe(console.log)
-  //           this.entitiesFiltered$ = this.entities$
-  //           this.length = x.length;
-  //           this.getCurrentPagedInFrontEnd(this.entities, 0, this.pageSize, 'expires', false);
-  //         })
-  //     })).subscribe();
-
-
-  //   // return this._listGDataService?.entities$.subscribe(
-  //   //   {
-  //   //     next: (x: CreditCardExpenseInvoiceDto[]) => {
-
-  //   //       if (x.length > 0)
-  //   //         console.log('Maior')
-
-
-
-  //   //       x.forEach(
-  //   //         (y: CreditCardExpenseInvoiceDto) => {
-  //   //           // console.log(y)
-  //   //           this.entities = this.supplyItemsGrid(entities, y);
-  //   //           this.entities$ = of(this.entities);
-  //   //           this.entitiesFiltered$ = this.entities$
-  //   //         })
-
-  //   //       // this.getCurrent();
-  //   //     }
-  //   //   }
-  //   // )
-
-
-  // }
-
-
-
-  getCurrentPagedInFrontEnd(entities: any[], currentPage: number, pageSize: number, field: string, withPagination: boolean) {
-    this.entitiesFiltered$ = this.current(entities,
-      currentPage,
-      pageSize,
-      field,
-      withPagination);
-  }
-
-  current(entities: any[], currentPage: number, pageSize: number, field: string, withPagination: boolean) {
-    let result: any[] = null;
-
-    // entities.filter(x => console.log(new Date(x[field].key).getFullYear()))
-    // console.log(this.currentDate.getFullYear())
-
-    return of(entities.filter(x => this.currentDate.getFullYear() == new Date(x[field].key).getFullYear()
-      && new Date(x[field].key).getMonth() == (this.currentDate.getMonth())));
-
-    // if (withPagination) {
-    //   result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field].key).getFullYear()
-    //     && new Date(x[field].key).getMonth() == (this.currentDate.getMonth() + 1))
-    //   return of(result);
-    // }
-    // else {
-    //   result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field].key).getFullYear()
-    //     && new Date(x[field].key).getMonth() == (this.currentDate.getMonth() + 1))
-    //     .slice(currentPage, pageSize)
-    // }
-    // return of(result)
-  }
-
-  getCurrent = () => {
-    this.entitiesFiltered$ = of(this.entities.slice(0, this.pageSize));
-  }
 }
 

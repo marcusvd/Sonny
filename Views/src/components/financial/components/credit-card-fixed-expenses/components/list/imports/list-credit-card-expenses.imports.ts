@@ -11,6 +11,7 @@ export const ListCreditCardExpensesImports: any[] = [
   FinancialSubtitleComponent,
   CreditCardInvoicesMatSelectSingleComponent,
   ViewBankAccountComponent,
+  FinancialSubtitleComponent
 ]
 export const ListCreditCardExpensesProviders: any[] = [
   ListCreditCardExpensesService

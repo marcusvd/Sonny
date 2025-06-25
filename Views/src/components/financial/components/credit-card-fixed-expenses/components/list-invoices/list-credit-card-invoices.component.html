@@ -1,82 +1,3 @@
-<!-- <div class="p-4">
-    <title-component [digit]="'|'" [textTitleComp]="'Cartão de Crédito'"></title-component>
-    <div>
-
-        <div>
-            <mat-card class="border-radius-none">
-
-                <grid-list-common>
-                    <sub-title title [title]="'Faturas Cartões de credito.'" [icon]="'list'"></sub-title>
-                    <div search-filter>
-
-                        <mat-card class="p-4 m-4 border-card-categories-divide-comp">
-
-                            <div *ngIf="!this.showDataBank" class="title-categories-divide-comp">{{'Selecione um cartão de crédito'}}</div>
-
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div>
-
-                                    <credit-card-invoices-mat-select-single [urlBackEndApi]="'GetAllCreditCardsOnlyByCompanyId'" (creditCardIdOutput)="getCreditCardIdOutput($event)">
-                                    </credit-card-invoices-mat-select-single>
-
-                                </div>
-                                <div *ngIf="this.showDataBank">
-                                    <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="false" [changeSelection]="monthFilter" (sendSelected)="selectedMonth($event)">
-                                    </months-select>
-                                </div>
-                            </div>
-
-
-
-                            <div *ngIf="showDataBank">
-                                <view-bank-account [bankAccount]="bankAccount">
-                                </view-bank-account>
-                            </div>
-                        </mat-card>
-
-
-                        <div>
-                            <div class="p-4">
-                                <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
-                            </div>
-
-
-
-                        </div>
-                        <br>
-                    </div>
-
-
-                    <div search-filter id="space-components">
-
-                    </div>
-
-
-
-                    <grid-list-common-table *ngIf="this.showDataBank" body-table [statusShow]="false" [fieldsInEnglish]="fieldsInEnglish" [entities$]="entities$" [headers]="headers" [matIcons]="{visibility:'Detalhes', deleteEmpty:'empty', editEmpty:'empty',format_list_numbered:'Itens Filhos' }"
-                        (getEntityOut)="getEntity($event, 'fixedExpenses')" (toPayOut)="getEntityTopay($event)" (getColumnEntityName)="orderBy($event)">
-                    </grid-list-common-table>
-
-                </grid-list-common>
-            </mat-card>
-        </div>
-    </div>
-</div> -->
-
-
-<!-- <div class="p-4">
-    <title-component [digit]="'|'" [textTitleComp]="'Cartão de Crédito'"></title-component>
-    <div>
-        <mat-card class="border-radius-none">
-            <sub-title title [title]="'Faturas Cartões de credito.'" [icon]="'list'"></sub-title>
-
-
-
-        </mat-card>
-    </div>
-
-</div> -->
-
 <default-component [digitTitleComp]="'|'" [hideDivider]="true" [textTitleComp]="'Cartão de crédito'" [textSubTitleComp]="'Faturas cartão de crédito'" [iconSubTitleComp]="'add'">
     <div btns>
 
@@ -87,14 +8,7 @@
             <financial-subtitle [hideSubtitle]="false">
             </financial-subtitle>
         </div>
-
-
-
-
-
         <mat-card class="p-4 m-4 border-card-categories-divide-comp">
-
-
             <div *ngIf="!this.showDataBank" class="title-categories-divide-comp">{{'Selecione um cartão de crédito'}}
             </div>
 
@@ -116,18 +30,12 @@
             </div>
         </mat-card>
 
-
-
         <div class="p-4">
             <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="callRouter('/financial/add-credit-card-expenses')"></btn-g>
         </div>
 
-
-        <list-g *ngIf="(entitiesFiltered$ | async)?.length > 0" [hidePaginator]="true" [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)"
+        <list-g *ngIf="(entitiesFiltered$ | async)?.length > 0" [hidePaginator]="true" [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)"
             (outOnClickIcons)="onClickIcons($event)">
         </list-g>
-        <!-- <div class="p-4 flex justify-center" *ngIf="length <= 0">
-            <div>{{'Nenhum registro encontrado!'}}</div>
-        </div> -->
     </div>
 </default-component>
