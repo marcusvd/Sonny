@@ -12,7 +12,6 @@
                     <mat-label>Local despesa</mat-label>
                     <mat-form-field class="w-full" appearance="outline">
                         <input matInput type="text" formControlName="name" aria-label="Nome">
-                        <!-- <mat-hint>EX: Seguro Casa, Seguro Escritório, Luz residência, Internet loja etc...</mat-hint> -->
                         <mat-error>
                             <span>{{validatorMessages.required(formMain,'name', '* Obrigatório')}}</span>
                             <span>{{validatorMessages.minMaxLength(formMain,'name', '* Obrigatório',null,150)}}</span>
@@ -52,15 +51,12 @@
                 <mat-divider class="divider-line-categories-comp"></mat-divider>
             </div>
 
-
-            <!--  -->
             <mat-card class="border-card-categories-divide-comp">
                 <div class="p-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div class="w-full">
                         <mat-label>Valor à vista</mat-label>
                         <mat-form-field class="w-full" appearance="outline">
                             <input currencyMask matInput type="text" (keyup)="this.checkLimitCreditCard()" (keyup)="sumPaymentAtSight()" formControlName="paymentAtSight" aria-label="Valor">
-                            <!-- (keyup)="installmentCacl()"  -->
                             <mat-error>
                                 <span>{{validatorMessages.required(formMain,'paymentAtSight', 'Valor total')}}</span>
                             </mat-error>
@@ -70,7 +66,6 @@
                         <mat-label>Valor Parcela</mat-label>
                         <mat-form-field class="w-full" appearance="outline">
                             <input currencyMask matInput type="text" (keyup)="this.checkLimitCreditCard()" (keyup)="sumQuantityInstallment()" formControlName="installmentPrice" aria-label="Valor">
-                            <!-- (keyup)="installmentCacl()" -->
                             <mat-error>
                                 <span>{{validatorMessages.required(formMain,'price', '* Obrigatório')}}</span>
                             </mat-error>
@@ -95,9 +90,6 @@
                         </mat-form-field>
                     </div>
                 </div>
-
-
-                <!--  -->
 
                 <div class="w-full pr-4 pl-4 pb-4 grid sm:grid-cols-3 grid-cols-1 grid-row-3 gap-4" *ngIf="formMain.get('price').value || formMain.get('totalPriceInterest').value > 0">
                     <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center">
@@ -134,24 +126,18 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div>
-                <mat-label *ngIf="formMain.get('installmentsQuantity').value > 1">{{'Vencimento primeira parcela:'}}
-                </mat-label>
-                <mat-label *ngIf="formMain.get('installmentsQuantity').value == 1">{{'Vencimento:'}}</mat-label>
-                <mat-label>{{firstInstallmentExpires | ptBrDate:'Date'}}</mat-label>
-            </div> -->
+
                 <div class="w-full pr-4 pl-4 pb-4 grid sm:grid-cols-2 grid-cols-1 grid-row-2 gap-4">
                     <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center" *ngIf="installmentPayment">
                         <div>
                             <p class="pipe-title"> <span>|</span></p>
                         </div>
                         <div>
-                            <!-- <p>Montante:</p> -->
+
                             <mat-label>{{'Vencimento primeira parcela:'}}
                             </mat-label>
                         </div>
                         <div>
-                            <!-- <p class="text-red-600">{{priceToPaidView | ptBrCurrency}}</p> -->
                             <mat-label>{{firstInstallmentExpires | ptBrDate:'Date'}}</mat-label>
                         </div>
                     </div>
@@ -160,11 +146,9 @@
                             <p class="pipe-title"> <span>|</span></p>
                         </div>
                         <div>
-                            <!-- <p>Juros:</p> -->
                             <mat-label>{{'Vencimento:'}}</mat-label>
                         </div>
                         <div>
-                            <!-- <p class="text-red-600">{{totalPriceInterestView | ptBrCurrency}}</p> -->
                             <mat-label>{{firstInstallmentExpires | ptBrDate:'Date'}}</mat-label>
                         </div>
                     </div>
@@ -197,19 +181,10 @@
                     </mat-form-field>
                 </div>
             </div>
-
-
             <div class="p-4 text-expired font-bold" *ngIf="showWarning">{{warningCreditLimit}}</div>
-            <!-- <div>{{formMain.value | json}}</div> -->
-
             <div class="mb-14 align-h-center">
                 <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
             </div>
-
-            <!-- <div>
-            <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()" [enableDisable]="saveBtnEnabledDisabled"></btn-g>
-        </div> -->
-
         </div>
     </div>
 </default-component>

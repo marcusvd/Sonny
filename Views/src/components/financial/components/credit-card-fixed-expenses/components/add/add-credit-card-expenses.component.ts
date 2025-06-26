@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 
-import { CategoryExpensesService } from '../../../../../../components/financial/services/category-expenses.service';
 import { AddDefaultImports, AddDefaultProviders } from '../../../../../../components/imports/components-default.imports';
 import { BaseForm } from '../../../../../../shared/components/inheritance/forms/base-form';
-import { ToolTips } from '../../../../../../shared/services/messages/snack-bar.service';
 import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
 import { CardDto } from '../../../bank-account-cards/dto/card-dto';
 import { TypeCardDtoEnum } from '../../../bank-account-cards/dto/enums/type-card-dto.enum';
@@ -15,7 +12,6 @@ import { PayCycleEnumDto } from '../../../common-components/category-subcategory
 import { CreditCardExpenseDto } from '../../dto/credit-card-expense-dto';
 import { AddCreditCardExpensesImports, AddCreditCardExpensesProviders } from '../add/imports/add-credit-card-expenses.imports';
 import { AddCreditCardExpensesService } from './services/add-credit-card-expenses.service';
-import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 
 
 @Component({
@@ -35,19 +31,31 @@ import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
 
 export class AddCreditCardExpensesComponent extends BaseForm implements OnInit {
 
-  constructor(
-    private _fb: FormBuilder,
-    private _router: Router,
-    private _dialog: MatDialog,
-    private _expensesService: AddCreditCardExpensesService,
-    private _fillersService: CategoryExpensesService,
-
-
-  ) { super() }
+  priceToPaidView = 0;
+  totalPriceInterestView = 0;
+  percentageInterestView = 0;
 
   payCycle = PayCycleEnumDto.Month;
   payCycle2 = PayCycleEnumDto.Variable;
+
+  
   typeCardToDisable = TypeCardDtoEnum.Debit;
+  selectedCard = new CardDto();
+
+  firstInstallmentExpires = new Date();
+  bankAccount = new BankAccountDto();
+  warningCreditLimit: string = "O limite do crédito foi excedido.";
+  showWarning: boolean = false;
+
+  constructor(
+    private _fb: FormBuilder,
+    private _router: Router,
+    private _expensesService: AddCreditCardExpensesService,
+  ) { super() }
+
+  ngOnInit(): void {
+    this.formLoad();
+  }
 
   get getExpenseDay() {
     return this.formMain.get('expenseDay').value
@@ -59,18 +67,6 @@ export class AddCreditCardExpensesComponent extends BaseForm implements OnInit {
   get installmentPayment() {
     return this.formMain.get('installmentsQuantity').value > 1;
   }
-
-
-  private toolTipsMessages = ToolTips;
-  get matTooltip() {
-    return this.toolTipsMessages
-  }
-
-  priceToPaidView = 0;
-  totalPriceInterestView = 0;
-  percentageInterestView = 0;
-
-
 
   sumQuantityInstallment() {
 
@@ -148,8 +144,6 @@ export class AddCreditCardExpensesComponent extends BaseForm implements OnInit {
       this.priceInterest(priceInterest);
       this.priceInstallment(amountPrice);
     }
-
-
   }
 
   amount(amountPrice: number) {
@@ -166,6 +160,7 @@ export class AddCreditCardExpensesComponent extends BaseForm implements OnInit {
     this.setFormFieldValue(this.formMain, 'totalPriceInterest', priceInterest);
     this.totalPriceInterestView = priceInterest;
   }
+
   priceInstallment(priceInstallment: number) {
     this.setFormFieldValue(this.formMain, 'installmentPrice', priceInstallment);
   }
@@ -174,12 +169,10 @@ export class AddCreditCardExpensesComponent extends BaseForm implements OnInit {
     this._router.navigateByUrl('/financial/category-expenses-add-edit')
   }
 
-  selectedCard = new CardDto();
   selectedCreditCard(cardId: number) {
     this.selectedCard = this.bankAccount?.cards.find(x => x.id == cardId);
   }
 
-  firstInstallmentExpires = new Date();
   onDateChanged() {
     const expenseDay = new Date(this.formMain.get('expenseDay').value)
     const closingDate = new Date(expenseDay.getFullYear(), expenseDay.getMonth(), new Date(this.selectedCard.closingDate).getDate())
@@ -195,16 +188,11 @@ export class AddCreditCardExpensesComponent extends BaseForm implements OnInit {
       this.firstInstallmentExpires = new Date(expenseDay.getFullYear(), expenseDay.getMonth() + 1, expiresDateToDate.getDate())
   }
 
-
-  bankAccount = new BankAccountDto();
   onSelectedBanckAccountelected(bankAccount: BankAccountDto) {
     console.log(bankAccount)
     this.bankAccount = bankAccount;
   }
 
-
-  warningCreditLimit: string = "O limite do crédito foi excedido.";
-  showWarning: boolean = false;
   checkLimitCreditCard() {
 
     const cardLimit = this.selectedCard.creditLimit;
@@ -262,11 +250,6 @@ export class AddCreditCardExpensesComponent extends BaseForm implements OnInit {
       price: [x?.price || 0, [Validators.required]],
       description: [x?.description || '', []],
     })
-  }
-
-  ngOnInit(): void {
-    this.formLoad();
-
   }
 
 }

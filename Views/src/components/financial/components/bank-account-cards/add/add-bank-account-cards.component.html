@@ -1,13 +1,3 @@
-<!-- <div class="p-4">
-    <title-component [digit]="'|'" [textTitleComp]="'Cadastro de contas e cartões'" [icon]="'attach_money'">
-    </title-component>
-    <mat-card class="border-radius-none">
-        <sub-title [title]="institutionName" [icon]="'add'"></sub-title>
-
-    </mat-card>
-</div> -->
-
-
 <default-component [formGroup]="formMain" *ngIf="formMain" [hideDivider]="true" [digitTitleComp]="'|'" [hiddenDivider]="true" [textTitleComp]="'Cadastro de contas e cartões'" [textSubTitleComp]="institutionName" [iconSubTitleComp]="'add'">
     <div btns>
 
@@ -25,7 +15,6 @@
         <bank-cards [formMain]="formMain" [mainIcon]="'payment'">
         </bank-cards>
 
-        <!-- {{formMain.value | json}} -->
         <div class="ml-4 pb-12 sm:w-full sm:flex sm:justify-center">
             <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
         </div>

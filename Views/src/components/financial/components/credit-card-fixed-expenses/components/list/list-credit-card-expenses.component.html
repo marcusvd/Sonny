@@ -1,17 +1,13 @@
-<default-component [digitTitleComp]="'|'" [hideDivider]="true" [textTitleComp]="'Cartão de Crédito'"
-    [textSubTitleComp]="'FATURA - ' + expensesMonth" [iconSubTitleComp]="'list'">
+<default-component [digitTitleComp]="'|'" [hideDivider]="true" [textTitleComp]="'Cartão de Crédito'" [textSubTitleComp]="'FATURA - ' + expensesMonth" [iconSubTitleComp]="'list'">
     <div btns>
 
     </div>
     <div body>
         <div class="p-2">
-            <financial-subtitle [hideSubtitle]="true" [expiresDate]="this.entities[0]?.expires?.key"
-                [statusCollection]="statusCollection" [title]="expensesMonth">
+            <financial-subtitle [hideSubtitle]="true" [expiresDate]="this.entities[0]?.expires?.key" [statusCollection]="statusCollection" [title]="expensesMonth">
             </financial-subtitle>
         </div>
-        <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$"
-            (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)"
-            (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
+        <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickIcons)="onClickIcons($event)">
         </list-g>
     </div>
 </default-component>

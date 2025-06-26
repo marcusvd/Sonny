@@ -1,24 +1,23 @@
 
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { Observable, of, Subscription } from 'rxjs';
-import { BaseList } from '../../../../../../../../src/shared/components/list-g/extends/base-list';
-import { ListGDataService } from '../../../../../../../../src/shared/components/list-g/list/data/list-g-data.service';
-
-import { OnClickInterface } from '../../../../../../../../src/shared/components/list-g/list/interfaces/on-click-interface';
-import { ListCreditCardInvoiceDto } from '../../../../credit-card-fixed-expenses/dto/list-credit-card-invoice-dto';
-
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+
+
+import { Observable, of, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import { FinancialSubtitleDto } from 'src/components/financial/components/common-components/subtitle/financial-subtitle-dto';
 import { ex_month } from 'src/shared/components/months-select/months-dto';
+import { BaseList } from '../../../../../../../../src/shared/components/list-g/extends/base-list';
+import { ListGDataService } from '../../../../../../../../src/shared/components/list-g/list/data/list-g-data.service';
+import { OnClickInterface } from '../../../../../../../../src/shared/components/list-g/list/interfaces/on-click-interface';
 import { DeleteServices } from '../../../../../../../shared/components/delete-dialog/services/delete.services';
 import { PtBrCurrencyPipe } from '../../../../../../../shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from '../../../../../../../shared/pipes/pt-br-date.pipe';
+import { ListCreditCardInvoiceDto } from '../../../../credit-card-fixed-expenses/dto/list-credit-card-invoice-dto';
 import { CreditCardExpenseDto } from '../../../dto/credit-card-expense-dto';
 import { ListCreditCardExpensesDto } from '../dto/list-credit-card-expenses-dto';
-
-
 
 export class ListControlCreditCardExpenses extends BaseList {
 
@@ -30,7 +29,10 @@ export class ListControlCreditCardExpenses extends BaseList {
   showHideFilter = false;
   expensesMonth: string = null;
   term: string;
-
+  statusCollection: FinancialSubtitleDto[] = [
+    { id: 1, name: 'A pagar', icon: 'close', classesStyleIcon: "!text-[100px] !text-expired !w-[100px] !h-[100px] border border-expired", monthColorNameStyleClasses: "!text-expired", visible: false },
+    { id: 3, name: 'Pago', icon: 'check', classesStyleIcon: "!text-[100px] !text-paid !w-[100px] !h-[100px] border border-paid", monthColorNameStyleClasses: "!text-paid", visible: false }
+  ]
 
   constructor(
     override _router: Router,
@@ -65,11 +67,9 @@ export class ListControlCreditCardExpenses extends BaseList {
       { key: 'currentInstallment', style: '' }
     ]
   }
-  
+
   onSelectedMonth(entities: any[], selectedMonth: number, field: string) {
     let result;
-    entities.forEach(x => console.log(x));
-
 
     if (selectedMonth != -1) {
 
@@ -97,44 +97,32 @@ export class ListControlCreditCardExpenses extends BaseList {
 
   onClickOrderByFields(field: string, entities$: Observable<ListCreditCardExpensesDto[]>) {
 
-
     switch (field) {
       case 'name':
         this.entitiesFiltered$ = this.orderByFrontEnd(entities$, { key: field, value: '' }) as Observable<ListCreditCardExpensesDto[]>;
         break;
-        
-        case 'expenseDayView':
+
+      case 'expenseDayView':
         this.entitiesFiltered$ = this.orderByFrontEnd(entities$, { key: 'expenseDay', value: new Date() }) as Observable<ListCreditCardExpensesDto[]>;
         break;
-        
-        case 'installmentPriceView':
-          this.entitiesFiltered$ = this.orderByFrontEnd(entities$, { key: 'installmentPrice', value: 0 }) as Observable<ListCreditCardExpensesDto[]>;
-          break;
-          
-          case 'currentInstallment':
-          this.entitiesFiltered$ = this.orderByFrontEnd(entities$, { key: 'expenseDay', value: new Date() }) as Observable<ListCreditCardExpensesDto[]>;
-          break;
-        }
-        
-  }
 
-  onClickButton(field: string) {
-    console.log(field)
-  }
+      case 'installmentPriceView':
+        this.entitiesFiltered$ = this.orderByFrontEnd(entities$, { key: 'installmentPrice', value: 0 }) as Observable<ListCreditCardExpensesDto[]>;
+        break;
 
-  onClickIcons(obj: OnClickInterface) {
-
-    if (obj.action.split('|')[0] == 'list') {
-      this.callRouter(`/financial/list-credit-card-expenses/${obj.entityId}`);
-      console.log(obj.entityId)
+      case 'currentInstallment':
+        this.entitiesFiltered$ = this.orderByFrontEnd(entities$, { key: 'expenseDay', value: new Date() }) as Observable<ListCreditCardExpensesDto[]>;
+        break;
     }
 
   }
 
-  statusCollection: FinancialSubtitleDto[] = [
-    { id: 1, name: 'A pagar', icon: 'close', classesStyleIcon: "!text-[100px] !text-expired !w-[100px] !h-[100px] border border-expired", monthColorNameStyleClasses: "!text-expired", visible: false },
-    { id: 3, name: 'Pago', icon: 'check', classesStyleIcon: "!text-[100px] !text-paid !w-[100px] !h-[100px] border border-paid", monthColorNameStyleClasses: "!text-paid", visible: false }
-  ]
+  onClickIcons(obj: OnClickInterface) {
+
+    if (obj.action.split('|')[0] == 'list')
+      this.callRouter(`/financial/list-credit-card-expenses/${obj.entityId}`);
+
+  }
 
   paymentStatus(creditCardExpense: CreditCardExpenseDto, listCreditCardExpenses: ListCreditCardExpensesDto[]) {
     const expire = new Date(creditCardExpense.expires).getMonth();
@@ -248,26 +236,13 @@ export class ListControlCreditCardExpenses extends BaseList {
             (y: CreditCardExpenseDto) => {
               this.entities = this.supplyItemsGrid(entities, y);
               this.entities$ = of(this.entities);
-              // this.entities$.subscribe(console.log)
               this.entitiesFiltered$ = this.entities$
               this.length = x.length;
               this.paymentStatus(x[0], this.entities);
-              // this.getCurrentPagedInFrontEnd(this.entities, 0, this.pageSize, 'expires', false);
             })
         }
       })).subscribe();
 
-  }
-
-  current(entities: any[], currentPage: number, pageSize: number, field: string, withPagination: boolean) {
-    
-    return of(entities.filter(x => this.currentDate.getFullYear() == new Date(x[field].key).getFullYear()
-      && new Date(x[field].key).getMonth() == (this.currentDate.getMonth())));
-
-  }
-
-  getCurrent = () => {
-    this.entitiesFiltered$ = of(this.entities.slice(0, this.pageSize));
   }
 
   isExpires(entities: ListCreditCardExpensesDto[], selectedMonth: number, currentPage: number, pageSize: number) {
@@ -313,7 +288,7 @@ export class ListControlCreditCardExpenses extends BaseList {
       return of(result.filter(x =>
         //checkWasPaid
         (this.minValue.getFullYear() == new Date(x.wasPaid.key).getFullYear())).slice(currentPage, pageSize))
-   
+
     }
     else {
       const checkPeriod = entities.filter(x =>

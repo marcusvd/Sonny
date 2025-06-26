@@ -6,12 +6,6 @@
             </div>
             <div>A pagar</div>
         </div>
-        <!-- <div class="w-full grid sm:grid-cols-[20px_1fr] grid-cols-1 items-center justify-center gap-4">
-            <div>
-                <mat-icon class="text-pendding">check</mat-icon>
-            </div>
-            <div>Pendente</div>
-        </div> -->
         <div class="w-full grid sm:grid-cols-[20px_1fr] grid-cols-1 items-center justify-center gap-4">
             <div>
                 <mat-icon class="text-paid">check</mat-icon>
@@ -19,25 +13,6 @@
             <div>Pago</div>
         </div>
     </div>
-    <!--
-    <div class="w-full grid sm:grid-cols-3 grid-cols-1 items-center justify-center">
-        <div class="w-full grid sm:grid-cols-[20px_1fr] grid-cols-1 items-center justify-center">
-            <div class="bg-expired w-[16px] h-[16px]">
-            </div>
-            <div>Vencida</div>
-        </div>
-        <div class="w-full grid sm:grid-cols-[20px_1fr] grid-cols-1 items-center justify-center">
-            <div class="bg-pendding w-[16px] h-[16px]">
-            </div>
-            <div>Pendente</div>
-        </div>
-        <div class="w-full grid sm:grid-cols-[20px_1fr] grid-cols-1 items-center justify-center">
-            <div class="bg-paid w-[16px] h-[16px]">
-            </div>
-            <div>Liquidada</div>
-        </div>
-    </div> -->
-
     <div *ngFor="let status of statusCollection" class="w-full pl-4 pr-4 pb-4 grid sm:grid-cols-4 grid-cols-1 items-center justify-center">
 
         <div class="w-full justify-center" *ngIf="status.visible">
@@ -63,18 +38,5 @@
         <div *ngIf="status.visible" class="text-[80px] sm:flex hidden" [class]="status.monthColorNameStyleClasses">
             {{title}}
         </div>
-
-
     </div>
-
-    <!-- <div class="w-full p-4 grid sm:grid-cols-4 grid-cols-1 items-center">
-
-
-
-
-    </div> -->
-
-
-
-
 </div>

@@ -1,13 +1,12 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 
-import { Add } from '../../../../../shared/components/inheritance/add/add';
-import { ValidatorsCustom } from '../../../../../shared/helpers/validators/validators-custom';
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { AddDefaultImports, AddDefaultProviders } from '../../../../../components/imports/components-default.imports';
+import { ValidatorsCustom } from '../../../../../shared/helpers/validators/validators-custom';
 import { AddBankAccountCardsImports, AddBankAccountCardsProviders } from './imports/add-bank-account-cards.imports';
 import { BankAccountAddService } from './services/bank-account-add.service';
-import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 
 
 @Component({
@@ -33,19 +32,12 @@ export class AddBankAccountCardsComponent extends BaseForm implements OnInit {
     private _fb: FormBuilder,
   ) { super() }
 
-
-
-  private valCustom = ValidatorsCustom;
-  get validatorCustom() {
-    return this.valCustom
+  ngOnInit(): void {
+    this.formLoad();
   }
 
   onInstitution(institutionName: string) {
     this.institutionName = institutionName;
-  }
-
-  get getDate(): Date {
-    return new Date()
   }
 
   formLoad() {
@@ -67,16 +59,8 @@ export class AddBankAccountCardsComponent extends BaseForm implements OnInit {
   }
 
   save() {
-    console.log(this.formMain.controls)
-    if (this.alertSave(this.formMain)) {
+    if (this.alertSave(this.formMain))
       this._bankAccountService.save(this.formMain);
-
-    }
-  }
-
-  ngOnInit(): void {
-
-    this.formLoad();
   }
 
 }
