@@ -1,27 +1,19 @@
-// .cvc-field {
-//     width: 80px;
-// }
-// .validate-field {
-//     width: 150px;
-// }
-// #btn-remove {
-//     padding-top: 5px;
-//     color: rgb(255, 255, 255);
-// }
-// #card-icon {
-//     height: 50px;
-//     width: 50px;
-//     font-size: 50px;
-// }// }
-// .space-description {
-//     padding-top: 25px;
-// }
-// .space-closing-expires {
-//     padding-top: 10px;
-// }
-.card-icon {
-    // height: 80px;
-    // width: 80px;
-    font-size: 70px;
-    margin-top: -30px;
+.card {
+    font-size: 50px;
+    height: 50px;
+    padding-top: -15px
+}
+
+#native-icon {
+    margin-bottom: 15px;
+    padding: 10px;
+    padding-right: 30px;
+}
+
+.icon-png {
+    padding-right: 35px;
+}
+
+img{
+    width:25px; height:25px;
 }

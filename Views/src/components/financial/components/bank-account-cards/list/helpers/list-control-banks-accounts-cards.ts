@@ -60,9 +60,11 @@ export class ListControlBanksAccountsCards extends BaseList {
         key: bankAccount.id.toString(),
         display: 'icons',
         icons: ['edit|', 'delete|color:rgb(158, 64, 64);margin-left:10px;'],
-        styleInsideCell: `color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,
-        styleCell: '',
-        route: ''
+        styleInsideCell: `max-width:30px; color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,
+        styleCell: 'max-width:30px; display:flex; justify-content: center;',
+        // styleInsideCell: `color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,
+        // styleCell: '',
+        // route: ''
       },
 
       institution: {

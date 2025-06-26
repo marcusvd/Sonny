@@ -211,7 +211,7 @@ export class ListControlCreditCardInvoices extends BaseList {
         display: 'icons',
         icons: ['list|margin-right:10px;', 'edit|'],
        styleInsideCell: `max-width:30px; color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,
-         styleCell: 'max-width:30px; display:flex; justify-content: center;',
+       styleCell: 'max-width:30px; display:flex; justify-content: center;',
       },
 
       description: {

@@ -20,11 +20,9 @@ export class BankAccountCardsEditService extends BackEndService<BankAccountDto> 
 
   update(form: FormGroup) {
     const toSave: BankAccountDto = { ...form.value };
-    console.log(toSave)
     this.update$<BankAccountDto>('UpdateFnBankAccount', toSave).subscribe({
       next: (checkingAccountDto: BankAccountDto) => {
         this._communicationsAlerts.defaultSnackMsg('2', 0, '', 4);
-        // this._route.navigateByUrl(`/list/${this.companyId}`)
       },
       error: (erroCode) => {
         console.log(erroCode)

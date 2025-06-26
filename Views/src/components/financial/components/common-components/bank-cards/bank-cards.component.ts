@@ -21,7 +21,7 @@ import * as cardValidator from 'card-validator';
 import * as _moment from 'moment';
 import { Moment } from 'moment';
 import { NgxMaskModule } from 'ngx-mask';
-import { FinancialValidator } from 'src/components/financial/validators/financial-validator';
+import { CreditLimitValidator, FinancialValidator } from 'src/components/financial/validators/financial-validator';
 import { ValidatorMessagesFinancial } from 'src/components/financial/validators/validators-messages-financial';
 import { DescriptionFieldComponent } from 'src/shared/components/administrative/info/description-field.component';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
@@ -31,6 +31,8 @@ import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-t
 
 import { BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
 import { CardDto } from '../../bank-account-cards/dto/card-dto';
+import { AddDefaultImports } from '../../../../../components/imports/components-default.imports';
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 const moment = _moment;
 
 export const MY_FORMATS = {
@@ -49,6 +51,12 @@ export const MY_FORMATS = {
   selector: 'bank-cards',
   templateUrl: './bank-cards.component.html',
   styleUrl: './bank-cards.component.scss',
+  standalone: true,
+  imports: [
+    AddDefaultImports,
+    NgxMaskModule,
+    DateJustDayComponent
+  ],
   providers: [{
     provide: DateAdapter,
     useClass: MomentDateAdapter,
@@ -57,31 +65,10 @@ export const MY_FORMATS = {
   { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
     BankCardNumberPipe
   ],
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatFormFieldModule,
-    MatDatepickerModule,
-    CurrencyMaskModule,
-    NgxMaskModule,
-    MatIconModule,
-    MatCardModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    MatDividerModule,
-    MatSelectModule,
-    MatButtonModule,
-    NgFor,
-    NgIf,
-    NgClass,
-    SubTitleComponent,
-    DateJustDayComponent,
-    BtnGComponent,
-    DescriptionFieldComponent,
-    BankCardNumberPipe
-  ]
 })
-export class BankCardsComponent extends Add implements OnInit, OnChanges {
+
+
+export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
 
   public type: any[] = [];
 
@@ -179,7 +166,7 @@ export class BankCardsComponent extends Add implements OnInit, OnChanges {
 
     private _fb: FormBuilder,
     private _bankCardNumberPipe: BankCardNumberPipe
-  ) {super()}
+  ) { super() }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.edit) {
@@ -192,7 +179,7 @@ export class BankCardsComponent extends Add implements OnInit, OnChanges {
     this.initEnableDisableCvcField();
   }
 
-  
+
 
   private valLocal = FinancialValidator;
   get validatorLocal() {
@@ -275,7 +262,7 @@ export class BankCardsComponent extends Add implements OnInit, OnChanges {
         lastPayment: [card?.creditCardLimitOperation?.lastPayment || this.minValue, []],
       }),
       description: [card?.description || '', [Validators.maxLength(100)]],
-    })
+    }, { validators: CreditLimitValidator() })
   }
 
   addCard() {
@@ -315,8 +302,6 @@ export class BankCardsComponent extends Add implements OnInit, OnChanges {
   ngOnInit(): void {
     if (!this.edit)
       this.addCard();
-
-    //
   }
 
 }

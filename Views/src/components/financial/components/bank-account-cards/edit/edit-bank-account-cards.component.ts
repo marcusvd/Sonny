@@ -36,7 +36,7 @@ export class EditBankAccountCardsComponent extends BaseForm implements OnInit {
     private _fb: FormBuilder,
 
     private _actRouter: ActivatedRoute,
-  ) {super()}
+  ) { super() }
 
 
 
@@ -49,8 +49,8 @@ export class EditBankAccountCardsComponent extends BaseForm implements OnInit {
 
   formLoad(entity: BankAccountDto) {
     return this.formMain = this._fb.group({
-      id: [entity.id || 0, [Validators.required]],
-      companyId: [this.companyId, [Validators.required]],
+      id: [entity.id ?? 0, [Validators.required]],
+      companyId: [entity.companyId ?? this.companyId, [Validators.required]],
       userId: [this.userId, [Validators.required]],
       holder: [entity.holder, [Validators.required, Validators.maxLength(100)]],
       institution: [entity.institution, [Validators.required, Validators.maxLength(100)]],
@@ -81,7 +81,6 @@ export class EditBankAccountCardsComponent extends BaseForm implements OnInit {
     bankAccount.subscribe(x => {
       this.formLoad(x);
       this.institution = x.institution;
-      console.log(x.cards)
       this.cards = x.cards;
       this.pixes = x.pixes;
     });
