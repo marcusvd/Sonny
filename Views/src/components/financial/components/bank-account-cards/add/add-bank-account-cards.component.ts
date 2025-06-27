@@ -4,7 +4,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
 import { AddDefaultImports, AddDefaultProviders } from '../../../../../components/imports/components-default.imports';
-import { ValidatorsCustom } from '../../../../../shared/helpers/validators/validators-custom';
 import { AddBankAccountCardsImports, AddBankAccountCardsProviders } from './imports/add-bank-account-cards.imports';
 import { BankAccountAddService } from './services/bank-account-add.service';
 

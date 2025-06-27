@@ -36,10 +36,8 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends ListControl
 
   constructor(
     private _actRoute: ActivatedRoute,
-    private _listServices: ListFinancingsLoansExpensesInstallmentService,
     override _router: Router,
     override _http: HttpClient,
-    private _fb: FormBuilder,
     override _dialog: MatDialog,
     override _ptBrDatePipe: PtBrDatePipe,
     override _ptBrCurrencyPipe: PtBrCurrencyPipe,

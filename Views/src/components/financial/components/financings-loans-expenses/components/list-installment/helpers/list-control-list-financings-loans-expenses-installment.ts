@@ -5,24 +5,17 @@ import { Observable, of, Subscription } from 'rxjs';
 import { BaseList } from '../../../../../../../../src/shared/components/list-g/extends/base-list';
 import { ListGDataService } from '../../../../../../../../src/shared/components/list-g/list/data/list-g-data.service';
 
-import { ListCreditCardInvoiceDto } from '../../../../credit-card-fixed-expenses/dto/list-credit-card-invoice-dto'
 import { OnClickInterface } from '../../../../../../../../src/shared/components/list-g/list/interfaces/on-click-interface';
 
 import { MatDialog } from '@angular/material/dialog';
+import { MatRadioChange } from '@angular/material/radio';
 import { map } from 'rxjs/operators';
+import { DeleteServices } from '../../../../../../../shared/components/delete-dialog/services/delete.services';
 import { PtBrCurrencyPipe } from '../../../../../../../shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from '../../../../../../../shared/pipes/pt-br-date.pipe';
-import { DeleteServices } from '../../../../../../../shared/components/delete-dialog/services/delete.services';
-import { ListFinancingsLoansExpensesInstallmentDto } from '../dto/list-financings-loans-expenses-installment-dto';
-import { FinancingsLoansExpensesDto } from '../../../dto/financings-loans-expenses-dto';
-import { MatCheckboxChange } from '@angular/material/checkbox';
 import { FinancingAndLoanExpenseInstallmentDto } from '../../../dto/financing-and-loan-expense-installment-dto';
+import { ListFinancingsLoansExpensesInstallmentDto } from '../dto/list-financings-loans-expenses-installment-dto';
 import { TriggerPaymentFinancingsLoansInstallment } from '../trigger-payment-financings-loans-installment';
-import { MatRadioChange } from '@angular/material/radio';
-// import { ListFinancingsLoansExpensesInstallmentDto } from '../dto/list-credit-card-expenses-dto';
-// financingsLoansExpensesDto{ FinancingsLoansExpensesDto } from '../../../dto/credit-card-expense-dto';
-// import { ex_month, ex_months } from 'src/shared/components/months-select/months-dto';
-// import { FinancialSubtitleDto } from 'src/components/financial/components/common-components/subtitle/financial-subtitle-dto';
 
 
 
@@ -40,18 +33,11 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
   addUrlRoute: string = '/financial/add-financings-loans-expenses';
 
   length = 0;
-  showHideFilter = false;
-  // expensesMonth: string = null;
-  term: string;
-
-  // controllerUrl: string = environment._CUSTOMERS.split('/')[4];
-  // backEndUrl: string = `${this.controllerUrl}/GetAllCustomersPagedAsync`;
 
   constructor(
     override _router: Router,
     public _http: HttpClient,
     protected _dialog: MatDialog,
-    // protected _listCreditCardInvoicesService: ListCreditCardInvoicesService,
     protected _deleteServices: DeleteServices,
     protected _ptBrDatePipe: PtBrDatePipe,
     protected _ptBrCurrencyPipe: PtBrCurrencyPipe,
@@ -62,10 +48,9 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
     )
   }
 
-
   labelHeaders = () => {
     return [
-      { key: '', style: 'cursor: pointer; max-width:1fr;' },
+      { key: '', style: 'cursor: pointer;max-width:30px;' },
       { key: 'Vencimento', style: 'cursor: pointer;' },
       { key: 'Valor pago', style: 'cursor: pointer;' },
       { key: 'Nº Parcelas', style: 'cursor: pointer;' },
@@ -75,7 +60,7 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
 
   fieldsHeaders = () => {
     return [
-      { key: 'id', style: 'max-width:100px;' },
+      { key: 'id', style: 'max-width:30px;' },
       { key: 'expiresView', style: '' },
       { key: 'priceWasPaidInstallment', style: '' },
       { key: 'currentInstallment', style: '' },
@@ -83,44 +68,21 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
     ]
   }
 
-
-
-  // onPageChange($event: PageEvent) {
-
-  //   if ($event.previousPageIndex < $event.pageIndex)
-  //     this.entitiesFiltered$ = of(this.pageChange(this.entitiesFiltered, $event))
-
-  //   else if ($event.previousPageIndex > $event.pageIndex)
-  //     this.entitiesFiltered$ = of(this.pageChange(this.entitiesFiltered, $event))
-
-  //   if (this.term) {
-  //     this.entitiesFiltered$ = of(this.pageChange(this.searchListEntities(this.entitiesFiltered, this.term), $event))
-  //     this.length = this.searchListEntities(this.entitiesFiltered, this.term).length
-  //   }
-
-  // }
   onSelectedMonth(entities: any[], selectedMonth: number, field: string) {
     let result;
-    entities.forEach(x => console.log(x));
-
 
     if (selectedMonth != -1) {
 
-      result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field].key).getFullYear() && new Date(x[field].key).getMonth() == selectedMonth)
+      result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field].key).getFullYear() && new Date(x[field].key).getMonth() == selectedMonth);
 
-      // this.gridListCommonHelper.lengthPaginator.next(result.length)
-
-      const ordered = this.arrayOrderByDate(result, field)
+      const ordered = this.arrayOrderByDate(result, field);
 
       result = of(ordered.slice(0, this.pageSize))
     }
 
     if (selectedMonth == -1) {
 
-      result = entities.filter(x =>
-        this.currentDate.getFullYear() == new Date(x[field].key).getFullYear())
-
-      // this.gridListCommonHelper.lengthPaginator.next(result.length)
+      result = entities.filter(x =>  this.currentDate.getFullYear() == new Date(x[field].key).getFullYear())
 
       const ordered = this.arrayOrderByDate(result, field)
 
@@ -183,7 +145,6 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
   getEntityById = (id: number) => {
     return this.immutableEntitiesFromDb.find(x => x.id == id);
   }
-
 
   getEntityTopay(entity: FinancingAndLoanExpenseInstallmentDto) {
 
@@ -258,36 +219,6 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
     this.entitiesFiltered$ = of(this.entities);
     // this.gridListCommonHelper.lengthPaginator.next(this.entities.length)
   }
-  // ['',
-  //   'Descrição',
-  //   'Compras até:',
-  //   'Vencimento',
-  //   'Preço',],
-  // ['description',
-  //   'closingDate',
-  //   'expiresView',
-  //   'price']
-
-  // makeGridItems(xy: CreditCardExpenseInvoiceDto) {
-  //   console.log(xy)
-  //   const viewDto = new ListCreditCardInvoiceDto;
-  //   viewDto.id = xy.id;
-  //   const wasPaid: Date = new Date(xy.wasPaid);
-  //   const expires: Date = new Date(xy.expires);
-  //   viewDto.wasPaid = xy.wasPaid;
-  //   viewDto.userId = xy.userId.toString();
-
-  //   const monthName = this.months[expires.getMonth()].name;
-  //   viewDto.description = monthName.toUpperCase();
-  //   viewDto.closingDate = this._ptBrDatePipe.transform(xy.closingDate, 'Date');
-  //   viewDto.closingDateBusinessRule = new Date(xy.closingDate);
-  //   viewDto.expires = xy.expires;
-  //   viewDto.expiresView = this._ptBrDatePipe.transform(xy.expires, 'Date');
-  //   viewDto.price = this._ptBrCurrencyPipe.transform(xy.price);
-  //   viewDto.interest = xy.interest.toString();
-
-  //   return viewDto;
-  // }
 
   deleteFake = (id: number) => {
     //   const entity = this.entities.find(x => x.id.key == id.toString());
@@ -317,19 +248,15 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
 
 
     const items: ListFinancingsLoansExpensesInstallmentDto = new ListFinancingsLoansExpensesInstallmentDto();
-    //ListCreditCardExpense = [];
+
     Object.assign(items, {
 
       id: {
         key: financingsLoansExpensesInstallment.id,
         display: 'icons',
-
-        icons: ['list|margin-right:10px;', 'edit|', 'delete|color:rgb(158, 64, 64);margin-left:10px;'],
-
-        // icons: ['zoom_in', 'edit', 'home'],
-        styleInsideCell: `color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,
-        styleCell: 'max-width:1fr;',
-        route: ''
+        icons: ['edit|'],
+        styleInsideCell: `max-width:30px; color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,
+        styleCell: 'max-width:30px; display:flex; justify-content: center;',
       },
       expiresView: {
         key: this._ptBrDatePipe.transform(financingsLoansExpensesInstallment.expires, 'Date'),
@@ -345,11 +272,10 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
       status: {
         key: '',
         display: 'icons',
-        icons: ['check']
+        icons: new Date(financingsLoansExpensesInstallment.wasPaid).getFullYear() == this.minValue.getFullYear() ? ['close| font-size:35px; width:35px; height:35px;'] : ['check| font-size:35px; width:35px; height:35px;'],
+        styleCell: 'cursor: pointer;',
+        iconClasses: new Date(financingsLoansExpensesInstallment.wasPaid).getFullYear() == this.minValue.getFullYear() ? 'text-expired' : 'text-paid',
       },
-
-
-
 
       expires: {
         key: financingsLoansExpensesInstallment.expires,
@@ -433,175 +359,20 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
               this.entities$ = of(this.entities);
               this.entitiesFiltered$ = this.entities$
               this.length = x.length;
-
-              // this.getCurrentPagedInFrontEnd(this.entities, 0, this.pageSize, 'expires', false);
             })
         }
       })).subscribe();
 
-
-    // return this._listGDataService?.entities$.subscribe(
-    //   {
-    //     next: (x: CreditCardExpenseInvoiceDto[]) => {
-
-    //       if (x.length > 0)
-    //         console.log('Maior')
-
-
-
-    //       x.forEach(
-    //         (y: CreditCardExpenseInvoiceDto) => {
-    //           // console.log(y)
-    //           this.entities = this.supplyItemsGrid(entities, y);
-    //           this.entities$ = of(this.entities);
-    //           this.entitiesFiltered$ = this.entities$
-    //         })
-
-    //       // this.getCurrent();
-    //     }
-    //   }
-    // )
-
-
   }
 
-  // getCurrentPagedInFrontEnd(entities: any[], currentPage: number, pageSize: number, field: string, withPagination: boolean) {
-  //   this.entitiesFiltered$ = this.current(entities,
-  //     currentPage,
-  //     pageSize,
-  //     field,
-  //     withPagination);
-  // }
-
   current(entities: any[], currentPage: number, pageSize: number, field: string, withPagination: boolean) {
-    // let result: any[] = null;
-
-    // entities.filter(x => console.log(new Date(x[field].key).getFullYear()))
-    // console.log(this.currentDate.getFullYear())
 
     return of(entities.filter(x => this.currentDate.getFullYear() == new Date(x[field].key).getFullYear()
       && new Date(x[field].key).getMonth() == (this.currentDate.getMonth())));
-
-    // if (withPagination) {
-    //   result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field].key).getFullYear()
-    //     && new Date(x[field].key).getMonth() == (this.currentDate.getMonth() + 1))
-    //   return of(result);
-    // }
-    // else {
-    //   result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field].key).getFullYear()
-    //     && new Date(x[field].key).getMonth() == (this.currentDate.getMonth() + 1))
-    //     .slice(currentPage, pageSize)
-    // }
-    // return of(result)
   }
 
   getCurrent = () => {
     this.entitiesFiltered$ = of(this.entities.slice(0, this.pageSize));
   }
-
-
-  // isExpires(entities: ListFinancingsLoansExpensesInstallmentDto[], selectedMonth: number, currentPage: number, pageSize: number) {
-  //   if (selectedMonth == -1) {
-  //     const result = entities.filter(x =>
-  //       //check Year
-  //       (this.currentDate.getFullYear() == new Date(x.expires.key).getFullYear())
-  //     );
-  //     return of(result.filter(x =>
-  //       //checkWasPaid
-  //       (this.minValue.getFullYear() == new Date(x.wasPaid.key).getFullYear())
-  //       &&
-  //       //checkIsExpires
-  //       (new Date(this.currentDateWithoutHours) > new Date(new Date(x.expires.key).setHours(0, 0, 0, 0)))).slice(currentPage, pageSize))
-  //   }
-  //   else {
-  //     const checkPeriod = entities.filter(x =>
-  //       //check Year
-  //       (this.currentDate.getFullYear() == new Date(x.expires.key).getFullYear())
-  //       &&
-  //       //check month
-  //       (new Date(x.expires.key).getMonth() == selectedMonth)
-  //     );
-
-  //     const result = checkPeriod.filter(x =>
-  //       //checkWasPaid
-  //       (this.minValue.getFullYear() == new Date(x.wasPaid.key).getFullYear())
-  //       &&
-  //       //checkIsExpires
-  //       (new Date(this.currentDateWithoutHours) > new Date(new Date(x.expires.key).setHours(0, 0, 0, 0)))
-  //     )
-
-  //     return of(result.slice(currentPage, pageSize))
-  //   }
-  // }
-
-  // isPending(entities: ListFinancingsLoansExpensesInstallmentDto[], selectedMonth: number, currentPage: number, pageSize: number) {
-
-  //   if (selectedMonth == -1) {
-  //     const result = entities.filter(x =>
-  //       //check Year
-  //       (this.currentDate.getFullYear() == new Date(x.expires.key).getFullYear())
-  //       &&
-  //       //check month
-  //       (new Date(x.expires.key).getMonth() <= this.currentDate.getMonth())
-  //     );
-  //     return of(result.filter(x =>
-  //       //checkWasPaid
-  //       (this.minValue.getFullYear() == new Date(x.wasPaid.key).getFullYear())
-  //       &&
-  //       //checkIsPendig
-  //       (new Date(this.currentDateWithoutHours) <= new Date(new Date(x.expires.key).setHours(0, 0, 0, 0)))).slice(currentPage, pageSize))
-  //   }
-  //   else {
-
-  //     const checkPeriod = entities.filter(x =>
-  //       //check Year
-  //       (this.currentDate.getFullYear() == new Date(x.expires.key).getFullYear())
-  //       &&
-  //       //check month
-  //       (new Date(x.expires.key).getMonth() == selectedMonth)
-  //     );
-
-  //     const result = checkPeriod.filter(x =>
-  //       //checkWasPaid
-  //       (this.minValue.getFullYear() == new Date(x.wasPaid.key).getFullYear())
-  //       &&
-  //       //checkIsPendig
-  //       (new Date(this.currentDateWithoutHours) <= new Date(new Date(x.expires.key).setHours(0, 0, 0, 0)))
-
-  //     )
-
-  //     return of(result.slice(currentPage, pageSize))
-  //   }
-
-  // }
-
-  // isPaid(entities: ListFinancingsLoansExpensesInstallmentDto[], selectedMonth: number, currentPage: number, pageSize: number) {
-  //   if (selectedMonth == -1) {
-  //     const result = entities.filter(x =>
-  //       //check Year
-  //       (this.currentDate.getFullYear() == new Date(x.expires.key).getFullYear())
-  //       &&
-  //       //check month
-  //       (new Date(x.expires.key).getMonth() <= this.currentDate.getMonth())
-  //     );
-  //     return of(result.filter(x =>
-  //       //checkWasPaid
-  //       (this.minValue.getFullYear() == new Date(x.wasPaid.key).getFullYear())
-  //       &&
-  //       //checkIsPendig
-  //       (new Date(this.currentDateWithoutHours) <= new Date(new Date(x.expires.key).setHours(0, 0, 0, 0)))).slice(currentPage, pageSize))
-  //   }
-  //   else {
-  //     const checkPeriod = entities.filter(x =>
-  //       //check Year
-  //       (this.currentDate.getFullYear() == new Date(x.expires.key).getFullYear())
-  //       &&
-  //       //check month
-  //       (new Date(x.expires.key).getMonth() == selectedMonth)
-  //     );
-  //     return of(checkPeriod.filter(x => this.minValue.getFullYear() != new Date(x.wasPaid.key).getFullYear()).slice(currentPage, pageSize))
-  //   }
-  // }
-
 }
 

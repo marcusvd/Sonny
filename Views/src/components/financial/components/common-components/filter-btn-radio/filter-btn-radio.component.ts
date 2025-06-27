@@ -1,8 +1,11 @@
 
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { MatCard, MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 import { MatRadioButton as MatRadioButton, MatRadioChange as MatRadioChange, MatRadioModule as MatRadioModule } from '@angular/material/radio';
+import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 
 
 import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
@@ -15,13 +18,17 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
   standalone: true,
   imports: [
     CommonModule,
-    MatRadioModule
+    MatRadioModule,
+    MatIconModule,
+    MatCardModule,
+    BtnGComponent
   ],
 })
 
 export class FilterBtnRadioComponent {
 
   @Output() radioChange = new EventEmitter<MatRadioChange>();
+  @Output() removeFilter = new EventEmitter<void>();
   @Input() disabledRadioInput: boolean = false;
   @Input() pedingRadioHide: boolean = false;
   @Input() set inputSetClearRadios(value: boolean) {
@@ -42,6 +49,10 @@ export class FilterBtnRadioComponent {
 
   filter(radio: MatRadioChange) {
     this.radioChange.emit(radio);
+  }
+
+  removeFilterBtn() {
+    this.removeFilter.emit();
   }
 
 }
