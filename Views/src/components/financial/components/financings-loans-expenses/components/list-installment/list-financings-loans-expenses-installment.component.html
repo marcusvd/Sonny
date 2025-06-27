@@ -1,14 +1,41 @@
-<default-component [digitTitleComp]="'|'" [hideDivider]="true" [textTitleComp]="'Financiamento / Empréstimo'" [textSubTitleComp]="'Contas a pagar'" [iconSubTitleComp]="'list'">
-    <div btns>
+<default-component [digitTitleComp]="'|'" [hideDivider]="true" [textTitleComp]="'Financiamento / Empréstimo'"
+    [textSubTitleComp]="'Contas a pagar'" [iconSubTitleComp]="'list'">
+    <div btns class="!bg-background-color p-4">
+        <div class="mb-2 grid sm:grid-cols-3 grid-cols-1 gap-4 items-center">
+            <div>
+                <btn-g-dynamic [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)">
+                </btn-g-dynamic>
+            </div>
 
-    </div>
-    <div body>
-        <div class="grid grid-cols-[1fr] items-center">
-            <div class="p-4 w-[550px]">
-                <filter-radio-btns [disabledRadioInput]="false" [inputSetClearRadios]="cleanRadios" (radioChange)="filterView($event)" (removeFilter)="filterClear()">
-                </filter-radio-btns>
+            <div>
+                <!-- <span class="title-amount">TOTAL:&nbsp;</span> <span class="amount-sum">{{amountYear}}</span> -->
+            </div>
+            <div>
+                <!-- <span class="title-amount">DESPESA:&nbsp;</span> <span class="amount-sum">{{localAmountCosts}}</span> -->
             </div>
         </div>
+
+
+        <div class="bg-background-color" *ngIf="showHideFilter">
+            <div class="grid grid-cols-[1fr] items-center">
+                <div class="p-4 w-[550px]">
+                    <filter-radio-btns [disabledRadioInput]="false" [inputSetClearRadios]="cleanRadios"
+                        (radioChange)="filterView($event)" (removeFilter)="filterClear()">
+                        <div>
+                            <btn-g [btnType]="'red'" [name]="'Filtros'" [icon]="'clear'"
+                                (btn)="filterClear()"></btn-g>
+                        </div>
+                    </filter-radio-btns>
+                </div>
+            </div>
+            <!-- <filter-list-collect-deliver (outFieldSearch)="queryFieldOutput($event)" (radioChange)="statusFilter($event)" [inputSetClearRadios]="cleanRadios">
+                <div>
+                    <btn-g [btnType]="'red'" [name]="'Filtros'" [icon]="'clear'" (btn)="filterClear()"></btn-g>
+                </div>
+            </filter-list-collect-deliver> -->
+        </div>
+    </div>
+    <div body>
 
         <div class="p-4 grid sm:grid-cols-2 grid-cols-1 gap-4">
             <div>
@@ -20,7 +47,9 @@
             <mat-divider class="divider-line-categories-comp"></mat-divider>
         </div>
 
-        <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
+        <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$"
+            (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)"
+            (outOnClickIcons)="onClickIcons($event)">
         </list-g>
 
     </div>

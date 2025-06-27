@@ -28,6 +28,7 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
   entitiesFiltered: ListFinancingsLoansExpensesInstallmentDto[] = [];
 
   cleanRadios = false;
+  showHideFilter = false;
 
   viewListUrlRoute: string = '/financial/list-financings-loans-expenses-installment';
   addUrlRoute: string = '/financial/add-financings-loans-expenses';
@@ -82,7 +83,7 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
 
     if (selectedMonth == -1) {
 
-      result = entities.filter(x =>  this.currentDate.getFullYear() == new Date(x[field].key).getFullYear())
+      result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field].key).getFullYear())
 
       const ordered = this.arrayOrderByDate(result, field)
 
@@ -114,8 +115,8 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
 
   }
 
-  onClickButton(field: string) {
-    console.log(field)
+  showHideFilterMtd($event: any) {
+    this.showHideFilter = !this.showHideFilter;
   }
 
   onClickIcons(obj: OnClickInterface) {

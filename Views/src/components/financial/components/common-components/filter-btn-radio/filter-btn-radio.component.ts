@@ -21,14 +21,14 @@ import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
     MatRadioModule,
     MatIconModule,
     MatCardModule,
-    BtnGComponent
+    // BtnGComponent
   ],
 })
 
 export class FilterBtnRadioComponent {
 
   @Output() radioChange = new EventEmitter<MatRadioChange>();
-  @Output() removeFilter = new EventEmitter<void>();
+  // @Output() removeFilter = new EventEmitter<void>();
   @Input() disabledRadioInput: boolean = false;
   @Input() pedingRadioHide: boolean = false;
   @Input() set inputSetClearRadios(value: boolean) {
@@ -51,8 +51,8 @@ export class FilterBtnRadioComponent {
     this.radioChange.emit(radio);
   }
 
-  removeFilterBtn() {
-    this.removeFilter.emit();
-  }
+  // removeFilterBtn() {
+  //   this.removeFilter.emit();
+  // }
 
 }

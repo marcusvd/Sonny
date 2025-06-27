@@ -19,8 +19,8 @@
                     <mat-radio-button #radioPaid [value]="'paid'">Pago</mat-radio-button>
                 </div>
             </div>
-            <div>
-                <btn-g [btnType]="'red'" [name]="'Filtros'" [icon]="'clear'" (btn)="removeFilterBtn()"></btn-g>
+              <div class="flex sm:justify-end">
+                <ng-content></ng-content>
             </div>
         </div>
     </mat-radio-group>
