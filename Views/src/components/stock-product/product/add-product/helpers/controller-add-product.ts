@@ -75,7 +75,7 @@ export class ControllerAddProduct extends BaseForm {
   }
 
 
-  callRouter = (call?: string) => {
+ override callRouter = (call?: string) => {
     if (call === 'add')
       this._router.navigate(['/stock-product-router/add-product-type']);
     else {

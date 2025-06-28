@@ -43,7 +43,7 @@ export class List extends BaseForm implements IList, AfterViewInit {
 
   constructor(
     protected _dialog: MatDialog,
-    protected _router: Router,
+    // protected _router: Router,
     protected _actRoute: ActivatedRoute,
     public gridListCommonHelper: GridListCommonHelper,
     @Inject('headers') public headers: string[] = [],
@@ -235,7 +235,7 @@ export class List extends BaseForm implements IList, AfterViewInit {
   }
 
   add(): void {
-    this._router.navigateByUrl(this.addUrlRoute)
+    // this._router.navigateByUrl(this.addUrlRoute)
   }
 
   filterCheckBoxSelected: string = null;
@@ -262,15 +262,15 @@ export class List extends BaseForm implements IList, AfterViewInit {
   }
 
   view(url: string, id: number): void {
-    this._router.navigateByUrl(`${url}/${id}`)
+    // this._router.navigateByUrl(`${url}/${id}`)
   }
 
   edit(url: string, id: number): void {
-    this._router.navigateByUrl(`${url}/${id}`)
+    // this._router.navigateByUrl(`${url}/${id}`)
   }
 
   viewList(url: string, id: number): void {
-    this._router.navigateByUrl(`${url}/${id}`)
+    // this._router.navigateByUrl(`${url}/${id}`)
   }
 
   viewDialog(url: string, entity: any) {
@@ -313,7 +313,7 @@ export class List extends BaseForm implements IList, AfterViewInit {
       }
     };
 
-    this._router.navigate([url], objectRoute);
+    // this._router.navigate([url], objectRoute);
   }
 
 }

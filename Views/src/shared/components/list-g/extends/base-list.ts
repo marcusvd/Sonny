@@ -1,13 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatPaginator as MatPaginator, PageEvent as PageEvent } from '@angular/material/paginator';
-import { NavigationExtras, Router } from "@angular/router";
-import * as diacritics from 'diacritics';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
+
+
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
+
+import { BaseForm } from '../../inheritance/forms/base-form';
 import { ListGDataService } from "../list/data/list-g-data.service";
 import { FieldsInterface } from '../list/interfaces/fields-interface';
 import { OrderbyInterface } from '../list/interfaces/orderby-interface';
-import { BaseForm } from '../../inheritance/forms/base-form';
 
 @Component({
   selector: 'list-g',
@@ -17,18 +19,11 @@ import { BaseForm } from '../../inheritance/forms/base-form';
 
 export class BaseList extends BaseForm {
 
-  // companyId = JSON.parse(localStorage.getItem('companyId'))
-  // userId = JSON.parse(localStorage.getItem('userId'))
-  // //minValue = new Date('0001-01-01T00:00:00.000Z');
-  // minValue = new Date('0001-01-01T00:00:00');
-  // currentDate = new Date();
-  // currentDateWithoutHours = this.currentDate.setHours(0, 0, 0, 0)
   screenWidth: number = window.innerWidth;
   fields: FieldsInterface[] = []
   pageSize: number = 20;
   @ViewChild('paginatorAbove') paginatorAbove: MatPaginator
   @ViewChild('paginatorBelow') paginatorBelow: MatPaginator
-
 
   constructor(
     protected _listGDataService?: ListGDataService,
@@ -99,21 +94,14 @@ export class BaseList extends BaseForm {
       return entities$.pipe(map(h => h.sort((x, y) => {
         if (this.isdescending) {
 
-          console.log(x[entityFieldProperty].keyN);
-
           const numberX: number = x[entityFieldProperty].keyN;
           const numberY: number = y[entityFieldProperty].keyN;
-
-          // const numberX: number = this.removeNonNumericAndConvertToNumber(x[entityFieldProperty].key);
-          // const numberY: number = this.removeNonNumericAndConvertToNumber(y[entityFieldProperty].key);
 
           return numberX - numberY;
         }
         else {
           const numberX: number = x[entityFieldProperty].keyN;
-          const numberY: number = y[entityFieldProperty].keyN;
-          // const numberX: number = this.removeNonNumericAndConvertToNumber(x[entityFieldProperty].key);
-          // const numberY: number = this.removeNonNumericAndConvertToNumber(y[entityFieldProperty].key);
+          const numberY: number = y[entityFieldProperty].keyN;        
 
           return numberY - numberX;
         }
@@ -130,27 +118,8 @@ export class BaseList extends BaseForm {
     }
     return null;
   }
-
-  // removeNonNumericAndConvertToNumber(str: string): number {
-  //   return +str.replace(/\D/g, '');
-  // }
-
-  // removeAccentsSpecialCharacters(value: string): string {
-  //   const noAccents = diacritics.remove(value);//remove accents
-  //   return noAccents.replace(/[^\w\s]/gi, ''); //remove special characters
-  // }
-
-  callRouter(url: string, entity?: any) {
-
-    const objectRoute: NavigationExtras = {
-      state: {
-        entity
-      }
-    };
-
-    this._router.navigate([url], objectRoute);
-  }
-
+  
+ 
 
 
 }

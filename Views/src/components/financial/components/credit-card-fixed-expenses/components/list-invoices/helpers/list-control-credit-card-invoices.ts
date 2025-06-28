@@ -188,18 +188,14 @@ export class ListControlCreditCardInvoices extends BaseList {
     invoice.card = creditCard;
 
     if (this.currentDate > new Date(invoice.closingDate))
-      this.pay.callRoute(this.pay.entityToPay = invoice)
+      this.pay.callRouter('/financial/payment-credit-card-expenses', this.pay.entityToPay = invoice)
     else
       alert('Fatura não fechada!')
 
   }
 
-  pay = new TriggerCreditCardsInvoices(
-    this._router,
-    this._ptBrDatePipe,
-    this._ptBrCurrencyPipe,
-  );
-  
+  pay = new TriggerCreditCardsInvoices();
+
   supplyItemsGrid = (listCreditCardExpenseInvoice: ListCreditCardInvoiceDto[], creditCardexpenseInvoice: CreditCardExpenseInvoiceDto) => {
 
     const items: ListCreditCardInvoiceDto = new ListCreditCardInvoiceDto();
@@ -210,8 +206,8 @@ export class ListControlCreditCardInvoices extends BaseList {
         key: creditCardexpenseInvoice.id,
         display: 'icons',
         icons: ['list|margin-right:10px;', 'edit|'],
-       styleInsideCell: `max-width:30px; color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,
-       styleCell: 'max-width:30px; display:flex; justify-content: center;',
+        styleInsideCell: `max-width:30px; color:rgb(43, 161, 168); cursor: pointer; font-size:20px;`,
+        styleCell: 'max-width:30px; display:flex; justify-content: center;',
       },
 
       description: {

@@ -4,28 +4,28 @@ import { FieldsScreenPayment } from "src/shared/components/financial/payment/mod
 import { PtBrCurrencyPipe } from "src/shared/pipes/pt-br-currency.pipe";
 import { PtBrDatePipe } from "src/shared/pipes/pt-br-date.pipe";
 import { CreditCardExpenseInvoiceDto } from "./dto/credit-card-expense-invoice-dto";
+import { BaseForm } from "src/shared/components/inheritance/forms/base-form";
 
 
-export class TriggerCreditCardsInvoices {
+export class TriggerCreditCardsInvoices extends BaseForm {
 
   constructor(
-
-    private _router: Router,
-    private _ptBrDatePipe: PtBrDatePipe,
-    private _ptBrCurrencyPipe: PtBrCurrencyPipe,
-  ) {
+     ) {super()
   }
 
   public entityToPay: CreditCardExpenseInvoiceDto = null;
 
-  callRoute(entity: CreditCardExpenseInvoiceDto) {
+  // callRouter(entity: CreditCardExpenseInvoiceDto) {
 
-    const objectRoute: NavigationExtras = {
-        state: entity
-    };
+  //   const objectRoute: NavigationExtras = {
+  //       state: entity
+  //   };
 
-    this._router.navigate(['/financial/payment-credit-card-expenses'], objectRoute);
-  }
+  //   this._router.navigate(['/financial/payment-credit-card-expenses'], objectRoute);
+  // }
+
+
+  
 
   // monthsString: string[] = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
   // makeInfoScreenData(entity: CreditCardExpenseInvoiceDto): FieldsScreenPayment[] {

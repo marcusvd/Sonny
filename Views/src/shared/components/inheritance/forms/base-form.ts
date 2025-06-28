@@ -4,8 +4,12 @@ import * as diacritics from 'diacritics';
 import { DefaultMessages } from 'src/shared/helpers/validators/default-messages';
 import { ValidatorMessages } from 'src/shared/helpers/validators/validators-messages';
 import { MonthsDto } from '../../months-select/months-dto';
+import { NavigationExtras, Router } from '@angular/router';
+import { inject } from '@angular/core';
 
 export class BaseForm {
+  
+  private readonly _routerInject = inject(Router);
 
   companyId = localStorage.getItem('companyId')
     ? JSON.parse(localStorage.getItem('companyId')!)
@@ -63,7 +67,6 @@ export class BaseForm {
     form?.get(field)?.setValue(value);
   }
 
-
   removeNonNumericAndConvertToNumber(str: string): number {
     return +str?.replace(/\D/g, '');
   }
@@ -76,23 +79,19 @@ export class BaseForm {
     return value;
 
   }
-  //   const noAccents = diacritics.remove(value);
-  //   return noAccents?.replace(/[^\w\s]/gi, '');
-  // }
-
+  
   //só product esta usando, será atualizado
   formTouched = (form: FormGroup, field: string) => {
     return form?.get(field).touched
   }
+
   formError = (form: FormGroup, field: string, error: string) => {
     return form?.get(field)?.hasError(error)
   }
-  //
 
   formErrorAndTouched = (form: FormGroup, field: string, error: string) => {
     return form?.get(field)?.hasError(error) && form?.get(field)?.touched;
   }
-
 
   months: MonthsDto[] = [{ id: 0, name: 'JANEIRO' }, { id: 1, name: 'FEVEREIRO' }, { id: 2, name: 'MARÇO' },
   { id: 3, name: 'ABRIL' }, { id: 4, name: 'MAIO' }, { id: 5, name: 'JUNHO' }, { id: 6, name: 'JULHO' },
@@ -110,5 +109,16 @@ export class BaseForm {
     }
 
   }
+
+   callRouter(url: string, entity?: any) {
+
+    const objectRoute: NavigationExtras = {
+      state:  entity
+    };
+
+    this._routerInject.navigate([url], objectRoute);
+  }
+
+
 }
 

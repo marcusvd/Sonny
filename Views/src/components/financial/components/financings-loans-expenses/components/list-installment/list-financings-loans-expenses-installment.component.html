@@ -8,10 +8,10 @@
             </div>
 
             <div>
-                <!-- <span class="title-amount">TOTAL:&nbsp;</span> <span class="amount-sum">{{amountYear}}</span> -->
+                <span class="title-amount">TOTAL:&nbsp;</span> <span class="amount-sum">{{valuesFinancing?.installmentPrice}}</span>
             </div>
             <div>
-                <!-- <span class="title-amount">DESPESA:&nbsp;</span> <span class="amount-sum">{{localAmountCosts}}</span> -->
+                <span class="title-amount">DESPESA:&nbsp;</span> <span class="amount-sum">{{valuesFinancing?.totalPriceInterest}}</span>
             </div>
         </div>
 
@@ -20,18 +20,13 @@
             <div class="grid grid-cols-[1fr] items-center">
                 <div class="sm:max-w-[300px]">
                     <filter-radio-btns [disabledRadioInput]="false" [inputSetClearRadios]="cleanRadios"
-                        (radioChange)="filterView($event)" (removeFilter)="filterClear()">
+                        (radioChange)="filterView($event)">
                         <!-- <div>
                             <btn-g [btnType]="'red'" [name]="'Filtros'" [icon]="'clear'" (btn)="filterClear()"></btn-g>
                         </div> -->
                     </filter-radio-btns>
                 </div>
             </div>
-            <!-- <filter-list-collect-deliver (outFieldSearch)="queryFieldOutput($event)" (radioChange)="statusFilter($event)" [inputSetClearRadios]="cleanRadios">
-                <div>
-                    <btn-g [btnType]="'red'" [name]="'Filtros'" [icon]="'clear'" (btn)="filterClear()"></btn-g>
-                </div>
-            </filter-list-collect-deliver> -->
         </div>
     </div>
     <div body>

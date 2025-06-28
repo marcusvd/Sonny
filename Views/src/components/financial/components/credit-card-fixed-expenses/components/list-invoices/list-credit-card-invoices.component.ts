@@ -36,7 +36,6 @@ export class ListCreditCardInvoicesComponent extends ListControlCreditCardInvoic
   creditCardExpenseInvoiceSubscribe: Subscription;
 
   constructor(
-    private _fb: FormBuilder,
     override _router: Router,
     override _http: HttpClient,
     override _dialog: MatDialog,
