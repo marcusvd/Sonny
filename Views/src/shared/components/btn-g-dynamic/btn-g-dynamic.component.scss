@@ -7,8 +7,23 @@
     box-shadow: 0 0 0.5px rgba(0, 0, 0, 0.5);
 }
 
-button:hover {
+.btnMouseOverMain {
     mat-icon {
         color: #4ff6ff;
     }
+}
+
+.btnMouseOverRed {
+    mat-icon {
+        color: #ffa9a9;
+    }
+}
+
+.btn-pipe-red {
+    border-left: solid 1px #c92424;
+    background-color: #d66666;
+    border-right: solid 1px #ffb5b5;
+    height: 35px;
+    width: 3px;
+    box-shadow: 0 0 0.5px rgba(0, 0, 0, 0.5);
 }

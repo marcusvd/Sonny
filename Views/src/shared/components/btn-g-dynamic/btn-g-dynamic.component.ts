@@ -1,4 +1,4 @@
-import { JsonPipe, NgFor, NgIf } from '@angular/common';
+import { CommonModule, JsonPipe, NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -19,9 +19,8 @@ import { NameCpfCnpjComponent } from '../administrative/name-cpf-cnpj/name-cpf-c
   styleUrls: ['./btn-g-dynamic.component.scss'],
   standalone: true,
   imports: [
-    NgIf,
+    CommonModule,
     MatButtonModule,
-
     MatIconModule,
   ]
 })
@@ -34,11 +33,15 @@ export class BtnGDynamicComponent {
   @Input({ required: true }) name: string = '';
   @Input() actClosed: string = 'keyboard_arrow_up';
   @Input() actOpened: string = 'keyboard_arrow_down';
+
+  @Input() pipeBox: string = 'pipe-box';
+  @Input() btnName: string = '';
+  @Input() btnType: string = '';
   @Input() iconOnly: boolean = false;
   @Input() btnClassList = '!bg-main-color !text-white !w-[150px]';
   @Input() isDisabled: boolean = false;
 
-  constructor(private _fb: FormBuilder) {}
+  constructor(private _fb: FormBuilder) { }
 
   select = new FormControl();
 
@@ -46,8 +49,61 @@ export class BtnGDynamicComponent {
 
   filterMtd() {
     this.action = !this.action;
+
+    if (this.btnType == 'removeFilter') {
+      if (this.action) {
+        this.actOpened = 'close';
+        this.btnClassList = '!bg-remove-color !text-white !w-[150px]';
+        this.pipeBox = 'btn-pipe-red';
+      }
+
+      if (!this.action) {
+        this.actOpened = 'keyboard_arrow_up';
+        this.btnClassList = '!bg-main-color !text-white !w-[150px]';
+        this.pipeBox = 'pipe-box';
+      }
+    }
+
     this.outAction.emit(this.action)
   }
+
+
+
+
+  onMouseOverMtd() {
+    if (this.btnType == 'removeFilter') {
+      if (!this.action)
+        this.btnClassList += ' btnMouseOverMain';
+
+      if (this.action) {
+        this.btnClassList += ' btnMouseOverRed';
+      }
+    }
+  }
+
+  onMouseOutMtd() {
+    if (this.btnType == 'removeFilter') {
+      if (!this.action)
+        this.btnClassList = this.btnClassList.replace('btnMouseOverMain', '');
+
+      if (this.action)
+        this.btnClassList = this.btnClassList.replace('btnMouseOverRed', '');
+    }
+  }
+  // showHideFilterMtd($event: any) {
+
+  //   if (this.showHideFilter) {
+  //     this.actOpened = 'close';
+  //     this.btnClassList = '!bg-remove-color !text-white !w-[150px]';
+  //     this.pipeBox = 'btn-pipe-red';
+  //   }
+  //   else {
+  //     this.actOpened = 'keyboard_arrow_up';
+  //     this.btnClassList = '!bg-main-color !text-white !w-[150px]';
+  //     this.pipeBox = 'pipe-box';
+  //   }
+
+  // }
 
   btnGMtd() {
     this.btn.emit();

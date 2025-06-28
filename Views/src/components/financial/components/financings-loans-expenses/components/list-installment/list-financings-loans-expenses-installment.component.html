@@ -1,10 +1,10 @@
-<default-component [digitTitleComp]="'|'" [hideDivider]="true" [textTitleComp]="'Financiamento / Empréstimo'"
-    [textSubTitleComp]="'Contas a pagar'" [iconSubTitleComp]="'list'">
+<default-component [digitTitleComp]="'|'" [hideDivider]="true" [textTitleComp]="'Financiamento / Empréstimo'" [textSubTitleComp]="'Contas a pagar'" [iconSubTitleComp]="'list'">
     <div btns class="!bg-background-color p-4">
         <div class="mb-2 grid sm:grid-cols-3 grid-cols-1 gap-4 items-center">
             <div>
-                <btn-g-dynamic [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)">
+                <btn-g-dynamic [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)" [btnType]="'removeFilter'">
                 </btn-g-dynamic>
+
             </div>
 
             <div>
@@ -18,13 +18,11 @@
 
         <div class="bg-background-color" *ngIf="showHideFilter">
             <div class="grid grid-cols-[1fr] items-center">
-                <div class="p-4 w-[550px]">
-                    <filter-radio-btns [disabledRadioInput]="false" [inputSetClearRadios]="cleanRadios"
-                        (radioChange)="filterView($event)" (removeFilter)="filterClear()">
-                        <div>
-                            <btn-g [btnType]="'red'" [name]="'Filtros'" [icon]="'clear'"
-                                (btn)="filterClear()"></btn-g>
-                        </div>
+                <div class="p-4 w-full">
+                    <filter-radio-btns [disabledRadioInput]="false" [inputSetClearRadios]="cleanRadios" (radioChange)="filterView($event)" (removeFilter)="filterClear()">
+                        <!-- <div>
+                            <btn-g [btnType]="'red'" [name]="'Filtros'" [icon]="'clear'" (btn)="filterClear()"></btn-g>
+                        </div> -->
                     </filter-radio-btns>
                 </div>
             </div>
@@ -47,9 +45,7 @@
             <mat-divider class="divider-line-categories-comp"></mat-divider>
         </div>
 
-        <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$"
-            (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)"
-            (outOnClickIcons)="onClickIcons($event)">
+        <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickIcons)="onClickIcons($event)">
         </list-g>
 
     </div>

@@ -35,6 +35,7 @@ import { ListFinancingsLoansExpensesInstallmentService } from './services/list-f
 export class ListFinancingsLoansExpensesInstallmentComponent extends ListControlListFinancingsLoansExpensesInstallment implements OnInit {
 
 
+
   constructor(
     private _actRoute: ActivatedRoute,
     override _router: Router,
@@ -58,8 +59,6 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends ListControl
   ngOnDestroy(): void {
     this.financingsLoansExpensesInstallmentSubscribe?.unsubscribe();
   }
-
-
 
   id: number;
   ngOnInit(): void {

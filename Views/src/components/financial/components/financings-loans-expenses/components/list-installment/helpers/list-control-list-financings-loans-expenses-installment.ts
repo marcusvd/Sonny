@@ -33,6 +33,10 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
   viewListUrlRoute: string = '/financial/list-financings-loans-expenses-installment';
   addUrlRoute: string = '/financial/add-financings-loans-expenses';
 
+  actOpened: string = 'keyboard_arrow_up';
+  btnClassList = '!bg-main-color !text-white !w-[150px]';
+  pipeBox: string = 'pipe-box';
+
   length = 0;
 
   constructor(
@@ -117,6 +121,12 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
 
   showHideFilterMtd($event: any) {
     this.showHideFilter = !this.showHideFilter;
+
+
+    if (!this.showHideFilter)
+      this.filterClear();
+
+
   }
 
   onClickIcons(obj: OnClickInterface) {
