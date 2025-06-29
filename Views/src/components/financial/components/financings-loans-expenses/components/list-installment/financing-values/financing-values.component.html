@@ -1,1 +1,14 @@
-<p>financing-values works!</p>
+<div class="p-4 grid sm:grid-cols-4 grid-cols-1 gap-4">
+    <div>
+        <span class="title-amount">TOTAL:&nbsp;</span> <span class="amount-sum">{{valuesFinancing?.totalPriceToBePaid | ptBrCurrency}}</span>
+    </div>
+    <div>
+        <span class="title-amount">PRESTAÇÃO:&nbsp;</span> <span class="amount-sum">{{valuesFinancing?.installmentPrice | ptBrCurrency}}</span>
+    </div>
+    <div>
+        <span class="title-amount">PAGO:&nbsp;</span> <span class="amount-sum">{{valuesFinancing?.totalPaid | ptBrCurrency}}</span>
+    </div>
+    <div>
+        <span class="title-amount">A PAGAR:&nbsp;</span> <span class="amount-sum">{{valuesFinancing?.remainderToBePaid | ptBrCurrency}}</span>
+    </div>
+</div>

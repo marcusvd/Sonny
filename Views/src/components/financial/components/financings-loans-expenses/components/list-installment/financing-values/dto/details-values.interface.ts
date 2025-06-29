@@ -3,4 +3,6 @@ export class DetailsValuesInterface {
   totalPriceInterest: number;
   totalPercentageInterest: number;
   installmentPrice: number;
+  totalPaid: number;
+  remainderToBePaid: number;
 }

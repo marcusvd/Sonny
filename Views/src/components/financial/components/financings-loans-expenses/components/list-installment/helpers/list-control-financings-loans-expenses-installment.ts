@@ -186,16 +186,26 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
         if (x?.length != 0) {
 
           this.immutableEntitiesFromDb = x;
-
           x.forEach(
             (y: FinancingAndLoanExpenseInstallmentDto) => {
               this.entities = this.supplyItemsGrid(entities, y);
               this.entities$ = of(this.entities);
               this.entitiesFiltered$ = this.entities$
               this.length = x.length;
+              this.totalInstallmentsPaid(y);
             })
+
+          this.calcs(this.entities);
         }
       })).subscribe();
+  }
+
+  totalInstallmentsPaid(y: FinancingAndLoanExpenseInstallmentDto) {
+    if (new Date(y.wasPaid).getFullYear() != this.minValue.getFullYear())
+      this.valuesFinancing.totalPaid++;
+    else
+      this.valuesFinancing.remainderToBePaid++;
+
   }
 
   onSelectedMonth(entities: any[], selectedMonth: number, field: string) {
@@ -318,6 +328,8 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
     totalPriceInterest: 0,
     totalPercentageInterest: 0,
     installmentPrice: 0,
+    totalPaid: 0,
+    remainderToBePaid: 0
   };
 
   calcs(entities: ListFinancingsLoansExpensesInstallmentDto[]) {
@@ -332,11 +344,21 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
           this.valuesFinancing.totalPriceInterest = x.totalPriceInterest;
           this.valuesFinancing.totalPercentageInterest = x.totalPercentageInterest;
           this.valuesFinancing.installmentPrice = x.installmentPrice;
+          this.valuesFinancing.totalPaid = this.valuesFinancing.totalPaid * this.valuesFinancing.installmentPrice;
+          this.valuesFinancing.remainderToBePaid = this.valuesFinancing.remainderToBePaid * this.valuesFinancing.installmentPrice;
+          console.log(this.valuesFinancing.totalPaid)
         })
       ).subscribe();
 
+    // this.entities$.pipe(map(x => {
 
+    //   x.forEach((y: ListFinancingsLoansExpensesInstallmentDto) => {
+    //     if (new Date(y.wasPaid.key).getFullYear() != this.minValue.getFullYear()) {
+    //       this.valuesFinancing.totalPaid += this.valuesFinancing.installmentPrice;
+    //       console.log(this.valuesFinancing.totalPaid);
+    //     }
+    //   })
+
+    // })).subscribe();
   }
-
-
 }

@@ -48,17 +48,18 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends ListControl
       _ptBrDatePipe,
       _ptBrCurrencyPipe,
     )
-  }  
-  
+  }
+
   financingsLoansExpensesInstallmentSubscribe: Subscription;
   ngOnDestroy(): void {
     this.financingsLoansExpensesInstallmentSubscribe?.unsubscribe();
   }
-  
+
   ngOnInit(): void {
     const id = this._actRoute.snapshot.params['id'];
     this.financingsLoansExpensesInstallmentSubscribe = this.startSupply(`${this.controllerUrl}/GetInstallmentsByFinancingsAndLoansExpensesId`, id);
-    this.calcs(this.entities);
+
+
   }
 
 }
