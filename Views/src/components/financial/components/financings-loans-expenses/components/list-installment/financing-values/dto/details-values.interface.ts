@@ -5,4 +5,5 @@ export class DetailsValuesInterface {
   installmentPrice: number;
   totalPaid: number;
   remainderToBePaid: number;
+  installmentsQuantity: string;
 }

@@ -193,6 +193,7 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
               this.entitiesFiltered$ = this.entities$
               this.length = x.length;
               this.totalInstallmentsPaid(y);
+
             })
 
           this.calcs(this.entities);
@@ -201,11 +202,12 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
   }
 
   totalInstallmentsPaid(y: FinancingAndLoanExpenseInstallmentDto) {
-    if (new Date(y.wasPaid).getFullYear() != this.minValue.getFullYear())
+    if (new Date(y.wasPaid).getFullYear() != this.minValue.getFullYear()) {
       this.valuesFinancing.totalPaid++;
+      this.valuesFinancing.installmentsQuantity = this.valuesFinancing.totalPaid.toString();
+    }
     else
       this.valuesFinancing.remainderToBePaid++;
-
   }
 
   onSelectedMonth(entities: any[], selectedMonth: number, field: string) {
@@ -329,7 +331,8 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
     totalPercentageInterest: 0,
     installmentPrice: 0,
     totalPaid: 0,
-    remainderToBePaid: 0
+    remainderToBePaid: 0,
+    installmentsQuantity: '',
   };
 
   calcs(entities: ListFinancingsLoansExpensesInstallmentDto[]) {
@@ -346,10 +349,9 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
           this.valuesFinancing.installmentPrice = x.installmentPrice;
           this.valuesFinancing.totalPaid = this.valuesFinancing.totalPaid * this.valuesFinancing.installmentPrice;
           this.valuesFinancing.remainderToBePaid = this.valuesFinancing.remainderToBePaid * this.valuesFinancing.installmentPrice;
-          console.log(this.valuesFinancing.totalPaid)
+          this.valuesFinancing.installmentsQuantity = `${this.valuesFinancing.installmentsQuantity}/${x.installmentsQuantity.toString()}`;
         })
       ).subscribe();
-
     // this.entities$.pipe(map(x => {
 
     //   x.forEach((y: ListFinancingsLoansExpensesInstallmentDto) => {

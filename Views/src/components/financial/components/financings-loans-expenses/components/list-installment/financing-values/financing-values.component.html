@@ -3,12 +3,15 @@
         <span class="title-amount">TOTAL:&nbsp;</span> <span class="amount-sum">{{valuesFinancing?.totalPriceToBePaid | ptBrCurrency}}</span>
     </div>
     <div>
-        <span class="title-amount">PRESTAÇÃO:&nbsp;</span> <span class="amount-sum">{{valuesFinancing?.installmentPrice | ptBrCurrency}}</span>
+        <span class="title-amount">PARCELA:&nbsp;</span> <span class="amount-sum">{{valuesFinancing?.installmentPrice | ptBrCurrency}}</span>
     </div>
     <div>
-        <span class="title-amount">PAGO:&nbsp;</span> <span class="amount-sum">{{valuesFinancing?.totalPaid | ptBrCurrency}}</span>
+        <span class="title-amount">PAGO:&nbsp;</span> <span class="paid main-color-scss">{{valuesFinancing?.totalPaid | ptBrCurrency}}</span>
     </div>
     <div>
         <span class="title-amount">A PAGAR:&nbsp;</span> <span class="amount-sum">{{valuesFinancing?.remainderToBePaid | ptBrCurrency}}</span>
+    </div>
+    <div>
+        <span class="title-amount">PARCELAS PAGAS:&nbsp;</span> <span class="paid main-color-scss">{{valuesFinancing?.installmentsQuantity}}</span>
     </div>
 </div>

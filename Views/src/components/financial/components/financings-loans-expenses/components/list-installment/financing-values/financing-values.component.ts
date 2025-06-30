@@ -21,6 +21,7 @@ export class FinancingValuesComponent implements OnInit {
     installmentPrice: 0,
     totalPaid: 0,
     remainderToBePaid:0,
+    installmentsQuantity:'',
   };
 
 
