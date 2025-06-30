@@ -332,13 +332,14 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
     installmentPrice: 0,
     totalPaid: 0,
     remainderToBePaid: 0,
-    installmentsQuantity: '',
+    installmentsQuantity: '0',
   };
 
   calcs(entities: ListFinancingsLoansExpensesInstallmentDto[]) {
 
-    const entitiesPaid = entities.filter(x => new Date(x.wasPaid.key).getFullYear() != this.minValue.getFullYear())
-    this.paid = entitiesPaid.reduce((x, y) => x + y.priceWasPaidInstallment.keyN, 0)
+    const entitiesPaid = entities.filter(x => new Date(x.wasPaid.key).getFullYear() != this.minValue.getFullYear());
+    this.paid = entitiesPaid.reduce((x, y) => x + y.priceWasPaidInstallment.keyN, 0);
+    
 
     this._listGDataService?.loadById$<FinancingsLoansExpensesDto>(`${this.controllerUrl}/GetFinancingsAndLoansGetExpensesByIdAllIncluded`, this.idFinancingsLoansExpenses)
       .pipe(
@@ -349,7 +350,7 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
           this.valuesFinancing.installmentPrice = x.installmentPrice;
           this.valuesFinancing.totalPaid = this.valuesFinancing.totalPaid * this.valuesFinancing.installmentPrice;
           this.valuesFinancing.remainderToBePaid = this.valuesFinancing.remainderToBePaid * this.valuesFinancing.installmentPrice;
-          this.valuesFinancing.installmentsQuantity = `${this.valuesFinancing.installmentsQuantity}/${x.installmentsQuantity.toString()}`;
+          this.valuesFinancing.installmentsQuantity = `${this.valuesFinancing.installmentsQuantity ?? 0}/${x.installmentsQuantity.toString()}`;
         })
       ).subscribe();
     // this.entities$.pipe(map(x => {
