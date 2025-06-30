@@ -1,12 +1,13 @@
 import { Component, Input, input, OnInit } from '@angular/core';
 import { DetailsValuesInterface } from '../financing-values/dto/details-values.interface';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'financing-values',
   standalone: true,
-  imports: [PtBrCurrencyPipe],
+  imports: [PtBrCurrencyPipe, CommonModule],
   templateUrl: './financing-values.component.html',
   styleUrl: './financing-values.component.scss'
 })
