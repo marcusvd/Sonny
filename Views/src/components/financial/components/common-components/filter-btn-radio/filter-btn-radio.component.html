@@ -1,6 +1,6 @@
-<mat-card class="p-4 !border !border-color-main !shadow-md card">
+<mat-card class="pl-4 !border !border-color-main !shadow-md card">
     <mat-radio-group (change)="filter($event)" [disabled]="disabledRadioInput">
-        <div class="w-full grid sm:grid-cols-[150px_150px_150px] grid-cols-1 gap-4 items-center justify-start">
+        <div class="w-full grid grid-cols-[150px_150px] sm:grid-rows-1 gap-4 items-center justify-start">
             <div class="w-full grid grid-cols-[15px_1fr] items-center justify-center">
 
                 <div>
@@ -19,9 +19,7 @@
                     <mat-radio-button #radioPaid [value]="'paid'">Pago</mat-radio-button>
                 </div>
             </div>
-              <div class="flex sm:justify-end">
-                <ng-content></ng-content>
-            </div>
+             
         </div>
     </mat-radio-group>
 </mat-card>
