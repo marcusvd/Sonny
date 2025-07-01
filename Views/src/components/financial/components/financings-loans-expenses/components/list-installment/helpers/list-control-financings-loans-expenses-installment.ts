@@ -32,6 +32,7 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
 
   cleanRadios = false;
   showHideFilter = false;
+  showHideDetails = false;
 
   viewListUrlRoute: string = '/financial/list-financings-loans-expenses-installment';
   addUrlRoute: string = '/financial/add-financings-loans-expenses';
@@ -265,6 +266,12 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
     if (!this.showHideFilter)
       this.filterClear();
   }
+  showHideDetailsMtd() {
+    this.showHideDetails = !this.showHideDetails;
+
+    if (!this.showHideDetails)
+      this.filterClear();
+  }
 
   onClickIcons(obj: OnClickInterface) {
 
@@ -339,7 +346,7 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
 
     const entitiesPaid = entities.filter(x => new Date(x.wasPaid.key).getFullYear() != this.minValue.getFullYear());
     this.paid = entitiesPaid.reduce((x, y) => x + y.priceWasPaidInstallment.keyN, 0);
-    
+
 
     this._listGDataService?.loadById$<FinancingsLoansExpensesDto>(`${this.controllerUrl}/GetFinancingsAndLoansGetExpensesByIdAllIncluded`, this.idFinancingsLoansExpenses)
       .pipe(

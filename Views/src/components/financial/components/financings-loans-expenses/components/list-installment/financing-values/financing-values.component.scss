@@ -1,4 +1,4 @@
-.title-amount {
+.title {
     font-weight: bolder;
     font-size: 15px;
     font-family: 'Mynerve';
@@ -14,6 +14,11 @@
 .paid {
     font-size: 15px;
     font-family: 'Mynerve';
-    // color: green;
+    color: green;
     font-weight: bolder;
+}
+
+.pipe-title {
+    font-size: 30px;
+    color: rgb(43, 161, 168);
 }

@@ -14,7 +14,7 @@ import { FinancingsLoansExpensesService } from './services/financings-loans-expe
 @Component({
   selector: 'financings-loans-expenses',
   templateUrl: './add-financings-loans-expenses.component.html',
-  styleUrls: ['./add-financings-loans-expenses.component.css'],
+  styleUrls: ['./add-financings-loans-expenses.component.scss'],
   standalone: true,
   imports: [
     AddFinancingsLoansExpensesImports,

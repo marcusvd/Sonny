@@ -17,7 +17,7 @@ import { ListFinancingsLoansExpensesInstallmentImports, ListFinancingsLoansExpen
 @Component({
   selector: 'list-financings-loans-expenses-installment',
   templateUrl: './list-financings-loans-expenses-installment.component.html',
-  styleUrls: ['./list-financings-loans-expenses-installment.component.css'],
+  styleUrls: ['./list-financings-loans-expenses-installment.component.scss'],
   standalone: true,
   imports: [
     ListFinancingsLoansExpensesInstallmentImports,

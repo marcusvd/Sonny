@@ -1,34 +1,40 @@
 <default-component [digitTitleComp]="'|'" [hideDivider]="true" [textTitleComp]="'Financiamento / Empréstimo'" [textSubTitleComp]="'Contas a pagar'" [iconSubTitleComp]="'list'">
     <div btns class="!bg-background-color p-4">
-        <div class="mb-2 grid sm:grid-cols-[150px_1fr] grid-cols-1 gap-4 items-center">
+
+        <div class="grid sm:grid-rows-2 grid-cols-1 gap-4 items-center">
             <div>
-                <btn-g-dynamic [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)" [btnType]="'removeFilter'">
+                <btn-g-dynamic [name]="'Detalhes'" (outAction)="showHideDetailsMtd()" [btnType]="'removeFilter'">
                 </btn-g-dynamic>
             </div>
-            <div>
+            <div *ngIf="showHideDetails">
                 <financing-values [valuesFinancing]="valuesFinancing">
                 </financing-values>
             </div>
         </div>
 
-
-        <div class="grid bg-background-color sm:justify-start justify-center" *ngIf="showHideFilter">
-            <div class="grid grid-cols-[1fr] items-center">
-                <div class="sm:max-w-[300px]">
-                    <filter-radio-btns [disabledRadioInput]="false" [inputSetClearRadios]="cleanRadios" (radioChange)="filterView($event)">
-                        <!-- <div>
-                            <btn-g [btnType]="'red'" [name]="'Filtros'" [icon]="'clear'" (btn)="filterClear()"></btn-g>
-                        </div> -->
-                    </filter-radio-btns>
-                </div>
-            </div>
-        </div>
     </div>
     <div body>
 
         <div class="p-4 grid sm:grid-cols-2 grid-cols-1 gap-4">
             <div>
                 <btn-g btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="callRouter(addUrlRoute)"></btn-g>
+            </div>
+            <div class="mb-2 grid sm:grid-cols-[150px_1fr] grid-cols-1 gap-4 items-center">
+                <div>
+                    <btn-g-dynamic [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)" [btnType]="'removeFilter'">
+                    </btn-g-dynamic>
+                </div>
+                <div class="grid bg-background-color sm:justify-start justify-center" *ngIf="showHideFilter">
+                    <div class="grid grid-cols-[1fr] items-center">
+                        <div class="sm:max-w-[300px]">
+                            <filter-radio-btns [disabledRadioInput]="false" [inputSetClearRadios]="cleanRadios" (radioChange)="filterView($event)">
+                                <!-- <div>
+                                <btn-g [btnType]="'red'" [name]="'Filtros'" [icon]="'clear'" (btn)="filterClear()"></btn-g>
+                            </div> -->
+                            </filter-radio-btns>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

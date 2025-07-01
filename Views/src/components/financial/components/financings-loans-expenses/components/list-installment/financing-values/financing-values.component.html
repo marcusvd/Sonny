@@ -1,108 +1,85 @@
-<!-- <div class="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-    <div>
-        <span class="title-amount">TOTAL:&nbsp;</span> <span class="costs">{{valuesFinancing?.totalPriceToBePaid | ptBrCurrency}}</span>
-    </div>
-    <div>
-        <span class="title-amount">PARCELA:&nbsp;</span> <span class="costs">{{valuesFinancing?.installmentPrice | ptBrCurrency}}</span>
-    </div>
-    <div>
-        <span class="title-amount">A PAGAR:&nbsp;</span> <span class="costs">{{valuesFinancing?.remainderToBePaid | ptBrCurrency}}</span>
-    </div>
-    <div>
-        <span class="title-amount">JUROS %:&nbsp;</span> <span class="costs">{{valuesFinancing?.totalPercentageInterest | percent }}</span>
-    </div>
-    <div>
-        <span class="title-amount">JUROS $:&nbsp;</span> <span class="costs">{{valuesFinancing?.totalPriceInterest | ptBrCurrency }}</span>
-    </div>
-    <div>
-        <span class="title-amount">PAGO:&nbsp;</span> <span class="paid main-color-scss">{{valuesFinancing?.totalPaid | ptBrCurrency}}</span>
-    </div>
-    <div>
-        <span class="title-amount">PARCELAS PAGAS:&nbsp;</span> <span class="paid main-color-scss">{{valuesFinancing?.installmentsQuantity}}</span>
-    </div>
-</div> -->
+<mat-card class="!border !border-color-main !shadow-md card">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center">
+            <div>
+                <p class="pipe-title"> <span>|</span></p>
+            </div>
+            <div>
+                <p class="title">TOTAL</p>
+            </div>
+            <div class="costs">
+                <p>{{valuesFinancing?.totalPriceToBePaid | ptBrCurrency}}</p>
+            </div>
+        </div>
 
-<!-- <div class="w-full pr-4 pl-4 pb-4 grid sm:grid-cols-4 grid-cols-1 grid-row-4 gap-4"> -->
-<div class="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-    <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center">
-        <div>
-            <p class="pipe-title"> <span>|</span></p>
+        <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center">
+            <div>
+                <p class="pipe-title"> <span>|</span></p>
+            </div>
+            <div>
+                <p class="title">PARCELA</p>
+            </div>
+            <div class="costs">
+                <p>{{valuesFinancing?.installmentPrice | ptBrCurrency}}</p>
+            </div>
         </div>
-        <div>
-            <p>TOTAL:</p>
-        </div>
-        <div>
-            <p>{{valuesFinancing?.totalPriceToBePaid | ptBrCurrency}}</p>
-        </div>
-    </div>
 
-    <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center">
-        <div>
-            <p class="pipe-title"> <span>|</span></p>
+        <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center">
+            <div>
+                <p class="pipe-title"> <span>|</span></p>
+            </div>
+            <div>
+                <p class="title">A PAGAR</p>
+            </div>
+            <div class="costs">
+                <p>{{valuesFinancing?.remainderToBePaid | ptBrCurrency}}</p>
+            </div>
         </div>
-        <div>
-            <p>PARCELA:</p>
-        </div>
-        <div>
-            <p>{{valuesFinancing?.installmentPrice | ptBrCurrency}}</p>
-        </div>
-    </div>
 
-    <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center">
-        <div>
-            <p class="pipe-title"> <span>|</span></p>
+        <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center">
+            <div>
+                <p class="pipe-title"> <span>|</span></p>
+            </div>
+            <div>
+                <p class="title">JUROS %</p>
+            </div>
+            <div class="w-full costs">
+                <p>{{valuesFinancing?.totalPercentageInterest | percent }}</p>
+            </div>
         </div>
-        <div>
-            <p>A PAGAR:</p>
+        <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center">
+            <div>
+                <p class="pipe-title"> <span>|</span></p>
+            </div>
+            <div>
+                <p class="title">JUROS $</p>
+            </div>
+            <div class="w-full costs">
+                <p>{{valuesFinancing?.totalPriceInterest | ptBrCurrency }}</p>
+            </div>
         </div>
-        <div>
-            <p>{{valuesFinancing?.remainderToBePaid | ptBrCurrency}}</p>
+        <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center">
+            <div>
+                <p class="pipe-title"> <span>|</span></p>
+            </div>
+            <div>
+                <p class="title">PAGO</p>
+            </div>
+            <div class="w-full paid">
+                <p>{{valuesFinancing?.totalPaid | ptBrCurrency}}</p>
+            </div>
         </div>
-    </div>
+        <div class="w-full grid sm:grid-cols-[10px_1fr_50px] grid-cols-[10px_1fr_1fr] items-center">
+            <div>
+                <p class="pipe-title"> <span>|</span></p>
+            </div>
+            <div>
+                <p class="title">PARCELAS PAGAS</p>
+            </div>
+            <div class="w-full paid">
+                <p>{{valuesFinancing?.installmentsQuantity}}</p>
+            </div>
+        </div>
 
-    <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center">
-        <div>
-            <p class="pipe-title"> <span>|</span></p>
-        </div>
-        <div>
-            <p>JUROS %</p>
-        </div>
-        <div class="w-full">
-            <p>{{valuesFinancing?.totalPercentageInterest | percent }}</p>
-        </div>
     </div>
-    <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center">
-        <div>
-            <p class="pipe-title"> <span>|</span></p>
-        </div>
-        <div>
-            <p>JUROS $</p>
-        </div>
-        <div class="w-full">
-            <p>{{valuesFinancing?.totalPriceInterest | ptBrCurrency }}</p>
-        </div>
-    </div>
-    <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center">
-        <div>
-            <p class="pipe-title"> <span>|</span></p>
-        </div>
-        <div>
-            <p>PAGO</p>
-        </div>
-        <div class="w-full">
-            <p>{{valuesFinancing?.totalPaid | ptBrCurrency}}</p>
-        </div>
-    </div>
-    <div class="w-full grid grid-cols-[10px_1fr_50px] items-center">
-        <div>
-            <p class="pipe-title"> <span>|</span></p>
-        </div>
-        <div>
-            <p>PARCELAS PAGAS</p>
-        </div>
-        <div class="w-full">
-            <p>{{valuesFinancing?.installmentsQuantity}}</p>
-        </div>
-    </div>
-
-</div>
+</mat-card>
