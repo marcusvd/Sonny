@@ -1,13 +1,12 @@
 <default-component [digitTitleComp]="'|'" [hideDivider]="true" [textTitleComp]="'Financiamento / Empréstimo'" [textSubTitleComp]="'Contas a pagar'" [iconSubTitleComp]="'list'">
     <div btns class="!bg-background-color p-4">
 
-        <div class="grid sm:grid-rows-2 grid-cols-1 gap-4 items-center">
+        <div class="grid grid-rows-1">
             <div>
                 <btn-g-dynamic [name]="'Detalhes'" (outAction)="showHideDetailsMtd()" [btnType]="'removeFilter'">
                 </btn-g-dynamic>
-            </div>
-            <div *ngIf="showHideDetails">
-                <financing-values [valuesFinancing]="valuesFinancing">
+                <div class="pb-2"></div>
+                <financing-values *ngIf="showHideDetails" [valuesFinancing]="valuesFinancing">
                 </financing-values>
             </div>
         </div>
