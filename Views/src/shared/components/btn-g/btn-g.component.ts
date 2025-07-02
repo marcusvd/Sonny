@@ -19,6 +19,8 @@ export class BtnGComponent {
   @Input() haveIcon: boolean = true;
   @Input() icon: string = 'add';
   @Input() btnType: string = 'green'; //green, red, onlyIconGreen
+  @Input() customizeBtn: string = '!w-[150px]';
+
 
 
   // @Input() btnGreenClassList = '!bg-main-color !text-white !w-[150px]';

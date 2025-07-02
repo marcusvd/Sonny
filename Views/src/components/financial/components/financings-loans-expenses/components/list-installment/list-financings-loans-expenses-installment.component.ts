@@ -31,6 +31,8 @@ import { ListFinancingsLoansExpensesInstallmentImports, ListFinancingsLoansExpen
 })
 export class ListFinancingsLoansExpensesInstallmentComponent extends ListControlListFinancingsLoansExpensesInstallment implements OnInit{
 
+  test = 'bg-main-color text-white w-[150px]';
+
   constructor(
     private _actRoute: ActivatedRoute,
     override _router: Router,
@@ -58,8 +60,6 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends ListControl
   ngOnInit(): void {
     const id = this._actRoute.snapshot.params['id'];
     this.financingsLoansExpensesInstallmentSubscribe = this.startSupply(`${this.controllerUrl}/GetInstallmentsByFinancingsAndLoansExpensesId`, id);
-
-
   }
 
 }

@@ -1,23 +1,24 @@
-<default-component [digitTitleComp]="'|'" [hideDivider]="true" [textTitleComp]="'Financiamento / Empréstimo'"
-    [textSubTitleComp]="'Contas a pagar'" [iconSubTitleComp]="'list'">
+<default-component [digitTitleComp]="'|'" [hideDivider]="true" [textTitleComp]="'Financiamento / Empréstimo'" [textSubTitleComp]="'Contas a pagar'" [iconSubTitleComp]="'list'">
     <div btns class="!bg-background-color p-4">
 
         <div class="grid grid-cols-3">
-            <div>
-                <btn-g  [haveIcon]="false" btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="callRouter(addUrlRoute)"></btn-g>
+            <div class="hidden sm:block">
+                <btn-g btn-1 [name]="'Despesa '" [icon]="'add '" (btn)="callRouter(addUrlRoute)"></btn-g>
+            </div>
+            <div class="sm:hidden block">
+                <btn-g [customizeBtn]="'!bg-main-color !text-white !w-[80px]'" [btnType]="'customized-simple'" btn-1 [name]="'Despesa '" [icon]="'add '" (btn)="callRouter(addUrlRoute)"></btn-g>
             </div>
             <div>
-                <btn-g-dynamic  [name]="'Detalhes'" (outAction)="showHideDetailsMtd()" [btnType]="'removeFilter'">
+                <btn-g-dynamic [name]="'Detalhes '" (outAction)="showHideDetailsMtd()" [btnType]="'removeFilter '">
                 </btn-g-dynamic>
 
             </div>
             <div class="grid grid-cols-[190px_1fr] gap-4">
-                <btn-g-dynamic  [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)" [btnType]="'removeFilter'">
+                <btn-g-dynamic [name]="'Filtrar '" (outAction)="showHideFilterMtd($event)" [btnType]="'removeFilter '">
                 </btn-g-dynamic>
                 <!-- <div class="pb-2"></div> -->
 
-                <filter-radio-btns class="sm:max-w-[300px]" *ngIf="showHideFilter" [disabledRadioInput]="false"
-                    [inputSetClearRadios]="cleanRadios" (radioChange)="filterView($event)">
+                <filter-radio-btns class="sm:max-w-[300px]" *ngIf="showHideFilter" [disabledRadioInput]="false" [inputSetClearRadios]="cleanRadios" (radioChange)="filterView($event)">
                 </filter-radio-btns>
 
 
@@ -27,8 +28,8 @@
 
                 <div class="mb-2 grid sm:grid-cols-2 grid-cols-1 gap-4 items-center">
                     <div>
-                        <btn-g-dynamic [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)"
-                            [btnType]="'removeFilter'">
+                        <btn-g-dynamic [name]="'Filtrar '" (outAction)="showHideFilterMtd($event)"
+                            [btnType]="'removeFilter '">
                         </btn-g-dynamic>
                     </div>
 
@@ -55,9 +56,7 @@
             <mat-divider class="divider-line-categories-comp"></mat-divider>
         </div>
 
-        <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$"
-            (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)"
-            (outOnClickIcons)="onClickIcons($event)">
+        <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickIcons)="onClickIcons($event)">
         </list-g>
 
     </div>
