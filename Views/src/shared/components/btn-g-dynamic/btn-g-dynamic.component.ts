@@ -35,13 +35,11 @@ export class BtnGDynamicComponent {
   @Input() actOpened: string = 'keyboard_arrow_down';
 
   @Input() pipeBox: string = 'pipe-box';
-  @Input() btnName: string = '';
-  @Input() btnType: string = '';
-  @Input() iconOnly: boolean = false;
+  @Input() btnNameScssClasses: string = '';
+  @Input() secondAct: string = '';
+  @Input() btnType: string = 'dynamic-simple';
   @Input() btnClassList = '!bg-main-color !text-white !w-[150px]';
   @Input() isDisabled: boolean = false;
-
-  constructor(private _fb: FormBuilder) { }
 
   select = new FormControl();
 
@@ -50,7 +48,7 @@ export class BtnGDynamicComponent {
   filterMtd() {
     this.action = !this.action;
 
-    if (this.btnType == 'removeFilter') {
+    if (this.secondAct == 'removeFilter') {
       if (this.action) {
         this.actOpened = 'close';
         this.btnClassList = '!bg-remove-color !text-white !w-[150px]';
@@ -67,11 +65,8 @@ export class BtnGDynamicComponent {
     this.outAction.emit(this.action)
   }
 
-
-
-
   onMouseOverMtd() {
-    if (this.btnType == 'removeFilter') {
+    if (this.secondAct == 'removeFilter') {
       if (!this.action)
         this.btnClassList += ' btnMouseOverMain';
 
@@ -82,7 +77,7 @@ export class BtnGDynamicComponent {
   }
 
   onMouseOutMtd() {
-    if (this.btnType == 'removeFilter') {
+    if (this.secondAct == 'removeFilter') {
       if (!this.action)
         this.btnClassList = this.btnClassList.replace('btnMouseOverMain', '');
 
@@ -90,20 +85,6 @@ export class BtnGDynamicComponent {
         this.btnClassList = this.btnClassList.replace('btnMouseOverRed', '');
     }
   }
-  // showHideFilterMtd($event: any) {
-
-  //   if (this.showHideFilter) {
-  //     this.actOpened = 'close';
-  //     this.btnClassList = '!bg-remove-color !text-white !w-[150px]';
-  //     this.pipeBox = 'btn-pipe-red';
-  //   }
-  //   else {
-  //     this.actOpened = 'keyboard_arrow_up';
-  //     this.btnClassList = '!bg-main-color !text-white !w-[150px]';
-  //     this.pipeBox = 'pipe-box';
-  //   }
-
-  // }
 
   btnGMtd() {
     this.btn.emit();
