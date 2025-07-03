@@ -1,17 +1,9 @@
-import { CommonModule, JsonPipe, NgFor, NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatButtonModule as MatButtonModule } from '@angular/material/button';
-import { MatCardModule as MatCardModule } from '@angular/material/card';
-import { MatCheckbox as MatCheckbox, MatCheckboxModule as MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatFormFieldModule as MatFormFieldModule } from '@angular/material/form-field';
+import { FormControl } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule as MatInputModule } from '@angular/material/input';
-import { MatSelectModule as MatSelectModule } from '@angular/material/select';
-import { NgxMaskModule } from 'ngx-mask';
-import { NameCpfCnpjComponent } from '../administrative/name-cpf-cnpj/name-cpf-cnpj.component';
 
 @Component({
   selector: 'btn-g-dynamic',
@@ -34,10 +26,14 @@ export class BtnGDynamicComponent {
   @Input() actClosed: string = 'keyboard_arrow_up';
   @Input() actOpened: string = 'keyboard_arrow_down';
 
+  @Input() actClosedScssClasses: string = '!bg-remove-color !text-white !w-[150px]';
+  @Input() actOpenedScssClasses: string = '!bg-main-color !text-white !w-[150px]';
+
+
   @Input() pipeBox: string = 'pipe-box';
   @Input() btnNameScssClasses: string = '';
   @Input() secondAct: string = '';
-  @Input() btnType: string = 'dynamic-simple';
+  @Input() btnType: string = '';
   @Input() btnClassList = '!bg-main-color !text-white !w-[150px]';
   @Input() isDisabled: boolean = false;
 
@@ -48,16 +44,31 @@ export class BtnGDynamicComponent {
   filterMtd() {
     this.action = !this.action;
 
-    if (this.secondAct == 'removeFilter') {
+    if (this.secondAct == 'removeFilter-simple') {
       if (this.action) {
         this.actOpened = 'close';
-        this.btnClassList = '!bg-remove-color !text-white !w-[150px]';
+        this.btnClassList = this.actClosedScssClasses;
         this.pipeBox = 'btn-pipe-red';
       }
 
       if (!this.action) {
         this.actOpened = 'keyboard_arrow_up';
-        this.btnClassList = '!bg-main-color !text-white !w-[150px]';
+        this.btnClassList = this.actOpenedScssClasses;
+        this.pipeBox = 'pipe-box';
+      }
+    }
+
+
+    if (this.secondAct == 'removeFilter') {
+      if (this.action) {
+        this.actOpened = 'close';
+        this.btnClassList = this.actClosedScssClasses;
+        this.pipeBox = 'btn-pipe-red';
+      }
+
+      if (!this.action) {
+        this.actOpened = 'keyboard_arrow_up';
+        this.btnClassList = this.actOpenedScssClasses;
         this.pipeBox = 'pipe-box';
       }
     }
@@ -66,25 +77,70 @@ export class BtnGDynamicComponent {
   }
 
   onMouseOverMtd() {
-    if (this.secondAct == 'removeFilter') {
-      if (!this.action)
-        this.btnClassList += ' btnMouseOverMain';
+    if (!this.action)
+      this.btnClassList += ' btnMouseOverMain';
 
-      if (this.action) {
-        this.btnClassList += ' btnMouseOverRed';
-      }
-    }
+    if (this.action)
+      this.btnClassList += ' btnMouseOverRed';
   }
 
   onMouseOutMtd() {
-    if (this.secondAct == 'removeFilter') {
-      if (!this.action)
-        this.btnClassList = this.btnClassList.replace('btnMouseOverMain', '');
+    if (!this.action)
+      this.btnClassList = this.btnClassList.replace('btnMouseOverMain', '');
 
-      if (this.action)
-        this.btnClassList = this.btnClassList.replace('btnMouseOverRed', '');
-    }
+    if (this.action)
+      this.btnClassList = this.btnClassList.replace('btnMouseOverRed', '');
   }
+
+  screenWidth: number = window.innerWidth;
+    responsive(event?: Event) {
+console.log('responsive', event);
+
+this.actOpened = 'close';
+this.btnClassList = this.actClosedScssClasses;
+this.pipeBox = 'btn-pipe-red';
+
+// if (this.screen(event) <= 640) {
+
+      // }
+
+      // if (this.secondAct == 'removeFilter-simple') {
+      //   if (this.action) {
+      //     this.actOpened = 'close';
+      //     this.btnClassList = this.actClosedScssClasses;
+      //     this.pipeBox = 'btn-pipe-red';
+      //   }
+
+      //   if (!this.action) {
+      //     this.actOpened = 'keyboard_arrow_up';
+      //     this.btnClassList = this.actOpenedScssClasses;
+      //     this.pipeBox = 'pipe-box';
+      //   }
+      // }
+
+
+      // if (this.secondAct == 'removeFilter') {
+      //   if (this.action) {
+      //     this.actOpened = 'close';
+      //     this.btnClassList = this.actClosedScssClasses;
+      //     this.pipeBox = 'btn-pipe-red';
+      //   }
+
+      //   if (!this.action) {
+      //     this.actOpened = 'keyboard_arrow_up';
+      //     this.btnClassList = this.actOpenedScssClasses;
+      //     this.pipeBox = 'pipe-box';
+      //   }
+      // }
+
+
+    }
+
+    screen(event?: Event) {
+      const target = event.target as Window;
+      this.screenWidth = target.innerWidth;
+      return this.screenWidth
+    }
 
   btnGMtd() {
     this.btn.emit();

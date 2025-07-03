@@ -29,9 +29,11 @@ import { ListFinancingsLoansExpensesInstallmentImports, ListFinancingsLoansExpen
   ]
 
 })
-export class ListFinancingsLoansExpensesInstallmentComponent extends ListControlListFinancingsLoansExpensesInstallment implements OnInit{
+export class ListFinancingsLoansExpensesInstallmentComponent extends ListControlListFinancingsLoansExpensesInstallment implements OnInit {
 
-  test = 'bg-main-color text-white w-[150px]';
+  test = 'bg-main-color text-white w-[110px]';
+  actClosedScssClasses = '!bg-remove-color !text-white !w-[110px]';
+  actOpenedScssClasses = '!bg-main-color !text-white !w-[110px]';
 
   constructor(
     private _actRoute: ActivatedRoute,

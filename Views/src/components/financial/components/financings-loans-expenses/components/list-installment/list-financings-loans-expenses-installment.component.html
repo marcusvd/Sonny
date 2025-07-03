@@ -6,30 +6,41 @@
                 <btn-g btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="callRouter(addUrlRoute)"></btn-g>
             </div>
             <div class="sm:hidden block">
-                <btn-g [customizeBtn]="'!bg-main-color !text-white !w-[80px]'" [btnType]="'customized-simple'" btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="callRouter(addUrlRoute)"></btn-g>
+                <btn-g [customizeBtn]="'!bg-main-color !text-white !w-[110px]'" [btnType]="'customized-simple'" btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="callRouter(addUrlRoute)"></btn-g>
             </div>
             <div>
-                <btn-g-dynamic [name]="'Detalhes'" (outAction)="showHideDetailsMtd()" [secondAct]="'removeFilter'">
+                <btn-g-dynamic class="hidden sm:block" [btnType]="'dynamic-default'" [name]="'Detalhes'" (outAction)="showHideDetailsMtd()" [secondAct]="'removeFilter-simple'">
                 </btn-g-dynamic>
 
+                <btn-g-dynamic class="sm:hidden block" [actClosedScssClasses]="actClosedScssClasses" [actOpenedScssClasses]="actOpenedScssClasses" [btnClassList]="actOpenedScssClasses" [btnType]="'dynamic-simple'" [name]="'Detalhes'" (outAction)="showHideDetailsMtd()"
+                    [secondAct]="'removeFilter'">
+                </btn-g-dynamic>
             </div>
-            <div class="grid grid-cols-[190px_1fr] gap-4">
+            <div>
 
-                <btn-g-dynamic [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)" [secondAct]="'removeFilter'">
+                <btn-g-dynamic class="hidden sm:block" [btnType]="'dynamic-default'" [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)" [secondAct]="'removeFilter-simple'">
                 </btn-g-dynamic>
 
-                <filter-radio-btns class="sm:max-w-[300px]" *ngIf="showHideFilter" [disabledRadioInput]="false" [inputSetClearRadios]="cleanRadios" (radioChange)="filterView($event)">
-                </filter-radio-btns>
+                <btn-g-dynamic class="sm:hidden block" [actClosedScssClasses]="actClosedScssClasses" [actOpenedScssClasses]="actOpenedScssClasses" [btnClassList]="actOpenedScssClasses" [btnType]="'dynamic-simple'" [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)"
+                    [secondAct]="'removeFilter'">
+                </btn-g-dynamic>
 
             </div>
         </div>
-        <div class="pb-2"></div>
+        <div class="pb-2" *ngIf="showHideFilter"></div>
+
+        <div class="sm:justify-start justify-center w-full sm:w-[310px]">
+            <filter-radio-btns *ngIf="showHideFilter" [disabledRadioInput]="false" [inputSetClearRadios]="cleanRadios" (radioChange)="filterView($event)">
+            </filter-radio-btns>
+        </div>
+
+        <div class="pb-2" *ngIf="showHideDetails"></div>
         <financing-values *ngIf="showHideDetails" [valuesFinancing]="valuesFinancing">
         </financing-values>
+
     </div>
+
     <div body>
-
-
 
         <div class="align-h-center">
             <mat-divider class="divider-line-categories-comp"></mat-divider>
