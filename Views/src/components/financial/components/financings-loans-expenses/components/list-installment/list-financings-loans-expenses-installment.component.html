@@ -1,4 +1,4 @@
-<default-component [digitTitleComp]="'|'" [hideDivider]="true" [textTitleComp]="'Financiamento / Empréstimo'" [textSubTitleComp]="'Contas a pagar'" [iconSubTitleComp]="'list'">
+<default-component (window:resize)="responsive($event)" [digitTitleComp]="'|'" [hideDivider]="true" [textTitleComp]="'Financiamento / Empréstimo'" [textSubTitleComp]="'Contas a pagar'" [iconSubTitleComp]="'list'">
     <div btns class="!bg-background-color p-4">
 
         <div class="grid grid-cols-3">
@@ -9,21 +9,32 @@
                 <btn-g [customizeBtn]="'!bg-main-color !text-white !w-[110px]'" [btnType]="'customized-simple'" btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="callRouter(addUrlRoute)"></btn-g>
             </div>
             <div>
-                <btn-g-dynamic class="hidden sm:block" [btnType]="'dynamic-default'" [name]="'Detalhes'" (outAction)="showHideDetailsMtd()" [secondAct]="'removeFilter-simple'">
+                <btn-g-dynamic [btnType]="'dynamic-default'" [name]="'Detalhes'" (outAction)="showHideDetailsMtd()" [hideIcon]="hideIcon"
+[btnClassList]="btnClassList">
                 </btn-g-dynamic>
 
-                <btn-g-dynamic class="sm:hidden block" [actClosedScssClasses]="actClosedScssClasses" [actOpenedScssClasses]="actOpenedScssClasses" [btnClassList]="actOpenedScssClasses" [btnType]="'dynamic-simple'" [name]="'Detalhes'" (outAction)="showHideDetailsMtd()"
-                    [secondAct]="'removeFilter'">
+             
+                <!-- <btn-g-dynamic [btnType]="'dynamic-default'"  class="hidden sm:block" [btnType]="'dynamic-default'" [name]="'Detalhes'" (outAction)="showHideDetailsMtd()" [secondAct]="'removeFilter-simple'">
                 </btn-g-dynamic>
+
+                <btn-g-dynamic [btnType]="'dynamic-default'"  class="sm:hidden block" [actClosedScssClasses]="actClosedScssClasses" [actOpenedScssClasses]="actOpenedScssClasses" [btnClassList]="actOpenedScssClasses"
+                 [btnType]="'dynamic-simple'" [name]="'Detalhes'" (outAction)="showHideDetailsMtd()"
+                    [secondAct]="'removeFilter'">
+                </btn-g-dynamic> -->
             </div>
             <div>
+<!-- 
+                <btn-g-dynamic [btnType]="'dynamic-default'"   [btnType]="'dynamic-default'" [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)" [secondAct]="'removeFilter-simple'">
+                </btn-g-dynamic> -->
 
-                <btn-g-dynamic class="hidden sm:block" [btnType]="'dynamic-default'" [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)" [secondAct]="'removeFilter-simple'">
+                
+
+                <btn-g-dynamic [btnType]="'dynamic-default'"  [btnType]="'dynamic-default'" [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)">
                 </btn-g-dynamic>
 
-                <btn-g-dynamic class="sm:hidden block" [actClosedScssClasses]="actClosedScssClasses" [actOpenedScssClasses]="actOpenedScssClasses" [btnClassList]="actOpenedScssClasses" [btnType]="'dynamic-simple'" [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)"
+                <!-- <btn-g-dynamic [btnType]="'dynamic-default'"  class="sm:hidden block" [actClosedScssClasses]="actClosedScssClasses" [actOpenedScssClasses]="actOpenedScssClasses" [btnClassList]="actOpenedScssClasses" [btnType]="'dynamic-simple'" [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)"
                     [secondAct]="'removeFilter'">
-                </btn-g-dynamic>
+                </btn-g-dynamic> -->
 
             </div>
         </div>

@@ -11,7 +11,7 @@
                 <grid-list-common>
                     <sub-title title [title]="'Parceiros cadastrados'" [icon]="'list'"></sub-title>
                     <div search-filter>
-                        <btn-g-dynamic [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)">
+                        <btn-g-dynamic [btnType]="'dynamic-default'"  [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)">
                             <partner-filter-list class="menu-size-width-large" (filterFormOut)="filter($event)" options-filter [showHideFilter]="showHideFilter">
                             </partner-filter-list>
                         </btn-g-dynamic>
@@ -64,7 +64,7 @@
                 <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="callRouter('/PARTNER/create')"></btn-g>
             </div>
             <div class="!bg-background-color flex justify-start">
-                <btn-g-dynamic [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)">
+                <btn-g-dynamic [btnType]="'dynamic-default'"  [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)">
                 </btn-g-dynamic>
                 <partner-filter-list class="menu-size-width-large" (filterFormOut)="filter($event)" options-filter [showHideFilter]="showHideFilter">
                 </partner-filter-list>

@@ -1,14 +1,14 @@
-<button (window:resize)="responsive($event)" *ngIf="btnType == 'dynamic-default'" [ngClass]="btnClassList" mat-raised-button type="button" (click)="filterMtd()" (mouseover)="onMouseOverMtd()" (mouseout)="onMouseOutMtd()" (click)="btnGMtd()" [disabled]="isDisabled">
-  <div class="grid grid-cols-[25px_1px_110px] items-center space-x-1">
-    <div class="flex items-center space-x-1">
+<button class="btnMouseOverGreen" [ngClass]="btnClassList" *ngIf="btnType == 'dynamic-default'" mat-raised-button type="button" (click)="filterMtd()" (click)="btnGMtd()" [disabled]="isDisabled">
+  <div [class]="btnClassListInsideButton">
+    <div [class]="btnClassListAroundIcon" *ngIf="!hideIcon">
       <mat-icon *ngIf="action">{{actOpened}}</mat-icon>
       <mat-icon *ngIf="!action">{{actClosed}}</mat-icon>
     </div>
-    <div [class]="pipeBox"></div>
+    <div [class]="pipeBox" *ngIf="!hideIcon"></div>
     <div [class]="btnNameScssClasses">{{name}}</div>
   </div>
 </button>
 
-<button (window:resize)="responsive($event)" *ngIf="btnType == 'dynamic-simple'" [ngClass]="btnClassList" mat-raised-button type="button" (click)="filterMtd()" (mouseover)="onMouseOverMtd()" (mouseout)="onMouseOutMtd()" (click)="btnGMtd()" [disabled]="isDisabled">
+<!-- <button (window:resize)="responsive($event)" *ngIf="btnType == 'dynamic-simple'" [ngClass]="btnClassList" mat-raised-button type="button" (click)="filterMtd()" (mouseover)="onMouseOverMtd()" (mouseout)="onMouseOutMtd()" (click)="btnGMtd()" [disabled]="isDisabled">
     <div [class]="btnNameScssClasses">{{name}}</div>
-</button>
+</button> -->

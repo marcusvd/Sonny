@@ -10,7 +10,7 @@
             <div class="btns">
                 <btn-g add btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="this.callRouter('/stock-product-router/add-product')"></btn-g>
 
-                <btn-g-dynamic [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)">
+                <btn-g-dynamic [btnType]="'dynamic-default'"  [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)">
                 </btn-g-dynamic>
             </div>
             <div class="paginator-above">

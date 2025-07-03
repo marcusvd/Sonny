@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -31,9 +31,9 @@ import { ListFinancingsLoansExpensesInstallmentImports, ListFinancingsLoansExpen
 })
 export class ListFinancingsLoansExpensesInstallmentComponent extends ListControlListFinancingsLoansExpensesInstallment implements OnInit {
 
-  test = 'bg-main-color text-white w-[110px]';
-  actClosedScssClasses = '!bg-remove-color !text-white !w-[110px]';
-  actOpenedScssClasses = '!bg-main-color !text-white !w-[110px]';
+  hideIcon = false;
+  btnClassList = '!bg-main-color !text-white !w-[150px]';
+  btnClassListInsideButton = 'grid grid-cols-[25px_1px_110px] items-center space-x-1';
 
   constructor(
     private _actRoute: ActivatedRoute,
@@ -64,4 +64,26 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends ListControl
     this.financingsLoansExpensesInstallmentSubscribe = this.startSupply(`${this.controllerUrl}/GetInstallmentsByFinancingsAndLoansExpensesId`, id);
   }
 
+
+  // screenWidth: number = window.innerWidth;
+  responsive(event?: Event) {
+
+    if (this.screen(event) <= 640) {
+      this.hideIcon = true
+      this.btnClassList = '!bg-main-color !text-white !w-[80px]';
+      this.btnClassListInsideButton = '!w-[80px;]';
+    }
+    else
+      this.hideIcon = false
+    this.btnClassList = '!bg-main-color !text-white !w-[150px]';
+    this.btnClassListInsideButton = 'grid grid-cols-[25px_1px_110px] items-center space-x-1';
+
+
+  }
+
+  // override screen(event?: Event) {
+  //   const target = event.target as Window;
+  //   this.screenWidth = target.innerWidth;
+  //   return this.screenWidth
+  // }
 }

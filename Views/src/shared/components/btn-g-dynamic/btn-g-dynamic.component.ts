@@ -32,9 +32,12 @@ export class BtnGDynamicComponent {
 
   @Input() pipeBox: string = 'pipe-box';
   @Input() btnNameScssClasses: string = '';
-  @Input() secondAct: string = '';
+  // @Input() secondAct: string = '';
   @Input() btnType: string = '';
+  @Input() btnClassListAroundIco = 'flex items-center space-x-1';
+  @Input() btnClassListInsideButton = 'grid grid-cols-[25px_1px_110px] items-center space-x-1';
   @Input() btnClassList = '!bg-main-color !text-white !w-[150px]';
+  @Input() hideIcon: boolean = false;
   @Input() isDisabled: boolean = false;
 
   select = new FormControl();
@@ -44,103 +47,55 @@ export class BtnGDynamicComponent {
   filterMtd() {
     this.action = !this.action;
 
-    if (this.secondAct == 'removeFilter-simple') {
-      if (this.action) {
-        this.actOpened = 'close';
-        this.btnClassList = this.actClosedScssClasses;
-        this.pipeBox = 'btn-pipe-red';
-      }
+    // if (this.secondAct == 'removeFilter-simple') {
+    //   if (this.action) {
+    //     this.actOpened = 'close';
+    //     this.btnClassList = this.actClosedScssClasses;
+    //     this.pipeBox = 'btn-pipe-red';
+    //   }
 
-      if (!this.action) {
-        this.actOpened = 'keyboard_arrow_up';
-        this.btnClassList = this.actOpenedScssClasses;
-        this.pipeBox = 'pipe-box';
-      }
-    }
+    //   if (!this.action) {
+    //     this.actOpened = 'keyboard_arrow_up';
+    //     this.btnClassList = this.actOpenedScssClasses;
+    //     this.pipeBox = 'pipe-box';
+    //   }
+    // }
 
 
-    if (this.secondAct == 'removeFilter') {
-      if (this.action) {
-        this.actOpened = 'close';
-        this.btnClassList = this.actClosedScssClasses;
-        this.pipeBox = 'btn-pipe-red';
-      }
+    // if (this.secondAct == 'removeFilter') {
+    //   if (this.action) {
+    //     this.actOpened = 'close';
+    //     this.btnClassList = this.actClosedScssClasses;
+    //     this.pipeBox = 'btn-pipe-red';
+    //   }
 
-      if (!this.action) {
-        this.actOpened = 'keyboard_arrow_up';
-        this.btnClassList = this.actOpenedScssClasses;
-        this.pipeBox = 'pipe-box';
-      }
-    }
+    //   if (!this.action) {
+    //     this.actOpened = 'keyboard_arrow_up';
+    //     this.btnClassList = this.actOpenedScssClasses;
+    //     this.pipeBox = 'pipe-box';
+    //   }
+    // }
 
     this.outAction.emit(this.action)
   }
 
-  onMouseOverMtd() {
-    if (!this.action)
-      this.btnClassList += ' btnMouseOverMain';
+  // onMouseOverMtd() {
+  //   if (!this.action)
+  //     this.btnClassList += ' btnMouseOverMain';
 
-    if (this.action)
-      this.btnClassList += ' btnMouseOverRed';
-  }
+  //   if (this.action)
+  //     this.btnClassList += ' btnMouseOverRed';
+  // }
 
-  onMouseOutMtd() {
-    if (!this.action)
-      this.btnClassList = this.btnClassList.replace('btnMouseOverMain', '');
+  // onMouseOutMtd() {
+  //   if (!this.action)
+  //     this.btnClassList = this.btnClassList.replace('btnMouseOverMain', '');
 
-    if (this.action)
-      this.btnClassList = this.btnClassList.replace('btnMouseOverRed', '');
-  }
+  //   if (this.action)
+  //     this.btnClassList = this.btnClassList.replace('btnMouseOverRed', '');
+  // }
 
-  screenWidth: number = window.innerWidth;
-    responsive(event?: Event) {
-console.log('responsive', event);
-
-this.actOpened = 'close';
-this.btnClassList = this.actClosedScssClasses;
-this.pipeBox = 'btn-pipe-red';
-
-// if (this.screen(event) <= 640) {
-
-      // }
-
-      // if (this.secondAct == 'removeFilter-simple') {
-      //   if (this.action) {
-      //     this.actOpened = 'close';
-      //     this.btnClassList = this.actClosedScssClasses;
-      //     this.pipeBox = 'btn-pipe-red';
-      //   }
-
-      //   if (!this.action) {
-      //     this.actOpened = 'keyboard_arrow_up';
-      //     this.btnClassList = this.actOpenedScssClasses;
-      //     this.pipeBox = 'pipe-box';
-      //   }
-      // }
-
-
-      // if (this.secondAct == 'removeFilter') {
-      //   if (this.action) {
-      //     this.actOpened = 'close';
-      //     this.btnClassList = this.actClosedScssClasses;
-      //     this.pipeBox = 'btn-pipe-red';
-      //   }
-
-      //   if (!this.action) {
-      //     this.actOpened = 'keyboard_arrow_up';
-      //     this.btnClassList = this.actOpenedScssClasses;
-      //     this.pipeBox = 'pipe-box';
-      //   }
-      // }
-
-
-    }
-
-    screen(event?: Event) {
-      const target = event.target as Window;
-      this.screenWidth = target.innerWidth;
-      return this.screenWidth
-    }
+  
 
   btnGMtd() {
     this.btn.emit();
