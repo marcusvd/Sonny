@@ -1,4 +1,4 @@
-.pipe-box {
+.btn-pipe-main {
     border-left: solid 1px #b5f4ff;
     background-color: #558486;
     border-right: solid 1px #2ba1a8;
@@ -6,6 +6,16 @@
     width: 3px;
     box-shadow: 0 0 0.5px rgba(0, 0, 0, 0.5);
 }
+
+.btn-pipe-red {
+    border-left: solid 1px #c92424;
+    background-color: #d66666;
+    border-right: solid 1px #ffb5b5;
+    height: 35px;
+    width: 3px;
+    box-shadow: 0 0 0.5px rgba(0, 0, 0, 0.5);
+}
+
 
 .btnMouseOverMain {
     mat-icon {
@@ -19,11 +29,3 @@
     }
 }
 
-.btn-pipe-red {
-    border-left: solid 1px #c92424;
-    background-color: #d66666;
-    border-right: solid 1px #ffb5b5;
-    height: 35px;
-    width: 3px;
-    box-shadow: 0 0 0.5px rgba(0, 0, 0, 0.5);
-}

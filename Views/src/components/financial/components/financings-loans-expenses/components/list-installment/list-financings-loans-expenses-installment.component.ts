@@ -31,6 +31,23 @@ import { ListFinancingsLoansExpensesInstallmentImports, ListFinancingsLoansExpen
 })
 export class ListFinancingsLoansExpensesInstallmentComponent extends ListControlListFinancingsLoansExpensesInstallment implements OnInit {
 
+
+  btn_bg_txt_color_size_cls: '!bg-main-color !text-white';
+  btn_w_h_cls: '';
+  no_icon: '';
+  actClosed: '';
+  actOpened: '';
+  pipe_box: 'btn-pipe-main';
+
+
+
+
+
+
+
+
+
+
   test = 'bg-main-color text-white w-[110px]';
   actClosedScssClasses = '!bg-remove-color !text-white !w-[110px]';
   actOpenedScssClasses = '!bg-main-color !text-white !w-[110px]';
