@@ -1,4 +1,3 @@
-
 <default-component [formGroup]="formMain" *ngIf="formMain && itemsToView" [digitTitleComp]="'|'" [textTitleComp]="'Fatura cartão de credito'" [textSubTitleComp]="'Pagamento'" [iconSubTitleComp]="'payment'" [hideDivider]="true">
 
     <div class="p-4" body>
@@ -14,7 +13,7 @@
                 </div>
             </div>
 
-            <view-default [itemsToView]="itemsToView " [hideDivider]="true ">
+            <view-default [itemsToView]="itemsToView" [hideDivider]="true">
             </view-default>
         </mat-card>
 
@@ -22,18 +21,18 @@
 
         </div>
 
-        <mat-card class="p-4 border-card ">
-            <get-bank-accounts [urlBackEndApi]=" 'GetAllFnBankAccount' " [formMain]="formMain " [bankAccountFormControlName]=" 'paidFromBankAccountId' "></get-bank-accounts>
+        <mat-card class="p-4 border-card">
+            <get-bank-accounts [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [bankAccountFormControlName]="'paidFromBankAccountId'"></get-bank-accounts>
 
-            <price-interest-fields [formMain]="formMain "> </price-interest-fields>
+            <price-interest-fields [formMain]="formMain"> </price-interest-fields>
 
-            <div class="align-h-center " *ngIf="!hideDivider ">
-                <mat-divider class="divider-line-categories-comp "></mat-divider>
+            <div class="align-h-center" *ngIf="!hideDivider">
+                <mat-divider class="divider-line-categories-comp"></mat-divider>
             </div>
         </mat-card>
 
-        <div class="flex p-4 justify-end ">
-            <btn-g [name]=" 'Pagar' " [icon]=" 'payment' " (click)="updateBtn() "></btn-g>
+        <div class="flex p-4 justify-end">
+            <btn-g [name]="'Pagar'" [icon]="'payment'" (click)="updateBtn()"></btn-g>
         </div>
 
         <div>

@@ -8,7 +8,6 @@ import { NavigationExtras, Router } from '@angular/router';
 import { inject } from '@angular/core';
 
 export class BaseForm {
-  
   private readonly _routerInject = inject(Router);
 
   companyId = localStorage.getItem('companyId')
@@ -33,6 +32,14 @@ export class BaseForm {
 
   defaultMessages = DefaultMessages;
   validatorMessages = ValidatorMessages;
+
+  event = { target: window } as unknown as Event;
+  screenWidth: number = window.innerWidth;
+  screen(event?: Event) {
+    const target = event.target as Window;
+    this.screenWidth = target.innerWidth;
+    return this.screenWidth
+  }
 
   addValidators(form: FormGroup, fields: string[]) {
     fields.forEach(field => {
@@ -75,11 +82,11 @@ export class BaseForm {
     if (typeof value === 'string') {
       const noAccents = diacritics.remove(value);
       return noAccents?.replace(/[^\w\s]/gi, '');
-    } 
+    }
     return value;
 
   }
-  
+
   //só product esta usando, será atualizado
   formTouched = (form: FormGroup, field: string) => {
     return form?.get(field).touched
@@ -110,10 +117,10 @@ export class BaseForm {
 
   }
 
-   callRouter(url: string, entity?: any) {
+  callRouter(url: string, entity?: any) {
 
     const objectRoute: NavigationExtras = {
-      state:  entity
+      state: entity
     };
 
     this._routerInject.navigate([url], objectRoute);

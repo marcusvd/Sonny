@@ -1,45 +1,86 @@
-<div class="border-around" *ngIf="formMain">
+<!-- <div class="border-around" *ngIf="formMain">
     <title-component [digit]="'|'" [textTitleComp]="'Pagamento'" [icon]="'payment'">
-        <!-- <btn-add-g btn-1 (add)="add()"></btn-add-g> -->
+        <btn-add-g btn-1 (add)="add()"></btn-add-g>
     </title-component>
     <div>
         <div>
-            <mat-card class="mat-card-sub-title" >
+            <mat-card class="mat-card-sub-title">
                 <sub-title title [title]="'Despesa'" [icon]="'payment'"></sub-title>
                 <screen-data-info *ngIf="hideShowScreenDataInfo" [fields]="fields">
                 </screen-data-info>
-                <!-- 
+
                 [radioOptionRemove]="['Cartão', 'Pix','Outros' ]"
                 [radioHideShow]="true"
-                -->
-                <get-bank-account-select-single 
-                    [urlBackEndApi]="'GetAllFnBankAccount'" 
-                    [formMain]="formMain"
-                    [selectedRadio]="0" 
-                    [validatorsPaymentBtnAction]="validatorsCreditPixOthers"
-                    [alignRadios]="'start start'"
-                    (selectedRadioOut)="selectedRadio($event)"
-                    >
+
+                <get-bank-account-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [selectedRadio]="0" [validatorsPaymentBtnAction]="validatorsCreditPixOthers" [alignRadios]="'start start'" (selectedRadioOut)="selectedRadio($event)">
                 </get-bank-account-select-single>
-                <pixes-expenses-fields [showExpenseDay]="true" [priceDisabled]="false" [formMain]="subForm"  *ngIf="selectedPixRadio == 0 && formMain.get('bankAccountId').value">
+                <pixes-expenses-fields [showExpenseDay]="true" [priceDisabled]="false" [formMain]="subForm" *ngIf="selectedPixRadio == 0 && formMain.get('bankAccountId').value">
                 </pixes-expenses-fields>
 
                 <price-interest-fields [formMain]="formMain" [priceFormControlName]="'priceWasPaidInstallment'">
                 </price-interest-fields>
-             
-                <div  id="warning-expired" *ngIf="checkExpires()">
+
+                <div id="warning-expired" *ngIf="checkExpires()">
                     {{'Já vencido, provável multa/juros, não esqueça de preencher o campo juros corretamente.'}}
                 </div>
-                
 
-                <div  btn>
-                    <btn-g [name]="'Pagar'" [icon]="'payment'" (click)="updateBtn()"
-                        [enableDisable]="paymentBtnEnabledDisabled"></btn-g>
+
+                <div btn>
+                    <btn-g [name]="'Pagar'" [icon]="'payment'" (click)="updateBtn()" [enableDisable]="paymentBtnEnabledDisabled"></btn-g>
                 </div>
             </mat-card>
         </div>
     </div>
-</div>
+</div> -->
+
+
+<default-component [formGroup]="formMain" [hideDivider]="true" *ngIf="formMain" [digitTitleComp]="'|'" [textTitleComp]="'Pagamento'" [textSubTitleComp]="'Despesa'" [iconSubTitleComp]="'payment'">
+    <div btns>
+
+    </div>
+    <div body class="p-4">
+        <div *ngIf="bankAccount">
+            <view-bank-account [bankAccount]="bankAccount">
+            </view-bank-account>
+        </div>
+
+        <!-- <screen-data-info [fields]="fields">
+        </screen-data-info> -->
+        <!-- <screen-data-info *ngIf="hideShowScreenDataInfo" [fields]="fields">
+        </screen-data-info> -->
+        <!--
+      [radioOptionRemove]="['Cartão', 'Pix','Outros' ]"
+      [radioHideShow]="true"
+      -->
+        <mat-card class="p-4 !border !border-color-main !shadow-md card">
+            <get-bank-account-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [selectedRadio]="0" [validatorsPaymentBtnAction]="validatorsCreditPixOthers" [alignRadios]="'start start'" (banckAccountSelected)="banckAccountSelected($event)"
+                (selectedRadioOut)="selectedRadio($event)">
+            </get-bank-account-select-single>
+        </mat-card>
+        <div class="pb-2"></div>
+        <mat-card class="p-4 !border !border-color-main !shadow-md card" *ngIf="selectedPixRadio == 0 && formMain.get('bankAccountId').value">
+            <pixes-expenses-fields [showExpenseDay]="true" [priceDisabled]="false" [formMain]="subForm">
+            </pixes-expenses-fields>
+
+        </mat-card>
+        <div class="pb-2"></div>
+        <mat-card class="p-4 !border !border-color-main !shadow-md card">
+            <price-interest-fields [formMain]="formMain" [priceFormControlName]="'priceWasPaidInstallment'">
+            </price-interest-fields>
+        </mat-card>
+        <div class="pb-2"></div>
+        <div id="warning-expired" *ngIf="checkExpires()">
+            {{'Já vencido, provável multa/juros, não esqueça de preencher o campo juros corretamente.'}}
+        </div>
+
+
+        <div btn>
+            <btn-g [name]="'Pagar'" [icon]="'payment'" (click)="updateBtn()" [enableDisable]="paymentBtnEnabledDisabled"></btn-g>
+        </div>
+    </div>
+</default-component>
+
+
 <!-- <div >
 <div>{{formMain.value | json}}</div>
 </div> -->

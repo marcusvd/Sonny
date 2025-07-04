@@ -19,7 +19,6 @@ import { OrderbyInterface } from '../list/interfaces/orderby-interface';
 
 export class BaseList extends BaseForm {
 
-  screenWidth: number = window.innerWidth;
   fields: FieldsInterface[] = []
   pageSize: number = 20;
   @ViewChild('paginatorAbove') paginatorAbove: MatPaginator
@@ -48,11 +47,6 @@ export class BaseList extends BaseForm {
     return null;
   }
 
-  screen(event?: Event) {
-    const target = event.target as Window;
-    this.screenWidth = target.innerWidth;
-    return this.screenWidth
-  }
 
   searchListEntities(entities: any[], term: string): any[] {
     const entitiesToFilter = entities;
@@ -101,7 +95,7 @@ export class BaseList extends BaseForm {
         }
         else {
           const numberX: number = x[entityFieldProperty].keyN;
-          const numberY: number = y[entityFieldProperty].keyN;        
+          const numberY: number = y[entityFieldProperty].keyN;
 
           return numberY - numberX;
         }
@@ -118,8 +112,8 @@ export class BaseList extends BaseForm {
     }
     return null;
   }
-  
- 
+
+
 
 
 }

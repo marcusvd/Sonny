@@ -42,6 +42,17 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
   idFinancingsLoansExpenses = '';
   length = 0;
 
+  paid: number = 0;
+  valuesFinancing: DetailsValuesInterface = {
+    totalPriceToBePaid: 0,
+    totalPriceInterest: 0,
+    totalPercentageInterest: 0,
+    installmentPrice: 0,
+    totalPaid: 0,
+    remainderToBePaid: 0,
+    installmentsQuantity: '0',
+  };
+
   constructor(
     override _router: Router,
     public _http: HttpClient,
@@ -211,32 +222,32 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
       this.valuesFinancing.remainderToBePaid++;
   }
 
-  onSelectedMonth(entities: any[], selectedMonth: number, field: string) {
-    let result;
+  // onSelectedMonth(entities: any[], selectedMonth: number, field: string) {
+  //   let result;
 
-    if (selectedMonth != -1) {
+  //   if (selectedMonth != -1) {
 
-      result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field].key).getFullYear() && new Date(x[field].key).getMonth() == selectedMonth);
+  //     result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field].key).getFullYear() && new Date(x[field].key).getMonth() == selectedMonth);
 
-      const ordered = this.arrayOrderByDate(result, field);
+  //     const ordered = this.arrayOrderByDate(result, field);
 
-      result = of(ordered.slice(0, this.pageSize))
-    }
+  //     result = of(ordered.slice(0, this.pageSize))
+  //   }
 
-    if (selectedMonth == -1) {
+  //   if (selectedMonth == -1) {
 
-      result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field].key).getFullYear())
+  //     result = entities.filter(x => this.currentDate.getFullYear() == new Date(x[field].key).getFullYear())
 
-      const ordered = this.arrayOrderByDate(result, field)
+  //     const ordered = this.arrayOrderByDate(result, field)
 
-      result = of(ordered.slice(0, this.pageSize));
-    }
-    return result;
-  }
+  //     result = of(ordered.slice(0, this.pageSize));
+  //   }
+  //   return result;
+  // }
 
-  arrayOrderByDate(entities: any[], field: string): any[] {
-    return entities.sort((a, b) => new Date(a[field]).getTime() - new Date(b[field]).getTime());
-  }
+  // arrayOrderByDate(entities: any[], field: string): any[] {
+  //   return entities.sort((a, b) => new Date(a[field]).getTime() - new Date(b[field]).getTime());
+  // }
 
   onClickOrderByFields(field: string, entities$: Observable<ListFinancingsLoansExpensesInstallmentDto[]>) {
 
@@ -260,7 +271,7 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
 
   }
 
-  showHideFilterMtd($event: any) {
+  showHideFilterMtd() {
     this.showHideFilter = !this.showHideFilter;
 
     if (!this.showHideFilter)
@@ -276,6 +287,7 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
   }
 
   onClickIcons(obj: OnClickInterface) {
+    console.log(obj.action.split('|')[0])
 
     if (obj.action.split('|')[0] == 'edit')
       this.callRouter(`/customer/edit/${obj.entityId}`);
@@ -283,7 +295,7 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
     if (obj.action.split('|')[0] == 'list')
       this.callRouter(`${this.viewListUrlRoute}/${obj.entityId}`);
 
-    if (obj.action.split('|')[0] == 'check')
+    if (obj.action.split('|')[0] == 'close')
       this.pay.callRoute(this.pay.entityToPay = this.immutableEntitiesFromDb.find(x => x.id == obj.entityId))
   }
 
@@ -300,10 +312,10 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
       this.filterRadioSelected = 'expired';
     }
 
-    if (radio.source.value == 'pending') {
-      this.filter('pending', this.entities, 0, this.pageSize);
-      this.filterRadioSelected = 'pending';
-    }
+    // if (radio.source.value == 'pending') {
+    //   this.filter('pending', this.entities, 0, this.pageSize);
+    //   this.filterRadioSelected = 'pending';
+    // }
 
     if (radio.source.value == 'paid') {
       this.filter('paid', this.entities, 0, this.pageSize);
@@ -332,18 +344,6 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
     }
   }
 
-  paid: number = 0;
-
-  valuesFinancing: DetailsValuesInterface = {
-    totalPriceToBePaid: 0,
-    totalPriceInterest: 0,
-    totalPercentageInterest: 0,
-    installmentPrice: 0,
-    totalPaid: 0,
-    remainderToBePaid: 0,
-    installmentsQuantity: '0',
-  };
-
   calcs(entities: ListFinancingsLoansExpensesInstallmentDto[]) {
 
     const entitiesPaid = entities.filter(x => new Date(x.wasPaid.key).getFullYear() != this.minValue.getFullYear());
@@ -362,15 +362,5 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
           this.valuesFinancing.installmentsQuantity = `${this.valuesFinancing.installmentsQuantity ?? 0}/${x.installmentsQuantity.toString()}`;
         })
       ).subscribe();
-    // this.entities$.pipe(map(x => {
-
-    //   x.forEach((y: ListFinancingsLoansExpensesInstallmentDto) => {
-    //     if (new Date(y.wasPaid.key).getFullYear() != this.minValue.getFullYear()) {
-    //       this.valuesFinancing.totalPaid += this.valuesFinancing.installmentPrice;
-    //       console.log(this.valuesFinancing.totalPaid);
-    //     }
-    //   })
-
-    // })).subscribe();
   }
 }

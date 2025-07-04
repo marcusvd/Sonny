@@ -61,8 +61,7 @@ export class ListControlProduct extends BaseList {
   backEndUrl: string = `${this.controllerUrl}/GetProductsIncludedAsync`;
   isCard = false;
 
-  event = { target: window } as unknown as Event;
-
+  
   //METHODS
   responsive(event?: Event) {
 

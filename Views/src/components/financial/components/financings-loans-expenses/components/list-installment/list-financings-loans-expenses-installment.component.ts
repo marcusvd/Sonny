@@ -102,24 +102,33 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends ListControl
 
   responsive(event?: Event) {
 
-    if (this.screen(event) <= 640) {
-      this.hide_icon_detail = true;
-      this.btn_w_h_cls_detail = '!w-[110px]';
-
-      this.hide_icon_filter = true;
-      this.btn_w_h_cls_filter = '!w-[110px]';
-    }
-    else{
-      this.hide_icon_detail = false;
-      this.btn_w_h_cls_detail = '!w-[150px]';
-
-      this.hide_icon_filter = false;
-      this.btn_w_h_cls_filter = '!w-[150px]';
-    }
-
+    if (this.screen(event) <= 640)
+      this.mobileBtns();
+    else
+      this.desktopBtns();
 
   }
+
+  desktopBtns() {
+    this.hide_icon_detail = false;
+    this.btn_w_h_cls_detail = '!w-[150px]';
+
+    this.hide_icon_filter = false;
+    this.btn_w_h_cls_filter = '!w-[150px]';
+  }
+
+
+  mobileBtns() {
+    this.hide_icon_detail = true;
+    this.btn_w_h_cls_detail = '!w-[110px]';
+
+    this.hide_icon_filter = true;
+    this.btn_w_h_cls_filter = '!w-[110px]';
+  }
+
   ngOnInit(): void {
+
+    this.responsive(this.event);
     const id = this._actRoute.snapshot.params['id'];
     this.financingsLoansExpensesInstallmentSubscribe = this.startSupply(`${this.controllerUrl}/GetInstallmentsByFinancingsAndLoansExpensesId`, id);
   }

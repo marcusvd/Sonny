@@ -19,9 +19,13 @@ export class Payment extends BaseForm {
 
   selectedRadio(selected: number) {
     this.selectedPixRadio = selected;
-  }
-  banckAccountSelected(selected: any) {
-    console.log(selected);
+
   }
 
+
+
+
+  // this.showDataBank = true;
+
+  // this.bankAccount = creditCard.bankAccount;
 }

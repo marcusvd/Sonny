@@ -16,18 +16,23 @@ import { PriceInteresFieldsComponent } from '../../../common-components/price-in
 import { FinancialStaticBusinessRule } from '../../../common-components/static-business-rule/static-business-rule';
 import { FinancingAndLoanExpenseInstallmentDto } from '../../dto/financing-and-loan-expense-installment-dto';
 import { PaymentFinancingsLoansInstallmentService } from './services/payment-financings-loans-installment.service';
+import { DefaultComponent } from 'src/shared/components/default-component/default-component';
+import { ViewBankAccountComponent } from '../../../common-components/view-bank-account/view-bank-account.component';
+import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
+
 
 @Component({
   selector: 'payment-financings-loans-expenses-installment',
   standalone: true,
   imports: [
     CommonModule,
+    DefaultComponent,
     MatCardModule,
     BankAccountMatSelectSingleComponent,
-
     PriceInteresFieldsComponent,
-    SubTitleComponent,
-    TitleComponent,
+    ViewBankAccountComponent,
+    // SubTitleComponent,
+    // TitleComponent,
     BtnGComponent,
     PixesExpensesFieldsComponent,
   ],
@@ -39,7 +44,10 @@ import { PaymentFinancingsLoansInstallmentService } from './services/payment-fin
 
 export class PaymentFinancingsLoansInstallmentComponent extends Payment implements OnInit {
 
-  
+
+  bankAccount: BankAccountDto = null;
+  // showDataBank: boolean = false;
+
   hideShowScreenDataInfo = true;
   validatorsCreditPixOthers: boolean = false;
 
@@ -59,8 +67,12 @@ export class PaymentFinancingsLoansInstallmentComponent extends Payment implemen
       this.formLoad(obj['entity'].entity as FinancingAndLoanExpenseInstallmentDto)
       this.entity = obj['entity'].entity as FinancingAndLoanExpenseInstallmentDto;
       this.hideShowScreenDataInfo = obj['entity'].hideShowScreenDataInfo;
-      
+
     }
+  }
+
+  banckAccountSelected(selected: BankAccountDto) {
+    this.bankAccount = selected;
   }
 
   formLoad(entity: FinancingAndLoanExpenseInstallmentDto) {

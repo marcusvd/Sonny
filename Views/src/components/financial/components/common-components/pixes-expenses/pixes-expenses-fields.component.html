@@ -1,15 +1,9 @@
-<!-- <div>
-    <div class="p-4">
-        <h3 class="title-categories-divide-comp">Pix do beneficiado</h3>
-    </div>
-</div> -->
-
 <div [formGroup]="formMain" *ngIf="formMain">
 
     <div class="w-full grid grid-cols-1 gap-4" [ngClass]="showPrice ? 'sm:grid-cols-'+ columnsWidth : 'sm:grid-cols-2'">
 
         <div class="w-full">
-            <mat-label>Chave Pix Beneficiado</mat-label>
+            <mat-label>Beneficiado</mat-label>
             <mat-form-field class="w-full" appearance="outline">
                 <input matInput type="text" [formControlName]="'benefitedKey'" aria-label="Valor juros">
             </mat-form-field>

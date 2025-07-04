@@ -9,14 +9,14 @@
                 <btn-g [customizeBtn]="'!bg-main-color !text-white !w-[110px]'" [btnType]="'customized-simple'" btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="callRouter(addUrlRoute)"></btn-g>
             </div>
             <div>
-                <btn-g-dynamic [btnType]="'dynamic-default'" [btnType]="'dynamic-default'" [name]="'Detalhes'" [btn_bg_txt_color_size_cls]="btn_bg_txt_color_size_cls_detail" [btn_w_h_cls]="btn_w_h_cls_detail" [hide_icon]="hide_icon_detail" [actClosed]="actClosed_detail" [actOpened]="actOpened_detail"
-                    [pipe_box]="pipe_box_detail" (outAction)="showHideDetailsMtd()" (outAction)="customizedBtnDetail($event)">
+                <btn-g-dynamic [btnType]="'dynamic-default'" [name]="'Detalhes'" [btnBgTxtColorSizeCls]="btn_bg_txt_color_size_cls_detail" [btnWithHeightCls]="btn_w_h_cls_detail" [hideIcon]="hide_icon_detail" [actClosed]="actClosed_detail" [actOpened]="actOpened_detail"
+                    [pipeBox]="pipe_box_detail" (outAction)="showHideDetailsMtd()" (outAction)="customizedBtnDetail($event)">
                 </btn-g-dynamic>
             </div>
             <div>
 
-                <btn-g-dynamic [btnType]="'dynamic-default'" [btnType]="'dynamic-default'" [name]="'Filtrar'" [btn_bg_txt_color_size_cls]="btn_bg_txt_color_size_cls_filter" [btn_w_h_cls]="btn_w_h_cls_filter" [hide_icon]="hide_icon_filter" [actClosed]="actClosed_filter" [actOpened]="actOpened_filter"
-                    [pipe_box]="pipe_box_filter" (outAction)="showHideFilterMtd($event)" (outAction)="customizedBtnFilter($event)">
+                <btn-g-dynamic [btnType]="'dynamic-default'" [name]="'Filtrar'" [btnBgTxtColorSizeCls]="btn_bg_txt_color_size_cls_filter" [btnWithHeightCls]="btn_w_h_cls_filter" [hideIcon]="hide_icon_filter" [actClosed]="actClosed_filter" [actOpened]="actOpened_filter"
+                    [pipeBox]="pipe_box_filter" (outAction)="showHideFilterMtd()" (outAction)="customizedBtnFilter($event)">
                 </btn-g-dynamic>
             </div>
         </div>

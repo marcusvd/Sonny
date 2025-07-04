@@ -48,13 +48,13 @@ export class SideNavComponent extends BaseForm implements OnInit, AfterViewInit 
 
   ) { super() }
 
-  event = { target: window } as unknown as Event;
-  screenWidth: number = window.innerWidth;
-  screen(event?: Event) {
-    const target = event.target as Window;
-    this.screenWidth = target.innerWidth;
-    return this.screenWidth
-  }
+  // event = { target: window } as unknown as Event;
+  // screenWidth: number = window.innerWidth;
+  // screen(event?: Event) {
+  //   const target = event.target as Window;
+  //   this.screenWidth = target.innerWidth;
+  //   return this.screenWidth
+  // }
 
 
   ngAfterViewInit() {
