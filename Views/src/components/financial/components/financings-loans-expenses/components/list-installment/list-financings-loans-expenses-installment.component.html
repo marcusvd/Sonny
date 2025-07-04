@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 <default-component (window:resize)="responsive($event)" [digitTitleComp]="'|'" [hideDivider]="true" [textTitleComp]="'Financiamento / Empréstimo'" [textSubTitleComp]="'Contas a pagar'" [iconSubTitleComp]="'list'">
+=======
+<default-component [digitTitleComp]="'|'" [hideDivider]="true" [textTitleComp]="'Financiamento / Empréstimo'"
+    [textSubTitleComp]="'Contas a pagar'" [iconSubTitleComp]="'list'">
+>>>>>>> ca5644a0d8375fb624bd121542cb7c82f2817b11
     <div btns class="!bg-background-color p-4">
 
         <div class="grid grid-cols-3">
@@ -6,9 +11,11 @@
                 <btn-g btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="callRouter(addUrlRoute)"></btn-g>
             </div>
             <div class="sm:hidden block">
-                <btn-g [customizeBtn]="'!bg-main-color !text-white !w-[110px]'" [btnType]="'customized-simple'" btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="callRouter(addUrlRoute)"></btn-g>
+                <btn-g [customizeBtn]="'!bg-main-color !text-white !w-[110px]'" [btnType]="'customized-simple'" btn-1
+                    [name]="'Despesa'" [icon]="'add'" (btn)="callRouter(addUrlRoute)"></btn-g>
             </div>
             <div>
+<<<<<<< HEAD
                 <btn-g-dynamic [btnType]="'dynamic-default'" [name]="'Detalhes'" (outAction)="showHideDetailsMtd()" [hideIcon]="hideIcon"
 [btnClassList]="btnClassList">
                 </btn-g-dynamic>
@@ -19,6 +26,15 @@
 
                 <btn-g-dynamic [btnType]="'dynamic-default'"  class="sm:hidden block" [actClosedScssClasses]="actClosedScssClasses" [actOpenedScssClasses]="actOpenedScssClasses" [btnClassList]="actOpenedScssClasses"
                  [btnType]="'dynamic-simple'" [name]="'Detalhes'" (outAction)="showHideDetailsMtd()"
+=======
+                <btn-g-dynamic [btnType]="'dynamic-default'" [name]="'Detalhes'"
+                    [btn_bg_txt_color_size_cls]="btn_bg_txt_color_size_cls" [btn_w_h_cls]="btn_w_h_cls"
+                    [no_icon]="no_icon" [actClosed]="actClosed" [actOpened]="actOpened" [pipe_box]="pipe_box"
+                    (outAction)="showHideDetailsMtd()">
+                </btn-g-dynamic>
+
+                <!-- <btn-g-dynamic class="sm:hidden block" [actClosedScssClasses]="actClosedScssClasses" [actOpenedScssClasses]="actOpenedScssClasses" [btnClassList]="actOpenedScssClasses" [btnType]="'dynamic-simple'" [name]="'Detalhes'" (outAction)="showHideDetailsMtd()"
+>>>>>>> ca5644a0d8375fb624bd121542cb7c82f2817b11
                     [secondAct]="'removeFilter'">
                 </btn-g-dynamic> -->
             </div>
@@ -27,12 +43,19 @@
                 <btn-g-dynamic [btnType]="'dynamic-default'"   [btnType]="'dynamic-default'" [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)" [secondAct]="'removeFilter-simple'">
                 </btn-g-dynamic> -->
 
+<<<<<<< HEAD
                 
 
                 <btn-g-dynamic [btnType]="'dynamic-default'"  [btnType]="'dynamic-default'" [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)">
                 </btn-g-dynamic>
 
                 <!-- <btn-g-dynamic [btnType]="'dynamic-default'"  class="sm:hidden block" [actClosedScssClasses]="actClosedScssClasses" [actOpenedScssClasses]="actOpenedScssClasses" [btnClassList]="actOpenedScssClasses" [btnType]="'dynamic-simple'" [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)"
+=======
+                <btn-g-dynamic [btnType]="'dynamic-default'" [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)">
+                </btn-g-dynamic>
+
+                <!-- <btn-g-dynamic class="sm:hidden block" [actClosedScssClasses]="actClosedScssClasses" [actOpenedScssClasses]="actOpenedScssClasses" [btnClassList]="actOpenedScssClasses" [btnType]="'dynamic-simple'" [name]="'Filtrar'" (outAction)="showHideFilterMtd($event)"
+>>>>>>> ca5644a0d8375fb624bd121542cb7c82f2817b11
                     [secondAct]="'removeFilter'">
                 </btn-g-dynamic> -->
 
@@ -41,7 +64,8 @@
         <div class="pb-2" *ngIf="showHideFilter"></div>
 
         <div class="sm:justify-start justify-center w-full sm:w-[310px]">
-            <filter-radio-btns *ngIf="showHideFilter" [disabledRadioInput]="false" [inputSetClearRadios]="cleanRadios" (radioChange)="filterView($event)">
+            <filter-radio-btns *ngIf="showHideFilter" [disabledRadioInput]="false" [inputSetClearRadios]="cleanRadios"
+                (radioChange)="filterView($event)">
             </filter-radio-btns>
         </div>
 
@@ -57,7 +81,9 @@
             <mat-divider class="divider-line-categories-comp"></mat-divider>
         </div>
 
-        <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickIcons)="onClickIcons($event)">
+        <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$"
+            (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)"
+            (outOnClickIcons)="onClickIcons($event)">
         </list-g>
 
     </div>

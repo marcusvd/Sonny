@@ -31,9 +31,32 @@ import { ListFinancingsLoansExpensesInstallmentImports, ListFinancingsLoansExpen
 })
 export class ListFinancingsLoansExpensesInstallmentComponent extends ListControlListFinancingsLoansExpensesInstallment implements OnInit {
 
+<<<<<<< HEAD
   hideIcon = false;
   btnClassList = '!bg-main-color !text-white !w-[150px]';
   btnClassListInsideButton = 'grid grid-cols-[25px_1px_110px] items-center space-x-1';
+=======
+
+  btn_bg_txt_color_size_cls: '!bg-main-color !text-white';
+  btn_w_h_cls: '';
+  no_icon: '';
+  actClosed: '';
+  actOpened: '';
+  pipe_box: 'btn-pipe-main';
+
+
+
+
+
+
+
+
+
+
+  test = 'bg-main-color text-white w-[110px]';
+  actClosedScssClasses = '!bg-remove-color !text-white !w-[110px]';
+  actOpenedScssClasses = '!bg-main-color !text-white !w-[110px]';
+>>>>>>> ca5644a0d8375fb624bd121542cb7c82f2817b11
 
   constructor(
     private _actRoute: ActivatedRoute,
