@@ -273,7 +273,6 @@ export class ListControlListFinancingsLoansExpensesInstallment extends BaseList 
     if (this.showHideFilter)
       this.filterClear();
 
-    
   }
 
   onClickIcons(obj: OnClickInterface) {

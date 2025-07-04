@@ -1,14 +1,9 @@
 <button [ngClass]="btn_bg_txt_color_size_cls +' '+ btn_w_h_cls" *ngIf="btnType == 'dynamic-default'" mat-raised-button type="button" (click)="filterMtd()" (mouseover)="onMouseOverMtd()" (mouseout)="onMouseOutMtd()" (click)="btnGMtd()" [disabled]="isDisabled">
-  <div [ngClass]="box_inside_btn" *ngIf="!no_icon">
+  <div [ngClass]="box_inside_btn" *ngIf="!hide_icon">
     <mat-icon *ngIf="action">{{actOpened}}</mat-icon>
     <mat-icon *ngIf="!action">{{actClosed}}</mat-icon>
     <div [ngClass]="pipe_box"></div>
     <div>{{name}}</div>
   </div>
-  <div *ngIf="no_icon">{{name}}</div>
+  <div *ngIf="hide_icon">{{name}}</div>
 </button>
-<div>testtttt</div>
-
-<!-- <button (window:resize)="responsive($event)" *ngIf="btnType == 'dynamic-simple'" [ngClass]="btnClassList" mat-raised-button type="button" (click)="filterMtd()" (mouseover)="onMouseOverMtd()" (mouseout)="onMouseOutMtd()" (click)="btnGMtd()" [disabled]="isDisabled">
-    <div [class]="btnNameScssClasses">{{name}}</div>
-</button> -->

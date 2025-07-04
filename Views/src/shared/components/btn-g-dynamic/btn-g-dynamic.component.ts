@@ -32,7 +32,7 @@ export class BtnGDynamicComponent {
   @Input() btn_w_h_cls = '!w-[150px]';
 
   @Input() box_inside_btn = 'grid grid-cols-[25px_1px_110px] items-center space-x-1';
-  @Input() no_icon = false;
+  @Input() hide_icon = false;
 
   @Input() actClosed: string = 'keyboard_arrow_up';
   @Input() actOpened: string = 'keyboard_arrow_down';

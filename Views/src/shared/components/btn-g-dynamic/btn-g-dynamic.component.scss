@@ -16,8 +16,16 @@
     box-shadow: 0 0 0.5px rgba(0, 0, 0, 0.5);
 }
 
+
 .btnMouseOverMain {
     mat-icon {
         color: #4ff6ff;
     }
 }
+
+.btnMouseOverRed {
+    mat-icon {
+        color: #ffa9a9;
+    }
+}
+

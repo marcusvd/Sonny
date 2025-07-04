@@ -31,32 +31,21 @@ import { ListFinancingsLoansExpensesInstallmentImports, ListFinancingsLoansExpen
 })
 export class ListFinancingsLoansExpensesInstallmentComponent extends ListControlListFinancingsLoansExpensesInstallment implements OnInit {
 
-<<<<<<< HEAD
-  hideIcon = false;
-  btnClassList = '!bg-main-color !text-white !w-[150px]';
-  btnClassListInsideButton = 'grid grid-cols-[25px_1px_110px] items-center space-x-1';
-=======
+  btn_bg_txt_color_size_cls_detail = '!bg-main-color !text-white';
+  btn_w_h_cls_detail = '!w-[150px]';
+  hide_icon_detail = false;
+  actClosed_detail = 'keyboard_arrow_up';
+  actOpened_detail = 'keyboard_arrow_down';
+  pipe_box_detail = 'btn-pipe-main';
 
-  btn_bg_txt_color_size_cls: '!bg-main-color !text-white';
-  btn_w_h_cls: '';
-  no_icon: '';
-  actClosed: '';
-  actOpened: '';
-  pipe_box: 'btn-pipe-main';
+  btn_bg_txt_color_size_cls_filter = '!bg-main-color !text-white';
+  btn_w_h_cls_filter = '!w-[150px]';
+  hide_icon_filter = false;
+  actClosed_filter = 'keyboard_arrow_up';
+  actOpened_filter = 'keyboard_arrow_down';
+  pipe_box_filter = 'btn-pipe-main';
 
-
-
-
-
-
-
-
-
-
-  test = 'bg-main-color text-white w-[110px]';
-  actClosedScssClasses = '!bg-remove-color !text-white !w-[110px]';
-  actOpenedScssClasses = '!bg-main-color !text-white !w-[110px]';
->>>>>>> ca5644a0d8375fb624bd121542cb7c82f2817b11
+  financingsLoansExpensesInstallmentSubscribe: Subscription;
 
   constructor(
     private _actRoute: ActivatedRoute,
@@ -77,36 +66,62 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends ListControl
     )
   }
 
-  financingsLoansExpensesInstallmentSubscribe: Subscription;
   ngOnDestroy(): void {
     this.financingsLoansExpensesInstallmentSubscribe?.unsubscribe();
   }
 
+  customizedBtnDetail(open_close: boolean) {
+
+    if (open_close) {
+      this.actOpened_detail = 'close';
+      this.btn_bg_txt_color_size_cls_detail = '!bg-remove-color !text-white';
+      this.pipe_box_detail = 'btn-pipe-red';
+    }
+
+    if (!open_close) {
+      this.btn_bg_txt_color_size_cls_detail = '!bg-main-color !text-white';
+      this.pipe_box_detail = 'btn-pipe-main';
+    }
+
+  }
+
+  customizedBtnFilter(open_close: boolean) {
+
+    if (open_close) {
+      this.actOpened_filter = 'close';
+      this.btn_bg_txt_color_size_cls_filter = '!bg-remove-color !text-white';
+      this.pipe_box_filter = 'btn-pipe-red';
+    }
+
+    if (!open_close) {
+      this.btn_bg_txt_color_size_cls_filter = '!bg-main-color !text-white';
+      this.pipe_box_filter = 'btn-pipe-main';
+    }
+
+  }
+
+  responsive(event?: Event) {
+
+    if (this.screen(event) <= 640) {
+      this.hide_icon_detail = true;
+      this.btn_w_h_cls_detail = '!w-[110px]';
+
+      this.hide_icon_filter = true;
+      this.btn_w_h_cls_filter = '!w-[110px]';
+    }
+    else{
+      this.hide_icon_detail = false;
+      this.btn_w_h_cls_detail = '!w-[150px]';
+
+      this.hide_icon_filter = false;
+      this.btn_w_h_cls_filter = '!w-[150px]';
+    }
+
+
+  }
   ngOnInit(): void {
     const id = this._actRoute.snapshot.params['id'];
     this.financingsLoansExpensesInstallmentSubscribe = this.startSupply(`${this.controllerUrl}/GetInstallmentsByFinancingsAndLoansExpensesId`, id);
   }
 
-
-  // screenWidth: number = window.innerWidth;
-  responsive(event?: Event) {
-
-    if (this.screen(event) <= 640) {
-      this.hideIcon = true
-      this.btnClassList = '!bg-main-color !text-white !w-[80px]';
-      this.btnClassListInsideButton = '!w-[80px;]';
-    }
-    else
-      this.hideIcon = false
-    this.btnClassList = '!bg-main-color !text-white !w-[150px]';
-    this.btnClassListInsideButton = 'grid grid-cols-[25px_1px_110px] items-center space-x-1';
-
-
-  }
-
-  // override screen(event?: Event) {
-  //   const target = event.target as Window;
-  //   this.screenWidth = target.innerWidth;
-  //   return this.screenWidth
-  // }
 }
