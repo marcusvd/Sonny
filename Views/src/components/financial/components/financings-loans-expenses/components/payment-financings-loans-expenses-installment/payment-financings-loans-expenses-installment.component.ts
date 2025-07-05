@@ -75,24 +75,10 @@ export class PaymentFinancingsLoansInstallmentComponent extends Payment implemen
   }
 
   banckAccountSelected(bank: BankAccountDto) {
-
-    // this.bankAccount = bank;
-
-
-
     this.itemsToView.push({ key: 'Banco:', value: bank.institution, classValue: 'font-bold' });
     this.itemsToView.push({ key: 'Conta:', value: bank.account, classValue: 'font-bold' });
     this.itemsToView.push({ key: 'Agência:', value: bank.agency, classValue: 'font-bold' });
     this.itemsToView.push({ key: 'Titular:', value: bank.holder, classValue: 'font-bold' });
-
-
-    // this.itemsToView.push({ key: 'Banco:', value: this.monthsString[new Date(this.entity?.card.expiresDate).getMonth()], classValue: 'font-bold' });
-    // this.itemsToView.push({ key: 'Conta:', value: this._bankCardNumberPipe.transform(this.entity.card.number), classValue: 'font-bold' });
-    // this.itemsToView.push({ key: 'Agência:', value: this.entity.card.flag, classValue: 'font-bold' });
-    // this.itemsToView.push({ key: 'Titular:', value: this.entity.card.bankAccount.institution, classValue: 'font-bold' });
-    // this.itemsToView.push({ key: 'Validade:', value: this._ptBrDatePipe.transform(this.entity.card.expiresDate, 'monthYear'), classValue: 'font-bold' });
-    // this.itemsToView.push({ key: 'Valor fatura:', value: _ptBrCurrencyPipe.transform(this.entity.price), classValue: 'text-red-700 font-bold' });
-
   }
 
   formLoad(entity: FinancingAndLoanExpenseInstallmentDto) {

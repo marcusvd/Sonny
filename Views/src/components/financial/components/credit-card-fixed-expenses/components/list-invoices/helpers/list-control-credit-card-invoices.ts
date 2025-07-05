@@ -18,6 +18,7 @@ import { CreditCardExpenseInvoiceDto } from '../dto/credit-card-expense-invoice-
 import { TriggerCreditCardsInvoices } from '../trigger-credit-cards-invoices';
 import { ex_month, MonthsDto } from 'src/shared/components/months-select/months-dto';
 import { BankAccountDto } from 'src/components/financial/components/bank-account-cards/dto/bank-account-dto';
+import { ItemsViewInterface } from 'src/shared/components/view-default/interfaces/items-view.interface';
 
 export class ListControlCreditCardInvoices extends BaseList {
 
@@ -39,6 +40,8 @@ export class ListControlCreditCardInvoices extends BaseList {
   length = 0;
   showHideFilter = false;
   cardNick: string = '';
+
+  itemsToView: ItemsViewInterface[] =[];
 
   constructor(
     override _router: Router,
@@ -75,6 +78,14 @@ export class ListControlCreditCardInvoices extends BaseList {
     ]
   }
 
+ 
+  banckAccountSelected(bank: BankAccountDto) {
+    this.itemsToView = [];
+    this.itemsToView.push({ key: 'Banco:', value: bank.institution, classValue: 'font-bold' });
+    this.itemsToView.push({ key: 'Conta:', value: bank.account, classValue: 'font-bold' });
+    this.itemsToView.push({ key: 'Agência:', value: bank.agency, classValue: 'font-bold' });
+    this.itemsToView.push({ key: 'Titular:', value: bank.holder, classValue: 'font-bold' });
+  }
   selectedMonth(month: MonthsDto) {
     this.monthFilter = null;
     this.monthFilter = month;
@@ -170,9 +181,10 @@ export class ListControlCreditCardInvoices extends BaseList {
         this.length = this.listCreditCardExpenseInvoice.length;
       })
 
-    this.showDataBank = true;
-
-    this.bankAccount = creditCard.bankAccount;
+      this.showDataBank = true;
+      
+      this.bankAccount = creditCard.bankAccount;
+      this.banckAccountSelected(this.bankAccount);
 
     const monthFilter = ex_month(new Date().getMonth());
 

@@ -13,4 +13,7 @@ import { MatDividerModule } from '@angular/material/divider';
 export class ViewDefaultComponent {
   @Input() hideDivider: false;
   @Input() itemsToView: ItemsViewInterface[] = [];
+  //scss
+  @Input() containerMainCls: 'flex items-center';
+  @Input() containerCls: '!w-full !grid !grid-cols-[10px_1fr_1fr] !items-center';
 }

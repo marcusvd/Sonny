@@ -1,5 +1,5 @@
-<div class="flex items-center" *ngFor="let item of itemsToView">
-    <div class="w-full grid grid-cols-[10px_1fr_1fr] items-center">
+<div [ngClass]="containerMainCls" *ngFor="let item of itemsToView">
+    <div  [class]="containerCls">
         <div>
             <p class="pipe-title"> <span>|</span></p>
         </div>

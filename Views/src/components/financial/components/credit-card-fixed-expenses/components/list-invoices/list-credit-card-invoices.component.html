@@ -24,10 +24,16 @@
                 </div>
             </div>
 
-            <div *ngIf="showDataBank">
+            <!-- <div *ngIf="showDataBank">
                 <view-bank-account [bankAccount]="bankAccount">
                 </view-bank-account>
-            </div>
+            </div> -->
+  <!-- <mat-card class="p-4 !border !border-color-main !shadow-md card"> -->
+            <view-default *ngIf="showDataBank" [itemsToView]="itemsToView" [hideDivider]="true">
+            </view-default>
+        <!-- </mat-card> -->
+
+
         </mat-card>
 
         <div class="p-4">
