@@ -39,11 +39,14 @@
 
     </div>
     <div body class="p-4">
-        <div *ngIf="bankAccount">
+        <!-- <div *ngIf="bankAccount">
             <view-bank-account [bankAccount]="bankAccount">
             </view-bank-account>
-        </div>
 
+
+        </div> -->
+        <view-default *ngIf="this.itemsToView" [itemsToView]="itemsToView" [hideDivider]="true">
+        </view-default>
         <!-- <screen-data-info [fields]="fields">
         </screen-data-info> -->
         <!-- <screen-data-info *ngIf="hideShowScreenDataInfo" [fields]="fields">

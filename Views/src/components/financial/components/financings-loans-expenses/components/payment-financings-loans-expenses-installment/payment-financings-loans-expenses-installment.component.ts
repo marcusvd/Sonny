@@ -19,6 +19,9 @@ import { PaymentFinancingsLoansInstallmentService } from './services/payment-fin
 import { DefaultComponent } from 'src/shared/components/default-component/default-component';
 import { ViewBankAccountComponent } from '../../../common-components/view-bank-account/view-bank-account.component';
 import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
+import { TruncatePipe } from 'src/shared/pipes/truncate.pipe';
+import { ItemsViewInterface } from 'src/shared/components/view-default/interfaces/items-view.interface';
+import { ViewDefaultComponent } from 'src/shared/components/view-default/view-default.component';
 
 
 @Component({
@@ -31,6 +34,7 @@ import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto
     BankAccountMatSelectSingleComponent,
     PriceInteresFieldsComponent,
     ViewBankAccountComponent,
+    ViewDefaultComponent,
     // SubTitleComponent,
     // TitleComponent,
     BtnGComponent,
@@ -38,15 +42,16 @@ import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto
   ],
   templateUrl: './payment-financings-loans-expenses-installment.component.html',
   styleUrls: ['./payment-financings-loans-expenses-installment.component.css'],
-  providers: [PaymentFinancingsLoansInstallmentService]
+  providers: [PaymentFinancingsLoansInstallmentService, TruncatePipe]
 })
 
 
 export class PaymentFinancingsLoansInstallmentComponent extends Payment implements OnInit {
 
 
-  bankAccount: BankAccountDto = null;
+  // bankAccount: BankAccountDto = null;
   // showDataBank: boolean = false;
+  itemsToView: ItemsViewInterface[] = [];
 
   hideShowScreenDataInfo = true;
   validatorsCreditPixOthers: boolean = false;
@@ -57,11 +62,9 @@ export class PaymentFinancingsLoansInstallmentComponent extends Payment implemen
     private _fb: FormBuilder,
     private _router: Router,
     private _services: PaymentFinancingsLoansInstallmentService,
-
+    private _truncate: TruncatePipe
   ) {
-
     super()
-
     if (this._router.getCurrentNavigation()?.extras.state) {
       const obj = this._router.getCurrentNavigation()?.extras.state;
       this.formLoad(obj['entity'].entity as FinancingAndLoanExpenseInstallmentDto)
@@ -71,8 +74,25 @@ export class PaymentFinancingsLoansInstallmentComponent extends Payment implemen
     }
   }
 
-  banckAccountSelected(selected: BankAccountDto) {
-    this.bankAccount = selected;
+  banckAccountSelected(bank: BankAccountDto) {
+
+    // this.bankAccount = bank;
+
+
+
+    this.itemsToView.push({ key: 'Banco:', value: bank.institution, classValue: 'font-bold' });
+    this.itemsToView.push({ key: 'Conta:', value: bank.account, classValue: 'font-bold' });
+    this.itemsToView.push({ key: 'Agência:', value: bank.agency, classValue: 'font-bold' });
+    this.itemsToView.push({ key: 'Titular:', value: bank.holder, classValue: 'font-bold' });
+
+
+    // this.itemsToView.push({ key: 'Banco:', value: this.monthsString[new Date(this.entity?.card.expiresDate).getMonth()], classValue: 'font-bold' });
+    // this.itemsToView.push({ key: 'Conta:', value: this._bankCardNumberPipe.transform(this.entity.card.number), classValue: 'font-bold' });
+    // this.itemsToView.push({ key: 'Agência:', value: this.entity.card.flag, classValue: 'font-bold' });
+    // this.itemsToView.push({ key: 'Titular:', value: this.entity.card.bankAccount.institution, classValue: 'font-bold' });
+    // this.itemsToView.push({ key: 'Validade:', value: this._ptBrDatePipe.transform(this.entity.card.expiresDate, 'monthYear'), classValue: 'font-bold' });
+    // this.itemsToView.push({ key: 'Valor fatura:', value: _ptBrCurrencyPipe.transform(this.entity.price), classValue: 'text-red-700 font-bold' });
+
   }
 
   formLoad(entity: FinancingAndLoanExpenseInstallmentDto) {
