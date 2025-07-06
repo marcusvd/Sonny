@@ -1,7 +1,30 @@
-<div [ngClass]="containerMainCls" *ngFor="let item of itemsToView">
-    <div  [class]="containerCls">
+<div *ngIf="type === 'column'">
+    <div [ngClass]="containerMainCls" *ngFor="let item of itemsToView">
+        <div [ngClass]="containerCls">
+            <div>
+                <p [ngClass]="pipeTitle"> <span>|</span></p>
+            </div>
+
+            <div [styleKey]="item.styleKey" [class]="item.classKey" class="w-full">
+                <p>{{item['key'] | uppercase}}</p>
+            </div>
+
+            <div [styleKey]="item.styleValue" [class]="item.classValue" class="w-full">
+                <p>{{item['value']}}</p>
+            </div>
+
+            @if(!hideDivider) {
+            <br>
+            <mat-divider></mat-divider>
+            }
+        </div>
+    </div>
+</div>
+
+<div [ngClass]="containerMainCls" *ngIf="type === 'row'">
+    <div [ngClass]="containerCls" *ngFor="let item of itemsToView">
         <div>
-            <p class="pipe-title"> <span>|</span></p>
+            <p [ngClass]="pipeTitle"> <span>|</span></p>
         </div>
 
         <div [styleKey]="item.styleKey" [class]="item.classKey" class="w-full">

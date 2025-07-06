@@ -78,7 +78,7 @@ export class ListControlCreditCardInvoices extends BaseList {
     ]
   }
 
- 
+
   banckAccountSelected(bank: BankAccountDto) {
     this.itemsToView = [];
     this.itemsToView.push({ key: 'Banco:', value: bank.institution, classValue: 'font-bold' });
@@ -86,6 +86,7 @@ export class ListControlCreditCardInvoices extends BaseList {
     this.itemsToView.push({ key: 'Agência:', value: bank.agency, classValue: 'font-bold' });
     this.itemsToView.push({ key: 'Titular:', value: bank.holder, classValue: 'font-bold' });
   }
+
   selectedMonth(month: MonthsDto) {
     this.monthFilter = null;
     this.monthFilter = month;
@@ -182,7 +183,7 @@ export class ListControlCreditCardInvoices extends BaseList {
       })
 
       this.showDataBank = true;
-      
+
       this.bankAccount = creditCard.bankAccount;
       this.banckAccountSelected(this.bankAccount);
 

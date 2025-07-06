@@ -17,11 +17,12 @@ import { FinancialStaticBusinessRule } from '../../../common-components/static-b
 import { FinancingAndLoanExpenseInstallmentDto } from '../../dto/financing-and-loan-expense-installment-dto';
 import { PaymentFinancingsLoansInstallmentService } from './services/payment-financings-loans-installment.service';
 import { DefaultComponent } from 'src/shared/components/default-component/default-component';
-import { ViewBankAccountComponent } from '../../../common-components/view-bank-account/view-bank-account.component';
+// import { ViewBankAccountComponent } from '../../../common-components/view-bank-account/view-bank-account.component';
 import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
 import { TruncatePipe } from 'src/shared/pipes/truncate.pipe';
 import { ItemsViewInterface } from 'src/shared/components/view-default/interfaces/items-view.interface';
 import { ViewDefaultComponent } from 'src/shared/components/view-default/view-default.component';
+import { GetBankAccountComponent } from '../../../common-components/get-bank-account/get-bank-accounts.component';
 
 
 @Component({
@@ -33,7 +34,8 @@ import { ViewDefaultComponent } from 'src/shared/components/view-default/view-de
     MatCardModule,
     BankAccountMatSelectSingleComponent,
     PriceInteresFieldsComponent,
-    ViewBankAccountComponent,
+    // ViewBankAccountComponent,
+    GetBankAccountComponent,
     ViewDefaultComponent,
     // SubTitleComponent,
     // TitleComponent,
