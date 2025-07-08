@@ -12,9 +12,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import * as _moment from 'moment';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
+import { BaseForm } from '../../../../../../shared/components/inheritance/forms/base-form';
 
-import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
+import { SubTitleComponent } from '../../../../../../shared/components/sub-title/default/sub-title.component';
 
 
 const moment = _moment;
@@ -50,7 +50,7 @@ export const MY_FORMATS = {
 })
 export class BankAccountComponent extends BaseForm implements OnInit, OnChanges {
 
-  @Input() override formMain: FormGroup;
+  @Input() override formMain: FormGroup = new FormGroup({});
   @Input() mainIcon: string;
   @Input() mainTitle: string;
   @Output() outBankName:EventEmitter<string> = new EventEmitter<string>();
@@ -62,7 +62,7 @@ export class BankAccountComponent extends BaseForm implements OnInit, OnChanges 
 
   }
 
-  
+
 
 
   typeAccountsArray: any[] = [

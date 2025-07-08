@@ -1,38 +1,25 @@
 
 
-import { CommonModule, NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
-import { MatButtonModule as MatButtonModule } from '@angular/material/button';
-import { MatCardModule as MatCardModule } from '@angular/material/card';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatFormFieldModule as MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule as MatInputModule } from '@angular/material/input';
-import { MatSelectModule as MatSelectModule } from '@angular/material/select';
-import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { MatDatepicker } from '@angular/material/datepicker';
 
 
 import * as cardValidator from 'card-validator';
 import * as _moment from 'moment';
 import { Moment } from 'moment';
 import { NgxMaskModule } from 'ngx-mask';
-import { CreditLimitValidator, FinancialValidator } from 'src/components/financial/validators/financial-validator';
-import { ValidatorMessagesFinancial } from 'src/components/financial/validators/validators-messages-financial';
-import { DescriptionFieldComponent } from 'src/shared/components/administrative/info/description-field.component';
-import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-import { DateJustDayComponent } from 'src/shared/components/date-just-day/date-just-day.component';
-import { Add } from 'src/shared/components/inheritance/add/add';
-import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
+import { CreditLimitValidator, FinancialValidator } from '../../../../../../components/financial/validators/financial-validator';
+import { ValidatorMessagesFinancial } from '../../../../../../components/financial/validators/validators-messages-financial';
+import { DateJustDayComponent } from '../../../../../../shared/components/date-just-day/date-just-day.component';
 
-import { BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
-import { CardDto } from '../../bank-account-cards/dto/card-dto';
-import { AddDefaultImports } from '../../../../../components/imports/components-default.imports';
-import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
+import { AddDefaultImports } from '../../../../../../components/imports/components-default.imports';
+import { BaseForm } from '../../../../../../shared/components/inheritance/forms/base-form';
+import { BankCardNumberPipe } from '../../../../../../shared/pipes/bank-card-number.pipe';
+import { CardDto } from '../../../bank-account-cards/dto/card-dto';
 const moment = _moment;
 
 export const MY_FORMATS = {
@@ -70,55 +57,92 @@ export const MY_FORMATS = {
 
 export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
 
-  public type: any[] = [];
+  @Input() edit: boolean = false;
+  @Input() mainIcon: string;
+  @Input() mainTitle: string;
+  @Input() override formMain: FormGroup = new FormGroup({});
+  @Input() cards: CardDto[] = [];
+  date = new FormControl(moment());
+
+  type: any[] = [];
+  maskCardNumber: string | null = null;
+  maskCvc: string | null = null;
+
+  typeCards: any[] = [
+    { id: 0, typeCard: 'DÉBITO' },
+    { id: 1, typeCard: 'CRÉDITO' },
+    { id: 2, typeCard: 'CRÉDITO E DÉBITO' },
+  ];
+
+   businesslineArray: any[] = [
+    { id: 6, businessLine: 'SELECIONE UMA OPÇÃO' },
+    { id: 0, businessLine: 'MOTOBOY / TRANSPORTADOR' },
+    { id: 1, businessLine: 'FORNECEDOR HARDWARE' },
+    { id: 2, businessLine: 'REPARO ELETÔNICA GERAL' },
+    { id: 3, businessLine: 'TÉCNICO DE INFORMÁTICA' },
+    { id: 4, businessLine: 'REDE FÍSICA' },
+    { id: 5, businessLine: 'OUTROS' },
+  ];
+
+  constructor(
+    private _fb: FormBuilder,
+    private _bankCardNumberPipe: BankCardNumberPipe
+  ) { super() }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.edit) {
+      this.addEditCard(this.cards);
+      this?.getCards?.controls?.forEach((value, index) => {
+        this.validationCardNumber(index);
+        this.enableDisableCvcField(index);
+      })
+    }
+    this.initEnableDisableCvcField();
+  }
 
   cardNumberKeyUp(index: number) {
 
-    this.subForm.get('flag').setValue(this?.type[index]?.card?.niceType);
+    this.subForm.get('flag')?.setValue(this?.type[index]?.card?.niceType);
 
-    this.type[index] = cardValidator.number(this?.formMain?.get('cards')?.get(index.toString())?.get('number').value);
+    this.type[index] = cardValidator.number(this?.formMain?.get('cards')?.get(index.toString())?.get('number')?.value);
 
     this.cvcMask(index);
 
     this.validationCardNumber(index);
     this.enableDisableCvcField(index);
-    this.numberMaskCard(this?.formMain?.get('cards')?.get(index.toString())?.get('number').value, index);
+    this.numberMaskCard(this?.formMain?.get('cards')?.get(index.toString())?.get('number')?.value, index);
   }
 
   validationCardNumber(index: number) {
-    this.type[index] = cardValidator.number(this?.formMain?.get('cards')?.get(index.toString())?.get('number').value);
+    this.type[index] = cardValidator.number(this?.formMain?.get('cards')?.get(index.toString())?.get('number')?.value);
 
     if (!this.type[index].isValid)
-      this?.formMain?.get('cards')?.get(index.toString())?.get('number').setErrors({ 'isInvalid': true })
+      this?.formMain?.get('cards')?.get(index.toString())?.get('number')?.setErrors({ 'isInvalid': true })
     else {
-      this?.formMain?.get('cards')?.get(index.toString())?.get('number').setErrors(null);
-      this?.formMain?.get('cards')?.get(index.toString())?.get('number').updateValueAndValidity();
+      this?.formMain?.get('cards')?.get(index.toString())?.get('number')?.setErrors(null);
+      this?.formMain?.get('cards')?.get(index.toString())?.get('number')?.updateValueAndValidity();
     }
-
   }
 
   enableDisableCvcField(index: number) {
 
-    if (this?.formMain?.get('cards')?.get(index.toString())?.get('number').valid)
-      this?.formMain?.get('cards')?.get(index.toString())?.get('cvc').enable();
+    if (this?.formMain?.get('cards')?.get(index.toString())?.get('number')?.valid)
+      this?.formMain?.get('cards')?.get(index.toString())?.get('cvc')?.enable();
     else
-      this?.formMain?.get('cards')?.get(index.toString())?.get('cvc').disable();
+      this?.formMain?.get('cards')?.get(index.toString())?.get('cvc')?.disable();
 
   }
 
   initEnableDisableCvcField() {
     const forms = this?.formMain?.get('cards') as FormArray;
     forms?.controls?.forEach((x, index) => {
-      if (x.get('number').valid) {
-        x.get('cvc').enable();
+      if (x.get('number')?.valid) {
+        x.get('cvc')?.enable();
         this.cvcMask(index);
       }
-
     })
   }
 
-
-  maskCardNumber: string = null;
   numberMaskCard(value: string, index: number) {
 
     if (value.length == 15 && this.type[index].isValid)
@@ -135,7 +159,7 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
   }
 
   onLoadNumberMaskCard(index: number) {
-    const value = this?.formMain?.get('cards')?.get(index.toString())?.get('number').value;
+    const value = this?.formMain?.get('cards')?.get(index.toString())?.get('number')?.value;
 
     if (value.length == 15)
       this.maskCardNumber = '0000-000000-00000';
@@ -147,39 +171,10 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
       this.maskCardNumber = '0000-0000-0000-0000';
   }
 
-
-
-  maskCvc: string = null;
   cvcMask(index: number) {
     const times: number = this.type[index]?.card?.code?.size;
     this.maskCvc = ("0").repeat(times);
   }
-
-  @Input() edit: boolean = false;
-  @Input() mainIcon: string;
-  @Input() mainTitle: string;
-  @Input() override formMain: FormGroup;
-  @Input() cards: CardDto[] = [];
-
-
-  constructor(
-
-    private _fb: FormBuilder,
-    private _bankCardNumberPipe: BankCardNumberPipe
-  ) { super() }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (this.edit) {
-      this.addEditCard(this.cards);
-      this?.getCards?.controls?.forEach((value, index) => {
-        this.validationCardNumber(index);
-        this.enableDisableCvcField(index);
-      })
-    }
-    this.initEnableDisableCvcField();
-  }
-
-
 
   private valLocal = FinancialValidator;
   get validatorLocal() {
@@ -191,47 +186,29 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
     return this.valMessagensFiancial
   }
 
-  date = new FormControl(moment());
-
   chosenYearHandler(normalizedYear: Moment) {
     const ctrlValue = this.date.value;
-    ctrlValue.year(normalizedYear.year());
-    this.subForm.get('validate').setValue(ctrlValue);
+    ctrlValue?.year(normalizedYear.year());
+    this.subForm.get('validate')?.setValue(ctrlValue);
     this.validateValidation();
   }
 
   chosenMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
     const ctrlValue = this.date.value;
-    ctrlValue.month(normalizedMonth.month());
-    this.subForm.get('validate').setValue(ctrlValue);
+    ctrlValue?.month(normalizedMonth.month());
+    this.subForm.get('validate')?.setValue(ctrlValue);
     this.validateValidation();
     datepicker.close();
   }
 
   validateValidation() {
-    if (new Date(moment.now()) > new Date(this.subForm.get('validate').value))
-      this.subForm.get('validate').setErrors({ 'valInValid': true });
+    if (new Date(moment.now()) > new Date(this.subForm.get('validate')?.value))
+      this.subForm.get('validate')?.setErrors({ 'valInValid': true });
     else {
-      this.subForm.get('validate').setErrors(null);
-      this.subForm.get('validate').updateValueAndValidity();
+      this.subForm.get('validate')?.setErrors(null);
+      this.subForm.get('validate')?.updateValueAndValidity();
     }
   }
-
-  public typeCards: any[] = [
-    { id: 0, typeCard: 'DÉBITO' },
-    { id: 1, typeCard: 'CRÉDITO' },
-    { id: 2, typeCard: 'CRÉDITO E DÉBITO' },
-  ];
-
-  public businesslineArray: any[] = [
-    { id: 6, businessLine: 'SELECIONE UMA OPÇÃO' },
-    { id: 0, businessLine: 'MOTOBOY / TRANSPORTADOR' },
-    { id: 1, businessLine: 'FORNECEDOR HARDWARE' },
-    { id: 2, businessLine: 'REPARO ELETÔNICA GERAL' },
-    { id: 3, businessLine: 'TÉCNICO DE INFORMÁTICA' },
-    { id: 4, businessLine: 'REDE FÍSICA' },
-    { id: 5, businessLine: 'OUTROS' },
-  ];
 
   get getCards(): FormArray {
     return this?.formMain?.get('cards') as FormArray
@@ -272,7 +249,7 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
   addEditCard(cards: CardDto[]) {
     this.cards.forEach((x, index) => {
       this.getCards.push(this.cardsSubFormLoad(x));
-      this?.formMain?.get('cards')?.get(index.toString())?.get('number').setValue(this?._bankCardNumberPipe?.transform(x?.number));
+      this?.formMain?.get('cards')?.get(index.toString())?.get('number')?.setValue(this?._bankCardNumberPipe?.transform(x?.number));
     })
   }
 
@@ -280,7 +257,7 @@ export class BankCardsComponent extends BaseForm implements OnInit, OnChanges {
     this.getCards.controls.forEach((value, ind) => {
       if (index == ind) {
 
-        value.get('deleted').setValue(true);
+        value.get('deleted')?.setValue(true);
 
         if (!value.valid)
           this.getCards.removeAt(index);

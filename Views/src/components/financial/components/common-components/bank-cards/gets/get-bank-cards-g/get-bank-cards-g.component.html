@@ -1,0 +1,19 @@
+<form [formGroup]="formMain" class="w-full">
+    <div class="w-full">
+        <div>
+            <mat-label>Cartões</mat-label>
+        </div>
+        <mat-form-field class="w-full" appearance="outline">
+            <mat-select placeholder="Selecione uma conta:" (selectionChange)="onCardsSelected($event)" formControlName="cardId">
+                <mat-option *ngFor="let card of cards | async" [value]="card.id">
+                    <div>
+                        {{card.flag}} {{' | '}}{{card.number | bankCardNumber}}
+                    </div>
+                </mat-option>
+            </mat-select>
+            <mat-error>
+                <span *ngIf="formErrorAndTouched(formMain,'cardId', 'required')">{{defaultMessages.requiredMsg}}</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+</form>

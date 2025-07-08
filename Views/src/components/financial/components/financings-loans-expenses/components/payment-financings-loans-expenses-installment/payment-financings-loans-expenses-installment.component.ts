@@ -2,27 +2,30 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MatCardModule as MatCardModule } from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { Router } from '@angular/router';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
 import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-entities/bank-account/bank-account-mat-select-single.component';
-import { Payment } from 'src/shared/components/inheritance/payment/payment';
-import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
-import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
+import { RadioGComponent } from '../../../../../../shared/components/radio-g/radio-g.component';
 import { PixesExpensesFieldsComponent } from '../../../common-components/pixes-expenses/pixes-expenses-fields.component';
 import { PriceInteresFieldsComponent } from '../../../common-components/price-interest-fields/price-interest-fields.component';
 
 
+import { DefaultComponent } from 'src/shared/components/default-component/default-component';
 import { FinancialStaticBusinessRule } from '../../../common-components/static-business-rule/static-business-rule';
 import { FinancingAndLoanExpenseInstallmentDto } from '../../dto/financing-and-loan-expense-installment-dto';
 import { PaymentFinancingsLoansInstallmentService } from './services/payment-financings-loans-installment.service';
-import { DefaultComponent } from 'src/shared/components/default-component/default-component';
 // import { ViewBankAccountComponent } from '../../../common-components/view-bank-account/view-bank-account.component';
-import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
-import { TruncatePipe } from 'src/shared/pipes/truncate.pipe';
+import { BaseForm } from 'src/shared/components/inheritance/forms/base-form';
+import { InputFieldGComponent } from 'src/shared/components/input-field-g/input-field-g.component';
 import { ItemsViewInterface } from 'src/shared/components/view-default/interfaces/items-view.interface';
 import { ViewDefaultComponent } from 'src/shared/components/view-default/view-default.component';
-import { GetBankAccountComponent } from '../../../common-components/get-bank-account/get-bank-accounts.component';
+import { TruncatePipe } from 'src/shared/pipes/truncate.pipe';
+import { BankAccountDto } from '../../../bank-account-cards/dto/bank-account-dto';
+import { GetBankAccountComponent } from '../../../common-components/bank-account/gets/get-bank-account/get-bank-accounts.component';
+import { GetBankCardsGComponent } from '../../../common-components/bank-cards/gets/get-bank-cards-g/get-bank-cards-g.component';
+import { CardDto } from '../../../bank-account-cards/dto/card-dto';
+import { Observable, of } from 'rxjs';
 
 
 @Component({
@@ -34,11 +37,12 @@ import { GetBankAccountComponent } from '../../../common-components/get-bank-acc
     MatCardModule,
     BankAccountMatSelectSingleComponent,
     PriceInteresFieldsComponent,
-    // ViewBankAccountComponent,
+    InputFieldGComponent,
     GetBankAccountComponent,
+    GetBankCardsGComponent,
     ViewDefaultComponent,
     // SubTitleComponent,
-    // TitleComponent,
+    RadioGComponent,
     BtnGComponent,
     PixesExpensesFieldsComponent,
   ],
@@ -48,13 +52,16 @@ import { GetBankAccountComponent } from '../../../common-components/get-bank-acc
 })
 
 
-export class PaymentFinancingsLoansInstallmentComponent extends Payment implements OnInit {
+export class PaymentFinancingsLoansInstallmentComponent extends BaseForm implements OnInit {
 
 
   // bankAccount: BankAccountDto = null;
   // showDataBank: boolean = false;
   itemsToView: ItemsViewInterface[] = [];
+  cards: Observable<CardDto[]>;
 
+  selectedRadio = 0;
+  optionsRadio = [{ id: 0, name: 'Pix' }, { id: 1, name: 'Cartão' }, { id: 2, name: 'Outros' }]
   hideShowScreenDataInfo = true;
   validatorsCreditPixOthers: boolean = false;
 
@@ -64,7 +71,7 @@ export class PaymentFinancingsLoansInstallmentComponent extends Payment implemen
     private _fb: FormBuilder,
     private _router: Router,
     private _services: PaymentFinancingsLoansInstallmentService,
-    private _truncate: TruncatePipe
+    // private _truncate: TruncatePipe
   ) {
     super()
     if (this._router.getCurrentNavigation()?.extras.state) {
@@ -81,6 +88,7 @@ export class PaymentFinancingsLoansInstallmentComponent extends Payment implemen
     this.itemsToView.push({ key: 'Conta:', value: bank.account, classValue: 'font-bold' });
     this.itemsToView.push({ key: 'Agência:', value: bank.agency, classValue: 'font-bold' });
     this.itemsToView.push({ key: 'Titular:', value: bank.holder, classValue: 'font-bold' });
+    this.cards = of(bank.cards);
   }
 
   formLoad(entity: FinancingAndLoanExpenseInstallmentDto) {
@@ -99,6 +107,11 @@ export class PaymentFinancingsLoansInstallmentComponent extends Payment implemen
       priceWasPaidInstallment: [entity.financingAndLoanExpense.installmentPrice, [Validators.required]],
       interest: [entity.interest, [Validators.required]],
     })
+  }
+
+
+  onSelectedRadio(selected: number) {
+    this.selectedRadio = selected;
   }
 
   // formLoad(entity: FinancingAndLoanExpenseInstallmentDto) {
@@ -121,9 +134,6 @@ export class PaymentFinancingsLoansInstallmentComponent extends Payment implemen
   //   })
   // }
 
-
-
-
   subFormLoad(entity: FinancingAndLoanExpenseInstallmentDto) {
     return this.subForm = this._fb.group({
       benefitedKey: ['', []],
@@ -132,8 +142,6 @@ export class PaymentFinancingsLoansInstallmentComponent extends Payment implemen
   }
 
   checkExpires() {
-
-
     const result = FinancialStaticBusinessRule.checkIfExpiredClassCssGrid('expirationView', this.entity)
 
     if (result === "expired") return true;
@@ -153,10 +161,8 @@ export class PaymentFinancingsLoansInstallmentComponent extends Payment implemen
 
     this.validatorsCreditPixOthers = true;
 
-    if (this.alertSave(this.formMain)) {
+    if (this.alertSave(this.formMain))
       this._services.update(this.formMain);
-      this.paymentBtnEnabledDisabled = true;
-    }
 
   }
 
@@ -164,6 +170,5 @@ export class PaymentFinancingsLoansInstallmentComponent extends Payment implemen
   ngOnInit(): void {
     this.checkExpires();
   }
-
 
 }

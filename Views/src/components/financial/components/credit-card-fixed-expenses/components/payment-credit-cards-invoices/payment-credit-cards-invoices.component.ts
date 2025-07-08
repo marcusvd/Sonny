@@ -15,7 +15,7 @@ import { ViewDefaultComponent } from 'src/shared/components/view-default/view-de
 import { BankCardNumberPipe } from 'src/shared/pipes/bank-card-number.pipe';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';
 import { PtBrDatePipe } from 'src/shared/pipes/pt-br-date.pipe';
-import { GetBankAccountComponent } from '../../../common-components/get-bank-account/get-bank-accounts.component';
+import { GetBankAccountComponent } from '../../../common-components/bank-account/gets/get-bank-account/get-bank-accounts.component';
 import { PriceInteresFieldsComponent } from '../../../common-components/price-interest-fields/price-interest-fields.component';
 import { CreditCardExpenseInvoiceDto } from '../list-invoices/dto/credit-card-expense-invoice-dto';
 import { PaymentCreditCardsInvoicesService } from './services/payment-credit-cards-invoices.service';

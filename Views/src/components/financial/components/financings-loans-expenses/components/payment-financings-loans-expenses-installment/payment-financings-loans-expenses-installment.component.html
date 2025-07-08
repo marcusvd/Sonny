@@ -63,18 +63,41 @@
       [radioHideShow]="true"
       -->
         <mat-card class="p-4 !border !border-color-main !shadow-md card">
-            <get-bank-accounts [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [bankAccountFormControlName]="'paidFromBankAccountId'" (banckAccountSelected)="banckAccountSelected($event)">
-
+            <get-bank-accounts [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [bankAccountFormControlName]="'bankAccountId'" (banckAccountSelected)="banckAccountSelected($event)">
             </get-bank-accounts>
+
+            <radio-g (selectedRadioOut)="onSelectedRadio($event)" [selectedRadio]="selectedPixRadio" [optionsRadio]="optionsRadio">
+            </radio-g>
             <!-- <get-bank-account-select-single [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain" [selectedRadio]="0" [validatorsPaymentBtnAction]="validatorsCreditPixOthers" [alignRadios]="'start start'" (banckAccountSelected)="banckAccountSelected($event)"
                 (selectedRadioOut)="selectedRadio($event)">
             </get-bank-account-select-single> -->
 
             <div class="pb-2"></div>
 
-            <pixes-expenses-fields *ngIf="selectedPixRadio == 0 && formMain.get('bankAccountId').value" [showExpenseDay]="true" [priceDisabled]="false" [formMain]="subForm">
+            <pixes-expenses-fields *ngIf="selectedRadio == 0 && formMain.get('bankAccountId').value" [showExpenseDay]="true" [priceDisabled]="false" [formMain]="subForm">
             </pixes-expenses-fields>
 
+            <get-bank-cards-g [formMain]="formMain" [cards]="cards">
+            </get-bank-cards-g>
+
+            <div class="pb-2"></div>
+            <div *ngIf="selectedRadio == 2 && formMain.get('bankAccountId').value">
+                <input-field-g [formMain]="this.formMain" [inputLabel]="'Forma de pagamento'" [fieldControlName]="'othersPaymentMethods'">
+                    <span msg-error *ngIf="this.formError(formMain,'othersPaymentMethods', 'required') && this.formTouched(formMain, 'othersPaymentMethods')">{{requiredMsg}}</span>
+                </input-field-g>
+                <!-- <div class="w-full">
+                    <div>
+                        <mat-label>Outras formas de pagamento</mat-label>
+                    </div>
+                    <mat-form-field class="w-full" appearance="outline">
+                        <input matInput type="text" formControlName="othersPaymentMethods" aria-label="Outras formas de pagamento">
+                        <mat-hint>EX: App, internet bank, cdigo de barras etc..</mat-hint>
+                        <mat-error>
+                            <span class="error">{{validatorMessages.required(formMain,'othersPaymentMethods', '*Obrigatório')}}</span>
+                        </mat-error>
+                    </mat-form-field>
+                </div> -->
+            </div>
             <div class="pb-2"></div>
 
             <price-interest-fields [formMain]="formMain" [priceFormControlName]="'priceWasPaidInstallment'">

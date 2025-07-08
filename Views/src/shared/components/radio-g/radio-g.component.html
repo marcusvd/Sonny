@@ -1,0 +1,5 @@
+<mat-radio-group aria-labelledby="radio-group-label" class="radio-group" (change)="onSelectedRadio($event)" [(ngModel)]="selectedRadio" [ngModelOptions]="{standalone: true}">
+    <mat-radio-button *ngFor="let option of optionsRadio" [value]="option.id">
+        {{option.name}}
+    </mat-radio-button>
+</mat-radio-group>

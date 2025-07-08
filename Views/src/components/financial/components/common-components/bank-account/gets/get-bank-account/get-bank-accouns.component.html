@@ -7,7 +7,7 @@
                 <mat-label>Conta bancária</mat-label>
             </div>
             <mat-form-field class="w-full" appearance="outline">
-                <mat-select placeholder="Selecione uma conta:" [formControlName]="bankAccountFormControlName">
+                <mat-select placeholder="Selecione uma conta:" [formControlName]="bankAccountFormControlName" (selectionChange)="onBankAccountSelected($event)">
                     <mat-option *ngFor="let bankAccount of $banckAccount | async" [value]="bankAccount.id">
                         {{bankAccount.institution}}
                     </mat-option>
@@ -19,4 +19,3 @@
         </div>
     </div>
 </div>
-<!-- (selectionChange)="onBankAccountSelected(singleSelect.value)" -->
