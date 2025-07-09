@@ -18,11 +18,12 @@
             </radio-g>
 
             <div class="pb-2"></div>
+            
+            <get-bank-pixes-g *ngIf="selectedRadio == 0 && formMain.get('bankAccountId').value" [formMain]="formMain" [pixes]="pixes"></get-bank-pixes-g>
 
             <pixes-expenses-fields *ngIf="selectedRadio == 0 && formMain.get('bankAccountId').value" [showExpenseDay]="true" [priceDisabled]="false" [formMain]="subForm">
             </pixes-expenses-fields>
 
-            <get-bank-pixes-g *ngIf="selectedRadio == 0 && formMain.get('bankAccountId').value" [formMain]="formMain" [pixes]="pixes"></get-bank-pixes-g>
 
             <get-bank-cards-g *ngIf="selectedRadio == 1 && formMain.get('bankAccountId').value && cards != null" [formMain]="formMain" [cards]="cards">
             </get-bank-cards-g>
