@@ -9,7 +9,7 @@ import { BankAccountMatSelectSingleComponent } from 'src/shared/components/get-e
 import { Payment } from 'src/shared/components/inheritance/payment/payment';
 import { SubTitleComponent } from 'src/shared/components/sub-title/default/sub-title.component';
 import { TitleComponent } from 'src/shared/components/title/default-title/title.component';
-import { PixesExpensesFieldsComponent } from '../../../common-components/pixes-expenses/pixes-expenses-fields.component';
+import { PixesExpensesFieldsComponent } from '../../../common-components/pixes-expenses/forms/pixes-expenses-fields.component';
 import { PriceInteresFieldsComponent } from '../../../common-components/price-interest-fields/price-interest-fields.component';
 
 

@@ -31,10 +31,7 @@ import { PixValidator } from './pix.validator';
     MatCardModule,
     MatSelectModule,
     MatDividerModule,
-
     NgxMaskModule,
-    NgFor,
-    NgIf,
     BtnGComponent
   ]
 })
@@ -62,8 +59,7 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
 
         if (value.get('key').value === 'CEL')
           PixValidator.celValidator(value as FormGroup, 'CEL');
-
-
+        
       })
     }
   }
@@ -188,7 +184,7 @@ export class PixComponent extends BaseForm implements OnInit, OnChanges {
     form.get('value').setValue(null);
   }
 
-  
+
 
   ngOnInit(): void {
 

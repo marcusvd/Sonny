@@ -23,6 +23,4 @@ export class PixesExpensesFieldsComponent extends BaseForm {
   @Input({required:true}) showExpenseDay:boolean = false;
   @Input({required:true}) showPrice:boolean = false;
   @Input({required:false}) columnsWidth:string = '3';
-  // [columnsWidth]="'150px_150px_150px'"
-
 }

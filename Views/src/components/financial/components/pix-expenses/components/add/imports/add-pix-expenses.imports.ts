@@ -1,7 +1,7 @@
 import { BankAccountMatSelectSingleComponent } from '../../../../../../../shared/components/get-entities/bank-account/bank-account-mat-select-single.component';
 import { CategorySubcategoryExpensesSelectComponent } from '../../../../../../../shared/components/get-entities/category-subcategory-expenses-select/components/category-subcategory-expenses-select.component';
 import { CategoryExpensesService } from '../../../../../services/category-expenses.service';
-import { PixesExpensesFieldsComponent } from '../../../../common-components/pixes-expenses/pixes-expenses-fields.component';
+import { PixesExpensesFieldsComponent } from '../../../../common-components/pixes-expenses/forms/pixes-expenses-fields.component';
 import { AddPixExpensesService } from '../../../components/add/services/add-pix-expenses.service';
 
 export const AddPixExpensesImports: any[] = [
