@@ -1,4 +1,4 @@
-<button [ngClass]="btnBgTxtColorSizeCls +' '+ btnWithHeightCls" *ngIf="btnType == 'dynamic-default'" mat-raised-button type="button" (click)="filterMtd()" (mouseover)="onMouseOverMtd()" (mouseout)="onMouseOutMtd()" (click)="btnGMtd()" [disabled]="isDisabled">
+<button [ngClass]="btnBgTxtColorSizeCls +' '+ btnWithHeightCls"  mat-raised-button type="button" (click)="filterMtd()" (click)="btnGMtd()" [disabled]="isDisabled">
   <div [ngClass]="boxInsideBtn" *ngIf="!hideIcon">
     <mat-icon *ngIf="action">{{actOpened}}</mat-icon>
     <mat-icon *ngIf="!action">{{actClosed}}</mat-icon>

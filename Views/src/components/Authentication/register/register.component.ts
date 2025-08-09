@@ -38,7 +38,6 @@ import { ValidatorsMessagesAuthentication } from '../validators/validators-messa
     MatButtonModule,
     MatDividerModule,
     RouterModule,
-
     NgIf,
     CaptchaComponent,
     TitleDescriptionAuthComponent
@@ -59,7 +58,7 @@ export class RegisterComponent extends BaseForm implements OnInit {
   get validatorsMessagesAuthentication() {
     return this._validatorsMessagesAuthentication
   }
-  
+
   private _validatorCustom = ValidatorsCustom;
   get validatorCustom() {
     return this._validatorCustom

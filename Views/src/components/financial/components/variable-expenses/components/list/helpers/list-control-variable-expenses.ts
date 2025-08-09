@@ -34,7 +34,11 @@ export class ListControlVariableExpenses extends BaseList {
 
   length = 0;
   showHideFilter = false;
+
+  clearSearchField = false;
+
   // expensesMonth: string = null;
+  showHideDetails = false;
   term: string;
 
   // controllerUrl: string = environment._CUSTOMERS.split('/')[4];
@@ -115,9 +119,33 @@ export class ListControlVariableExpenses extends BaseList {
 
 
   }
+  showHideFilterMtd() {
+    this.showHideFilter = !this.showHideFilter;
 
+    if (!this.showHideFilter)
+      this.filterClear();
+  }
 
+  showHideDetailsMtd() {
+    this.showHideDetails = !this.showHideDetails;
 
+    if (this.showHideFilter)
+      this.filterClear();
+
+  }
+
+  filterClear() {
+    this.clearSearchField = !this.clearSearchField;
+    // this.getData();
+    this.assembleMonth();
+  }
+
+  assembleMonth() {
+    // this.monthFilter = new MonthsDto();
+    // this.monthFilter.id = this.months[this.currentDate.getMonth()].id;
+    // this.monthFilter.name = this.months[this.currentDate.getMonth()].name;
+    // this.monthHideShowPendingRadio = this.monthFilter;
+  }
 
   arrayOrderByDate(entities: any[], field: string): any[] {
     return entities.sort((a, b) => new Date(a[field]).getTime() - new Date(b[field]).getTime());

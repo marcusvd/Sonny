@@ -7,7 +7,7 @@
                 <grid-list-common>
                     <sub-title title [title]="'Contas a pagar'" [icon]="'list'"></sub-title>
                     <div search-filter>
-                        
+
                         <div>
                             <div>
                                 <btn-g btn-1 [name]="'Adicionar'" [icon]="'add'" (btn)="add()"></btn-g>
@@ -69,23 +69,61 @@
 </div> -->
 
 
-<default-component [digitTitleComp]="'|'" [textTitleComp]="'Despesas Variáveis'" [textSubTitleComp]="'Despesas Variáveis'" [iconSubTitleComp]="'list'">
-    <div btns>
-        <div class="w-full grid p-4 sm:grid-cols-3 grid-cols-1 gap-4 items-center">
-            <div class="w-full">
-                <btn-g btn-1 [name]="'Variável'" [icon]="'add'" (btn)="callRouter('/financial/add-variable-expenses')"></btn-g>
+<default-component [digitTitleComp]="'|'" [textTitleComp]="'Despesas Variáveis'"
+  [textSubTitleComp]="'Despesas Variáveis'" [iconSubTitleComp]="'list'">
+  <div btns class="w-full p-4 grid justify-items-center jus">
+
+
+
+      <div class="grid gap-4 sm:grid-cols-3 justify-center">
+        <!-- <div class="hidden sm:block">
+                <btn-g btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="callRouter(addUrlRoute)"></btn-g>
             </div>
+            <div class="sm:hidden block">
+                <btn-g [customizeBtn]="'!bg-main-color !text-white !w-[110px]'" [btnType]="'customized-simple'" btn-1 [name]="'Despesa'" [icon]="'add'" (btn)="callRouter(addUrlRoute)"></btn-g>
+            </div> -->
+        <div class="w-full">
+          <btn-g btn-1 [name]="'Variável'" [icon]="'add'"
+            (btn)="callRouter('/financial/add-variable-expenses')"></btn-g>
+        </div>
+
+        <div>
+          <btn-g-dynamic [btnType]="'dynamic-default'" [name]="'Detalhes'" (outAction)="showHideDetailsMtd()">
+          </btn-g-dynamic>
+        </div>
+
+        <div>
+          <btn-g-dynamic [btnType]="'dynamic-default'" [name]="'Filtrar'" (outAction)="showHideFilterMtd()">
+          </btn-g-dynamic>
+        </div>
+
+      </div>
+      <div class="pb-2" *ngIf="showHideFilter"></div>
+
+        <div class="w-full" *ngIf="showHideFilter">
+        <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true" [changeSelection]="monthFilter"
+          (sendSelected)="selectedMonth($event)">
+        </months-select>
+      </div>
+
+      <!-- <div class="sm:justify-start justify-center w-full sm:w-[310px]">
+        <filter-radio-btns *ngIf="showHideFilter" [disabledRadioInput]="false" [inputSetClearRadios]="cleanRadios"
+          (radioChange)="filterView($event)">
+        </filter-radio-btns>
+      </div> -->
+
+
+
+      <!--
             <div class="w-full">
                 <btn-g [name]="'Filtros'" [btnType]="'red'" [icon]="'clear'" (btn)="filterClear()"></btn-g>
-            </div>
-            <div class="w-full">
-                <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true" [changeSelection]="monthFilter" (sendSelected)="selectedMonth($event)">
-                </months-select>
-            </div>
-        </div>
-    </div>
-    <div body>
-        <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$" (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)" (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
-        </list-g>
-    </div>
+            </div> -->
+
+  </div>
+  <div body>
+    <list-g [headersLabel]="labelHeaders()" [headersFields]="fieldsHeaders()" [entities]="this.entitiesFiltered$"
+      (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)"
+      (outOnClickButton)="onClickButton($event)" (outOnClickIcons)="onClickIcons($event)">
+    </list-g>
+  </div>
 </default-component>

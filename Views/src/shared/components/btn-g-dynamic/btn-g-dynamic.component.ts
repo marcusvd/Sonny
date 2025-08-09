@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 import { FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,7 +17,16 @@ import { MatIconModule } from '@angular/material/icon';
   ]
 })
 
-export class BtnGDynamicComponent {
+export class BtnGDynamicComponent implements OnChanges {
+
+  constructor(){
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+
+    if(this.btnType == 'dynamic-default' || this.btnType == ''){
+     this.boxInsideBtn += ' btnMouseOverMain';
+    }
+  }
 
   action: boolean = false;
   select = new FormControl();
@@ -32,6 +41,7 @@ export class BtnGDynamicComponent {
   @Input() btnWithHeightCls = '!w-[150px]';
 
   @Input() boxInsideBtn = 'grid grid-cols-[25px_1px_110px] items-center space-x-1';
+  @Input()   = 'btnMouseOverMain btnMouseOverRed';
   @Input() hideIcon = false;
 
   @Input() actClosed: string = 'keyboard_arrow_up';

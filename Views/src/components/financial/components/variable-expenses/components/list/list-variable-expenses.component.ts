@@ -63,19 +63,7 @@ export class Listvariableexpensescomponent extends ListControlVariableExpenses i
 
   // override addUrlRoute: string = '/financial/add-variable-expenses';
 
-  clearSearchField = false;
-  filterClear() {
-    this.clearSearchField = !this.clearSearchField;
-    // this.getData();
-    this.assembleMonth();
-  }
 
-  assembleMonth() {
-    // this.monthFilter = new MonthsDto();
-    // this.monthFilter.id = this.months[this.currentDate.getMonth()].id;
-    // this.monthFilter.name = this.months[this.currentDate.getMonth()].name;
-    // this.monthHideShowPendingRadio = this.monthFilter;
-  }
 
   monthFilter = new MonthsDto();
   monthHideShowPendingRadio: MonthsDto = new MonthsDto();
