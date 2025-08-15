@@ -24,8 +24,8 @@ namespace Domain.Entities.Finances.PixExpenses
         public MonthlyFixedExpense MonthlyFixedExpense { get; set; }
         public int? YearlyFixedExpenseId { get; set; } = null;
         public YearlyFixedExpense YearlyFixedExpense { get; set; }
-        public int? VariableExpenseId { get; set; } = null;
-        public VariableExpense VariableExpense { get; set; }
+        public int? CashWithdrawnExpenseId { get; set; } = null;
+        public CashWithdrawnExpense CashWithdrawnExpense { get; set; }
         public int? FinancingAndLoanExpenseId { get; set; } = null;
         public FinancingAndLoanExpense FinancingAndLoanExpense { get; set; }
         public string Description { get; set; }

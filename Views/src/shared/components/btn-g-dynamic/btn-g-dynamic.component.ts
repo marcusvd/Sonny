@@ -19,13 +19,14 @@ import { MatIconModule } from '@angular/material/icon';
 
 export class BtnGDynamicComponent implements OnChanges {
 
-  constructor(){
+  constructor() {
   }
   ngOnChanges(changes: SimpleChanges): void {
 
-    if(this.btnType == 'dynamic-default' || this.btnType == ''){
-     this.boxInsideBtn += ' btnMouseOverMain';
-    }
+    if (this.btnType == 'dynamic-default' || this.btnType == '')
+      this.boxInsideBtn += ' ' + 'btnMouseOverMain';
+
+
   }
 
   action: boolean = false;
@@ -41,7 +42,7 @@ export class BtnGDynamicComponent implements OnChanges {
   @Input() btnWithHeightCls = '!w-[150px]';
 
   @Input() boxInsideBtn = 'grid grid-cols-[25px_1px_110px] items-center space-x-1';
-  @Input()   = 'btnMouseOverMain btnMouseOverRed';
+  // @Input()   = 'btnMouseOverMain btnMouseOverRed';
   @Input() hideIcon = false;
 
   @Input() actClosed: string = 'keyboard_arrow_up';

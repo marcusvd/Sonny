@@ -177,7 +177,7 @@ namespace Application.Services.Operations.Finances.MonthlyExpenses
 
             if (entity.CardId == null)
             {
-                var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(updated.BankAccountId ?? 0, updated.Price);
+                var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.DecreaseAccountBalance(updated.BankAccountId ?? 0, updated.Price);
 
                 if (bankBalanceUpdate != null)
                     _GENERIC_REPO.BankAccounts.Update(bankBalanceUpdate);

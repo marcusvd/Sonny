@@ -21,7 +21,7 @@ namespace Application.Services.Operations.Finances.Dtos.PixExpenses
         //  public MonthlyFixedExpenseDto MonthlyFixedExpense { get; set; }
         public int? YearlyFixedExpenseId { get; set; }
         //  public YearlyFixedExpenseDto YearlyFixedExpense { get; set; }
-        public int? VariableExpenseId { get; set; }
+        public int? CashWithdrawnExpenseId { get; set; }
         //  public VariableExpenseDto VariableExpense { get; set; }
         public int? FinancingAndLoanExpenseId { get; set; }
         //  public FinancingAndLoanExpenseDto FinancingAndLoanExpense { get; set; }

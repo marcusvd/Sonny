@@ -12,8 +12,6 @@ import { MonthlyFixedExpensesAddComponent } from "../components/monthly-fixed-ex
 import { ListMonthlyFixedExpensesComponent } from "../components/monthly-fixed-expenses/components/list/list-monthly-fixed-expenses.component";
 import { PaymentMonthlyComponent } from "../components/monthly-fixed-expenses/components/payment-monthly/payment-monthly.component";
 import { ViewMonthlyFixedExpensesComponent } from "../components/monthly-fixed-expenses/components/view/view-monthly-fixed-expenses.component";
-import { AddVariableExpensesAddComponent } from "../components/variable-expenses/components/add/add-variable-expenses.component";
-import { Listvariableexpensescomponent } from "../components/variable-expenses/components/list/list-variable-expenses.component";
 
 import { YearlyFixedExpensesAddComponent } from "../components/yearly-fixed-expenses/components/add/yearly-fixed-expenses-add.component";
 import { ListYearlyFixedExpensesComponent } from "../components/yearly-fixed-expenses/components/list/list-yearly-fixed-expenses.component";
@@ -28,7 +26,9 @@ import { PaymentFinancingsLoansInstallmentComponent } from "../components/financ
 import { AddPixExpensesComponent } from "../components/pix-expenses/components/add/add-pix-expenses.component";
 import { PixExpensesListComponent } from "../components/pix-expenses/components/list/pix-expenses-list.component";
 
-
+import {AddCashWithdrawnExpensesComponent} from "../components/cash-withdrawn-expense/components/add/add-cash-withdrawn-expenses.component";
+import {ListCashWithdrawnExpensesComponent} from "../components/cash-withdrawn-expense/components/list/list-cash-withdrawn-expenses.component";
+import {EditCashWithdrawnExpensesComponent} from "../components/cash-withdrawn-expense/components/edit/edit-cash-withdrawn-expenses.component";
 
 
 const Routes: Routes = [
@@ -64,8 +64,9 @@ const Routes: Routes = [
   { path: 'view-financings-loans-expenses', component: ViewExpensesGComponent },
   { path: 'payment-financings-loans', component: PaymentFinancingsLoansInstallmentComponent },
 
-  { path: 'add-variable-expenses', component: AddVariableExpensesAddComponent },
-  { path: 'list-variable-expenses', component: Listvariableexpensescomponent },
+  { path: 'add-cash-withdrawn-expenses', component: AddCashWithdrawnExpensesComponent },
+  { path: 'list-cash-withdrawn-expenses', component: ListCashWithdrawnExpensesComponent },
+  { path: 'edit-cash-withdrawn-expenses/:id', component: EditCashWithdrawnExpensesComponent },
 
 
   // { path: 'payment', component: PaymentComponent },

@@ -44,6 +44,8 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends ListControl
   actClosed_filter = 'keyboard_arrow_up';
   actOpened_filter = 'keyboard_arrow_down';
   pipe_box_filter = 'btn-pipe-main';
+  box_inside_btn_detail = 'grid grid-cols-[25px_1px_110px] items-center space-x-1 btnMouseOverMain';
+  box_inside_btn_filter = 'grid grid-cols-[25px_1px_110px] items-center space-x-1 btnMouseOverMain';
 
   financingsLoansExpensesInstallmentSubscribe: Subscription;
 
@@ -76,10 +78,12 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends ListControl
       this.actOpened_detail = 'close';
       this.btn_bg_txt_color_size_cls_detail = '!bg-remove-color !text-white';
       this.pipe_box_detail = 'btn-pipe-red';
+      this.box_inside_btn_detail = 'grid grid-cols-[25px_1px_110px] items-center space-x-1 btnMouseOverRed'
     }
 
     if (!open_close) {
       this.btn_bg_txt_color_size_cls_detail = '!bg-main-color !text-white';
+      this.box_inside_btn_detail = 'grid grid-cols-[25px_1px_110px] items-center space-x-1 btnMouseOverMain';
       this.pipe_box_detail = 'btn-pipe-main';
     }
 
@@ -91,11 +95,13 @@ export class ListFinancingsLoansExpensesInstallmentComponent extends ListControl
       this.actOpened_filter = 'close';
       this.btn_bg_txt_color_size_cls_filter = '!bg-remove-color !text-white';
       this.pipe_box_filter = 'btn-pipe-red';
+      this.box_inside_btn_filter = 'grid grid-cols-[25px_1px_110px] items-center space-x-1 btnMouseOverRed'
     }
 
     if (!open_close) {
       this.btn_bg_txt_color_size_cls_filter = '!bg-main-color !text-white';
       this.pipe_box_filter = 'btn-pipe-main';
+      this.box_inside_btn_filter = 'grid grid-cols-[25px_1px_110px] items-center space-x-1 btnMouseOverMain';
     }
 
   }

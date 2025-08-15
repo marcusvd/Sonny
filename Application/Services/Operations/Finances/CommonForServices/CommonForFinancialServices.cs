@@ -19,7 +19,21 @@ namespace Application.Services.Operations.Finances.CommonForServices
         {
             _GENERIC_REPO = GENERIC_REPO;
         }
-        public async Task<BankAccount> GetBankAccountByIdUpdateBalance(int bankId, decimal totalPriceInvoice)
+        public async Task<BankAccount> IncreaseAccountBalance(int bankId, decimal totalPriceInvoice)
+        {
+
+            var fromDb = await _GENERIC_REPO.BankAccounts.GetById(
+                predicate => predicate.Id == bankId && predicate.Deleted == DateTime.MinValue,
+                null,
+                selector => selector);
+
+            if (fromDb != null)
+                fromDb.Balance += totalPriceInvoice;
+
+            return fromDb;
+
+        }
+        public async Task<BankAccount> DecreaseAccountBalance(int bankId, decimal totalPriceInvoice)
         {
 
             var fromDb = await _GENERIC_REPO.BankAccounts.GetById(
@@ -33,6 +47,9 @@ namespace Application.Services.Operations.Finances.CommonForServices
             return fromDb;
 
         }
+
+
+
         public async Task<CreditCardLimitOperation> CreditCardLimitOperationPaymentUpdateAsync(int id, int userId, decimal pricePaid)
         {
             if (id == 0) throw new GlobalServicesException(GlobalErrorsMessagesException.ObjIsNull);

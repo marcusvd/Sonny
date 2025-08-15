@@ -17,6 +17,6 @@ namespace Domain.Entities.Finances.CategorySubcategoryExpenses
         public List<MonthlyFixedExpense> MonthlyFixedExpenses { get; set; }
         public List<YearlyFixedExpense> YearlyFixedExpenses { get; set; }
         public List<FinancingAndLoanExpense> FinancingsAndLoansExpenses { get; set; }
-        public List<VariableExpense> VariablesExpenses { get; set; }
+        public List<CashWithdrawnExpense> CashWithdrawnExpenses { get; set; }
     }
 }

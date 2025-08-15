@@ -29,6 +29,13 @@ export class ListGComponent implements OnChanges, OnInit, OnDestroy {
 
   @Input() headersLabel: string[] = [];
   @Input() hidePaginator: boolean = false;
+
+  // @Input() set firstPg(first: boolean) {
+  //   // console.log(first)
+  //   if (first)
+  //     this.firstPage();
+  // }
+
   @Input() headersFields: FieldsInterface[] = [];
   @Output() outOnClickIcons = new EventEmitter<{}>();
   @Output() outOnClickButton = new EventEmitter<string>();
@@ -42,6 +49,9 @@ export class ListGComponent implements OnChanges, OnInit, OnDestroy {
   pageEvent!: PageEvent;
 
   ngOnChanges(changes: SimpleChanges): void {
+
+    this.firstPage
+
     this.paginatorLength();
 
     this.paginatedEntities$ = this.entities$?.pipe(
@@ -50,11 +60,17 @@ export class ListGComponent implements OnChanges, OnInit, OnDestroy {
 
         this.length = entities.length;
 
+        this.firstPage();
+
         // Aplica paginação
         const startIndex = this.pageIndex * this.pageSize;
         return entities.slice(startIndex, startIndex + this.pageSize);
       })
     );
+
+
+
+
   }
   ngOnInit(): void {
     this.paginatorLength();
@@ -64,23 +80,21 @@ export class ListGComponent implements OnChanges, OnInit, OnDestroy {
     this.destroy.unsubscribe();
   }
 
+  firstPage() {
+    if (this.length < this.pageSize) {
+      this.paginatorAbove?.firstPage();
+      this.paginatorBelow?.firstPage();
+    }
+
+  }
+
   paginatorLength() {
     this.destroy = this?.entities$?.pipe(map(x => {
       this.length = x.length
       return x.length;
     })).subscribe();
+
   }
-
-
-  // mobile: boolean = true;
-  // screenResize($event: any) {
-  //   if ($event.target.innerWidth >= 640) {
-  //     this.mobile = false
-  //   }
-  //   else {
-  //     this.mobile = true
-  //   }
-  // }
 
 
   onPageChange(e: PageEvent) {
@@ -101,21 +115,6 @@ export class ListGComponent implements OnChanges, OnInit, OnDestroy {
       })
     );
 
-
-    // console.log(endIndex)
-
-    //     if ($event.previousPageIndex ?? 0 < $event.pageIndex)
-    //       this.entities$ = this.entities$.pipe(map(entities => entities?.slice(startIndex, endIndex)));
-
-    //     else if ($event.previousPageIndex ?? 0 > $event.pageIndex)
-    //       this.entities$ = this.entities$.pipe(map(entities => entities?.slice(startIndex, endIndex)));
-
-    //this.paginatorLength();
-
-
-
-
-
   }
 
   onClickHeaderField(field: string) {
@@ -134,7 +133,7 @@ export class ListGComponent implements OnChanges, OnInit, OnDestroy {
     }
 
     this.outOnClickIcons.emit(onClick);
-    
+
   }
 
   trackByFn(index: number, icon: string): any {

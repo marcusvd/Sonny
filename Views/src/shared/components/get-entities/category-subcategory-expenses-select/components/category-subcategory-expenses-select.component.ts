@@ -1,6 +1,6 @@
 
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule as MatInputModule } from '@angular/material/input';
@@ -40,17 +40,21 @@ import { SpinnerGComponent } from 'src/shared/components/spinner-g/component/spi
 
 })
 
-export class CategorySubcategoryExpensesSelectComponent extends BaseForm implements OnInit, OnChanges {
+export class CategorySubcategoryExpensesSelectComponent extends BaseForm implements OnInit, AfterViewInit {
 
   constructor(
 
     private _fillersService: CategoryExpensesService,
-  ) {super()}
-
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log(this.payCycle)
+  ) { super() }
+  
+  ngAfterViewInit(): void {
+    const catId = this.formMain.get('categoryExpenseId').value;
+    const subcatId = this.formMain.get('subcategoryExpenseId').value;
+    console.log(subcatId)
+    if (catId)
+      this.selectedCategoryExpenseId(catId)
   }
+
 
   @Input() override formMain: FormGroup
   @Input() payCycle: PayCycleEnumDto;
@@ -58,7 +62,7 @@ export class CategorySubcategoryExpensesSelectComponent extends BaseForm impleme
   @Input() Input: number = 100;
 
 
-  
+
 
   spinner = false
   spinnerEvent($event: boolean) {
@@ -81,6 +85,7 @@ export class CategorySubcategoryExpensesSelectComponent extends BaseForm impleme
 
 
   ngOnInit(): void {
+
     this.entities$ = this._fillersService.getFillers()
       .pipe(
         map(fillers => fillers.filter(filler => {

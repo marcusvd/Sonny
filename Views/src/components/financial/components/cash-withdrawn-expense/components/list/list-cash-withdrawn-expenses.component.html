@@ -1,0 +1,72 @@
+<default-component [digitTitleComp]="'|'" [textTitleComp]="'Saques'"
+  [textSubTitleComp]="'Saques'" [iconSubTitleComp]="'list'" >
+  <!-- [hideDivider]="true" -->
+  <div btns class="w-full p-4 grid grid-cols-1 sm:justify-start">
+
+    <div class="grid gap-4 sm:grid-cols-3">
+      <div class="w-full">
+        <btn-g btn-1 [name]="'Saque'" [icon]="'add'" (btn)="callRouter('/financial/add-cash-withdrawn-expenses')"></btn-g>
+      </div>
+
+      <div>
+        <btn-g-dynamic [btnType]="'dynamic-default'" [name]="'Detalhes'" (outAction)="showHideDetailsMtd()">
+        </btn-g-dynamic>
+      </div>
+
+      <div>
+        <btn-g-dynamic [btnType]="'dynamic-default'" [name]="'Filtrar'" (outAction)="showHideFilterMtd()">
+        </btn-g-dynamic>
+      </div>
+
+    </div>
+
+    <div class="pb-2" *ngIf="showHideFilter"></div>
+
+
+
+
+    <mat-card class="p-4 mt-4 !border !border-color-main !shadow-md" *ngIf="showHideFilter || showHideDetails">
+
+
+      <div class="w-full grid grid-cols-1 sm:grid-cols-[150px_1fr] gap-4" *ngIf="showHideFilter">
+        <div>
+          <months-select [startCurrentDate]="true" [showOnlyUntilCurrentDate]="true" [changeSelection]="monthFilter"
+            (sendSelected)="selectedMonth($event)">
+          </months-select>
+        </div>
+        <div>
+          <search-list (outFieldSearch)="queryFieldOutput($event)">
+          </search-list>
+          <!-- <mat-label>Pesquisar</mat-label>
+        <mat-form-field class="w-full" appearance="outline">
+          <input matInput #field (input)="search(field.value)" type="text" matInput placeholder="Digite sua pesquisa." [attr.for]="'Pesquisar'"
+          [formControl]="formControlSearch">
+        </mat-form-field> -->
+        </div>
+        <!-- <input matInput #field (input)="search(field.value,outFieldSearch,this.removeAccentsSpecialCharacters)" (outFieldSearch)="test($event)" -->
+
+      </div>
+
+
+      <!-- <div class="pb-2" *ngIf="showHideDetails"></div>
+        <div class="pb-2" *ngIf="showHideDetails"></div> -->
+        <view-default *ngIf="showHideDetails" [itemsToView]="itemsToView" [hideDivider]="true" [type]="'row'" [containerCls]="null" [containerMainCls]="containerMainCls">
+        </view-default>
+      <!-- <div class="mt-2">
+      </div> -->
+    </mat-card>
+
+
+  </div>
+  <div body>
+    <list-g [headersLabel]="labelHeaders()"
+    [headersFields]="fieldsHeaders()"
+    [entities]="this.entitiesFiltered$"
+    (outOnClickHeaderField)="onClickOrderByFields($event, this.entitiesFiltered$)"
+    (outOnClickButton)="onClickButton($event)"
+    (outOnClickIcons)="onClickIcons($event)"
+    >
+  </list-g>
+  <!-- [hidePaginator]="true" -->
+  </div>
+</default-component>

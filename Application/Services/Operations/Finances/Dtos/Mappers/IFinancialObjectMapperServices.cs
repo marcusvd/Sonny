@@ -13,7 +13,7 @@ using Domain.Entities.Finances.MonthlyExpenses;
 using Application.Services.Operations.Finances.Dtos.YearlyExpenses;
 using Domain.Entities.Finances.YearlyExpenses;
 using Domain.Entities.Finances.VariablesDebitsExpenses;
-using Application.Services.Operations.Finances.Dtos.VariableDebitExpenses;
+using Application.Services.Operations.Finances.Dtos.CashWithdrawnExpenses;
 using Application.Services.Operations.Finances.Dtos.PixExpenses;
 using Domain.Entities.Finances.PixExpenses;
 
@@ -78,9 +78,10 @@ namespace Application.Services.Operations.Finances.Dtos
         YearlyFixedExpense YearlyFixedExpenseMapper(YearlyFixedExpenseDto entity);
         YearlyFixedExpense YearlyFixedExpenseMapper(YearlyFixedExpensePaymentDto entity);
 
-        List<VariableExpenseDto> VariableExpenseListMake(List<VariableExpense> list);
-        VariableExpenseDto VariableExpenseMapper(VariableExpense entity);
-        VariableExpense VariableExpenseMapper(VariableExpenseDto entity);
+        List<CashWithdrawnExpenseDto> CashWithdrawnExpenseListMake(List<CashWithdrawnExpense> list);
+        CashWithdrawnExpenseDto CashWithdrawnExpenseMapper(CashWithdrawnExpense entity);
+        CashWithdrawnExpense CashWithdrawnExpenseMapper(CashWithdrawnExpenseDto entity);
+        CashWithdrawnExpense VariableUpdateMapper(CashWithdrawnExpenseDto dto, CashWithdrawnExpense db);
 
         List<PixExpenseDto> PixExpensesListMake(List<PixExpense> list);
         List<PixExpense> PixExpensesListMake(List<PixExpenseDto> list);

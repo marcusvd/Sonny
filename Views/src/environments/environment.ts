@@ -18,7 +18,7 @@ export const environment = {
   //FINANCIAL
   _BANKSACCOUNTS: 'http://localhost:5000/api/_FN_BankAccounts',
   _CATEGORY_EXPENSES: 'http://localhost:5000/api/CategoryExpenses',
-  _VARIABLE_EXPENSES: 'http://localhost:5000/api/_FN_VariableExpenses',
+  __FN_CASH_WITHDRAWN_EXPENSES: 'http://localhost:5000/api/_FN_CashWithdrawnExpenses',
   _FN_PIXES_EXPENSES: 'http://localhost:5000/api/_FN_PixesExpenses',
   _MONTHLY_FIXED_EXPENSES: 'http://localhost:5000/api/_FN_MonthlyFixedExpenses',
   _YEARLY_FIXED_EXPENSES: 'http://localhost:5000/api/_FN_YearlyFixedExpenses',

@@ -30,7 +30,7 @@ namespace UnitOfWork.Persistence.Operations
         ICategoryExpensesRepository CategoriesExpenses { get; }
         IFinancingsAndLoansExpensesRepository FinancingsAndLoansExpenses { get; }
         IYearlyFixedExpensesRepository YearlyFixedExpenses { get; }
-        IVariablesExpensesRepository VariablesExpenses { get; }
+        ICashWithdrawnExpensesRepository CashWithdrawnExpenses { get; }
         ICreditCardExpensesRepository CreditCardExpenses { get; }
         ICreditCardExpenseInvoicesRepository CreditCardInvoicesExpenses { get; }
         IPixesExpensesRepository PixesExpenses { get; }

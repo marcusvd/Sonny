@@ -40,7 +40,7 @@ namespace Application.Services.Operations.Finances.PixesExpenses
             updated.Registered = DateTime.Now;
 
             _GENERIC_REPO.PixesExpenses.Add(updated);
-            var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(entityDto.BankAccountId, updated.Price);
+            var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.DecreaseAccountBalance(entityDto.BankAccountId, updated.Price);
 
             if (bankBalanceUpdate != null)
                 _GENERIC_REPO.BankAccounts.Update(bankBalanceUpdate);

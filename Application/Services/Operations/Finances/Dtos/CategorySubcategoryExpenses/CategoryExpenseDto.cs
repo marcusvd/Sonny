@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-
+using Application.Services.Operations.Finances.Dtos.CashWithdrawnExpenses;
 using Application.Services.Operations.Finances.Dtos.CreditCardExpenses;
 using Application.Services.Operations.Finances.Dtos.FinancingsLoansExpenses;
 using Application.Services.Operations.Finances.Dtos.MonthlyExpenses;
@@ -17,6 +17,6 @@ namespace Application.Services.Operations.Finances.Dtos.CategorySubcategoryExpen
         public List<FinancingAndLoanExpenseDto> FinancingsAndLoansExpenses { get; set; }
         public List<YearlyFixedExpenseDto> YearlyFixedExpenses { get; set; }
         public List<SubcategoryExpenseDto> SubcategoriesExpenses { get; set; }
-        public List<VariableExpenseDto> VariablesExpenses { get; set; }
+        public List<CashWithdrawnExpenseDto> CashWithdrawnExpenses { get; set; }
     }
 }

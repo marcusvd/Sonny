@@ -14,7 +14,7 @@ import { ValidatorMessagesCustomer } from '../../../../../../../src/components/m
 import { ValidatorMessages } from '../../../../../../../src/shared/helpers/validators/validators-messages';
 import { FilterSearch } from './interface/filter-search';
 import { BtnGComponent } from 'src/shared/components/btn-g/btn-g.component';
-import { ex_formControlSearch, ex_search } from 'src/shared/helpers/search-field/search-field';
+import { ex_search } from 'src/shared/helpers/search-field/search-field';
 import { BaseList } from 'src/shared/components/list-g/extends/base-list';
 
 @Component({
@@ -79,7 +79,7 @@ export class CustomerFilterListGComponent extends BaseList implements OnInit {
     this.formLoad();
   }
 
-    formControlSearch = ex_formControlSearch;
+    formControlSearch = new FormControl('');
 
     //METHODS
     search = ex_search

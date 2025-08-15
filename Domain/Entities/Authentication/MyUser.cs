@@ -43,7 +43,7 @@ namespace Domain.Entities.Authentication
         public List<ElectronicRepair> ElectronicsRepairs { get; set; }
         public List<YearlyFixedExpense> YearlyFixedExpenses { get; set; }
         public List<MonthlyFixedExpense> MonthlyFixedExpenses { get; set; }
-        public List<VariableExpense> VariablesExpenses { get; set; }
+        public List<CashWithdrawnExpense> CashWithdrawnExpenses { get; set; }
         public List<FinancingAndLoanExpense> FinancingAndLoansExpenses { get; set; }
         public List<BankAccount> BankAccounts { get; set; }
         public List<Card> Cards { get; set; }

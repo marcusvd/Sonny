@@ -53,7 +53,7 @@ export class DatabaseSideNavServices {
           // { name: 'Consulta e cadastros', opened: false, route: `/financial/select-expenses/${this.companyId}` },
           { name: 'Cardtão de crédito', opened: false, route: `/financial/list-credit-card-invoices` },
           { name: 'Financiamento', opened: false, route: `/financial/list-financings-loans-expenses` },
-          { name: 'Variável', opened: false, route: `/financial/list-variable-expenses` },
+          { name: 'Saques', opened: false, route: `/financial/list-cash-withdrawn-expenses` },
           { name: 'Mensal', opened: false, route: '/financial/list-monthly-fixed-expenses'},
           { name: 'Anual', opened: false, route: '/financial/yearly-fixed-expenses-list' },
           { name: 'Pix', opened: false, route: `/financial/list-pix-expenses` },

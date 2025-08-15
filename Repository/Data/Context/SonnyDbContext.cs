@@ -60,7 +60,7 @@ namespace Repository.Data.Context
         public DbSet<SubcategoryExpense> FN_SubcategoriesExpenses { get; set; }
         public DbSet<MonthlyFixedExpense> FN_MonthlyFixedExpenses { get; set; }
         public DbSet<YearlyFixedExpense> FN_YearlyFixedExpenses { get; set; }
-        public DbSet<VariableExpense> FN_VariablesExpenses { get; set; }
+        public DbSet<CashWithdrawnExpense> FN_CashWithdrawnExpenses { get; set; }
         public DbSet<FinancingAndLoanExpense> FN_FinancingsAndLoansExpenses { get; set; }
         public DbSet<FinancingAndLoanExpenseInstallment> FN_FinancingsAndLoansExpensesInstallments { get; set; }
         public DbSet<CreditCardExpense> FN_CreditCardExpenses { get; set; }

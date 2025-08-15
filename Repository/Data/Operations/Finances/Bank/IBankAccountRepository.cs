@@ -7,6 +7,7 @@ namespace Repository.Data.Operations.Finances
 {
     public interface IBankAccountRepository : IRepository<BankAccount>
     {
-         void AddRangeAsync(List<BankAccount> entities);
+        void AddRangeAsync(List<BankAccount> entities);
+        void UpdateRange(List<BankAccount> entities);
     }
 }

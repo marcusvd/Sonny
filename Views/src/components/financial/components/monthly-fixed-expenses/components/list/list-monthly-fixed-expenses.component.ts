@@ -10,7 +10,7 @@ import { Observable, Subscription } from 'rxjs';
 
 
 import { environment } from 'src/environments/environment';
-import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
+// import { GridListCommonHelper } from 'src/shared/components/grid-list-common/helpers/grid-list-common-helper';
 
 import { MonthsDto } from 'src/shared/components/months-select/months-dto';
 import { PtBrCurrencyPipe } from 'src/shared/pipes/pt-br-currency.pipe';

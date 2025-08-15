@@ -36,7 +36,7 @@ namespace Repository.Data.RelationshipEntities
             .WithOne(x => x.BankAccount)
             .HasForeignKey(fk => fk.BankAccountId).IsRequired(false);
 
-            builder.HasMany<VariableExpense>(x => x.VariablesExpenses)
+            builder.HasMany<CashWithdrawnExpense>(x => x.CashWithdrawnExpenses)
                .WithOne(x => x.BankAccount)
                .HasForeignKey(fk => fk.BankAccountId).IsRequired(false);
 
@@ -44,7 +44,7 @@ namespace Repository.Data.RelationshipEntities
                .WithOne(x => x.PaidFromBankAccount)
                .HasForeignKey(fk => fk.PaidFromBankAccountId).IsRequired(false);
 
-            builder.HasMany<VariableExpense>(x => x.VariablesExpenses)
+            builder.HasMany<CashWithdrawnExpense>(x => x.CashWithdrawnExpenses)
                .WithOne(x => x.BankAccount)
                .HasForeignKey(fk => fk.BankAccountId).IsRequired(false);
 
@@ -67,7 +67,7 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<YearlyFixedExpense>(x => x.YearlyFixedExpenses).WithOne(x => x.CategoryExpense)
             .HasForeignKey(fk => fk.CategoryExpenseId);
 
-            builder.HasMany<VariableExpense>(x => x.VariablesExpenses).WithOne(x => x.CategoryExpense)
+            builder.HasMany<CashWithdrawnExpense>(x => x.CashWithdrawnExpenses).WithOne(x => x.CategoryExpense)
             .HasForeignKey(fk => fk.CategoryExpenseId);
 
             builder.HasMany<SubcategoryExpense>(x => x.SubcategoriesExpenses).WithOne(x => x.CategoryExpense)
@@ -91,7 +91,7 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<FinancingAndLoanExpense>(x => x.FinancingsAndLoansExpenses).WithOne(x => x.SubcategoryExpense)
                 .HasForeignKey(fk => fk.SubcategoryExpenseId);
 
-            builder.HasMany<VariableExpense>(x => x.VariablesExpenses).WithOne(x => x.SubcategoryExpense)
+            builder.HasMany<CashWithdrawnExpense>(x => x.CashWithdrawnExpenses).WithOne(x => x.SubcategoryExpense)
                   .HasForeignKey(fk => fk.SubcategoryExpenseId);
 
             builder.Ignore(x => x.Company);
@@ -115,9 +115,9 @@ namespace Repository.Data.RelationshipEntities
             .WithOne(x => x.Pix)
             .HasForeignKey(fk => fk.PixId).IsRequired(false);
 
-            builder.HasMany<VariableExpense>(x => x.VariableExpenses)
-            .WithOne(x => x.Pix)
-            .HasForeignKey(fk => fk.PixId).IsRequired(false);
+            // builder.HasMany<CashWithdrawnExpense>(x => x.CashWithdrawnExpenses)
+            // .WithOne(x => x.Pix)
+            // .HasForeignKey(fk => fk.PixId).IsRequired(false);
         }
     }
     public class CardFluentApi : IEntityTypeConfiguration<Card>
@@ -136,9 +136,9 @@ namespace Repository.Data.RelationshipEntities
           .WithOne(x => x.Card)
           .HasForeignKey(fk => fk.CardId).IsRequired(false);
 
-            builder.HasMany<VariableExpense>(x => x.VariablesExpenses)
-            .WithOne(x => x.Card)
-            .HasForeignKey(fk => fk.CardId).IsRequired(false);
+            // builder.HasMany<CashWithdrawnExpense>(x => x.CashWithdrawnExpenses)
+            // .WithOne(x => x.Card)
+            // .HasForeignKey(fk => fk.CardId).IsRequired(false);
 
             builder.HasMany<CreditCardExpenseInvoice>(x => x.CreditCardExpensesInvoices)
              .WithOne(x => x.Card)
@@ -151,25 +151,23 @@ namespace Repository.Data.RelationshipEntities
         {
             builder.Property(x => x.MonthlyFixedExpenseId).IsRequired(false);
             builder.Property(x => x.YearlyFixedExpenseId).IsRequired(false);
-            builder.Property(x => x.VariableExpenseId).IsRequired(false);
+            builder.Property(x => x.CashWithdrawnExpenseId).IsRequired(false);
             builder.Property(x => x.FinancingAndLoanExpenseId).IsRequired(false);
         }
     }
-    public class VariableExpenseFluentApi : IEntityTypeConfiguration<VariableExpense>
+    public class VariableExpenseFluentApi : IEntityTypeConfiguration<CashWithdrawnExpense>
     {
-        public void Configure(EntityTypeBuilder<VariableExpense> builder)
+        public void Configure(EntityTypeBuilder<CashWithdrawnExpense> builder)
+
         {
             builder.HasMany<CreditCardExpense>(x => x.PaymentsByCreditCards)
-           .WithOne(x => x.VariableExpense)
-           .HasForeignKey(fk => fk.VariableExpenseId).IsRequired(false);
+           .WithOne(x => x.CashWithdrawnExpense)
+           .HasForeignKey(fk => fk.CashWithdrawnExpenseId).IsRequired(false);
 
             builder.HasMany<PixExpense>(x => x.PaymentsByPixExpenses)
-           .WithOne(x => x.VariableExpense)
-           .HasForeignKey(fk => fk.VariableExpenseId).IsRequired(false);
+           .WithOne(x => x.CashWithdrawnExpense)
+           .HasForeignKey(fk => fk.CashWithdrawnExpenseId).IsRequired(false);
 
-            builder.Ignore(x => x.USERLinkCopyBill);
-            builder.Ignore(x => x.PASSLinkCopyBill);
-            builder.Ignore(x => x.LinkCopyBill);
         }
     }
     public class FinancingAndLoanExpenseFluentApi : IEntityTypeConfiguration<FinancingAndLoanExpense>
@@ -226,7 +224,7 @@ namespace Repository.Data.RelationshipEntities
         {
             builder.Property(x => x.MonthlyFixedExpenseId).IsRequired(false);
             builder.Property(x => x.YearlyFixedExpenseId).IsRequired(false);
-            builder.Property(x => x.VariableExpenseId).IsRequired(false);
+            builder.Property(x => x.CashWithdrawnExpenseId).IsRequired(false);
             builder.Property(x => x.FinancingAndLoanExpenseId).IsRequired(false);
         }
     }

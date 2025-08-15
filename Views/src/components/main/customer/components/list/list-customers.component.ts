@@ -8,9 +8,9 @@ import { of, Subscription } from 'rxjs';
 
 
 
-import { GridListCommonHelper } from '../../../../../shared/components/grid-list-common/helpers/grid-list-common-helper';
-import { CommunicationAlerts } from "../../../../../shared/services/messages/snack-bar.service";
 import { DeleteServices } from '../../../../../shared/components/delete-dialog/services/delete.services';
+// import { GridListCommonHelper } from '../../../../../shared/components/grid-list-common/helpers/grid-list-common-helper';
+import { CommunicationAlerts } from "../../../../../shared/services/messages/snack-bar.service";
 import { FilterTerms } from '../commons-components/query/filter-terms';
 import { ListControlCustomerList } from './helpers/list-control-customer-list';
 import { CustomerListService } from './services/customer-list.service';
@@ -79,7 +79,7 @@ export class ListCustomersComponent extends ListControlCustomerList implements O
 
   // @Input() fieldsInEnglish: string[] = ['id', 'name', 'assured', 'responsible'];
 
-  gridListCommonHelper = new GridListCommonHelper(this._http);
+  // gridListCommonHelper = new GridListCommonHelper(this._http);
   // gridListCommonHelper = new GridListCommonHelper(this._http, this._route);
 
   showHideFilterMtd($event: boolean) {

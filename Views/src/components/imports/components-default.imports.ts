@@ -23,7 +23,7 @@ import { ListGComponent } from '../../shared/components/list-g/list/list-g.compo
 import { PtBrDatePipe } from '../../shared/pipes/pt-br-date.pipe';
 import { PtBrCurrencyPipe } from '../../shared/pipes/pt-br-currency.pipe';
 import { DefaultComponent } from '../../shared/components/default-component/default-component';
-import { BtnGDynamicComponent } from 'src/shared/components/btn-g-dynamic/btn-g-dynamic.component';
+import { BtnGDynamicComponent } from '../../shared/components/btn-g-dynamic/btn-g-dynamic.component';
 
 export const ListDefaultImports: any[] = [
   CommonModule,

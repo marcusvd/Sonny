@@ -114,12 +114,12 @@ namespace UnitOfWork.Persistence.Operations
             }
         }
 
-        private VariablesExpensesRepository _VARIABLES_EXPENSES_REPO;
-        public IVariablesExpensesRepository VariablesExpenses
+        private CashWithdrawnExpensesRepository _CASH_WITHDRAWN_EXPENSES_REPO;
+        public ICashWithdrawnExpensesRepository CashWithdrawnExpenses
         {
             get
             {
-                return _VARIABLES_EXPENSES_REPO = _VARIABLES_EXPENSES_REPO ?? new VariablesExpensesRepository(_CONTEXT);
+                return _CASH_WITHDRAWN_EXPENSES_REPO = _CASH_WITHDRAWN_EXPENSES_REPO ?? new CashWithdrawnExpensesRepository(_CONTEXT);
             }
         }
 

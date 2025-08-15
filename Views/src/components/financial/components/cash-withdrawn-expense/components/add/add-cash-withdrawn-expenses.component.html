@@ -1,0 +1,86 @@
+<default-component [formGroup]="formMain" *ngIf="formMain" [hideDivider]="true" [digitTitleComp]="'|'"
+  [textTitleComp]="'Saques'" [textSubTitleComp]="'Cadastro'" [iconSubTitleComp]="'add'">
+  <div btns>
+
+  </div>
+  <div body class="p-4">
+    <mat-card class="p-4 mt-4 !border !border-color-main !shadow-md" [formGroup]="formMain" *ngIf="formMain">
+
+
+      <div class="p-4">
+        <h3 class="title-categories-divide-comp">Saque</h3>
+      </div>
+
+      <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="w-full">
+          <mat-label>Origem despesa</mat-label>
+          <mat-form-field class="w-full" appearance="outline">
+            <input matInput type="text" formControlName="name" aria-label="nome">
+            <mat-error>
+              <span>{{validatorMessages.required(formMain,'name', 'Objeto Saque')}}</span>
+              <span>{{validatorMessages.minMaxLength(formMain,'name', 'Objeto Saque',null,150)}}</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="w-full">
+          <mat-label>Local saque</mat-label>
+          <mat-form-field class="w-full" appearance="outline">
+            <input matInput type="text" formControlName="place" placeholder="Local da despesa"
+              aria-label="Local da despesa">
+            <mat-error>
+              <span>{{validatorMessages.minMaxLength(formMain,'place', 'Local da despesa',null,150)}}</span>
+              <span>{{validatorMessages.required(formMain,'place', 'Local da despesa')}}</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <select-category-subcategory-expenses [formMain]="formMain" [payCycle]="payCycle">
+      </select-category-subcategory-expenses>
+      <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="w-full">
+          <mat-label>Data saque</mat-label>
+          <mat-form-field class="w-full" appearance="outline">
+            <input matInput formControlName="withdrawnOn" [matDatepicker]="expenses" aria-label="Data despesa">
+            <mat-datepicker-toggle matSuffix [for]="expenses"></mat-datepicker-toggle>
+            <mat-datepicker #expenses></mat-datepicker>
+            <mat-error>
+              <span>{{validatorMessages.required(formMain,'withdrawnOn', 'Data despesa')}}</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="w-full">
+          <mat-label>Valor</mat-label>
+          <mat-form-field class="w-full" appearance="outline">
+            <input currencyMask matInput type="text" formControlName="price" aria-label="Valor">
+            <mat-error>
+              <span>{{validatorMessages.required(formMain,'price', 'Valor')}}</span>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="w-full">
+        <get-bank-accounts [urlBackEndApi]="'GetAllFnBankAccount'" [formMain]="formMain"></get-bank-accounts>
+      </div>
+      <div>
+        <pixes-expenses-fields [showExpenseDay]="true" [formMain]="subForm" *ngIf="selectedPixRadio == 0">
+        </pixes-expenses-fields>
+      </div>
+      <div class="w-full">
+        <mat-label>Saque descritivo</mat-label>
+        <mat-form-field class="w-full" appearance="outline">
+          <input matInput type="text" formControlName="description" aria-label="Descrição">
+          <mat-hint>EX: Peça para computador/carro/máquila de lavar, remédios, lanches etc...</mat-hint>
+          <mat-error>
+            <span>{{validatorMessages.required(formMain,'description', 'Saque descritivo')}}</span>
+            <span>{{validatorMessages.minMaxLength(formMain,'description', 'Saquedescritivo',null,150)}}</span>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- <div>{{formMain.value | json}}</div> -->
+      <div class="mb-6 mt-10 sm:mb-0 sm:mt-0 align-h-center">
+        <btn-g [name]="'Salvar'" [icon]="'save'" (btn)="save()"></btn-g>
+      </div>
+    </mat-card>
+  </div>
+</default-component>

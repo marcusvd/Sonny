@@ -20,6 +20,6 @@ namespace Domain.Entities.Finances.Bank
         public List<MonthlyFixedExpense> MonthlyFixedExpenses { get; set; }
         public List<FinancingAndLoanExpenseInstallment> FinancingsAndLoansExpensesInstallments { get; set; }
         public List<YearlyFixedExpense> YearlyFixedExpenses { get; set; }
-        public List<VariableExpense> VariableExpenses { get; set; } = new List<VariableExpense>();
+        public List<CashWithdrawnExpense> CashWithdrawnExpenses { get; set; } = new List<CashWithdrawnExpense>();
     }
 }

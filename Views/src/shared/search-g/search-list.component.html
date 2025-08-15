@@ -1,0 +1,7 @@
+<div class="w-full">
+  <mat-label>{{'Pesquisar'}}</mat-label>
+  <mat-form-field class="w-full" appearance="outline">
+    <input #field (input)="search(field.value,outFieldSearch,this.removeAccentsSpecialCharacters)" type="text" matInput
+      placeholder="Pesquisar" [attr.for]="'Pesquisar'" [formControl]="formControlSearch">
+  </mat-form-field>
+</div>

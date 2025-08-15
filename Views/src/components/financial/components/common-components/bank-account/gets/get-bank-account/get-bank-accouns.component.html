@@ -13,7 +13,7 @@
                     </mat-option>
                 </mat-select>
                 <mat-error>
-                    <span *ngIf="formErrorAndTouched(formMain,'paidFromBankAccountId', 'required')">{{defaultMessages.requiredMsg}}</span>
+                    <span *ngIf="formErrorAndTouched(formMain,bankAccountFormControlName, 'required')">{{defaultMessages.requiredMsg}}</span>
                 </mat-error>
             </mat-form-field>
         </div>

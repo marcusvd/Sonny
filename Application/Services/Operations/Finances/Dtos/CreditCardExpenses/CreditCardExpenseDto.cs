@@ -31,7 +31,7 @@ namespace Application.Services.Operations.Finances.Dtos.CreditCardExpenses
         public DateTime ExpenseDay { get; set; }
         public int? MonthlyFixedExpenseId { get; set; } = null;
         public int? YearlyFixedExpenseId { get; set; } = null;
-        public int? VariableExpenseId { get; set; } = null;
+        public int? CashWithdrawnExpenseId { get; set; } = null;
         public int? FinancingAndLoanExpenseId { get; set; } = null;
         public CreditCardLimitOperationDto CreditCardLimitOperation { get; set; }
         public int? CreditCardExpenseInvoiceId { get; set; }

@@ -67,7 +67,7 @@ namespace Application.Services.Operations.Finances.CommonForServices
                 result.FinancingAndLoanExpenseId = id;
 
             if (paymentExpense == "variable")
-                result.VariableExpenseId = id;
+                result.CashWithdrawnExpenseId = id;
 
             return result;
         }
@@ -128,23 +128,7 @@ namespace Application.Services.Operations.Finances.CommonForServices
                 };
                 return pixExpense;
             }
-            if (entity is VariableExpense)
-            {
-                VariableExpense variableExpense = (VariableExpense)entity;
-                var pixExpense = new PixExpense()
-                {
-                    CompanyId = variableExpense.CompanyId,
-                    UserId = variableExpense.CompanyId,
-                    PixOutId = variableExpense.PixId ?? 0,
-                    BenefitedName = PixExpense.BenefitedName ?? variableExpense.Name,
-                    BenefitedKey = PixExpense.BenefitedKey ?? "Não cadastrado",
-                    Price = variableExpense.Price + variableExpense.Interest,
-                    ExpenseDay = PixExpense.ExpenseDay,
-                    Registered = DateTime.Now,
-                    Description = variableExpense.Description
-                };
-                return pixExpense;
-            }
+         
 
             return null;
         }

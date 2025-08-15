@@ -26,7 +26,7 @@ namespace Domain.Entities.Finances.Bank
         public TypeAccountEnum Type { get; set; }
         public List<Card> Cards { get; set; }
         public List<Pix> Pixes { get; set; }
-        public List<VariableExpense> VariablesExpenses { get; set; }
+        public List<CashWithdrawnExpense> CashWithdrawnExpenses { get; set; }
         public List<MonthlyFixedExpense> MonthlyFixedExpenses { get; set; }
         public List<YearlyFixedExpense> YearlyFixedExpenses { get; set; }
         public List<FinancingAndLoanExpenseInstallment> FinancingsAndLoansExpensesInstallments { get; set; }

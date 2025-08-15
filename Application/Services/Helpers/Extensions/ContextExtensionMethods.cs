@@ -13,7 +13,7 @@ namespace Application.Services.Helpers.Extensions
             string cxStr = Configuration.GetConnectionString("SonnyDb");
             services.AddDbContext<SonnyDbContext>(db =>
               db.UseMySql(cxStr, ServerVersion.AutoDetect(cxStr), migration =>
-              migration.MigrationsAssembly("Repository")));
+              migration.MigrationsAssembly("Repository")), ServiceLifetime.Scoped);
         }
         public static void AddContextProd(this IServiceCollection services, IConfiguration Configuration)
         {

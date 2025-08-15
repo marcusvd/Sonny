@@ -1,6 +1,6 @@
 <div *ngIf="type === 'column'">
     <div [ngClass]="containerMainCls" *ngFor="let item of itemsToView">
-        <div [ngClass]="containerCls">
+        <div [ngClass]="containerCls || item.containerClass">
             <div>
                 <p [ngClass]="pipeTitle"> <span>|</span></p>
             </div>
@@ -22,7 +22,7 @@
 </div>
 
 <div [ngClass]="containerMainCls" *ngIf="type === 'row'">
-    <div [ngClass]="containerCls" *ngFor="let item of itemsToView">
+    <div [ngClass]="containerCls || item.containerClass" *ngFor="let item of itemsToView">
         <div>
             <p [ngClass]="pipeTitle"> <span>|</span></p>
         </div>

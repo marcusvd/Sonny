@@ -56,7 +56,7 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<FinancingAndLoanExpense>(x => x.FinancingsAndLoansExpenses).WithOne(x => x.Company)
              .HasForeignKey(fk => fk.CompanyId);
 
-            builder.HasMany<VariableExpense>(x => x.VariablesExpenses).WithOne(x => x.Company)
+            builder.HasMany<CashWithdrawnExpense>(x => x.CashWithdrawnExpenses).WithOne(x => x.Company)
           .HasForeignKey(fk => fk.CompanyId);
 
             builder.HasMany<CreditCardExpense>(x => x.CreditCardExpenses)

@@ -101,7 +101,7 @@ namespace Application.Services.Operations.Finances.CreditCardExpenses
 
             fromDb.CreditCardExpenses.ForEach(x => x.WasPaid = DateTime.Now);
 
-            var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(entity.PaidFromBankAccountId ?? 0, fromDb.Price);
+            var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.DecreaseAccountBalance(entity.PaidFromBankAccountId ?? 0, fromDb.Price);
 
             if (bankBalanceUpdate != null)
                 _GENERIC_REPO.BankAccounts.Update(bankBalanceUpdate);

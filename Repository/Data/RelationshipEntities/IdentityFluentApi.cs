@@ -139,7 +139,7 @@ namespace Repository.Data.RelationshipEntities
             builder.HasMany<FinancingAndLoanExpense>(x => x.FinancingAndLoansExpenses).WithOne(x => x.User)
             .HasForeignKey(fk => fk.UserId);
 
-            builder.HasMany<VariableExpense>(x => x.VariablesExpenses)
+            builder.HasMany<CashWithdrawnExpense>(x => x.CashWithdrawnExpenses)
            .WithOne(x => x.User)
            .HasForeignKey(fk => fk.UserId);
 

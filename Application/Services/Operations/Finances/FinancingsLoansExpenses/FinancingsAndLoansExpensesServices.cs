@@ -178,7 +178,7 @@ namespace Application.Services.Operations.Finances.FinancingLoansExpenses.Financ
             if (entity.PixId != null)
                 _GENERIC_REPO.PixesExpenses.Add(CheckSourcePix(updated, entity.Id, "financingloans", entity.PixExpense));
 
-            var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.GetBankAccountByIdUpdateBalance(updated.BankAccountId ?? 0, updated.PriceWasPaidInstallment);
+            var bankBalanceUpdate = await _ICOMMONFORFINANCIALSERVICES.DecreaseAccountBalance(updated.BankAccountId ?? 0, updated.PriceWasPaidInstallment);
             if (bankBalanceUpdate != null)
                 _GENERIC_REPO.BankAccounts.Update(bankBalanceUpdate);
 

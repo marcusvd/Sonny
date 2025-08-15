@@ -68,6 +68,7 @@ using Application.Services.Operations.StockProduct.Dtos.Mappers;
 using Application.Services.Operations.RemoteCmd;
 using Application.Services.Operations.RemoteCmd.Dtos.Mappers;
 using Application.Services.Shared.Dtos.Mappers;
+using Application.Services.Operations.Finances.Dtos.CashWithdrawnExpenses;
 
 
 namespace Application.Services.Helpers.Extensions
@@ -143,8 +144,8 @@ namespace Application.Services.Helpers.Extensions
             services.AddScoped<ICreditCardExpensesInvoiceServices, CreditCardExpensesInvoiceServices>();
             services.AddScoped<ICreditCardExpenseInvoicesRepository, CreditCardExpenseInvoicesRepository>();
 
-            services.AddScoped<IVariablesExpensesServices, VariablesExpensesServices>();
-            services.AddScoped<IVariablesExpensesRepository, VariablesExpensesRepository>();
+            services.AddScoped<ICashWithdrawnExpensesServices, CashWithdrawnExpensesServices>();
+            services.AddScoped<ICashWithdrawnExpensesRepository, CashWithdrawnExpensesRepository>();
 
             services.AddScoped<IPixesExpensesServices, PixesExpensesServices>();
             services.AddScoped<IPixesExpensesRepository, PixesExpensesRepository>();
@@ -222,7 +223,7 @@ namespace Application.Services.Helpers.Extensions
             #region Finances
             services.AddScoped<IValidator<BankAccountDto>, BankAccountDtoValidator>();
             services.AddScoped<IValidator<MonthlyFixedExpenseDto>, MonthlyFixedExpensesDtoValidator>();
-            services.AddScoped<IValidator<VariableExpenseDto>, VariableExpensesDtoValidator>();
+            services.AddScoped<IValidator<CashWithdrawnExpenseDto>, CashWithdrawnExpensesDtoValidator>();
             // services.AddScoped<IValidator<MonthlyFixedExpenseTrackingDto>, MonthlyFixedExpensesTrackingDtoValidator>();
             #endregion
             #region BudgetServiceBench

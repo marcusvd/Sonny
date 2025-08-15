@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-
-using Application.Services.Operations.Finances.Dtos.VariableDebitExpenses;
+using Application.Services.Operations.Finances.Dtos.CashWithdrawnExpenses;
 using Application.Services.Shared.Dtos.Mappers;
 using Domain.Entities.Finances.VariablesDebitsExpenses;
 
@@ -9,15 +8,15 @@ namespace Application.Services.Operations.Finances.Dtos.Mappers
 {
     public partial class FinancialObjectMapperServices : CommonObjectMapper, IFinancialObjectMapperServices
     {
-        public List<VariableExpenseDto> VariableExpenseListMake(List<VariableExpense> list)
+        public List<CashWithdrawnExpenseDto> CashWithdrawnExpenseListMake(List<CashWithdrawnExpense> list)
         {
             if (list == null) return null;
 
-            var toReturn = new List<VariableExpenseDto>();
+            var toReturn = new List<CashWithdrawnExpenseDto>();
 
             list.ForEach(x =>
             {
-                toReturn.Add(VariableExpenseMapper(x));
+                toReturn.Add(CashWithdrawnExpenseMapper(x));
 
                 // toReturn.ForEach(y =>
                 // {
@@ -33,11 +32,11 @@ namespace Application.Services.Operations.Finances.Dtos.Mappers
 
             return toReturn;
         }
-        public VariableExpenseDto VariableExpenseMapper(VariableExpense entity)
+        public CashWithdrawnExpenseDto CashWithdrawnExpenseMapper(CashWithdrawnExpense entity)
         {
             if (entity == null) return null;
 
-            var obj = new VariableExpenseDto()
+            var obj = new CashWithdrawnExpenseDto()
             {
                 Id = entity.Id,
                 CompanyId = entity.CompanyId,
@@ -48,28 +47,21 @@ namespace Application.Services.Operations.Finances.Dtos.Mappers
                 CategoryExpenseId = entity.CategoryExpenseId,
                 SubcategoryExpenseId = entity.SubcategoryExpenseId,
                 BankAccountId = entity.BankAccountId,
-                CardId = entity.CardId,
-                PixId = entity.PixId,
+                BankAccount = BankAccountMapper(entity.BankAccount),
+                WithdrawnOn = entity.WithdrawnOn,
                 Price = entity.Price,
-                Interest = entity.Interest,
-                Expires = entity.Expires,
-                WasPaid = entity.WasPaid,
-                OthersPaymentMethods = entity.OthersPaymentMethods,
                 Document = entity.Document,
                 Place = entity.Place,
                 Description = entity.Description,
-                LinkCopyBill = entity.LinkCopyBill,
-                USERLinkCopyBill = entity.USERLinkCopyBill,
-                PASSLinkCopyBill = entity.PASSLinkCopyBill,
             };
 
             return obj;
         }
-        public VariableExpense VariableExpenseMapper(VariableExpenseDto entity)
+        public CashWithdrawnExpense CashWithdrawnExpenseMapper(CashWithdrawnExpenseDto entity)
         {
             if (entity == null) return null;
 
-            var obj = new VariableExpense()
+            var obj = new CashWithdrawnExpense()
             {
                 Id = entity.Id,
                 CompanyId = entity.CompanyId,
@@ -80,23 +72,41 @@ namespace Application.Services.Operations.Finances.Dtos.Mappers
                 CategoryExpenseId = entity.CategoryExpenseId,
                 SubcategoryExpenseId = entity.SubcategoryExpenseId,
                 BankAccountId = entity.BankAccountId,
-                CardId = entity.CardId,
-                PixId = entity.PixId,
                 Price = entity.Price,
-                Interest = entity.Interest,
-                Expires = entity.Expires,
-                WasPaid = entity.WasPaid,
-                OthersPaymentMethods = entity.OthersPaymentMethods,
+                WithdrawnOn = entity.WithdrawnOn,
                 Document = entity.Document,
                 Place = entity.Place,
-                Description = entity.Description,
-                LinkCopyBill = entity.LinkCopyBill,
-                USERLinkCopyBill = entity.USERLinkCopyBill,
-                PASSLinkCopyBill = entity.PASSLinkCopyBill,
+                Description = entity.Description
             };
 
             return obj;
         }
+
+
+
+
+        public CashWithdrawnExpense VariableUpdateMapper(CashWithdrawnExpenseDto dto, CashWithdrawnExpense db)
+        {
+            if (dto == null || db == null) return null;
+            db.Id = dto.Id;
+            db.Place = dto.Place;
+            db.UserId = dto.UserId;
+            db.CompanyId = dto.CompanyId;
+            db.Deleted = dto.Deleted;
+            db.Registered = dto.Registered;
+            db.Name = dto.Name;
+            db.CategoryExpenseId = dto.CategoryExpenseId;
+            db.SubcategoryExpenseId = dto.SubcategoryExpenseId;
+            db.BankAccountId = dto.BankAccountId;
+            db.Price = dto.Price;
+            db.WithdrawnOn = dto.WithdrawnOn;
+            db.Document = dto.Document;
+            db.Description = dto.Description;
+            return db;
+        }
+
+
+
 
     }
 }

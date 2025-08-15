@@ -57,7 +57,7 @@ namespace Application.Services.Operations.Finances.Dtos.Mappers
                 ExpenseDay = entity.ExpenseDay,
                 MonthlyFixedExpenseId = entity.MonthlyFixedExpenseId,
                 YearlyFixedExpenseId = entity.YearlyFixedExpenseId,
-                VariableExpenseId = entity.VariableExpenseId,
+                CashWithdrawnExpenseId = entity.CashWithdrawnExpenseId,
                 FinancingAndLoanExpenseId = entity.FinancingAndLoanExpenseId,
                 Description = entity.Description,
             };
@@ -83,7 +83,7 @@ namespace Application.Services.Operations.Finances.Dtos.Mappers
                 ExpenseDay = entity.ExpenseDay,
                 MonthlyFixedExpenseId = entity.MonthlyFixedExpenseId,
                 YearlyFixedExpenseId = entity.YearlyFixedExpenseId,
-                VariableExpenseId = entity.VariableExpenseId,
+                CashWithdrawnExpenseId = entity.CashWithdrawnExpenseId,
                 FinancingAndLoanExpenseId = entity.FinancingAndLoanExpenseId,
                 Description = entity.Description,
             };

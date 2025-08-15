@@ -25,7 +25,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
             // FinancingsAndLoansExpensesSeed financingsAndLoansExpensesSeed = new();
             YearlyExpensesSeed yearlyExpensesSeed = new();
             CategoriesExpensesSeed categoriesExpensesSeed = new();
-            VariableExpensesSeed variableExpensesSeed = new();
+            CashWithdrawnExpensesSeed cashWithdrawnExpenseSeed = new();
 
             await auth.AddUser();
             _GENERIC_REPO.CategoriesExpenses.AddRangeAsync(categoriesExpensesSeed.CategoryExpensesToDb());
@@ -36,7 +36,7 @@ namespace Application.Services.Shared.Seed.EntitiesSeed
             _GENERIC_REPO.MonthlyFixedExpenses.AddRangeAsync(monthlyExpensesSeed.MakeMonthlyFixedExpenseList());
             _GENERIC_REPO.YearlyFixedExpenses.AddRangeAsync(yearlyExpensesSeed.AddYearlyExpensesSaveAllAsync());
             //_GENERIC_REPO.FinancingsAndLoansExpenses.AddRangeAsync(financingsAndLoansExpensesSeed.FinancingLoansExpenses(financingsAndLoansExpensesSeed.FinancingAndLoan01()));
-            _GENERIC_REPO.VariablesExpenses.AddRangeAsync(variableExpensesSeed.AddVariableExpensesAsync());
+            _GENERIC_REPO.CashWithdrawnExpenses.AddRangeAsync(cashWithdrawnExpenseSeed.AddCashWithdrawnExpensesAsync());
 
 
             // ProductTypeDtoSeed_NSTI p = new ProductTypeDtoSeed_NSTI();

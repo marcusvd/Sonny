@@ -19,7 +19,7 @@ export class ListPixExpensesService extends BackEndService<PixExpenseDto> {
     private _communicationsAlerts: CommunicationAlerts,
   ) {
     super(_http,
-      environment._VARIABLE_EXPENSES,
+      environment.__FN_CASH_WITHDRAWN_EXPENSES,
     );
 
   }

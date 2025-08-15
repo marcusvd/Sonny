@@ -41,7 +41,7 @@ export class ListControlCreditCardInvoices extends BaseList {
   showHideFilter = false;
   cardNick: string = '';
 
-  itemsToView: ItemsViewInterface[] =[];
+  itemsToView: ItemsViewInterface[] = [];
 
   constructor(
     override _router: Router,
@@ -182,10 +182,10 @@ export class ListControlCreditCardInvoices extends BaseList {
         this.length = this.listCreditCardExpenseInvoice.length;
       })
 
-      this.showDataBank = true;
+    this.showDataBank = true;
 
-      this.bankAccount = creditCard.bankAccount;
-      this.banckAccountSelected(this.bankAccount);
+    this.bankAccount = creditCard.bankAccount;
+    this.banckAccountSelected(this.bankAccount);
 
     const monthFilter = ex_month(new Date().getMonth());
 
@@ -198,6 +198,9 @@ export class ListControlCreditCardInvoices extends BaseList {
   getEntityTopay(entityId: number, creditCard: CardDto) {
 
     const invoice = this.listCreditCardExpenseInvoice.find(x => x.id == entityId);
+
+    console.log(creditCard)
+
     invoice.card = creditCard;
 
     if (this.currentDate > new Date(invoice.closingDate))

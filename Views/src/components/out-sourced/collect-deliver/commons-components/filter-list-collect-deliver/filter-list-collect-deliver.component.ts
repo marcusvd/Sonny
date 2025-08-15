@@ -4,14 +4,14 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 
 import { MatRadioButton, MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
-import { ex_formControlSearch, ex_search } from '../../../../../shared/helpers/search-field/search-field';
+import {ex_search } from '../../../../../shared/helpers/search-field/search-field';
 
 
 import { BaseForm } from '../../../../../shared/components/inheritance/forms/base-form';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BaseList } from 'src/shared/components/list-g/extends/base-list';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 
 @Component({
@@ -46,7 +46,7 @@ export class FilterListCollectDeliverComponent extends BaseList  {
   clearRadios() {
     if (this.radioExpired && this.radioPaid) {
       this.radioExpired.checked = false;
-      
+
       this.radioPaid.checked = false;
       this.formControlSearch.setValue('');
     }
@@ -56,7 +56,7 @@ export class FilterListCollectDeliverComponent extends BaseList  {
     this.radioChange.emit(radio);
   }
 
-  formControlSearch = ex_formControlSearch;
+  formControlSearch = new FormControl('');;
   search = ex_search
 
 }

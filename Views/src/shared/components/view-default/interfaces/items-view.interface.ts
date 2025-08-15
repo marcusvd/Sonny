@@ -4,5 +4,6 @@ export interface ItemsViewInterface {
   classKey?:string;
   styleValue?: string;
   classValue?:string;
+  containerClass?:string;
 }
 

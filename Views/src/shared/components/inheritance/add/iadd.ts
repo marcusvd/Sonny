@@ -1,5 +1,3 @@
-import {PageEvent as PageEvent } from "@angular/material/paginator";
-import { IEntityGridAction } from "../../grid-list-common/interface/entity-grid-action";
 
 export interface IAdd {
 

@@ -17,5 +17,9 @@ namespace Repository.Data.Operations.Finances
         {
             await _CONTEXT.FN_BankAccount.AddRangeAsync(entities);
         }
+         public void UpdateRange(List<BankAccount> entities)
+        {
+             _CONTEXT.FN_BankAccount.UpdateRange(entities);
+        }
     }
 }

@@ -3,11 +3,11 @@ import {PageEvent as PageEvent } from '@angular/material/paginator';
 import { of } from "rxjs";
 
 
-import { List } from 'src/shared/components/inheritance/list/list';
 import { ListMonthlyFixedExpenseDto } from '../dto/list-monthly-fixed-expense-dto';
+import { BaseList } from 'src/shared/components/list-g/extends/base-list';
 
 
-export class FrontEndListFilterMonthlyExpenses extends List {
+export class FrontEndListFilterMonthlyExpenses extends BaseList {
 
 //   query($event: FormControl, month: number) {
 //     this.termSearched = $event.value
